@@ -14,93 +14,93 @@ import java.util.logging.Logger;
 
 public class MyLogger {
 
-	static String locationMac = "/Users/sagivsolomon/Desktop/Development/Loggs/";
-	static String locationWindows = "C:/Users/user/Desktop/Work/Development/Loggers/";
+    static String locationMac = "/Users/sagivsolomon/Desktop/Development/Loggs/";
+    static String locationWindows = "C:/Users/user/Desktop/Work/Development/Loggers/";
 
-	static String location;
+    static String location;
 
-	static String name = "WallStreet.txt";
-	static MyLogger myLogger;
-	private Logger logger;
+    static String name = "WallStreet.txt";
+    static MyLogger myLogger;
+    private Logger logger;
 
-	// Constructor
-	public MyLogger () {
-		logger = createLogger ( );
-	}
+    // Constructor
+    public MyLogger() {
+        logger = createLogger( );
+    }
 
-	// Get instance
-	public static synchronized MyLogger getInstance () {
-		if ( myLogger == null ) {
-			myLogger = new MyLogger ( );
-		}
-		return myLogger;
-	}
+    // Get instance
+    public static synchronized MyLogger getInstance() {
+        if ( myLogger == null ) {
+            myLogger = new MyLogger( );
+        }
+        return myLogger;
+    }
 
-	// Create the logger file
-	public static Logger createLogger () {
+    // Create the logger file
+    public static Logger createLogger() {
 
-		Logger logger = Logger.getLogger ( name );
-		FileHandler fh;
+        Logger logger = Logger.getLogger( name );
+        FileHandler fh;
 
-		if ( Files.exists ( Paths.get ( locationMac ) ) ) {
-			location = locationMac;
-		} else if ( Files.exists ( Paths.get ( locationWindows ) ) ) {
-			location = locationWindows;
-		}
+        if ( Files.exists( Paths.get( locationMac ) ) ) {
+            location = locationMac;
+        } else if ( Files.exists( Paths.get( locationWindows ) ) ) {
+            location = locationWindows;
+        }
 
-		try {
+        try {
 
-			// This block configure the logger with handler and formatter
-			fh = new FileHandler ( location + name );
+            // This block configure the logger with handler and formatter
+            fh = new FileHandler( location + name );
 
-			logger.addHandler ( fh );
-			BriefFormatter briefFormatter = new BriefFormatter ( );
-			fh.setFormatter ( briefFormatter );
+            logger.addHandler( fh );
+            BriefFormatter briefFormatter = new BriefFormatter( );
+            fh.setFormatter( briefFormatter );
 
-			return logger;
-		} catch ( SecurityException | IOException e ) {
-			e.printStackTrace ( );
-		}
-		return logger;
-	}
+            return logger;
+        } catch ( SecurityException | IOException e ) {
+            e.printStackTrace( );
+        }
+        return logger;
+    }
 
-	public Logger getLogger () {
-		return logger;
-	}
+    public Logger getLogger() {
+        return logger;
+    }
 
-	public void setLogger ( Logger logger ) {
-		this.logger = logger;
-	}
+    public void setLogger( Logger logger ) {
+        this.logger = logger;
+    }
 
-	public StringBuilder getAllText () throws IOException {
+    public StringBuilder getAllText() throws IOException {
 
-		StringBuilder text = new StringBuilder ( );
+        StringBuilder text = new StringBuilder( );
 
-		File file = new File ( location + name );
+        File file = new File( location + name );
 
-		BufferedReader br = new BufferedReader ( new FileReader ( file ) );
+        BufferedReader br = new BufferedReader( new FileReader( file ) );
 
-		String st;
-		while ( ( st = br.readLine ( ) ) != null ) {
-			text.append ( st + "\n" );
-		}
+        String st;
+        while ( ( st = br.readLine( ) ) != null ) {
+            text.append( st + "\n" );
+        }
 
-		return text;
+        return text;
 
-	}
+    }
 
 
 }
 
 class BriefFormatter extends Formatter {
-	String lineSeparator = System.getProperty ( "line.separator" );
+    String lineSeparator = System.getProperty( "line.separator" );
 
-	public BriefFormatter () {
-		super ( );
-	}
+    public BriefFormatter() {
+        super( );
+    }
 
-	@Override
-	public String format ( final LogRecord record ) {
-		return LocalTime.now ( ) + " - " + record.getMessage ( ) + lineSeparator;
-	}
+    @Override
+    public String format( final LogRecord record ) {
+        return LocalTime.now( ) + " - " + record.getMessage( ) + lineSeparator;
+    }
 }

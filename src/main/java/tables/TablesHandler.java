@@ -10,175 +10,175 @@ import java.util.ArrayList;
 
 public class TablesHandler {
 
-	Tables tables;
-	BASE_CLIENT_OBJECT client;
+    Tables tables;
+    BASE_CLIENT_OBJECT client;
 
-	// Handlers
-	DayHandler dayHandler;
-	SumHandler sumHandler;
-	ArrayHandler arrayHandler;
-	StatusHandler statusHandler;
-	BoundsHandler boundsHandler;
+    // Handlers
+    DayHandler dayHandler;
+    SumHandler sumHandler;
+    ArrayHandler arrayHandler;
+    StatusHandler statusHandler;
+    BoundsHandler boundsHandler;
 
-	public TablesHandler( ITablesHandler dayHandler, ITablesHandler sumHandler,
-	                      ITablesHandler statusHandler, ITablesHandler arrayHandler ) {
+    public TablesHandler( ITablesHandler dayHandler, ITablesHandler sumHandler,
+                          ITablesHandler statusHandler, ITablesHandler arrayHandler ) {
 
-		this.dayHandler = new DayHandler( dayHandler );
-		this.sumHandler = new SumHandler( sumHandler );
-		this.statusHandler = new StatusHandler( statusHandler );
-		this.arrayHandler = new ArrayHandler( arrayHandler );
-		boundsHandler = new BoundsHandler ();
+        this.dayHandler = new DayHandler( dayHandler );
+        this.sumHandler = new SumHandler( sumHandler );
+        this.statusHandler = new StatusHandler( statusHandler );
+        this.arrayHandler = new ArrayHandler( arrayHandler );
+        boundsHandler = new BoundsHandler( );
 
-	}
+    }
 
-	public class DayHandler {
+    public DayHandler getDayHandler() {
+        return dayHandler;
+    }
 
-		ITablesHandler handler;
+    public SumHandler getSumHandler() {
+        return sumHandler;
+    }
 
-		public DayHandler( ITablesHandler handler ) {
-			this.handler = handler;
-		}
+    public StatusHandler getStatusHandler() {
+        return statusHandler;
+    }
 
-		public ITablesHandler getHandler() {
-			return handler;
-		}
+    public BoundsHandler getBoundsHandler() {
+        return boundsHandler;
+    }
 
-	}
+    public ArrayHandler getArrayHandler() {
+        return arrayHandler;
+    }
 
-	public class ArrayHandler {
+    public class DayHandler {
 
-		ITablesHandler handler;
+        ITablesHandler handler;
 
-		public ArrayHandler( ITablesHandler handler ) {
-			this.handler = handler;
-		}
+        public DayHandler( ITablesHandler handler ) {
+            this.handler = handler;
+        }
 
-		public ITablesHandler getHandler() {
-			return handler;
-		}
+        public ITablesHandler getHandler() {
+            return handler;
+        }
 
-	}
+    }
 
-	public class SumHandler {
+    public class ArrayHandler {
 
-		ITablesHandler handler;
+        ITablesHandler handler;
 
-		public SumHandler( ITablesHandler handler ) {
-			this.handler = handler;
-		}
+        public ArrayHandler( ITablesHandler handler ) {
+            this.handler = handler;
+        }
 
-		public ITablesHandler getHandler() {
-			return handler;
-		}
+        public ITablesHandler getHandler() {
+            return handler;
+        }
 
-	}
+    }
 
-	public class StatusHandler {
+    public class SumHandler {
 
-		ITablesHandler handler;
+        ITablesHandler handler;
 
-		public StatusHandler( ITablesHandler handler ) {
-			this.handler = handler;
-		}
+        public SumHandler( ITablesHandler handler ) {
+            this.handler = handler;
+        }
 
-		public ITablesHandler getHandler() {
-			return handler;
-		}
+        public ITablesHandler getHandler() {
+            return handler;
+        }
 
-	}
+    }
 
-	public class BoundsHandler {
+    public class StatusHandler {
 
-		public BoundsTable getBound( String stockName , String name ) {
+        ITablesHandler handler;
 
-			try {
+        public StatusHandler( ITablesHandler handler ) {
+            this.handler = handler;
+        }
 
-				String query = String.format( "from %s where %s = '%s' and %s = '%s'" , "BoundsTable" , "stockName" , stockName , "name" , name );
+        public ITablesHandler getHandler() {
+            return handler;
+        }
 
-				BoundsTable boundsTable = ( BoundsTable ) HB.getLineByQuery( query , HBsession.getBoundsFactory() );
+    }
 
-				return boundsTable;
+    public class BoundsHandler {
 
-			} catch ( Exception e ) {
-				e.printStackTrace();
-				Arik.getInstance().sendMessage( Arik.sagivID,
-						client.getName() + " Get bound HB faild \n" + e.getCause() , null );
-			}
+        public BoundsTable getBound( String stockName, String name ) {
+
+            try {
+
+                String query = String.format( "from %s where %s = '%s' and %s = '%s'", "BoundsTable", "stockName", stockName, "name", name );
+
+                BoundsTable boundsTable = ( BoundsTable ) HB.getLineByQuery( query, HBsession.getBoundsFactory( ) );
+
+                return boundsTable;
+
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+//                Arik.getInstance( ).sendMessage( Arik.sagivID,
+//                        client.getName( ) + " Get bound HB faild \n" + e.getCause( ), null );
+            }
 
 
-			return null;
-		}
+            return null;
+        }
 
 
-		private void updateBound( String stockName , String name , int x , int y , int width , int height ) {
+        private void updateBound( String stockName, String name, int x, int y, int width, int height ) {
 
-			try {
-				// Get the current bound
-				BoundsTable boundsTable = getBound( stockName , name );
-				boundsTable.setX( x );
-				boundsTable.setY( y );
-				boundsTable.setWidth( width );
-				boundsTable.setHeight( height );
+            try {
+                // Get the current bound
+                BoundsTable boundsTable = getBound( stockName, name );
+                boundsTable.setX( x );
+                boundsTable.setY( y );
+                boundsTable.setWidth( width );
+                boundsTable.setHeight( height );
 
-				// Update the new bound
-				HB.update( HBsession.getBoundsFactory() , boundsTable );
-			} catch ( Exception e ) {
-				e.printStackTrace();
-				Arik.getInstance().sendMessage( Arik.sagivID ,
-						client.getName() + " Update bound HB faild \n" + e.getCause() , null );
-			}
+                // Update the new bound
+                HB.update( HBsession.getBoundsFactory( ), boundsTable );
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+//                Arik.getInstance( ).sendMessage( Arik.sagivID,
+//                        client.getName( ) + " Update bound HB faild \n" + e.getCause( ), null );
+            }
 
-		}
+        }
 
-		public void updateBoundOrCreateNewOne( String stockName , String name , int x , int y , int width , int height ) {
+        public void updateBoundOrCreateNewOne( String stockName, String name, int x, int y, int width, int height ) {
 
-			try {
-				boolean exist = false;
+            try {
+                boolean exist = false;
 
-				ArrayList < BoundsTable > bounds = ( ArrayList < BoundsTable > ) HB.getTableList( BoundsTable.class , HBsession.getBoundsFactory() );
+                ArrayList< BoundsTable > bounds = ( ArrayList< BoundsTable > ) HB.getTableList( BoundsTable.class, HBsession.getBoundsFactory( ) );
 
-				// For each check if exist
-				for ( BoundsTable bound : bounds ) {
-					if ( stockName.equals( bound.getStockName() ) && name.equals( bound.getName() ) ) {
-						exist = true;
-						break;
-					}
-				}
+                // For each check if exist
+                for ( BoundsTable bound : bounds ) {
+                    if ( stockName.equals( bound.getStockName( ) ) && name.equals( bound.getName( ) ) ) {
+                        exist = true;
+                        break;
+                    }
+                }
 
-				// If not exist -> create new one
-				if ( !exist ) {
-					BoundsTable boundsTable = new BoundsTable( stockName , name , x , y , width , height );
-					HB.save( boundsTable , "BoundsTable" , HBsession.getBoundsFactory() );
-				} else {
-					updateBound( stockName , name , x , y , width , height );
-				}
-			} catch ( Exception e ) {
-				Arik.getInstance().sendMessage( Arik.sagivID ,
-						client.getName() + " Create bound HB faild \n" + e.getCause() , null );
-			}
+                // If not exist -> create new one
+                if ( !exist ) {
+                    BoundsTable boundsTable = new BoundsTable( stockName, name, x, y, width, height );
+                    HB.save( boundsTable, "BoundsTable", HBsession.getBoundsFactory( ) );
+                } else {
+                    updateBound( stockName, name, x, y, width, height );
+                }
+            } catch ( Exception e ) {
+//                Arik.getInstance( ).sendMessage( Arik.sagivID,
+//                        client.getName( ) + " Create bound HB faild \n" + e.getCause( ), null );
+            }
 
-		}
+        }
 
-	}
-
-	public DayHandler getDayHandler() {
-		return dayHandler;
-	}
-
-	public SumHandler getSumHandler() {
-		return sumHandler;
-	}
-
-	public StatusHandler getStatusHandler() {
-		return statusHandler;
-	}
-
-	public BoundsHandler getBoundsHandler() {
-		return boundsHandler;
-	}
-
-	public ArrayHandler getArrayHandler() {
-		return arrayHandler;
-	}
+    }
 
 }

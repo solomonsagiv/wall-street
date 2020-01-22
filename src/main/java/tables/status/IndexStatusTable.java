@@ -5,8 +5,8 @@ import dataBase.HB;
 import options.Options;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 import tables.ITablesHandler;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalTime;
@@ -16,135 +16,133 @@ import java.time.LocalTime;
 public class IndexStatusTable extends TableStatusfather {
 
 
-	// Handler
-	public static class Handler implements ITablesHandler {
+    public IndexStatusTable() {
+        super( );
+    }
 
-		public static Object object;
+    // Handler
+    public static class Handler implements ITablesHandler {
 
-		BASE_CLIENT_OBJECT client;
+        public static Object object;
 
-		public Handler( BASE_CLIENT_OBJECT client ) {
-			this.client = client;
-			object = getTableObject ();
-		}
+        BASE_CLIENT_OBJECT client;
 
-		@Override
-		public void insertLine() {
+        public Handler( BASE_CLIENT_OBJECT client ) {
+            this.client = client;
+            object = getTableObject( );
+        }
 
-		}
+        @Override
+        public void insertLine() {
 
-		@Override
-		public Object getTableObject() {
+        }
 
-			IndexStatusTable table = new IndexStatusTable();
-			table.setId( client.getDbId() );
-			table.setName( client.getName() );
-			table.setTime( LocalTime.now().toString() );
-			table.setInd( client.getIndex() );
-			table.setIndUp( client.getIndexUp() );
-			table.setIndDown( client.getIndexDown() );
-			table.setConUp( client.getConUp() );
-			table.setConDown( client.getConDown() );
-			table.setBase( client.getBase() );
-			table.setOpen( client.getOpen() );
-			table.setHigh( client.getHigh() );
-			table.setLow( client.getLow() );
-			table.setFutBdCounter( client.getFutureBidAskCounter() );
-			table.setOptions( client.getOptionsHandler().getAllOptionsAsJson().toString() );
+        @Override
+        public Object getTableObject() {
 
-			return table;
-		}
+            IndexStatusTable table = new IndexStatusTable( );
+            table.setId( client.getDbId( ) );
+            table.setName( client.getName( ) );
+            table.setTime( LocalTime.now( ).toString( ) );
+            table.setInd( client.getIndex( ) );
+            table.setIndUp( client.getIndexUp( ) );
+            table.setIndDown( client.getIndexDown( ) );
+            table.setConUp( client.getConUp( ) );
+            table.setConDown( client.getConDown( ) );
+            table.setBase( client.getBase( ) );
+            table.setOpen( client.getOpen( ) );
+            table.setHigh( client.getHigh( ) );
+            table.setLow( client.getLow( ) );
+            table.setFutBdCounter( client.getFutureBidAskCounter( ) );
+            table.setOptions( client.getOptionsHandler( ).getAllOptionsAsJson( ).toString( ) );
 
-		@Override
-		public void loadData() {
+            return table;
+        }
 
-			try {
-				IndexStatusTable status = ( IndexStatusTable ) HB.get_line_by_id( IndexStatusTable.class ,
-						client.getDbId() , client.getSessionfactory() );
-				client.setOpen ( status.getOpen () );
-				client.setConUp( status.getConUp() );
-				client.setConDown( status.getConDown() );
-				client.setIndexUp( status.getIndUp() );
-				client.setIndexDown( status.getIndDown() );
-				client.setOptimiMoveFromOutSide( status.getOptimiMove() );
-				client.setPesimiMoveFromOutSide( status.getPesimiMove() );
+        @Override
+        public void loadData() {
 
-				JSONObject optionsData = new JSONObject( status.getOptions() );
+            try {
+                IndexStatusTable status = ( IndexStatusTable ) HB.get_line_by_id( IndexStatusTable.class,
+                        client.getDbId( ), client.getSessionfactory( ) );
+                client.setOpen( status.getOpen( ) );
+                client.setConUp( status.getConUp( ) );
+                client.setConDown( status.getConDown( ) );
+                client.setIndexUp( status.getIndUp( ) );
+                client.setIndexDown( status.getIndDown( ) );
+                client.setOptimiMoveFromOutSide( status.getOptimiMove( ) );
+                client.setPesimiMoveFromOutSide( status.getPesimiMove( ) );
 
-				for ( Options options : client.getOptionsHandler().getOptionsList() ) {
-					options.setDataFromJson( optionsData.getJSONObject( options.getName() ) );
-				}
+                JSONObject optionsData = new JSONObject( status.getOptions( ) );
 
-				client.setLoadStatusFromHB ( true );
+                for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+                    options.setDataFromJson( optionsData.getJSONObject( options.getName( ) ) );
+                }
 
-			} catch ( Exception e ) {
-				Arik.getInstance().sendMessage( Arik.sagivID , client.getName() + " MYSQL exception \n" + e.getCause() ,
-						null );
-			}
+                client.setLoadStatusFromHB( true );
 
-		}
+            } catch ( Exception e ) {
+                Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
+                        null );
+            }
 
-		@Override
-		public void resetData() {
+        }
 
-			try {
-				IndexStatusTable table = new IndexStatusTable ();
-				table.setId ( client.getDbId () );
-				table.setName ( client.getName () );
+        @Override
+        public void resetData() {
 
-				table.setOptions( client.getOptionsHandler().getAllOptionsEmptyJson().toString() );
-				HB.update( client.getSessionfactory() , table );
+            try {
+                IndexStatusTable table = new IndexStatusTable( );
+                table.setId( client.getDbId( ) );
+                table.setName( client.getName( ) );
 
-			} catch ( Exception e ) {
-				Arik.getInstance().sendMessage( Arik.sagivID , client.getName() + " MYSQL exception \n" + e.getCause() ,
-						null );
-			}
+                table.setOptions( client.getOptionsHandler( ).getAllOptionsEmptyJson( ).toString( ) );
+                HB.update( client.getSessionfactory( ), table );
 
-		}
+            } catch ( Exception e ) {
+                Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
+                        null );
+            }
 
-		@Override
-		public void updateData() {
+        }
 
-			try {
+        @Override
+        public void updateData() {
 
-
-				IndexStatusTable table = ( IndexStatusTable ) getTableObject();
-
-				long startTime = System.currentTimeMillis();
-
-
-				HB.update( client.getSessionfactory() , table );
-
-				long endTime = System.currentTimeMillis();
-
-				double duration = ( endTime - startTime );  //divide by 1000000 to get milliseconds
-				System.out.println( duration / 1000 );
+            try {
 
 
+                IndexStatusTable table = ( IndexStatusTable ) getTableObject( );
 
-			} catch ( Exception e ) {
-				Arik.getInstance().sendMessage( Arik.sagivID , client.getName() + " MYSQL exception \n" + e.getCause() ,
-						null );
-			}
-
-		}
-
-		@Override
-		public void updateObject () {
-
-			new Thread ( () ->{
-
-				object = getTableObject ();
-
-			} ).start ();
-
-		}
-	}
+                long startTime = System.currentTimeMillis( );
 
 
-	public IndexStatusTable() {
-		super();
-	}
+                HB.update( client.getSessionfactory( ), table );
+
+                long endTime = System.currentTimeMillis( );
+
+                double duration = ( endTime - startTime );  //divide by 1000000 to get milliseconds
+                System.out.println( duration / 1000 );
+
+
+            } catch ( Exception e ) {
+                Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
+                        null );
+            }
+
+        }
+
+        @Override
+        public void updateObject() {
+
+            new Thread( () -> {
+
+                object = getTableObject( );
+
+            } ).start( );
+
+        }
+    }
 
 }
 

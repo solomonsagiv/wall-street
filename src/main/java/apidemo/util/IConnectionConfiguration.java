@@ -6,29 +6,29 @@ package apidemo.util;
  */
 public interface IConnectionConfiguration {
 
-	String getDefaultHost ();
+    String getDefaultHost();
 
-	String getDefaultPort ();
+    String getDefaultPort();
 
-	String getDefaultConnectOptions ();
+    String getDefaultConnectOptions();
 
-	/**
-	 * Standard ApiDemo configuration for pre-v100 connection
-	 */
-	class DefaultConnectionConfiguration implements IConnectionConfiguration {
-		@Override
-		public String getDefaultHost () {
-			return "";
-		}
+    /**
+     * Standard ApiDemo configuration for pre-v100 connection
+     */
+    class DefaultConnectionConfiguration implements IConnectionConfiguration {
+        @Override
+        public String getDefaultHost() {
+            return "";
+        }
 
-		@Override
-		public String getDefaultPort () {
-			return "7496";
-		}
+        @Override
+        public String getDefaultPort() {
+            return "7496";
+        }
 
-		@Override
-		public String getDefaultConnectOptions () {
-			return null;
-		}
-	}
+        @Override
+        public String getDefaultConnectOptions() {
+            return null;
+        }
+    }
 }

@@ -26,192 +26,192 @@ import java.util.TreeMap;
 
 
 public class StratPanel extends StackPanel implements IHistoricalDataHandler, IRealTimeBarHandler {
-	final private Contract m_contract = new Contract ( );
-	final private ContractPanel m_contractPanel = new ContractPanel ( m_contract );
-	final private UpperField m_shares = new UpperField ( );
-	final private UpperField m_pct1 = new UpperField ( );
-	final private UpperField m_pct2 = new UpperField ( );
-	final private OrdersModel m_ordersModel = new OrdersModel ( );
-	final private TCombo < BarSize > m_barSize = new TCombo <> ( BarSize.values ( ) );
-	final private UpperField m_bars = new UpperField ( );
-	final private ArrayList < Bar > m_rows = new ArrayList <> ( );
-	final private Chart m_chart = new Chart ( m_rows );
-	TreeMap < Long, Bar > m_map = new TreeMap <> ( );
-	private boolean m_req;
+    final private Contract m_contract = new Contract( );
+    final private ContractPanel m_contractPanel = new ContractPanel( m_contract );
+    final private UpperField m_shares = new UpperField( );
+    final private UpperField m_pct1 = new UpperField( );
+    final private UpperField m_pct2 = new UpperField( );
+    final private OrdersModel m_ordersModel = new OrdersModel( );
+    final private TCombo< BarSize > m_barSize = new TCombo<>( BarSize.values( ) );
+    final private UpperField m_bars = new UpperField( );
+    final private ArrayList< Bar > m_rows = new ArrayList<>( );
+    final private Chart m_chart = new Chart( m_rows );
+    TreeMap< Long, Bar > m_map = new TreeMap<>( );
+    private boolean m_req;
 
-	StratPanel () {
-		m_contractPanel.setBorder ( new TitledBorder ( "Define Contract" ) );
+    StratPanel() {
+        m_contractPanel.setBorder( new TitledBorder( "Define Contract" ) );
 
-		JPanel p1 = new HPanel ( );
-		add ( p1, "Go long", sp ( 5 ), m_shares, sp ( 5 ), "shares when ask goes above SMA by", sp ( 5 ), m_pct1, "%" );
+        JPanel p1 = new HPanel( );
+        add( p1, "Go long", sp( 5 ), m_shares, sp( 5 ), "shares when ask goes above SMA by", sp( 5 ), m_pct1, "%" );
 
-		JPanel p2 = new HPanel ( );
-		add ( p2, "Go flat when bid goes below SMA by", sp ( 5 ), m_pct2, "%" );
+        JPanel p2 = new HPanel( );
+        add( p2, "Go flat when bid goes below SMA by", sp( 5 ), m_pct2, "%" );
 
-		JPanel p3 = new HPanel ( );
-		add ( p3, "SMA bar size:", sp ( 5 ), m_barSize, sp ( 20 ), "SMA number of bars", sp ( 5 ), m_bars );
+        JPanel p3 = new HPanel( );
+        add( p3, "SMA bar size:", sp( 5 ), m_barSize, sp( 20 ), "SMA number of bars", sp( 5 ), m_bars );
 
-		HtmlButton start = new HtmlButton ( "Start" ) {
-			@Override
-			protected void actionPerformed () {
-				onStart ( );
-			}
-		};
+        HtmlButton start = new HtmlButton( "Start" ) {
+            @Override
+            protected void actionPerformed() {
+                onStart( );
+            }
+        };
 
-		HtmlButton stop = new HtmlButton ( "Stop" ) {
-			@Override
-			protected void actionPerformed () {
-				onStop ( );
-			}
-		};
+        HtmlButton stop = new HtmlButton( "Stop" ) {
+            @Override
+            protected void actionPerformed() {
+                onStop( );
+            }
+        };
 
-		JPanel buts = new JPanel ( );
-		buts.add ( start );
-		buts.add ( Box.createHorizontalStrut ( 30 ) );
-		buts.add ( stop );
+        JPanel buts = new JPanel( );
+        buts.add( start );
+        buts.add( Box.createHorizontalStrut( 30 ) );
+        buts.add( stop );
 
-		StackPanel rightPanel = new StackPanel ( );
-		rightPanel.setBorder ( new TitledBorder ( "Define Strategy" ) );
-		rightPanel.add ( p1 );
-		rightPanel.add ( Box.createVerticalStrut ( 10 ) );
-		rightPanel.add ( p2 );
-		rightPanel.add ( Box.createVerticalStrut ( 10 ) );
-		rightPanel.add ( p3 );
-		rightPanel.add ( Box.createVerticalStrut ( 10 ) );
-		rightPanel.add ( buts );
+        StackPanel rightPanel = new StackPanel( );
+        rightPanel.setBorder( new TitledBorder( "Define Strategy" ) );
+        rightPanel.add( p1 );
+        rightPanel.add( Box.createVerticalStrut( 10 ) );
+        rightPanel.add( p2 );
+        rightPanel.add( Box.createVerticalStrut( 10 ) );
+        rightPanel.add( p3 );
+        rightPanel.add( Box.createVerticalStrut( 10 ) );
+        rightPanel.add( buts );
 
-		JScrollPane chartScroll = new JScrollPane ( m_chart );
-		m_chart.setBorder ( new TitledBorder ( "chart" ) );
-		chartScroll.setBorder ( new TitledBorder ( "chart scroll" ) );
+        JScrollPane chartScroll = new JScrollPane( m_chart );
+        m_chart.setBorder( new TitledBorder( "chart" ) );
+        chartScroll.setBorder( new TitledBorder( "chart scroll" ) );
 
-		HorzPanel horzPanel = new HorzPanel ( );
-		horzPanel.add ( m_contractPanel );
-		horzPanel.add ( rightPanel );
+        HorzPanel horzPanel = new HorzPanel( );
+        horzPanel.add( m_contractPanel );
+        horzPanel.add( rightPanel );
 
-		BorderPanel topPanel = new BorderPanel ( );
-		topPanel.add ( horzPanel, BorderLayout.WEST );
-		topPanel.add ( chartScroll );
+        BorderPanel topPanel = new BorderPanel( );
+        topPanel.add( horzPanel, BorderLayout.WEST );
+        topPanel.add( chartScroll );
 
-		JTable ordersTable = new JTable ( m_ordersModel );
-		JScrollPane ordersScroll = new JScrollPane ( ordersTable );
-		ordersScroll.setBorder ( new TitledBorder ( "Orders" ) );
+        JTable ordersTable = new JTable( m_ordersModel );
+        JScrollPane ordersScroll = new JScrollPane( ordersTable );
+        ordersScroll.setBorder( new TitledBorder( "Orders" ) );
 
-		setLayout ( new BoxLayout ( this, BoxLayout.Y_AXIS ) );
-		add ( topPanel );
-		add ( ordersScroll );
-		add ( new TradesPanel ( ) );
-	}
+        setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
+        add( topPanel );
+        add( ordersScroll );
+        add( new TradesPanel( ) );
+    }
 
-	private static Component sp ( int n ) {
-		return Box.createHorizontalStrut ( n );
-	}
+    private static Component sp( int n ) {
+        return Box.createHorizontalStrut( n );
+    }
 
-	private static QueryLength getQueryLength ( BarSize barSize ) {
-		switch ( barSize ) {
-			case _1_secs:
-				return new QueryLength ( 1, DurationUnit.SECOND );
-			case _5_secs:
-				return new QueryLength ( 5, DurationUnit.SECOND );
-			case _10_secs:
-				return new QueryLength ( 10, DurationUnit.SECOND );
-			case _15_secs:
-				return new QueryLength ( 15, DurationUnit.SECOND );
-			case _30_secs:
-				return new QueryLength ( 30, DurationUnit.SECOND );
-			case _1_min:
-				return new QueryLength ( 60, DurationUnit.SECOND );
-			case _2_mins:
-				return new QueryLength ( 120, DurationUnit.SECOND );
-			case _3_mins:
-				return new QueryLength ( 180, DurationUnit.SECOND );
-			case _5_mins:
-				return new QueryLength ( 300, DurationUnit.SECOND );
-			case _10_mins:
-				return new QueryLength ( 600, DurationUnit.SECOND );
-			case _15_mins:
-				return new QueryLength ( 900, DurationUnit.SECOND );
-			case _20_mins:
-				return new QueryLength ( 1200, DurationUnit.SECOND );
-			case _30_mins:
-				return new QueryLength ( 1800, DurationUnit.SECOND );
-			case _1_hour:
-				return new QueryLength ( 3600, DurationUnit.SECOND );
-			case _4_hours:
-				return new QueryLength ( 14400, DurationUnit.SECOND );
-			case _1_day:
-				return new QueryLength ( 1, DurationUnit.DAY );
-			case _1_week:
-				return new QueryLength ( 1, DurationUnit.WEEK );
-			default:
-				return null;
-		}
-	}
+    private static QueryLength getQueryLength( BarSize barSize ) {
+        switch ( barSize ) {
+            case _1_secs:
+                return new QueryLength( 1, DurationUnit.SECOND );
+            case _5_secs:
+                return new QueryLength( 5, DurationUnit.SECOND );
+            case _10_secs:
+                return new QueryLength( 10, DurationUnit.SECOND );
+            case _15_secs:
+                return new QueryLength( 15, DurationUnit.SECOND );
+            case _30_secs:
+                return new QueryLength( 30, DurationUnit.SECOND );
+            case _1_min:
+                return new QueryLength( 60, DurationUnit.SECOND );
+            case _2_mins:
+                return new QueryLength( 120, DurationUnit.SECOND );
+            case _3_mins:
+                return new QueryLength( 180, DurationUnit.SECOND );
+            case _5_mins:
+                return new QueryLength( 300, DurationUnit.SECOND );
+            case _10_mins:
+                return new QueryLength( 600, DurationUnit.SECOND );
+            case _15_mins:
+                return new QueryLength( 900, DurationUnit.SECOND );
+            case _20_mins:
+                return new QueryLength( 1200, DurationUnit.SECOND );
+            case _30_mins:
+                return new QueryLength( 1800, DurationUnit.SECOND );
+            case _1_hour:
+                return new QueryLength( 3600, DurationUnit.SECOND );
+            case _4_hours:
+                return new QueryLength( 14400, DurationUnit.SECOND );
+            case _1_day:
+                return new QueryLength( 1, DurationUnit.DAY );
+            case _1_week:
+                return new QueryLength( 1, DurationUnit.WEEK );
+            default:
+                return null;
+        }
+    }
 
-	protected void onStart () {
-		m_contractPanel.onOK ( );
-		ApiDemo.INSTANCE.controller ( ).reqRealTimeBars ( m_contract, WhatToShow.TRADES, false, this );
-	}
+    protected void onStart() {
+        m_contractPanel.onOK( );
+        ApiDemo.INSTANCE.controller( ).reqRealTimeBars( m_contract, WhatToShow.TRADES, false, this );
+    }
 
-	@Override
-	public void realtimeBar ( Bar bar ) {
-		if ( !m_req ) {
-			BarSize barSize = m_barSize.getSelectedItem ( );
-			QueryLength queryLength = getQueryLength ( barSize );
-			String date = Bar.format ( bar.time ( ) * 1000 );
-			int duration = m_bars.getInt ( ) * queryLength.m_units;
-			ApiDemo.INSTANCE.controller ( ).reqHistoricalData ( m_contract, date, duration, queryLength.m_unit, barSize, WhatToShow.TRADES, false, this );
-			m_req = true;
-		}
-		addBar ( bar );
-		m_chart.repaint ( );
-	}
+    @Override
+    public void realtimeBar( Bar bar ) {
+        if ( !m_req ) {
+            BarSize barSize = m_barSize.getSelectedItem( );
+            QueryLength queryLength = getQueryLength( barSize );
+            String date = Bar.format( bar.time( ) * 1000 );
+            int duration = m_bars.getInt( ) * queryLength.m_units;
+            ApiDemo.INSTANCE.controller( ).reqHistoricalData( m_contract, date, duration, queryLength.m_unit, barSize, WhatToShow.TRADES, false, this );
+            m_req = true;
+        }
+        addBar( bar );
+        m_chart.repaint( );
+    }
 
-	@Override
-	public void historicalData ( Bar bar, boolean hasGaps ) {
-		System.out.println ( bar );
-		addBar ( bar );
-	}
+    @Override
+    public void historicalData( Bar bar, boolean hasGaps ) {
+        System.out.println( bar );
+        addBar( bar );
+    }
 
-	private void addBar ( Bar bar ) {
-		m_map.put ( bar.time ( ), bar );
-		m_rows.clear ( );
-		m_rows.addAll ( m_map.values ( ) );
-	}
+    private void addBar( Bar bar ) {
+        m_map.put( bar.time( ), bar );
+        m_rows.clear( );
+        m_rows.addAll( m_map.values( ) );
+    }
 
-	@Override
-	public void historicalDataEnd () {
-		m_chart.repaint ( );
-	}
+    @Override
+    public void historicalDataEnd() {
+        m_chart.repaint( );
+    }
 
-	protected void onStop () {
-		ApiDemo.INSTANCE.controller ( ).cancelRealtimeBars ( this );
-		ApiDemo.INSTANCE.controller ( ).cancelHistoricalData ( this );
-	}
+    protected void onStop() {
+        ApiDemo.INSTANCE.controller( ).cancelRealtimeBars( this );
+        ApiDemo.INSTANCE.controller( ).cancelHistoricalData( this );
+    }
 
-	void add ( JPanel p, Object... objs ) {
-		for ( Object obj : objs ) {
-			if ( obj instanceof String ) {
-				p.add ( new JLabel ( ( String ) obj ) );
-			} else {
-				p.add ( ( Component ) obj );
-			}
-		}
-	}
+    void add( JPanel p, Object... objs ) {
+        for ( Object obj : objs ) {
+            if ( obj instanceof String ) {
+                p.add( new JLabel( ( String ) obj ) );
+            } else {
+                p.add( ( Component ) obj );
+            }
+        }
+    }
 
-	static class QueryLength {
-		int m_units;
-		DurationUnit m_unit;
+    static class QueryLength {
+        int m_units;
+        DurationUnit m_unit;
 
-		QueryLength ( int units, DurationUnit unit ) {
-			m_units = units;
-			m_unit = unit;
-		}
-	}
+        QueryLength( int units, DurationUnit unit ) {
+            m_units = units;
+            m_unit = unit;
+        }
+    }
 
-	class HPanel extends HorzPanel {
-		@Override
-		public Dimension getMaximumSize () {
-			return super.getPreferredSize ( );
-		}
-	}
+    class HPanel extends HorzPanel {
+        @Override
+        public Dimension getMaximumSize() {
+            return super.getPreferredSize( );
+        }
+    }
 }

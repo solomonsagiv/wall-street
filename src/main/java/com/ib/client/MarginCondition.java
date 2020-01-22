@@ -2,33 +2,33 @@ package com.ib.client;
 
 public class MarginCondition extends OperatorCondition {
 
-	public static final OrderConditionType conditionType = OrderConditionType.Margin;
-	private int m_percent;
+    public static final OrderConditionType conditionType = OrderConditionType.Margin;
+    private int m_percent;
 
-	protected MarginCondition () {
-	}
+    protected MarginCondition() {
+    }
 
-	@Override
-	public String toString () {
-		return "the margin cushion percent" + super.toString ( );
-	}
+    @Override
+    public String toString() {
+        return "the margin cushion percent" + super.toString( );
+    }
 
-	public int percent () {
-		return m_percent;
-	}
+    public int percent() {
+        return m_percent;
+    }
 
-	public void percent ( int m_percent ) {
-		this.m_percent = m_percent;
-	}
+    public void percent( int m_percent ) {
+        this.m_percent = m_percent;
+    }
 
-	@Override
-	protected String valueToString () {
-		return "" + m_percent;
-	}
+    @Override
+    protected String valueToString() {
+        return "" + m_percent;
+    }
 
-	@Override
-	protected void valueFromString ( String v ) {
-		m_percent = Integer.parseInt ( v );
-	}
+    @Override
+    protected void valueFromString( String v ) {
+        m_percent = Integer.parseInt( v );
+    }
 
 }

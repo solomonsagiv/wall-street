@@ -9,16 +9,16 @@ import javax.persistence.Table;
 @Table( name = "dax_daily" )
 public class Dax_daily extends IndexTableSum {
 
-	public Dax_daily () {
-		super ( );
-	}
+    public Dax_daily() {
+        super( );
+    }
 
 
-	public Dax_daily ( String date, String exp_name, double open, double high, double low, double close, int future_up,
-	                   int future_down, int index_up, int index_down, double op_avg, int fut_bid_ask_counter, double base,
-	                   String options, int conBidAskCounter, double equalMove ) {
-		super ( date, exp_name, open, high, low, close, future_up, future_down, index_up, index_down, op_avg, fut_bid_ask_counter,
-				base, options, conBidAskCounter, equalMove );
-	}
+    public Dax_daily( String date, String exp_name, double open, double high, double low, double close, int future_up,
+                      int future_down, int index_up, int index_down, double op_avg, int fut_bid_ask_counter, double base,
+                      String options, int conBidAskCounter, double equalMove ) {
+        super( date, exp_name, open, high, low, close, future_up, future_down, index_up, index_down, op_avg, fut_bid_ask_counter,
+                base, options, conBidAskCounter, equalMove );
+    }
 
 }

@@ -2,15 +2,15 @@ package tables;
 
 public interface ITablesHandler {
 
-	void insertLine ();
+    void insertLine();
 
-	Object getTableObject ();
+    Object getTableObject();
 
-	void loadData ();
+    void loadData();
 
-	void resetData ();
+    void resetData();
 
-	void updateData();
+    void updateData();
 
-	void updateObject();
+    void updateObject();
 }

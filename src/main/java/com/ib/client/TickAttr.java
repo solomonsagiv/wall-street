@@ -4,22 +4,22 @@
 package com.ib.client;
 
 public class TickAttr {
-	private boolean m_canAutoExecute = false;
-	private boolean m_pastLimit = false;
+    private boolean m_canAutoExecute = false;
+    private boolean m_pastLimit = false;
 
-	public boolean canAutoExecute () {
-		return m_canAutoExecute;
-	}
+    public boolean canAutoExecute() {
+        return m_canAutoExecute;
+    }
 
-	public boolean pastLimit () {
-		return m_pastLimit;
-	}
+    public boolean pastLimit() {
+        return m_pastLimit;
+    }
 
-	public void canAutoExecute ( boolean canAutoExecute ) {
-		this.m_canAutoExecute = canAutoExecute;
-	}
+    public void canAutoExecute( boolean canAutoExecute ) {
+        this.m_canAutoExecute = canAutoExecute;
+    }
 
-	public void pastLimit ( boolean pastLimit ) {
-		this.m_pastLimit = pastLimit;
-	}
+    public void pastLimit( boolean pastLimit ) {
+        this.m_pastLimit = pastLimit;
+    }
 }

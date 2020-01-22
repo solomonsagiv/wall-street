@@ -13,98 +13,98 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class Util {
-	public static boolean StringIsEmpty ( String str ) {
-		return str == null || str.length ( ) == 0;
-	}
+    public static boolean StringIsEmpty( String str ) {
+        return str == null || str.length( ) == 0;
+    }
 
-	public static String NormalizeString ( String str ) {
-		return str != null ? str : "";
-	}
+    public static String NormalizeString( String str ) {
+        return str != null ? str : "";
+    }
 
-	public static int StringCompare ( String lhs, String rhs ) {
-		return NormalizeString ( lhs ).compareTo ( NormalizeString ( rhs ) );
-	}
+    public static int StringCompare( String lhs, String rhs ) {
+        return NormalizeString( lhs ).compareTo( NormalizeString( rhs ) );
+    }
 
-	public static int StringCompareIgnCase ( String lhs, String rhs ) {
-		return NormalizeString ( lhs ).compareToIgnoreCase ( NormalizeString ( rhs ) );
-	}
+    public static int StringCompareIgnCase( String lhs, String rhs ) {
+        return NormalizeString( lhs ).compareToIgnoreCase( NormalizeString( rhs ) );
+    }
 
-	public static boolean ArrayEqualsUnordered ( ArrayList < ? > lhs, ArrayList < ? > rhs ) {
-		if ( lhs == rhs )
-			return true;
+    public static boolean ArrayEqualsUnordered( ArrayList< ? > lhs, ArrayList< ? > rhs ) {
+        if ( lhs == rhs )
+            return true;
 
-		int lhsCount = lhs == null ? 0 : lhs.size ( );
-		int rhsCount = rhs == null ? 0 : rhs.size ( );
+        int lhsCount = lhs == null ? 0 : lhs.size( );
+        int rhsCount = rhs == null ? 0 : rhs.size( );
 
-		if ( lhsCount != rhsCount )
-			return false;
+        if ( lhsCount != rhsCount )
+            return false;
 
-		if ( lhsCount == 0 )
-			return true;
+        if ( lhsCount == 0 )
+            return true;
 
-		boolean[] matchedRhsElems = new boolean[ rhsCount ];
+        boolean[] matchedRhsElems = new boolean[ rhsCount ];
 
-		for ( int lhsIdx = 0; lhsIdx < lhsCount; ++lhsIdx ) {
-			Object lhsElem = lhs.get ( lhsIdx );
-			int rhsIdx = 0;
-			for ( ; rhsIdx < rhsCount; ++rhsIdx ) {
-				if ( matchedRhsElems[ rhsIdx ] ) {
-					continue;
-				}
-				if ( lhsElem.equals ( rhs.get ( rhsIdx ) ) ) {
-					matchedRhsElems[ rhsIdx ] = true;
-					break;
-				}
-			}
-			if ( rhsIdx >= rhsCount ) {
-				// no matching elem found
-				return false;
-			}
-		}
-		return true;
-	}
+        for ( int lhsIdx = 0; lhsIdx < lhsCount; ++lhsIdx ) {
+            Object lhsElem = lhs.get( lhsIdx );
+            int rhsIdx = 0;
+            for ( ; rhsIdx < rhsCount; ++rhsIdx ) {
+                if ( matchedRhsElems[ rhsIdx ] ) {
+                    continue;
+                }
+                if ( lhsElem.equals( rhs.get( rhsIdx ) ) ) {
+                    matchedRhsElems[ rhsIdx ] = true;
+                    break;
+                }
+            }
+            if ( rhsIdx >= rhsCount ) {
+                // no matching elem found
+                return false;
+            }
+        }
+        return true;
+    }
 
-	public static String IntMaxString ( int value ) {
-		return ( value == Integer.MAX_VALUE ) ? "" : String.valueOf ( value );
-	}
+    public static String IntMaxString( int value ) {
+        return ( value == Integer.MAX_VALUE ) ? "" : String.valueOf( value );
+    }
 
-	public static String DoubleMaxString ( double value ) {
-		return ( value == Double.MAX_VALUE ) ? "" : String.valueOf ( value );
-	}
+    public static String DoubleMaxString( double value ) {
+        return ( value == Double.MAX_VALUE ) ? "" : String.valueOf( value );
+    }
 
-	public static String UnixMillisecondsToString ( long milliseconds, String dateFormat ) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat ( dateFormat );
-		Calendar calendar = Calendar.getInstance ( );
-		calendar.setTimeInMillis ( milliseconds );
-		return simpleDateFormat.format ( calendar.getTime ( ) );
-	}
+    public static String UnixMillisecondsToString( long milliseconds, String dateFormat ) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( dateFormat );
+        Calendar calendar = Calendar.getInstance( );
+        calendar.setTimeInMillis( milliseconds );
+        return simpleDateFormat.format( calendar.getTime( ) );
+    }
 
 
-	public static ArrayList < ContractDetails > lookupContract ( ApiController controller, Contract contract ) {
-		if ( controller == null ) {
-			return new ArrayList <> ( );
-		}
-		final CompletableFuture < ArrayList < ContractDetails > > future = new CompletableFuture <> ( );
+    public static ArrayList< ContractDetails > lookupContract( ApiController controller, Contract contract ) {
+        if ( controller == null ) {
+            return new ArrayList<>( );
+        }
+        final CompletableFuture< ArrayList< ContractDetails > > future = new CompletableFuture<>( );
 
-		controller.reqContractDetails ( contract, new IContractDetailsHandler ( ) {
+        controller.reqContractDetails( contract, new IContractDetailsHandler( ) {
 
-			private final ArrayList < ContractDetails > contractDetails = new ArrayList <> ( );
+            private final ArrayList< ContractDetails > contractDetails = new ArrayList<>( );
 
-			@Override
-			public void contractDetails ( ArrayList < ContractDetails > list ) {
-				contractDetails.addAll ( list );
-				future.complete ( contractDetails );
-			}
-		} );
-		try {
-			return future.get ( );
-		} catch ( final InterruptedException e ) {
-			e.printStackTrace ( );
-			Thread.currentThread ( ).interrupt ( );
-			return new ArrayList <> ( );
-		} catch ( final ExecutionException e ) {
-			e.printStackTrace ( );
-			return new ArrayList <> ( );
-		}
-	}
+            @Override
+            public void contractDetails( ArrayList< ContractDetails > list ) {
+                contractDetails.addAll( list );
+                future.complete( contractDetails );
+            }
+        } );
+        try {
+            return future.get( );
+        } catch ( final InterruptedException e ) {
+            e.printStackTrace( );
+            Thread.currentThread( ).interrupt( );
+            return new ArrayList<>( );
+        } catch ( final ExecutionException e ) {
+            e.printStackTrace( );
+            return new ArrayList<>( );
+        }
+    }
 }

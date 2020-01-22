@@ -7,110 +7,110 @@ import java.time.LocalTime;
 
 public class BackRunner {
 
-	private BASE_CLIENT_OBJECT client;
-	private Runner runner;
-	LocalTime now;
+    LocalTime now;
+    private BASE_CLIENT_OBJECT client;
+    private Runner runner;
 
-	public BackRunner ( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-	}
+    public BackRunner( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
 
-	public void startRunner () {
-		try {
-			if ( !getRunner ( ).isAlive ( ) ) {
-				getRunner ( ).start ( );
-			}
-		} catch ( IllegalThreadStateException e ) {
-			setRunner ( null );
-			getRunner ( ).start ( );
-		}
-	}
+    public void startRunner() {
+        try {
+            if ( !getRunner( ).isAlive( ) ) {
+                getRunner( ).start( );
+            }
+        } catch ( IllegalThreadStateException e ) {
+            setRunner( null );
+            getRunner( ).start( );
+        }
+    }
 
-	public void closeRunner () {
-		getRunner ( ).close ( );
-	}
+    public void closeRunner() {
+        getRunner( ).close( );
+    }
 
-	public Runner getRunner () {
-		if ( runner == null ) {
-			runner = new Runner ( );
-		}
-		return runner;
-	}
+    public Runner getRunner() {
+        if ( runner == null ) {
+            runner = new Runner( );
+        }
+        return runner;
+    }
 
-	public void setRunner ( Runner runner ) {
-		this.runner = runner;
-	}
+    public void setRunner( Runner runner ) {
+        this.runner = runner;
+    }
 
-	public class Runner extends Thread {
+    public class Runner extends Thread {
 
-		boolean run = true;
-		double last_0 = client.getIndex ( );
+        boolean run = true;
+        double last_0 = client.getIndex( );
 
-		@Override
-		public void run () {
+        @Override
+        public void run() {
 
-			checkAllOptionsData ( );
+            checkAllOptionsData( );
 
-			while ( isRun ( ) ) {
-				try {
+            while ( isRun( ) ) {
+                try {
 
-					// Sleep
-					sleep ( 2000 );
+                    // Sleep
+                    sleep( 2000 );
 
-					now = LocalTime.now ( );
+                    now = LocalTime.now( );
 
-					double last = client.getIndex ( );
+                    double last = client.getIndex( );
 
-					// Start
-					if ( now.isAfter ( client.getStartOfIndexTrading ( ) ) && !client.isStarted ( ) && last_0 != last ) {
+                    // Start
+                    if ( now.isAfter( client.getStartOfIndexTrading( ) ) && !client.isStarted( ) && last_0 != last ) {
 
-						if ( client.getOpen () == 0 ) {
-							client.setOpen ( last );
-						}
+                        if ( client.getOpen( ) == 0 ) {
+                            client.setOpen( last );
+                        }
 
-						client.startAll ( );
-					}
+                        client.startAll( );
+                    }
 
-					// Close runners
-					if ( now.isAfter ( client.getEndOfIndexTrading ( ) ) && client.isDbRunning ( ) ) {
-						client.getDb ( ).closeAll ( );
-						client.getRegularListUpdater().getHandler().close();
-					}
+                    // Close runners
+                    if ( now.isAfter( client.getEndOfIndexTrading( ) ) && client.isDbRunning( ) ) {
+                        client.getDb( ).closeAll( );
+                        client.getRegularListUpdater( ).getHandler( ).close( );
+                    }
 
-					// Export
-					if ( now.isAfter ( client.getEndFutureTrading ( ) ) ) {
-						client.fullExport ( );
-						client.closeAll ( );
-						break;
-					}
+                    // Export
+                    if ( now.isAfter( client.getEndFutureTrading( ) ) ) {
+                        client.fullExport( );
+                        client.closeAll( );
+                        break;
+                    }
 
 
-				} catch ( InterruptedException e ) {
-					close ( );
-				}
-			}
-		}
+                } catch ( InterruptedException e ) {
+                    close( );
+                }
+            }
+        }
 
-		public void checkAllOptionsData () {
+        public void checkAllOptionsData() {
 
-			for ( Options options : client.getOptionsHandler().getOptionsList ( ) ) {
+            for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
 
-				options.checkOptionData ( );
+                options.checkOptionData( );
 
-			}
+            }
 
-		}
+        }
 
-		public boolean isRun () {
-			return run;
-		}
+        public boolean isRun() {
+            return run;
+        }
 
-		public void setRun ( boolean run ) {
-			this.run = run;
-		}
+        public void setRun( boolean run ) {
+            this.run = run;
+        }
 
-		public void close () {
-			run = false;
-		}
-	}
+        public void close() {
+            run = false;
+        }
+    }
 }

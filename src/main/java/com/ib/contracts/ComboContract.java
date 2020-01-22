@@ -7,18 +7,18 @@ import com.ib.client.Contract;
 import com.ib.client.Types.SecType;
 
 public class ComboContract extends Contract {
-	public ComboContract ( String symbol ) {
-		this ( symbol, "USD", "SMART" );
-	}
+    public ComboContract( String symbol ) {
+        this( symbol, "USD", "SMART" );
+    }
 
-	public ComboContract ( String symbol, String currency ) {
-		this ( symbol, currency, "SMART" );
-	}
+    public ComboContract( String symbol, String currency ) {
+        this( symbol, currency, "SMART" );
+    }
 
-	public ComboContract ( String symbol, String currency, String exchange ) {
-		symbol ( symbol );
-		secType ( SecType.BAG.name ( ) );
-		currency ( currency );
-		exchange ( exchange );
-	}
+    public ComboContract( String symbol, String currency, String exchange ) {
+        symbol( symbol );
+        secType( SecType.BAG.name( ) );
+        currency( currency );
+        exchange( exchange );
+    }
 }

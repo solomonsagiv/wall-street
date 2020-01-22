@@ -4,53 +4,53 @@ import arik.Arik;
 
 public class MyThreadHandler {
 
-	// Variables
-	MyThread myThread;
-	Thread thread;
-	Arik arik;
+    // Variables
+    MyThread myThread;
+    Thread thread;
+//    Arik arik;
 
-	// Constructor
-	public MyThreadHandler ( MyThread myThread ) {
+    // Constructor
+    public MyThreadHandler( MyThread myThread ) {
 
-		this.myThread = myThread;
-		this.arik = Arik.getInstance ( );
+        this.myThread = myThread;
+//        this.arik = Arik.getInstance( );
 
-	}
+    }
 
-	// ---------- Functions ---------- //
+    // ---------- Functions ---------- //
 
-	// Start
-	public void start () {
+    // Start
+    public void start() {
 
-		if ( thread == null ) {
+        if ( thread == null ) {
 
-			myThread.setRun ( true );
-			thread = new Thread ( myThread.getRunnable ( ) );
-			thread.start ( );
-		}
+            myThread.setRun( true );
+            thread = new Thread( myThread.getRunnable( ) );
+            thread.start( );
+        }
 
-		arik.sendMessage ( myThread.getClient ( ).getName ( ) + " " + myThread.getName ( ) + " Started" );
-	}
+//        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Started" );
+    }
 
-	// Close
-	public void close () {
+    // Close
+    public void close() {
 
-		if ( thread != null ) {
-			thread.interrupt ( );
-			myThread.setRun ( false );
-			thread = null;
-		}
-		arik.sendMessage ( myThread.getClient ( ).getName ( ) + " " + myThread.getName ( ) + " Closed" );
+        if ( thread != null ) {
+            thread.interrupt( );
+            myThread.setRun( false );
+            thread = null;
+        }
+//        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
 
-	}
+    }
 
-	// Restart
-	public void restart () {
+    // Restart
+    public void restart() {
 
-		close ( );
-		start ( );
+        close( );
+        start( );
 
-		arik.sendMessage ( myThread.getClient ( ).getName ( ) + " " + myThread.getName ( ) + " Restarted" );
+//        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Restarted" );
 
-	}
+    }
 }

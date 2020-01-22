@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 public interface IConnectionPool {
 
-	Connection getConnection() throws SQLException;
+    Connection getConnection() throws SQLException;
 
-	boolean releaseConnection( Connection connection );
+    boolean releaseConnection( Connection connection );
 
-	String getUrl();
+    String getUrl();
 
-	String getUser();
+    String getUser();
 
-	String getPassword();
+    String getPassword();
 }

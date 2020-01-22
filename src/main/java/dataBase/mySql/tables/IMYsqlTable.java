@@ -2,12 +2,12 @@ package dataBase.mySql.tables;
 
 public interface IMYsqlTable {
 
-	void insert();
+    void insert();
 
-	void load();
+    void load();
 
-	void update();
+    void update();
 
-	void reset();
+    void reset();
 
 }

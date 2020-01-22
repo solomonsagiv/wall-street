@@ -14,112 +14,112 @@ import java.util.ArrayList;
 //MySql class
 public class MySqlRunner extends MyThread implements Runnable {
 
-	BASE_CLIENT_OBJECT client;
-	long sleepCount = 0;
-	long sleep = 500;
-	TablesHandler tablesHandler;
+    BASE_CLIENT_OBJECT client;
+    long sleepCount = 0;
+    long sleep = 500;
+    TablesHandler tablesHandler;
 
 
-	public MySqlRunner( BASE_CLIENT_OBJECT client ) {
-		super( client );
-		setName( "MYSQL" );
-		this.client = client;
-		tablesHandler = client.getTablesHandler ();
+    public MySqlRunner( BASE_CLIENT_OBJECT client ) {
+        super( client );
+        setName( "MYSQL" );
+        this.client = client;
+        tablesHandler = client.getTablesHandler( );
 
-	}
+    }
 
-	@Override
-	public void initRunnable () {
-		setRunnable ( this );
-	}
+    public static void main( String[] args ) {
+        TableDayFather father = new SpxTable( );
 
-	public static void main( String[] args ) {
-		TableDayFather father = new SpxTable();
+        SpxTable spx = new SpxTable( );
+        spx.setOpAvg15( 89 );
 
-		SpxTable spx = new SpxTable();
-		spx.setOpAvg15( 89 );
+        father = spx;
 
-		father = spx;
-
-		ArrayList < TableDayFather > lines = new ArrayList <>();
+        ArrayList< TableDayFather > lines = new ArrayList<>( );
 
 //		HB.save( father , SpxTable.class.getName() , HBsession.getParisFactory () );
 
-		for ( int i = 0 ; i < 100 ; i++ ) {
-			lines.add( new SpxTable() );
-		}
+        for ( int i = 0; i < 100; i++ ) {
+            lines.add( new SpxTable( ) );
+        }
 
-		SpxCLIENTObject.getInstance ().getTablesHandler ().getSumHandler ().getHandler ().insertLine ();
+        SpxCLIENTObject.getInstance( ).getTablesHandler( ).getSumHandler( ).getHandler( ).insertLine( );
 
-		long startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis( );
 
-		SpxCLIENTObject.getInstance ().getTablesHandler ().getSumHandler ().getHandler ().insertLine ();
+        SpxCLIENTObject.getInstance( ).getTablesHandler( ).getSumHandler( ).getHandler( ).insertLine( );
 
-		long endTime = System.currentTimeMillis();
+        long endTime = System.currentTimeMillis( );
 
-		double duration = ( endTime - startTime );  //divide by 1000000 to get milliseconds
-		System.out.println( duration / 1000 );
+        double duration = ( endTime - startTime );  //divide by 1000000 to get milliseconds
+        System.out.println( duration / 1000 );
 
-	}
+    }
 
-	@Override
-	public void run() {
+    @Override
+    public void initRunnable() {
+        setRunnable( this );
+    }
 
-		setRun( true );
+    @Override
+    public void run() {
 
-		while ( isRun() ) {
-			try {
+        setRun( true );
 
-				Thread.sleep( sleep );
+        while ( isRun( ) ) {
+            try {
 
-				// Updater
-				if ( Manifest.DB_UPDATER ) {
-					// Status
-					if ( sleepCount % 1000 == 0 ) {
-						client.getTablesHandler().getStatusHandler().getHandler().updateData();
-					}
-				}
+                Thread.sleep( sleep );
 
-				// DB runner
-				if ( Manifest.DB_RUNNER ) {
+                // Updater
+                if ( Manifest.DB_UPDATER ) {
+                    // Status
+                    if ( sleepCount % 1000 == 0 ) {
+                        client.getTablesHandler( ).getStatusHandler( ).getHandler( ).updateData( );
+                    }
+                }
 
-					// Insert line
-					client.getTablesHandler ().getDayHandler ().getHandler ().insertLine ();
+                // DB runner
+                if ( Manifest.DB_RUNNER ) {
 
-					// Arrays
-					if ( sleepCount % 30000 == 0 ) {
-						client.getTablesHandler ().getArrayHandler ().getHandler ().updateData ();
-					}
+                    // Insert line
+                    client.getTablesHandler( ).getDayHandler( ).getHandler( ).insertLine( );
 
-					// Reset sleep count
-					if ( sleepCount == 3000000 ) {
-						sleepCount = 0;
-					}
+                    // Arrays
+                    if ( sleepCount % 30000 == 0 ) {
+                        client.getTablesHandler( ).getArrayHandler( ).getHandler( ).updateData( );
+                    }
 
-					client.setDbRunning( true );
-					setRun( true );
+                    // Reset sleep count
+                    if ( sleepCount == 3000000 ) {
+                        sleepCount = 0;
+                    }
 
-					// Sleep
-					sleepCount += sleep;
-				}
+                    client.setDbRunning( true );
+                    setRun( true );
 
-			} catch ( InterruptedException e ) {
-				setRun( false );
-				getHandler().close();
-			} catch ( NumberFormatException e ) {
-				e.printStackTrace();
-				continue;
-			} catch ( Exception e ) {
-				Arik.getInstance().sendMessage( Arik.sagivID , client.getName() + " MYSQL exception \n" + e.getCause() ,
-						null );
-			}
-		}
+                    // Sleep
+                    sleepCount += sleep;
+                }
 
-		setRun( false );
-		client.setDbRunning( false );
-		Arik.getInstance().sendMessage( Arik.sagivID , client.getName() + " MYSQL kiiled !!!" , null );
+            } catch ( InterruptedException e ) {
+                setRun( false );
+                getHandler( ).close( );
+            } catch ( NumberFormatException e ) {
+                e.printStackTrace( );
+                continue;
+            } catch ( Exception e ) {
+//                Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
+//                        null );
+            }
+        }
 
-	}
+        setRun( false );
+        client.setDbRunning( false );
+//        Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL kiiled !!!", null );
+
+    }
 
 
 }

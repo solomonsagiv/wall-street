@@ -8,109 +8,107 @@ import java.time.LocalTime;
 
 public class ShlomiTrader {
 
-	// Local variables
-	BASE_CLIENT_OBJECT client;
+    // Local variables
+    BASE_CLIENT_OBJECT client;
 
-	Runner runner;
-	Thread orderPlacedChecker;
+    Runner runner;
+    Thread orderPlacedChecker;
 
-	// Trading variebles
-	Algoritem algoritem;
-	Arik arik;
+    // Trading variebles
+    Arik arik;
 
-	// Constructor
-	public ShlomiTrader( BASE_CLIENT_OBJECT client , Algoritem algoritem ) {
-		arik = Arik.getInstance();
-		this.client = client;
-		this.algoritem = algoritem;
-		runner = new Runner( client );
-	}
+    // Constructor
+    public ShlomiTrader( BASE_CLIENT_OBJECT client, Algoritem algoritem ) {
+        this.client = client;
+//        this.algoritem = algoritem;
+        runner = new Runner( client );
+    }
 
-	private String str( Object o ) {
-		return String.valueOf( o );
-	}
+    private String str( Object o ) {
+        return String.valueOf( o );
+    }
 
-	// Return the oposite value in minus or plus
-	public int oposit( int num ) {
-		return num * -1;
-	}
+    // Return the oposite value in minus or plus
+    public int oposit( int num ) {
+        return num * -1;
+    }
 
-	public double floor( double d ) {
-		return Math.floor( d * 100 ) / 100;
-	}
+    public double floor( double d ) {
+        return Math.floor( d * 100 ) / 100;
+    }
 
-	// Getters and Setters
-	public BASE_CLIENT_OBJECT getStock() {
-		return client;
-	}
+    // Getters and Setters
+    public BASE_CLIENT_OBJECT getStock() {
+        return client;
+    }
 
-	public void setStock( BASE_CLIENT_OBJECT stock ) {
-		this.client = stock;
-	}
+    public void setStock( BASE_CLIENT_OBJECT stock ) {
+        this.client = stock;
+    }
 
-	public Runner getShlomiRunner() {
-		return runner;
-	}
+    public Runner getShlomiRunner() {
+        return runner;
+    }
 
-	public void setShlomiRunner( Runner runner ) {
-		this.runner = runner;
-	}
+    public void setShlomiRunner( Runner runner ) {
+        this.runner = runner;
+    }
 
-	public String toStringVertical() {
-		String string = toString();
-		String[] array = string.split( ", " );
-		String returnString = "";
-		for ( int i = 0 ; i < array.length ; i++ ) {
-			returnString += array[ i ] + "\n";
-		}
-		return returnString;
-	}
+    public String toStringVertical() {
+        String string = toString( );
+        String[] array = string.split( ", " );
+        String returnString = "";
+        for ( int i = 0; i < array.length; i++ ) {
+            returnString += array[ i ] + "\n";
+        }
+        return returnString;
+    }
 
-	// Shlomi runner
-	class Runner extends MyThread implements Runnable {
+    // Shlomi runner
+    class Runner extends MyThread implements Runnable {
 
-		public Runner( BASE_CLIENT_OBJECT client ) {
-			super( client );
-			setName( "Shlomi trader" );
-		}
+        public Runner( BASE_CLIENT_OBJECT client ) {
+            super( client );
+            setName( "Shlomi trader" );
+        }
 
-		@Override
-		public void initRunnable () {
-			setRunnable ( this );
-		}
+        @Override
+        public void initRunnable() {
+            setRunnable( this );
+        }
 
-		// Constructor
+        // Constructor
 
-		// Run methode
-		@Override
-		public void run() {
-			running();
-		}
+        // Run methode
+        @Override
+        public void run() {
+            running( );
+        }
 
-		// Running loop
-		private void running() {
+        // Running loop
+        private void running() {
 
-			while ( isRun() ) {
-				try {
+            while ( isRun( ) ) {
+                try {
 
-					System.out.println( "Shlomi trader" );
+                    System.out.println( "Shlomi trader" );
 
-					// Option algoritam
-					algoritem.doLogic();
+                    // Option algoritam
+//                    algoritem.doLogic( );
 
-					// Close
-					if ( LocalTime.now().isAfter( client.getEndOfIndexTrading() ) ) {
-						getHandler().close();
-					}
+                    // Close
+                    if ( LocalTime.now( ).isAfter( client.getEndOfIndexTrading( ) ) ) {
+                        getHandler( ).close( );
+                    }
 
-					// Sleep
-					Thread.sleep( 1000 );
-				} catch ( InterruptedException e ) {
-					break;
-				}
-			}
-		}
+                    // Sleep
+                    Thread.sleep( 1000 );
+                } catch ( InterruptedException e ) {
+                    break;
+                }
+            }
+        }
 
-	}
+    }
 
 }

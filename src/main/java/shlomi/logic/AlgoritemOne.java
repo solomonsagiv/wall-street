@@ -5,172 +5,173 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 public class AlgoritemOne extends Algoritem {
 
-	double opAvgPlag = 0.01;
-	int racesPlag = 0;
-	double opAvg = 0;
-	int conUp = 0;
-	int conDown = 0;
-	int indUp = 0;
-	int indDown = 0;
-	String opAvgStatus = "";
-	String preOpAvgStatus = "";
-	String optimiStatus = "optimi";
-	String pesimiStatus = "pesimi";
-	// Constructor
-	public AlgoritemOne( BASE_CLIENT_OBJECT client , MyTwsClient twsClient ) {
-		super( client , twsClient );
-	}
+    double opAvgPlag = 0.01;
+    int racesPlag = 0;
+    double opAvg = 0;
+    int conUp = 0;
+    int conDown = 0;
+    int indUp = 0;
+    int indDown = 0;
+    String opAvgStatus = "";
+    String preOpAvgStatus = "";
+    String optimiStatus = "optimi";
+    String pesimiStatus = "pesimi";
 
-	@Override
-	public String getType() {
-		return "One";
-	}
+    // Constructor
+    public AlgoritemOne( BASE_CLIENT_OBJECT client, MyTwsClient twsClient ) {
+        super( client, twsClient );
+    }
 
-	@Override
-	public void doLogic() {
+    @Override
+    public String getType() {
+        return "One";
+    }
 
-		// Calculates
-		calculates();
+    @Override
+    public void doLogic() {
 
-		// No position
-		if ( !isInPos() ) {
+        // Calculates
+        calculates( );
 
-			// LONG
-			if ( canDoLong() ) {
+        // No position
+        if ( !isInPos( ) ) {
 
-				LONG();
+            // LONG
+            if ( canDoLong( ) ) {
 
-			}
+                LONG( );
 
-			// SHORT
-			if ( canDoShort() ) {
+            }
 
-				SHORT();
+            // SHORT
+            if ( canDoShort( ) ) {
 
-			}
+                SHORT( );
 
-		} else
+            }
 
-			// In position
-			if ( isInPos() ) {
+        } else
 
-				// EXIT LONG
-				if ( isExitLong() && isLONG() ) {
+            // In position
+            if ( isInPos( ) ) {
 
-					EXIT_LONG();
+                // EXIT LONG
+                if ( isExitLong( ) && isLONG( ) ) {
 
-				}
+                    EXIT_LONG( );
 
-				// EXIT SHORT
-				if ( isExitShort() && isSHORT() ) {
+                }
 
-					EXIT_SHORT();
+                // EXIT SHORT
+                if ( isExitShort( ) && isSHORT( ) ) {
 
-				}
+                    EXIT_SHORT( );
 
-			}
+                }
 
-	}
+            }
 
-	public int getConSum() {
-		int conSum = ( getClient().getConUp() - conUp ) - ( getClient().getConDown() - conDown );
-		return conSum;
-	}
+    }
 
-	public int getIndSum() {
-		int indSum = ( getClient().getIndexUp() - indUp ) - ( getClient().getIndexDown() - indDown );
-		return indSum;
-	}
+    public int getConSum() {
+        int conSum = ( getClient( ).getConUp( ) - conUp ) - ( getClient( ).getConDown( ) - conDown );
+        return conSum;
+    }
 
-	// Calculates
-	private void calculates() {
+    public int getIndSum() {
+        int indSum = ( getClient( ).getIndexUp( ) - indUp ) - ( getClient( ).getIndexDown( ) - indDown );
+        return indSum;
+    }
+
+    // Calculates
+    private void calculates() {
 
 //		opAvg = Double.parseDouble(ShlomiWindow.opAvgField.getText());
-		opAvg = getClient().getOpAvgFromDb();
+        opAvg = getClient( ).getOpAvgFromDb( );
 
-		// Change my races if opAvg changed
-		// Optimi
-		if ( !opAvgStatus.equals( "" ) && opAvgStatus.equals( optimiStatus ) ) {
+        // Change my races if opAvg changed
+        // Optimi
+        if ( !opAvgStatus.equals( "" ) && opAvgStatus.equals( optimiStatus ) ) {
 
-			// Change to pesimi
-			if ( opAvg < opo( opAvgPlag ) ) {
-				conUp = getClient().getConUp();
-				conDown = getClient().getConDown();
-				indUp = getClient().getIndexUp();
-				indDown = getClient().getIndexDown();
-			}
+            // Change to pesimi
+            if ( opAvg < opo( opAvgPlag ) ) {
+                conUp = getClient( ).getConUp( );
+                conDown = getClient( ).getConDown( );
+                indUp = getClient( ).getIndexUp( );
+                indDown = getClient( ).getIndexDown( );
+            }
 
-		}
+        }
 
-		if ( !opAvgStatus.equals( "" ) && opAvgStatus.equals( pesimiStatus ) ) {
+        if ( !opAvgStatus.equals( "" ) && opAvgStatus.equals( pesimiStatus ) ) {
 
-			// Change to pesimi
-			if ( opAvg > opAvgPlag ) {
-				conUp = getClient().getConUp();
-				conDown = getClient().getConDown();
-				indUp = getClient().getIndexUp();
-				indDown = getClient().getIndexDown();
-			}
+            // Change to pesimi
+            if ( opAvg > opAvgPlag ) {
+                conUp = getClient( ).getConUp( );
+                conDown = getClient( ).getConDown( );
+                indUp = getClient( ).getIndexUp( );
+                indDown = getClient( ).getIndexDown( );
+            }
 
-		}
+        }
 
-		// Update opAvgStatus
-		if ( opAvg > opAvgPlag ) {
-			opAvgStatus = optimiStatus;
-		}
+        // Update opAvgStatus
+        if ( opAvg > opAvgPlag ) {
+            opAvgStatus = optimiStatus;
+        }
 
-		if ( opAvg < opo( opAvgPlag ) ) {
-			opAvgStatus = pesimiStatus;
-		}
-	}
+        if ( opAvg < opo( opAvgPlag ) ) {
+            opAvgStatus = pesimiStatus;
+        }
+    }
 
-	private boolean isExitShort() {
+    private boolean isExitShort() {
 
-		boolean bool = false;
+        boolean bool = false;
 
-		if ( opAvg < opo( opAvgPlag ) || getClient().getIndexSum() > racesPlag ) {
-			bool = true;
-		}
+        if ( opAvg < opo( opAvgPlag ) || getClient( ).getIndexSum( ) > racesPlag ) {
+            bool = true;
+        }
 
-		return bool;
-	}
+        return bool;
+    }
 
-	private boolean isExitLong() {
+    private boolean isExitLong() {
 
-		boolean bool = false;
+        boolean bool = false;
 
-		if ( opAvg > opAvgPlag || getClient().getIndexSum() < opo( racesPlag ) ) {
-			bool = true;
-		}
+        if ( opAvg > opAvgPlag || getClient( ).getIndexSum( ) < opo( racesPlag ) ) {
+            bool = true;
+        }
 
-		return bool;
+        return bool;
 
-	}
+    }
 
-	// Can do long
-	public boolean canDoLong() {
+    // Can do long
+    public boolean canDoLong() {
 
-		boolean bool = false;
+        boolean bool = false;
 
-		// Pesimi && buy index
-		if ( opAvg < opo( opAvgPlag ) && getClient().getIndexSum() > racesPlag ) {
-			bool = true;
-		}
+        // Pesimi && buy index
+        if ( opAvg < opo( opAvgPlag ) && getClient( ).getIndexSum( ) > racesPlag ) {
+            bool = true;
+        }
 
-		return bool;
-	}
+        return bool;
+    }
 
-	// Can do short
-	public boolean canDoShort() {
+    // Can do short
+    public boolean canDoShort() {
 
-		boolean bool = false;
+        boolean bool = false;
 
-		// Optimi && Sell index
-		if ( opAvg > opAvgPlag && getClient().getIndexSum() < opo( racesPlag ) ) {
-			bool = true;
-		}
+        // Optimi && Sell index
+        if ( opAvg > opAvgPlag && getClient( ).getIndexSum( ) < opo( racesPlag ) ) {
+            bool = true;
+        }
 
-		return bool;
-	}
+        return bool;
+    }
 
 }

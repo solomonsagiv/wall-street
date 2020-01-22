@@ -9,15 +9,15 @@ import javax.persistence.Table;
 @Table( name = "apple" )
 public class AppleTable extends StockTableDay {
 
-	public AppleTable( String date , String exp_name , String time , double future , double index , int future_up ,
-	                     int future_down , int index_up , int index_down , String options , double base , int futureOptionBidAskCounter , double opAvg, double conDay , double conMonth , double conQuarter , double conQuarterFar   ) {
-		super( date , exp_name , time , future , index , future_up , future_down , index_up , index_down , options , base , futureOptionBidAskCounter , opAvg, conDay, conMonth, conQuarter, conQuarterFar );
-	}
+    public AppleTable( String date, String exp_name, String time, double future, double index, int future_up,
+                       int future_down, int index_up, int index_down, String options, double base, int futureOptionBidAskCounter, double opAvg, double conDay, double conMonth, double conQuarter, double conQuarterFar ) {
+        super( date, exp_name, time, future, index, future_up, future_down, index_up, index_down, options, base, futureOptionBidAskCounter, opAvg, conDay, conMonth, conQuarter, conQuarterFar );
+    }
 
-	// Empty Constructor
-	public AppleTable() {
-		super();
-	}
+    // Empty Constructor
+    public AppleTable() {
+        super( );
+    }
 
 
 }

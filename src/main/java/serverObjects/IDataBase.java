@@ -4,8 +4,8 @@ import org.hibernate.SessionFactory;
 
 public interface IDataBase {
 
-	SessionFactory getSessionfactory();
+    SessionFactory getSessionfactory();
 
-	void initTables();
+    void initTables();
 
 }

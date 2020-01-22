@@ -9,113 +9,113 @@ import javax.persistence.Table;
 @Table( name = "exp_data" )
 public class ExpData {
 
-	@Id
-	@Column( name = "id" )
-	private int id;
-	@Column( name = "name" )
-	private String name;
-	@Column( name = "start_price" )
-	private double startPrice;
-	@Column( name = "future_races" )
-	private int futureRaces;
-	@Column( name = "index_races" )
-	private int indexRaces;
-	@Column( name = "start_price_week" )
-	private double startPriceWeek;
-	@Column( name = "future_races_week" )
-	private int futureRacesWeek;
-	@Column( name = "index_races_week" )
-	private int indexRacesWeek;
-	@Column( name = "week_exp_date" )
-	private int weekExpDate;
+    @Id
+    @Column( name = "id" )
+    private int id;
+    @Column( name = "name" )
+    private String name;
+    @Column( name = "start_price" )
+    private double startPrice;
+    @Column( name = "future_races" )
+    private int futureRaces;
+    @Column( name = "index_races" )
+    private int indexRaces;
+    @Column( name = "start_price_week" )
+    private double startPriceWeek;
+    @Column( name = "future_races_week" )
+    private int futureRacesWeek;
+    @Column( name = "index_races_week" )
+    private int indexRacesWeek;
+    @Column( name = "week_exp_date" )
+    private int weekExpDate;
 
-	public ExpData () {
-	}
-
-
-	public ExpData ( String name, double startPrice, int futureRaces, int indexRaces, double startPriceWeek,
-	                 int futureRacesWeek, int indexRacesWeek, int weekExpDate ) {
-		this.name = name;
-		this.startPrice = startPrice;
-		this.futureRaces = futureRaces;
-		this.indexRaces = indexRaces;
-		this.startPriceWeek = startPriceWeek;
-		this.futureRacesWeek = futureRacesWeek;
-		this.indexRacesWeek = indexRacesWeek;
-		this.weekExpDate = weekExpDate;
-	}
+    public ExpData() {
+    }
 
 
-	public int getWeekExpDate () {
-		return weekExpDate;
-	}
+    public ExpData( String name, double startPrice, int futureRaces, int indexRaces, double startPriceWeek,
+                    int futureRacesWeek, int indexRacesWeek, int weekExpDate ) {
+        this.name = name;
+        this.startPrice = startPrice;
+        this.futureRaces = futureRaces;
+        this.indexRaces = indexRaces;
+        this.startPriceWeek = startPriceWeek;
+        this.futureRacesWeek = futureRacesWeek;
+        this.indexRacesWeek = indexRacesWeek;
+        this.weekExpDate = weekExpDate;
+    }
 
-	public void setWeekExpDate ( int weekExpDate ) {
-		this.weekExpDate = weekExpDate;
-	}
 
-	public double getStartPriceWeek () {
-		return startPriceWeek;
-	}
+    public int getWeekExpDate() {
+        return weekExpDate;
+    }
 
-	public void setStartPriceWeek ( double startPriceWeek ) {
-		this.startPriceWeek = startPriceWeek;
-	}
+    public void setWeekExpDate( int weekExpDate ) {
+        this.weekExpDate = weekExpDate;
+    }
 
-	public int getFutureRacesWeek () {
-		return futureRacesWeek;
-	}
+    public double getStartPriceWeek() {
+        return startPriceWeek;
+    }
 
-	public void setFutureRacesWeek ( int futureRacesWeek ) {
-		this.futureRacesWeek = futureRacesWeek;
-	}
+    public void setStartPriceWeek( double startPriceWeek ) {
+        this.startPriceWeek = startPriceWeek;
+    }
 
-	public int getIndexRacesWeek () {
-		return indexRacesWeek;
-	}
+    public int getFutureRacesWeek() {
+        return futureRacesWeek;
+    }
 
-	public void setIndexRacesWeek ( int indexRacesWeek ) {
-		this.indexRacesWeek = indexRacesWeek;
-	}
+    public void setFutureRacesWeek( int futureRacesWeek ) {
+        this.futureRacesWeek = futureRacesWeek;
+    }
 
-	public int getId () {
-		return id;
-	}
+    public int getIndexRacesWeek() {
+        return indexRacesWeek;
+    }
 
-	public void setId ( int id ) {
-		this.id = id;
-	}
+    public void setIndexRacesWeek( int indexRacesWeek ) {
+        this.indexRacesWeek = indexRacesWeek;
+    }
 
-	public String getName () {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName ( String name ) {
-		this.name = name;
-	}
+    public void setId( int id ) {
+        this.id = id;
+    }
 
-	public double getStartPrice () {
-		return startPrice;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setStartPrice ( double startPrice ) {
-		this.startPrice = startPrice;
-	}
+    public void setName( String name ) {
+        this.name = name;
+    }
 
-	public int getFutureRaces () {
-		return futureRaces;
-	}
+    public double getStartPrice() {
+        return startPrice;
+    }
 
-	public void setFutureRaces ( int futureRaces ) {
-		this.futureRaces = futureRaces;
-	}
+    public void setStartPrice( double startPrice ) {
+        this.startPrice = startPrice;
+    }
 
-	public int getIndexRaces () {
-		return indexRaces;
-	}
+    public int getFutureRaces() {
+        return futureRaces;
+    }
 
-	public void setIndexRaces ( int indexRaces ) {
-		this.indexRaces = indexRaces;
-	}
+    public void setFutureRaces( int futureRaces ) {
+        this.futureRaces = futureRaces;
+    }
+
+    public int getIndexRaces() {
+        return indexRaces;
+    }
+
+    public void setIndexRaces( int indexRaces ) {
+        this.indexRaces = indexRaces;
+    }
 
 }

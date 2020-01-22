@@ -23,16 +23,16 @@ public class MainWindow {
     Thread runner;
     SpxCLIENTObject spx;
     NdxCLIENTObject ndx;
+    JTextField spxQuarterField;
+    JTextField ndxQuarterField;
+    JTextField spxQuarterFarField;
+    JTextField ndxQuarterFarField;
     private JButton wallstreetWindowBtn;
     private JTextField spxField;
     private JTextField ndxField;
     private JTextField twsPortField;
     private JTextField spxDayOptionExpField;
     private JTextField ndxDayOptionExpField;
-    JTextField spxQuarterField;
-    JTextField ndxQuarterField;
-    JTextField spxQuarterFarField;
-    JTextField ndxQuarterFarField;
 
     /**
      * Create the application.
@@ -425,7 +425,7 @@ public class MainWindow {
         panel_4.add(lblContractsDetails);
 
         spxDayOptionExpField = new JTextField();
-        spxDayOptionExpField.setText("20200121");
+        spxDayOptionExpField.setText("20200122");
         spxDayOptionExpField.setHorizontalAlignment(SwingConstants.CENTER);
         spxDayOptionExpField.setFont(new Font("Dubai Medium", Font.PLAIN, 12));
         spxDayOptionExpField.setColumns(10);

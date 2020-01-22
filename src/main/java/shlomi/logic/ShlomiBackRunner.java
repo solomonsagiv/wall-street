@@ -5,71 +5,71 @@ import threads.MyThread;
 
 public class ShlomiBackRunner extends MyThread implements Runnable {
 
-	TraderWindow window;
-	ShlomiTrader trader;
+    TraderWindow window;
+    ShlomiTrader trader;
 
-	// Constructor
-	public ShlomiBackRunner( ShlomiTrader trader , TraderWindow window ) {
-		super( trader.getStock() );
-		setName( "Shlomi runner" );
-		this.trader = trader;
-		this.window = window;
+    // Constructor
+    public ShlomiBackRunner( ShlomiTrader trader, TraderWindow window ) {
+        super( trader.getStock( ) );
+        setName( "Shlomi runner" );
+        this.trader = trader;
+        this.window = window;
 
-	}
+    }
 
-	@Override
-	public void initRunnable () {
-		setRunnable ( this );
-	}
+    @Override
+    public void initRunnable() {
+        setRunnable( this );
+    }
 
-	@Override
-	public void run() {
+    @Override
+    public void run() {
 
-		getClient().getTablesHandler().getStatusHandler().getHandler().loadData();
-		getClient().getTablesHandler().getArrayHandler().getHandler().loadData();
+        getClient( ).getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
+        getClient( ).getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
 
-		while ( isRun() ) {
-			try {
+        while ( isRun( ) ) {
+            try {
 
-				// Load db data
-				loadDbData();
+                // Load db data
+                loadDbData( );
 
-				// Update the window
-				updateData();
+                // Update the window
+                updateData( );
 
-			} catch ( Exception e ) {
-				e.printStackTrace();
-				getHandler().close();
-			}
-		}
-	}
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+                getHandler( ).close( );
+            }
+        }
+    }
 
-	// Load status data
-	private void loadDbData() {
+    // Load status data
+    private void loadDbData() {
 
-		getClient().getTablesHandler().getStatusHandler().getHandler().loadData();
+        getClient( ).getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
 
-	}
+    }
 
-	// Update the window
-	private void updateData() {
+    // Update the window
+    private void updateData() {
 
-		// Status
-		if ( trader.getShlomiRunner().isRun() ) {
-			window.statusLabel.setForeground( Themes.GREEN );
-		} else {
-			window.statusLabel.setForeground( Themes.RED );
-		}
+        // Status
+        if ( trader.getShlomiRunner( ).isRun( ) ) {
+            window.statusLabel.setForeground( Themes.GREEN );
+        } else {
+            window.statusLabel.setForeground( Themes.RED );
+        }
 
-		window.statusLabel.setText( str( trader.getShlomiRunner().isRun() ) );
+        window.statusLabel.setText( str( trader.getShlomiRunner( ).isRun( ) ) );
 
-		// Log
+        // Log
 //		window.log.append("\n" + str(getClient().getOpAvg15FromDb() + "\n" + str(getClient().getIndexSum())));
 
-	}
+    }
 
-	public String str( Object o ) {
-		return String.valueOf( o );
-	}
+    public String str( Object o ) {
+        return String.valueOf( o );
+    }
 
 }

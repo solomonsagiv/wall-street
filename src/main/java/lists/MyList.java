@@ -7,111 +7,111 @@ import java.util.List;
 
 public class MyList {
 
-	// Variables
-	BASE_CLIENT_OBJECT client;
-	List list;
-	String objectName;
-	int optionalMaxSize = 0;
+    // Variables
+    BASE_CLIENT_OBJECT client;
+    List list;
+    String objectName;
+    int optionalMaxSize = 0;
 
-	// Constructors
-	public MyList ( BASE_CLIENT_OBJECT client, String objectName ) {
-		
-		list = new ArrayList < Double > ( );
-		this.client = client;
-		this.objectName = objectName;
+    // Constructors
+    public MyList( BASE_CLIENT_OBJECT client, String objectName ) {
 
-	}
+        list = new ArrayList< Double >( );
+        this.client = client;
+        this.objectName = objectName;
 
-	public MyList ( BASE_CLIENT_OBJECT client, String objectName, int optionalMaxSize ) {
+    }
 
-		list = new ArrayList < Double > ( );
-		this.client = client;
-		this.objectName = objectName;
-		this.optionalMaxSize = optionalMaxSize;
+    public MyList( BASE_CLIENT_OBJECT client, String objectName, int optionalMaxSize ) {
 
-	}
+        list = new ArrayList< Double >( );
+        this.client = client;
+        this.objectName = objectName;
+        this.optionalMaxSize = optionalMaxSize;
 
-	// Functions
-	public void addVal () {
+    }
 
-		// Remove index 0 if size > optionalMaxSize && size > 0
-		if ( optionalMaxSize > 0 && list.size ( ) > optionalMaxSize ) {
-			list.remove ( 0 );
-		}
-		list.add ( getTargeObject ( ) );
-	}
+    // Functions
+    public void addVal() {
 
-	public void clear() {
-		list.clear ();
-	}
+        // Remove index 0 if size > optionalMaxSize && size > 0
+        if ( optionalMaxSize > 0 && list.size( ) > optionalMaxSize ) {
+            list.remove( 0 );
+        }
+        list.add( getTargeObject( ) );
+    }
 
-	public void setValues( double value ) {
-		int size = getList ().size ();
+    public void clear() {
+        list.clear( );
+    }
 
-		clear ();
+    public void setValues( double value ) {
+        int size = getList( ).size( );
 
-		for ( int i = 0; i < size; i++ ) {
+        clear( );
 
-			getList ().add ( value );
+        for ( int i = 0; i < size; i++ ) {
 
-		}
+            getList( ).add( value );
 
-	}
+        }
 
-	public Object getTargeObject () {
+    }
 
-		switch ( objectName ) {
-			case "index":
-				return client.getIndex ( );
-			case "contract":
-				return client.getOptionsHandler().getMainOptions ( ).getContract ( );
-			case "op":
-				return client.getOptionsHandler().getMainOptions ().getOp ( );
-			case "indexBid":
-				return client.getIndexBid ( );
-			case "indexAsk":
-				return client.getIndexAsk ( );
-			case "contractBid":
-				return client.getOptionsHandler().getMainOptions ( ).getContractBid ( );
-			case "contractAsk":
-				return client.getOptionsHandler().getMainOptions ( ).getContractAsk ( );
-			case "opQuarter":
-				return client.getOptionsHandler().getOptionsQuarter ().getContract () - client.getIndex ();
-			default:
-				return null;
-		}
-	}
+    public Object getTargeObject() {
 
-	public Object getLastItem () {
-		return getList ( ).get ( getList ( ).size ( ) - 1 );
-	}
+        switch ( objectName ) {
+            case "index":
+                return client.getIndex( );
+            case "contract":
+                return client.getOptionsHandler( ).getMainOptions( ).getContract( );
+            case "op":
+                return client.getOptionsHandler( ).getMainOptions( ).getOp( );
+            case "indexBid":
+                return client.getIndexBid( );
+            case "indexAsk":
+                return client.getIndexAsk( );
+            case "contractBid":
+                return client.getOptionsHandler( ).getMainOptions( ).getContractBid( );
+            case "contractAsk":
+                return client.getOptionsHandler( ).getMainOptions( ).getContractAsk( );
+            case "opQuarter":
+                return client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) - client.getIndex( );
+            default:
+                return null;
+        }
+    }
 
-	// Getters and Setters
-	public List getList () {
-		return list;
-	}
+    public Object getLastItem() {
+        return getList( ).get( getList( ).size( ) - 1 );
+    }
 
-	public void setList ( List list ) {
-		this.list = list;
-	}
+    // Getters and Setters
+    public List getList() {
+        return list;
+    }
 
-	public ArrayList < Double > getAsDoubleList () {
-		return ( ArrayList < Double > ) list;
-	}
+    public void setList( List list ) {
+        this.list = list;
+    }
 
-	public BASE_CLIENT_OBJECT getClient () {
-		return client;
-	}
+    public ArrayList< Double > getAsDoubleList() {
+        return ( ArrayList< Double > ) list;
+    }
 
-	public void setClient ( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-	}
+    public BASE_CLIENT_OBJECT getClient() {
+        return client;
+    }
 
-	public String getObjectName () {
-		return objectName;
-	}
+    public void setClient( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
 
-	public void setObjectName ( String objectName ) {
-		this.objectName = objectName;
-	}
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName( String objectName ) {
+        this.objectName = objectName;
+    }
 }

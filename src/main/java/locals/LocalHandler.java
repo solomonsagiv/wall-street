@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public class LocalHandler {
 
-	public static ArrayList < BASE_CLIENT_OBJECT > clients = new ArrayList <>();
+    public static ArrayList< BASE_CLIENT_OBJECT > clients = new ArrayList<>( );
 
 }

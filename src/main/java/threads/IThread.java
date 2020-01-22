@@ -2,6 +2,6 @@ package threads;
 
 public interface IThread {
 
-	void setName ();
+    void setName();
 
 }

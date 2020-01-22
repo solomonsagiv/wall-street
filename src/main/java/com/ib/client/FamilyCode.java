@@ -4,32 +4,32 @@
 package com.ib.client;
 
 public class FamilyCode {
-	private String m_accountID;
-	private String m_familyCodeStr;
+    private String m_accountID;
+    private String m_familyCodeStr;
 
-	public FamilyCode () {
-	}
+    public FamilyCode() {
+    }
 
-	public FamilyCode ( String p_accountID, String p_familyCodeStr ) {
-		m_accountID = p_accountID;
-		m_familyCodeStr = p_familyCodeStr;
-	}
+    public FamilyCode( String p_accountID, String p_familyCodeStr ) {
+        m_accountID = p_accountID;
+        m_familyCodeStr = p_familyCodeStr;
+    }
 
-	// Get
-	public String accountID () {
-		return m_accountID;
-	}
+    // Get
+    public String accountID() {
+        return m_accountID;
+    }
 
-	public String familyCodeStr () {
-		return m_familyCodeStr;
-	}
+    public String familyCodeStr() {
+        return m_familyCodeStr;
+    }
 
-	// Set
-	public void accountID ( String accountID ) {
-		m_accountID = accountID;
-	}
+    // Set
+    public void accountID( String accountID ) {
+        m_accountID = accountID;
+    }
 
-	public void familyCodeStr ( String familyCodeStr ) {
-		m_familyCodeStr = familyCodeStr;
-	}
+    public void familyCodeStr( String familyCodeStr ) {
+        m_familyCodeStr = familyCodeStr;
+    }
 }

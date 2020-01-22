@@ -5,41 +5,41 @@ package com.ib.client;
 
 
 public class OrderComboLeg {
-	private double m_price; // price per leg
+    private double m_price; // price per leg
 
-	public OrderComboLeg () {
-		m_price = Double.MAX_VALUE;
-	}
+    public OrderComboLeg() {
+        m_price = Double.MAX_VALUE;
+    }
 
-	public OrderComboLeg ( double p_price ) {
-		m_price = p_price;
-	}
+    public OrderComboLeg( double p_price ) {
+        m_price = p_price;
+    }
 
-	public double price () {
-		return m_price;
-	}
+    public double price() {
+        return m_price;
+    }
 
-	public void price ( double v ) {
-		m_price = v;
-	}
+    public void price( double v ) {
+        m_price = v;
+    }
 
-	@Override
-	public boolean equals ( Object p_other ) {
-		if ( this == p_other ) {
-			return true;
-		}
-		if ( !( p_other instanceof OrderComboLeg ) ) {
-			return false;
-		}
+    @Override
+    public boolean equals( Object p_other ) {
+        if ( this == p_other ) {
+            return true;
+        }
+        if ( !( p_other instanceof OrderComboLeg ) ) {
+            return false;
+        }
 
-		OrderComboLeg l_theOther = ( OrderComboLeg ) p_other;
+        OrderComboLeg l_theOther = ( OrderComboLeg ) p_other;
 
-		return m_price == l_theOther.m_price;
-	}
+        return m_price == l_theOther.m_price;
+    }
 
-	@Override
-	public int hashCode () {
-		long temp = Double.doubleToLongBits ( m_price );
-		return ( int ) ( temp ^ ( temp >>> 32 ) );
-	}
+    @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits( m_price );
+        return ( int ) ( temp ^ ( temp >>> 32 ) );
+    }
 }

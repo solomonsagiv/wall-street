@@ -5,12 +5,12 @@ import tables.status.TablesArraysFather;
 
 public interface ITables {
 
-	TableDayFather getTableDay ();
+    TableDayFather getTableDay();
 
-	TableSumFather getTableSum ();
+    TableSumFather getTableSum();
 
-	TablesArraysFather getTableArrays ();
+    TablesArraysFather getTableArrays();
 
-	TableStatusfather getTableStatus ();
+    TableStatusfather getTableStatus();
 
 }

@@ -28,377 +28,377 @@ import java.util.NoSuchElementException;
 
 public class MySingleFreeChart {
 
-	XYSeries[] series;
-	Color[] colors;
-	BASE_CLIENT_OBJECT client;
-	XYPlot plot;
-	double margin;
-	ChartUpdater chartUpdater;
-	int seconds;
-	int basicSecondes;
-	int secondesOnMess = 10;
-	Map < String, MyList > map;
-	private JFreeChart chart;
-	private MyChartPanel chartPanel;
-	private boolean includeTickerData;
-	private boolean loadFromHB;
-
-
-	public MySingleFreeChart( BASE_CLIENT_OBJECT client , XYSeries[] series , Color[] colors , double margin ,
-	                          Map < String, MyList > map , int seconds , boolean includeTickerData , double rangeTickUnit ,
-	                          float strokeSize , boolean rangeGridLineVisible , boolean loadFromHB , Marker marker ) {
-
-		this.client = client;
-		this.series = series;
-		this.colors = colors;
-		this.margin = margin;
-		this.seconds = seconds;
-		this.basicSecondes = seconds;
-		this.loadFromHB = loadFromHB;
-		this.map = map;
-		setIncludeTickerData( includeTickerData );
-
-		// Series
-		XYSeriesCollection data = new XYSeriesCollection();
-
-		// Create the chart
-		chart = ChartFactory.createXYLineChart( null , null , null , data , PlotOrientation.VERTICAL , false , true , false );
-
-		plot = chart.getXYPlot();
-		plot.setBackgroundPaint( Color.WHITE );
-		plot.setRangeGridlinesVisible( rangeGridLineVisible );
-		plot.setDomainGridlinesVisible( false );
-		plot.setRangeGridlinePaint( Color.BLACK );
-		plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
-		plot.getDomainAxis().setVisible( false );
-
-		if ( marker != null ) {
-			plot.addRangeMarker( marker , Layer.BACKGROUND );
-		}
-
-		if ( rangeTickUnit > 0 ) {
-			ValueAxis range = plot.getRangeAxis();
-			( ( NumberAxis ) range ).setTickUnit( new NumberTickUnit( rangeTickUnit ) );
-		}
-
-		// Style lines
-		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-		renderer.setShapesVisible( false );
-		plot.setRenderer( renderer );
-
-		// For each serie
-		for ( int i = 0 ; i < series.length ; i++ ) {
-
-			// Append serie
-			data.addSeries( series[ i ] );
-
-			// Style serie
-			renderer.setSeriesShapesVisible( i , false );
-			renderer.setSeriesPaint( i , colors[ i ] );
-			renderer.setSeriesStroke( i , new BasicStroke( strokeSize ) );
-		}
-
-		// Run chart updater
-		chartUpdater = new ChartUpdater( map );
-		chartUpdater.start();
-
-	}
+    XYSeries[] series;
+    Color[] colors;
+    BASE_CLIENT_OBJECT client;
+    XYPlot plot;
+    double margin;
+    ChartUpdater chartUpdater;
+    int seconds;
+    int basicSecondes;
+    int secondesOnMess = 10;
+    Map< String, MyList > map;
+    private JFreeChart chart;
+    private MyChartPanel chartPanel;
+    private boolean includeTickerData;
+    private boolean loadFromHB;
+
+
+    public MySingleFreeChart( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
+                              Map< String, MyList > map, int seconds, boolean includeTickerData, double rangeTickUnit,
+                              float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, Marker marker ) {
+
+        this.client = client;
+        this.series = series;
+        this.colors = colors;
+        this.margin = margin;
+        this.seconds = seconds;
+        this.basicSecondes = seconds;
+        this.loadFromHB = loadFromHB;
+        this.map = map;
+        setIncludeTickerData( includeTickerData );
+
+        // Series
+        XYSeriesCollection data = new XYSeriesCollection( );
+
+        // Create the chart
+        chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false );
+
+        plot = chart.getXYPlot( );
+        plot.setBackgroundPaint( Color.WHITE );
+        plot.setRangeGridlinesVisible( rangeGridLineVisible );
+        plot.setDomainGridlinesVisible( false );
+        plot.setRangeGridlinePaint( Color.BLACK );
+        plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
+        plot.getDomainAxis( ).setVisible( false );
+
+        if ( marker != null ) {
+            plot.addRangeMarker( marker, Layer.BACKGROUND );
+        }
+
+        if ( rangeTickUnit > 0 ) {
+            ValueAxis range = plot.getRangeAxis( );
+            ( ( NumberAxis ) range ).setTickUnit( new NumberTickUnit( rangeTickUnit ) );
+        }
+
+        // Style lines
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+        renderer.setShapesVisible( false );
+        plot.setRenderer( renderer );
+
+        // For each serie
+        for ( int i = 0; i < series.length; i++ ) {
+
+            // Append serie
+            data.addSeries( series[ i ] );
+
+            // Style serie
+            renderer.setSeriesShapesVisible( i, false );
+            renderer.setSeriesPaint( i, colors[ i ] );
+            renderer.setSeriesStroke( i, new BasicStroke( strokeSize ) );
+        }
+
+        // Run chart updater
+        chartUpdater = new ChartUpdater( map );
+        chartUpdater.start( );
+
+    }
 
-	public void closeUpdate() {
-		if ( chartUpdater != null ) {
-			if ( chartUpdater.isAlive() ) {
-				chartUpdater.close();
-			}
-		}
-	}
+    public void closeUpdate() {
+        if ( chartUpdater != null ) {
+            if ( chartUpdater.isAlive( ) ) {
+                chartUpdater.close( );
+            }
+        }
+    }
 
-	public JFreeChart getChart() {
-		return chart;
-	}
+    public JFreeChart getChart() {
+        return chart;
+    }
 
-	public MyChartPanel getChartPanel() {
-		return chartPanel;
-	}
+    public MyChartPanel getChartPanel() {
+        return chartPanel;
+    }
 
-	public void setChartPanel( MyChartPanel chartPanel ) {
-		this.chartPanel = chartPanel;
-	}
+    public void setChartPanel( MyChartPanel chartPanel ) {
+        this.chartPanel = chartPanel;
+    }
 
-	public boolean isIncludeTickerData() {
-		return includeTickerData;
-	}
+    public boolean isIncludeTickerData() {
+        return includeTickerData;
+    }
 
-	public void setIncludeTickerData( boolean includeTickerData ) {
-		this.includeTickerData = includeTickerData;
-	}
+    public void setIncludeTickerData( boolean includeTickerData ) {
+        this.includeTickerData = includeTickerData;
+    }
 
-	// Chart updater thread
-	private class ChartUpdater extends Thread {
+    // Chart updater thread
+    private class ChartUpdater extends Thread {
 
-		ArrayList < Double > dots = new ArrayList <>();
-		Map < String, MyList > map;
-		NumberAxis range;
-		boolean run = true;
+        ArrayList< Double > dots = new ArrayList<>( );
+        Map< String, MyList > map;
+        NumberAxis range;
+        boolean run = true;
 
-		int x = 0;
+        int x = 0;
 
-		public ChartUpdater( Map < String, MyList > map ) {
-			this.map = map;
-		}
+        public ChartUpdater( Map< String, MyList > map ) {
+            this.map = map;
+        }
 
-		@Override
-		public void run() {
+        @Override
+        public void run() {
 
-			if ( loadFromHB ) {
-				loadDataFromDB();
-			}
+            if ( loadFromHB ) {
+                loadDataFromDB( );
+            }
 
-			// While loop
-			while ( run ) {
-				try {
+            // While loop
+            while ( run ) {
+                try {
 
-					updateChart();
+                    updateChart( );
 
-					// Sleep
-					sleep( 1000 );
-				} catch ( InterruptedException e ) {
-					e.printStackTrace();
-					run = false;
-				}
-			}
-		}
+                    // Sleep
+                    sleep( 1000 );
+                } catch ( InterruptedException e ) {
+                    e.printStackTrace( );
+                    run = false;
+                }
+            }
+        }
 
 
-		// Update data
-		private void updateChart() {
+        // Update data
+        private void updateChart() {
 
-			// Increment x
-			x++;
+            // Increment x
+            x++;
 
-			int marginFromMaxToMin = 0;
+            int marginFromMaxToMin = 0;
 
-			if ( client instanceof SpxCLIENTObject ) {
-				marginFromMaxToMin = 7;
-			}
+            if ( client instanceof SpxCLIENTObject ) {
+                marginFromMaxToMin = 7;
+            }
 
-			if ( client instanceof NdxCLIENTObject ) {
-				marginFromMaxToMin = 30;
-			}
+            if ( client instanceof NdxCLIENTObject ) {
+                marginFromMaxToMin = 30;
+            }
 
-			// Include ticker data if only one chart
-			includeTickerIfOnlyOneChart();
+            // Include ticker data if only one chart
+            includeTickerIfOnlyOneChart( );
 
-			// Append data to the series
-			filterAndAppendData( marginFromMaxToMin );
+            // Append data to the series
+            filterAndAppendData( marginFromMaxToMin );
 
-		}
+        }
 
-		private void filterAndAppendData( double marginFromMaxToMin ) {
+        private void filterAndAppendData( double marginFromMaxToMin ) {
 
-			try {
+            try {
 
-				if ( dots.size() == 0 ) {
+                if ( dots.size( ) == 0 ) {
 
-					appendDataToSeries();
+                    appendDataToSeries( );
 
-				} else {
+                } else {
 
-					double max = Collections.max( dots );
-					double min = Collections.min( dots );
+                    double max = Collections.max( dots );
+                    double min = Collections.min( dots );
 
-					// Filters before appending data
+                    // Filters before appending data
 
-					// 1. At list "(secondesOnMees)" items each serie
-					chartRangeGetiingBigFilter( marginFromMaxToMin , max , min );
+                    // 1. At list "(secondesOnMees)" items each serie
+                    chartRangeGetiingBigFilter( marginFromMaxToMin, max, min );
 
-					// 2. Chart item is bigger than "secondes"
-					chartLengthFilter();
+                    // 2. Chart item is bigger than "secondes"
+                    chartLengthFilter( );
 
-					// Update range
-					updateChartRange();
-				}
+                    // Update range
+                    updateChartRange( );
+                }
 
-			} catch ( Exception e ) {
-				e.printStackTrace();
-			}
-		}
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+        }
 
-		private void chartLengthFilter() {
+        private void chartLengthFilter() {
 
-			if ( seconds > 0 && series[ 0 ].getItemCount() > seconds ) {
+            if ( seconds > 0 && series[ 0 ].getItemCount( ) > seconds ) {
 
-				XYSeries currentSerie;
+                XYSeries currentSerie;
 
-				int i = 0;
-				for ( Map.Entry < String, MyList > entry : map.entrySet() ) {
+                int i = 0;
+                for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
 
-					// Get current
-					MyList myList = entry.getValue();
-					currentSerie = series[ i ];
+                    // Get current
+                    MyList myList = entry.getValue( );
+                    currentSerie = series[ i ];
 
-					// Remove index 0
-					currentSerie.remove( 0 );
-					dots.remove( 0 );
+                    // Remove index 0
+                    currentSerie.remove( 0 );
+                    dots.remove( 0 );
 
-					// Append last item
-					double item = ( double ) myList.getLastItem();
-					currentSerie.add( x , item );
-					dots.add( item );
+                    // Append last item
+                    double item = ( double ) myList.getLastItem( );
+                    currentSerie.add( x, item );
+                    dots.add( item );
 
-					i++;
-				}
+                    i++;
+                }
 
-			} else {
-				// Append last item to series
-				appendDataToSeries();
+            } else {
+                // Append last item to series
+                appendDataToSeries( );
 
-			}
+            }
 
-		}
+        }
 
-		private void chartRangeGetiingBigFilter( double marginFromMaxToMin , double max , double min ) {
+        private void chartRangeGetiingBigFilter( double marginFromMaxToMin, double max, double min ) {
 
-			if ( dots.size() > map.size() * secondesOnMess ) {
+            if ( dots.size( ) > map.size( ) * secondesOnMess ) {
 
-				// If need to rerange
-				if ( max - min > marginFromMaxToMin ) {
+                // If need to rerange
+                if ( max - min > marginFromMaxToMin ) {
 
-					XYSeries currentSerie;
+                    XYSeries currentSerie;
 
-					// For each serie
-					for ( int i = 0 ; i < map.size() ; i++ ) {
+                    // For each serie
+                    for ( int i = 0; i < map.size( ); i++ ) {
 
-						// Current list, serie
-						currentSerie = series[ i ];
+                        // Current list, serie
+                        currentSerie = series[ i ];
 
-						// Navigate last "secondesOnmess" items
-						for ( int j = 0 ; j < currentSerie.getItemCount() - secondesOnMess ; j++ ) {
+                        // Navigate last "secondesOnmess" items
+                        for ( int j = 0; j < currentSerie.getItemCount( ) - secondesOnMess; j++ ) {
 
-							currentSerie.remove( j );
-							dots.remove( j );
+                            currentSerie.remove( j );
+                            dots.remove( j );
 
-						}
+                        }
 
-					}
+                    }
 
-				}
+                }
 
-			}
-		}
+            }
+        }
 
-		private void appendDataToSeries() {
+        private void appendDataToSeries() {
 
-			try {
-				XYSeries currentSerie;
+            try {
+                XYSeries currentSerie;
 
-				int i = 0;
-				for ( Map.Entry < String, MyList > entry : map.entrySet() ) {
+                int i = 0;
+                for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
 
-					// Get current
-					MyList myList = entry.getValue();
-					currentSerie = series[ i ];
+                    // Get current
+                    MyList myList = entry.getValue( );
+                    currentSerie = series[ i ];
 
-					// Append last item
-					double item = ( double ) myList.getLastItem();
-					currentSerie.add( x , item );
-					dots.add( item );
+                    // Append last item
+                    double item = ( double ) myList.getLastItem( );
+                    currentSerie.add( x, item );
+                    dots.add( item );
 
-					i++;
-				}
-			} catch ( IndexOutOfBoundsException e ) {
-			}
-		}
+                    i++;
+                }
+            } catch ( IndexOutOfBoundsException e ) {
+            }
+        }
 
-		private void updateChartRange() {
-			try {
-				range = ( NumberAxis ) plot.getRangeAxis();
-				range.setRange( Collections.min( dots ) - margin , Collections.max( dots ) + margin );
-			} catch ( NoSuchElementException e ) {
-				e.printStackTrace();
-			}
-		}
+        private void updateChartRange() {
+            try {
+                range = ( NumberAxis ) plot.getRangeAxis( );
+                range.setRange( Collections.min( dots ) - margin, Collections.max( dots ) + margin );
+            } catch ( NoSuchElementException e ) {
+                e.printStackTrace( );
+            }
+        }
 
-		private void includeTickerIfOnlyOneChart() {
+        private void includeTickerIfOnlyOneChart() {
 
-			// If only one chart -> include ticker data
-			if ( map.size() == 1 && includeTickerData ) {
-				try {
-					ArrayList < Double > list = null;
-					for ( Map.Entry < String, MyList > entry : map.entrySet() ) {
-						list = ( ArrayList < Double > ) entry.getValue().getList();
-					}
+            // If only one chart -> include ticker data
+            if ( map.size( ) == 1 && includeTickerData ) {
+                try {
+                    ArrayList< Double > list = null;
+                    for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
+                        list = ( ArrayList< Double > ) entry.getValue( ).getList( );
+                    }
 
-					if ( list.size() > 0 ) {
+                    if ( list.size( ) > 0 ) {
 
-						double high = floor( Collections.max( list ) );
-						double low = floor( Collections.min( list ) );
-						double last = floor( list.get( list.size() - 1 ) );
+                        double high = floor( Collections.max( list ) );
+                        double low = floor( Collections.min( list ) );
+                        double last = floor( list.get( list.size( ) - 1 ) );
 
-						setTextWithColor( chartPanel.highLbl , high );
-						setTextWithColor( chartPanel.lowLbl , low );
-						chartPanel.lastLbl.setText( str( last ) );
-					}
+                        setTextWithColor( chartPanel.highLbl, high );
+                        setTextWithColor( chartPanel.lowLbl, low );
+                        chartPanel.lastLbl.setText( str( last ) );
+                    }
 
-				} catch ( Exception e ) {
-					// TODO: handle exception
-				}
-			}
-		}
+                } catch ( Exception e ) {
+                    // TODO: handle exception
+                }
+            }
+        }
 
 
-		// Load charts data from DB
-		private void loadDataFromDB() {
-			int i = 0;
-			for ( Map.Entry < String, MyList > entry : map.entrySet() ) {
+        // Load charts data from DB
+        private void loadDataFromDB() {
+            int i = 0;
+            for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
 
-				ArrayList < Double > list = ( ArrayList < Double > ) entry.getValue().getList();
+                ArrayList< Double > list = ( ArrayList< Double > ) entry.getValue( ).getList( );
 
-				if ( list.size() > 0 ) {
+                if ( list.size( ) > 0 ) {
 
-					int start = 0;
-					if ( list.size() > seconds && seconds > 0 ) {
-						start = list.size() - seconds;
-					}
+                    int start = 0;
+                    if ( list.size( ) > seconds && seconds > 0 ) {
+                        start = list.size( ) - seconds;
+                    }
 
-					for ( int j = start ; j < list.size() ; j++ ) {
+                    for ( int j = start; j < list.size( ); j++ ) {
 
-						if ( list.get( j ) != 0 ) {
-							series[ i ].add( j , list.get( j ) );
-							dots.add( list.get( j ) );
-						}
+                        if ( list.get( j ) != 0 ) {
+                            series[ i ].add( j, list.get( j ) );
+                            dots.add( list.get( j ) );
+                        }
 
-					}
-				}
-				i++;
-				x = list.size();
-			}
+                    }
+                }
+                i++;
+                x = list.size( );
+            }
 
-		}
+        }
 
 
-		public void close() {
-			run = false;
-		}
+        public void close() {
+            run = false;
+        }
 
-		public String str( Object o ) {
-			return String.valueOf( o );
-		}
+        public String str( Object o ) {
+            return String.valueOf( o );
+        }
 
-		public double floor( double d ) {
-			return Math.floor( d * 10 ) / 10;
-		}
+        public double floor( double d ) {
+            return Math.floor( d * 10 ) / 10;
+        }
 
-		public void setTextWithColor( JLabel label , double price ) {
+        public void setTextWithColor( JLabel label, double price ) {
 
-			label.setText( str( price ) );
+            label.setText( str( price ) );
 
-			if ( price > 0 ) {
-				label.setForeground( Themes.GREEN );
-			} else {
-				label.setForeground( Themes.RED );
-			}
-		}
-	}
+            if ( price > 0 ) {
+                label.setForeground( Themes.GREEN );
+            } else {
+                label.setForeground( Themes.RED );
+            }
+        }
+    }
 }
 
 

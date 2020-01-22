@@ -5,23 +5,23 @@ import shlomi.logic.ShlomiTrader;
 
 public class Shlomi {
 
-	// Local Variables
-	private BASE_CLIENT_OBJECT client;
-	private ShlomiTrader shlomiAllin;
+    // Local Variables
+    private BASE_CLIENT_OBJECT client;
+    private ShlomiTrader shlomiAllin;
 
-	// Constructor
-	public Shlomi( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-	}
+    // Constructor
+    public Shlomi( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
 
-	// -------------- Functions ---------------- //
-	public void startTrader() {
-
-
-	}
+    // -------------- Functions ---------------- //
+    public void startTrader() {
 
 
-	// ---------- Getters and Setters ---------- //
+    }
+
+
+    // ---------- Getters and Setters ---------- //
 
 
 }

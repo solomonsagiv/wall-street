@@ -11,149 +11,148 @@ import threads.MyThread;
 
 public class TwsRequestHandler {
 
-	// Variables
-	BASE_CLIENT_OBJECT client;
-	Downloader downloader;
-	Runner runner;
+    // Variables
+    BASE_CLIENT_OBJECT client;
+    Downloader downloader;
+    Runner runner;
 
-	// Constructor
-	public TwsRequestHandler ( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-		downloader = Downloader.getInstance ( );
-		runner = new Runner ( );
-	}
+    // Constructor
+    public TwsRequestHandler( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+        downloader = Downloader.getInstance( );
+        runner = new Runner( );
+    }
 
-	// ---------- Runner ---------- //
-	class Runner extends MyThread implements Runnable {
+    public void startRunner() {
+        getRunner( ).getHandler( ).start( );
+    }
 
-		public Runner () {
-			super ( client );
-			setName ( "TwsRunner" );
-		}
+    public void closeRunner() {
+        getRunner( ).getHandler( ).close( );
+    }
 
-		@Override
-		public void run () {
+    // Functions
+    public void requestFutreAndIndex() {
 
-			while ( isRun ( ) ) {
-				try {
-					// Sleep
-					Thread.sleep ( 1000 );
+        TwsData twsData = client.getTwsData( );
 
-					handle ( );
+        System.out.println( client.getName( ) + "  Index id: " + twsData.getIndexId( ) );
+        System.out.println( client.getName( ) + "  Future id: " + twsData.getFutureId( ) );
 
-				} catch ( InterruptedException e ) {
-					getHandler ( ).close ( );
-				} catch ( Exception e ) {
-					e.printStackTrace ( );
-				}
+        // Future
+        if ( twsData.getFutureContract( ) != null ) {
+            downloader.reqMktData( twsData.getFutureId( ), twsData.getFutureContract( ) );
+        }
 
-			}
-
-		}
-
-		private void handle () {
-			try {
-
-				// For each options
-				for ( Options options : getClient ( ).getOptionsHandler ( ).getOptionsList ( ) ) {
-
-					// Request options on first time
-					if ( !options.isRequested ( ) ) {
-
-						if ( getClient ( ).getFuture ( ) != 0 ) {
-							requestOptions ( options );
-							options.setRequested ( true );
-						}
-
-					}
-
-					// Look for adding new requests
+        // Index
+        if ( twsData.getIndexContract( ) != null ) {
+            downloader.reqMktData( twsData.getIndexId( ), twsData.getIndexContract( ) );
+        }
 
 
-				}
+    }
 
-			} catch ( Exception e ) {
-				e.printStackTrace ( );
-			}
-		}
+    public void requestOptions( Options options ) {
 
-		@Override
-		public void initRunnable () {
-			setRunnable ( this );
-		}
-	}
+        Contract contract = options.getTwsContract( );
 
-	public void startRunner () {
-		getRunner ( ).getHandler ( ).start ( );
-	}
+        for ( Strike strike : options.getStrikes( ) ) {
+            try {
+                Option call = strike.getCall( );
+                Option put = strike.getPut( );
 
-	public void closeRunner () {
-		getRunner ( ).getHandler ( ).close ( );
-	}
+                // ----- Call ----- //
+                contract.strike( call.getStrike( ) );
+                contract.right( call.getSide( ).toUpperCase( ) );
+
+                // Request
+                downloader.reqMktData( call.getId( ), contract );
+
+                // ----- Put ----- //
+                contract.strike( put.getStrike( ) );
+                contract.right( put.getSide( ).toUpperCase( ) );
+
+                // Request
+                downloader.reqMktData( put.getId( ), contract );
+
+                Thread.sleep( 100 );
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+
+        }
+
+    }
+
+    public Runner getRunner() {
+        if ( runner == null ) {
+            runner = new Runner( );
+        }
+        return runner;
+    }
+
+    public void setRunner( Runner runner ) {
+        this.runner = runner;
+    }
+
+    // ---------- Runner ---------- //
+    class Runner extends MyThread implements Runnable {
+
+        public Runner() {
+            super( client );
+            setName( "TwsRunner" );
+        }
+
+        @Override
+        public void run() {
+
+            while ( isRun( ) ) {
+                try {
+                    // Sleep
+                    Thread.sleep( 1000 );
+
+                    handle( );
+
+                } catch ( InterruptedException e ) {
+                    getHandler( ).close( );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                }
+
+            }
+
+        }
+
+        private void handle() {
+            try {
+
+                // For each options
+                for ( Options options : getClient( ).getOptionsHandler( ).getOptionsList( ) ) {
+
+                    // Request options on first time
+                    if ( !options.isRequested( ) ) {
+
+                        if ( getClient( ).getFuture( ) != 0 ) {
+                            requestOptions( options );
+                            options.setRequested( true );
+                        }
+
+                    }
+
+                    // Look for adding new requests
 
 
-	// Functions
-	public void requestFutreAndIndex () {
+                }
 
-		TwsData twsData = client.getTwsData ( );
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+        }
 
-		System.out.println ( client.getName ( ) + "  Index id: " + twsData.getIndexId ( ) );
-		System.out.println ( client.getName ( ) + "  Future id: " + twsData.getFutureId ( ) );
-
-		// Future
-		if ( twsData.getFutureContract ( ) != null ) {
-			downloader.reqMktData ( twsData.getFutureId ( ), twsData.getFutureContract ( ) );
-		}
-
-		// Index
-		if ( twsData.getIndexContract ( ) != null ) {
-			downloader.reqMktData ( twsData.getIndexId ( ), twsData.getIndexContract ( ) );
-		}
-
-
-	}
-
-	public void requestOptions ( Options options ) {
-
-		Contract contract = options.getTwsContract ( );
-
-		for ( Strike strike : options.getStrikes ( ) ) {
-			try {
-				Option call = strike.getCall ( );
-				Option put = strike.getPut ( );
-
-				// ----- Call ----- //
-				contract.strike ( call.getStrike ( ) );
-				contract.right ( call.getSide ( ).toUpperCase ( ) );
-
-				// Request
-				downloader.reqMktData ( call.getId ( ), contract );
-
-				// ----- Put ----- //
-				contract.strike ( put.getStrike ( ) );
-				contract.right ( put.getSide ( ).toUpperCase ( ) );
-
-				// Request
-				downloader.reqMktData ( put.getId ( ), contract );
-
-				Thread.sleep ( 100 );
-			} catch ( Exception e ) {
-				e.printStackTrace ( );
-			}
-
-		}
-
-	}
-
-	public Runner getRunner () {
-		if ( runner == null ) {
-			runner = new Runner ( );
-		}
-		return runner;
-	}
-
-	public void setRunner ( Runner runner ) {
-		this.runner = runner;
-	}
+        @Override
+        public void initRunnable() {
+            setRunnable( this );
+        }
+    }
 }
 

@@ -7,57 +7,57 @@ import com.ib.client.Contract;
 
 
 public class Position {
-	private Contract m_contract;
-	private String m_account;
-	private double m_position;
-	private double m_marketPrice;
-	private double m_marketValue;
-	private double m_averageCost;
-	private double m_unrealPnl;
-	private double m_realPnl;
+    private Contract m_contract;
+    private String m_account;
+    private double m_position;
+    private double m_marketPrice;
+    private double m_marketValue;
+    private double m_averageCost;
+    private double m_unrealPnl;
+    private double m_realPnl;
 
-	public Position ( Contract contract, String account, double position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl ) {
-		m_contract = contract;
-		m_account = account;
-		m_position = position;
-		m_marketPrice = marketPrice;
-		m_marketValue = marketValue;
-		m_averageCost = averageCost;
-		m_unrealPnl = unrealPnl;
-		m_realPnl = realPnl;
-	}
+    public Position( Contract contract, String account, double position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl ) {
+        m_contract = contract;
+        m_account = account;
+        m_position = position;
+        m_marketPrice = marketPrice;
+        m_marketValue = marketValue;
+        m_averageCost = averageCost;
+        m_unrealPnl = unrealPnl;
+        m_realPnl = realPnl;
+    }
 
-	public Contract contract () {
-		return m_contract;
-	}
+    public Contract contract() {
+        return m_contract;
+    }
 
-	public int conid () {
-		return m_contract.conid ( );
-	}
+    public int conid() {
+        return m_contract.conid( );
+    }
 
-	public double averageCost () {
-		return m_averageCost;
-	}
+    public double averageCost() {
+        return m_averageCost;
+    }
 
-	public double marketPrice () {
-		return m_marketPrice;
-	}
+    public double marketPrice() {
+        return m_marketPrice;
+    }
 
-	public double marketValue () {
-		return m_marketValue;
-	}
+    public double marketValue() {
+        return m_marketValue;
+    }
 
-	public double realPnl () {
-		return m_realPnl;
-	}
+    public double realPnl() {
+        return m_realPnl;
+    }
 
-	public double unrealPnl () {
-		return m_unrealPnl;
-	}
+    public double unrealPnl() {
+        return m_unrealPnl;
+    }
 
-	public double position () {
-		return m_position;
-	}
+    public double position() {
+        return m_position;
+    }
 
 //	public void account(String v) 		{ m_account = v;}
 //	public void averageCost(double v) 	{ m_averageCost = v;}
@@ -67,7 +67,7 @@ public class Position {
 //	public void realPnl(double v) 		{ m_realPnl = v;}
 //	public void unrealPnl(double v) 	{ m_unrealPnl = v;}
 
-	public String account () {
-		return m_account;
-	}
+    public String account() {
+        return m_account;
+    }
 }

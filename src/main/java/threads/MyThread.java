@@ -4,67 +4,67 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class MyThread {
 
-	// Variables
-	private boolean run = false;
+    // Variables
+    private boolean run = false;
 
-	private String name;
-	private MyThreadHandler handler;
-	private Runnable runnable;
+    private String name;
+    private MyThreadHandler handler;
+    private Runnable runnable;
 
-	private BASE_CLIENT_OBJECT client;
+    private BASE_CLIENT_OBJECT client;
 
-	public MyThread ( BASE_CLIENT_OBJECT client ) {
+    public MyThread( BASE_CLIENT_OBJECT client ) {
 
-		this.client = client;
+        this.client = client;
 
-		client.getThreads ( ).add ( this );
+        client.getThreads( ).add( this );
 
-		initRunnable ();
+        initRunnable( );
 
-	}
+    }
 
-	public abstract void initRunnable ();
+    public abstract void initRunnable();
 
-	// Getters and setters
-	public boolean isRun () {
-		return run;
-	}
+    // Getters and setters
+    public boolean isRun() {
+        return run;
+    }
 
-	public void setRun ( boolean run ) {
-		this.run = run;
-	}
+    public void setRun( boolean run ) {
+        this.run = run;
+    }
 
-	public MyThreadHandler getHandler () {
-		return handler;
-	}
+    public MyThreadHandler getHandler() {
+        return handler;
+    }
 
-	public void setHandler ( MyThreadHandler handler ) {
-		this.handler = handler;
-	}
+    public void setHandler( MyThreadHandler handler ) {
+        this.handler = handler;
+    }
 
-	public Runnable getRunnable () {
-		return runnable;
-	}
+    public Runnable getRunnable() {
+        return runnable;
+    }
 
-	public void setRunnable ( Runnable runnable ) {
-		this.runnable = runnable;
-		setHandler ( new MyThreadHandler ( this ) );
-	}
+    public void setRunnable( Runnable runnable ) {
+        this.runnable = runnable;
+        setHandler( new MyThreadHandler( this ) );
+    }
 
-	public BASE_CLIENT_OBJECT getClient () {
-		return client;
-	}
+    public BASE_CLIENT_OBJECT getClient() {
+        return client;
+    }
 
-	public void setClient ( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-	}
+    public void setClient( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
 
-	public String getName () {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName ( String name ) {
-		this.name = name;
-	}
+    public void setName( String name ) {
+        this.name = name;
+    }
 
 }

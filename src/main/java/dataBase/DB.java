@@ -4,42 +4,42 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 public class DB {
 
-	// Mysql
-	private MySqlRunner mySql;
+    // Mysql
+    private MySqlRunner mySql;
 
-	// Base variables
-	private BASE_CLIENT_OBJECT client;
+    // Base variables
+    private BASE_CLIENT_OBJECT client;
 
-	public DB( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-		mySql = new MySqlRunner( client );
-	}
+    public DB( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+        mySql = new MySqlRunner( client );
+    }
 
-	public void startAll() {
+    public void startAll() {
 
-		getMySql().getHandler().start();
+        getMySql( ).getHandler( ).start( );
 
-	}
+    }
 
-	public void closeAll() {
+    public void closeAll() {
 
-		getMySql().getHandler().close();
+        getMySql( ).getHandler( ).close( );
 
-	}
+    }
 
-	public String str( Object o ) {
-		return String.valueOf( o );
-	}
+    public String str( Object o ) {
+        return String.valueOf( o );
+    }
 
-	public MySqlRunner getMySql() {
-		if ( mySql == null ) {
-			mySql = new MySqlRunner( client );
-		}
-		return mySql;
-	}
+    public MySqlRunner getMySql() {
+        if ( mySql == null ) {
+            mySql = new MySqlRunner( client );
+        }
+        return mySql;
+    }
 
-	public void setMySql( MySqlRunner mySql ) {
-		this.mySql = mySql;
-	}
+    public void setMySql( MySqlRunner mySql ) {
+        this.mySql = mySql;
+    }
 
 }

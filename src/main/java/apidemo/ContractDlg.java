@@ -13,46 +13,46 @@ import java.awt.event.KeyListener;
 
 
 class ContractDlg extends JDialog {
-	ContractPanel m_contractPanel;
+    ContractPanel m_contractPanel;
 
-	ContractDlg ( JFrame f, Contract c ) {
-		super ( f, true );
+    ContractDlg( JFrame f, Contract c ) {
+        super( f, true );
 
-		m_contractPanel = new ContractPanel ( c );
+        m_contractPanel = new ContractPanel( c );
 
-		setLayout ( new BorderLayout ( ) );
+        setLayout( new BorderLayout( ) );
 
 
-		HtmlButton ok = new HtmlButton ( "OK" ) {
-			@Override
-			public void actionPerformed () {
-				onOK ( );
-			}
-		};
-		ok.setHorizontalAlignment ( SwingConstants.CENTER );
+        HtmlButton ok = new HtmlButton( "OK" ) {
+            @Override
+            public void actionPerformed() {
+                onOK( );
+            }
+        };
+        ok.setHorizontalAlignment( SwingConstants.CENTER );
 
-		m_contractPanel.addKeyListener ( new KeyListener ( ) {
-			@Override
-			public void keyTyped ( KeyEvent e ) {
-				System.out.println ( "lkj" );
-			}
+        m_contractPanel.addKeyListener( new KeyListener( ) {
+            @Override
+            public void keyTyped( KeyEvent e ) {
+                System.out.println( "lkj" );
+            }
 
-			@Override
-			public void keyReleased ( KeyEvent e ) {
-			}
+            @Override
+            public void keyReleased( KeyEvent e ) {
+            }
 
-			@Override
-			public void keyPressed ( KeyEvent e ) {
-			}
-		} );
+            @Override
+            public void keyPressed( KeyEvent e ) {
+            }
+        } );
 
-		add ( m_contractPanel );
-		add ( ok, BorderLayout.SOUTH );
-		pack ( );
-	}
+        add( m_contractPanel );
+        add( ok, BorderLayout.SOUTH );
+        pack( );
+    }
 
-	public void onOK () {
-		m_contractPanel.onOK ( );
-		setVisible ( false );
-	}
+    public void onOK() {
+        m_contractPanel.onOK( );
+        setVisible( false );
+    }
 }

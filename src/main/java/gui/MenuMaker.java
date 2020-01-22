@@ -11,92 +11,92 @@ import java.awt.event.ActionListener;
 
 public class MenuMaker {
 
-	BASE_CLIENT_OBJECT client;
+    BASE_CLIENT_OBJECT client;
 
-	public MenuMaker( BASE_CLIENT_OBJECT client ) {
-		this.client = client;
-	}
+    public MenuMaker( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
 
-	public JPopupMenu spxOptionsTableMenu() {
-		// Main menu
-		JPopupMenu menu = new JPopupMenu();
+    public JPopupMenu spxOptionsTableMenu() {
+        // Main menu
+        JPopupMenu menu = new JPopupMenu( );
 
-		JMenuItem chart = new JMenuItem( "Chart" );
-		chart.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed( ActionEvent e ) {
-				try {
+        JMenuItem chart = new JMenuItem( "Chart" );
+        chart.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                try {
 
-					// Do something here
+                    // Do something here
 
-				} catch ( Exception exception ) {
-					exception.printStackTrace();
-				}
-			}
-		} );
+                } catch ( Exception exception ) {
+                    exception.printStackTrace( );
+                }
+            }
+        } );
 
-		JMenuItem setStrike = new JMenuItem( "Set strike" );
-		setStrike.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed( ActionEvent e ) {
-				try {
+        JMenuItem setStrike = new JMenuItem( "Set strike" );
+        setStrike.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                try {
 
-					int strike = Integer.parseInt( JOptionPane.showInputDialog( "Enter strike" ) );
-					TablesUpdater.setSpxTableStrikes( strike );
+                    int strike = Integer.parseInt( JOptionPane.showInputDialog( "Enter strike" ) );
+                    TablesUpdater.setSpxTableStrikes( strike );
 
-				} catch ( Exception exception ) {
-					exception.printStackTrace();
-				}
-			}
-		} );
+                } catch ( Exception exception ) {
+                    exception.printStackTrace( );
+                }
+            }
+        } );
 
-		menu.add( setStrike );
-		menu.add( chart );
+        menu.add( setStrike );
+        menu.add( chart );
 
-		return menu;
-	}
+        return menu;
+    }
 
-	public JPopupMenu futureCounterTableMenu() {
-		// Main menu
-		JPopupMenu menu = new JPopupMenu();
+    public JPopupMenu futureCounterTableMenu() {
+        // Main menu
+        JPopupMenu menu = new JPopupMenu( );
 
-		JMenuItem setStrike = new JMenuItem( "Set strike" );
-		setStrike.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed( ActionEvent e ) {
-				try {
-					int strike = Integer.parseInt( JOptionPane.showInputDialog( "Enter strike" ) );
-					TablesUpdater.setSpxTableStrikes( strike );
+        JMenuItem setStrike = new JMenuItem( "Set strike" );
+        setStrike.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                try {
+                    int strike = Integer.parseInt( JOptionPane.showInputDialog( "Enter strike" ) );
+                    TablesUpdater.setSpxTableStrikes( strike );
 
-				} catch ( Exception exception ) {
-					exception.printStackTrace();
-				}
-			}
-		} );
+                } catch ( Exception exception ) {
+                    exception.printStackTrace( );
+                }
+            }
+        } );
 
-		menu.add( setStrike );
+        menu.add( setStrike );
 
-		return menu;
-	}
+        return menu;
+    }
 
 
-	public BASE_CLIENT_OBJECT getClientByStringName( String name ) {
+    public BASE_CLIENT_OBJECT getClientByStringName( String name ) {
 
-		name = name.toLowerCase();
+        name = name.toLowerCase( );
 
-		if ( name.equals( "dax" ) ) {
-			client = DaxCLIENTObject.getInstance();
-		}
+        if ( name.equals( "dax" ) ) {
+            client = DaxCLIENTObject.getInstance( );
+        }
 
-		if ( name.equals( "spx" ) ) {
-			client = SpxCLIENTObject.getInstance();
-		}
+        if ( name.equals( "spx" ) ) {
+            client = SpxCLIENTObject.getInstance( );
+        }
 
-		if ( name.equals( "ndx" ) ) {
-			client = NdxCLIENTObject.getInstance();
-		}
+        if ( name.equals( "ndx" ) ) {
+            client = NdxCLIENTObject.getInstance( );
+        }
 
-		return client;
-	}
+        return client;
+    }
 
 }

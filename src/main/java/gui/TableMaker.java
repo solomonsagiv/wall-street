@@ -14,256 +14,256 @@ import java.awt.event.MouseEvent;
 
 public class TableMaker {
 
-	JPopupMenu popupMenu;
+    JPopupMenu popupMenu;
 
-	public TableMaker( JPopupMenu popupMenu ) {
-		this.popupMenu = popupMenu;
-	}
+    public TableMaker( JPopupMenu popupMenu ) {
+        this.popupMenu = popupMenu;
+    }
 
-	public JTable myTable( BASE_CLIENT_OBJECT client , Object[][] rowsData , String[] cols , int rowHeight ) {
-		Color darkBlue = new Color( 0 , 51 , 102 );
+    public JTable myTable( BASE_CLIENT_OBJECT client, Object[][] rowsData, String[] cols, int rowHeight ) {
+        Color darkBlue = new Color( 0, 51, 102 );
 
-		// Table
-		JTable table = new JTable( rowsData , cols ) {
+        // Table
+        JTable table = new JTable( rowsData, cols ) {
 
-			public Component prepareRenderer( TableCellRenderer renderer , int row , int col ) {
+            public Component prepareRenderer( TableCellRenderer renderer, int row, int col ) {
 
-				Component c = super.prepareRenderer( renderer , row , col );
+                Component c = super.prepareRenderer( renderer, row, col );
 
-				String strike = String.valueOf( getValueAt( row , 1 ) );
+                String strike = String.valueOf( getValueAt( row, 1 ) );
 
-				int cell_val = 0;
-				try {
-					if ( !getValueAt( row , col ).equals( "" ) ) {
-						try {
-							cell_val = ( int ) getValueAt( row , col );
-						} catch ( ClassCastException e ) {
-							cell_val = Integer.parseInt( ( String ) getValueAt( row , col ) );
-						}
-					}
-				} catch ( Exception e ) {
-					// TODO: handle exception
-				}
+                int cell_val = 0;
+                try {
+                    if ( !getValueAt( row, col ).equals( "" ) ) {
+                        try {
+                            cell_val = ( int ) getValueAt( row, col );
+                        } catch ( ClassCastException e ) {
+                            cell_val = Integer.parseInt( ( String ) getValueAt( row, col ) );
+                        }
+                    }
+                } catch ( Exception e ) {
+                    // TODO: handle exception
+                }
 
-				try {
+                try {
 
-					// Call
-					if ( col == 0 ) {
-						// Color forf
-						if ( cell_val > 0 ) {
-							c.setForeground( Themes.GREEN );
-						} else {
-							c.setForeground( Themes.RED );
-						}
+                    // Call
+                    if ( col == 0 ) {
+                        // Color forf
+                        if ( cell_val > 0 ) {
+                            c.setForeground( Themes.GREEN );
+                        } else {
+                            c.setForeground( Themes.RED );
+                        }
 
-					} else
+                    } else
 
-						// Put
-						if ( col == 2 ) {
+                        // Put
+                        if ( col == 2 ) {
 
-							// Color forf
-							if ( cell_val > 0 ) {
-								c.setForeground( Themes.GREEN );
-							} else {
-								c.setForeground( Themes.RED );
-							}
+                            // Color forf
+                            if ( cell_val > 0 ) {
+                                c.setForeground( Themes.GREEN );
+                            } else {
+                                c.setForeground( Themes.RED );
+                            }
 
-						} else
+                        } else
 
-							// Strike
-							if ( col == 1 ) {
-								c.setFont( c.getFont().deriveFont( Font.BOLD ) );
-								c.setForeground( Color.BLACK );
-							}
+                            // Strike
+                            if ( col == 1 ) {
+                                c.setFont( c.getFont( ).deriveFont( Font.BOLD ) );
+                                c.setForeground( Color.BLACK );
+                            }
 
-				} catch ( Exception e ) {
-					e.printStackTrace();
-				}
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                }
 
-				return c;
-			}
-		};
-		table.setBounds( 0 , 0 , 300 , 100 );
-		table.setPreferredSize( new Dimension( 600 , 90 ) );
+                return c;
+            }
+        };
+        table.setBounds( 0, 0, 300, 100 );
+        table.setPreferredSize( new Dimension( 600, 90 ) );
 
-		// Header
-		table.setTableHeader( null );
+        // Header
+        table.setTableHeader( null );
 
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer( );
+        centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
 
-		table.setDefaultRenderer( Object.class , centerRenderer );
-		table.setFillsViewportHeight( true );
-		table.setRowHeight( rowHeight );
-		table.setFont( new Font( "Arial" , Font.PLAIN , 15 ) );
-		table.setShowGrid( true );
-		table.setSelectionBackground( Color.YELLOW );
-		table.addMouseListener( new CustomMouseListerer() );
+        table.setDefaultRenderer( Object.class, centerRenderer );
+        table.setFillsViewportHeight( true );
+        table.setRowHeight( rowHeight );
+        table.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
+        table.setShowGrid( true );
+        table.setSelectionBackground( Color.YELLOW );
+        table.addMouseListener( new CustomMouseListerer( ) );
 
-		return table;
-	}
+        return table;
+    }
 
-	public JTable futuresTable( Object[][] rowsData , String[] cols , int rowHeight ) {
-		Color darkBlue = new Color( 0 , 51 , 102 );
+    public JTable futuresTable( Object[][] rowsData, String[] cols, int rowHeight ) {
+        Color darkBlue = new Color( 0, 51, 102 );
 
-		// Table
-		JTable table = new JTable( rowsData , cols ) {
-
-
-			public Component prepareRenderer( TableCellRenderer renderer , int row , int col ) {
-
-				Component c = super.prepareRenderer( renderer , row , col );
-
-				int cell_val = 0;
-				try {
-					if ( !getValueAt( row , col ).equals( "" ) ) {
-						try {
-							cell_val = ( int ) getValueAt( row , col );
-						} catch ( ClassCastException e ) {
-							cell_val = Integer.parseInt( ( String ) getValueAt( row , col ) );
-						}
-					}
-				} catch ( Exception e ) {
-					// TODO: handle exception
-				}
-
-				if ( col == 0 ) {
-					c.setFont( c.getFont().deriveFont( Font.BOLD ) );
-					c.setForeground( Color.BLACK );
-				} else if ( col == 1 ) {
-					if ( cell_val > 0 ) {
-						c.setForeground( Themes.GREEN );
-					} else {
-						c.setForeground( Themes.RED );
-					}
-				}
-				return c;
-			}
-		};
-		table.setBounds( 0 , 0 , 300 , 235 );
-
-		// Header
-		table.setTableHeader( null );
-		table.addMouseListener( new CustomMouseListerer() );
-
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-		table.setDefaultRenderer( Object.class , centerRenderer );
-		table.setFillsViewportHeight( true );
-		table.setRowHeight( rowHeight );
-		table.setFont( new Font( "Arial" , Font.PLAIN , 15 ) );
-		table.setShowGrid( true );
-		table.setSelectionBackground( Color.YELLOW );
-		return table;
-	}
+        // Table
+        JTable table = new JTable( rowsData, cols ) {
 
 
-	public JTable stocksTable( BASE_CLIENT_OBJECT client , Object[][] rowsData , String[] cols , int rowHeight ) {
+            public Component prepareRenderer( TableCellRenderer renderer, int row, int col ) {
 
-		// Table
-		JTable table = new JTable( rowsData , cols ) {
+                Component c = super.prepareRenderer( renderer, row, col );
 
-			public Component prepareRenderer( TableCellRenderer renderer , int row , int col ) {
+                int cell_val = 0;
+                try {
+                    if ( !getValueAt( row, col ).equals( "" ) ) {
+                        try {
+                            cell_val = ( int ) getValueAt( row, col );
+                        } catch ( ClassCastException e ) {
+                            cell_val = Integer.parseInt( ( String ) getValueAt( row, col ) );
+                        }
+                    }
+                } catch ( Exception e ) {
+                    // TODO: handle exception
+                }
 
-				Component c = super.prepareRenderer( renderer , row , col );
+                if ( col == 0 ) {
+                    c.setFont( c.getFont( ).deriveFont( Font.BOLD ) );
+                    c.setForeground( Color.BLACK );
+                } else if ( col == 1 ) {
+                    if ( cell_val > 0 ) {
+                        c.setForeground( Themes.GREEN );
+                    } else {
+                        c.setForeground( Themes.RED );
+                    }
+                }
+                return c;
+            }
+        };
+        table.setBounds( 0, 0, 300, 235 );
 
-				c.setBackground( Themes.BINANCE_GREY );
+        // Header
+        table.setTableHeader( null );
+        table.addMouseListener( new CustomMouseListerer( ) );
 
-				int cell_val = 0;
-				try {
-					if ( !getValueAt( row , col ).equals( "" ) ) {
-						try {
-							cell_val = ( int ) getValueAt( row , col );
-						} catch ( ClassCastException e ) {
-							cell_val = Integer.parseInt( ( String ) getValueAt( row , col ) );
-						}
-					}
-				} catch ( Exception e ) {
-					// TODO: handle exception
-				}
-
-				try {
-
-					// Call
-					if ( col == 0 ) {
-						// Color forf
-						if ( cell_val > 0 ) {
-							c.setForeground( Themes.BINANCE_GREEN );
-						} else {
-							c.setForeground( Themes.BINANCE_RED );
-						}
-
-					} else
-
-						// Put
-						if ( col == 2 ) {
-
-							// Color forf
-							if ( cell_val > 0 ) {
-								c.setForeground( Themes.BINANCE_GREEN );
-							} else {
-								c.setForeground( Themes.BINANCE_RED );
-							}
-
-						} else
-
-							// Strike
-							if ( col == 1 ) {
-								c.setFont( c.getFont().deriveFont( Font.BOLD ) );
-								c.setForeground( Color.WHITE );
-							}
-
-				} catch ( Exception e ) {
-					e.printStackTrace();
-				}
-
-				return c;
-			}
-		};
-		table.setBounds( 0 , 0 , 300 , 235 );
-
-		// Header
-		table.setTableHeader( null );
-
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
-
-		table.setBackground( Themes.BINANCE_GREY );
-		table.setDefaultRenderer( Object.class , centerRenderer );
-		table.setFillsViewportHeight( false );
-		table.setRowHeight( rowHeight );
-		table.setFont( new Font( "Arial" , Font.PLAIN , 15 ) );
-		table.setShowGrid( false );
-		table.setSelectionBackground( Themes.BINANCE_ORANGE );
-		table.addMouseListener( new CustomMouseListerer() );
-
-		return table;
-	}
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer( );
+        centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+        table.setDefaultRenderer( Object.class, centerRenderer );
+        table.setFillsViewportHeight( true );
+        table.setRowHeight( rowHeight );
+        table.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
+        table.setShowGrid( true );
+        table.setSelectionBackground( Color.YELLOW );
+        return table;
+    }
 
 
-	class CustomMouseListerer extends MouseAdapter {
+    public JTable stocksTable( BASE_CLIENT_OBJECT client, Object[][] rowsData, String[] cols, int rowHeight ) {
 
-		@Override
-		public void mouseClicked( MouseEvent event ) {
+        // Table
+        JTable table = new JTable( rowsData, cols ) {
 
-			// Pop up the manu
-			if ( event.getModifiers() == InputEvent.BUTTON3_MASK ) {
-				// Show the menu
-				popupMenu.show( event.getComponent() , event.getX() , event.getY() );
-			}
+            public Component prepareRenderer( TableCellRenderer renderer, int row, int col ) {
 
-			// Set the middle strike for spx table
-			if ( event.getClickCount() == 3 ) {
-				try {
-					SpxCLIENTObject spx = SpxCLIENTObject.getInstance();
-					int strike = ( int ) spx.getOptionsHandler().getOptionsMonth().getStrikeInMoney( spx.getIndex() , 0 ).getStrike();
-					TablesUpdater.setSpxTableStrikes( strike );
-				} catch ( Exception e ) {
-					AlertWindow.Show( e.getMessage() , e.getCause().toString() , e.getStackTrace().toString() );
-				}
-			}
-		}
-	}
+                Component c = super.prepareRenderer( renderer, row, col );
+
+                c.setBackground( Themes.BINANCE_GREY );
+
+                int cell_val = 0;
+                try {
+                    if ( !getValueAt( row, col ).equals( "" ) ) {
+                        try {
+                            cell_val = ( int ) getValueAt( row, col );
+                        } catch ( ClassCastException e ) {
+                            cell_val = Integer.parseInt( ( String ) getValueAt( row, col ) );
+                        }
+                    }
+                } catch ( Exception e ) {
+                    // TODO: handle exception
+                }
+
+                try {
+
+                    // Call
+                    if ( col == 0 ) {
+                        // Color forf
+                        if ( cell_val > 0 ) {
+                            c.setForeground( Themes.BINANCE_GREEN );
+                        } else {
+                            c.setForeground( Themes.BINANCE_RED );
+                        }
+
+                    } else
+
+                        // Put
+                        if ( col == 2 ) {
+
+                            // Color forf
+                            if ( cell_val > 0 ) {
+                                c.setForeground( Themes.BINANCE_GREEN );
+                            } else {
+                                c.setForeground( Themes.BINANCE_RED );
+                            }
+
+                        } else
+
+                            // Strike
+                            if ( col == 1 ) {
+                                c.setFont( c.getFont( ).deriveFont( Font.BOLD ) );
+                                c.setForeground( Color.WHITE );
+                            }
+
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                }
+
+                return c;
+            }
+        };
+        table.setBounds( 0, 0, 300, 235 );
+
+        // Header
+        table.setTableHeader( null );
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer( );
+        centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+
+        table.setBackground( Themes.BINANCE_GREY );
+        table.setDefaultRenderer( Object.class, centerRenderer );
+        table.setFillsViewportHeight( false );
+        table.setRowHeight( rowHeight );
+        table.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
+        table.setShowGrid( false );
+        table.setSelectionBackground( Themes.BINANCE_ORANGE );
+        table.addMouseListener( new CustomMouseListerer( ) );
+
+        return table;
+    }
+
+
+    class CustomMouseListerer extends MouseAdapter {
+
+        @Override
+        public void mouseClicked( MouseEvent event ) {
+
+            // Pop up the manu
+            if ( event.getModifiers( ) == InputEvent.BUTTON3_MASK ) {
+                // Show the menu
+                popupMenu.show( event.getComponent( ), event.getX( ), event.getY( ) );
+            }
+
+            // Set the middle strike for spx table
+            if ( event.getClickCount( ) == 3 ) {
+                try {
+                    SpxCLIENTObject spx = SpxCLIENTObject.getInstance( );
+                    int strike = ( int ) spx.getOptionsHandler( ).getOptionsMonth( ).getStrikeInMoney( spx.getIndex( ), 0 ).getStrike( );
+                    TablesUpdater.setSpxTableStrikes( strike );
+                } catch ( Exception e ) {
+                    AlertWindow.Show( e.getMessage( ), e.getCause( ).toString( ), e.getStackTrace( ).toString( ) );
+                }
+            }
+        }
+    }
 }
 
 
