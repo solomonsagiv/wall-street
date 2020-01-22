@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="bounds.cfg.xml" value="e321f976-f08d-45b6-97be-8149e2e56812" />
+          <unit-entry name="hibernate.cfg.xml" value="008b7984-ac6c-4024-800b-da200e012ca1" />
+          <unit-entry name="hibernateRds.cfg.xml" value="41793821-1fd2-4018-8589-3d38b33b8ba1" />
+          <unit-entry name="hibernateRdsParis.cfg.xml" value="004adf2d-d3bb-4e1b-8cc0-f3381f81f37c" />
+          <unit-entry name="hibernateRdsTA35.cfg.xml" value="e47e085d-eb1e-4cf1-8b1f-b9bee911b8d8" />
+          <unit-entry name="hibernateStocksRds.cfg.xml" value="95342cc4-cca5-4bc7-a2b5-3ebcf978fc91" />
+          <unit-entry name="src:main:webapp:WEB-INF:lib:hibernate.cfg.xml" value="0ed6986f-4861-46fc-a917-5e1f50848ebf" />
+          <unit-entry name="stocksHibernate.cfg.xml" value="8c833d09-27c8-4f4b-bb6a-5753174442dc" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/bounds.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateRds.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateRdsParis.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateRdsTA35.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernateStocksRds.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/stocksHibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+  </component>
+</module>
