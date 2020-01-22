@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="008b7984-ac6c-4024-800b-da200e012ca1">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/stocks</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernateStocksRds.cfg.xml/Hibernate" uuid="95342cc4-cca5-4bc7-a2b5-3ebcf978fc91">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/hibernateStocksRds.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://sagivwork.ca16ljkfxgo3.us-east-2.rds.amazonaws.com:3306/bigstocks?autoReconnect=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="stocksHibernate.cfg.xml/Hibernate" uuid="8c833d09-27c8-4f4b-bb6a-5753174442dc">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/stocksHibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/bigstocks</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="bounds.cfg.xml/Hibernate" uuid="e321f976-f08d-45b6-97be-8149e2e56812">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/bounds.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://sagivwork.ca16ljkfxgo3.us-east-2.rds.amazonaws.com:3306/bounds?autoReconnect=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernateRdsTA35.cfg.xml/Hibernate" uuid="e47e085d-eb1e-4cf1-8b1f-b9bee911b8d8">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/hibernateRdsTA35.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://sagivwork.ca16ljkfxgo3.us-east-2.rds.amazonaws.com:3306/ta35</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernateRds.cfg.xml/Hibernate" uuid="41793821-1fd2-4018-8589-3d38b33b8ba1">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/hibernateRds.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://sagivwork.ca16ljkfxgo3.us-east-2.rds.amazonaws.com:3306/stocks?autoReconnect=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="hibernateRdsParis.cfg.xml/Hibernate" uuid="004adf2d-d3bb-4e1b-8cc0-f3381f81f37c">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/resources/hibernateRdsParis.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/stocks?autoReconnect=true</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="src:main:webapp:WEB-INF:lib:hibernate.cfg.xml/Hibernate" uuid="0ed6986f-4861-46fc-a917-5e1f50848ebf">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/user/IdeaProjects/wallStreet/src/main/webapp/WEB-INF/lib/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/stocks</jdbc-url>
+    </data-source>
+  </component>
+</project>
