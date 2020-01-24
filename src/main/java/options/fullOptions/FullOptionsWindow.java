@@ -31,7 +31,7 @@ public class FullOptionsWindow {
      */
     public FullOptionsWindow( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.optionsFather = client.getOptionsHandler( ).getOptionsMonth( );
+        this.optionsFather = client.getOptionsHandler( ).getOptionsDay( );
         initialize( );
 
         // Options data handler
@@ -170,10 +170,13 @@ public class FullOptionsWindow {
 
                 if ( !val.equals( "" ) ) {
 
-                    if ( row % 2 == 0 ) {
-                        c.setBackground( Themes.GREY_VERY_LIGHT );
-                    } else {
-                        c.setBackground( Themes.GREY_LIGHT );
+                    if ( getSelectedRow( ) != row ) {
+
+                        if ( row % 2 == 0 ) {
+                            c.setBackground( Themes.GREY_VERY_LIGHT );
+                        } else {
+                            c.setBackground( Themes.GREY_LIGHT );
+                        }
                     }
 
                     // ----- Call ----- //
@@ -234,12 +237,21 @@ public class FullOptionsWindow {
                 int row = table.rowAtPoint( e.getPoint( ) );
                 int col = table.columnAtPoint( e.getPoint( ) );
 
+                oneClick( e, col, row );
+
                 rightClick( e, col, row );
 
                 threeClicks( e, col, row );
 
                 doubleClick( e, col, row );
 
+            }
+
+            private void oneClick( MouseEvent e, int col, int row ) {
+
+                if ( row >= 0 && row < table.getRowCount( ) ) {
+                    table.setRowSelectionInterval( row, row );
+                }
             }
 
             private void threeClicks( MouseEvent e, int col, int row ) {
@@ -290,6 +302,9 @@ public class FullOptionsWindow {
         table.setShowGrid( false );
         table.setIntercellSpacing( new Dimension( 0, 0 ) );
         table.getColumnModel( ).getColumn( 5 ).setPreferredWidth( 109 );
+        table.setRowSelectionAllowed( true );
+        table.setColumnSelectionAllowed( false );
+        table.setSelectionBackground( Themes.GREY );
 
         // Headers
         JTableHeader header = table.getTableHeader( );
@@ -299,6 +314,9 @@ public class FullOptionsWindow {
         header.setFont( Themes.VEDANA_12.deriveFont( Font.PLAIN ) );
 
         UIManager.getDefaults( ).put( "TableHeader.cellBorder", BorderFactory.createEmptyBorder( 0, 0, 0, 0 ) );
+
+
+        // Table mouse
 
         return table;
 

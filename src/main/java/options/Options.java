@@ -1,6 +1,7 @@
 package options;
 
 import OPs.EqualMoveCalculator;
+import OPs.OpAvgEqualMoveCalculator;
 import com.ib.client.Contract;
 import gui.WallStreetWindow;
 import org.json.JSONObject;
@@ -48,6 +49,7 @@ public class Options {
     private ArrayList< Double > opList = new ArrayList<>( );
     private ArrayList< Double > opAvgList = new ArrayList<>( );
     private EqualMoveCalculator equalMoveCalculator;
+    private OpAvgEqualMoveCalculator opAvgEqualMoveCalculator;
 
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
 
@@ -480,10 +482,19 @@ public class Options {
         double sum = 0;
 
         if ( opList.size( ) > 0 ) {
-            for ( double d : opList ) {
-                sum += d;
+
+            try {
+
+
+                for ( int i = 0; i < opList.size(); i++ ) {
+                    sum += opList.get( i );
+                }
+
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
-            return floor( sum / opList.size( ), 100 );
+
+            return sum / opList.size( );
         } else {
             return 0;
         }
@@ -708,6 +719,13 @@ public class Options {
             equalMoveCalculator = new EqualMoveCalculator( client, client.getEqualMovePlag( ), this );
         }
         return equalMoveCalculator;
+    }
+
+    public OpAvgEqualMoveCalculator getOpAvgEqualMoveCalculator() {
+        if ( opAvgEqualMoveCalculator == null ) {
+            opAvgEqualMoveCalculator = new OpAvgEqualMoveCalculator( client, client.getEqualMovePlag( ), this );
+        }
+        return opAvgEqualMoveCalculator;
     }
 
     public LocalDate getExpDate() {

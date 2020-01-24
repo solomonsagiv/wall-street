@@ -15,6 +15,7 @@ import locals.LocalHandler;
 import logic.Logic;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
+import serverObjects.indexObjects.SpxCLIENTObject;
 import shlomi.Positions;
 import shlomi.Shlomi;
 import tables.Tables;
@@ -216,8 +217,14 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
             getPanel( ).getUpdater( ).getHandler( ).start( );
 
+            // Index Move
             getOptionsHandler( ).getOptionsMonth( ).getEqualMoveCalculator( ).getHandler( ).start( );
             getOptionsHandler( ).getOptionsQuarter( ).getEqualMoveCalculator( ).getHandler( ).start( );
+
+            if ( this instanceof SpxCLIENTObject ) {
+                // OpAvg move
+                getOptionsHandler().getOptionsMonth().getOpAvgEqualMoveCalculator().getHandler().start();
+            }
 
             getLogic( ).getLogicRunner( ).getHandler( ).start( );
             getRegularListUpdater( ).getHandler( ).start( );

@@ -14,17 +14,11 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
 
     private Options options;
     private ArrayList< Double > moveListIndex = new ArrayList<>( );
-    private boolean equalStatusOpAvg = false;
-    private double startPriceOpAvg = 0;
-    private double endPriceOpAvg = 0;
-    private double moveOpAvg = 0;
-    private double liveMoveOpAvg = 0;
     private boolean equalStatusIndex = false;
     private double startPriceIndex = 0;
     private double endPriceIndex = 0;
     private double moveIndex = 0;
     private double liveMoveIndex = 0;
-
 
     // Constructor
     public EqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag ) {
@@ -57,65 +51,10 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
                 // Calculate from index
                 calculateFromIndex( );
 
-                // Calculate from opAvg
-                calculateFromOpAvg( );
-
             } catch ( InterruptedException e ) {
                 setRun( false );
                 getHandler( ).close( );
             }
-
-        }
-    }
-
-    private void calculateFromOpAvg() {
-
-
-        double marginFromOpAvg = options.getOp() - options.getOpAvg( );
-
-        System.out.println( "Margin: " + marginFromOpAvg );
-        System.out.println( "Move: " + getMoveOpAvg() );
-        System.out.println( "Live: " + getLiveMoveOpAvg() );
-
-        if ( marginFromOpAvg > oposite( opPlag ) && marginFromOpAvg < opPlag ) {
-
-            // Start of the move
-            if ( !equalStatusOpAvg ) {
-
-                // Set start price
-                startPriceOpAvg = getClient( ).getIndex( );
-
-            }
-
-            // Set equalLiveMove
-            endPriceOpAvg = getClient( ).getIndex( );
-            double equalLiveMove = endPriceOpAvg - startPriceOpAvg;
-            setLiveMoveOpAvg( equalLiveMove );
-
-            // Set status true
-            equalStatusOpAvg = true;
-
-        } else {
-
-            // End of the move
-            if ( equalStatusOpAvg ) {
-
-                // Reset live move
-                setLiveMoveOpAvg( 0 );
-
-                // Set end price
-                endPriceOpAvg = getClient( ).getIndex( );
-
-                // Get the move
-                double move = floor( endPriceOpAvg - startPriceOpAvg, 10 );
-
-                // Append the move
-                appendMoveOpAvg( move );
-            }
-
-            // Set status false
-            equalStatusOpAvg = false;
-
         }
     }
 
@@ -208,51 +147,6 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
 
     public void setMoveListIndex( ArrayList< Double > moveList ) {
         this.moveListIndex = moveList;
-    }
-
-
-    public boolean isEqualStatusOpAvg() {
-        return equalStatusOpAvg;
-    }
-
-    public void setEqualStatusOpAvg( boolean equalStatusOpAvg ) {
-        this.equalStatusOpAvg = equalStatusOpAvg;
-    }
-
-    public double getStartPriceOpAvg() {
-        return startPriceOpAvg;
-    }
-
-    public void setStartPriceOpAvg( double startPriceOpAvg ) {
-        this.startPriceOpAvg = startPriceOpAvg;
-    }
-
-    public double getEndPriceOpAvg() {
-        return endPriceOpAvg;
-    }
-
-    public void setEndPriceOpAvg( double endPriceOpAvg ) {
-        this.endPriceOpAvg = endPriceOpAvg;
-    }
-
-    public double getMoveOpAvg() {
-        return floor( moveOpAvg + liveMoveOpAvg, 10 );
-    }
-
-    public void setMoveOpAvg( double moveOpAvg ) {
-        this.moveOpAvg = moveOpAvg;
-    }
-
-    public double getLiveMoveOpAvg() {
-        return liveMoveOpAvg;
-    }
-
-    public void setLiveMoveOpAvg( double liveMoveOpAvg ) {
-        this.liveMoveOpAvg = liveMoveOpAvg;
-    }
-
-    public void appendMoveOpAvg( double move ) {
-        this.moveOpAvg += move;
     }
 
 }

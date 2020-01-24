@@ -166,7 +166,6 @@ public class OptionsDataHandler {
             }
         }
 
-
         private void close() {
             run = false;
         }

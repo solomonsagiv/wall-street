@@ -397,7 +397,7 @@ public class MainWindow {
         ndxField.setColumns(10);
 
         ndxDayOptionExpField = new JTextField();
-        ndxDayOptionExpField.setText("20200122");
+        ndxDayOptionExpField.setText("20200124");
         ndxDayOptionExpField.setBorder(new CompoundBorder());
         ndxDayOptionExpField.setFont(new Font("Dubai Medium", Font.PLAIN, 12));
         ndxDayOptionExpField.setBackground(new Color(204, 204, 204));
@@ -425,7 +425,7 @@ public class MainWindow {
         panel_4.add(lblContractsDetails);
 
         spxDayOptionExpField = new JTextField();
-        spxDayOptionExpField.setText("20200122");
+        spxDayOptionExpField.setText("20200124");
         spxDayOptionExpField.setHorizontalAlignment(SwingConstants.CENTER);
         spxDayOptionExpField.setFont(new Font("Dubai Medium", Font.PLAIN, 12));
         spxDayOptionExpField.setColumns(10);

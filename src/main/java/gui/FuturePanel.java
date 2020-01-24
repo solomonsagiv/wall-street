@@ -39,7 +39,6 @@ public class FuturePanel extends BaseFuturePanel {
     JTextField futureField;
     JTextField opField;
     JTextField opAvgField;
-    JTextField equalMoveField;
     JTextField opAvgEqualeMoveField;
 
     // Exp
@@ -48,14 +47,12 @@ public class FuturePanel extends BaseFuturePanel {
     // Quarter
     JTextField opAvgQuarterField;
     JTextField opQuarterField;
-    JTextField equalMoveQuarterField;
     JTextField contractQuarterField;
 
     // Races and roll
     JPanel racesAndRollPanel;
     JLabel conRacesLbl;
     JLabel indRacesLbl;
-    JLabel opAvgEqualmoveLbl;
     JLabel rollLbl;
 
     public JTextField conRacesField;
@@ -224,8 +221,8 @@ public class FuturePanel extends BaseFuturePanel {
         opField = tickerPresent( 80, 64 );
         ticker.add( opField );
 
-        equalMoveField = tickerTextField( 230, 64 );
-        ticker.add( equalMoveField );
+        opAvgEqualeMoveField = tickerTextField( 230, 64 );
+        ticker.add( opAvgEqualeMoveField );
 
         opAvgField = tickerTextField( 155, 64 );
         ticker.add( opAvgField );
@@ -233,9 +230,6 @@ public class FuturePanel extends BaseFuturePanel {
         // Quarter
         opAvgQuarterField = tickerTextField( 155, 93 );
         ticker.add( opAvgQuarterField );
-
-        equalMoveQuarterField = tickerTextField( 230, 93 );
-        ticker.add( equalMoveQuarterField );
 
         contractQuarterField = tickerTextField( 5, 93 );
         ticker.add( contractQuarterField );
@@ -288,15 +282,6 @@ public class FuturePanel extends BaseFuturePanel {
         rollField = tickerTextField( 55, 67, 50, 25 );
         racesAndRollPanel.add( rollField );
 
-        // OpAvgEqualeMove
-        opAvgEqualmoveLbl = new JLabel( "OPA/M" );
-        opAvgEqualmoveLbl.setHorizontalAlignment( JLabel.CENTER );
-        opAvgEqualmoveLbl.setBounds( 5, 97, 50, 25 );
-        opAvgEqualmoveLbl.setForeground( Themes.BLUE );
-        racesAndRollPanel.add(opAvgEqualmoveLbl);
-
-        opAvgEqualeMoveField = tickerTextField( 55, 97, 50, 25 );
-        racesAndRollPanel.add( opAvgEqualeMoveField );
     }
 
     @Override
@@ -485,22 +470,18 @@ public class FuturePanel extends BaseFuturePanel {
                     colorBackPresent( lowPresentField, toPresent( client.getLow( ), client.getBase( ) ), L.format100( ) );
                     colorBackPresent( indexPresentField, toPresent( client.getIndex( ), client.getBase( ) ), L.format100( ) );
 
-                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ) );
+                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), L.format100( ) );
 
                     // OP
                     double op = client.getOptionsHandler( ).getMainOptions( ).getOp( );
                     colorBack( opField, op );
 
-                    // Equal move index
-                    colorForfInt( equalMoveField, client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMoveIndex( ) );
-
                     // Equal move OpAvg
-                    colorForfInt( opAvgEqualeMoveField, client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMoveOpAvg( ) );
+                    colorForf( opAvgEqualeMoveField, client.getOptionsHandler( ).getMainOptions( ).getOpAvgEqualMoveCalculator( ).getMoveOpAvg( ), L.format100( ) );
 
                     // Quarter
                     colorBack( opQuarterField, client.getOptionsHandler( ).getOptionsQuarter( ).getOp( ), L.format100( ) );
                     colorForf( opAvgQuarterField, client.getOptionsHandler( ).getOptionsQuarter( ).getOpAvg( ), L.format100( ) );
-                    colorForfInt( equalMoveQuarterField, client.getOptionsHandler( ).getOptionsQuarter( ).getEqualMoveCalculator( ).getMoveIndex( ) );
                     contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) ) );
 
                     // Races and roll

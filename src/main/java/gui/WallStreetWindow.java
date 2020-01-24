@@ -205,7 +205,7 @@ public class WallStreetWindow {
         racesAndRolHeaderPanel.setBackground( backGround );
         frame.getContentPane( ).add( racesAndRolHeaderPanel );
 
-        JLabel conAndrollLabel = new JLabel( "Roll" );
+        JLabel conAndrollLabel = new JLabel( "Trading" );
         conAndrollLabel.setBounds( 0, 0, racesAndRolHeaderPanel.getWidth( ), racesAndRolHeaderPanel.getHeight( ) );
         conAndrollLabel.setHorizontalAlignment( JLabel.CENTER );
         conAndrollLabel.setForeground( forgGround );
@@ -226,19 +226,19 @@ public class WallStreetWindow {
         JLabel label_2 = new JLabel( "Last" );
         label_2.setForeground( forgGround );
         label_2.setFont( font );
-        label_2.setBounds( 95, 6, 40, 14 );
+        label_2.setBounds( 103, 6, 40, 14 );
         headersPanel.add( label_2 );
 
         JLabel label_3 = new JLabel( "Low" );
         label_3.setForeground( forgGround );
         label_3.setFont( font );
-        label_3.setBounds( 166, 6, 34, 14 );
+        label_3.setBounds( 175, 6, 34, 14 );
         headersPanel.add( label_3 );
 
         JLabel label_4 = new JLabel( "High" );
         label_4.setForeground( forgGround );
         label_4.setFont( font );
-        label_4.setBounds( 233, 6, 34, 15 );
+        label_4.setBounds( 249, 6, 34, 15 );
         headersPanel.add( label_4 );
 
         JPanel panel_12 = new JPanel( );
