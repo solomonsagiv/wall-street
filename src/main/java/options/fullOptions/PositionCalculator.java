@@ -16,6 +16,7 @@ public class PositionCalculator {
     // Variables
     BASE_CLIENT_OBJECT client;
     ArrayList< OptionPosition > positions;
+    PositionsWindow positionsWindow;
 
     int validID = 0;
 
@@ -23,6 +24,7 @@ public class PositionCalculator {
     public PositionCalculator( BASE_CLIENT_OBJECT client ) {
         this.client = client;
         this.positions = new ArrayList<>( );
+        positionsWindow = new PositionsWindow( client, positions );
     }
 
     // Methods
@@ -33,11 +35,10 @@ public class PositionCalculator {
         positions.add( position );
 
         // Update positions window
-        PositionsWindow positionsWindow = new PositionsWindow( client );
-        positionsWindow.appnedPanel( position );
+        positionsWindow.appendPanel( position );
 
         // ID
-        handleID( );
+        handleID();
     }
 
     public double getTotalData( int data ) {
