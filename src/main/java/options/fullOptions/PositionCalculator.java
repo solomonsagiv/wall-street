@@ -3,6 +3,7 @@ package options.fullOptions;
 import locals.L;
 import options.Option;
 import serverObjects.BASE_CLIENT_OBJECT;
+import threads.MyThread;
 
 import java.util.ArrayList;
 
@@ -15,50 +16,47 @@ public class PositionCalculator {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    ArrayList< OptionPosition > positions;
+    ArrayList<OptionPosition> positions;
     PositionsWindow positionsWindow;
 
     int validID = 0;
 
     // Constructor
-    public PositionCalculator( BASE_CLIENT_OBJECT client ) {
+    public PositionCalculator(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        this.positions = new ArrayList<>( );
-        positionsWindow = new PositionsWindow( client, positions );
+        this.positions = new ArrayList<>();
+        positionsWindow = new PositionsWindow(client, positions);
     }
 
     // Methods
-    public void addPosition( Option option, int pos, double price ) {
+    public void addPosition(Option option, int pos, double price) {
 
         // Create position
-        OptionPosition position = new OptionPosition( validID, option, pos, price );
-        positions.add( position );
-
-        // Update positions window
-        positionsWindow.appendPanel( position );
+        OptionPosition position = new OptionPosition(validID, option, pos, price);
+        positions.add(position);
 
         // ID
         handleID();
     }
 
-    public double getTotalData( int data ) {
+    public double getTotalData(int data) {
         double d = 0;
-        for ( OptionPosition position : positions ) {
-            d += getData( position, data );
+        for (OptionPosition position : positions) {
+            d += getData(position, data);
         }
         return d;
     }
 
-    private double getData( OptionPosition position, int data ) {
-        switch ( data ) {
+    private double getData(OptionPosition position, int data) {
+        switch (data) {
             case CASH_FLOW:
-                return position.getCashFlow( );
+                return position.getCashFlow();
             case PNL:
-                return position.getPnl( );
+                return position.getPnl();
             case DELTA:
-                return position.getDelta( );
+                return position.getDelta();
             case VEGA:
-                return position.getVega( );
+                return position.getVega();
             default:
                 return 0;
         }
@@ -71,6 +69,53 @@ public class PositionCalculator {
     public int getValidID() {
         return validID;
     }
+
+
+    // ---------- Runner ---------- //
+    public class Runner extends MyThread implements Runnable {
+
+        int sleep = 2000;
+
+        public Runner(BASE_CLIENT_OBJECT client) {
+            super(client);
+        }
+
+        @Override
+        public void run() {
+
+            while (isRun()) {
+                try {
+
+                    // Sleep
+                    Thread.sleep(sleep);
+
+                    // Calc positions
+                    calcPositions();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        private void calcPositions() {
+
+            for (OptionPosition position : positions) {
+
+                // Set cash flow
+                position.cashFlow = position.quantity * position.price * 100;
+
+            }
+
+        }
+
+        @Override
+        public void initRunnable() {
+            setRunnable(this);
+        }
+    }
+
 
     // ---------- Option position ---------- //
     public static class OptionPosition {
@@ -87,21 +132,21 @@ public class PositionCalculator {
         private double price;
 
         // Constructor
-        public OptionPosition( int id, Option option, int pos, double price ) {
+        public OptionPosition(int id, Option option, int pos, double price) {
             this.id = id;
             this.option = option;
-            this.quantity = Math.abs( pos );
+            this.quantity = Math.abs(pos);
             this.pos = pos;
             this.price = price;
-            this.cashFlow = price * L.opo( pos ) * 100;
+            this.cashFlow = price * L.opo(pos) * 100;
         }
 
         public double getDelta() {
-            return option.getDelta( ) * pos;
+            return option.getDelta() * pos;
         }
 
         public double getVega() {
-            return option.getVega( ) * pos;
+            return option.getVega() * pos;
         }
 
         // Getters and Setters
@@ -109,7 +154,7 @@ public class PositionCalculator {
             return option;
         }
 
-        public void setOption( Option option ) {
+        public void setOption(Option option) {
             this.option = option;
         }
 
@@ -117,7 +162,7 @@ public class PositionCalculator {
             return quantity;
         }
 
-        public void setQuantity( int quantity ) {
+        public void setQuantity(int quantity) {
             this.quantity = quantity;
         }
 
@@ -125,19 +170,19 @@ public class PositionCalculator {
             return pos;
         }
 
-        public void setPos( int pos ) {
+        public void setPos(int pos) {
             this.pos = pos;
         }
 
         public double getPnl() {
-            return getCashFlow( ) + ( option.getTheoreticPrice( ) * pos * 100 );
+            return getCashFlow() + (option.getTheoreticPrice() * pos * 100);
         }
 
         public int getId() {
             return id;
         }
 
-        public void setId( int id ) {
+        public void setId(int id) {
             this.id = id;
         }
 
@@ -149,7 +194,7 @@ public class PositionCalculator {
             return price;
         }
 
-        public void setPrice( double price ) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

@@ -1,6 +1,7 @@
 package options.fullOptions;
 
 import gui.MyGuiComps;
+import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
@@ -11,15 +12,13 @@ import java.util.ArrayList;
 
 public class PositionsWindow extends MyGuiComps.MyFrame {
 
-
     // Variables
     BASE_CLIENT_OBJECT client;
-    PositionPanel positionPanel;
     HeaderPanel headerPanel;
     MyGuiComps.MyPanel positionsAreaPanel;
-    ArrayList<PositionPanel> positionPanels;
 
     ArrayList<PositionCalculator.OptionPosition> positions;
+    ArrayList<PositionPanel> positionPanels;
     int prePositionsSize = 0;
 
     Runner runner;
@@ -27,52 +26,31 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
     // Prop
     int row1 = 3;
     int row2 = 30;
+
     int col1 = 5;
     int col2 = 70;
     int col3 = 135;
     int col4 = 200;
     int col5 = 265;
+    int col6 = 330;
+    int col7 = 395;
 
     // COnstructor
     public PositionsWindow(BASE_CLIENT_OBJECT client, ArrayList<PositionCalculator.OptionPosition> positions) {
         super("Positions");
         this.client = client;
-        positionPanels = new ArrayList<>();
         this.positions = positions;
+        positionPanels = new ArrayList<>();
+
         init();
 
         runner = new Runner(client);
         runner.getHandler().start();
     }
 
-    public void appendPanel(PositionCalculator.OptionPosition position) {
-
-        PositionPanel positionPanel = new PositionPanel(position, this);
-
-        // Add to arraylist
-        positionPanels.add(positionPanel);
-
-        // Init again
-        revalidate();
-        repaint();
-    }
-
-    public void removePanel(PositionCalculator.OptionPosition positionToRemove) {
-
-        // Remove the panel
-        for (PositionPanel positionPanel : positionPanels) {
-            if (positionPanel.position == positionToRemove) {
-                positionPanels.remove(positionToRemove);
-            }
-        }
-
-        // Init again
-        revalidate();
-        repaint();
-
-    }
-
     private void init() {
+
+        setBounds( 100, 100, 600, 500 );
 
         // Headers
         headerPanel = new HeaderPanel(this);
@@ -81,17 +59,16 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
         // Positions area panel
         positionsAreaPanel = new MyGuiComps.MyPanel();
-        positionsAreaPanel.setXY(0, headerPanel.getY() + headerPanel.getHeight() + 1);
+        positionsAreaPanel.setBackground(Themes.GREY_VERY_LIGHT);
+        positionsAreaPanel.setBounds(0, 25, getWidth(), getHeight() - headerPanel.getHeight());
         add(positionsAreaPanel);
 
-
-
         // Panels
-        initPanels();
+        initPanels( positionsAreaPanel );
 
     }
 
-    public void initPanels() {
+    public void initPanels(MyGuiComps.MyPanel panel) {
 
         int y = 0;
         int marginBetweenPanels = 1;
@@ -99,18 +76,25 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         // For each position panel
         for (PositionCalculator.OptionPosition position : positions) {
 
-            PositionPanel positionPanel = new PositionPanel(position, this);
+            PositionPanel positionPanel = new PositionPanel(position, panel);
+            positionPanels.add(positionPanel);
+
+            positionPanel.setBackground(Themes.GREY_LIGHT);
 
             // Set y
             positionPanel.setXY(0, y);
 
             // Append to window
-            add(positionPanel);
+            panel.add(positionPanel);
 
             // Increment y
             y += positionPanel.getHeight() + marginBetweenPanels;
 
         }
+
+        panel.revalidate();
+        panel.repaint();
+
     }
 
     private boolean isPositionsChanges() {
@@ -122,13 +106,6 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
         // Variables
         PositionCalculator.OptionPosition position;
-
-        // Labels
-        MyGuiComps.MyLabel quantityLbl;
-        MyGuiComps.MyLabel priceLbl;
-        MyGuiComps.MyLabel vegaLbl;
-        MyGuiComps.MyLabel deltaLbl;
-        MyGuiComps.MyLabel pnlLbl;
 
         // Text fields
         MyGuiComps.MyTextField quantityField;
@@ -142,7 +119,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         MyGuiComps.MyButton editBtn;
 
         // Constructor
-        public PositionPanel(PositionCalculator.OptionPosition position, JFrame frame) {
+        public PositionPanel(PositionCalculator.OptionPosition position, MyGuiComps.MyPanel panel) {
 
             // Super
             super();
@@ -151,13 +128,13 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
             this.position = position;
 
             // Init
-            initialize(frame);
+            initialize(panel);
 
         }
 
-        private void initialize(JFrame frame) {
+        private void initialize(MyGuiComps.MyPanel panel) {
             // This panel
-            setBounds(0, 0, frame.getWidth(), 50);
+            setBounds(0, 0, panel.getWidth(), 50);
 
             // Pnl
             pnlField = new MyGuiComps.MyTextField(20);
@@ -183,11 +160,19 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
             quantityField = new MyGuiComps.MyTextField(20);
             quantityField.setXY(col5, row1);
             add(quantityField);
+
+            // Edit btn
+            editBtn = new MyGuiComps.MyButton("Edit");
+            editBtn.setXY(col6, row1);
+            add(editBtn);
+
+            // Cancel btn
+            cancelBtn = new MyGuiComps.MyButton("Cancel");
+            cancelBtn.setXY(col7, row1);
+            add(cancelBtn);
         }
 
-
     }
-
 
     // ---------- Header panel ---------- //
     class HeaderPanel extends MyGuiComps.MyPanel {
@@ -249,14 +234,14 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         public void run() {
             while (isRun()) {
                 try {
-                    System.out.println("size: " + positions.size());
-                    System.out.println("pre size: " + prePositionsSize);
                     // Sleep
                     Thread.sleep(2000);
 
+                    // Update the panels
                     update();
 
-                    System.out.println("Running");
+                    // Update text
+                    updateText();
 
                 } catch (InterruptedException e) {
                     getHandler().close();
@@ -266,13 +251,27 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
         }
 
+        private void updateText() {
+
+            PositionCalculator.OptionPosition position;
+
+            for (PositionPanel panel: positionPanels) {
+                position = panel.position;
+
+                panel.priceField.setText(L.format100(position.getPrice()));
+                panel.deltaField.setText(L.format100(position.getDelta()));
+                panel.vegaField.setText(L.format100(position.getVega()));
+                panel.quantityField.setText(L.format100(position.getQuantity()));
+                panel.pnlField.setText(L.format100(position.getPnl()));
+
+            }
+
+        }
+
 
         private void update() {
-
-            System.out.println("Position changed: " + isPositionsChanges());
-
             if (isPositionsChanges()) {
-                initPanels();
+                initPanels(positionsAreaPanel);
 
                 prePositionsSize = positions.size();
             }
