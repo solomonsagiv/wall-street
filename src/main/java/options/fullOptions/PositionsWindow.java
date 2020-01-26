@@ -263,7 +263,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
                 panel.vegaField.setText(L.format100(position.getVega()));
                 panel.quantityField.setText(L.format100(position.getQuantity()));
                 panel.pnlField.setText(L.format100(position.getPnl()));
-
+                
             }
 
         }
