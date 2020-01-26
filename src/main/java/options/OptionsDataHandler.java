@@ -44,7 +44,7 @@ public class OptionsDataHandler {
         return options;
     }
 
-    public void setOptionsFather( Options options ) {
+    public void setOptions( Options options ) {
 
         if ( options.getStrikes( ).size( ) != 0 ) {
             this.options = options;

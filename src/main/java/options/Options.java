@@ -4,6 +4,7 @@ import OPs.EqualMoveCalculator;
 import OPs.OpAvgEqualMoveCalculator;
 import com.ib.client.Contract;
 import gui.WallStreetWindow;
+import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -50,6 +51,7 @@ public class Options {
     private ArrayList< Double > opAvgList = new ArrayList<>( );
     private EqualMoveCalculator equalMoveCalculator;
     private OpAvgEqualMoveCalculator opAvgEqualMoveCalculator;
+    private PositionCalculator positionCalculator;
 
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
 
@@ -62,6 +64,10 @@ public class Options {
         this.type = type;
         this.client = client;
         this.twsContract = twsContract;
+
+        equalMoveCalculator = new EqualMoveCalculator( client, client.getEqualMovePlag( ), this );
+        opAvgEqualMoveCalculator = new OpAvgEqualMoveCalculator( client, client.getEqualMovePlag(), this );
+        positionCalculator = new PositionCalculator( client );
 
         initType( );
     }
@@ -715,16 +721,10 @@ public class Options {
 
 
     public EqualMoveCalculator getEqualMoveCalculator() {
-        if ( equalMoveCalculator == null ) {
-            equalMoveCalculator = new EqualMoveCalculator( client, client.getEqualMovePlag( ), this );
-        }
         return equalMoveCalculator;
     }
 
     public OpAvgEqualMoveCalculator getOpAvgEqualMoveCalculator() {
-        if ( opAvgEqualMoveCalculator == null ) {
-            opAvgEqualMoveCalculator = new OpAvgEqualMoveCalculator( client, client.getEqualMovePlag( ), this );
-        }
         return opAvgEqualMoveCalculator;
     }
 
@@ -967,5 +967,11 @@ public class Options {
         this.name = name;
     }
 
+    public PositionCalculator getPositionCalculator() {
+        return positionCalculator;
+    }
 
+    public void setPositionCalculator( PositionCalculator positionCalculator ) {
+        this.positionCalculator = positionCalculator;
+    }
 }

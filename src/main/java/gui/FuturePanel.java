@@ -10,6 +10,7 @@ import options.Option;
 import options.OptionsWindow;
 import options.Strike;
 import options.fullOptions.FullOptionsWindow;
+import options.fullOptions.PositionsWindow;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 
@@ -171,6 +172,14 @@ public class FuturePanel extends BaseFuturePanel {
                         }
                     } );
 
+                    JMenuItem optionsPosition = new JMenuItem( "Positions" );
+                    optionsPosition.addActionListener( new ActionListener( ) {
+                        @Override
+                        public void actionPerformed( ActionEvent e ) {
+                            new PositionsWindow( client, client.getOptionsHandler().getPositionCalculator().getPositions() );
+                        }
+                    } );
+
                     export.add( exportSumLine );
 
                     charts.add( quarterContractIndexRealTime );
@@ -183,6 +192,7 @@ public class FuturePanel extends BaseFuturePanel {
                     menu.add( charts );
                     menu.add( optionsCounter );
                     menu.add( fullOptionsTable );
+                    menu.add( optionsPosition );
 
                     // Show the menu
                     menu.show( event.getComponent( ), event.getX( ), event.getY( ) );

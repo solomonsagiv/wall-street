@@ -79,6 +79,7 @@ public class OptionsWindow {
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frame.getContentPane( ).setLayout( null );
 
+
         String[] header = { "Call", "Strike", "Put" };
 
         int striksNum = client.getOptionsHandler( ).getOptionsMonth( ).getStrikes( ).size( );

@@ -1,6 +1,7 @@
 package options;
 
 import locals.L;
+import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -18,10 +19,12 @@ public class OptionsHandler {
     private Options optionsQuarterFar;
     private HashMap< Integer, Options > optionsMap = new HashMap<>( );
     private ArrayList< Options > optionsList = new ArrayList<>( );
+    private PositionCalculator positionCalculator;
 
     // Constructor
     public OptionsHandler( BASE_CLIENT_OBJECT client ) {
         this.client = client;
+        positionCalculator = new PositionCalculator( client );
     }
 
     // Functions
@@ -167,5 +170,13 @@ public class OptionsHandler {
 
     public void setOptionsList( ArrayList< Options > optionsList ) {
         this.optionsList = optionsList;
+    }
+
+    public PositionCalculator getPositionCalculator() {
+        return positionCalculator;
+    }
+
+    public void setPositionCalculator( PositionCalculator positionCalculator ) {
+        this.positionCalculator = positionCalculator;
     }
 }

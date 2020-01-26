@@ -9,6 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 
 import javax.swing.*;
+import java.text.DecimalFormat;
 
 public class FullOptionsUpdater extends MyThread implements Runnable {
 
@@ -91,6 +92,10 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
         double indexPre = floor( ( ( getClient( ).getIndex( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
         colorBackPresent( FullOptionsWindow.indexPresentLabel, indexPre );
 
+        // Pnl
+        int pnl = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.PNL );
+        colorForeg( FullOptionsWindow.totalPnlLbl, pnl, "$" , null );
+
     }
 
     public double floor( double d ) {
@@ -124,7 +129,6 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
 
     }
 
-
     // Present
     public void colorBackPresent( JLabel field, double val ) {
 
@@ -132,7 +136,50 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
             field.setText( "(+" + str( val ) + "%)" );
             field.setForeground( Themes.GREEN );
         } else {
-            field.setText( "(-" + str( val ) + "%)" );
+            field.setText( "(" + str( val ) + "%)" );
+            field.setForeground( Themes.RED );
+        }
+
+    }
+
+
+    public void colorForeg( JLabel field, double val, String sign, DecimalFormat format ) {
+
+        String text;
+
+        if ( format != null ) {
+            text = format.format(val) + sign;
+        } else {
+            text = str( val ) + sign;
+        }
+
+        if ( val >= 0 ) {
+            field.setText( text );
+            field.setForeground( Themes.GREEN );
+        } else {
+            field.setText( text );
+            field.setForeground( Themes.RED );
+        }
+
+    }
+
+
+    // Present
+    public void colorForeg( JLabel field, int val, String sign, DecimalFormat format ) {
+
+        String text;
+
+        if ( format != null ) {
+            text = format.format(val) + sign;
+        } else {
+            text = str( val ) + sign;
+        }
+
+        if ( val >= 0 ) {
+            field.setText( text );
+            field.setForeground( Themes.GREEN );
+        } else {
+            field.setText( text );
             field.setForeground( Themes.RED );
         }
 

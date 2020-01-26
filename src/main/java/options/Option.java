@@ -55,7 +55,6 @@ public class Option {
         setPosition( new Position( ) );
     }
 
-
     public boolean gotBidAsk() {
         return getBid( ) != 0 && getAsk( ) != 0;
     }
@@ -259,6 +258,11 @@ public class Option {
     public String getName() {
         return getSide( ) + getStrike( );
     }
+
+    public String getIntName() {
+        return getSide( ) + ((int)getStrike( ));
+    }
+
 
     public double getBidAskAvg() {
         return ( bid + ask ) / 2;
