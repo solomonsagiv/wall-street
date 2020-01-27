@@ -111,6 +111,9 @@ public class FullOptionsWindow {
 
 
 
+
+
+
         panel = new JPanel( );
         panel.setBounds( 0, 26, frame.getWidth( ), frame.getHeight( ) );
         frame.getContentPane( ).add( panel );
