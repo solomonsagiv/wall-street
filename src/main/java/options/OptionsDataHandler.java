@@ -126,21 +126,9 @@ public class OptionsDataHandler {
                             stDev = MyBlackScholes.updateStDev( contract, strike, daysLeft, interest );
                             strike.setStDev( stDev );
 
-                            if ( strike.getStrike( ) == 3330 && options.getType( ) == Options.MONTH ) {
-                                System.out.println( );
-                                System.out.println( "Contract: " + contract );
-                                System.out.println( "StDev: " + stDev );
-                                System.out.println( "Interest: " + interest );
-                                System.out.println( "Days: " + daysLeft );
-                            }
-
                             // ----- Call ----- //
                             // Delta greeks
                             greeks = MyBlackScholes.greek( call, contract, daysLeft / 360.0, stDev, interest );
-
-                            if ( strike.getStrike( ) == 3330 && options.getType( ) == Options.MONTH ) {
-                                System.out.println( "Delta: " + greeks[ 1 ] );
-                            }
 
                             call.setDelta( greeks[ 1 ] );
                             call.setVega( greeks[ 3 ] );

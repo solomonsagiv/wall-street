@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
 
     // Variables
-    private int sleep = 1000;
+    private int sleep = 200;
     private double opPlag;
 
     private Options options;
@@ -62,11 +62,6 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
     private void calculateFromOpAvg() {
 
         marginFromOpAvg = options.getOp() - options.getOpAvg( );
-
-        System.out.println( );
-        System.out.println( "Margin: " + marginFromOpAvg );
-        System.out.println( "Move: " + getMoveOpAvg() );
-        System.out.println( "Live: " + getLiveMoveOpAvg() );
 
         if ( marginFromOpAvg > oposite( opPlag ) && marginFromOpAvg < opPlag ) {
 

@@ -7,7 +7,6 @@ import options.Options;
 import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
-
 import javax.swing.*;
 import java.text.DecimalFormat;
 
@@ -92,9 +91,17 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
         double indexPre = floor( ( ( getClient( ).getIndex( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
         colorBackPresent( FullOptionsWindow.indexPresentLabel, indexPre );
 
+        // Delta
+        int delta = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.DELTA );
+        FullOptionsWindow.deltaLbl.colorForge( delta );
+
+        // Vega
+        int vega = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.VEGA );
+        FullOptionsWindow.deltaLbl.colorForge( vega );
+
         // Pnl
         int pnl = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.PNL );
-        colorForeg( FullOptionsWindow.totalPnlLbl, pnl, "$" , null );
+        FullOptionsWindow.totalPnlLbl.colorForge( pnl );
 
     }
 
@@ -163,25 +170,4 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
 
     }
 
-
-    // Present
-    public void colorForeg( JLabel field, int val, String sign, DecimalFormat format ) {
-
-        String text;
-
-        if ( format != null ) {
-            text = format.format(val) + sign;
-        } else {
-            text = str( val ) + sign;
-        }
-
-        if ( val >= 0 ) {
-            field.setText( text );
-            field.setForeground( Themes.GREEN );
-        } else {
-            field.setText( text );
-            field.setForeground( Themes.RED );
-        }
-
-    }
 }

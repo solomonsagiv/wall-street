@@ -1,5 +1,6 @@
 package api;
 
+import arik.Arik;
 import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
@@ -52,6 +53,9 @@ public class Downloader extends Thread implements EWrapper {
     }
 
     public static void main( String[] args ) {
+
+//      Arik.getInstance( ).sendMessageToEveryOne( SpxCLIENTObject.getInstance( ).getArikSumLine( ) );
+
         Downloader downloader = new Downloader( );
         downloader.start( );
     }
@@ -109,10 +113,9 @@ public class Downloader extends Thread implements EWrapper {
                 e.printStackTrace( );
             }
         }
+
 //        Contract contract = SpxCLIENTObject.getInstance().getTwsData().getOptionMonthContract();
 //        client.reqContractDetails( 60, contract );
-
-        SpxCLIENTObject.getInstance().setFuture( 3280 );
 
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
@@ -569,9 +572,9 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void bondContractDetails( int reqId, ContractDetails contractDetails ) {
-        System.out.println();
-        System.out.println("Id: " + reqId);
-        System.out.println(contractDetails);
+        System.out.println( );
+        System.out.println( "Id: " + reqId );
+        System.out.println( contractDetails );
     }
 
     @Override

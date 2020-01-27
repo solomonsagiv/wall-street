@@ -167,7 +167,7 @@ public class MyGuiComps {
                 setForeground( Themes.RED );
             }
 
-            setText( L.str( val ));
+            setText(L.coma( val ));
         }
 
         public void colorBack( double val, DecimalFormat format ) {

@@ -1,6 +1,8 @@
 package locals;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class L {
 
@@ -29,6 +31,13 @@ public class L {
         return df100;
     }
 
+    public static String coma( double d ) {
+        return NumberFormat.getNumberInstance( Locale.US).format(d);
+    }
+
+    public static String coma( int i ) {
+        return NumberFormat.getNumberInstance( Locale.US).format( i );
+    }
 
     public static DecimalFormat format10() {
         if ( df10 == null ) {
@@ -54,6 +63,9 @@ public class L {
         return df10.format( num );
     }
 
+    public static double floor(double d, int zeros) {
+        return Math.floor( d * zeros ) / zeros;
+    }
 
     public static double dbl( String s ) {
         return Double.parseDouble( s );

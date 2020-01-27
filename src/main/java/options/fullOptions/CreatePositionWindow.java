@@ -29,14 +29,20 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
     private String orderText;
     private MyGuiComps.MyPanel panel;
 
-    public CreatePositionWindow( String orderText, Option option, PositionCalculator positionCalculator, int BUY_SELL ) {
+    public CreatePositionWindow( String orderText, Option option, PositionCalculator positionCalculator, int BUY_SELL, JFrame frame ) {
         super( orderText );
+
+        setBounds( 600, 200, 200, 203 );
 
         this.orderText = orderText;
         this.positionCalculator = positionCalculator;
         this.option = option;
         this.BUY_SELL = BUY_SELL;
-        setBounds( 600, 200, 270, 203 );
+
+        int x = (frame.getX() + (frame.getWidth() / 2)) - (getWidth() / 2);
+        int y  = (frame.getY() + (frame.getHeight() / 2)) - (getHeight() / 2);
+
+        setBounds( x, y, 200, 203 );
 
         init( );
         initListeners( );
@@ -49,7 +55,7 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
 
         init( );
         initListeners( );
-        setBounds( 600, 200, 270, 203 );
+
     }
 
     // ---------- Listeners ---------- //
@@ -96,7 +102,7 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
 
         // Main panel
         panel = new MyGuiComps.MyPanel();
-        panel.setBounds( 0, 0, 270, getHeight() );
+        panel.setBounds( 0, 0, 200, getHeight() );
         getContentPane().add(panel);
 
         // Order lbl
@@ -112,25 +118,25 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
 
         // Quantity
         quantityLabel = new MyGuiComps.MyLabel( "Quantity" );
-        quantityLabel.setBounds( 50, 40, 70, 25 );
+        quantityLabel.setBounds( 15, 40, 70, 25 );
         panel.add( quantityLabel );
 
         quantotyField = new MyGuiComps.MyTextField( 20 );
-        quantotyField.setBounds( 130, 40, 70, 25 );
+        quantotyField.setBounds( 95, 40, 70, 25 );
         panel.add( quantotyField );
 
         // Price
         priceLabel = new MyGuiComps.MyLabel( "Price" );
-        priceLabel.setBounds( 50, 70, 70, 25 );
+        priceLabel.setBounds( 15, 70, 70, 25 );
         panel.add( priceLabel );
 
         priceField = new MyGuiComps.MyTextField( 20 );
-        priceField.setBounds( 130, 70, 70, 25 );
+        priceField.setBounds( 95, 70, 70, 25 );
         panel.add( priceField );
 
         // Submit
         submitBtn = new MyGuiComps.MyButton( "Submit" );
-        submitBtn.setBounds( 50, 120, 150, 25 );
+        submitBtn.setBounds( 15, 120, 150, 25 );
         panel.add( submitBtn );
 
     }

@@ -26,6 +26,17 @@ public class FullOptionsWindow {
     BASE_CLIENT_OBJECT client;
     Options options;
     public static MyGuiComps.MyLabel totalPnlLbl;
+    MyGuiComps.MyPanel sumPanel;
+    JScrollPane scrollPane;
+
+    public static MyGuiComps.MyLabel pnlLbl;
+    public static MyGuiComps.MyLabel deltaLbl;
+    public static MyGuiComps.MyLabel vegaLbl;
+
+    MyGuiComps.MyLabel pnlHeader;
+    MyGuiComps.MyLabel deltaHeader;
+    MyGuiComps.MyLabel vegaHeader;
+    JPanel panel;
 
     /**
      * Create the application.
@@ -91,7 +102,16 @@ public class FullOptionsWindow {
         frame.setBounds( 100, 100, 700, 333 );
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 
-        JPanel panel = new JPanel( );
+        frame.addComponentListener(new ComponentAdapter()
+        {
+            public void componentResized(ComponentEvent evt) {
+                panel.setBounds( new Rectangle( panel.getWidth(), frame.getHeight() ) );
+            }
+        });
+
+
+
+        panel = new JPanel( );
         panel.setBounds( 0, 26, frame.getWidth( ), frame.getHeight( ) );
         frame.getContentPane( ).add( panel );
         panel.setLayout( null );
@@ -136,10 +156,46 @@ public class FullOptionsWindow {
         // Table
         table = createTable( );
 
-        JScrollPane scrollPane = new JScrollPane( table );
-        scrollPane.setBounds( 0, 0, frame.getWidth( ), 300 );
+        // Sum panel
+        sumPanel = new MyGuiComps.MyPanel();
+        sumPanel.setBounds( new Rectangle( panel.getWidth(), 25 ) );
+        sumPanel.setXY( 0, panel.getHeight() - sumPanel.getHeight() );
+        sumPanel.setBackground( Themes.RED );
+        panel.add(sumPanel);
+
+        scrollPane = new JScrollPane( table );
+        scrollPane.setBounds( 0, 0, frame.getWidth( ), panel.getHeight() - sumPanel.getHeight() );
         scrollPane.setBorder( null );
         panel.add( scrollPane );
+
+        // Pnl
+        pnlHeader = new MyGuiComps.MyLabel( "P/L" );
+        pnlHeader.setXY( 5, 3 );
+        sumPanel.add( pnlHeader );
+
+        pnlLbl = new MyGuiComps.MyLabel( "" );
+        pnlLbl.setXY( 70, 3 );
+        sumPanel.add( pnlLbl );
+
+        // Delta
+        deltaHeader = new MyGuiComps.MyLabel( "Delta" );
+        deltaHeader.setXY( 140, 3 );
+        sumPanel.add( deltaHeader );
+
+        deltaLbl = new MyGuiComps.MyLabel( "" );
+        deltaLbl.setXY( 210, 3 );
+        sumPanel.add( deltaLbl );
+
+        // Vega
+        vegaHeader = new MyGuiComps.MyLabel( "Vega" );
+        vegaHeader.setXY( 280, 3 );
+        sumPanel.add( vegaHeader );
+
+        vegaLbl = new MyGuiComps.MyLabel( "" );
+        vegaLbl.setXY( 350, 3 );
+        sumPanel.add( vegaLbl );
+
+
 
     }
 
@@ -277,9 +333,9 @@ public class FullOptionsWindow {
 
                         // Buy or Sell
                         if ( col == callBid ) {
-                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.SELL );
+                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == callAsk ) {
-                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.BUY );
+                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }
@@ -292,9 +348,9 @@ public class FullOptionsWindow {
 
                         // Buy or Sell
                         if ( col == putBid ) {
-                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.SELL );
+                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == putAsk ) {
-                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.BUY );
+                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }

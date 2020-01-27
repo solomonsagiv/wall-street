@@ -4,6 +4,7 @@ import OPs.EqualMoveCalculator;
 import OPs.OpAvgEqualMoveCalculator;
 import com.ib.client.Contract;
 import gui.WallStreetWindow;
+import locals.L;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -599,8 +600,8 @@ public class Options {
         mainJson.put( "equalMove", getEqualMoveCalculator( ).getMoveIndex( ) );
         mainJson.put( "con", getContract( ) );
         mainJson.put( "props", getProps( ) );
-        mainJson.put( "opAvg", getOpAvg( ) );
-        mainJson.put( "opAvg15", getOpAvg15( ) );
+        mainJson.put( "opAvg", L.floor(getOpAvg( ), 100) );
+        mainJson.put( "opAvg15", L.floor(getOpAvg15( ), 100) );
 
         mainJson.put( "data", optionsData );
 

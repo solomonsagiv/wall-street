@@ -1,6 +1,7 @@
 package arik;
 
 import arik.locals.Emojis;
+import arik.locals.KeyBoards;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
@@ -12,7 +13,7 @@ public class ArikRunner extends Thread {
 
     boolean run = true;
 
-    int[] allowed = { 365117561, 948009529 };
+    int[] allowed = { 365117561, 948009529, 513323078 };
 
     int sagiv_id = 365117561;
 
@@ -86,6 +87,7 @@ public class ArikRunner extends Thread {
                             String user_text = update.message( ).text( );
                             System.out.println( user_text );
 
+                            arik.sendMessage( update, update.message().from().firstName() + " \n" + update.message().from().id(), KeyBoards.main() );
 
                         } catch ( Exception e ) {
                             arik.sendMessage( update, e.getMessage( ), null );

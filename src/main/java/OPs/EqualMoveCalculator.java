@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class EqualMoveCalculator extends MyThread implements Runnable {
 
     // Variables
-    private int sleep = 1000;
+    private int sleep = 200;
     private double opPlag;
 
     private Options options;
@@ -26,7 +26,7 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
         setName( "EqualMove" );
         this.opPlag = opPlag;
     }
-
+    
     public EqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag, Options options ) {
         super( client );
         setName( "EqualMove" );

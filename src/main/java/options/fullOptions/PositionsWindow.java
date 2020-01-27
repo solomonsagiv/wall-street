@@ -26,6 +26,8 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         PositionsWindow positionsWindow = new PositionsWindow( SpxCLIENTObject.getInstance(), positions );
     }
 
+    JFrame frame;
+
     // Variables
     BASE_CLIENT_OBJECT client;
     HeaderPanel headerPanel;
@@ -56,6 +58,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         this.client = client;
         this.positions = positions;
 
+        frame = this;
         init();
 
         runner = new Runner(client);
@@ -168,7 +171,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
             editBtn.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    new EditPositionWindow( "Edit", position );
+                    new EditPositionWindow( "Edit", position, frame );
                 }
             } );
 
@@ -304,7 +307,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
             while (isRun()) {
                 try {
                     // Sleep
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
 
                     // Update the panels
                     update();
@@ -320,18 +323,23 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
         private void updateText() {
 
-            PositionCalculator.OptionPosition position;
+            try {
 
-            for ( PositionPanel panel: positionPanels ) {
-                position = panel.position;
+                PositionCalculator.OptionPosition position;
 
-                panel.priceLbl.setText(L.format10(position.getPrice()));
-                panel.deltaLbl.colorForge( ( int ) position.getDelta());
-                panel.vegaLbl.colorForge( ( int ) position.getVega());
-                panel.quantityLbl.colorForge( position.getPos() );
-                panel.pnlLbl.colorForge( ( int ) position.getPnl());
-                panel.nameLbl.setText( position.getOption().getIntName().toUpperCase() );
+                for ( PositionPanel panel : positionPanels ) {
+                    position = panel.position;
 
+                    panel.priceLbl.setText( L.format10( position.getPrice( ) ) );
+                    panel.deltaLbl.colorForge( ( int ) position.getDelta( ) );
+                    panel.vegaLbl.colorForge( ( int ) position.getVega( ) );
+                    panel.quantityLbl.colorForge( position.getPos( ) );
+                    panel.pnlLbl.colorForge( ( int ) position.getPnl( ) );
+                    panel.nameLbl.setText( position.getOption( ).getIntName( ).toUpperCase( ) );
+
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
 
         }

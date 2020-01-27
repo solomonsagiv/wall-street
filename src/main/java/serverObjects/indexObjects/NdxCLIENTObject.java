@@ -21,7 +21,6 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
     // Private constructor
     public NdxCLIENTObject() {
         super( );
-        setSpecificData( );
     }
 
     // Get instance
@@ -32,11 +31,14 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
         return client;
     }
 
-    // Specification
-    private void setSpecificData() {
-        // Equal move
-        setEqualMovePlag( .6 );
-        setIndexBidAskMargin( 1.25 );
+    @Override
+    public double getEqualMovePlag() {
+        return .6;
+    }
+
+    @Override
+    public double getIndexBidAskMargin() {
+        return 1.25;
     }
 
     @Override

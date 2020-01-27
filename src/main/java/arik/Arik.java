@@ -10,6 +10,8 @@ public class Arik {
 
     public static int sagivID = 365117561;
     public static int yosiID = 948009529;
+    public static int royID = 513323078;
+    public static int ronenID = 948009529;
     private static Arik arik;
     private ArikRunner arikRunner;
     private boolean running = false;
@@ -17,14 +19,16 @@ public class Arik {
 
     private int updateId = 0;
 
+    private int[] accounts = { sagivID, yosiID, ronenID, royID };
+
 
     private Arik() {
         bot = TelegramBotAdapter.build( "400524449:AAE4dPbl22dfI9lB1r17W4ivqz2lc4C1xUY" );
     }
 
-//    public static void main( String[] args ) {
-//        Arik.getInstance( ).start( );
-//    }
+    public static void main( String[] args ) {
+        Arik.getInstance( ).start( );
+    }
 
     // Get instance
     public static Arik getInstance() {
@@ -35,23 +39,23 @@ public class Arik {
     }
 
     public void start() {
-//        if ( !running ) {
-//            arikRunner = new ArikRunner( this );
-//            arikRunner.start( );
-//            running = true;
-//        }
+        if ( !running ) {
+            arikRunner = new ArikRunner( this );
+            arikRunner.start( );
+            running = true;
+        }
     }
 
     public void close() {
-//        arik = null;
-//        bot = null;
-//        arikRunner.close( );
-//        running = false;
+        arik = null;
+        bot = null;
+        arikRunner.close( );
+        running = false;
     }
 
     public void sendMessage( String text ) {
-//        getBot( ).execute( new SendMessage( sagivID, text ) );
-//        updateId += 1;
+        getBot( ).execute( new SendMessage( sagivID, text ) );
+        updateId += 1;
     }
 
     // Send message
@@ -64,6 +68,16 @@ public class Arik {
             updateId = update.updateId( ) + 1;
         }
     }
+
+    // Send message
+    public void sendMessageToEveryOne( String text ) {
+
+        for ( int account: accounts) {
+            sendMessage( account, text, null );
+        }
+
+    }
+
 
     // Send message
     public void sendMessage( int id, String text, Keyboard keyBoard ) {

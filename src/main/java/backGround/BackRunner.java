@@ -1,5 +1,6 @@
 package backGround;
 
+import arik.Arik;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -75,6 +76,9 @@ public class BackRunner {
                     if ( now.isAfter( client.getEndOfIndexTrading( ) ) && client.isDbRunning( ) ) {
                         client.getDb( ).closeAll( );
                         client.getRegularListUpdater( ).getHandler( ).close( );
+
+                        // Arik
+                        Arik.getInstance().sendMessageToEveryOne( client.getArikSumLine() );
                     }
 
                     // Export

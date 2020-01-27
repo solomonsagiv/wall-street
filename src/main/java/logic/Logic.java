@@ -2,6 +2,7 @@ package logic;
 
 import gui.FuturePanel;
 import gui.FuturePanelLine;
+import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.SpxCLIENTObject;
 import threads.MyThread;
@@ -202,7 +203,7 @@ public class Logic {
                                     runner1_Competition = false;
                                     runner1_up_down = 0;
 
-                                    noisy( futurePanel.conRacesField );
+                                    noisy( futurePanel.conRacesField, Themes.GREEN );
                                     runner1_up_count = 1;
 
                                     runner1_0 = future;
@@ -235,7 +236,7 @@ public class Logic {
                                     runner1_up_down = 0;
 
                                     runner1_down_count = 1;
-                                    noisy( futurePanel.conRacesField );
+                                    noisy( futurePanel.conRacesField, Themes.RED );
                                     runner1_0 = future;
                                     runner2_0 = index;
                                 }
@@ -268,7 +269,7 @@ public class Logic {
                                     runner2_up_down = 0;
 
                                     runner2_up_count = 1;
-                                    noisy( futurePanel.indRacesField );
+                                    noisy( futurePanel.indRacesField, Themes.GREEN );
 
                                     runner1_0 = future;
                                     runner2_0 = index;
@@ -300,7 +301,7 @@ public class Logic {
 
                                     runner2_down_count = 1;
 
-                                    noisy( futurePanel.indRacesField );
+                                    noisy( futurePanel.indRacesField, Themes.RED );
 
                                     runner1_0 = future;
                                     runner2_0 = index;
@@ -422,15 +423,20 @@ public class Logic {
         }
 
         // noisy
-        private void noisy( JTextField textField ) throws InterruptedException {
+        private void noisy( JTextField textField, Color color ) throws InterruptedException {
             Runnable r = new Runnable( ) {
                 @Override
                 public void run() {
                     try {
+                        Color forg = textField.getForeground();
+
                         for ( int i = 0; i < 200; i++ ) {
-                            textField.setBackground( Color.YELLOW );
+                            textField.setBackground( color );
+                            textField.setForeground( Color.WHITE );
                             Thread.sleep( 10 );
                         }
+
+                        textField.setForeground( forg );
                         textField.setBackground( light_grey_back );
                     } catch ( InterruptedException e ) {
                         e.printStackTrace( );

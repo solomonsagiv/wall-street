@@ -15,6 +15,7 @@ import locals.LocalHandler;
 import logic.Logic;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
+import org.json.JSONObject;
 import serverObjects.indexObjects.SpxCLIENTObject;
 import shlomi.Positions;
 import shlomi.Shlomi;
@@ -632,6 +633,23 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
         String originalToString = toString( );
         String newTostring = originalToString.replaceAll( ", ", "\n" );
         return newTostring;
+    }
+
+    public String getArikSumLine() {
+
+        String text = "";
+        text += "***** " + getName().toUpperCase() + " *****" + "\n";
+        text += "Date: " + LocalDate.now() + "\n";
+        text += "Open: " + getOpen() + "\n";
+        text += "High: " + getHigh() + "\n";
+        text += "Low: " + getLow() + "\n";
+        text += "Close: " + getIndex() + "\n";
+        text += "OP avg: " + getOptionsHandler().getMainOptions().getOpAvg() + "\n";
+        text += "Ind races: " + getIndexSum() + "\n";
+        text += "Avg move: " + getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveOpAvg() + "\n";
+        text += "Contract counter: " + getOptionsHandler().getMainOptions().getContractBidAskCounter() + "\n";
+
+        return text;
     }
 
     @Override

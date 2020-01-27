@@ -21,7 +21,6 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
     // Constructor
     public SpxCLIENTObject() {
         super( );
-        setSpecificData( );
     }
 
     // Get instance
@@ -32,11 +31,14 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
         return client;
     }
 
-    // Specification
-    private void setSpecificData() {
-        // Equal move
-        setEqualMovePlag( .25 );
-        setIndexBidAskMargin( .5 );
+    @Override
+    public double getEqualMovePlag() {
+         return .25;
+    }
+
+    @Override
+    public double getIndexBidAskMargin() {
+        return .5;
     }
 
     @Override
