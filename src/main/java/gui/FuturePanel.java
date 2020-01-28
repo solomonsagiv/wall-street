@@ -167,8 +167,7 @@ public class FuturePanel extends BaseFuturePanel {
                     fullOptionsTable.addActionListener( new ActionListener( ) {
                         @Override
                         public void actionPerformed( ActionEvent e ) {
-                            FullOptionsWindow fullOptionsWindow = new FullOptionsWindow( client );
-                            fullOptionsWindow.frame.setVisible( true );
+                            new FullOptionsWindow( client );
                         }
                     } );
 

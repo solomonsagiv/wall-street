@@ -43,6 +43,7 @@ public class EditPositionWindow extends MyGuiComps.MyFrame {
 
         // Main panel
         panel = new MyGuiComps.MyPanel();
+        panel.setLayout( null );
         panel.setBounds( 0, 0, getWidth(), getHeight() );
         getContentPane().add(panel);
 

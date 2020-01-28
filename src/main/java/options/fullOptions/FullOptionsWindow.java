@@ -13,22 +13,22 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
-public class FullOptionsWindow {
+public class FullOptionsWindow extends MyGuiComps.MyFrame {
 
-    public static JLabel indexLabel;
-    public static JLabel indexPresentLabel;
-    public JFrame frame;
+    public static MyGuiComps.MyLabel indexLabel;
+    public static MyGuiComps.MyLabel indexPresentLabel;
+    //    public JFrame frame;
     public JTable table;
     public String[] headers = { "Vega", "Delta", "Bid", "Theo", "Ask", "Strike", "IV", "Bid", "Theo", "Ask", "Delta", "Vega" };
     public Object[][] tableData;
     FullOptionsUpdater fullOptionsUpdater;
     BASE_CLIENT_OBJECT client;
     Options options;
-    public static MyGuiComps.MyLabel totalPnlLbl;
     MyGuiComps.MyPanel sumPanel;
     JScrollPane scrollPane;
-    JPanel settingPanel;
+    MyGuiComps.MyPanel settingPanel;
 
     public static MyGuiComps.MyLabel pnlLbl;
     public static MyGuiComps.MyLabel deltaLbl;
@@ -37,15 +37,16 @@ public class FullOptionsWindow {
     MyGuiComps.MyLabel pnlHeader;
     MyGuiComps.MyLabel deltaHeader;
     MyGuiComps.MyLabel vegaHeader;
-    JPanel panel;
 
     /**
      * Create the application.
      */
     public FullOptionsWindow( BASE_CLIENT_OBJECT client ) {
+        super( "Options" );
         this.client = client;
         this.options = client.getOptionsHandler( ).getOptionsDay( );
         initialize( );
+        initListeners( );
 
         // Options data handler
         client.getOptionsDataHandler( ).setOptions( options );
@@ -54,74 +55,20 @@ public class FullOptionsWindow {
         // Full options window updater
         fullOptionsUpdater = new FullOptionsUpdater( client, options, table );
         fullOptionsUpdater.getHandler( ).start( );
-
     }
 
+    private void initListeners() {
 
-    public FullOptionsWindow() {
-        initialize( );
-    }
-
-    /**
-     * Launch the application.
-     */
-    public static void main( String[] args ) {
-        EventQueue.invokeLater( new Runnable( ) {
-            public void run() {
-                try {
-
-//					SpxCLIENTObject spx = SpxCLIENTObject.getInstance();
-//
-//					spx.getTwsData().getOptionMonthContract ().lastTradeDateOrContractMonth( "20200116" );
-//
-//					Manifest.CLIENT_ID = 678;
-//
-//					Downloader downloader = Downloader.getInstance();
-//					downloader.start();
-
-                    FullOptionsWindow window = new FullOptionsWindow( );
-                    window.frame.setVisible( true );
-                } catch ( Exception e ) {
-                    e.printStackTrace( );
-                }
-            }
-        } );
-    }
-
-    /**
-     * Initialize the contents of the frame.
-     */
-    private void initialize() {
-        frame = new JFrame( );
-        frame.addWindowListener( new WindowAdapter( ) {
+        // This
+        addWindowListener( new WindowAdapter( ) {
             @Override
             public void windowClosing( WindowEvent arg0 ) {
                 fullOptionsUpdater.getHandler( ).close( );
                 client.getOptionsDataHandler( ).getRunner( ).getHandler( ).close( );
             }
         } );
-        frame.setBounds( 100, 100, 700, 333 );
-        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 
-        frame.addComponentListener(new ComponentAdapter()
-        {
-            public void componentResized(ComponentEvent evt) {
-                panel.setBounds( new Rectangle( panel.getWidth(), frame.getHeight() ) );
-            }
-        });
-
-        panel = new JPanel( );
-        panel.setBounds( 0, 26, frame.getWidth( ), frame.getHeight( ) );
-        frame.getContentPane( ).add( panel );
-        panel.setLayout( null );
-
-        settingPanel = new JPanel( );
-        settingPanel.setLayout( null );
-        settingPanel.setBounds( 0, 0, frame.getWidth( ), 25 );
-        settingPanel.setBackground( Themes.GREY_LIGHT );
-        frame.getContentPane( ).add( settingPanel );
-
-        // Right click open Popup menu
+        // Setting panel
         settingPanel.addMouseListener( new MouseAdapter( ) {
             @Override
             public void mouseClicked( MouseEvent e ) {
@@ -132,49 +79,49 @@ public class FullOptionsWindow {
             }
         } );
 
+    }
+
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+
+        Container mainContainer = rootPane.getContentPane();
+        mainContainer.setLayout( new BorderLayout() );
+
+        // This
+        setBounds( 100, 100, 700, 333 );
+        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+
+        // Setting panel
+        settingPanel = new MyGuiComps.MyPanel( );
+        settingPanel.setBackground( Themes.GREY_LIGHT );
+        mainContainer.add( settingPanel, BorderLayout.NORTH );
+
         // Index
-        indexLabel = new JLabel( "Index" );
-        indexLabel.setForeground( Color.BLACK );
+        indexLabel = new MyGuiComps.MyLabel( "Index" );
         indexLabel.setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
         indexLabel.setBounds( 451, 0, 99, settingPanel.getHeight( ) );
-
         settingPanel.add( indexLabel );
 
         // Index present
-        indexPresentLabel = new JLabel( "Present" );
+        indexPresentLabel = new MyGuiComps.MyLabel( "Present" );
         indexPresentLabel.setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
         indexPresentLabel.setBounds( 526, 0, 99, settingPanel.getHeight( ) );
-
         settingPanel.add( indexPresentLabel );
 
-        // Total pnl
-        totalPnlLbl = new MyGuiComps.MyLabel( "Pnl" );
-        totalPnlLbl.setBounds( 5, 0, 100, totalPnlLbl.getHeight() );
-        settingPanel.add( totalPnlLbl );
-
         // Table
-        table = createTable( );
+        table = createTable( this );
 
-        // Sum panel
-        sumPanel = new MyGuiComps.MyPanel();
-        sumPanel.setBounds( new Rectangle( panel.getWidth(), 25 ) );
-        sumPanel.setXY( 0, panel.getHeight() - sumPanel.getHeight() );
-        sumPanel.setBackground( Themes.RED );
-        panel.add(sumPanel);
-
+        // Scroll pane
         scrollPane = new JScrollPane( table );
-        scrollPane.setBounds( 0, settingPanel.getHeight() + 1, frame.getWidth( ), panel.getHeight() - sumPanel.getHeight() );
-        scrollPane.setBorder( null );
-        panel.add( scrollPane );
+        scrollPane.getVerticalScrollBar( ).setPreferredSize( new Dimension( 0, 0 ) );
+        mainContainer.add( scrollPane, BorderLayout.CENTER );
 
-        // Pnl
-        pnlHeader = new MyGuiComps.MyLabel( "P/L" );
-        pnlHeader.setXY( 5, 3 );
-        sumPanel.add( pnlHeader );
-
-        pnlLbl = new MyGuiComps.MyLabel( "" );
-        pnlLbl.setXY( 70, 3 );
-        sumPanel.add( pnlLbl );
+        // ---------- Sum panel ---------- //
+        sumPanel = new MyGuiComps.MyPanel( );
+        sumPanel.setBackground( Themes.GREY_LIGHT );
+        mainContainer.add( sumPanel, BorderLayout.SOUTH );
 
         // Delta
         deltaHeader = new MyGuiComps.MyLabel( "Delta" );
@@ -194,11 +141,18 @@ public class FullOptionsWindow {
         vegaLbl.setXY( 350, 3 );
         sumPanel.add( vegaLbl );
 
+        // Pnl
+        pnlHeader = new MyGuiComps.MyLabel( "P/L" );
+        pnlHeader.setXY( 5, 3 );
+        sumPanel.add( pnlHeader );
 
+        pnlLbl = new MyGuiComps.MyLabel( "" );
+        pnlLbl.setXY( 70, 3 );
+        sumPanel.add( pnlLbl );
 
     }
 
-    private JTable createTable() {
+    private JTable createTable( MyGuiComps.MyFrame frame ) {
 
         int rows = options.getStrikes( ).size( );
 
@@ -332,9 +286,9 @@ public class FullOptionsWindow {
 
                         // Buy or Sell
                         if ( col == callBid ) {
-                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.SELL, frame );
+                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == callAsk ) {
-                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.BUY, frame );
+                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }
@@ -347,9 +301,9 @@ public class FullOptionsWindow {
 
                         // Buy or Sell
                         if ( col == putBid ) {
-                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.SELL, frame );
+                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == putAsk ) {
-                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler().getPositionCalculator(), PositionCalculator.OptionPosition.BUY, frame );
+                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }
@@ -391,6 +345,11 @@ public class FullOptionsWindow {
     public void setOptions( Options options ) {
         this.options = options;
         this.fullOptionsUpdater.setOptionsFather( options );
+    }
+
+    @Override
+    public void onClose() {
+
     }
 
     // Jmenu

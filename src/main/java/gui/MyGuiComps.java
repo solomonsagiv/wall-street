@@ -4,9 +4,7 @@ import locals.L;
 import locals.Themes;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
 import java.text.DecimalFormat;
 
 public class MyGuiComps {
@@ -17,7 +15,7 @@ public class MyGuiComps {
         public MyFrame( String title ) throws HeadlessException {
             super( title );
 
-            onClose();
+            onClose( );
             init( );
         }
 
@@ -25,6 +23,7 @@ public class MyGuiComps {
 
             setDefaultCloseOperation( DISPOSE_ON_CLOSE );
             setBackground( Themes.GREY_LIGHT );
+            pack();
             setVisible( true );
             setBounds( 100, 100, 400, 400 );
             getContentPane( ).setLayout( null );
@@ -48,11 +47,19 @@ public class MyGuiComps {
             setFont( Themes.VEDANA_12 );
             setBackground( Themes.GREY_LIGHT );
             setBorder( null );
-            setLayout( null );
+//            setLayout( null );
         }
 
         public void setXY( int x, int y ) {
             setBounds( x, y, getWidth( ), getHeight( ) );
+        }
+
+        public void setWidth( int width ) {
+            setBounds( getX( ), getY( ), width, getHeight( ) );
+        }
+
+        public void setHeight( int height ) {
+            setBounds( getX( ), getY( ), getWidth( ), height );
         }
     }
 
@@ -105,7 +112,7 @@ public class MyGuiComps {
                 setForeground( Themes.RED );
             }
 
-            setText( L.str( val ));
+            setText( L.str( val ) );
         }
 
         public void colorBack( double val, DecimalFormat format ) {
@@ -167,7 +174,7 @@ public class MyGuiComps {
                 setForeground( Themes.RED );
             }
 
-            setText(L.coma( val ));
+            setText( L.coma( val ) );
         }
 
         public void colorBack( double val, DecimalFormat format ) {
@@ -196,7 +203,7 @@ public class MyGuiComps {
             setBounds( new Rectangle( 70, 25 ) );
             setFont( Themes.VEDANA_12 );
             setForeground( Themes.BLUE );
-            setFont( getFont().deriveFont( Font.BOLD ) );
+            setFont( getFont( ).deriveFont( Font.BOLD ) );
             setHorizontalAlignment( JLabel.CENTER );
             setBackground( Themes.GREY_LIGHT );
             setBorder( null );

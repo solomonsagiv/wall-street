@@ -110,14 +110,14 @@ public class MySqlRunner extends MyThread implements Runnable {
                 e.printStackTrace( );
                 continue;
             } catch ( Exception e ) {
-//                Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
-//                        null );
+                Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
+                        null );
             }
         }
 
         setRun( false );
         client.setDbRunning( false );
-//        Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL kiiled !!!", null );
+        Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL kiiled !!!", null );
 
     }
 

@@ -102,6 +102,7 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
 
         // Main panel
         panel = new MyGuiComps.MyPanel();
+        panel.setLayout( null );
         panel.setBounds( 0, 0, 200, getHeight() );
         getContentPane().add(panel);
 

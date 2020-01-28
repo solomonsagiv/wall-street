@@ -97,11 +97,11 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
 
         // Vega
         int vega = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.VEGA );
-        FullOptionsWindow.deltaLbl.colorForge( vega );
+        FullOptionsWindow.vegaLbl.colorForge( vega );
 
         // Pnl
         int pnl = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.PNL );
-        FullOptionsWindow.totalPnlLbl.colorForge( pnl );
+        FullOptionsWindow.pnlLbl.colorForge( pnl );
 
     }
 

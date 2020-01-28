@@ -73,11 +73,13 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
         // Headers
         headerPanel = new HeaderPanel(this);
+        headerPanel.setLayout( null );
         headerPanel.setXY(0, 0);
         add(headerPanel);
 
         // Positions area panel
         positionsAreaPanel = new MyGuiComps.MyPanel();
+        positionsAreaPanel.setLayout( null );
         positionsAreaPanel.setBackground(Themes.GREY_VERY_LIGHT);
         positionsAreaPanel.setBounds(0, headerPanel.getHeight() + 1, getWidth(), getHeight() - headerPanel.getHeight());
         add(positionsAreaPanel);
@@ -190,6 +192,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         private void initialize() {
             // This panel
             setBounds(0, 0, panel.getWidth(), 33);
+            setLayout( null );
 
             // Pnl
             pnlLbl = new MyGuiComps.MyLabel("");
@@ -350,11 +353,16 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         }
 
         private void update() {
-            if (isPositionsChanges()) {
 
-                initPanels(positionsAreaPanel);
+            try {
+                if ( isPositionsChanges( ) ) {
 
-                prePositionsSize = positions.size();
+                    initPanels( positionsAreaPanel );
+
+                    prePositionsSize = positions.size( );
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
         }
 

@@ -425,7 +425,7 @@ public class MainWindow {
         panel_4.add(lblContractsDetails);
 
         spxDayOptionExpField = new JTextField();
-        spxDayOptionExpField.setText("20200127");
+        spxDayOptionExpField.setText("20200129");
         spxDayOptionExpField.setHorizontalAlignment(SwingConstants.CENTER);
         spxDayOptionExpField.setFont(new Font("Dubai Medium", Font.PLAIN, 12));
         spxDayOptionExpField.setColumns(10);
