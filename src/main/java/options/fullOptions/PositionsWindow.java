@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class PositionsWindow extends MyGuiComps.MyFrame {
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
-        ArrayList< PositionCalculator.OptionPosition > positions = new ArrayList<>();
-        positions.add( new PositionCalculator.OptionPosition( 52, new Option( "C", 1850, 2 ), -5, 5.3 ) );
+        ArrayList<PositionCalculator.OptionPosition> positions = new ArrayList<>();
+        positions.add(new PositionCalculator.OptionPosition(52, new Option("C", 1850, 2), -5, 5.3));
 
-        PositionsWindow positionsWindow = new PositionsWindow( SpxCLIENTObject.getInstance(), positions );
+        PositionsWindow positionsWindow = new PositionsWindow(SpxCLIENTObject.getInstance(), positions);
     }
 
     JFrame frame;
@@ -52,11 +52,13 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
     int col7 = 395;
     int col8 = 460;
 
-    // COnstructor
+    // Constructor
     public PositionsWindow(BASE_CLIENT_OBJECT client, ArrayList<PositionCalculator.OptionPosition> positions) {
         super("Positions");
         this.client = client;
         this.positions = positions;
+
+        positionPanels = new ArrayList<>();
 
         frame = this;
         init();
@@ -67,7 +69,7 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
     private void init() {
 
-        setBounds( 100, 100, 560, 200 );
+        setBounds(100, 100, 560, 200);
 
         // Headers
         headerPanel = new HeaderPanel(this);
@@ -84,13 +86,13 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void onClose() {
-        addWindowListener( new WindowAdapter( ) {
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed( WindowEvent e ) {
-                super.windowClosed( e );
+            public void windowClosed(WindowEvent e) {
+                super.windowClosed(e);
                 runner.getHandler().close();
             }
-        } );
+        });
     }
 
     public void initPanels(MyGuiComps.MyPanel panel) {
@@ -168,20 +170,20 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         private void initListener() {
 
             // Edit
-            editBtn.addActionListener( new ActionListener( ) {
+            editBtn.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed( ActionEvent actionEvent ) {
-                    new EditPositionWindow( "Edit", position, frame );
+                public void actionPerformed(ActionEvent actionEvent) {
+                    new EditPositionWindow("Edit", position, frame);
                 }
-            } );
+            });
 
             // Cancel
-            cancelBtn.addActionListener( new ActionListener( ) {
+            cancelBtn.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed( ActionEvent actionEvent ) {
-                    positions.remove( position );
+                public void actionPerformed(ActionEvent actionEvent) {
+                    positions.remove(position);
                 }
-            } );
+            });
 
         }
 
@@ -192,43 +194,43 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
             // Pnl
             pnlLbl = new MyGuiComps.MyLabel("");
             pnlLbl.setXY(col1, row1);
-            add( pnlLbl );
+            add(pnlLbl);
 
             // Delta
             deltaLbl = new MyGuiComps.MyLabel("");
             deltaLbl.setXY(col2, row1);
-            add( deltaLbl );
+            add(deltaLbl);
 
             // Vega
             vegaLbl = new MyGuiComps.MyLabel("");
             vegaLbl.setXY(col3, row1);
-            add( vegaLbl );
+            add(vegaLbl);
 
             // Delta
             priceLbl = new MyGuiComps.MyLabel("");
             priceLbl.setXY(col4, row1);
-            add( priceLbl );
+            add(priceLbl);
 
             // Delta
             quantityLbl = new MyGuiComps.MyLabel("");
             quantityLbl.setXY(col5, row1);
-            add( quantityLbl );
+            add(quantityLbl);
 
             // Name
-            nameLbl = new MyGuiComps.MyLabel( "" );
-            nameLbl.setXY( col6, row1 );
-            add( nameLbl );
+            nameLbl = new MyGuiComps.MyLabel("");
+            nameLbl.setXY(col6, row1);
+            add(nameLbl);
 
             // Edit btn
             editBtn = new MyGuiComps.MyButton("Edit");
             editBtn.setXY(col7, row1);
-            editBtn.setForeground( Themes.BLUE_LIGHT_2 );
+            editBtn.setForeground(Themes.BLUE_LIGHT_2);
             add(editBtn);
 
             // Cancel btn
             cancelBtn = new MyGuiComps.MyButton("Cancel");
             cancelBtn.setXY(col8, row1);
-            cancelBtn.setForeground( Themes.RED );
+            cancelBtn.setForeground(Themes.RED);
             add(cancelBtn);
         }
 
@@ -258,38 +260,38 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
             // Pnl
             pnlField = new MyGuiComps.MyLabel("P/L");
             pnlField.setXY(col1, row1);
-            pnlField.setFont( pnlField.getFont().deriveFont( Font.BOLD ) );
-            add( pnlField );
+            pnlField.setFont(pnlField.getFont().deriveFont(Font.BOLD));
+            add(pnlField);
 
             // Delta
             deltaField = new MyGuiComps.MyLabel("Delta");
-            deltaField.setFont( deltaField.getFont().deriveFont( Font.BOLD ) );
+            deltaField.setFont(deltaField.getFont().deriveFont(Font.BOLD));
             deltaField.setXY(col2, row1);
-            add( deltaField );
+            add(deltaField);
 
             // Vega
             vegaField = new MyGuiComps.MyLabel("Vega");
-            vegaField.setFont( vegaField.getFont().deriveFont( Font.BOLD ) );
+            vegaField.setFont(vegaField.getFont().deriveFont(Font.BOLD));
             vegaField.setXY(col3, row1);
-            add( vegaField );
+            add(vegaField);
 
             // Price
             priceField = new MyGuiComps.MyLabel("Price");
-            priceField.setFont( priceField.getFont().deriveFont( Font.BOLD ) );
+            priceField.setFont(priceField.getFont().deriveFont(Font.BOLD));
             priceField.setXY(col4, row1);
-            add( priceField );
+            add(priceField);
 
             // Quantity
             quantityField = new MyGuiComps.MyLabel("Quantity");
-            quantityField.setFont( quantityField.getFont().deriveFont( Font.BOLD ) );
+            quantityField.setFont(quantityField.getFont().deriveFont(Font.BOLD));
             quantityField.setXY(col5, row1);
-            add( quantityField );
+            add(quantityField);
 
             // Name
-            nameLbl = new MyGuiComps.MyLabel( "Option" );
-            nameLbl.setXY( col6, row1 );
-            nameLbl.setFont( nameLbl.getFont().deriveFont( Font.BOLD ) );
-            add( nameLbl );
+            nameLbl = new MyGuiComps.MyLabel("Option");
+            nameLbl.setXY(col6, row1);
+            nameLbl.setFont(nameLbl.getFont().deriveFont(Font.BOLD));
+            add(nameLbl);
 
         }
     }
@@ -327,18 +329,21 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
                 PositionCalculator.OptionPosition position;
 
-                for ( PositionPanel panel : positionPanels ) {
-                    position = panel.position;
+                if (positionPanels.size() > 0) {
 
-                    panel.priceLbl.setText( L.format10( position.getPrice( ) ) );
-                    panel.deltaLbl.colorForge( ( int ) position.getDelta( ) );
-                    panel.vegaLbl.colorForge( ( int ) position.getVega( ) );
-                    panel.quantityLbl.colorForge( position.getPos( ) );
-                    panel.pnlLbl.colorForge( ( int ) position.getPnl( ) );
-                    panel.nameLbl.setText( position.getOption( ).getIntName( ).toUpperCase( ) );
+                    for (PositionPanel panel : positionPanels) {
+                        position = panel.position;
 
+                        panel.priceLbl.setText(L.format10(position.getPrice()));
+                        panel.deltaLbl.colorForge((int) position.getDelta());
+                        panel.vegaLbl.colorForge((int) position.getVega());
+                        panel.quantityLbl.colorForge(position.getPos());
+                        panel.pnlLbl.colorForge((int) position.getPnl());
+                        panel.nameLbl.setText(position.getOption().getIntName().toUpperCase());
+
+                    }
                 }
-            } catch ( Exception e ) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

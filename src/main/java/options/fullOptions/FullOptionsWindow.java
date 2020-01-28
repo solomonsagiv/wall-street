@@ -28,6 +28,7 @@ public class FullOptionsWindow {
     public static MyGuiComps.MyLabel totalPnlLbl;
     MyGuiComps.MyPanel sumPanel;
     JScrollPane scrollPane;
+    JPanel settingPanel;
 
     public static MyGuiComps.MyLabel pnlLbl;
     public static MyGuiComps.MyLabel deltaLbl;
@@ -109,17 +110,12 @@ public class FullOptionsWindow {
             }
         });
 
-
-
-
-
-
         panel = new JPanel( );
         panel.setBounds( 0, 26, frame.getWidth( ), frame.getHeight( ) );
         frame.getContentPane( ).add( panel );
         panel.setLayout( null );
 
-        JPanel settingPanel = new JPanel( );
+        settingPanel = new JPanel( );
         settingPanel.setLayout( null );
         settingPanel.setBounds( 0, 0, frame.getWidth( ), 25 );
         settingPanel.setBackground( Themes.GREY_LIGHT );
@@ -167,7 +163,7 @@ public class FullOptionsWindow {
         panel.add(sumPanel);
 
         scrollPane = new JScrollPane( table );
-        scrollPane.setBounds( 0, 0, frame.getWidth( ), panel.getHeight() - sumPanel.getHeight() );
+        scrollPane.setBounds( 0, settingPanel.getHeight() + 1, frame.getWidth( ), panel.getHeight() - sumPanel.getHeight() );
         scrollPane.setBorder( null );
         panel.add( scrollPane );
 
