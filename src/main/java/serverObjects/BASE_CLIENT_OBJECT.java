@@ -11,6 +11,7 @@ import gui.FuturePanel;
 import gui.FuturePanelLine;
 import lists.MyList;
 import lists.RegularListUpdater;
+import locals.L;
 import locals.LocalHandler;
 import logic.Logic;
 import options.OptionsDataHandler;
@@ -639,15 +640,15 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
         String text = "";
         text += "***** " + getName().toUpperCase() + " *****" + "\n";
-        text += "Date: " + LocalDate.now() + "\n";
+        text += "Date: " + LocalDate.now().minusDays( 1 ) + "\n";
         text += "Open: " + getOpen() + "\n";
         text += "High: " + getHigh() + "\n";
         text += "Low: " + getLow() + "\n";
         text += "Close: " + getIndex() + "\n";
-        text += "OP avg: " + getOptionsHandler().getMainOptions().getOpAvg() + "\n";
+        text += "OP avg: " + L.format100( getOptionsHandler().getMainOptions().getOpAvg()) + "\n";
         text += "Ind races: " + getIndexSum() + "\n";
-        text += "Avg move: " + getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveOpAvg() + "\n";
-        text += "Contract counter: " + getOptionsHandler().getMainOptions().getContractBidAskCounter() + "\n";
+        text += "Avg move: " + L.format100( getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveOpAvg()) + "\n";
+        text += "Contract counter: " +  getOptionsHandler().getMainOptions().getContractBidAskCounter() + "\n";
 
         return text;
     }

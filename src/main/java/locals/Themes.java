@@ -1,13 +1,15 @@
 package locals;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Themes {
 
     // Colors
     public static Color BINANCE_ORANGE = new Color( 255, 204, 0 );
     public static Color BINANCE_GREY = new Color( 38, 45, 51 );
-    public static Color BINANCE_GREEN = new Color( 7, 153, 98 );
+    public static Color BINANCE_GREEN = new Color( 7, 93, 55 );
+//    public static Color BINANCE_GREEN = new Color( 7, 153, 98 );
     //	public static Color BINANCE_GREEN = new Color( 111 , 207 , 31 );
     public static Color BINANCE_RED = new Color( 255, 53, 157 );
     public static Color ORANGE = new Color( 187, 133, 25 );
@@ -35,6 +37,12 @@ public class Themes {
     public static Font ARIEL_15 = new Font( "Ariel", Font.PLAIN, 15 );
     public static Font ARIEL_BOLD_15 = new Font( "Ariel", Font.BOLD, 15 );
     public static Font VEDANA_12 = new Font( "Verdana", Font.PLAIN, 12 );
+
+
+    public static Color getRamdomColor() {
+        Random random = new Random();
+        return new Color( random.nextInt( 256 ), random.nextInt( 256 ), random.nextInt( 256 ) );
+    }
 
 
 }

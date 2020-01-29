@@ -1,5 +1,6 @@
 package gui;
 
+import api.LayOutTest;
 import locals.L;
 import locals.Themes;
 
@@ -71,6 +72,14 @@ public class MyGuiComps {
             super( columns );
 
             init( );
+        }
+
+        public void setWidth( int width ) {
+            setBounds( getX( ), getY( ), width, getHeight( ) );
+        }
+
+        public void setHeight( int height ) {
+            setBounds( getX( ), getY( ), getWidth( ), height );
         }
 
         private void init() {
@@ -145,6 +154,14 @@ public class MyGuiComps {
 
         }
 
+        public void setWidth( int width ) {
+            setBounds( getX( ), getY( ), width, getHeight( ) );
+        }
+
+        public void setHeight( int height ) {
+            setBounds( getX( ), getY( ), getWidth( ), height );
+        }
+
         public void setXY( int x, int y ) {
             setBounds( x, y, getWidth( ), getHeight( ) );
         }
@@ -170,6 +187,17 @@ public class MyGuiComps {
         public void colorForge( int val ) {
             if ( val >= 0 ) {
                 setForeground( Themes.GREEN );
+            } else {
+                setForeground( Themes.RED );
+            }
+
+            setText( L.coma( val ) );
+        }
+
+
+        public void colorForge( int val, Color green ) {
+            if ( val >= 0 ) {
+                setForeground( green );
             } else {
                 setForeground( Themes.RED );
             }
@@ -217,25 +245,52 @@ public class MyGuiComps {
     }
 
 
-    // ---------- JButton ---------- //
-    public static class MySuperPanel extends JPanel {
+    // ---------- GridPanel ---------- //
+    public static class MyBoardPanel extends JPanel {
+
+        public Field[][] fields;
 
         int rows, cols;
+        Dimension panelMinDimension, fieldsMinDimension;
 
-        public MySuperPanel( int rows, int cols ) {
+        public MyBoardPanel( int rows, int cols, Dimension panelMinDimension, Dimension fieldsMinDimension ) {
             this.rows = rows;
             this.cols = cols;
-            init( );
+            fields = new Field[rows][cols];
+            this.panelMinDimension = panelMinDimension;
+            this.fieldsMinDimension = fieldsMinDimension;
+
+            setLayout( new GridLayout( rows, cols ) );
+            setMinimumSize( new Dimension( panelMinDimension ) );
+            setPreferredSize( new Dimension( panelMinDimension ) );
+            setBackground( Themes.GREY_LIGHT );
+            fillBoard();
         }
 
-        private void init() {
-
-
+        private void fillBoard() {
+            for ( int i = 0; i < rows; ++i ) {
+                for ( int j = 0; j < cols; ++j ) {
+                    fields[ i ][ j ] = new Field( fieldsMinDimension );
+                    add( fields[ i ][ j ] );
+                }
+            }
         }
 
+        public void setLabel( JLabel label, int row, int col ) {
+            fields[ row ][ col ].add( label );
+        }
 
+        class Field extends JPanel {
 
+            public Field(Dimension minDimension ) {
+                setMinimumSize( minDimension );
+                setPreferredSize( minDimension );
+            }
+
+        }
     }
+
+
 
 }
 

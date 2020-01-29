@@ -8,6 +8,7 @@ import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 import javax.swing.*;
+import java.awt.*;
 import java.text.DecimalFormat;
 
 public class FullOptionsUpdater extends MyThread implements Runnable {
@@ -101,7 +102,7 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
 
         // Pnl
         int pnl = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.PNL );
-        FullOptionsWindow.pnlLbl.colorForge( pnl );
+        FullOptionsWindow.pnlLbl.colorForge( pnl, Color.BLACK );
 
     }
 

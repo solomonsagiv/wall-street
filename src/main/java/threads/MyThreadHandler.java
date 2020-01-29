@@ -7,13 +7,13 @@ public class MyThreadHandler {
     // Variables
     MyThread myThread;
     Thread thread;
-//    Arik arik;
+    Arik arik;
 
     // Constructor
     public MyThreadHandler( MyThread myThread ) {
 
         this.myThread = myThread;
-//        this.arik = Arik.getInstance( );
+        this.arik = Arik.getInstance( );
 
     }
 
@@ -29,7 +29,7 @@ public class MyThreadHandler {
             thread.start( );
         }
 
-//        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Started" );
+        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Started" );
     }
 
     // Close
@@ -40,7 +40,7 @@ public class MyThreadHandler {
             myThread.setRun( false );
             thread = null;
         }
-//        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
+        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
 
     }
 
@@ -50,7 +50,7 @@ public class MyThreadHandler {
         close( );
         start( );
 
-//        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Restarted" );
+        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Restarted" );
 
     }
 }

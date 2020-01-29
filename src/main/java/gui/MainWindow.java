@@ -332,7 +332,6 @@ public class MainWindow {
         wallstreetWindowBtn.setFont(new Font("Arial", Font.BOLD, 12));
         wallstreetWindowBtn.setBounds(10, 85, 104, 27);
         panel_2.add(wallstreetWindowBtn);
-
         JButton ndxStocksWindowBtn = new JButton("Stocks");
         ndxStocksWindowBtn.setBounds(10, 123, 104, 27);
         panel_2.add(ndxStocksWindowBtn);

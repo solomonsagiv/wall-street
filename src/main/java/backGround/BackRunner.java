@@ -74,14 +74,15 @@ public class BackRunner {
                     }
 
                     // Close runners
-                    if ( now.isAfter( client.getEndOfIndexTrading( ) ) && client.isStarted() ) {
-                        client.getDb( ).closeAll( );
-                        client.getRegularListUpdater( ).getHandler( ).close( );
+                    if ( now.isAfter( client.getEndOfIndexTrading( ) ) && client.isDbRunning() ) {
 
                         if ( Manifest.DB ) {
                             // Arik
                             Arik.getInstance().sendMessageToEveryOne( client.getArikSumLine() );
                         }
+
+                        client.getDb( ).closeAll( );
+                        client.getRegularListUpdater( ).getHandler( ).close( );
 
                     }
 
@@ -95,6 +96,8 @@ public class BackRunner {
 
                 } catch ( InterruptedException e ) {
                     close( );
+                } catch ( Exception e ) {
+                    Arik.getInstance().sendMessage( e.getMessage()  + "\n" + e.getCause() );
                 }
             }
         }

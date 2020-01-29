@@ -53,11 +53,16 @@ public class Downloader extends Thread implements EWrapper {
     }
 
     public static void main( String[] args ) {
+        SpxCLIENTObject.getInstance( ).getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
+        SpxCLIENTObject.getInstance( ).getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
 
-//      Arik.getInstance( ).sendMessageToEveryOne( SpxCLIENTObject.getInstance( ).getArikSumLine( ) );
+        NdxCLIENTObject.getInstance( ).getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
+        NdxCLIENTObject.getInstance( ).getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
+        Arik.getInstance( ).sendMessageToEveryOne( SpxCLIENTObject.getInstance( ).getArikSumLine( ) );
+        Arik.getInstance( ).sendMessageToEveryOne( NdxCLIENTObject.getInstance( ).getArikSumLine( ) );
 
-        Downloader downloader = new Downloader( );
-        downloader.start( );
+//        Downloader downloader = new Downloader( );
+//        downloader.start( );
     }
 
     public void close() {

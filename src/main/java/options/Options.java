@@ -501,7 +501,7 @@ public class Options {
                 e.printStackTrace();
             }
 
-            return sum / opList.size( );
+            return L.floor( sum / opList.size( ), 100 );
         } else {
             return 0;
         }

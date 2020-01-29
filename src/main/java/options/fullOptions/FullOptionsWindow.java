@@ -25,9 +25,9 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     FullOptionsUpdater fullOptionsUpdater;
     BASE_CLIENT_OBJECT client;
     Options options;
-    MyGuiComps.MyPanel sumPanel;
+    MyGuiComps.MyBoardPanel sumPanel;
     JScrollPane scrollPane;
-    MyGuiComps.MyPanel settingPanel;
+    MyGuiComps.MyBoardPanel settingPanel;
 
     public static MyGuiComps.MyLabel pnlLbl;
     public static MyGuiComps.MyLabel deltaLbl;
@@ -93,21 +93,26 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 
         // Setting panel
-        settingPanel = new MyGuiComps.MyPanel( );
-        settingPanel.setBackground( Themes.GREY_LIGHT );
+        settingPanel = new MyGuiComps.MyBoardPanel( 1, 8, new Dimension( mainContainer.getWidth(), 25 ), new Dimension( 40, 25 ) );
         mainContainer.add( settingPanel, BorderLayout.NORTH );
+
+        pnlHeader = new MyGuiComps.MyLabel( "P/L" );
+        settingPanel.setLabel( pnlHeader, 0, 1 );
+
+        pnlLbl = new MyGuiComps.MyLabel( "" );
+        pnlLbl.setForeground( new Color( 4,4,4 ) );
+        pnlLbl.setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
+        settingPanel.setLabel( pnlLbl, 0, 2 );
 
         // Index
         indexLabel = new MyGuiComps.MyLabel( "Index" );
         indexLabel.setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
-        indexLabel.setBounds( 451, 0, 99, settingPanel.getHeight( ) );
-        settingPanel.add( indexLabel );
+        settingPanel.setLabel( indexLabel, 0, 6 );
 
         // Index present
         indexPresentLabel = new MyGuiComps.MyLabel( "Present" );
         indexPresentLabel.setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
-        indexPresentLabel.setBounds( 526, 0, 99, settingPanel.getHeight( ) );
-        settingPanel.add( indexPresentLabel );
+        settingPanel.setLabel( indexPresentLabel, 0, 7 );
 
         // Table
         table = createTable( this );
@@ -118,39 +123,24 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
         mainContainer.add( scrollPane, BorderLayout.CENTER );
 
         // ---------- Sum panel ---------- //
-        sumPanel = new MyGuiComps.MyPanel( );
-        sumPanel.setBackground( Themes.GREY_LIGHT );
+        sumPanel = new MyGuiComps.MyBoardPanel( 1, 10, new Dimension( mainContainer.getWidth(), 25 ), new Dimension( 40, 25 ) );
         mainContainer.add( sumPanel, BorderLayout.SOUTH );
 
         // Delta
         deltaHeader = new MyGuiComps.MyLabel( "Delta" );
-        deltaHeader.setXY( 140, 3 );
-        deltaHeader.setMinimumSize(new Dimension(100, 25));
-        deltaHeader.setPreferredSize(new Dimension(100, 25));
-        sumPanel.add( deltaHeader );
+        sumPanel.setLabel( deltaHeader, 0, 0 );
 
         deltaLbl = new MyGuiComps.MyLabel( "" );
-        deltaLbl.setXY( 210, 3 );
-
-        sumPanel.add( deltaLbl );
+        sumPanel.setLabel( deltaLbl, 0, 1 );
 
         // Vega
         vegaHeader = new MyGuiComps.MyLabel( "Vega" );
-        vegaHeader.setXY( 280, 3 );
-        sumPanel.add( vegaHeader );
+        sumPanel.setLabel( vegaHeader, 0, 2 );
 
         vegaLbl = new MyGuiComps.MyLabel( "" );
-        vegaLbl.setXY( 350, 3 );
-        sumPanel.add( vegaLbl );
+        sumPanel.setLabel( vegaLbl, 0, 3 );
 
         // Pnl
-        pnlHeader = new MyGuiComps.MyLabel( "P/L" );
-        pnlHeader.setXY( 5, 3 );
-        sumPanel.add( pnlHeader );
-
-        pnlLbl = new MyGuiComps.MyLabel( "" );
-        pnlLbl.setXY( 70, 3 );
-        sumPanel.add( pnlLbl );
 
     }
 
