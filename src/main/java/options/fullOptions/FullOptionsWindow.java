@@ -13,7 +13,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
 
 public class FullOptionsWindow extends MyGuiComps.MyFrame {
 
@@ -126,10 +125,13 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
         // Delta
         deltaHeader = new MyGuiComps.MyLabel( "Delta" );
         deltaHeader.setXY( 140, 3 );
+        deltaHeader.setMinimumSize(new Dimension(100, 25));
+        deltaHeader.setPreferredSize(new Dimension(100, 25));
         sumPanel.add( deltaHeader );
 
         deltaLbl = new MyGuiComps.MyLabel( "" );
         deltaLbl.setXY( 210, 3 );
+
         sumPanel.add( deltaLbl );
 
         // Vega

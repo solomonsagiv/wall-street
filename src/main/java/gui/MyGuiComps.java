@@ -216,7 +216,31 @@ public class MyGuiComps {
         }
     }
 
+
+    // ---------- JButton ---------- //
+    public static class MySuperPanel extends JPanel {
+
+        int rows, cols;
+
+        public MySuperPanel( int rows, int cols ) {
+            this.rows = rows;
+            this.cols = cols;
+            init( );
+        }
+
+        private void init() {
+
+
+        }
+
+
+
+    }
+
 }
+
+
+
 
 abstract class AFrame extends JFrame {
 
