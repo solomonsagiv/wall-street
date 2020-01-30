@@ -2,6 +2,8 @@ package charts;
 
 import lists.MyList;
 import locals.Themes;
+import org.jfree.chart.plot.Marker;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.SpxCLIENTObject;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CONTRACT_IND_CHART implements IChartCreator {
+public class INDEX_RACES_CHART implements IChartCreator {
 
     BASE_CLIENT_OBJECT client;
     MySingleFreeChart[] singleFreeCharts;
@@ -21,7 +23,7 @@ public class CONTRACT_IND_CHART implements IChartCreator {
     ArrayList< ArrayList< Double > > lists;
 
     // Constructor
-    public CONTRACT_IND_CHART( BASE_CLIENT_OBJECT client ) {
+    public INDEX_RACES_CHART( BASE_CLIENT_OBJECT client ) {
 
         this.client = client;
         singleFreeCharts = new MySingleFreeChart[ 1 ];
@@ -39,9 +41,6 @@ public class CONTRACT_IND_CHART implements IChartCreator {
         avg.createChart( );
 
         ArrayList< Double > indexList = dax.getListMap( ).get( MyList.INDEX ).getAsDoubleList( );
-        ArrayList< Double > contractList = dax.getListMap( ).get( MyList.CONTRACT ).getAsDoubleList( );
-        ArrayList< Double > indexBidList = dax.getListMap( ).get( MyList.INDEX_BID ).getAsDoubleList( );
-        ArrayList< Double > indexAskList = dax.getListMap( ).get( MyList.INDEX_ASK ).getAsDoubleList( );
 
         while ( true ) {
             try {
@@ -52,11 +51,7 @@ public class CONTRACT_IND_CHART implements IChartCreator {
 
 //					double ind = new Random().nextDouble() * 10;
 //					double fut = new Random().nextDouble() * 10;
-
                     indexList.add( ind );
-                    contractList.add( fut );
-                    indexBidList.add( ind - 1.2 );
-                    indexAskList.add( ind + 1.2 );
                 }
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -72,27 +67,23 @@ public class CONTRACT_IND_CHART implements IChartCreator {
 
         // ---------- Index ---------- //
         // Params
-        series = new XYSeries[ 4 ];
-        series[ 0 ] = new XYSeries( "index" );
-        series[ 1 ] = new XYSeries( "contract" );
-        series[ 2 ] = new XYSeries( "indexBid" );
-        series[ 3 ] = new XYSeries( "indexAsk" );
+        series = new XYSeries[ 1 ];
+        series[ 0 ] = new XYSeries( "indexRaces" );
 
-        colors = new Color[ 4 ];
-        colors[ 0 ] = Color.BLACK;
-        colors[ 1 ] = Themes.GREEN;
-        colors[ 2 ] = Themes.BLUE;
-        colors[ 3 ] = Themes.RED;
+        colors = new Color[ 1 ];
+        colors[ 0 ] = Themes.BLUE;
+
+        // Zero marker
+        Marker marker = new ValueMarker( 0 );
+        marker.setPaint( Color.BLACK );
 
         Map< String, MyList > map = new HashMap< String, MyList >( );
         map = new HashMap< String, MyList >( );
-        map.put( "index", client.getListMap( ).get( MyList.INDEX ) );
-        map.put( "contract", client.getListMap( ).get( MyList.CONTRACT ) );
-        map.put( "indexBid", client.getListMap( ).get( MyList.INDEX_BID ) );
-        map.put( "indexAsk", client.getListMap( ).get( MyList.INDEX_ASK ) );
+        map.put( "indexRaces", client.getListMap( ).get( MyList.INDEX_RACES ) );
 
         // Create chart
-        chart = new MySingleFreeChart( client, series, colors, 0.17, map, 180, false, 0, 2.5f, false, false, true, null );
+        chart = new MySingleFreeChart( client, series, colors, 1, map, 0, true, 0, 1.5f, false, true
+                , false, marker );
 
         singleFreeCharts[ 0 ] = chart;
 
@@ -104,3 +95,4 @@ public class CONTRACT_IND_CHART implements IChartCreator {
     }
 
 }
+

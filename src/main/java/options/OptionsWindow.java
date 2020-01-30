@@ -1,5 +1,6 @@
 package options;
 
+import lists.MyList;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.SpxCLIENTObject;
@@ -262,7 +263,7 @@ public class OptionsWindow {
         boolean run = true;
 
         int minsInSecondes = 900;
-        ArrayList< Double > indexList = client.getListMap( ).get( "index" ).getAsDoubleList( );
+        ArrayList< Double > indexList = client.getListMap( ).get( MyList.INDEX ).getAsDoubleList( );
 
         @Override
         public void run() {

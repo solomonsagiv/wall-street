@@ -56,8 +56,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
         fullOptionsUpdater.getHandler( ).start( );
     }
 
-    private void initListeners() {
-
+    @Override
+    public void onClose() {
         // This
         addWindowListener( new WindowAdapter( ) {
             @Override
@@ -66,6 +66,9 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
                 client.getOptionsDataHandler( ).getRunner( ).getHandler( ).close( );
             }
         } );
+    }
+
+    private void initListeners() {
 
         // Setting panel
         settingPanel.addMouseListener( new MouseAdapter( ) {
@@ -77,7 +80,6 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
                 }
             }
         } );
-
     }
 
     /**
@@ -85,22 +87,22 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
      */
     private void initialize() {
 
-        Container mainContainer = rootPane.getContentPane();
-        mainContainer.setLayout( new BorderLayout() );
+        Container mainContainer = rootPane.getContentPane( );
+        mainContainer.setLayout( new BorderLayout( ) );
 
         // This
         setBounds( 100, 100, 700, 333 );
         setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 
         // Setting panel
-        settingPanel = new MyGuiComps.MyBoardPanel( 1, 8, new Dimension( mainContainer.getWidth(), 25 ), new Dimension( 40, 25 ) );
+        settingPanel = new MyGuiComps.MyBoardPanel( 1, 8, new Dimension( mainContainer.getWidth( ), 25 ), new Dimension( 40, 25 ) );
         mainContainer.add( settingPanel, BorderLayout.NORTH );
 
         pnlHeader = new MyGuiComps.MyLabel( "P/L" );
         settingPanel.setLabel( pnlHeader, 0, 1 );
 
         pnlLbl = new MyGuiComps.MyLabel( "" );
-        pnlLbl.setForeground( new Color( 4,4,4 ) );
+        pnlLbl.setForeground( new Color( 4, 4, 4 ) );
         pnlLbl.setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
         settingPanel.setLabel( pnlLbl, 0, 2 );
 
@@ -123,7 +125,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
         mainContainer.add( scrollPane, BorderLayout.CENTER );
 
         // ---------- Sum panel ---------- //
-        sumPanel = new MyGuiComps.MyBoardPanel( 1, 10, new Dimension( mainContainer.getWidth(), 25 ), new Dimension( 40, 25 ) );
+        sumPanel = new MyGuiComps.MyBoardPanel( 1, 10, new Dimension( mainContainer.getWidth( ), 25 ), new Dimension( 40, 25 ) );
         mainContainer.add( sumPanel, BorderLayout.SOUTH );
 
         // Delta
@@ -177,14 +179,12 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
                 if ( !val.equals( "" ) ) {
 
                     if ( getSelectedRow( ) != row ) {
-
                         if ( row % 2 == 0 ) {
                             c.setBackground( Themes.GREY_VERY_LIGHT );
                         } else {
                             c.setBackground( Themes.GREY_LIGHT );
                         }
                     }
-
                     // ----- Call ----- //
                     // Vega
                     if ( col == callVega ) {
@@ -336,12 +336,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
 
     public void setOptions( Options options ) {
         this.options = options;
-        this.fullOptionsUpdater.setOptionsFather( options );
-    }
-
-    @Override
-    public void onClose() {
-
+        this.fullOptionsUpdater.setOptions( options );
     }
 
     // Jmenu

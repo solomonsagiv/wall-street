@@ -42,12 +42,14 @@ public class MySingleFreeChart {
     private MyChartPanel chartPanel;
     private boolean includeTickerData;
     private boolean loadFromHB;
+    private boolean rangeFixer;
 
 
     public MySingleFreeChart( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
                               Map< String, MyList > map, int seconds, boolean includeTickerData, double rangeTickUnit,
-                              float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, Marker marker ) {
+                              float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, boolean rangeFixer, Marker marker ) {
 
+        this.rangeFixer = rangeFixer;
         this.client = client;
         this.series = series;
         this.colors = colors;
@@ -62,7 +64,7 @@ public class MySingleFreeChart {
         XYSeriesCollection data = new XYSeriesCollection( );
 
         // Create the chart
-        chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false );
+        chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false);
 
         plot = chart.getXYPlot( );
         plot.setBackgroundPaint( Color.WHITE );
@@ -258,32 +260,35 @@ public class MySingleFreeChart {
 
         private void chartRangeGetiingBigFilter( double marginFromMaxToMin, double max, double min ) {
 
-            if ( dots.size( ) > map.size( ) * secondesOnMess ) {
+            if ( rangeFixer ) {
+                if ( dots.size( ) > map.size( ) * secondesOnMess ) {
 
-                // If need to rerange
-                if ( max - min > marginFromMaxToMin ) {
+                    // If need to rerange
+                    if ( max - min > marginFromMaxToMin ) {
 
-                    XYSeries currentSerie;
+                        XYSeries currentSerie;
 
-                    // For each serie
-                    for ( int i = 0; i < map.size( ); i++ ) {
+                        // For each serie
+                        for ( int i = 0; i < map.size( ); i++ ) {
 
-                        // Current list, serie
-                        currentSerie = series[ i ];
+                            // Current list, serie
+                            currentSerie = series[ i ];
 
-                        // Navigate last "secondesOnmess" items
-                        for ( int j = 0; j < currentSerie.getItemCount( ) - secondesOnMess; j++ ) {
+                            // Navigate last "secondesOnmess" items
+                            for ( int j = 0; j < currentSerie.getItemCount( ) - secondesOnMess; j++ ) {
 
-                            currentSerie.remove( j );
-                            dots.remove( j );
+                                currentSerie.remove( j );
+                                dots.remove( j );
+
+                            }
 
                         }
 
                     }
 
                 }
-
             }
+
         }
 
         private void appendDataToSeries() {

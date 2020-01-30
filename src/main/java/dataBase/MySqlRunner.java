@@ -104,8 +104,7 @@ public class MySqlRunner extends MyThread implements Runnable {
                 }
 
             } catch ( InterruptedException e ) {
-                setRun( false );
-                getHandler( ).close( );
+                break;
             } catch ( NumberFormatException e ) {
                 e.printStackTrace( );
                 continue;

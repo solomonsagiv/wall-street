@@ -52,8 +52,7 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
                 calculateFromIndex( );
 
             } catch ( InterruptedException e ) {
-                setRun( false );
-                getHandler( ).close( );
+                break;
             }
         }
     }

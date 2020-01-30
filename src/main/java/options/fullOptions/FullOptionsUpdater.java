@@ -9,21 +9,20 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 import javax.swing.*;
 import java.awt.*;
-import java.text.DecimalFormat;
 
 public class FullOptionsUpdater extends MyThread implements Runnable {
 
     // Variables
     int sleep = 300;
     JTable table;
-    Options optionsFather;
+    Options options;
 
     // Constructor
-    public FullOptionsUpdater( BASE_CLIENT_OBJECT client, Options optionsFather, JTable table ) {
+    public FullOptionsUpdater( BASE_CLIENT_OBJECT client, Options options, JTable table ) {
         super( client );
         setName( "Full options updater" );
         this.table = table;
-        this.optionsFather = optionsFather;
+        this.options = options;
     }
 
     @Override
@@ -43,8 +42,7 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
                 // Sleep
                 Thread.sleep( sleep );
             } catch ( InterruptedException e ) {
-                setRun( false );
-                getHandler( ).close( );
+                break;
             } catch ( Exception e ) {
                 try {
                     Thread.sleep( 1000 );
@@ -63,7 +61,7 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
         int row = 0;
 
         // Each strike
-        for ( Strike strike : optionsFather.getStrikes( ) ) {
+        for ( Strike strike : options.getStrikes( ) ) {
 
             Option call = strike.getCall( );
 
@@ -115,27 +113,14 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
     }
 
 
-    public Options getOptionsFather() {
-        return optionsFather;
+    public Options getOptions() {
+        return options;
     }
 
-    public void setOptionsFather( Options optionsFather ) {
-        this.optionsFather = optionsFather;
+    public void setOptions( Options options ) {
+        this.options = options;
     }
 
-
-    // Present
-    public void colorBackPresent( JTextField field, double val ) {
-
-        if ( val >= 0 ) {
-            field.setText( str( val ) + "%" );
-            field.setForeground( Themes.GREEN );
-        } else {
-            field.setText( str( val ) + "%" );
-            field.setForeground( Themes.RED );
-        }
-
-    }
 
     // Present
     public void colorBackPresent( JLabel field, double val ) {
@@ -145,27 +130,6 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
             field.setForeground( Themes.GREEN );
         } else {
             field.setText( "(" + str( val ) + "%)" );
-            field.setForeground( Themes.RED );
-        }
-
-    }
-
-
-    public void colorForeg( JLabel field, double val, String sign, DecimalFormat format ) {
-
-        String text;
-
-        if ( format != null ) {
-            text = format.format(val) + sign;
-        } else {
-            text = str( val ) + sign;
-        }
-
-        if ( val >= 0 ) {
-            field.setText( text );
-            field.setForeground( Themes.GREEN );
-        } else {
-            field.setText( text );
             field.setForeground( Themes.RED );
         }
 

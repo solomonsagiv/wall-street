@@ -58,6 +58,12 @@ public class Arik {
         updateId += 1;
     }
 
+    public void sendErrorMessage( Exception e ) {
+        String text = e.getMessage() + "\n" + e.getCause();
+        getBot( ).execute( new SendMessage( sagivID, text ) );
+        updateId += 1;
+    }
+
     // Send message
     public void sendMessage( Update update, String text, Keyboard keyBoard ) {
         if ( keyBoard != null ) {

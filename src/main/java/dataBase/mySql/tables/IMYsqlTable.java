@@ -10,4 +10,6 @@ public interface IMYsqlTable {
 
     void reset();
 
+    Object getTableObject();
+
 }

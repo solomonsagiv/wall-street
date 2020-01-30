@@ -3,6 +3,7 @@ package setting;
 import arik.Arik;
 import arik.locals.Emojis;
 import dataBase.HB;
+import lists.MyList;
 import locals.Themes;
 import options.Options;
 import org.json.JSONObject;
@@ -888,7 +889,7 @@ public class Setting {
                     try {
                         op = Double.parseDouble( opAvgField.getText( ) );
 
-                        client.getListMap( ).get( "op" ).setValues( op );
+                        client.getListMap( ).get( MyList.OP ).setValues( op );
 
                     } catch ( Exception e ) {
                         e.printStackTrace( );

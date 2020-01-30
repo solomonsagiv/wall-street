@@ -84,7 +84,7 @@ public class MyGuiComps {
 
         private void init() {
 
-            setBounds( new Rectangle( 60, 25 ) );
+            setBounds( new Rectangle( 65, 25 ) );
             setFont( Themes.VEDANA_12 );
             setForeground( Color.BLACK );
             setHorizontalAlignment( JTextField.CENTER );
@@ -125,6 +125,10 @@ public class MyGuiComps {
         }
 
         public void colorBack( double val, DecimalFormat format ) {
+
+            setForeground( Color.WHITE );
+            setFont( getFont().deriveFont( Font.BOLD ) );
+
             if ( val >= 0 ) {
                 setBackground( Themes.GREEN );
             } else {

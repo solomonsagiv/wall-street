@@ -1,12 +1,12 @@
 package gui;
 
-import charts.CONTRACT_IND_CHART;
 import charts.CONTRACT_IND_CHART_LIVE;
-import charts.INDEX_OPAVG_EQUALMOVE_CHART;
+import charts.INDEX_RACES_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
 import locals.L;
 import locals.Themes;
 import options.Option;
+import options.Options;
 import options.OptionsWindow;
 import options.Strike;
 import options.fullOptions.FullOptionsWindow;
@@ -28,37 +28,49 @@ public class FuturePanel extends BaseFuturePanel {
     String url = "";
 
     // Ticker
-    JPanel ticker;
-    JTextField openField;
-    JTextField openPresentField;
-    JTextField indexField;
-    JTextField indexPresentField;
-    JTextField lowField;
-    JTextField lowPresentField;
-    JTextField highField;
-    JTextField highPresentField;
-    JTextField futureField;
-    JTextField opField;
-    JTextField opAvgField;
-    JTextField opAvgEqualeMoveField;
+    MyGuiComps.MyPanel ticker;
+    MyGuiComps.MyTextField openField;
+    MyGuiComps.MyTextField openPresentField;
+    MyGuiComps.MyTextField indexField;
+    MyGuiComps.MyTextField indexPresentField;
+    MyGuiComps.MyTextField lowField;
+    MyGuiComps.MyTextField lowPresentField;
+    MyGuiComps.MyTextField highField;
+    MyGuiComps.MyTextField highPresentField;
+    MyGuiComps.MyTextField futureField;
+    MyGuiComps.MyTextField opField;
+    MyGuiComps.MyTextField opAvgField;
+    MyGuiComps.MyTextField opAvgEqualeMoveField;
 
     // Exp
-    JPanel exp;
+    MyGuiComps.MyPanel exp;
 
     // Quarter
-    JTextField opAvgQuarterField;
-    JTextField opQuarterField;
-    JTextField contractQuarterField;
+    MyGuiComps.MyTextField opAvgQuarterField;
+    MyGuiComps.MyTextField opQuarterField;
+    MyGuiComps.MyTextField contractQuarterField;
 
     // Races and roll
-    JPanel racesAndRollPanel;
-    JLabel conRacesLbl;
-    JLabel indRacesLbl;
-    JLabel rollLbl;
+    MyGuiComps.MyPanel racesAndRollPanel;
+    MyGuiComps.MyLabel conRacesLbl;
+    MyGuiComps.MyLabel indRacesLbl;
+    MyGuiComps.MyLabel rollLbl;
 
-    public JTextField conRacesField;
-    public JTextField indRacesField;
-    JTextField rollField;
+    public MyGuiComps.MyTextField conRacesField;
+    public MyGuiComps.MyTextField indRacesField;
+    MyGuiComps.MyTextField rollField;
+
+    // Exp
+    MyGuiComps.MyPanel expPanel;
+
+    MyGuiComps.MyLabel expMoveLbl;
+    MyGuiComps.MyLabel expRacesLbl;
+    MyGuiComps.MyLabel expOpAvgLbl;
+
+    MyGuiComps.MyTextField expMoveField;
+    MyGuiComps.MyTextField expRacesField;
+    MyGuiComps.MyTextField expOpAvgField;
+
 
     int height = 200;
 
@@ -88,17 +100,16 @@ public class FuturePanel extends BaseFuturePanel {
                     // Charts menu
                     JMenu charts = new JMenu( "Charts" );
 
-                    JMenuItem fut_ind_chart = new JMenuItem( "Contract vs Ind" );
-                    fut_ind_chart.addActionListener( new ActionListener( ) {
+                    JMenuItem indexRacesChart = new JMenuItem( "Index races" );
+                    indexRacesChart.addActionListener( new ActionListener( ) {
                         @Override
                         public void actionPerformed( ActionEvent e ) {
 
-                            CONTRACT_IND_CHART chart = new CONTRACT_IND_CHART( client );
+                            INDEX_RACES_CHART chart = new INDEX_RACES_CHART( client );
                             chart.createChart( );
 
                         }
                     } );
-
 
                     JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
                     contractIndexRealTime.addActionListener( new ActionListener( ) {
@@ -117,17 +128,6 @@ public class FuturePanel extends BaseFuturePanel {
                         public void actionPerformed( ActionEvent e ) {
 
                             QUARTER_CONTRACT_IND_CHART_LIVE chart = new QUARTER_CONTRACT_IND_CHART_LIVE( client );
-                            chart.createChart( );
-
-                        }
-                    } );
-
-                    JMenuItem index_opAvg_equalMove = new JMenuItem( "Ind OpAvg Equal move" );
-                    index_opAvg_equalMove.addActionListener( new ActionListener( ) {
-                        @Override
-                        public void actionPerformed( ActionEvent e ) {
-
-                            INDEX_OPAVG_EQUALMOVE_CHART chart = new INDEX_OPAVG_EQUALMOVE_CHART( client );
                             chart.createChart( );
 
                         }
@@ -183,8 +183,7 @@ public class FuturePanel extends BaseFuturePanel {
 
                     charts.add( quarterContractIndexRealTime );
                     charts.add( contractIndexRealTime );
-                    charts.add( index_opAvg_equalMove );
-                    charts.add( fut_ind_chart );
+                    charts.add( indexRacesChart );
 
                     menu.add( details );
                     menu.add( export );
@@ -204,60 +203,97 @@ public class FuturePanel extends BaseFuturePanel {
         setBounds( 0, 0, 0, height );
 
         // Ticker section
-        ticker = new JPanel( null );
+        ticker = new MyGuiComps.MyPanel();
+        ticker.setLayout( null );
         ticker.setBounds( 0, 0, 311, height );
         ticker.setBackground( backGround );
 
-        openField = tickerTextField( 5, 6 );
+        openField = new MyGuiComps.MyTextField( 20 );
+        openField.setXY( 5, 6 );
         ticker.add( openField );
-        openPresentField = tickerPresent( 5, 35 );
+
+        openPresentField = new MyGuiComps.MyTextField( 20 );
+        openPresentField.setForeground( Color.WHITE );
+        openPresentField.setFont( openPresentField.getFont().deriveFont( Font.BOLD ) );
+        openPresentField.setXY( 5, 35 );
         ticker.add( openPresentField );
-        indexField = tickerTextField( 80, 6 );
+
+        indexField = new MyGuiComps.MyTextField( 20 );
+        indexField.setXY( 80, 6 );
         ticker.add( indexField );
-        indexPresentField = tickerPresent( 80, 35 );
+
+        indexPresentField = new MyGuiComps.MyTextField( 20 );
+        indexPresentField.setForeground( Color.WHITE );
+        indexPresentField.setFont( indexPresentField.getFont().deriveFont( Font.BOLD ) );
+        indexPresentField.setXY( 80, 35 );
         ticker.add( indexPresentField );
-        lowField = tickerTextField( 155, 6 );
+
+        lowField = new MyGuiComps.MyTextField( 20 );
+        lowField.setXY( 155, 6 );
         ticker.add( lowField );
-        lowPresentField = tickerPresent( 155, 35 );
+
+        lowPresentField = new MyGuiComps.MyTextField( 20 );
+        lowPresentField.setForeground( Color.WHITE );
+        lowPresentField.setFont( lowPresentField.getFont().deriveFont( Font.BOLD ) );
+        lowPresentField.setXY( 155, 35 );
         ticker.add( lowPresentField );
-        highField = tickerTextField( 230, 6 );
+
+        highField = new MyGuiComps.MyTextField( 20 );
+        highField.setXY( 230, 6 );
         ticker.add( highField );
-        highPresentField = tickerPresent( 230, 35 );
+
+        highPresentField = new MyGuiComps.MyTextField( 20 );
+        highPresentField.setForeground( Color.WHITE );
+        highPresentField.setFont( highPresentField.getFont().deriveFont( Font.BOLD ) );
+        highPresentField.setXY( 230, 35 );
         ticker.add( highPresentField );
-        futureField = tickerTextField( 5, 64 );
+
+        futureField = new MyGuiComps.MyTextField( 20 );
+        futureField.setXY( 5, 64 );
         ticker.add( futureField );
 
-        opField = tickerPresent( 80, 64 );
+        opField = new MyGuiComps.MyTextField( 20 );
+        opField.setForeground( Color.WHITE );
+        opField.setFont( opField.getFont().deriveFont( Font.BOLD ) );
+        opField.setXY( 80, 64 );
         ticker.add( opField );
 
-        opAvgEqualeMoveField = tickerTextField( 230, 64 );
+        opAvgEqualeMoveField = new MyGuiComps.MyTextField( 20 );
+        opAvgEqualeMoveField.setXY( 230, 64 );
         ticker.add( opAvgEqualeMoveField );
 
-        opAvgField = tickerTextField( 155, 64 );
+        opAvgField = new MyGuiComps.MyTextField( 20 );
+        opAvgField.setXY( 155, 64 );
         ticker.add( opAvgField );
 
         // Quarter
-        opAvgQuarterField = tickerTextField( 155, 93 );
+        opAvgQuarterField = new MyGuiComps.MyTextField( 20 );
+        opAvgQuarterField.setXY( 155, 93 );
         ticker.add( opAvgQuarterField );
 
-        contractQuarterField = tickerTextField( 5, 93 );
+        contractQuarterField = new MyGuiComps.MyTextField( 20 );
+        contractQuarterField.setXY( 5, 93 );
         ticker.add( contractQuarterField );
 
-        opQuarterField = tickerTextField( 80, 93 );
+        opQuarterField = new MyGuiComps.MyTextField( 20 );
+        opQuarterField.setForeground( Color.WHITE );
+        opQuarterField.setFont( opQuarterField.getFont().deriveFont( Font.BOLD ) );
+        opQuarterField.setXY( 80, 93 );
         opQuarterField.setForeground( Color.WHITE );
         ticker.add( opQuarterField );
 
         add( ticker );
 
-        // Races and roll
+        // ---------- Races and roll ---------- //
         // Panel
-        racesAndRollPanel = new JPanel( null );
+        racesAndRollPanel = new MyGuiComps.MyPanel(  );
+        racesAndRollPanel.setLayout( null );
         racesAndRollPanel.setBackground( backGround );
         racesAndRollPanel.setBounds( 312, 0, 111, height );
         add( racesAndRollPanel );
 
         // Con lbl
-        conRacesLbl = new JLabel( "Cont" );
+        conRacesLbl = new MyGuiComps.MyLabel( "Cont" );
         conRacesLbl.setHorizontalAlignment( JLabel.CENTER );
         conRacesLbl.setBounds( 5, 5, 50, 25 );
         conRacesLbl.setForeground( Themes.BLUE );
@@ -265,11 +301,12 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( conRacesLbl );
 
         // Con field
-        conRacesField = tickerTextField( 55, 7, 50, 25 );
+        conRacesField = new MyGuiComps.MyTextField( 20 );
+        conRacesField .setBounds( 55, 7, 50, 25 );
         racesAndRollPanel.add( conRacesField );
 
         // Ind lbl
-        indRacesLbl = new JLabel( "Ind" );
+        indRacesLbl = new MyGuiComps.MyLabel( "Ind" );
         indRacesLbl.setHorizontalAlignment( JLabel.CENTER );
         indRacesLbl.setBounds( 5, 35, 50, 25 );
         indRacesLbl.setForeground( Themes.BLUE );
@@ -277,10 +314,11 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( indRacesLbl );
 
         // Ind field
-        indRacesField = tickerTextField( 55, 37, 50, 25 );
+        indRacesField = new MyGuiComps.MyTextField( 20 );
+        indRacesField.setBounds( 55, 37, 50, 25  );
         racesAndRollPanel.add( indRacesField );
 
-        rollLbl = new JLabel( "Roll" );
+        rollLbl = new MyGuiComps.MyLabel( "Roll" );
         rollLbl.setHorizontalAlignment( JLabel.CENTER );
         rollLbl.setBounds( 5, 65, 50, 25 );
         rollLbl.setForeground( Themes.BLUE );
@@ -288,146 +326,50 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( rollLbl );
 
         // Roll field
-        rollField = tickerTextField( 55, 67, 50, 25 );
+        rollField = new MyGuiComps.MyTextField( 20 );
+        rollField.setBounds( 55, 67, 50, 25 );
         racesAndRollPanel.add( rollField );
+
+        // ---------- Exp ---------- //
+        expPanel = new MyGuiComps.MyPanel();
+        expPanel.setLayout( null );
+        expPanel.setBounds( 424, 0, 111, height );
+        add( expPanel );
+
+        // Move
+        expMoveLbl = new MyGuiComps.MyLabel( "Move" );
+        expMoveLbl.setBounds( 5, 7, 50, 25 );
+        expMoveLbl.setFont( Themes.VEDANA_12 );
+        expPanel.add( expMoveLbl );
+
+        expMoveField = new MyGuiComps.MyTextField( 20 );
+        expMoveField.setBounds( 55, 7, 50, 25 );
+        expPanel.add( expMoveField );
+
+        // Races
+        expRacesLbl = new MyGuiComps.MyLabel( "Races" );
+        expRacesLbl.setFont( Themes.VEDANA_12 );
+        expRacesLbl.setBounds( 5, 37, 50, 25 );
+        expPanel.add( expRacesLbl );
+
+        expRacesField = new MyGuiComps.MyTextField( 20 );
+        expRacesField.setBounds( 55, 37, 50, 25 );
+        expPanel.add( expRacesField );
+
+        // OpAvg
+        expOpAvgLbl = new MyGuiComps.MyLabel( "OP/AVG" );
+        expOpAvgLbl.setFont( Themes.VEDANA_12 );
+        expOpAvgLbl.setBounds( 5, 67, 50, 25 );
+        expPanel.add( expOpAvgLbl );
+
+        expOpAvgField = new MyGuiComps.MyTextField( 20 );
+        expOpAvgField.setBounds( 55, 67, 50, 25 );
+        expPanel.add( expOpAvgField );
 
     }
 
     @Override
     public void colorRaces( int runner1_up_down, int runner2_up_down, int competition_Number ) {
-    }
-
-    // Present
-    public void colorBack( JTextField field, double val ) {
-
-        if ( val >= 0 ) {
-            field.setText( L.str( val ) );
-            field.setBackground( green );
-        } else {
-            field.setText( L.str( val ) );
-            field.setBackground( red );
-        }
-
-    }
-
-    // Present
-    public void colorBack( JTextField field, double val, DecimalFormat format ) {
-
-        if ( val >= 0 ) {
-            field.setText( format.format( val ) );
-            field.setBackground( green );
-        } else {
-            field.setText( format.format( val ) );
-            field.setBackground( red );
-        }
-
-    }
-
-    // Present
-    public void colorForf( JTextField field, double val ) {
-
-        if ( val > 0 ) {
-            field.setText( L.str( val ) );
-            field.setForeground( green );
-        } else {
-            field.setText( L.str( val ) );
-            field.setForeground( red );
-        }
-    }
-
-    // Present
-    public void colorForf( JTextField field, double val, DecimalFormat format ) {
-
-        if ( val > 0 ) {
-            field.setText( format.format( val ) );
-            field.setForeground( green );
-        } else {
-            field.setText( format.format( val ) );
-            field.setForeground( red );
-        }
-    }
-
-    // Present
-    public void colorForfInt( JTextField field, double val ) {
-
-        if ( val > 0 ) {
-            field.setText( L.str( ( int ) val ) );
-            field.setForeground( green );
-        } else {
-            field.setText( L.str( ( int ) val ) );
-            field.setForeground( red );
-        }
-    }
-
-    // Present
-    public void colorBackPresent( JTextField field, double val ) {
-
-        if ( val >= 0 ) {
-            field.setText( L.str( val ) + "%" );
-            field.setBackground( green );
-        } else {
-            field.setText( L.str( val ) + "%" );
-            field.setBackground( red );
-        }
-
-    }
-
-    // Present
-    public void colorBackPresent( JTextField field, double val, DecimalFormat format ) {
-
-        if ( val >= 0 ) {
-            field.setText( format.format( val ) + "%" );
-            field.setBackground( green );
-        } else {
-            field.setText( format.format( val ) + "%" );
-            field.setBackground( red );
-        }
-
-    }
-
-    // JText filed in races type
-    public JTextField racesTextField( JTextField field, int x, int y ) {
-        field = new JTextField( );
-        field.setBounds( x, y, 48, 25 );
-        field.setFont( font );
-        field.setHorizontalAlignment( JTextField.CENTER );
-        field.setBackground( Themes.GREY_VERY_LIGHT );
-        field.setBorder( null );
-        return field;
-    }
-
-    // JText filed in races type
-    public JTextField tickerTextField( int x, int y ) {
-        JTextField field = new JTextField( );
-        field.setBounds( x, y, 70, 25 );
-        field.setFont( font );
-        field.setHorizontalAlignment( JTextField.CENTER );
-        field.setBackground( Themes.GREY_VERY_LIGHT );
-        field.setBorder( null );
-        return field;
-    }
-
-    // JText filed in races type
-    public JTextField tickerTextField( int x, int y, int width, int height ) {
-        JTextField field = new JTextField( );
-        field.setBounds( x, y, width, height );
-        field.setFont( font );
-        field.setHorizontalAlignment( JTextField.CENTER );
-        field.setBackground( Themes.GREY_VERY_LIGHT );
-        field.setBorder( null );
-        return field;
-    }
-
-    // JText filed in races type
-    public JTextField tickerPresent( int x, int y ) {
-        JTextField field = new JTextField( );
-        field.setBounds( x, y, 70, 25 );
-        field.setFont( font.deriveFont( Font.BOLD ) );
-        field.setForeground( Color.WHITE );
-        field.setHorizontalAlignment( JTextField.CENTER );
-        field.setBackground( Themes.GREY_VERY_LIGHT );
-        field.setBorder( null );
-        return field;
     }
 
     public Updater getUpdater() {
@@ -458,6 +400,9 @@ public class FuturePanel extends BaseFuturePanel {
 
             setRun( true );
 
+            Options optionsMonth = client.getOptionsHandler().getOptionsMonth();
+            Options optionsQuarter = client.getOptionsHandler().getOptionsQuarter();
+            Options mainOptions = client.getOptionsHandler().getMainOptions();
             while ( isRun( ) ) {
                 try {
 
@@ -471,41 +416,39 @@ public class FuturePanel extends BaseFuturePanel {
                     highField.setText( L.format100( client.getHigh( ) ) );
                     lowField.setText( L.format100( client.getLow( ) ) );
                     indexField.setText( L.format100( client.getIndex( ) ) );
-                    futureField.setText( L.format100( client.getOptionsHandler( ).getMainOptions( ).getContract( ) ) );
+                    futureField.setText( L.format100( mainOptions.getContract( ) ) );
 
                     // Ticker present
-                    colorBackPresent( openPresentField, toPresent( client.getOpen( ), client.getBase( ) ), L.format100( ) );
-                    colorBackPresent( highPresentField, toPresent( client.getHigh( ), client.getBase( ) ), L.format100( ) );
-                    colorBackPresent( lowPresentField, toPresent( client.getLow( ), client.getBase( ) ), L.format100( ) );
-                    colorBackPresent( indexPresentField, toPresent( client.getIndex( ), client.getBase( ) ), L.format100( ) );
-
-                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), L.format100( ) );
+                    openPresentField.colorBack( toPresent( client.getOpen( ), client.getBase( ) ), L.format100() );
+                    highPresentField.colorBack( toPresent( client.getHigh(), client.getBase( ) ), L.format100() );
+                    lowPresentField.colorBack( toPresent( client.getLow(), client.getBase( ) ), L.format100() );
+                    indexPresentField.colorBack( toPresent( client.getIndex(), client.getBase( ) ), L.format100() );
 
                     // OP
-                    double op = client.getOptionsHandler( ).getMainOptions( ).getOp( );
-                    colorBack( opField, op );
+                    opAvgField.colorForge( mainOptions.getOpAvg(), L.format100() );
+                    opField.colorBack( mainOptions.getOp(), L.format100() );
 
                     // Equal move OpAvg
-                    colorForf( opAvgEqualeMoveField, client.getOptionsHandler( ).getMainOptions( ).getOpAvgEqualMoveCalculator( ).getMoveOpAvg( ), L.format100( ) );
+                    opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgEqualMoveCalculator().getMoveOpAvg(), L.format100() );
 
                     // Quarter
-                    colorBack( opQuarterField, client.getOptionsHandler( ).getOptionsQuarter( ).getOp( ), L.format100( ) );
-                    colorForf( opAvgQuarterField, client.getOptionsHandler( ).getOptionsQuarter( ).getOpAvg( ), L.format100( ) );
+                    opQuarterField.colorBack( optionsQuarter.getOp(), L.format100() );
+                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg(), L.format100() );
                     contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) ) );
 
                     // Races and roll
                     // Races
-                    colorForfInt( conRacesField, client.getFutSum( ) );
-                    colorForfInt( indRacesField, client.getIndexSum( ) );
+                    conRacesField.colorForge( client.getFutSum() );
+                    indRacesField.colorForge( client.getIndexSum() );
 
                     // Roll
-                    double month = client.getOptionsHandler( ).getOptionsMonth( ).getContract( );
-                    double quarter = client.getOptionsHandler( ).getOptionsQuarter( ).getContract( );
-                    colorForf( rollField, quarter - month, L.format100( ) );
+                    double month = optionsMonth.getContract( );
+                    double quarter = optionsQuarter.getContract( );
+                    rollField.colorForge( quarter - month, L.format100() );
 
                     mySleep += 1000;
                 } catch ( InterruptedException e ) {
-                    close( );
+                    break;
                 }
             }
         }
@@ -532,6 +475,5 @@ public class FuturePanel extends BaseFuturePanel {
         }
 
     }
-
 
 }

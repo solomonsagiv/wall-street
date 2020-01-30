@@ -52,8 +52,7 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
                 calculateFromOpAvg( );
 
             } catch ( InterruptedException e ) {
-                setRun( false );
-                getHandler( ).close( );
+                break;
             }
 
         }

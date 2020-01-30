@@ -64,7 +64,6 @@ public class OptionsDataHandler {
         double contract;
         double daysLeft;
         double interest;
-        private boolean run = true;
 
         public Runner( BASE_CLIENT_OBJECT client ) {
             super( client );
@@ -79,7 +78,7 @@ public class OptionsDataHandler {
         @Override
         public void run() {
 
-            while ( run ) {
+            while ( isRun() ) {
                 try {
 
                     // Calculate Standard deviation
@@ -90,8 +89,10 @@ public class OptionsDataHandler {
 
                     sleepCount += sleep;
 
+                    System.out.println( "Runner: " + getName() );
+
                 } catch ( InterruptedException e ) {
-                    close( );
+                    break;
                 } catch ( Exception e ) {
                     WallStreetWindow.popup( "Options data handler: " + getClient( ).getName( ), e );
                     break;
@@ -152,10 +153,6 @@ public class OptionsDataHandler {
                     e.printStackTrace( );
                 }
             }
-        }
-
-        private void close() {
-            run = false;
         }
     }
 

@@ -1,5 +1,6 @@
 package options.fullOptions;
 
+import arik.Arik;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
@@ -18,12 +19,12 @@ import java.util.ArrayList;
 
 public class PositionsWindow extends MyGuiComps.MyFrame {
 
-    public static void main(String[] args) {
+    public static void main( String[] args ) {
 
-        ArrayList<PositionCalculator.OptionPosition> positions = new ArrayList<>();
-        positions.add(new PositionCalculator.OptionPosition(52, new Option("C", 1850, 2), -5, 5.3));
+        ArrayList< PositionCalculator.OptionPosition > positions = new ArrayList<>( );
+        positions.add( new PositionCalculator.OptionPosition( 52, new Option( "C", 1850, 2 ), -5, 5.3 ) );
 
-        PositionsWindow positionsWindow = new PositionsWindow(SpxCLIENTObject.getInstance(), positions);
+        PositionsWindow positionsWindow = new PositionsWindow( SpxCLIENTObject.getInstance( ), positions );
     }
 
     JFrame frame;
@@ -33,8 +34,8 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
     HeaderPanel headerPanel;
     MyGuiComps.MyPanel positionsAreaPanel;
 
-    ArrayList<PositionCalculator.OptionPosition> positions;
-    ArrayList<PositionPanel> positionPanels;
+    ArrayList< PositionCalculator.OptionPosition > positions;
+    ArrayList< PositionPanel > positionPanels;
     int prePositionsSize = 0;
 
     Runner runner;
@@ -53,84 +54,88 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
     int col8 = 460;
 
     // Constructor
-    public PositionsWindow(BASE_CLIENT_OBJECT client, ArrayList<PositionCalculator.OptionPosition> positions) {
-        super("Positions");
+    public PositionsWindow( BASE_CLIENT_OBJECT client, ArrayList< PositionCalculator.OptionPosition > positions ) {
+        super( "Positions" );
         this.client = client;
         this.positions = positions;
 
-        positionPanels = new ArrayList<>();
+        positionPanels = new ArrayList<>( );
+
+        init( );
+
+        runner = new Runner( client );
+        runner.getHandler( ).start( );
 
         frame = this;
-        init();
-
-        runner = new Runner(client);
-        runner.getHandler().start();
     }
 
     private void init() {
 
-        setBounds(100, 100, 560, 200);
+        setBounds( 100, 100, 560, 200 );
 
         // Headers
-        headerPanel = new HeaderPanel(this);
+        headerPanel = new HeaderPanel( this );
         headerPanel.setLayout( null );
-        headerPanel.setXY(0, 0);
-        add(headerPanel);
+        headerPanel.setXY( 0, 0 );
+        add( headerPanel );
 
         // Positions area panel
-        positionsAreaPanel = new MyGuiComps.MyPanel();
+        positionsAreaPanel = new MyGuiComps.MyPanel( );
         positionsAreaPanel.setLayout( null );
-        positionsAreaPanel.setBackground(Themes.GREY_VERY_LIGHT);
-        positionsAreaPanel.setBounds(0, headerPanel.getHeight() + 1, getWidth(), getHeight() - headerPanel.getHeight());
-        add(positionsAreaPanel);
+        positionsAreaPanel.setBackground( Themes.GREY_VERY_LIGHT );
+        positionsAreaPanel.setBounds( 0, headerPanel.getHeight( ) + 1, getWidth( ), getHeight( ) - headerPanel.getHeight( ) );
+        add( positionsAreaPanel );
 
     }
 
     @Override
     public void onClose() {
-        addWindowListener(new WindowAdapter() {
+        addWindowListener( new WindowAdapter( ) {
             @Override
-            public void windowClosed(WindowEvent e) {
-                super.windowClosed(e);
-                runner.getHandler().close();
+            public void windowClosed( WindowEvent e ) {
+                super.windowClosed( e );
+                runner.getHandler( ).close( );
             }
-        });
+        } );
     }
 
-    public void initPanels(MyGuiComps.MyPanel panel) {
+    public void initPanels( MyGuiComps.MyPanel panel ) {
+        try {
+            panel.removeAll( );
 
-        panel.removeAll();
+            int y = 1;
+            int marginBetweenPanels = 1;
 
-        int y = 1;
-        int marginBetweenPanels = 1;
+            positionPanels = new ArrayList<>( );
 
-        positionPanels = new ArrayList<>();
+            // For each position panel
+            for ( PositionCalculator.OptionPosition position : positions ) {
+                PositionPanel positionPanel = new PositionPanel( position, panel );
 
-        // For each position panel
-        for (PositionCalculator.OptionPosition position : positions) {
-            PositionPanel positionPanel = new PositionPanel(position, panel);
-            positionPanel.setBackground(Themes.GREY_LIGHT);
+                positionPanels.add( positionPanel );
 
-            positionPanels.add(positionPanel);
+                // Set y
+                positionPanel.setXY( 0, y );
 
-            // Set y
-            positionPanel.setXY(0, y);
+                // Append to window
+                panel.add( positionPanel );
 
-            // Append to window
-            panel.add(positionPanel);
+                // Increment y
+                y += positionPanel.getHeight( ) + marginBetweenPanels;
 
-            // Increment y
-            y += positionPanel.getHeight() + marginBetweenPanels;
+            }
 
+            panel.revalidate( );
+            panel.repaint( );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+            Arik.getInstance( ).sendErrorMessage( e );
         }
-
-        panel.revalidate();
-        panel.repaint();
 
     }
 
     private boolean isPositionsChanges() {
-        return prePositionsSize != positions.size();
+        return prePositionsSize != positions.size( );
     }
 
     // ---------- Position panel ---------- //
@@ -153,88 +158,88 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         MyGuiComps.MyPanel panel;
 
         // Constructor
-        public PositionPanel(PositionCalculator.OptionPosition position, MyGuiComps.MyPanel panel) {
+        public PositionPanel( PositionCalculator.OptionPosition position, MyGuiComps.MyPanel panel ) {
 
             // Super
-            super();
+            super( );
             this.panel = panel;
 
             // This
             this.position = position;
 
             // Init
-            initialize();
+            initialize( );
 
             // Init listeners
-            initListener();
+            initListener( );
         }
 
         private void initListener() {
 
             // Edit
-            editBtn.addActionListener(new ActionListener() {
+            editBtn.addActionListener( new ActionListener( ) {
                 @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    new EditPositionWindow("Edit", position, frame);
+                public void actionPerformed( ActionEvent actionEvent ) {
+                    new EditPositionWindow( "Edit", position, frame );
                 }
-            });
+            } );
 
             // Cancel
-            cancelBtn.addActionListener(new ActionListener() {
+            cancelBtn.addActionListener( new ActionListener( ) {
                 @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    positions.remove(position);
+                public void actionPerformed( ActionEvent actionEvent ) {
+                    positions.remove( position );
                 }
-            });
+            } );
 
         }
 
         private void initialize() {
             // This panel
-            setBounds(0, 0, panel.getWidth(), 33);
+            setBounds( 0, 0, panel.getWidth( ), 33 );
             setLayout( null );
 
             // Pnl
-            pnlLbl = new MyGuiComps.MyLabel("");
-            pnlLbl.setXY(col1, row1);
-            add(pnlLbl);
+            pnlLbl = new MyGuiComps.MyLabel( "" );
+            pnlLbl.setXY( col1, row1 );
+            add( pnlLbl );
 
             // Delta
-            deltaLbl = new MyGuiComps.MyLabel("");
-            deltaLbl.setXY(col2, row1);
-            add(deltaLbl);
+            deltaLbl = new MyGuiComps.MyLabel( "" );
+            deltaLbl.setXY( col2, row1 );
+            add( deltaLbl );
 
             // Vega
-            vegaLbl = new MyGuiComps.MyLabel("");
-            vegaLbl.setXY(col3, row1);
-            add(vegaLbl);
+            vegaLbl = new MyGuiComps.MyLabel( "" );
+            vegaLbl.setXY( col3, row1 );
+            add( vegaLbl );
 
             // Delta
-            priceLbl = new MyGuiComps.MyLabel("");
-            priceLbl.setXY(col4, row1);
-            add(priceLbl);
+            priceLbl = new MyGuiComps.MyLabel( "" );
+            priceLbl.setXY( col4, row1 );
+            add( priceLbl );
 
             // Delta
-            quantityLbl = new MyGuiComps.MyLabel("");
-            quantityLbl.setXY(col5, row1);
-            add(quantityLbl);
+            quantityLbl = new MyGuiComps.MyLabel( "" );
+            quantityLbl.setXY( col5, row1 );
+            add( quantityLbl );
 
             // Name
-            nameLbl = new MyGuiComps.MyLabel("");
-            nameLbl.setXY(col6, row1);
-            add(nameLbl);
+            nameLbl = new MyGuiComps.MyLabel( "" );
+            nameLbl.setXY( col6, row1 );
+            add( nameLbl );
 
             // Edit btn
-            editBtn = new MyGuiComps.MyButton("Edit");
-            editBtn.setXY(col7, row1);
-            editBtn.setForeground(Themes.BLUE_LIGHT_2);
-            add(editBtn);
+            editBtn = new MyGuiComps.MyButton( "Edit" );
+            editBtn.setXY( col7, row1 );
+            editBtn.setForeground( Themes.BLUE_LIGHT_2 );
+            add( editBtn );
 
             // Cancel btn
-            cancelBtn = new MyGuiComps.MyButton("Cancel");
-            cancelBtn.setXY(col8, row1);
-            cancelBtn.setForeground(Themes.RED);
-            add(cancelBtn);
+            cancelBtn = new MyGuiComps.MyButton( "Cancel" );
+            cancelBtn.setXY( col8, row1 );
+            cancelBtn.setForeground( Themes.RED );
+            add( cancelBtn );
         }
 
     }
@@ -251,50 +256,50 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         MyGuiComps.MyLabel nameLbl;
 
         // Constructor
-        public HeaderPanel(JFrame frame) {
+        public HeaderPanel( JFrame frame ) {
 
             // Super
-            super();
+            super( );
 
             // This
-            setBackground(Themes.GREY_LIGHT);
-            setBounds(new Rectangle(frame.getWidth(), 30));
+            setBackground( Themes.GREY_LIGHT );
+            setBounds( new Rectangle( frame.getWidth( ), 30 ) );
 
             // Pnl
-            pnlField = new MyGuiComps.MyLabel("P/L");
-            pnlField.setXY(col1, row1);
-            pnlField.setFont(pnlField.getFont().deriveFont(Font.BOLD));
-            add(pnlField);
+            pnlField = new MyGuiComps.MyLabel( "P/L" );
+            pnlField.setXY( col1, row1 );
+            pnlField.setFont( pnlField.getFont( ).deriveFont( Font.BOLD ) );
+            add( pnlField );
 
             // Delta
-            deltaField = new MyGuiComps.MyLabel("Delta");
-            deltaField.setFont(deltaField.getFont().deriveFont(Font.BOLD));
-            deltaField.setXY(col2, row1);
-            add(deltaField);
+            deltaField = new MyGuiComps.MyLabel( "Delta" );
+            deltaField.setFont( deltaField.getFont( ).deriveFont( Font.BOLD ) );
+            deltaField.setXY( col2, row1 );
+            add( deltaField );
 
             // Vega
-            vegaField = new MyGuiComps.MyLabel("Vega");
-            vegaField.setFont(vegaField.getFont().deriveFont(Font.BOLD));
-            vegaField.setXY(col3, row1);
-            add(vegaField);
+            vegaField = new MyGuiComps.MyLabel( "Vega" );
+            vegaField.setFont( vegaField.getFont( ).deriveFont( Font.BOLD ) );
+            vegaField.setXY( col3, row1 );
+            add( vegaField );
 
             // Price
-            priceField = new MyGuiComps.MyLabel("Price");
-            priceField.setFont(priceField.getFont().deriveFont(Font.BOLD));
-            priceField.setXY(col4, row1);
-            add(priceField);
+            priceField = new MyGuiComps.MyLabel( "Price" );
+            priceField.setFont( priceField.getFont( ).deriveFont( Font.BOLD ) );
+            priceField.setXY( col4, row1 );
+            add( priceField );
 
             // Quantity
-            quantityField = new MyGuiComps.MyLabel("Quantity");
-            quantityField.setFont(quantityField.getFont().deriveFont(Font.BOLD));
-            quantityField.setXY(col5, row1);
-            add(quantityField);
+            quantityField = new MyGuiComps.MyLabel( "Quantity" );
+            quantityField.setFont( quantityField.getFont( ).deriveFont( Font.BOLD ) );
+            quantityField.setXY( col5, row1 );
+            add( quantityField );
 
             // Name
-            nameLbl = new MyGuiComps.MyLabel("Option");
-            nameLbl.setXY(col6, row1);
-            nameLbl.setFont(nameLbl.getFont().deriveFont(Font.BOLD));
-            add(nameLbl);
+            nameLbl = new MyGuiComps.MyLabel( "Option" );
+            nameLbl.setXY( col6, row1 );
+            nameLbl.setFont( nameLbl.getFont( ).deriveFont( Font.BOLD ) );
+            add( nameLbl );
 
         }
     }
@@ -303,25 +308,26 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
     public class Runner extends MyThread implements Runnable {
 
         // Constructor
-        public Runner(BASE_CLIENT_OBJECT client) {
-            super(client);
+        public Runner( BASE_CLIENT_OBJECT client ) {
+            super( client );
+            setName( "PositionsWindow" );
         }
 
         @Override
         public void run() {
-            while (isRun()) {
+            while ( isRun( ) ) {
                 try {
                     // Sleep
-                    Thread.sleep(500);
+                    Thread.sleep( 500 );
 
                     // Update the panels
-                    update();
+                    update( );
 
                     // Update text
-                    updateText();
+                    updateText( );
 
-                } catch (InterruptedException e) {
-                    getHandler().close();
+                } catch ( InterruptedException e ) {
+                    break;
                 }
             }
         }
@@ -332,22 +338,22 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
                 PositionCalculator.OptionPosition position;
 
-                if (positionPanels.size() > 0) {
+                if ( positionPanels.size( ) > 0 ) {
 
-                    for (PositionPanel panel : positionPanels) {
+                    for ( PositionPanel panel : positionPanels ) {
                         position = panel.position;
 
-                        panel.priceLbl.setText(L.format10(position.getPrice()));
-                        panel.deltaLbl.colorForge((int) position.getDelta());
-                        panel.vegaLbl.colorForge((int) position.getVega());
-                        panel.quantityLbl.colorForge(position.getPos());
-                        panel.pnlLbl.colorForge((int) position.getPnl());
-                        panel.nameLbl.setText(position.getOption().getIntName().toUpperCase());
+                        panel.priceLbl.setText( L.format10( position.getPrice( ) ) );
+                        panel.deltaLbl.colorForge( ( int ) position.getDelta( ) );
+                        panel.vegaLbl.colorForge( ( int ) position.getVega( ) );
+                        panel.quantityLbl.colorForge( position.getPos( ) );
+                        panel.pnlLbl.colorForge( ( int ) position.getPnl( ) );
+                        panel.nameLbl.setText( position.getOption( ).getIntName( ).toUpperCase( ) );
 
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch ( Exception e ) {
+                e.printStackTrace( );
             }
 
         }
@@ -362,13 +368,13 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
                     prePositionsSize = positions.size( );
                 }
             } catch ( Exception e ) {
-                e.printStackTrace();
+                e.printStackTrace( );
             }
         }
 
         @Override
         public void initRunnable() {
-            setRunnable(this);
+            setRunnable( this );
         }
     }
 }

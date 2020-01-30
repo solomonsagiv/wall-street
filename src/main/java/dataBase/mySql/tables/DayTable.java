@@ -2,7 +2,7 @@ package dataBase.mySql.tables;
 
 import serverObjects.BASE_CLIENT_OBJECT;
 
-public class DayTable extends MySqlTable {
+public class DayTable  {
 
     // ---------- Variables ---------- //
     BASE_CLIENT_OBJECT client;
@@ -15,26 +15,6 @@ public class DayTable extends MySqlTable {
     }
 
     // ---------- Methods ---------- //
-    @Override
-    public void insert() {
-
-
-    }
-
-    @Override
-    public void load() {
-
-    }
-
-    @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void reset() {
-
-    }
 
     // ---------- Getters and Setters ---------- //
 

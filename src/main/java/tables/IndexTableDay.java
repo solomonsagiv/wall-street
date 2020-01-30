@@ -15,7 +15,6 @@ import java.util.ArrayList;
 @MappedSuperclass
 public class IndexTableDay extends TableDayFather {
 
-
     @Column( name = "fut_bid_ask_counter" )
     private int future_bid_ask_counter;
     @Column( name = "con_bid_ask_counter" )

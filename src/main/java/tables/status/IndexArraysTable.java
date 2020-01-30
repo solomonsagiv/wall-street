@@ -2,6 +2,7 @@ package tables.status;
 
 import arik.Arik;
 import dataBase.HB;
+import lists.MyList;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -98,7 +99,7 @@ public class IndexArraysTable extends TablesArraysFather {
                 IndexArraysTable table = ( IndexArraysTable ) HB.get_line_by_id( entityClass, id, client.getSessionfactory( ) );
 
                 convertJsonArrayToDoubleArray( new JSONArray( table.getOpList( ) ), client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
-                convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getListMap( ).get( "index" ).getList( ) );
+                convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getListMap( ).get( MyList.INDEX ).getList( ) );
 
                 client.setLoadArraysFromHB( true );
 
@@ -135,7 +136,7 @@ public class IndexArraysTable extends TablesArraysFather {
                             new JSONArray( ).toString( ),
                             new JSONArray( ).toString( ),
                             new JSONArray( ).toString( ),
-                            new JSONArray( client.getListMap( ).get( "index" ).getAsDoubleList( ) ).toString( ),
+                            new JSONArray( client.getListMap( ).get( MyList.INDEX ).getAsDoubleList( ) ).toString( ),
                             new JSONArray( client.getOptionsHandler( ).getMainOptions( ).getOpList( ).toString( ) ).toString( ) );
 
                     HB.update( client.getSessionfactory( ), arraysTable );

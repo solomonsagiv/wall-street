@@ -413,7 +413,7 @@ public class Logic {
 
                     Thread.sleep( 200 );
                 } catch ( InterruptedException e ) {
-                    setRun( false );
+                    break;
                 }
             }
         }

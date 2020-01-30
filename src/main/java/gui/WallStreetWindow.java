@@ -199,6 +199,18 @@ public class WallStreetWindow {
 
         Font font = Themes.VEDANA_12.deriveFont( Font.BOLD );
 
+        JPanel expHeaderPanel = new JPanel( );
+        expHeaderPanel.setBounds( 424, 0, 111, 25 );
+        expHeaderPanel.setLayout( null );
+        expHeaderPanel.setBackground( backGround );
+        frame.getContentPane( ).add( expHeaderPanel );
+
+        JLabel expHeaderLbl = new JLabel( "Exp" );
+        expHeaderLbl.setBounds( 0, 0, expHeaderPanel.getWidth( ), expHeaderPanel.getHeight( ) );
+        expHeaderLbl.setHorizontalAlignment( JLabel.CENTER );
+        expHeaderLbl.setForeground( forgGround );
+        expHeaderPanel.add( expHeaderLbl );
+
         JPanel racesAndRolHeaderPanel = new JPanel( );
         racesAndRolHeaderPanel.setBounds( 312, 0, 111, 25 );
         racesAndRolHeaderPanel.setLayout( null );
@@ -247,8 +259,8 @@ public class WallStreetWindow {
         panel_12.setBackground( backGround );
         frame.getContentPane( ).add( panel_12 );
 
-        ndxClientObject.getPanel( ).setBounds( 0, 166, 500, 140 );
-        spxClientObject.getPanel( ).setBounds( 0, 26, 500, 140 );
+        ndxClientObject.getPanel( ).setBounds( 0, 166, 611, 140 );
+        spxClientObject.getPanel( ).setBounds( 0, 26, 611, 140 );
         frame.getContentPane( ).add( ndxClientObject.getPanel( ) );
         frame.getContentPane( ).add( spxClientObject.getPanel( ) );
 

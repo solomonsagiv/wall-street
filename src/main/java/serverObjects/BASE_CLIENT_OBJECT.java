@@ -63,7 +63,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     private boolean loadArraysFromHB = false;
 
     // Lists map
-    private Map< String, MyList > listMap = new HashMap<>( );
+    private Map< Integer, MyList > listMap = new HashMap<>( );
     private String name = null;
     private BackRunner backRunner;
 
@@ -273,12 +273,12 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
             getTablesHandler( ).getArrayHandler( ).getHandler( ).resetData( );
 
             // Notify
-//            Arik.getInstance( ).sendMessage( Arik.sagivID, getName( ) + " Export success " + Emojis.check_mark, null );
+            Arik.getInstance( ).sendMessage( Arik.sagivID, getName( ) + " Export success " + Emojis.check_mark, null );
 
         } catch ( Exception e ) {
             // Notify
-//            Arik.getInstance( ).sendMessage( Arik.sagivID,
-//                    getName( ) + " Export faild " + Emojis.stop + "\n" + e.getStackTrace( ).toString( ), null );
+            Arik.getInstance( ).sendMessage( Arik.sagivID,
+                    getName( ) + " Export faild " + Emojis.stop + "\n" + e.getStackTrace( ).toString( ), null );
         }
 
     }
@@ -983,11 +983,11 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
         this.indexAsk = indexAsk;
     }
 
-    public Map< String, MyList > getListMap() {
+    public Map< Integer, MyList > getListMap() {
         return listMap;
     }
 
-    public void setListMap( Map< String, MyList > listMap ) {
+    public void setListMap( Map< Integer, MyList > listMap ) {
         this.listMap = listMap;
     }
 

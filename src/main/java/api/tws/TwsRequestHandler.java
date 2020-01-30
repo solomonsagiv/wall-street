@@ -114,7 +114,7 @@ public class TwsRequestHandler {
                     handle( );
 
                 } catch ( InterruptedException e ) {
-                    getHandler( ).close( );
+                    break;
                 } catch ( Exception e ) {
                     e.printStackTrace( );
                 }

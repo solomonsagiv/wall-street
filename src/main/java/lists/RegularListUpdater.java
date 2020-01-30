@@ -38,7 +38,7 @@ public class RegularListUpdater extends MyThread implements Runnable {
                 // Handel sleep
                 sleepCounter += sleep;
             } catch ( InterruptedException e ) {
-                e.printStackTrace( );
+                break;
             }
         }
 
@@ -54,7 +54,7 @@ public class RegularListUpdater extends MyThread implements Runnable {
         }
 
         // For each list in listMap
-        for ( Map.Entry< String, MyList > entry : getClient( ).getListMap( ).entrySet( ) ) {
+        for ( Map.Entry< Integer, MyList > entry : getClient( ).getListMap( ).entrySet( ) ) {
             // Get the current list
             MyList myList = entry.getValue( );
 
