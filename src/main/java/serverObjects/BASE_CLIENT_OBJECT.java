@@ -13,10 +13,10 @@ import lists.MyList;
 import lists.RegularListUpdater;
 import locals.L;
 import locals.LocalHandler;
+import locals.MyObjects;
 import logic.Logic;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
-import org.json.JSONObject;
 import serverObjects.indexObjects.SpxCLIENTObject;
 import shlomi.Positions;
 import shlomi.Shlomi;
@@ -27,7 +27,6 @@ import threads.MyThread;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -66,6 +65,9 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     private Map< Integer, MyList > listMap = new HashMap<>( );
     private String name = null;
     private BackRunner backRunner;
+
+    // ObjectsList
+    private ArrayList<MyObjects.MyBaseObject> myObjects;
 
     // DB
     private int dbId = 0;
@@ -140,6 +142,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     public BASE_CLIENT_OBJECT() {
 
         LocalHandler.clients.add( this );
+        myObjects = new ArrayList<>();
 
         // Call subClasses abstract functions
         initIds( );
@@ -1033,4 +1036,12 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     }
 
     public abstract double getTheoAvgMargin();
+
+    public ArrayList<MyObjects.MyBaseObject> getMyObjects() {
+        return myObjects;
+    }
+
+    public void setMyObjects(ArrayList<MyObjects.MyBaseObject> myObjects) {
+        this.myObjects = myObjects;
+    }
 }
