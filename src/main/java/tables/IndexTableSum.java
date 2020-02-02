@@ -71,10 +71,10 @@ public class IndexTableSum extends TableSumFather {
             table.setCon_down( client.getConDown( ) );
             table.setIndex_up( client.getIndexUp( ) );
             table.setIndex_down( client.getIndexDown( ) );
-            table.setOp_avg( client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ) );
+            table.setOp_avg( client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ).getVal() );
             table.setFut_bid_ask_counter( client.getFutureBidAskCounter( ) );
             table.setBase( client.getBase( ) );
-            table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsAsJson( ).toString( ) );
+            table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsJson().getVal() );
             table.setConBidAskCounter( client.getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( ) );
             table.setEqualMove( client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMoveIndex( ) );
             return table;

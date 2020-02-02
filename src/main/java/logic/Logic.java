@@ -2,9 +2,9 @@ package logic;
 
 import gui.FuturePanel;
 import gui.FuturePanelLine;
+import locals.MyObjects;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 import threads.MyThread;
 
 import javax.swing.*;
@@ -20,13 +20,17 @@ public class Logic {
     BASE_CLIENT_OBJECT client;
     private LogicRunner logicRunner;
 
+    private MyObjects.MyDouble contract;
+
+
     // Constructor
-    public Logic( FuturePanel panel, BASE_CLIENT_OBJECT stock ) {
+    public Logic( FuturePanel panel, BASE_CLIENT_OBJECT client ) {
         this.futurePanel = panel;
-        this.client = stock;
-        this.margin = stock.getRacesMargin( );
+        this.client = client;
+        this.margin = client.getRacesMargin( );
         this.futurePanelBool = true;
-        logicRunner = new LogicRunner( stock );
+        logicRunner = new LogicRunner( client );
+        this.contract = client.getOptionsHandler().getMainOptions().getContract();
     }
 
     // Constructor
@@ -71,7 +75,6 @@ public class Logic {
             setName( "Logic" );
         }
 
-
         @Override
         public void initRunnable() {
             setRunnable( this );
@@ -92,14 +95,10 @@ public class Logic {
             while ( isRun( ) ) {
                 try {
 
-                    if ( client instanceof SpxCLIENTObject ) {
-                        client.getOptionsHandler( ).getOptionsDay( ).getContract( );
-                    }
-
                     double future = 0;
                     double index = 0;
 
-                    future = client.getOptionsHandler( ).getMainOptions( ).getContract( );
+                    future = contract.getVal();
                     index = client.getIndex( );
                     margin = client.getRacesMargin( );
 

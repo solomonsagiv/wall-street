@@ -7,6 +7,7 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.DB;
 import dataBase.HBsession;
+import excutor.MyExecutor;
 import gui.FuturePanel;
 import gui.FuturePanelLine;
 import lists.MyList;
@@ -60,6 +61,9 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     private boolean started = false;
     private boolean loadStatusFromHB = false;
     private boolean loadArraysFromHB = false;
+
+    // Executor
+    MyExecutor myExecutor;
 
     // Lists map
     private Map< Integer, MyList > listMap = new HashMap<>( );
@@ -143,6 +147,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
         LocalHandler.clients.add( this );
         myObjects = new ArrayList<>();
+        myExecutor = new MyExecutor( this );
 
         // Call subClasses abstract functions
         initIds( );
@@ -219,6 +224,8 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
                 setLoadArraysFromHB( true );
                 setLoadFromDb( true );
             }
+
+            getMyExecutor().getHandler().start();
 
             getPanel( ).getUpdater( ).getHandler( ).start( );
 
@@ -648,89 +655,12 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
         text += "High: " + getHigh() + "\n";
         text += "Low: " + getLow() + "\n";
         text += "Close: " + getIndex() + "\n";
-        text += "OP avg: " + L.format100( getOptionsHandler().getMainOptions().getOpAvg()) + "\n";
+        text += "OP avg: " + L.format100( getOptionsHandler().getMainOptions().getContract().getVal()) + "\n";
         text += "Ind races: " + getIndexSum() + "\n";
         text += "Avg move: " + L.format100( getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveOpAvg()) + "\n";
         text += "Contract counter: " +  getOptionsHandler().getMainOptions().getContractBidAskCounter() + "\n";
 
         return text;
-    }
-
-    @Override
-    public String toString() {
-        return "BASE_SERVER_OBJECT{" +
-                ", racesTable=" + racesTable +
-                ", model=" + model +
-                ", startStrike=" + startStrike +
-                ", endStrike=" + endStrike +
-                ", twsData=" + twsData +
-                ", startOfIndexTrading=" + startOfIndexTrading +
-                ", endOfIndexTrading=" + endOfIndexTrading +
-                ", endFutureTrading=" + endFutureTrading +
-                ", stocksNames=" + Arrays.toString( stocksNames ) +
-                ", exportLocation='" + exportLocation + '\'' +
-                ", loadFromDb=" + loadFromDb +
-                ", dbRunning=" + dbRunning +
-                ", twsRequestHandler=" + twsRequestHandler +
-                ", baseId=" + baseId +
-                ", positions=" + positions +
-                ", threads=" + threads +
-                ", ids=" + ids +
-                ", started=" + started +
-                ", loadStatusFromHB=" + loadStatusFromHB +
-                ", loadArraysFromHB=" + loadArraysFromHB +
-                ", listMap=" + listMap +
-                ", name='" + name + '\'' +
-                ", backRunner=" + backRunner +
-                ", dbId=" + dbId +
-                ", db=" + db +
-                ", tables=" + tables +
-                ", tablesHandler=" + tablesHandler +
-                ", hBsession=" + hBsession +
-                ", logic=" + logic +
-                ", shlomi=" + shlomi +
-                ", optionsDataHandler=" + optionsDataHandler +
-                ", futurePanel=" + futurePanel +
-                ", panelLine=" + panelLine +
-                ", equalMovePlag=" + equalMovePlag +
-                ", regularListUpdater=" + regularListUpdater +
-                ", dbContract=" + dbContract +
-                ", index=" + index +
-                ", indexBid=" + indexBid +
-                ", indexAsk=" + indexAsk +
-                ", future=" + future +
-                ", futureBid=" + futureBid +
-                ", futureAsk=" + futureAsk +
-                ", open=" + open +
-                ", high=" + high +
-                ", low=" + low +
-                ", base=" + base +
-                ", opAvgFromDb=" + opAvgFromDb +
-                ", opAvg15FromDb=" + opAvg15FromDb +
-                ", futureBidAskCounter=" + futureBidAskCounter +
-                ", optimiMove=" + optimiMove +
-                ", optimiMoveFromOutSide=" + optimiMoveFromOutSide +
-                ", pesimiMove=" + pesimiMove +
-                ", pesimiMoveFromOutSide=" + pesimiMoveFromOutSide +
-                ", indexBidAskMargin=" + indexBidAskMargin +
-                ", start_exp=" + start_exp +
-                ", future_exp=" + future_exp +
-                ", index_exp=" + index_exp +
-                ", live_future_exp=" + live_future_exp +
-                ", live_index_exp=" + live_index_exp +
-                ", week_start_exp=" + week_start_exp +
-                ", week_future_exp=" + week_future_exp +
-                ", week_index_exp=" + week_index_exp +
-                ", week_live_future_exp=" + week_live_future_exp +
-                ", week_live_index_exp=" + week_live_index_exp +
-                ", racesMargin=" + racesMargin +
-                ", optimiPesimiMargin=" + optimiPesimiMargin +
-                ", conUp=" + conUp +
-                ", conDown=" + conDown +
-                ", indexUp=" + indexUp +
-                ", indexDown=" + indexDown +
-                ", optimiPesimiCount=" + optimiPesimiCount +
-                '}';
     }
 
     public double getOptimiMove() {
@@ -1043,5 +973,93 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
     public void setMyObjects(ArrayList<MyObjects.MyBaseObject> myObjects) {
         this.myObjects = myObjects;
+    }
+
+    public MyExecutor getMyExecutor() {
+        return myExecutor;
+    }
+
+    public void setMyExecutor( MyExecutor myExecutor ) {
+        this.myExecutor = myExecutor;
+    }
+
+    @Override
+    public String toString() {
+        return "BASE_CLIENT_OBJECT{" +
+                "racesTable=" + racesTable +
+                ", model=" + model +
+                ", optionsHandler=" + optionsHandler +
+                ", startStrike=" + startStrike +
+                ", endStrike=" + endStrike +
+                ", twsData=" + twsData +
+                ", startOfIndexTrading=" + startOfIndexTrading +
+                ", endOfIndexTrading=" + endOfIndexTrading +
+                ", endFutureTrading=" + endFutureTrading +
+                ", stocksNames=" + Arrays.toString( stocksNames ) +
+                ", exportLocation='" + exportLocation + '\'' +
+                ", loadFromDb=" + loadFromDb +
+                ", dbRunning=" + dbRunning +
+                ", twsRequestHandler=" + twsRequestHandler +
+                ", baseId=" + baseId +
+                ", positions=" + positions +
+                ", threads=" + threads +
+                ", ids=" + ids +
+                ", started=" + started +
+                ", loadStatusFromHB=" + loadStatusFromHB +
+                ", loadArraysFromHB=" + loadArraysFromHB +
+                ", myExecutor=" + myExecutor +
+                ", listMap=" + listMap +
+                ", name='" + name + '\'' +
+                ", backRunner=" + backRunner +
+                ", myObjects=" + myObjects +
+                ", dbId=" + dbId +
+                ", db=" + db +
+                ", tables=" + tables +
+                ", tablesHandler=" + tablesHandler +
+                ", hBsession=" + hBsession +
+                ", logic=" + logic +
+                ", shlomi=" + shlomi +
+                ", optionsDataHandler=" + optionsDataHandler +
+                ", futurePanel=" + futurePanel +
+                ", panelLine=" + panelLine +
+                ", equalMovePlag=" + equalMovePlag +
+                ", regularListUpdater=" + regularListUpdater +
+                ", dbContract=" + dbContract +
+                ", index=" + index +
+                ", indexBid=" + indexBid +
+                ", indexAsk=" + indexAsk +
+                ", future=" + future +
+                ", futureBid=" + futureBid +
+                ", futureAsk=" + futureAsk +
+                ", open=" + open +
+                ", high=" + high +
+                ", low=" + low +
+                ", base=" + base +
+                ", opAvgFromDb=" + opAvgFromDb +
+                ", opAvg15FromDb=" + opAvg15FromDb +
+                ", futureBidAskCounter=" + futureBidAskCounter +
+                ", optimiMove=" + optimiMove +
+                ", optimiMoveFromOutSide=" + optimiMoveFromOutSide +
+                ", pesimiMove=" + pesimiMove +
+                ", pesimiMoveFromOutSide=" + pesimiMoveFromOutSide +
+                ", indexBidAskMargin=" + indexBidAskMargin +
+                ", start_exp=" + start_exp +
+                ", future_exp=" + future_exp +
+                ", index_exp=" + index_exp +
+                ", live_future_exp=" + live_future_exp +
+                ", live_index_exp=" + live_index_exp +
+                ", week_start_exp=" + week_start_exp +
+                ", week_future_exp=" + week_future_exp +
+                ", week_index_exp=" + week_index_exp +
+                ", week_live_future_exp=" + week_live_future_exp +
+                ", week_live_index_exp=" + week_live_index_exp +
+                ", racesMargin=" + racesMargin +
+                ", optimiPesimiMargin=" + optimiPesimiMargin +
+                ", conUp=" + conUp +
+                ", conDown=" + conDown +
+                ", indexUp=" + indexUp +
+                ", indexDown=" + indexDown +
+                ", optimiPesimiCount=" + optimiPesimiCount +
+                '}';
     }
 }

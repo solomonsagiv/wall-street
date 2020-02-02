@@ -55,6 +55,22 @@ public class Option {
         setPosition( new Position( ) );
     }
 
+    // Constructor
+    public Option( int type, double strike, int id ) {
+        this.strike = strike;
+        this.id = id;
+        this.type = type;
+
+        if ( type == CALL ) {
+            setCallOrPut( true );
+            setSide( "c" );
+        } else {
+            setCallOrPut( false );
+            setSide( "p" );
+        }
+        setPosition( new Position( ) );
+    }
+
     public boolean gotBidAsk() {
         return getBid( ) != 0 && getAsk( ) != 0;
     }

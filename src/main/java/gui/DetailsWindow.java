@@ -1,5 +1,6 @@
 package gui;
 
+import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.SpxCLIENTObject;
@@ -25,6 +26,7 @@ public class DetailsWindow {
     Runner runner;
     String[] optionsTypes;
     Options options;
+    MyObjects.MyDouble contract;
 
     /**
      * Create the application.
@@ -32,6 +34,7 @@ public class DetailsWindow {
     public DetailsWindow( BASE_CLIENT_OBJECT client ) {
         this.client = client;
         this.options = client.getOptionsHandler( ).getMainOptions( );
+        this.contract = options.getContract();
 
         onStartUp( );
 
@@ -229,7 +232,7 @@ public class DetailsWindow {
             ArrayList< String > list = new ArrayList<>( );
 
             list.add( "Started: " + client.isStarted( ) );
-            list.add( "Contract: " + options.getContract( ) );
+            list.add( "Contract: " + contract.getVal() );
             list.add( "Index: " + client.getIndex( ) );
             list.add( "Base: " + client.getBase( ) );
             list.add( "\n" );

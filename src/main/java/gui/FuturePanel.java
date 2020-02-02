@@ -20,7 +20,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
 
 public class FuturePanel extends BaseFuturePanel {
 
@@ -416,7 +415,7 @@ public class FuturePanel extends BaseFuturePanel {
                     highField.setText( L.format100( client.getHigh( ) ) );
                     lowField.setText( L.format100( client.getLow( ) ) );
                     indexField.setText( L.format100( client.getIndex( ) ) );
-                    futureField.setText( L.format100( mainOptions.getContract( ) ) );
+                    futureField.setText( L.format100( mainOptions.getContract( ).getVal() ) );
 
                     // Ticker present
                     openPresentField.colorBack( toPresent( client.getOpen( ), client.getBase( ) ), L.format100() );
@@ -425,7 +424,7 @@ public class FuturePanel extends BaseFuturePanel {
                     indexPresentField.colorBack( toPresent( client.getIndex(), client.getBase( ) ), L.format100() );
 
                     // OP
-                    opAvgField.colorForge( mainOptions.getOpAvg(), L.format100() );
+                    opAvgField.colorForge( mainOptions.getOpAvg().getVal(), L.format100() );
                     opField.colorBack( mainOptions.getOp(), L.format100() );
 
                     // Equal move OpAvg
@@ -433,8 +432,8 @@ public class FuturePanel extends BaseFuturePanel {
 
                     // Quarter
                     opQuarterField.colorBack( optionsQuarter.getOp(), L.format100() );
-                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg(), L.format100() );
-                    contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) ) );
+                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg().getVal(), L.format100() );
+                    contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ).getVal() ) );
 
                     // Races and roll
                     // Races
@@ -442,8 +441,8 @@ public class FuturePanel extends BaseFuturePanel {
                     indRacesField.colorForge( client.getIndexSum() );
 
                     // Roll
-                    double month = optionsMonth.getContract( );
-                    double quarter = optionsQuarter.getContract( );
+                    double month = optionsMonth.getContract( ).getVal();
+                    double quarter = optionsQuarter.getContract().getVal();
                     rollField.colorForge( quarter - month, L.format100() );
 
                     mySleep += 1000;

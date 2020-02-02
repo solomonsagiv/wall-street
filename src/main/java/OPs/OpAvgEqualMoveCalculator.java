@@ -1,5 +1,6 @@
 package OPs;
 
+import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
@@ -19,19 +20,14 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
     private double moveOpAvg = 0;
     private double liveMoveOpAvg = 0;
     public double marginFromOpAvg;
-
-    // Constructor
-    public OpAvgEqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag ) {
-        super( client );
-        setName( "EqualMoveOp" );
-        this.opPlag = opPlag;
-    }
+    private MyObjects.MyDouble opAvg;
 
     public OpAvgEqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag, Options options ) {
         super( client );
         setName( "EqualMoveOp" );
         this.opPlag = opPlag;
         this.options = options;
+        this.opAvg = options.getOpAvg();
     }
 
     @Override
@@ -60,7 +56,7 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
 
     private void calculateFromOpAvg() {
 
-        marginFromOpAvg = options.getOp() - options.getOpAvg( );
+        marginFromOpAvg = options.getOp() - options.getOpAvg( ).getVal();
 
         if ( marginFromOpAvg > oposite( opPlag ) && marginFromOpAvg < opPlag ) {
 

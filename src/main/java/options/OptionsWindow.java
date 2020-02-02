@@ -302,7 +302,7 @@ public class OptionsWindow {
                     }
 
                     colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptionsMonth( ).getContractBidAskCounter( ) );
-                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), null );
+                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ).getVal(), null );
                     colorForf( opAvg15Field, client.getOptionsHandler( ).getMainOptions( ).getOpAvg15( ), null );
                     colorForf( move15Field, move15Min, "%" );
 

@@ -181,11 +181,11 @@ public class IndexTableDay extends TableDayFather {
             table.setDate( LocalDate.now( ).toString( ) );
             table.setExp_name( Manifest.EXP );
             table.setTime( LocalTime.now( ).toString( ) );
-            table.setCon( client.getOptionsHandler( ).getMainOptions( ).getContract( ) );
-            table.setConDay( client.getOptionsHandler( ).getOptionsDay( ).getContract( ) );
-            table.setConMonth( client.getOptionsHandler( ).getOptionsMonth( ).getContract( ) );
-            table.setConQuarter( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) );
-            table.setConQuarterFar( client.getOptionsHandler( ).getOptionsQuarterFar( ).getContract( ) );
+            table.setCon( client.getOptionsHandler( ).getMainOptions( ).getContract().getVal() );
+            table.setConDay( client.getOptionsHandler( ).getOptionsDay( ).getContract().getVal() );
+            table.setConMonth( client.getOptionsHandler( ).getOptionsMonth( ).getContract().getVal() );
+            table.setConQuarter( client.getOptionsHandler( ).getOptionsQuarter( ).getContract().getVal() );
+            table.setConQuarterFar( client.getOptionsHandler( ).getOptionsQuarterFar( ).getContract().getVal() );
             table.setIndex( client.getIndex( ) );
             table.setIndex_up( client.getIndexUp( ) );
             table.setIndex_down( client.getIndexDown( ) );
@@ -193,8 +193,8 @@ public class IndexTableDay extends TableDayFather {
             table.setCon_up( client.getConUp( ) );
             table.setCon_down( client.getConDown( ) );
             table.setFuture_bid_ask_counter( client.getFutureBidAskCounter( ) );
-            table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsAsJson( ).toString( ) );
-            table.setOpAvg( client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ) );
+            table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsJson().getVal() );
+            table.setOpAvg( client.getOptionsHandler( ).getMainOptions( ).getOpAvg().getVal() );
             table.setOpAvg15( client.getOptionsHandler( ).getMainOptions( ).getOpAvg15( ) );
             table.setEqualMove( client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMoveIndex( ) );
             table.setCon_bid_ask_counter( client.getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( ) );

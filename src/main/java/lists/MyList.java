@@ -1,5 +1,6 @@
 package lists;
 
+import locals.MyObjects;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.util.ArrayList;
@@ -9,6 +10,10 @@ public class MyList {
 
     // Variables
     BASE_CLIENT_OBJECT client;
+    MyObjects.MyDouble mainContract;
+    MyObjects.MyDouble mainOpAvg;
+    MyObjects.MyDouble quarterContract;
+    MyObjects.MyDouble quarterOpAvg;
     List list;
     int targetObject;
     int optionalMaxSize = 0;
@@ -30,14 +35,18 @@ public class MyList {
         this.client = client;
         this.targetObject = targetObject;
 
+        // My objects
+        mainContract = client.getOptionsHandler().getMainOptions().getContract();
+        mainOpAvg = client.getOptionsHandler().getMainOptions().getOpAvg();
+        quarterContract = client.getOptionsHandler().getOptionsQuarter().getContract();
+        quarterOpAvg = client.getOptionsHandler().getOptionsQuarter().getOpAvg();
+
     }
 
     public MyList( BASE_CLIENT_OBJECT client, int targetObject, int optionalMaxSize ) {
+        this(client, targetObject);
 
-        list = new ArrayList< Double >( );
-        this.client = client;
         this.optionalMaxSize = optionalMaxSize;
-        this.targetObject = targetObject;
 
     }
 
@@ -65,7 +74,6 @@ public class MyList {
             getList( ).add( value );
 
         }
-
     }
 
     public Object getTargeObject() {
@@ -74,7 +82,7 @@ public class MyList {
             case INDEX:
                 return client.getIndex( );
             case CONTRACT:
-                return client.getOptionsHandler( ).getMainOptions( ).getContract( );
+                return mainContract.getVal();
             case OP:
                 return client.getOptionsHandler( ).getMainOptions( ).getOp( );
             case INDEX_BID:
@@ -86,7 +94,7 @@ public class MyList {
             case CONTRACT_ASK:
                 return client.getOptionsHandler( ).getMainOptions( ).getContractAsk( );
             case OP_QUARTER:
-                return client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) - client.getIndex( );
+                return quarterContract.getVal() - client.getIndex( );
             case INDEX_RACES:
                 return (double) client.getIndexSum();
             default:

@@ -119,6 +119,9 @@ public class Downloader extends Thread implements EWrapper {
             }
         }
 
+//        SpxCLIENTObject.getInstance().setFuture( 3227 );
+
+
 //        Contract contract = SpxCLIENTObject.getInstance().getTwsData().getOptionMonthContract();
 //        client.reqContractDetails( 60, contract );
 

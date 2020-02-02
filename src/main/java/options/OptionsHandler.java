@@ -31,7 +31,7 @@ public class OptionsHandler {
     public JSONObject getAllOptionsAsJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            object.put( options.getName( ), options.getOptionsAsJson( ) );
+            object.put( options.getName( ), options.getOptionsJson().getVal() );
         }
         return object;
     }

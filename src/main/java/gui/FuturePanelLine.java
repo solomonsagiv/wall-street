@@ -563,7 +563,7 @@ public class FuturePanelLine extends BaseFuturePanel {
             while ( isRun( ) ) {
                 try {
 
-                    futureOption = floor( getClient( ).getOptionsHandler( ).getMainOptions( ).getContract( ) );
+                    futureOption = floor( getClient( ).getOptionsHandler( ).getMainOptions( ).getContract( ).getVal() );
 
                     // ---------- Ticker ---------- //
                     getIndex( ).setText( str( getClient( ).getIndex( ) ) );

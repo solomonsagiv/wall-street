@@ -102,7 +102,7 @@ public class OptionsDataHandler {
 
         private void handleStDev() {
 
-            contract = options.getContractAbsolutDays( );
+            contract = options.calcContractAbsolute( );
             daysLeft = options.getAbsolutDays( );
             interest = options.getInterestZero( );
 

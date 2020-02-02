@@ -50,7 +50,7 @@ public class RegularListUpdater extends MyThread implements Runnable {
         for ( Options options : getClient( ).getOptionsHandler( ).getOptionsList( ) ) {
             options.getOpList( ).add( options.getOp( ) );
             options.getEqualMoveCalculator( ).getMoveIndexListIndex( ).add( options.getEqualMoveCalculator( ).getMoveIndex( ) );
-            options.getOpAvgList( ).add( options.getOpAvg( ) );
+            options.getOpAvgList( ).add( options.getContract().getVal() );
         }
 
         // For each list in listMap

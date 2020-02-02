@@ -1,5 +1,6 @@
 package charts;
 
+import locals.MyObjects;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -40,12 +41,16 @@ public class MySingleFreeChartLive {
     private JFreeChart chart;
     private MyChartPanel chartPanel;
     private boolean includeTickerData;
+    MyObjects.MyDouble mainContract;
+    MyObjects.MyDouble quarterContract;
 
 
     public MySingleFreeChartLive( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
                                   ArrayList< String > list, int seconds, boolean includeTickerData, double rangeTickUnit,
                                   float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
 
+        this.mainContract = client.getOptionsHandler().getMainOptions().getContract();
+        this.quarterContract = client.getOptionsHandler().getOptionsQuarter().getContract();
         this.client = client;
         this.series = series;
         this.colors = colors;
@@ -284,13 +289,13 @@ public class MySingleFreeChartLive {
                 case "index":
                     return client.getIndex( );
                 case "contract":
-                    return client.getOptionsHandler( ).getMainOptions( ).getContract( );
+                    return mainContract.getVal();
                 case "indexBid":
                     return client.getIndexBid( );
                 case "indexAsk":
                     return client.getIndexAsk( );
                 case "quarterContract":
-                    return client.getOptionsHandler( ).getOptionsQuarter( ).getContract( );
+                    return quarterContract.getVal();
                 default:
                     return 0;
             }
