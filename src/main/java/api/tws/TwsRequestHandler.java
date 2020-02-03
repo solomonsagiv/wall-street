@@ -113,6 +113,8 @@ public class TwsRequestHandler {
 
                     handle( );
 
+                    System.out.println("Request runner" );
+
                 } catch ( InterruptedException e ) {
                     break;
                 } catch ( Exception e ) {
@@ -135,6 +137,7 @@ public class TwsRequestHandler {
                         if ( getClient( ).getFuture( ) != 0 ) {
                             requestOptions( options );
                             options.setRequested( true );
+
                         }
 
                     }

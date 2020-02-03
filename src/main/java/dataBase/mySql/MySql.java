@@ -4,6 +4,8 @@ import arik.Arik;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 public class MySql {
 
@@ -24,12 +26,13 @@ public class MySql {
             getPool( ).releaseConnection( conn );
 
         } catch ( Exception e ) {
-//            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+            e.printStackTrace();
+            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
         }
     }
 
     // Update
-    public static void updat( String query ) {
+    public static void update( String query ) {
         try {
             Connection conn = getPool( ).getConnection( );
             stmt = conn.createStatement( );
@@ -40,7 +43,7 @@ public class MySql {
             // Return connection
             getPool( ).releaseConnection( conn );
         } catch ( Exception e ) {
-//            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
         }
     }
 

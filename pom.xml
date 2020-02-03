@@ -23,6 +23,15 @@
                     <target>9</target>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Xmx2g</argLine>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

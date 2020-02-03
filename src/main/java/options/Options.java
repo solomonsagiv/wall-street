@@ -62,9 +62,6 @@ public class Options {
 
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
 
-        client.getOptionsHandler( ).getOptionsList( ).add( this );
-        client.getOptionsHandler( ).getOptionsMap( ).put( type, this );
-
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
 

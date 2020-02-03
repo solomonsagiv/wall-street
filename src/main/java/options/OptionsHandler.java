@@ -17,14 +17,36 @@ public class OptionsHandler {
     private Options optionsDay;
     private Options optionsQuarter;
     private Options optionsQuarterFar;
-    private HashMap< Integer, Options > optionsMap = new HashMap<>( );
-    private ArrayList< Options > optionsList = new ArrayList<>( );
+    private HashMap< Integer, Options > optionsMap;
+    private ArrayList< Options > optionsList;
     private PositionCalculator positionCalculator;
 
     // Constructor
     public OptionsHandler( BASE_CLIENT_OBJECT client ) {
         this.client = client;
+        optionsList = new ArrayList<>( );
+        optionsMap = new HashMap<>( );
+
         positionCalculator = new PositionCalculator( client );
+
+        System.out.println("optionshandler*********************************************************************" );
+
+        optionsDay = new Options( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
+        getOptionsList( ).add( optionsDay );
+        getOptionsMap( ).put( optionsDay.getType(), optionsDay );
+
+        optionsMonth = new Options( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
+        getOptionsList( ).add( optionsMonth );
+        getOptionsMap( ).put( optionsMonth.getType(), optionsMonth );
+
+        optionsQuarter = new Options( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
+        getOptionsList( ).add( optionsQuarter );
+        getOptionsMap( ).put( optionsQuarter.getType(), optionsQuarter );
+
+        optionsQuarterFar = new Options( client, Options.QUARTER_FAR, client.getTwsData( ).getOptionsQuarterFarContract( ) );
+        getOptionsList( ).add( optionsQuarterFar );
+        getOptionsMap( ).put( optionsQuarterFar.getType(), optionsQuarterFar );
+
     }
 
     // Functions
@@ -101,46 +123,18 @@ public class OptionsHandler {
 
     // Getters and setters
     public Options getOptionsQuarter() {
-
-        if ( optionsQuarter == null ) {
-            optionsQuarter = new Options( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
-        }
-
         return optionsQuarter;
     }
 
-    public void setOptionsQuarter( Options optionsQuarter ) {
-        this.optionsQuarter = optionsQuarter;
-    }
-
     public Options getOptionsQuarterFar() {
-
-        if ( optionsQuarterFar == null ) {
-            optionsQuarterFar = new Options( client, Options.QUARTER_FAR, client.getTwsData( ).getOptionsQuarterFarContract( ) );
-        }
-
         return optionsQuarterFar;
     }
 
-    public void setOptionsQuarterFar( Options optionsQuarterFar ) {
-        this.optionsQuarterFar = optionsQuarterFar;
-    }
-
     public Options getOptionsDay() {
-        if ( optionsDay == null ) {
-            optionsDay = new Options( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
-        }
         return optionsDay;
     }
 
-    public void setOptionsDay( Options optionsDay ) {
-        this.optionsDay = optionsDay;
-    }
-
     public Options getOptionsMonth() {
-        if ( optionsMonth == null ) {
-            optionsMonth = new Options( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
-        }
         return optionsMonth;
     }
 

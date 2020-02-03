@@ -11,7 +11,7 @@ public class MyObjects {
             objectsList.add( this );
         }
 
-
+        public MyBaseObject() {}
     }
 
     // Double object
@@ -22,6 +22,8 @@ public class MyObjects {
         public MyDouble( ArrayList< MyBaseObject > objectsList ) {
             super( objectsList );
         }
+
+        public MyDouble() {}
 
         public abstract double getCalc();
 
@@ -50,6 +52,8 @@ public class MyObjects {
             super( objectsList );
         }
 
+        public MyInteger() {}
+
         public abstract int getCalc();
 
         public int getVal() {
@@ -76,6 +80,8 @@ public class MyObjects {
         public MyString( ArrayList< MyBaseObject > objectsList ) {
             super( objectsList );
         }
+
+        public MyString() {}
 
         public abstract String getCalc();
 
