@@ -165,35 +165,27 @@ public class MainWindow {
 
                         // ----- Spx ----- //
                         spx.getTwsData().getOptionMonthContract().lastTradeDateOrContractMonth(spxField.getText());
-                        spx.getOptionsHandler().getOptionsMonth().setExpDate(spx.convertStringToDate(spxField.getText()));
+                       spx.getOptionsHandler().getOptionsMonth().setExpDate(spx.convertStringToDate(spxField.getText()));
                         // Day
-//                        spx.getTwsData().getOptionsDayContract().lastTradeDateOrContractMonth(spxDayOptionExpField.getText());
-//                        spx.getOptionsHandler().getOptionsDay().setExpDate(spx.convertStringToDate(spxDayOptionExpField.getText()));
-//
-//                        // Quarter
-//                        spx.getTwsData().getOptionsQuarterContract().lastTradeDateOrContractMonth(spxQuarterField.getText());
-//                        spx.getOptionsHandler().getOptionsQuarter().setExpDate(spx.convertStringToDate(spxQuarterField.getText()));
+                        spx.getTwsData().getOptionsDayContract().lastTradeDateOrContractMonth(spxDayOptionExpField.getText());
+                        spx.getOptionsHandler().getOptionsDay().setExpDate(spx.convertStringToDate(spxDayOptionExpField.getText()));
 
-                        // Quarter far
-//						spx.getTwsData ( ).getOptionsQuarterFarContract ( ).lastTradeDateOrContractMonth ( spxQuarterFarField.getText ( ) );
-//						spx.getOptionsQuarterFar ( ).setExpDate ( spx.convertStringToDate ( spxQuarterFarField.getText ( ) ) );
+                        // Quarter
+                        spx.getTwsData().getOptionsQuarterContract().lastTradeDateOrContractMonth(spxQuarterField.getText());
+                        spx.getOptionsHandler().getOptionsQuarter().setExpDate(spx.convertStringToDate(spxQuarterField.getText()));
 
                         // ----- Ndx ----- //
                         // Day
-//                        ndx.getTwsData().getOptionsDayContract().lastTradeDateOrContractMonth(ndxDayOptionExpField.getText());
-//                        ndx.getOptionsHandler().getOptionsDay().setExpDate(ndx.convertStringToDate(ndxDayOptionExpField.getText()));
-//
-//                        // Month
-//                        ndx.getTwsData().getOptionMonthContract().lastTradeDateOrContractMonth(ndxField.getText());
-//                        ndx.getOptionsHandler().getOptionsMonth().setExpDate(ndx.convertStringToDate(ndxField.getText()));
-//
-//                        // Quarter
-//                        ndx.getTwsData().getOptionsQuarterContract().lastTradeDateOrContractMonth(ndxQuarterField.getText());
-//                        ndx.getOptionsHandler().getOptionsQuarter().setExpDate(ndx.convertStringToDate(ndxQuarterField.getText()));
+                        ndx.getTwsData().getOptionsDayContract().lastTradeDateOrContractMonth(ndxDayOptionExpField.getText());
+                        ndx.getOptionsHandler().getOptionsDay().setExpDate(ndx.convertStringToDate(ndxDayOptionExpField.getText()));
 
-                        // Quarter far
-//						ndx.getTwsData ( ).getOptionsQuarterFarContract ( ).lastTradeDateOrContractMonth ( ndxQuarterFarField.getText ( ) );
-//						ndx.getOptionsQuarterFar ( ).setExpDate ( ndx.convertStringToDate ( ndxQuarterFarField.getText ( ) ) );
+                        // Month
+                        ndx.getTwsData().getOptionMonthContract().lastTradeDateOrContractMonth(ndxField.getText());
+                        ndx.getOptionsHandler().getOptionsMonth().setExpDate(ndx.convertStringToDate(ndxField.getText()));
+
+                        // Quarter
+                        ndx.getTwsData().getOptionsQuarterContract().lastTradeDateOrContractMonth(ndxQuarterField.getText());
+                        ndx.getOptionsHandler().getOptionsQuarter().setExpDate(ndx.convertStringToDate(ndxQuarterField.getText()));
 
                         Connection.connect();
                         LogWindow logWindow = new LogWindow();

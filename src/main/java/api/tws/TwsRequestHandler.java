@@ -36,9 +36,6 @@ public class TwsRequestHandler {
 
         TwsData twsData = client.getTwsData( );
 
-        System.out.println( client.getName( ) + "  Index id: " + twsData.getIndexId( ) );
-        System.out.println( client.getName( ) + "  Future id: " + twsData.getFutureId( ) );
-
         // Future
         if ( twsData.getFutureContract( ) != null ) {
             downloader.reqMktData( twsData.getFutureId( ), twsData.getFutureContract( ) );
@@ -113,7 +110,7 @@ public class TwsRequestHandler {
 
                     handle( );
 
-                    System.out.println("Request runner" );
+                    System.out.println("Request runner: " + client.getName() );
 
                 } catch ( InterruptedException e ) {
                     break;

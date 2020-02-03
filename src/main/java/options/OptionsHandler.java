@@ -29,8 +29,6 @@ public class OptionsHandler {
 
         positionCalculator = new PositionCalculator( client );
 
-        System.out.println("optionshandler*********************************************************************" );
-
         optionsDay = new Options( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
         getOptionsList( ).add( optionsDay );
         getOptionsMap( ).put( optionsDay.getType(), optionsDay );
@@ -42,10 +40,6 @@ public class OptionsHandler {
         optionsQuarter = new Options( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
         getOptionsList( ).add( optionsQuarter );
         getOptionsMap( ).put( optionsQuarter.getType(), optionsQuarter );
-
-        optionsQuarterFar = new Options( client, Options.QUARTER_FAR, client.getTwsData( ).getOptionsQuarterFarContract( ) );
-        getOptionsList( ).add( optionsQuarterFar );
-        getOptionsMap( ).put( optionsQuarterFar.getType(), optionsQuarterFar );
 
     }
 
