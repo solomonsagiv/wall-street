@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class BASE_CLIENT_OBJECT implements IDataBase {
+
     // Table
     JTable racesTable;
     DefaultTableModel model = new DefaultTableModel( );
@@ -48,7 +49,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     private LocalTime endOfIndexTrading;
     private LocalTime endFutureTrading;
     private String[] stocksNames;
-    private String exportLocation = "C:/Users/user/Desktop/Work/Data history/";
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
     private TwsRequestHandler twsRequestHandler;
@@ -183,33 +183,19 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
     // Abstract functions
     public abstract void initName();
-
     public abstract void initRacesMargin();
-
     public abstract void initStrikeMargin();
-
     public abstract void initStrikeMarginForContract();
-
     public abstract void initStartOfIndexTrading();
-
     public abstract void initEndOfIndexTrading();
-
     public abstract void initEndOfFutureTrading();
-
     public abstract void initIds();
-
     public abstract void initLogic();
-
     public abstract void initDbId();
-
     public abstract void initTwsData();
-
     public abstract void initTables();
-
     public abstract void initOptions();
-
     public abstract void initMyLists();
-
     public abstract void initTablesHandlers();
 
     // Start all
@@ -616,10 +602,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
         return "C:/Users/user/Desktop/Work/Data history/" + getName( ) + "/2019/May/";
     }
 
-    public void setExportLocation( String baseExportLocation ) {
-        this.exportLocation = baseExportLocation;
-    }
-
     public OptionsDataHandler getOptionsDataHandler() {
         if ( optionsDataHandler == null ) {
             optionsDataHandler = new OptionsDataHandler( this );
@@ -996,7 +978,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
                 ", endOfIndexTrading=" + endOfIndexTrading +
                 ", endFutureTrading=" + endFutureTrading +
                 ", stocksNames=" + Arrays.toString( stocksNames ) +
-                ", exportLocation='" + exportLocation + '\'' +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", twsRequestHandler=" + twsRequestHandler +
