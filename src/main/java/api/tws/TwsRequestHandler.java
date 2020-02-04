@@ -45,8 +45,7 @@ public class TwsRequestHandler {
         if ( twsData.getIndexContract( ) != null ) {
             downloader.reqMktData( twsData.getIndexId( ), twsData.getIndexContract( ) );
         }
-
-
+        
     }
 
     public void requestOptions( Options options ) {

@@ -36,7 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class BASE_CLIENT_OBJECT implements IDataBase {
-
+    
     // Table
     JTable racesTable;
     DefaultTableModel model = new DefaultTableModel( );
@@ -299,7 +299,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
         if ( this.future == 0 ) {
             getOptionsHandler( ).initOptions( future );
         }
-
         this.future = future;
     }
 

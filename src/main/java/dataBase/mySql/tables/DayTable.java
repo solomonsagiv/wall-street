@@ -41,22 +41,32 @@ public class DayTable extends BaseTable {
 
     }
 
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws SQLException {
 
         SpxCLIENTObject spx = SpxCLIENTObject.getInstance( );
         System.out.println( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) );
 
         DayTable dayTable = new DayTable( spx, "spx" );
 
+        ConnectionPool.getConnectionsPoolInstance().getConnection();
+
+        final long startTime = System.currentTimeMillis();
+        System.out.println(startTime );
+
         dayTable.insert( );
         System.out.println( "Inserts success" );
+
+
+        final long endTime = System.currentTimeMillis();
+        System.out.println(endTime );
+        System.out.println("Total execution time: " + (endTime - startTime) / 1000);
 
     }
 
     @Override
     public void initColumns() {
         // ID
-        id = new TableComps.MyTableColumn( this, "id" ) {
+        id = new TableComps.MyTableColumn( this, "id", TableComps.MyTableColumn.INT ) {
             @Override
             public Object getVal() {
                 return 2000000;
@@ -64,7 +74,7 @@ public class DayTable extends BaseTable {
         };
 
         // Date
-        date = new TableComps.MyTableColumn( this, "date" ) {
+        date = new TableComps.MyTableColumn( this, "date", TableComps.MyTableColumn.STRING ) {
             @Override
             public Object getVal() {
                 return LocalDate.now( ).toString( );
@@ -72,7 +82,7 @@ public class DayTable extends BaseTable {
         };
 
         // Exp name
-        exp_name = new TableComps.MyTableColumn( this, "exp_name" ) {
+        exp_name = new TableComps.MyTableColumn( this, "exp_name", TableComps.MyTableColumn.STRING ) {
             @Override
             public Object getVal() {
                 return Manifest.EXP;
@@ -80,7 +90,7 @@ public class DayTable extends BaseTable {
         };
 
         // Time
-        time = new TableComps.MyTableColumn( this, "time" ) {
+        time = new TableComps.MyTableColumn( this, "time", TableComps.MyTableColumn.STRING ) {
             @Override
             public Object getVal() {
                 return LocalTime.now( ).toString( );
@@ -120,7 +130,7 @@ public class DayTable extends BaseTable {
         };
 
         // Index
-        ind = new TableComps.MyTableColumn( this, "ind" ) {
+        ind = new TableComps.MyTableColumn( this, "ind", TableComps.MyTableColumn.DOUBLE ) {
             @Override
             public Object getVal() {
                 return client.getIndex( );
@@ -128,7 +138,7 @@ public class DayTable extends BaseTable {
         };
 
         // ConUp
-        con_up = new TableComps.MyTableColumn( this, "con_up" ) {
+        con_up = new TableComps.MyTableColumn( this, "con_up", TableComps.MyTableColumn.INT ) {
             @Override
             public Object getVal() {
                 return client.getConUp( );
@@ -136,7 +146,7 @@ public class DayTable extends BaseTable {
         };
 
         // ConDown
-        con_down = new TableComps.MyTableColumn( this, "con_down" ) {
+        con_down = new TableComps.MyTableColumn( this, "con_down", TableComps.MyTableColumn.INT ) {
             @Override
             public Object getVal() {
                 return client.getConDown( );
@@ -144,7 +154,7 @@ public class DayTable extends BaseTable {
         };
 
         // IndexUp
-        index_up = new TableComps.MyTableColumn( this, "index_up" ) {
+        index_up = new TableComps.MyTableColumn( this, "index_up", TableComps.MyTableColumn.INT ) {
             @Override
             public Object getVal() {
                 return client.getIndexUp( );
@@ -152,7 +162,7 @@ public class DayTable extends BaseTable {
         };
 
         // IndexDown
-        index_down = new TableComps.MyTableColumn( this, "index_down" ) {
+        index_down = new TableComps.MyTableColumn( this, "index_down", TableComps.MyTableColumn.INT ) {
             @Override
             public Object getVal() {
                 return client.getIndexDown( );
@@ -163,12 +173,13 @@ public class DayTable extends BaseTable {
         options = new TableComps.MyTableColumn( this, "options", client.getOptionsHandler( ).getMainOptions( ).getOptionsJson( ) ) {
             @Override
             public Object getVal() {
-                return getMyString( ).getVal( );
+//                return getMyString( ).getVal( );
+                return "sdsds";
             }
         };
 
         // Base
-        base = new TableComps.MyTableColumn( this, "base" ) {
+        base = new TableComps.MyTableColumn( this, "base", TableComps.MyTableColumn.DOUBLE ) {
             @Override
             public Object getVal() {
                 return client.getBase( );
@@ -187,55 +198,36 @@ public class DayTable extends BaseTable {
     @Override
     public void insert() {
 
-        StringBuilder text = new StringBuilder( "insert into stocks.spx ('" );
+        StringBuilder insertQuery = new StringBuilder( "INSERT INTO `stocks`.`spx` " );
+        StringBuilder insertColumns = new StringBuilder();
 
-        int columnsSize = getColumns( ).size( ) - 1;
+        String values = " VALUES ";
+        StringBuilder valuesColumns = new StringBuilder();
+
         int i = 0;
-        StringBuilder values = new StringBuilder( " values (" );
-
 
         for ( TableComps.MyTableColumn column : getColumns( ) ) {
-            text.append( column.getName( ) );
-            values.append( "?" );
-
-            if ( i < columnsSize ) {
-                text.append( "','" );
-                values.append( "," );
+            if ( i < getColumns().size() - 1 ) {
+                // Columns
+                insertColumns.append( "`" + column.getName() + "`," );
+                // Values
+                valuesColumns.append( "'" + column.getVal() + "'," );
+            } else {
+                // Columns
+                insertColumns.append( "`" + column.getName() + "`" );
+                // Values
+                valuesColumns.append( "'" + column.getVal() + "'" );
             }
-            // Values
-            i++;
-        }
-        text.append( "')" );
-        values.append( ");" );
-
-        text.append( values );
-
-        System.out.println( text );
-
-        // Prepared
-        PreparedStatement preparedStatement = null;
-        try {
-            preparedStatement = ( PreparedStatement ) ConnectionPool.getConnectionsPoolInstance( ).getConnection( ).prepareStatement( String.valueOf( text ) );
-            System.out.println( preparedStatement );
-        } catch ( SQLException e ) {
-            e.printStackTrace( );
-        }
-        
-        i = 1;
-
-        for ( TableComps.MyTableColumn column : getColumns( ) ) {
-            try {
-                preparedStatement.setString( i, L.str( column.getVal( ) ) );
-            } catch ( SQLException e ) {
-                e.printStackTrace( );
-            }
-
             i++;
         }
 
-        System.out.println( preparedStatement );
+        String columns = "(" + insertColumns + ")";
+        String vColumns = "(" + valuesColumns + ")";
 
-        MySql.insert( text.toString( ) );
+        insertQuery.append( columns ).append( values ).append( vColumns );
+
+        // Insert
+        MySql.insert( insertQuery.toString( ) );
 
     }
 

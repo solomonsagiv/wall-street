@@ -12,23 +12,29 @@ public class TableComps {
         private String name;
         private MyObjects.MyDouble myDouble;
         private MyObjects.MyString myString;
+        private int type;
+
+        public static final int INT = 0;
+        public static final int STRING = 1;
+        public static final int DOUBLE = 2;
 
         // Constructor
-        public MyTableColumn( BaseTable table, String name ) {
+        public MyTableColumn( BaseTable table, String name, int type ) {
             this.table = table;
             this.name = name;
+            this.type = type;
             table.columns.add( this );
         }
 
         // Constructor
         public MyTableColumn( BaseTable table, String name, MyObjects.MyDouble myDouble ) {
-            this( table, name );
+            this( table, name, DOUBLE );
             this.myDouble = myDouble;
         }
 
         // Constructor
         public MyTableColumn( BaseTable table, String name, MyObjects.MyString myString ) {
-            this( table, name );
+            this( table, name, STRING );
             this.myString = myString;
         }
 
@@ -54,5 +60,13 @@ public class TableComps {
         public void setMyString( MyObjects.MyString myString ) {
             this.myString = myString;
         }
+
+        public int getType() {
+            return type;
+        }
+        public void setType( int type ) {
+            this.type = type;
+        }
     }
+
 }
