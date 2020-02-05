@@ -2,6 +2,7 @@ package gui;
 
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
+import charts.OPAVG_MOVE_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
 import locals.L;
 import locals.Themes;
@@ -110,6 +111,17 @@ public class FuturePanel extends BaseFuturePanel {
                         }
                     } );
 
+                    JMenuItem opAvgMoveChart = new JMenuItem( "Op avg move" );
+                    opAvgMoveChart.addActionListener( new ActionListener( ) {
+                        @Override
+                        public void actionPerformed( ActionEvent e ) {
+
+                            OPAVG_MOVE_CHART chart = new OPAVG_MOVE_CHART( client );
+                            chart.createChart( );
+
+                        }
+                    } );
+
                     JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
                     contractIndexRealTime.addActionListener( new ActionListener( ) {
                         @Override
@@ -183,6 +195,7 @@ public class FuturePanel extends BaseFuturePanel {
                     charts.add( quarterContractIndexRealTime );
                     charts.add( contractIndexRealTime );
                     charts.add( indexRacesChart );
+                    charts.add( opAvgMoveChart );
 
                     menu.add( details );
                     menu.add( export );

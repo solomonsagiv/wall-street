@@ -10,7 +10,7 @@ import java.time.LocalTime;
 public class MyExecutor extends MyThread implements Runnable {
 
     int sleepCount = 0;
-    int sleep = 1000;
+    int sleep = 150;
 
     public MyExecutor( BASE_CLIENT_OBJECT client ) {
         super( client );

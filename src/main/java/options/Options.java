@@ -59,7 +59,6 @@ public class Options {
     private MyObjects.MyDouble opAvg;
     private MyObjects.MyString optionsJson;
 
-
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
 
         strikes = new ArrayList<>( );

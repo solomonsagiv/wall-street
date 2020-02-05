@@ -16,7 +16,7 @@ public class MySqlRunner extends MyThread implements Runnable {
 
     BASE_CLIENT_OBJECT client;
     long sleepCount = 0;
-    long sleep = 500;
+    long sleep = 1000;
     TablesHandler tablesHandler;
 
 
@@ -109,6 +109,7 @@ public class MySqlRunner extends MyThread implements Runnable {
                 e.printStackTrace( );
                 continue;
             } catch ( Exception e ) {
+                e.printStackTrace();
                 Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
                         null );
             }

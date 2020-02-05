@@ -126,6 +126,7 @@ public class IndexStatusTable extends TableStatusfather {
 
 
             } catch ( Exception e ) {
+                e.printStackTrace();
                 Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
                         null );
             }

@@ -47,12 +47,15 @@ public class MySql {
 
     // Update
     public static void select( String query ) {
+        Statement st;
+
             try
             {
 
+
                 Connection conn = ConnectionPool.getConnectionsPoolInstance().getConnection();
                 // create the java statement
-                Statement st = conn.createStatement();
+                st = conn.createStatement();
 
                 // execute the query, and get a java resultset
                 st.executeQuery(query);

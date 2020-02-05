@@ -41,6 +41,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         MyList contractBidList = new MyList( this, MyList.CONTRACT_BID );
         MyList contractAskList = new MyList( this, MyList.CONTRACT_ASK );
         MyList indexRacesList = new MyList( this, MyList.INDEX_RACES );
+        MyList opAvgMoveList = new MyList( this, MyList.OP_AVG_MOVE );
 
         getListMap( ).put( MyList.INDEX, indexList );
         getListMap( ).put( MyList.CONTRACT, contractList );
@@ -49,6 +50,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         getListMap( ).put( MyList.CONTRACT_BID, contractBidList );
         getListMap( ).put( MyList.CONTRACT_ASK, contractAskList );
         getListMap( ).put( MyList.INDEX_RACES, indexRacesList );
-}
+        getListMap( ).put( MyList.OP_AVG_MOVE, opAvgMoveList );
+    }
 
 }

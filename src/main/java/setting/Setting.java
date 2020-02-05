@@ -3,7 +3,9 @@ package setting;
 import arik.Arik;
 import arik.locals.Emojis;
 import dataBase.HB;
+import gui.MyGuiComps;
 import lists.MyList;
+import locals.L;
 import locals.Themes;
 import options.Options;
 import org.json.JSONObject;
@@ -82,6 +84,7 @@ public class Setting {
     private JButton btnUpdate;
     private JComboBox optionsCombo;
     private JTextField futureField;
+    private MyGuiComps.MyTextField opAvgMoveField;
 
     /**
      * Create the application.
@@ -905,6 +908,23 @@ public class Setting {
             opAvgField.setBackground( Color.WHITE );
             opAvgField.setBounds( 355, 239, 72, 22 );
             setting_panel_inside.add( opAvgField );
+
+            opAvgMoveField = new MyGuiComps.MyTextField( 20 );
+            opAvgMoveField.setXY( 355, 270 );
+            opAvgMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
+            opAvgMoveField.addActionListener( new ActionListener( ) {
+                @Override
+                public void actionPerformed( ActionEvent actionEvent ) {
+
+                    try {
+                        double d = L.dbl( opAvgMoveField.getText( ) );
+                        options.getOpAvgEqualMoveCalculator( ).setMoveOpAvg( d );
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
+                }
+            } );
+            setting_panel_inside.add( opAvgMoveField );
 
             JLabel lblOpavg = new JLabel( "OpAvg" );
             lblOpavg.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );

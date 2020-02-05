@@ -12,6 +12,7 @@ public class Arik {
     public static int yosiID = 948009529;
     public static int royID = 513323078;
     public static int ronenID = 948009529;
+    public static final int  nivosID = 540675119;
     private static Arik arik;
     private ArikRunner arikRunner;
     private boolean running = false;
@@ -20,7 +21,7 @@ public class Arik {
     private int updateId = 0;
 
     private int[] accounts = { sagivID, yosiID, ronenID, royID };
-
+    private int[] accountsForPositions = { nivosID };
 
     private Arik() {
         bot = TelegramBotAdapter.build( "400524449:AAE4dPbl22dfI9lB1r17W4ivqz2lc4C1xUY" );
@@ -83,7 +84,6 @@ public class Arik {
         }
 
     }
-
 
     // Send message
     public void sendMessage( int id, String text, Keyboard keyBoard ) {

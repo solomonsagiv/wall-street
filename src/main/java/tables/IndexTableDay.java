@@ -168,6 +168,7 @@ public class IndexTableDay extends TableDayFather {
                 HB.save( table, client.getTables( ).getTableDay( ).getClass( ).getName( ), client.getSessionfactory( ) );
 
             } catch ( Exception e ) {
+                e.printStackTrace();
                 Arik.getInstance( ).sendMessage( Arik.sagivID, client.getName( ) + " MYSQL exception \n" + e.getCause( ),
                         null );
             }
@@ -185,7 +186,6 @@ public class IndexTableDay extends TableDayFather {
             table.setConDay( client.getOptionsHandler( ).getOptionsDay( ).getContract().getVal() );
             table.setConMonth( client.getOptionsHandler( ).getOptionsMonth( ).getContract().getVal() );
             table.setConQuarter( client.getOptionsHandler( ).getOptionsQuarter( ).getContract().getVal() );
-            table.setConQuarterFar( client.getOptionsHandler( ).getOptionsQuarterFar( ).getContract().getVal() );
             table.setIndex( client.getIndex( ) );
             table.setIndex_up( client.getIndexUp( ) );
             table.setIndex_down( client.getIndexDown( ) );

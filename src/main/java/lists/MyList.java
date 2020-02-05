@@ -15,7 +15,7 @@ public class MyList {
     MyObjects.MyDouble quarterContract;
     MyObjects.MyDouble quarterOpAvg;
     List list;
-    int targetObject;
+    private int objectType;
     int optionalMaxSize = 0;
 
     public static final int  INDEX = 0;
@@ -27,13 +27,14 @@ public class MyList {
     public static final int  INDEX_RACES = 6;
     public static final int  OP = 7;
     public static final int  OP_QUARTER = 8;
+    public static final int  OP_AVG_MOVE = 9;
 
     // Constructors
     public MyList( BASE_CLIENT_OBJECT client, int targetObject ) {
 
         list = new ArrayList< Double >( );
         this.client = client;
-        this.targetObject = targetObject;
+        this.objectType = targetObject;
 
         // My objects
         mainContract = client.getOptionsHandler().getMainOptions().getContract();
@@ -78,7 +79,7 @@ public class MyList {
 
     public Object getTargeObject() {
 
-        switch ( targetObject ) {
+        switch ( objectType ) {
             case INDEX:
                 return client.getIndex( );
             case CONTRACT:
@@ -97,6 +98,8 @@ public class MyList {
                 return quarterContract.getVal() - client.getIndex( );
             case INDEX_RACES:
                 return (double) client.getIndexSum();
+            case OP_AVG_MOVE:
+                return client.getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveOpAvg();
             default:
                 return null;
         }
@@ -125,6 +128,10 @@ public class MyList {
 
     public void setClient( BASE_CLIENT_OBJECT client ) {
         this.client = client;
+    }
+
+    public int getObjectType() {
+        return objectType;
     }
 
 }

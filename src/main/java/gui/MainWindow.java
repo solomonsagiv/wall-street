@@ -165,7 +165,7 @@ public class MainWindow {
 
                         // ----- Spx ----- //
                         spx.getTwsData().getOptionMonthContract().lastTradeDateOrContractMonth(spxField.getText());
-                       spx.getOptionsHandler().getOptionsMonth().setExpDate(spx.convertStringToDate(spxField.getText()));
+                        spx.getOptionsHandler().getOptionsMonth().setExpDate(spx.convertStringToDate(spxField.getText()));
                         // Day
                         spx.getTwsData().getOptionsDayContract().lastTradeDateOrContractMonth(spxDayOptionExpField.getText());
                         spx.getOptionsHandler().getOptionsDay().setExpDate(spx.convertStringToDate(spxDayOptionExpField.getText()));
@@ -417,7 +417,7 @@ public class MainWindow {
         panel_4.add(lblContractsDetails);
 
         spxDayOptionExpField = new JTextField();
-        spxDayOptionExpField.setText("20200203");
+        spxDayOptionExpField.setText("20200205");
         spxDayOptionExpField.setHorizontalAlignment(SwingConstants.CENTER);
         spxDayOptionExpField.setFont(new Font("Dubai Medium", Font.PLAIN, 12));
         spxDayOptionExpField.setColumns(10);

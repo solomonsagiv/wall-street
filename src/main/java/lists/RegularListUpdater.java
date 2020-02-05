@@ -58,6 +58,13 @@ public class RegularListUpdater extends MyThread implements Runnable {
             // Get the current list
             MyList myList = entry.getValue( );
 
+            if ( myList.getObjectType() == MyList.OP_AVG_MOVE ) {
+
+                System.out.println(myList.getTargeObject() + " Size: " + myList.list.size() );
+
+            }
+
+
             // Append the list object ( Val )
             myList.addVal( );
 
