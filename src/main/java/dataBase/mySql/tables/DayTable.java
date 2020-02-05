@@ -1,13 +1,10 @@
 package dataBase.mySql.tables;
 
 import api.Manifest;
-import com.mysql.jdbc.PreparedStatement;
 import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
-import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.SpxCLIENTObject;
-
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -65,13 +62,6 @@ public class DayTable extends BaseTable {
 
     @Override
     public void initColumns() {
-        // ID
-        id = new TableComps.MyTableColumn( this, "id", TableComps.MyTableColumn.INT ) {
-            @Override
-            public Object getVal() {
-                return 2000000;
-            }
-        };
 
         // Date
         date = new TableComps.MyTableColumn( this, "date", TableComps.MyTableColumn.STRING ) {
@@ -173,8 +163,7 @@ public class DayTable extends BaseTable {
         options = new TableComps.MyTableColumn( this, "options", client.getOptionsHandler( ).getMainOptions( ).getOptionsJson( ) ) {
             @Override
             public Object getVal() {
-//                return getMyString( ).getVal( );
-                return "sdsds";
+                return getMyString( ).getVal( );
             }
         };
 
@@ -233,6 +222,8 @@ public class DayTable extends BaseTable {
 
     @Override
     public void load() {
+
+
 
     }
 

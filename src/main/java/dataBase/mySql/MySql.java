@@ -4,8 +4,6 @@ import arik.Arik;
 
 import java.sql.Connection;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.Calendar;
 
 public class MySql {
 
@@ -13,44 +11,66 @@ public class MySql {
     private static Statement stmt;
 
     // Insert
-    public static void insert( String query ) {
+    public static void insert(String query) {
         try {
 
-            Connection conn = getPool( ).getConnection( );
-            stmt = conn.createStatement( );
+            Connection conn = getPool().getConnection();
+            stmt = conn.createStatement();
 
             // Execute
-            stmt.execute( query );
+            stmt.execute(query);
 
             // Return connection
-            getPool( ).releaseConnection( conn );
+            getPool().releaseConnection(conn);
 
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
-            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
         }
     }
 
     // Update
-    public static void update( String query ) {
+    public static void update(String query) {
         try {
-            Connection conn = getPool( ).getConnection( );
-            stmt = conn.createStatement( );
+            Connection conn = getPool().getConnection();
+            stmt = conn.createStatement();
 
             // Execute
-            stmt.executeUpdate( query );
+            stmt.executeUpdate(query);
 
             // Return connection
-            getPool( ).releaseConnection( conn );
-        } catch ( Exception e ) {
-            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+            getPool().releaseConnection(conn);
+        } catch (Exception e) {
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
         }
     }
 
+    // Update
+    public static void select(String query) {
+
+        Statement st = ;
+        try {
+
+            Connection conn = ConnectionPool.getConnectionsPoolInstance().getConnection();
+            // create the java statement
+            st = conn.createStatement();
+
+            // execute the query, and get a java resultset
+            st.executeQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
+        } finally {
+            st.close();
+        }
+
+    }
+
+
     // Get connection pool
     private static ConnectionPool getPool() {
-        if ( pool == null ) {
-            pool = ConnectionPool.getConnectionsPoolInstance( );
+        if (pool == null) {
+            pool = ConnectionPool.getConnectionsPoolInstance();
         }
         return pool;
     }
