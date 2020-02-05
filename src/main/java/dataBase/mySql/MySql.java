@@ -46,23 +46,24 @@ public class MySql {
     }
 
     // Update
-    public static void select(String query) {
+    public static void select( String query ) {
+            try
+            {
 
-        Statement st = ;
-        try {
+                Connection conn = ConnectionPool.getConnectionsPoolInstance().getConnection();
+                // create the java statement
+                Statement st = conn.createStatement();
 
-            Connection conn = ConnectionPool.getConnectionsPoolInstance().getConnection();
-            // create the java statement
-            st = conn.createStatement();
-
-            // execute the query, and get a java resultset
-            st.executeQuery(query);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
-        } finally {
-            st.close();
-        }
+                // execute the query, and get a java resultset
+                st.executeQuery(query);
+            }
+            catch (Exception e)
+            {
+                System.err.println("Got an exception! ");
+                System.err.println(e.getMessage());
+                Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
+            } finally {
+            }
 
     }
 
