@@ -87,7 +87,7 @@ public class AlgoritemOne extends Algoritem {
     private void calculates() {
 
 //		opAvg = Double.parseDouble(ShlomiWindow.opAvgField.getText());
-        opAvg = getClient( ).getOpAvgFromDb( );
+        opAvg = getClient( ).getOptionsHandler().getMainOptions().getOpAvg().getVal();
 
         // Change my races if opAvg changed
         // Optimi

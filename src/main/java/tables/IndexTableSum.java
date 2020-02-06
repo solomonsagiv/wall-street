@@ -63,20 +63,19 @@ public class IndexTableSum extends TableSumFather {
             IndexTableSum table = new IndexTableSum( );
             table.setDate( LocalDate.now( ).toString( ) );
             table.setExp_name( Manifest.EXP );
-            table.setOpen( client.getOpen( ) );
-            table.setHigh( client.getHigh( ) );
-            table.setLow( client.getLow( ) );
-            table.setClose( client.getIndex( ) );
+            table.setOpen( client.getOpen( ).getVal() );
+            table.setHigh( client.getHigh( ).getVal() );
+            table.setLow( client.getLow( ).getVal() );
+            table.setClose( client.getIndex( ).getVal() );
             table.setCon_up( client.getConUp( ) );
             table.setCon_down( client.getConDown( ) );
             table.setIndex_up( client.getIndexUp( ) );
             table.setIndex_down( client.getIndexDown( ) );
             table.setOp_avg( client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ).getVal() );
-            table.setFut_bid_ask_counter( client.getFutureBidAskCounter( ) );
-            table.setBase( client.getBase( ) );
+            table.setBase( client.getBase( ).getVal() );
             table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsJson().getVal() );
             table.setConBidAskCounter( client.getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( ) );
-            table.setEqualMove( client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMoveIndex( ) );
+            table.setEqualMove( client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMove( ).getVal() );
             return table;
         }
 

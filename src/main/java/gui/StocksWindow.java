@@ -305,7 +305,7 @@ public class StocksWindow {
             public void actionPerformed( ActionEvent e ) {
 
                 for ( STOCK_CLIENT_OBJECT client : clients ) {
-                    double last = client.getIndex( );
+                    double last = client.getIndex( ).getVal();
                     client.setRacesMargin( last * .0002 );
                     client.startAll( );
                 }

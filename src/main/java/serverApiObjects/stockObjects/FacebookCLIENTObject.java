@@ -16,8 +16,6 @@ import tables.stocks.sum.FacebookSum;
 public class FacebookCLIENTObject extends STOCK_CLIENT_OBJECT {
 
     static FacebookCLIENTObject client = null;
-    double futureBid = 0;
-    double futureAsk = 0;
 
     // Private constructor
     private FacebookCLIENTObject() {
@@ -31,22 +29,6 @@ public class FacebookCLIENTObject extends STOCK_CLIENT_OBJECT {
             System.out.println( "Created new facebook" );
         }
         return client;
-    }
-
-    public double getFutureBid() {
-        return futureBid;
-    }
-
-    public void setFutureBid( double futureBid ) {
-        this.futureBid = futureBid;
-    }
-
-    public double getFutureAsk() {
-        return futureAsk;
-    }
-
-    public void setFutureAsk( double futureAsk ) {
-        this.futureAsk = futureAsk;
     }
 
     @Override

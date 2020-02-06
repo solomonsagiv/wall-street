@@ -44,16 +44,15 @@ public class IndexStatusTable extends TableStatusfather {
             table.setId( client.getDbId( ) );
             table.setName( client.getName( ) );
             table.setTime( LocalTime.now( ).toString( ) );
-            table.setInd( client.getIndex( ) );
+            table.setInd( client.getIndex( ).getVal() );
             table.setIndUp( client.getIndexUp( ) );
             table.setIndDown( client.getIndexDown( ) );
             table.setConUp( client.getConUp( ) );
             table.setConDown( client.getConDown( ) );
-            table.setBase( client.getBase( ) );
-            table.setOpen( client.getOpen( ) );
-            table.setHigh( client.getHigh( ) );
-            table.setLow( client.getLow( ) );
-            table.setFutBdCounter( client.getFutureBidAskCounter( ) );
+            table.setBase( client.getBase( ).getVal() );
+            table.setOpen( client.getOpen( ).getVal() );
+            table.setHigh( client.getHigh( ).getVal() );
+            table.setLow( client.getLow( ).getVal() );
             table.setOptions( client.getOptionsHandler( ).getAllOptionsAsJson( ).toString( ) );
 
             return table;
@@ -65,13 +64,11 @@ public class IndexStatusTable extends TableStatusfather {
             try {
                 IndexStatusTable status = ( IndexStatusTable ) HB.get_line_by_id( IndexStatusTable.class,
                         client.getDbId( ), client.getSessionfactory( ) );
-                client.setOpen( status.getOpen( ) );
+                client.getOpen().setVal( status.getOpen( ) );
                 client.setConUp( status.getConUp( ) );
                 client.setConDown( status.getConDown( ) );
                 client.setIndexUp( status.getIndUp( ) );
                 client.setIndexDown( status.getIndDown( ) );
-                client.setOptimiMoveFromOutSide( status.getOptimiMove( ) );
-                client.setPesimiMoveFromOutSide( status.getPesimiMove( ) );
 
                 JSONObject optionsData = new JSONObject( status.getOptions( ) );
 

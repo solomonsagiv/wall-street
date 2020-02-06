@@ -109,8 +109,6 @@ public class TwsRequestHandler {
 
                     handle( );
 
-                    System.out.println("Request runner: " + client.getName() );
-
                 } catch ( InterruptedException e ) {
                     break;
                 } catch ( Exception e ) {
@@ -130,7 +128,7 @@ public class TwsRequestHandler {
                     // Request options on first time
                     if ( !options.isRequested( ) ) {
 
-                        if ( getClient( ).getFuture( ) != 0 ) {
+                        if ( getClient( ).getFuture( ).getVal() != 0 ) {
                             requestOptions( options );
                             options.setRequested( true );
 

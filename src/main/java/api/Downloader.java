@@ -1,6 +1,5 @@
 package api;
 
-import arik.Arik;
 import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
@@ -205,15 +204,15 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             if ( field == 6 ) {
-                ndxClient.setHigh( price );
+                ndxClient.getHigh( ).setVal( price );
             }
 
             if ( field == 7 ) {
-                ndxClient.setLow( price );
+                ndxClient.getLow( ).setVal( price );
             }
 
             if ( field == 9 ) {
-                ndxClient.setBase( price );
+                ndxClient.getBase( ).setVal( price );
             }
         }
 
@@ -242,20 +241,20 @@ public class Downloader extends Thread implements EWrapper {
 
             if ( field == 4 ) {
                 spxClient.setIndex( price );
-                spxClient.setIndexBid( price - .5 );
-                spxClient.setIndexAsk( price + .5 );
+                spxClient.getIndexBid( ).setVal( price - .5 );
+                spxClient.getIndexAsk( ).setVal( price + .5 );
             }
 
             if ( field == 6 ) {
-                spxClient.setHigh( price );
+                spxClient.getHigh().setVal( price );
             }
 
             if ( field == 7 ) {
-                spxClient.setLow( price );
+                spxClient.getLow().setVal( price );
             }
 
             if ( field == 9 ) {
-                spxClient.setBase( price );
+                spxClient.getBase().setVal( price );
             }
 
         }

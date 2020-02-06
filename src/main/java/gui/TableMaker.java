@@ -256,7 +256,7 @@ public class TableMaker {
             if ( event.getClickCount( ) == 3 ) {
                 try {
                     SpxCLIENTObject spx = SpxCLIENTObject.getInstance( );
-                    int strike = ( int ) spx.getOptionsHandler( ).getOptionsMonth( ).getStrikeInMoney( spx.getIndex( ), 0 ).getStrike( );
+                    int strike = ( int ) spx.getOptionsHandler( ).getOptionsMonth( ).getStrikeInMoney( spx.getIndex( ).getVal(), 0 ).getStrike( );
                     TablesUpdater.setSpxTableStrikes( strike );
                 } catch ( Exception e ) {
                     AlertWindow.Show( e.getMessage( ), e.getCause( ).toString( ), e.getStackTrace( ).toString( ) );

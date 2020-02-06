@@ -41,34 +41,11 @@ public class RegularListUpdater extends MyThread implements Runnable {
                 break;
             }
         }
-
     }
 
     private void insert() {
-
-        // Options op lists
-        for ( Options options : getClient( ).getOptionsHandler( ).getOptionsList( ) ) {
-            options.getOpList( ).add( options.getOp( ) );
-            options.getEqualMoveCalculator( ).getMoveIndexListIndex( ).add( options.getEqualMoveCalculator( ).getMoveIndex( ) );
-            options.getOpAvgList( ).add( options.getContract().getVal() );
+        for ( MyList list: getClient().getLists() ) {
+            list.addVal( );
         }
-
-        // For each list in listMap
-        for ( Map.Entry< Integer, MyList > entry : getClient( ).getListMap( ).entrySet( ) ) {
-            // Get the current list
-            MyList myList = entry.getValue( );
-
-            if ( myList.getObjectType() == MyList.OP_AVG_MOVE ) {
-
-                System.out.println(myList.getTargeObject() + " Size: " + myList.list.size() );
-
-            }
-
-
-            // Append the list object ( Val )
-            myList.addVal( );
-
-        }
-
     }
 }

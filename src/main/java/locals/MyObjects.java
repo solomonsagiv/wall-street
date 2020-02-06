@@ -11,8 +11,50 @@ public class MyObjects {
             objectsList.add( this );
         }
 
-        public MyBaseObject() {}
+        public MyBaseObject() {
+        }
     }
+
+    // Double object
+    public static class MySimpleDouble extends MyDouble {
+
+        double val = 0;
+
+        public MySimpleDouble( ArrayList< MyBaseObject > objectsList ) {
+            super( objectsList );
+        }
+
+        public MySimpleDouble() {
+        }
+
+        @Override
+        public void calc() {}
+
+        public double getVal() {
+            return val;
+        }
+
+        public void setVal( double val ) {
+            this.val = val;
+        }
+
+        @Override
+        public void initMe( int sleep ) {
+        }
+
+        @Override
+        public int getSleep() {
+            return 0;
+        }
+
+        @Override
+        public String toString() {
+            return "MyDouble{" +
+                    "val=" + val +
+                    '}';
+        }
+    }
+
 
     // Double object
     public abstract static class MyDouble extends MyBaseObject {
@@ -23,9 +65,10 @@ public class MyObjects {
             super( objectsList );
         }
 
-        public MyDouble() {}
+        public MyDouble() {
+        }
 
-        public abstract double getCalc();
+        public abstract void calc();
 
         public double getVal() {
             return val;
@@ -44,17 +87,31 @@ public class MyObjects {
     }
 
     // Integer object
-    public abstract static class MyInteger extends MyBaseObject {
+    public static class MySimpleInteger extends MyInteger {
 
         int val = 0;
 
-        public MyInteger( ArrayList< MyBaseObject > objectsList ) {
+        public MySimpleInteger( ArrayList< MyBaseObject > objectsList ) {
             super( objectsList );
         }
 
-        public MyInteger() {}
+        public MySimpleInteger() {
+        }
 
-        public abstract int getCalc();
+        @Override
+        public int calc() {
+            return 0;
+        }
+
+        @Override
+        public int getSleep() {
+            return 0;
+        }
+
+        @Override
+        public void initMe( int sleep ) {
+
+        }
 
         public int getVal() {
             return val;
@@ -70,6 +127,54 @@ public class MyObjects {
                     "val=" + val +
                     '}';
         }
+
+        public void increment() {
+            val++;
+        }
+
+        public void decrement() {
+            val--;
+        }
+
+    }
+
+    // Integer object
+    public abstract static class MyInteger extends MyBaseObject {
+
+        int val = 0;
+
+        public MyInteger( ArrayList< MyBaseObject > objectsList ) {
+            super( objectsList );
+        }
+
+        public MyInteger() {
+        }
+
+        public abstract int calc();
+
+        public int getVal() {
+            return val;
+        }
+
+        public void setVal( int val ) {
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return "MyInteger{" +
+                    "val=" + val +
+                    '}';
+        }
+
+        public void increment() {
+            val++;
+        }
+
+        public void decrement() {
+            val--;
+        }
+
     }
 
     // Integer object
@@ -81,9 +186,10 @@ public class MyObjects {
             super( objectsList );
         }
 
-        public MyString() {}
+        public MyString() {
+        }
 
-        public abstract String getCalc();
+        public abstract void calc();
 
         public String getVal() {
             return val;
@@ -100,7 +206,6 @@ public class MyObjects {
                     '}';
         }
     }
-
 
     // Interface
     public interface IMyObject {

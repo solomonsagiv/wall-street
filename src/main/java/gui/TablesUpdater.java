@@ -31,8 +31,8 @@ public class TablesUpdater {
             // TODO Auto-generated catch block
             e.printStackTrace( );
         }
-        spxClientObject.setFuture( spxClientObject.getFuture( ) );
-        setSpxTableStrikes( ( ( int ) ( spxClientObject.getFuture( ) / 10 ) ) * 10 );
+        spxClientObject.setFuture( spxClientObject.getFuture( ).getVal() );
+        setSpxTableStrikes( ( ( int ) ( spxClientObject.getFuture( ).getVal() / 10 ) ) * 10 );
 
     }
 

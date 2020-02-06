@@ -138,6 +138,20 @@ public class MyGuiComps {
             setText( format.format( val ) );
         }
 
+        public void colorBack( double val, DecimalFormat format, String sign ) {
+
+            setForeground( Color.WHITE );
+            setFont( getFont().deriveFont( Font.BOLD ) );
+
+            if ( val >= 0 ) {
+                setBackground( Themes.GREEN );
+            } else {
+                setBackground( Themes.RED );
+            }
+
+            setText( format.format( val ) + sign );
+        }
+
     }
 
 

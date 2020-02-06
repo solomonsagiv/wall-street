@@ -99,7 +99,7 @@ public class Logic {
                     double index = 0;
 
                     future = contract.getVal();
-                    index = client.getIndex( );
+                    index = client.getIndex( ).getVal();
                     margin = client.getRacesMargin( );
 
                     // set for the first time the hoze and stock 0

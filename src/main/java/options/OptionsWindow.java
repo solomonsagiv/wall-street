@@ -263,7 +263,7 @@ public class OptionsWindow {
         boolean run = true;
 
         int minsInSecondes = 900;
-        ArrayList< Double > indexList = client.getListMap( ).get( MyList.INDEX ).getAsDoubleList( );
+        ArrayList< Double > indexList = client.getIndexList().getAsDoubleList();
 
         @Override
         public void run() {
@@ -284,7 +284,7 @@ public class OptionsWindow {
                         start15Move = indexList.get( 0 );
                     }
 
-                    double move15Min = floor( ( ( client.getIndex( ) - start15Move ) / start15Move ) * 100 );
+                    double move15Min = floor( ( ( client.getIndex( ).getVal() - start15Move ) / start15Move ) * 100 );
 
                     for ( Strike strike : optionsFather.getStrikes( ) ) {
 

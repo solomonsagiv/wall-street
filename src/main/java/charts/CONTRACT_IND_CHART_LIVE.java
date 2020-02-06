@@ -26,40 +26,6 @@ public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
 
     }
 
-    public static void main( String[] args ) throws InterruptedException {
-
-        TestChartWindow window = new TestChartWindow( );
-        window.frame.setVisible( true );
-
-        SpxCLIENTObject dax = SpxCLIENTObject.getInstance( );
-
-        CONTRACT_IND_CHART_LIVE avg = new CONTRACT_IND_CHART_LIVE( dax );
-        avg.createChart( );
-
-        while ( true ) {
-            try {
-
-                if ( !window.indField.getText( ).isEmpty( ) ) {
-//					double ind = Double.parseDouble( window.indField.getText() );
-//					double fut = Double.parseDouble( window.futField.getText() );
-
-                    double ind = new Random( ).nextDouble( ) * 10;
-                    double fut = new Random( ).nextDouble( ) * 10;
-
-                    dax.setIndex( ind );
-                    dax.setIndexBid( ind - .5 );
-                    dax.setIndexAsk( ind + .5 );
-                    dax.setFuture( fut );
-
-                }
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-
-            Thread.sleep( 200 );
-
-        }
-    }
 
     @Override
     public void createChart() {

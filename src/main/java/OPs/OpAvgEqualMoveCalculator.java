@@ -1,11 +1,10 @@
 package OPs;
 
+import lists.MyDoubleList;
 import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
-
-import java.util.ArrayList;
 
 public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
 
@@ -21,13 +20,25 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
     private double liveMoveOpAvg = 0;
     public double marginFromOpAvg;
     private MyObjects.MyDouble opAvg;
+    private MyObjects.MySimpleDouble move;
+
+    private MyDoubleList moveList;
 
     public OpAvgEqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag, Options options ) {
         super( client );
         setName( "EqualMoveOp" );
         this.opPlag = opPlag;
         this.options = options;
-        this.opAvg = options.getOpAvg();
+        this.opAvg = options.getOpAvg( );
+
+        move = new MyObjects.MySimpleDouble( ) {
+            @Override
+            public double getVal() {
+                return moveOpAvg + liveMoveOpAvg;
+            }
+        };
+
+        moveList = new MyDoubleList( client, getMove(), "OpAvgMove" );
     }
 
     @Override
@@ -56,18 +67,18 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
 
     private void calculateFromOpAvg() {
 
-        marginFromOpAvg = options.getOp() - options.getOpAvg( ).getVal();
+        marginFromOpAvg = options.getOp( ).getVal( ) - options.getOpAvg( ).getVal( );
 
         if ( marginFromOpAvg > oposite( opPlag ) && marginFromOpAvg < opPlag ) {
 
             // Start of the move
             if ( !equalStatusOpAvg ) {
                 // Set start price
-                startPriceOpAvg = getClient( ).getIndex( );
+                startPriceOpAvg = getClient( ).getIndex( ).getVal( );
             }
 
             // Set equalLiveMove
-            endPriceOpAvg = getClient( ).getIndex( );
+            endPriceOpAvg = getClient( ).getIndex( ).getVal( );
             double equalLiveMove = endPriceOpAvg - startPriceOpAvg;
             setLiveMoveOpAvg( equalLiveMove );
 
@@ -83,7 +94,7 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
                 setLiveMoveOpAvg( 0 );
 
                 // Set end price
-                endPriceOpAvg = getClient( ).getIndex( );
+                endPriceOpAvg = getClient( ).getIndex( ).getVal( );
 
                 // Get the move
                 double move = endPriceOpAvg - startPriceOpAvg;
@@ -133,10 +144,6 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
         this.endPriceOpAvg = endPriceOpAvg;
     }
 
-    public double getMoveOpAvg() {
-        return moveOpAvg + liveMoveOpAvg;
-    }
-
     public void setMoveOpAvg( double moveOpAvg ) {
         this.moveOpAvg = moveOpAvg;
     }
@@ -153,4 +160,11 @@ public class OpAvgEqualMoveCalculator extends MyThread implements Runnable {
         this.moveOpAvg += move;
     }
 
+    public MyObjects.MySimpleDouble getMove() {
+        return move;
+    }
+
+    public MyDoubleList getMoveList() {
+        return moveList;
+    }
 }

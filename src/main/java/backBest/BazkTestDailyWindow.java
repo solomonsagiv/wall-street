@@ -15,7 +15,6 @@ public class BazkTestDailyWindow {
 
     public static double base = 0;
     static BazkTestDailyWindow window;
-    Runner runner;
     int preSleep;
     private JFrame frame;
     private JTextField future_up;
@@ -210,8 +209,6 @@ public class BazkTestDailyWindow {
         start.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent e ) {
                 getLog( ).setText( null );
-                runner = new Runner( window, SpxCLIENTObject.getInstance( ) );
-                runner.start( );
             }
         } );
         start.setFont( new Font( "Arial", Font.BOLD, 15 ) );
@@ -238,7 +235,6 @@ public class BazkTestDailyWindow {
         btnContinue.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent e ) {
                 sleep.setText( String.valueOf( preSleep ) );
-                runner.interrupt( );
             }
         } );
         btnContinue.setFont( new Font( "Arial", Font.BOLD, 15 ) );
@@ -278,7 +274,6 @@ public class BazkTestDailyWindow {
         btnStartulti.setBounds( 465, 167, 120, 27 );
         btnStartulti.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent arg0 ) {
-                runner = new Runner( window, SpxCLIENTObject.getInstance( ) );
             }
         } );
         btnStartulti.setFont( new Font( "Arial", Font.BOLD, 14 ) );

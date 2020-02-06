@@ -1,5 +1,8 @@
 package OPs;
 
+import lists.MyDoubleList;
+import lists.MyList;
+import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
@@ -20,6 +23,9 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
     private double moveIndex = 0;
     private double liveMoveIndex = 0;
 
+    private MyObjects.MyDouble move;
+    private MyList moveList;
+
     // Constructor
     public EqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag ) {
         super( client );
@@ -32,6 +38,14 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
         setName( "EqualMove" );
         this.opPlag = opPlag;
         this.options = options;
+
+        move = new MyObjects.MySimpleDouble( ) {
+            @Override
+            public double getVal() {
+                return floor( moveIndex + liveMoveIndex, 10 );
+            }
+        };
+        moveList = new MyDoubleList( client, getMove(), "EqualMove" );
     }
 
     @Override
@@ -59,7 +73,7 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
 
     private void calculateFromIndex() {
 
-        double op = options.getOp( );
+        double op = options.getOp().getVal();
 
         if ( op > oposite( opPlag ) && op < opPlag ) {
 
@@ -67,12 +81,12 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
             if ( !equalStatusIndex ) {
 
                 // Set start price
-                startPriceIndex = getClient( ).getIndex( );
+                startPriceIndex = getClient( ).getIndex( ).getVal();
 
             }
 
             // Set equalLiveMove
-            endPriceIndex = getClient( ).getIndex( );
+            endPriceIndex = getClient( ).getIndex( ).getVal();
             double equalLiveMove = endPriceIndex - startPriceIndex;
             setLiveMoveIndex( equalLiveMove );
 
@@ -88,7 +102,7 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
                 setLiveMoveIndex( 0 );
 
                 // Set end price
-                endPriceIndex = getClient( ).getIndex( );
+                endPriceIndex = getClient( ).getIndex( ).getVal();
 
                 // Get the move
                 double move = floor( endPriceIndex - startPriceIndex, 10 );
@@ -128,10 +142,6 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
         this.options = options;
     }
 
-    public double getMoveIndex() {
-        return floor( moveIndex + liveMoveIndex, 10 );
-    }
-
     public void setMoveIndex( double move ) {
         this.moveIndex = move;
     }
@@ -144,8 +154,11 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
         return moveListIndex;
     }
 
-    public void setMoveListIndex( ArrayList< Double > moveList ) {
-        this.moveListIndex = moveList;
+    public MyObjects.MyDouble getMove() {
+        return move;
     }
 
+    public MyList getMoveList() {
+        return moveList;
+    }
 }

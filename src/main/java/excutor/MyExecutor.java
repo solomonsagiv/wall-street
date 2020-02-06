@@ -41,12 +41,14 @@ public class MyExecutor extends MyThread implements Runnable {
 
     private void execute() {
 
+        System.out.println( getClient().getMyObjects().size() + " name: " + getClient().getName());
+
         // For each execute object
         for ( MyObjects.MyBaseObject object : getClient( ).getMyObjects( ) ) {
             // Every time
-
             new Thread( () -> {
                 object.initMe( sleepCount );
+
             } ).start();
         }
 

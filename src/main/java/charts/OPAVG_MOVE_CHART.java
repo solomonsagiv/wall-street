@@ -30,38 +30,6 @@ public class OPAVG_MOVE_CHART implements IChartCreator {
 
     }
 
-    public static void main( String[] args ) throws InterruptedException {
-
-        TestChartWindow window = new TestChartWindow( );
-        window.frame.setVisible( true );
-
-        SpxCLIENTObject dax = SpxCLIENTObject.getInstance( );
-
-        CONTRACT_IND_CHART avg = new CONTRACT_IND_CHART( dax );
-        avg.createChart( );
-
-        ArrayList< Double > indexList = dax.getListMap( ).get( MyList.INDEX ).getAsDoubleList( );
-
-        while ( true ) {
-            try {
-
-                if ( !window.indField.getText( ).isEmpty( ) ) {
-                    double ind = Double.parseDouble( window.indField.getText( ) );
-                    double fut = Double.parseDouble( window.futField.getText( ) );
-
-//					double ind = new Random().nextDouble() * 10;
-//					double fut = new Random().nextDouble() * 10;
-                    indexList.add( ind );
-                }
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-
-            Thread.sleep( 1000 );
-
-        }
-    }
-
     @Override
     public void createChart() {
         
@@ -78,7 +46,7 @@ public class OPAVG_MOVE_CHART implements IChartCreator {
         marker.setPaint( Color.BLACK );
 
         Map< String, MyList > map = new HashMap< String, MyList >( );
-        map.put( "opAvgMove", client.getListMap( ).get( MyList.OP_AVG_MOVE ) );
+        map.put( "opAvgMove", client.getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveList() );
 
         // Create chart
         chart = new MySingleFreeChart( client, series, colors, 1, map, 0, true, 0, 1.5f, false, true

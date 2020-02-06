@@ -16,8 +16,6 @@ import tables.stocks.sum.NetflixSum;
 public class NetflixCLIENTObject extends STOCK_CLIENT_OBJECT {
 
     static NetflixCLIENTObject client = null;
-    double futureBid = 0;
-    double futureAsk = 0;
 
     // Private constructor
     private NetflixCLIENTObject() {
@@ -32,21 +30,6 @@ public class NetflixCLIENTObject extends STOCK_CLIENT_OBJECT {
         return client;
     }
 
-    public double getFutureBid() {
-        return futureBid;
-    }
-
-    public void setFutureBid( double futureBid ) {
-        this.futureBid = futureBid;
-    }
-
-    public double getFutureAsk() {
-        return futureAsk;
-    }
-
-    public void setFutureAsk( double futureAsk ) {
-        this.futureAsk = futureAsk;
-    }
 
     @Override
     public double getTheoAvgMargin() {

@@ -232,9 +232,9 @@ public class DetailsWindow {
             ArrayList< String > list = new ArrayList<>( );
 
             list.add( "Started: " + client.isStarted( ) );
-            list.add( "Contract: " + contract.getVal() );
-            list.add( "Index: " + client.getIndex( ) );
-            list.add( "Base: " + client.getBase( ) );
+            list.add( "Contract: " + options.getContractByCurrentCalc() );
+            list.add( "Index: " + client.getIndex( ).getVal() );
+            list.add( "Base: " + client.getBase( ).getVal() );
             list.add( "\n" );
             list.add( "DB: " + client.isDbRunning( ) );
             list.add( "MySql: " + client.getDb( ).getMySql( ).isRun( ) );

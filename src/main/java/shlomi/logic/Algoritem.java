@@ -39,7 +39,7 @@ public abstract class Algoritem {
     public void LONG() {
         try {
 
-            currentPosition = client.getPositions( ).openNewPosition( getType( ), client.getTwsData( ).getQuantity( ), client.getIndex( ) );
+            currentPosition = client.getPositions( ).openNewPosition( getType( ), client.getTwsData( ).getQuantity( ), client.getIndex( ).getVal() );
 
             LONG = true;
             buyMarket( );
@@ -53,7 +53,7 @@ public abstract class Algoritem {
     public void EXIT_LONG() {
         try {
 
-            currentPosition.close( client.getIndex( ) );
+            currentPosition.close( client.getIndex( ).getVal() );
             LONG = false;
             sellMarket( );
             notifyMe( "Exit Long " + getType( ), currentPosition );
@@ -66,7 +66,7 @@ public abstract class Algoritem {
 
     public void SHORT() {
         try {
-            currentPosition = client.getPositions( ).openNewPosition( getType( ), ( int ) opo( client.getTwsData( ).getQuantity( ) ), client.getIndex( ) );
+            currentPosition = client.getPositions( ).openNewPosition( getType( ), ( int ) opo( client.getTwsData( ).getQuantity( ) ), client.getIndex( ).getVal() );
 
             SHORT = true;
             sellMarket( );
@@ -80,7 +80,7 @@ public abstract class Algoritem {
 
     public void EXIT_SHORT() {
         try {
-            currentPosition.close( client.getIndex( ) );
+            currentPosition.close( client.getIndex( ).getVal() );
 
             SHORT = false;
             buyMarket( );
@@ -108,7 +108,7 @@ public abstract class Algoritem {
 
     public Position openPosition( int pos ) {
         Position position = new Position( getClient( ).getPositions( ).getNextId( ), getType( ), getClient( ).getTwsData( ).getFutureContract( ), pos, client );
-        position.open( getClient( ).getIndex( ) );
+        position.open( getClient( ).getIndex( ).getVal() );
         return position;
     }
 

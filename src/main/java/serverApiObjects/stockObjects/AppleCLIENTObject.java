@@ -16,8 +16,6 @@ import tables.stocks.sum.AppleSum;
 public class AppleCLIENTObject extends STOCK_CLIENT_OBJECT {
 
     static AppleCLIENTObject client = null;
-    double futureBid = 0;
-    double futureAsk = 0;
 
     // Private constructor
     private AppleCLIENTObject() {
@@ -30,22 +28,6 @@ public class AppleCLIENTObject extends STOCK_CLIENT_OBJECT {
             client = new AppleCLIENTObject( );
         }
         return client;
-    }
-
-    public double getFutureBid() {
-        return futureBid;
-    }
-
-    public void setFutureBid( double futureBid ) {
-        this.futureBid = futureBid;
-    }
-
-    public double getFutureAsk() {
-        return futureAsk;
-    }
-
-    public void setFutureAsk( double futureAsk ) {
-        this.futureAsk = futureAsk;
     }
 
     @Override

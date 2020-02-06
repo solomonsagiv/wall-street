@@ -6,6 +6,7 @@ import dataBase.HB;
 import gui.MyGuiComps;
 import lists.MyList;
 import locals.L;
+import locals.MyObjects;
 import locals.Themes;
 import options.Options;
 import org.json.JSONObject;
@@ -43,9 +44,6 @@ public class Setting {
     private JTextField index_up;
     private JLabel lblRaces;
     private JLabel lblExpiration;
-    private JTextField index_exp;
-    private JTextField future_exp;
-    private JTextField start_exp;
     private JLabel lblOpen;
     private JTextField open;
     private JLabel lblBase;
@@ -57,10 +55,6 @@ public class Setting {
     private JLabel lblArik_1;
     private JPanel arik_panel;
     private ChooserPanel myChooserPanel;
-    private JTextField index_week_exp;
-    private JTextField future_week_exp;
-    private JTextField start_week_exp;
-    private JTextField futureBidAskCounterField;
     private JSeparator separator_2;
     private JLabel lblProperties;
     private JLabel lblInterest;
@@ -70,8 +64,6 @@ public class Setting {
     private JTextField differentDaysLeftField;
     private JButton btnOptHandlerStart;
     private JLabel lblOptimi;
-    private JTextField optimiMoveField;
-    private JTextField pesimiMoveField;
     private JLabel lblPesimi;
     private JTextField conBdCounterField;
     private JLabel lblConDayBd;
@@ -289,36 +281,6 @@ public class Setting {
             label_2.setBounds( 68, 386, 45, 21 );
             setting_panel_inside.add( label_2 );
 
-            index_exp = new JTextField( );
-            index_exp.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    client.setIndex_exp( Integer.parseInt( index_exp.getText( ) ) );
-                }
-            } );
-            index_exp.setHorizontalAlignment( SwingConstants.CENTER );
-            index_exp.setForeground( new Color( 0, 51, 153 ) );
-            index_exp.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            index_exp.setColumns( 10 );
-            index_exp.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            index_exp.setBackground( Color.WHITE );
-            index_exp.setBounds( 64, 413, 45, 22 );
-            setting_panel_inside.add( index_exp );
-
-            future_exp = new JTextField( );
-            future_exp.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    client.setFuture_exp( Integer.parseInt( future_exp.getText( ) ) );
-                }
-            } );
-            future_exp.setHorizontalAlignment( SwingConstants.CENTER );
-            future_exp.setForeground( new Color( 0, 51, 153 ) );
-            future_exp.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            future_exp.setColumns( 10 );
-            future_exp.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            future_exp.setBackground( Color.WHITE );
-            future_exp.setBounds( 10, 413, 45, 22 );
-            setting_panel_inside.add( future_exp );
-
 
             futureField = new JTextField( 10 );
             futureField.setBounds( 300, 5, 65, 30 );
@@ -336,25 +298,6 @@ public class Setting {
             lblExpirationStartPrice.setBounds( 10, 446, 45, 21 );
             setting_panel_inside.add( lblExpirationStartPrice );
 
-            start_exp = new JTextField( );
-            start_exp.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    try {
-                        client.setStart_exp( Double.parseDouble( start_exp.getText( ) ) );
-                    } catch ( Exception e1 ) {
-                        // TODO: handle exception
-                    }
-                }
-            } );
-            start_exp.setHorizontalAlignment( SwingConstants.CENTER );
-            start_exp.setForeground( new Color( 0, 51, 153 ) );
-            start_exp.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            start_exp.setColumns( 10 );
-            start_exp.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            start_exp.setBackground( Color.WHITE );
-            start_exp.setBounds( 10, 473, 73, 22 );
-            setting_panel_inside.add( start_exp );
-
             scrollPane = new JScrollPane( setting_panel_inside );
             scrollPane.setBounds( 0, 0, 517, 815 );
             scrollPane.getHorizontalScrollBar( ).setVisible( false );
@@ -369,9 +312,9 @@ public class Setting {
             open.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
                     try {
-                        client.setOpen( Double.parseDouble( open.getText( ) ) );
+                        client.getOpen().setVal( Double.parseDouble( open.getText( ) )   );
                     } catch ( Exception e ) {
-                        // TODO: handle exception
+                        e.printStackTrace();
                     }
                 }
             } );
@@ -393,9 +336,9 @@ public class Setting {
             base.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        client.setBase( Double.parseDouble( base.getText( ) ) );
+                        client.getBase().setVal( Double.parseDouble( base.getText( ) ) );
                     } catch ( Exception e1 ) {
-                        // TODO: handle exception
+                        e1.printStackTrace();
                     }
                 }
             } );
@@ -482,65 +425,6 @@ public class Setting {
             label_5.setBounds( 228, 386, 45, 21 );
             setting_panel_inside.add( label_5 );
 
-            index_week_exp = new JTextField( );
-            index_week_exp.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    try {
-                        client.setWeek_index_exp( Integer.parseInt( e.getActionCommand( ) ) );
-                    } catch ( Exception e1 ) {
-                        // TODO: handle exception
-                    }
-
-                }
-            } );
-            index_week_exp.setHorizontalAlignment( SwingConstants.CENTER );
-            index_week_exp.setForeground( new Color( 0, 51, 153 ) );
-            index_week_exp.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            index_week_exp.setColumns( 10 );
-            index_week_exp.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            index_week_exp.setBackground( Color.WHITE );
-            index_week_exp.setBounds( 224, 413, 45, 22 );
-            setting_panel_inside.add( index_week_exp );
-
-            future_week_exp = new JTextField( );
-            future_week_exp.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent arg0 ) {
-                    try {
-                        client.setWeek_future_exp( Integer.parseInt( arg0.getActionCommand( ) ) );
-                    } catch ( Exception e ) {
-                        // TODO: handle exception
-                    }
-
-                }
-            } );
-            future_week_exp.setHorizontalAlignment( SwingConstants.CENTER );
-            future_week_exp.setForeground( new Color( 0, 51, 153 ) );
-            future_week_exp.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            future_week_exp.setColumns( 10 );
-            future_week_exp.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            future_week_exp.setBackground( Color.WHITE );
-            future_week_exp.setBounds( 170, 413, 45, 22 );
-            setting_panel_inside.add( future_week_exp );
-
-            start_week_exp = new JTextField( );
-            start_week_exp.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    try {
-                        client.setWeek_start_exp( Double.parseDouble( e.getActionCommand( ) ) );
-                    } catch ( Exception e1 ) {
-                        // TODO: handle exception
-                    }
-                }
-            } );
-            start_week_exp.setHorizontalAlignment( SwingConstants.CENTER );
-            start_week_exp.setForeground( new Color( 0, 51, 153 ) );
-            start_week_exp.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            start_week_exp.setColumns( 10 );
-            start_week_exp.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            start_week_exp.setBackground( Color.WHITE );
-            start_week_exp.setBounds( 169, 473, 73, 22 );
-            setting_panel_inside.add( start_week_exp );
-
             JLabel label = new JLabel( "Open" );
             label.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
             label.setBounds( 169, 446, 45, 21 );
@@ -568,25 +452,6 @@ public class Setting {
             btnStart.setBackground( new Color( 220, 220, 220 ) );
             btnStart.setBounds( 244, 212, 99, 22 );
             setting_panel_inside.add( btnStart );
-
-            futureBidAskCounterField = new JTextField( );
-            futureBidAskCounterField.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    try {
-                        client.setFutureBidAskCounter( Integer.parseInt( futureBidAskCounterField.getText( ) ) );
-                    } catch ( Exception e2 ) {
-                        e2.printStackTrace( );
-                    }
-                }
-            } );
-            futureBidAskCounterField.setHorizontalAlignment( SwingConstants.CENTER );
-            futureBidAskCounterField.setForeground( new Color( 0, 51, 153 ) );
-            futureBidAskCounterField.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            futureBidAskCounterField.setColumns( 10 );
-            futureBidAskCounterField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            futureBidAskCounterField.setBackground( Color.WHITE );
-            futureBidAskCounterField.setBounds( 131, 163, 72, 22 );
-            setting_panel_inside.add( futureBidAskCounterField );
 
             JLabel lblFutureBidAsk = new JLabel( "Fut bd" );
             lblFutureBidAsk.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
@@ -713,44 +578,6 @@ public class Setting {
             lblOptimi.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
             lblOptimi.setBounds( 308, 86, 45, 21 );
             setting_panel_inside.add( lblOptimi );
-
-            optimiMoveField = new JTextField( );
-            optimiMoveField.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent arg0 ) {
-                    try {
-                        client.setOptimiMoveFromOutSide( Double.parseDouble( optimiMoveField.getText( ) ) );
-                    } catch ( Exception e ) {
-                        JOptionPane.showInternalMessageDialog( frmSetting, e.getMessage( ) );
-                    }
-                }
-            } );
-            optimiMoveField.setHorizontalAlignment( SwingConstants.CENTER );
-            optimiMoveField.setForeground( new Color( 0, 51, 153 ) );
-            optimiMoveField.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            optimiMoveField.setColumns( 10 );
-            optimiMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            optimiMoveField.setBackground( Color.WHITE );
-            optimiMoveField.setBounds( 295, 113, 72, 22 );
-            setting_panel_inside.add( optimiMoveField );
-
-            pesimiMoveField = new JTextField( );
-            pesimiMoveField.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent e ) {
-                    try {
-                        client.setPesimiMoveFromOutSide( Double.parseDouble( pesimiMoveField.getText( ) ) );
-                    } catch ( Exception e1 ) {
-                        JOptionPane.showInternalMessageDialog( frmSetting, e1.getMessage( ) );
-                    }
-                }
-            } );
-            pesimiMoveField.setHorizontalAlignment( SwingConstants.CENTER );
-            pesimiMoveField.setForeground( new Color( 0, 51, 153 ) );
-            pesimiMoveField.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            pesimiMoveField.setColumns( 10 );
-            pesimiMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            pesimiMoveField.setBackground( Color.WHITE );
-            pesimiMoveField.setBounds( 295, 163, 72, 22 );
-            setting_panel_inside.add( pesimiMoveField );
 
             lblPesimi = new JLabel( "Pesimi" );
             lblPesimi.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
@@ -887,12 +714,13 @@ public class Setting {
             opAvgField.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
 
-                    double op = 0;
+                    MyObjects.MySimpleDouble op = new MyObjects.MySimpleDouble();
 
                     try {
-                        op = Double.parseDouble( opAvgField.getText( ) );
+                        double opFromUser = Double.parseDouble( opAvgField.getText( ) );
+                        op.setVal( opFromUser );
 
-                        client.getListMap( ).get( MyList.OP ).setValues( op );
+                        options.getOpAvgList().setValues( op );
 
                     } catch ( Exception e ) {
                         e.printStackTrace( );

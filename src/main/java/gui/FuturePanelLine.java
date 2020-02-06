@@ -572,31 +572,31 @@ public class FuturePanelLine extends BaseFuturePanel {
                     futureBid = 0;
                     futureAsk = 0;
 
-                    if ( getClient( ) instanceof INDEX_CLIENT_OBJECT ) {
-                        futureBid = getClient( ).getFutureBid( );
-                        futureAsk = getClient( ).getFutureAsk( );
-                    }
-
-                    // Ticker present
-                    openPresent = floor( ( ( getClient( ).getOpen( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
-                    indexPresent = floor( ( ( getClient( ).getIndex( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
-                    highPresent = floor( ( ( getClient( ).getHigh( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
-                    lowPresent = floor( ( ( getClient( ).getLow( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
-
-                    // ---------- Races ---------- //
-                    future_sum = getClient( ).getConUp( ) - getClient( ).getConDown( );
-                    index_sum = getClient( ).getIndexUp( ) - getClient( ).getIndexDown( );
-
-                    // ---------- Exp ---------- //
-                    start_exp = getClient( ).getStart_exp( );
-                    future_exp = getClient( ).getFuture_exp( );
-                    index_exp = getClient( ).getIndex_exp( );
-
-                    exp_move = floor( ( ( getClient( ).getIndex( ) - start_exp ) / start_exp ) * 100 );
-
-                    // ========== Update data ========== //
-                    getClient( ).setLive_future_exp( future_exp + future_sum );
-                    getClient( ).setLive_index_exp( index_exp + index_sum );
+//                    if ( getClient( ) instanceof INDEX_CLIENT_OBJECT ) {
+//                        futureBid = getClient( ).getFutureBid( );
+//                        futureAsk = getClient( ).getFutureAsk( );
+//                    }
+//
+//                    // Ticker present
+//                    openPresent = floor( ( ( getClient( ).getOpen( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
+//                    indexPresent = floor( ( ( getClient( ).getIndex( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
+//                    highPresent = floor( ( ( getClient( ).getHigh( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
+//                    lowPresent = floor( ( ( getClient( ).getLow( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
+//
+//                    // ---------- Races ---------- //
+//                    future_sum = getClient( ).getConUp( ) - getClient( ).getConDown( );
+//                    index_sum = getClient( ).getIndexUp( ) - getClient( ).getIndexDown( );
+//
+//                    // ---------- Exp ---------- //
+//                    start_exp = getClient( ).getStart_exp( );
+//                    future_exp = getClient( ).getFuture_exp( );
+//                    index_exp = getClient( ).getIndex_exp( );
+//
+//                    exp_move = floor( ( ( getClient( ).getIndex( ) - start_exp ) / start_exp ) * 100 );
+//
+//                    // ========== Update data ========== //
+//                    getClient( ).setLive_future_exp( future_exp + future_sum );
+//                    getClient( ).setLive_index_exp( index_exp + index_sum );
 
                     // Write data to panel
                     writeData( );
@@ -650,7 +650,7 @@ public class FuturePanelLine extends BaseFuturePanel {
             index_up.setText( str( getClient( ).getIndexUp( ) ) );
             index_down.setText( str( getClient( ).getIndexDown( ) ) );
 
-            colorForf( getOptimipesimi( ), floor( getClient( ).getOptionsHandler( ).getMainOptions( ).getOp( ) ) );
+//            colorForf( getOptimipesimi( ), floor( getClient( ).getOptionsHandler( ).getMainOptions( ).getOp( ) ) );
 
             colorForfInt( getFuture_sum( ), future_sum );
             colorForfInt( getIndex_sum( ), index_sum );

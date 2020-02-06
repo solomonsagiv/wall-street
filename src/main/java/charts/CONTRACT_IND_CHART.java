@@ -28,45 +28,6 @@ public class CONTRACT_IND_CHART implements IChartCreator {
 
     }
 
-    public static void main( String[] args ) throws InterruptedException {
-
-        TestChartWindow window = new TestChartWindow( );
-        window.frame.setVisible( true );
-
-        SpxCLIENTObject dax = SpxCLIENTObject.getInstance( );
-
-        CONTRACT_IND_CHART avg = new CONTRACT_IND_CHART( dax );
-        avg.createChart( );
-
-        ArrayList< Double > indexList = dax.getListMap( ).get( MyList.INDEX ).getAsDoubleList( );
-        ArrayList< Double > contractList = dax.getListMap( ).get( MyList.CONTRACT ).getAsDoubleList( );
-        ArrayList< Double > indexBidList = dax.getListMap( ).get( MyList.INDEX_BID ).getAsDoubleList( );
-        ArrayList< Double > indexAskList = dax.getListMap( ).get( MyList.INDEX_ASK ).getAsDoubleList( );
-
-        while ( true ) {
-            try {
-
-                if ( !window.indField.getText( ).isEmpty( ) ) {
-                    double ind = Double.parseDouble( window.indField.getText( ) );
-                    double fut = Double.parseDouble( window.futField.getText( ) );
-
-//					double ind = new Random().nextDouble() * 10;
-//					double fut = new Random().nextDouble() * 10;
-
-                    indexList.add( ind );
-                    contractList.add( fut );
-                    indexBidList.add( ind - 1.2 );
-                    indexAskList.add( ind + 1.2 );
-                }
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-
-            Thread.sleep( 1000 );
-
-        }
-    }
-
     @Override
     public void createChart() {
 
@@ -86,10 +47,10 @@ public class CONTRACT_IND_CHART implements IChartCreator {
 
         Map< String, MyList > map = new HashMap< String, MyList >( );
         map = new HashMap< String, MyList >( );
-        map.put( "index", client.getListMap( ).get( MyList.INDEX ) );
-        map.put( "contract", client.getListMap( ).get( MyList.CONTRACT ) );
-        map.put( "indexBid", client.getListMap( ).get( MyList.INDEX_BID ) );
-        map.put( "indexAsk", client.getListMap( ).get( MyList.INDEX_ASK ) );
+        map.put( "index", ( MyList ) client.getIndexList().getList() );
+        map.put( "contract", ( MyList ) client.getOptionsHandler().getMainOptions().getContractList().getList() );
+        map.put( "indexBid", ( MyList ) client.getIndexBidList().getList() );
+        map.put( "indexAsk", ( MyList ) client.getIndexAskList().getList() );
 
         // Create chart
         chart = new MySingleFreeChart( client, series, colors, 0.17, map, 180, false, 0, 2.5f, false, false, true, null );

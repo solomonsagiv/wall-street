@@ -6,49 +6,25 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyList {
+public abstract class MyList implements IMyList {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    MyObjects.MyDouble mainContract;
-    MyObjects.MyDouble mainOpAvg;
-    MyObjects.MyDouble quarterContract;
-    MyObjects.MyDouble quarterOpAvg;
     List list;
-    private int objectType;
     int optionalMaxSize = 0;
-
-    public static final int  INDEX = 0;
-    public static final int  CONTRACT = 1;
-    public static final int  INDEX_BID = 2;
-    public static final int  INDEX_ASK = 3;
-    public static final int  CONTRACT_BID = 4;
-    public static final int  CONTRACT_ASK = 5;
-    public static final int  INDEX_RACES = 6;
-    public static final int  OP = 7;
-    public static final int  OP_QUARTER = 8;
-    public static final int  OP_AVG_MOVE = 9;
+    String name;
 
     // Constructors
-    public MyList( BASE_CLIENT_OBJECT client, int targetObject ) {
-
-        list = new ArrayList< Double >( );
+    public MyList( BASE_CLIENT_OBJECT client, String name ) {
         this.client = client;
-        this.objectType = targetObject;
-
-        // My objects
-        mainContract = client.getOptionsHandler().getMainOptions().getContract();
-        mainOpAvg = client.getOptionsHandler().getMainOptions().getOpAvg();
-        quarterContract = client.getOptionsHandler().getOptionsQuarter().getContract();
-        quarterOpAvg = client.getOptionsHandler().getOptionsQuarter().getOpAvg();
-
+        this.name = name;
+        this.client.getLists( ).add( this );
+        initList( );
     }
 
-    public MyList( BASE_CLIENT_OBJECT client, int targetObject, int optionalMaxSize ) {
-        this(client, targetObject);
-
+    public MyList( BASE_CLIENT_OBJECT client, int optionalMaxSize, String name ) {
+        this( client, name );
         this.optionalMaxSize = optionalMaxSize;
-
     }
 
     // Functions
@@ -58,51 +34,23 @@ public class MyList {
         if ( optionalMaxSize > 0 && list.size( ) > optionalMaxSize ) {
             list.remove( 0 );
         }
-        list.add( getTargeObject( ) );
+        addMyVal( );
     }
 
     public void clear() {
         list.clear( );
     }
 
-    public void setValues( double value ) {
-        int size = getList( ).size( );
-
-        clear( );
-
-        for ( int i = 0; i < size; i++ ) {
-
-            getList( ).add( value );
-
-        }
+    public int size() {
+        return list.size( );
     }
 
-    public Object getTargeObject() {
+    public void setValues( MyObjects.MyBaseObject object ) {
 
-        switch ( objectType ) {
-            case INDEX:
-                return client.getIndex( );
-            case CONTRACT:
-                return mainContract.getVal();
-            case OP:
-                return client.getOptionsHandler( ).getMainOptions( ).getOp( );
-            case INDEX_BID:
-                return client.getIndexBid( );
-            case INDEX_ASK:
-                return client.getIndexAsk( );
-            case CONTRACT_BID:
-                return client.getOptionsHandler( ).getMainOptions( ).getContractBid( );
-            case CONTRACT_ASK:
-                return client.getOptionsHandler( ).getMainOptions( ).getContractAsk( );
-            case OP_QUARTER:
-                return quarterContract.getVal() - client.getIndex( );
-            case INDEX_RACES:
-                return (double) client.getIndexSum();
-            case OP_AVG_MOVE:
-                return client.getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveOpAvg();
-            default:
-                return null;
-        }
+        int size = list.size( );
+
+        clear( );
+        fillList( object, size );
     }
 
     public Object getLastItem() {
@@ -122,16 +70,7 @@ public class MyList {
         return ( ArrayList< Double > ) list;
     }
 
-    public BASE_CLIENT_OBJECT getClient() {
-        return client;
+    public String getName() {
+        return name;
     }
-
-    public void setClient( BASE_CLIENT_OBJECT client ) {
-        this.client = client;
-    }
-
-    public int getObjectType() {
-        return objectType;
-    }
-
 }

@@ -4,6 +4,8 @@ import OPs.EqualMoveCalculator;
 import OPs.OpAvgEqualMoveCalculator;
 import com.ib.client.Contract;
 import gui.WallStreetWindow;
+import lists.MyDoubleList;
+import lists.MyList;
 import locals.L;
 import locals.MyObjects;
 import options.fullOptions.PositionCalculator;
@@ -41,49 +43,68 @@ public class Options {
     private double interestZero = 0;
     private double devidend = -1;
     private double borrow = 0;
-    private double contractBid = 0;
-    private double contractAsk = 0;
     private int contractBidAskCounter = 0;
     private int baseID = 0;
     private int minId = 0;
     private int maxId = 0;
     private Contract twsContract;
     private boolean gotData = false;
-    private ArrayList< Double > opList = new ArrayList<>( );
-    private ArrayList< Double > opAvgList = new ArrayList<>( );
+
+    private MyObjects.MySimpleDouble op;
+
+    MyList opList;
+    MyList opAvgList;
+    MyList contractList;
+    MyList contractBidList;
+    MyList contractAskList;
+
     private EqualMoveCalculator equalMoveCalculator;
     private OpAvgEqualMoveCalculator opAvgEqualMoveCalculator;
     private PositionCalculator positionCalculator;
 
+    private MyObjects.MySimpleDouble contractBid;
+    private MyObjects.MySimpleDouble contractAsk;
     private MyObjects.MyDouble contract;
     private MyObjects.MyDouble opAvg;
     private MyObjects.MyString optionsJson;
 
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
+        this.type = type;
+        this.twsContract = twsContract;
+        this.client = client;
+
+        initMyObjects( );
+        initType( );
 
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
 
-        this.type = type;
-        this.client = client;
-        this.twsContract = twsContract;
+        opList = new MyDoubleList( client, getOp( ), getName() + " Op" );
+        opAvgList = new MyDoubleList( client, getOpAvg( ), getName() + " OpAvg" );
+        contractList = new MyDoubleList( client, getContract( ), getName() + " Contract" );
+        contractBidList = new MyDoubleList( client, getContractBid( ), getName() + " ContractBid" );
+        contractAskList = new MyDoubleList( client, getContractAsk( ), getName() + " ContractAsk" );
 
         equalMoveCalculator = new EqualMoveCalculator( client, client.getEqualMovePlag( ), this );
         opAvgEqualMoveCalculator = new OpAvgEqualMoveCalculator( client, client.getEqualMovePlag( ), this );
         positionCalculator = new PositionCalculator( client );
 
-        initMyObjects( );
-
-        initType( );
     }
 
     private void initMyObjects() {
+
+        op = new MyObjects.MySimpleDouble( ) {
+            @Override
+            public double getVal() {
+                return floor( calcContract( ) - client.getIndex( ).getVal( ), 100 );
+            }
+        };
 
         // Contract
         contract = new MyObjects.MyDouble( client.getMyObjects( ) ) {
             @Override
             public void initMe( int sleepCount ) {
-                if ( sleepCount % getSleep() == 0 ) {
+                if ( sleepCount % getSleep( ) == 0 ) {
                     contract.setVal( calcContract( ) );
                 }
             }
@@ -94,16 +115,20 @@ public class Options {
             }
 
             @Override
-            public double getCalc() {
-                return calcContract( );
+            public void calc() {
+                setVal( calcContract( ) );
             }
         };
+
+        contractBid = new MyObjects.MySimpleDouble(  );
+
+        contractAsk = new MyObjects.MySimpleDouble(  );
 
         // Op avg
         opAvg = new MyObjects.MyDouble( client.getMyObjects( ) ) {
             @Override
             public void initMe( int sleepCount ) {
-                if ( sleepCount % getSleep() == 0 ) {
+                if ( sleepCount % getSleep( ) == 0 ) {
                     opAvg.setVal( calcOpAvg( ) );
                 }
             }
@@ -114,23 +139,27 @@ public class Options {
             }
 
             @Override
-            public double getCalc() {
-                return calcOpAvg( );
+            public void calc() {
+                setVal( calcOpAvg( ) );
             }
         };
 
         // Options json as string
-        optionsJson = new MyObjects.MyString( client.getMyObjects() ) {
+        optionsJson = new MyObjects.MyString( client.getMyObjects( ) ) {
             @Override
-            public String getCalc() {
-                return getOptionsAsJson().toString();
+            public void calc() {
+                setVal( getOptionsAsJson( ).toString( ) );
             }
 
             @Override
             public void initMe( int sleepCount ) {
-                if ( sleepCount % getSleep() == 0 ) {
-                    setVal( getOptionsAsJson().toString() );
+                if ( sleepCount % getSleep( ) == 0 ) {
+                    setVal( getOptionsAsJson( ).toString( ) );
                 }
+            }
+
+            public String getValByCurrentCalc() {
+                return getOptionsAsJson( ).toString( );
             }
 
             @Override
@@ -216,7 +245,7 @@ public class Options {
                     double increment = getStrikeMargin( );
 
                     // For each strike
-                    double strikInMoney = getStrikeInMoney( client.getFuture( ), 0 ).getStrike( );
+                    double strikInMoney = getStrikeInMoney( client.getFuture( ).getVal( ), 0 ).getStrike( );
                     double startStrike = strikInMoney - increment * 2;
                     double endStrike = strikInMoney + increment * 2;
 
@@ -249,6 +278,10 @@ public class Options {
     }
 
 
+    public double getContractByCurrentCalc() {
+        return calcContract();
+    }
+
     // Claculate the index from options
     private double calcContract() {
 
@@ -257,7 +290,7 @@ public class Options {
             ArrayList< Double > buys = new ArrayList<>( );
             ArrayList< Double > sells = new ArrayList<>( );
 
-            double strikeInMoney = getStrikeInMoney( client.getFuture( ), 0 ).getStrike( );
+            double strikeInMoney = getStrikeInMoney( client.getFuture( ).getVal( ), 0 ).getStrike( );
             double startStrike = strikeInMoney - ( getStrikeMarginForContract( ) * 5 );
             double endStrike = strikeInMoney + ( getStrikeMarginForContract( ) * 5 );
 
@@ -301,8 +334,8 @@ public class Options {
             double currentAskMax = Collections.max( sells );
 
             // Update contract bid, ask
-            setContractBid( currentBidMin );
-            setContractAsk( currentAskMax );
+            contractBid.setVal( currentBidMin );
+            contractAsk.setVal( currentAskMax );
 
             if ( currentBidMin > bidMin && bidMin != 0 ) {
                 setContractBidAskCounter( getContractBidAskCounter( ) + 1 );
@@ -319,6 +352,7 @@ public class Options {
 
             return future;
         } catch ( Exception e ) {
+            e.printStackTrace();
             return 0;
         }
     }
@@ -331,7 +365,7 @@ public class Options {
             ArrayList< Double > buys = new ArrayList<>( );
             ArrayList< Double > sells = new ArrayList<>( );
 
-            double strikeInMoney = getStrikeInMoney( client.getFuture( ), 0 ).getStrike( );
+            double strikeInMoney = getStrikeInMoney( client.getFuture( ).getVal( ), 0 ).getStrike( );
             double startStrike = strikeInMoney - ( getStrikeMarginForContract( ) * 5 );
             double endStrike = strikeInMoney + ( getStrikeMarginForContract( ) * 5 );
 
@@ -530,11 +564,6 @@ public class Options {
         }
     }
 
-    public double getOp() {
-        return floor( calcContract( ) - client.getIndex( ), 100 );
-    }
-
-
     // Op avg
     public double getOpAvg15() {
 
@@ -542,7 +571,7 @@ public class Options {
         int seconds = 900;
         if ( opList.size( ) > seconds ) {
             for ( int i = opList.size( ) - seconds; i < opList.size( ); i++ ) {
-                sum += opList.get( i );
+                sum += ( double ) opList.getList( ).get( i );
             }
             return floor( sum / seconds, 100 );
         } else {
@@ -555,12 +584,12 @@ public class Options {
 
         double sum = 0;
 
-        if ( !opList.isEmpty( ) ) {
+        if ( !opList.getList( ).isEmpty( ) ) {
 
             try {
 
-                for ( int i = 0; i < opList.size( ); i++ ) {
-                    sum += opList.get( i );
+                for ( int i = 0; i < opList.getList( ).size( ); i++ ) {
+                    sum += ( double ) opList.getList( ).get( i );
                 }
 
             } catch ( Exception e ) {
@@ -663,7 +692,7 @@ public class Options {
         }
 
         mainJson.put( "contractBidAskCounter", getContractBidAskCounter( ) );
-        mainJson.put( "equalMove", getEqualMoveCalculator( ).getMoveIndex( ) );
+        mainJson.put( "equalMove", getEqualMoveCalculator( ).getMove( ).getVal( ) );
         mainJson.put( "con", calcContract( ) );
         mainJson.put( "props", getProps( ) );
         mainJson.put( "opAvg", L.floor( calcOpAvg( ), 100 ) );
@@ -847,7 +876,7 @@ public class Options {
             return 0;
         }
 
-        double calcDev = getDevidend( ) * 360.0 / getDays( ) / client.getFuture( );
+        double calcDev = getDevidend( ) * 360.0 / getDays( ) / client.getFuture( ).getVal( );
 
         if ( Double.isInfinite( calcDev ) ) {
             return 0;
@@ -868,24 +897,20 @@ public class Options {
         if ( getBorrow( ) != 0 ) {
             return getBorrow( );
         } else {
-            return floor( client.getFuture( ) * 0.002 / 360.0 * getDays( ), 10000 );
+            return floor( client.getFuture( ).getVal( ) * 0.002 / 360.0 * getDays( ), 10000 );
         }
     }
 
-    public double getContractBid() {
+    public static int getDAY() {
+        return DAY;
+    }
+
+    public MyObjects.MyDouble getContractBid() {
         return contractBid;
     }
 
-    public void setContractBid( double contractBid ) {
-        this.contractBid = contractBid;
-    }
-
-    public double getContractAsk() {
+    public MyObjects.MyDouble getContractAsk() {
         return contractAsk;
-    }
-
-    public void setContractAsk( double contractAsk ) {
-        this.contractAsk = contractAsk;
     }
 
     public int getContractBidAskCounter() {
@@ -1002,22 +1027,6 @@ public class Options {
         this.gotData = gotData;
     }
 
-    public ArrayList< Double > getOpList() {
-        return opList;
-    }
-
-    public void setOpList( ArrayList< Double > opList ) {
-        this.opList = opList;
-    }
-
-    public ArrayList< Double > getOpAvgList() {
-        return opAvgList;
-    }
-
-    public void setOpAvgList( ArrayList< Double > opAvgList ) {
-        this.opAvgList = opAvgList;
-    }
-
     public int getType() {
         return type;
     }
@@ -1064,5 +1073,29 @@ public class Options {
 
     public void setOptionsJson( MyObjects.MyString optionsJson ) {
         this.optionsJson = optionsJson;
+    }
+
+    public MyList getOpList() {
+        return opList;
+    }
+
+    public MyList getOpAvgList() {
+        return opAvgList;
+    }
+
+    public MyList getContractList() {
+        return contractList;
+    }
+
+    public MyList getContractBidList() {
+        return contractBidList;
+    }
+
+    public MyList getContractAskList() {
+        return contractAskList;
+    }
+
+    public MyObjects.MySimpleDouble getOp() {
+        return op;
     }
 }

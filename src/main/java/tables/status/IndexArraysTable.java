@@ -98,8 +98,8 @@ public class IndexArraysTable extends TablesArraysFather {
 
                 IndexArraysTable table = ( IndexArraysTable ) HB.get_line_by_id( entityClass, id, client.getSessionfactory( ) );
 
-                convertJsonArrayToDoubleArray( new JSONArray( table.getOpList( ) ), client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
-                convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getListMap( ).get( MyList.INDEX ).getList( ) );
+                convertJsonArrayToDoubleArray( new JSONArray( table.getOpList( ) ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ).getList() );
+                convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getIndexList().getList() );
 
                 client.setLoadArraysFromHB( true );
 
@@ -136,8 +136,8 @@ public class IndexArraysTable extends TablesArraysFather {
                             new JSONArray( ).toString( ),
                             new JSONArray( ).toString( ),
                             new JSONArray( ).toString( ),
-                            new JSONArray( client.getListMap( ).get( MyList.INDEX ).getAsDoubleList( ) ).toString( ),
-                            new JSONArray( client.getOptionsHandler( ).getMainOptions( ).getOpList( ).toString( ) ).toString( ) );
+                            new JSONArray( ( ( INDEX_CLIENT_OBJECT ) client ).getIndexList().getList() ).toString( ),
+                            new JSONArray( client.getOptionsHandler( ).getMainOptions( ).getOpList( ).getList().toString( ) ).toString( ) );
 
                     HB.update( client.getSessionfactory( ), arraysTable );
                 }

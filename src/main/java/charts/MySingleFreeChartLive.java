@@ -287,13 +287,13 @@ public class MySingleFreeChartLive {
         private double getItem( String string ) {
             switch ( string ) {
                 case "index":
-                    return client.getIndex( );
+                    return client.getIndex( ).getVal();
                 case "contract":
                     return mainContract.getVal();
                 case "indexBid":
-                    return client.getIndexBid( );
+                    return client.getIndexBid( ).getVal();
                 case "indexAsk":
-                    return client.getIndexAsk( );
+                    return client.getIndexAsk( ).getVal();
                 case "quarterContract":
                     return quarterContract.getVal();
                 default:

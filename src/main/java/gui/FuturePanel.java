@@ -186,7 +186,7 @@ public class FuturePanel extends BaseFuturePanel {
                     optionsPosition.addActionListener( new ActionListener( ) {
                         @Override
                         public void actionPerformed( ActionEvent e ) {
-                            new PositionsWindow( client, client.getOptionsHandler().getPositionCalculator().getPositions() );
+                            new PositionsWindow( client, client.getOptionsHandler( ).getPositionCalculator( ).getPositions( ) );
                         }
                     } );
 
@@ -215,7 +215,7 @@ public class FuturePanel extends BaseFuturePanel {
         setBounds( 0, 0, 0, height );
 
         // Ticker section
-        ticker = new MyGuiComps.MyPanel();
+        ticker = new MyGuiComps.MyPanel( );
         ticker.setLayout( null );
         ticker.setBounds( 0, 0, 311, height );
         ticker.setBackground( backGround );
@@ -226,7 +226,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         openPresentField = new MyGuiComps.MyTextField( 20 );
         openPresentField.setForeground( Color.WHITE );
-        openPresentField.setFont( openPresentField.getFont().deriveFont( Font.BOLD ) );
+        openPresentField.setFont( openPresentField.getFont( ).deriveFont( Font.BOLD ) );
         openPresentField.setXY( 5, 35 );
         ticker.add( openPresentField );
 
@@ -236,7 +236,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         indexPresentField = new MyGuiComps.MyTextField( 20 );
         indexPresentField.setForeground( Color.WHITE );
-        indexPresentField.setFont( indexPresentField.getFont().deriveFont( Font.BOLD ) );
+        indexPresentField.setFont( indexPresentField.getFont( ).deriveFont( Font.BOLD ) );
         indexPresentField.setXY( 80, 35 );
         ticker.add( indexPresentField );
 
@@ -246,7 +246,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         lowPresentField = new MyGuiComps.MyTextField( 20 );
         lowPresentField.setForeground( Color.WHITE );
-        lowPresentField.setFont( lowPresentField.getFont().deriveFont( Font.BOLD ) );
+        lowPresentField.setFont( lowPresentField.getFont( ).deriveFont( Font.BOLD ) );
         lowPresentField.setXY( 155, 35 );
         ticker.add( lowPresentField );
 
@@ -256,7 +256,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         highPresentField = new MyGuiComps.MyTextField( 20 );
         highPresentField.setForeground( Color.WHITE );
-        highPresentField.setFont( highPresentField.getFont().deriveFont( Font.BOLD ) );
+        highPresentField.setFont( highPresentField.getFont( ).deriveFont( Font.BOLD ) );
         highPresentField.setXY( 230, 35 );
         ticker.add( highPresentField );
 
@@ -266,7 +266,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         opField = new MyGuiComps.MyTextField( 20 );
         opField.setForeground( Color.WHITE );
-        opField.setFont( opField.getFont().deriveFont( Font.BOLD ) );
+        opField.setFont( opField.getFont( ).deriveFont( Font.BOLD ) );
         opField.setXY( 80, 64 );
         ticker.add( opField );
 
@@ -289,7 +289,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         opQuarterField = new MyGuiComps.MyTextField( 20 );
         opQuarterField.setForeground( Color.WHITE );
-        opQuarterField.setFont( opQuarterField.getFont().deriveFont( Font.BOLD ) );
+        opQuarterField.setFont( opQuarterField.getFont( ).deriveFont( Font.BOLD ) );
         opQuarterField.setXY( 80, 93 );
         opQuarterField.setForeground( Color.WHITE );
         ticker.add( opQuarterField );
@@ -298,7 +298,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         // ---------- Races and roll ---------- //
         // Panel
-        racesAndRollPanel = new MyGuiComps.MyPanel(  );
+        racesAndRollPanel = new MyGuiComps.MyPanel( );
         racesAndRollPanel.setLayout( null );
         racesAndRollPanel.setBackground( backGround );
         racesAndRollPanel.setBounds( 312, 0, 111, height );
@@ -314,7 +314,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         // Con field
         conRacesField = new MyGuiComps.MyTextField( 20 );
-        conRacesField .setBounds( 55, 7, 50, 25 );
+        conRacesField.setBounds( 55, 7, 50, 25 );
         racesAndRollPanel.add( conRacesField );
 
         // Ind lbl
@@ -327,7 +327,7 @@ public class FuturePanel extends BaseFuturePanel {
 
         // Ind field
         indRacesField = new MyGuiComps.MyTextField( 20 );
-        indRacesField.setBounds( 55, 37, 50, 25  );
+        indRacesField.setBounds( 55, 37, 50, 25 );
         racesAndRollPanel.add( indRacesField );
 
         rollLbl = new MyGuiComps.MyLabel( "Roll" );
@@ -343,7 +343,7 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( rollField );
 
         // ---------- Exp ---------- //
-        expPanel = new MyGuiComps.MyPanel();
+        expPanel = new MyGuiComps.MyPanel( );
         expPanel.setLayout( null );
         expPanel.setBounds( 424, 0, 111, height );
         add( expPanel );
@@ -412,9 +412,9 @@ public class FuturePanel extends BaseFuturePanel {
 
             setRun( true );
 
-            Options optionsMonth = client.getOptionsHandler().getOptionsMonth();
-            Options optionsQuarter = client.getOptionsHandler().getOptionsQuarter();
-            Options mainOptions = client.getOptionsHandler().getMainOptions();
+            Options optionsMonth = client.getOptionsHandler( ).getOptionsMonth( );
+            Options optionsQuarter = client.getOptionsHandler( ).getOptionsQuarter( );
+            Options mainOptions = client.getOptionsHandler( ).getMainOptions( );
             while ( isRun( ) ) {
                 try {
 
@@ -424,39 +424,39 @@ public class FuturePanel extends BaseFuturePanel {
                     updateLists( );
 
                     // ---------- Ticker ---------- //
-                    openField.setText( L.format100( client.getOpen( ) ) );
-                    highField.setText( L.format100( client.getHigh( ) ) );
-                    lowField.setText( L.format100( client.getLow( ) ) );
-                    indexField.setText( L.format100( client.getIndex( ) ) );
-                    futureField.setText( L.format100( mainOptions.getContract( ).getVal() ) );
+                    openField.setText( L.format100( client.getOpen( ).getVal( ) ) );
+                    highField.setText( L.format100( client.getHigh( ).getVal( ) ) );
+                    lowField.setText( L.format100( client.getLow( ).getVal( ) ) );
+                    indexField.setText( L.format100( client.getIndex( ).getVal( ) ) );
+                    futureField.setText( L.format100( mainOptions.getContract( ).getVal( ) ) );
 
                     // Ticker present
-                    openPresentField.colorBack( toPresent( client.getOpen( ), client.getBase( ) ), L.format100() );
-                    highPresentField.colorBack( toPresent( client.getHigh(), client.getBase( ) ), L.format100() );
-                    lowPresentField.colorBack( toPresent( client.getLow(), client.getBase( ) ), L.format100() );
-                    indexPresentField.colorBack( toPresent( client.getIndex(), client.getBase( ) ), L.format100() );
+                    openPresentField.colorBack( toPresent( client.getOpen( ).getVal( ) ), L.format100( ), "%" );
+                    highPresentField.colorBack( toPresent( client.getHigh( ).getVal( ) ), L.format100( ), "%" );
+                    lowPresentField.colorBack( toPresent( client.getLow( ).getVal( ) ), L.format100( ), "%" );
+                    indexPresentField.colorBack( toPresent( client.getIndex( ).getVal( ) ), L.format100( ), "%" );
 
                     // OP
-                    opAvgField.colorForge( mainOptions.getOpAvg().getVal(), L.format100() );
-                    opField.colorBack( mainOptions.getOp(), L.format100() );
+                    opAvgField.colorForge( mainOptions.getOpAvg( ).getVal( ), L.format100( ) );
+                    opField.colorBack( mainOptions.getOp( ).getVal( ), L.format100( ) );
 
                     // Equal move OpAvg
-                    opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgEqualMoveCalculator().getMoveOpAvg(), L.format100() );
+                    opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgEqualMoveCalculator( ).getMove( ).getVal( ), L.format100( ) );
 
                     // Quarter
-                    opQuarterField.colorBack( optionsQuarter.getOp(), L.format100() );
-                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg().getVal(), L.format100() );
-                    contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ).getVal() ) );
+                    opQuarterField.colorBack( optionsQuarter.getOp( ).getVal( ), L.format100( ) );
+                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ).getVal( ), L.format100( ) );
+                    contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ).getVal( ) ) );
 
                     // Races and roll
                     // Races
-                    conRacesField.colorForge( client.getFutSum() );
-                    indRacesField.colorForge( client.getIndexSum() );
+                    conRacesField.colorForge( client.getFutSum( ) );
+                    indRacesField.colorForge( client.getIndexSum( ) );
 
                     // Roll
-                    double month = optionsMonth.getContract( ).getVal();
-                    double quarter = optionsQuarter.getContract().getVal();
-                    rollField.colorForge( quarter - month, L.format100() );
+                    double month = optionsMonth.getContract( ).getVal( );
+                    double quarter = optionsQuarter.getContract( ).getVal( );
+                    rollField.colorForge( quarter - month, L.format100( ) );
 
                     mySleep += 1000;
                 } catch ( InterruptedException e ) {
@@ -465,7 +465,8 @@ public class FuturePanel extends BaseFuturePanel {
             }
         }
 
-        private double toPresent( double d, double base ) {
+        private double toPresent( double d ) {
+            double base = client.getBase( ).getVal( );
             return ( ( d - base ) / base ) * 100;
         }
 
