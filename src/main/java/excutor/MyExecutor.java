@@ -4,9 +4,6 @@ import locals.MyObjects;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class MyExecutor extends MyThread implements Runnable {
 
     int sleepCount = 0;
@@ -48,7 +45,6 @@ public class MyExecutor extends MyThread implements Runnable {
             // Every time
             new Thread( () -> {
                 object.initMe( sleepCount );
-
             } ).start();
         }
 

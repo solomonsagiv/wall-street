@@ -47,7 +47,13 @@ public class OptionsHandler {
     public JSONObject getAllOptionsAsJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            object.put( options.getName( ), options.getOptionsJson().getVal() );
+
+            if (options.getOptionsJson().getVal().length() == 0 || !client.isStarted()) {
+                object.put( options.getName( ), options.getOptionsJson().getValByCurrentCalc() );
+            } else {
+                object.put( options.getName( ), options.getOptionsJson().getVal() );
+            }
+
         }
         return object;
     }

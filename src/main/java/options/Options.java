@@ -66,7 +66,7 @@ public class Options {
     private MyObjects.MySimpleDouble contractAsk;
     private MyObjects.MyDouble contract;
     private MyObjects.MyDouble opAvg;
-    private MyObjects.MyString optionsJson;
+    private MyObjects.MyJSONObject optionsJson;
 
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
         this.type = type;
@@ -144,22 +144,23 @@ public class Options {
             }
         };
 
+
         // Options json as string
-        optionsJson = new MyObjects.MyString( client.getMyObjects( ) ) {
+        optionsJson = new MyObjects.MyJSONObject( client.getMyObjects( ) ) {
             @Override
             public void calc() {
-                setVal( getOptionsAsJson( ).toString( ) );
+                setVal( getOptionsAsJson( ) );
             }
 
             @Override
             public void initMe( int sleepCount ) {
                 if ( sleepCount % getSleep( ) == 0 ) {
-                    setVal( getOptionsAsJson( ).toString( ) );
+                    setVal( getOptionsAsJson( ) );
                 }
             }
 
-            public String getValByCurrentCalc() {
-                return getOptionsAsJson( ).toString( );
+            public JSONObject getValByCurrentCalc() {
+                return getOptionsAsJson( );
             }
 
             @Override
@@ -1067,12 +1068,9 @@ public class Options {
         this.opAvg = opAvg;
     }
 
-    public MyObjects.MyString getOptionsJson() {
-        return optionsJson;
-    }
 
-    public void setOptionsJson( MyObjects.MyString optionsJson ) {
-        this.optionsJson = optionsJson;
+    public MyObjects.MyJSONObject getOptionsJson() {
+        return optionsJson;
     }
 
     public MyList getOpList() {

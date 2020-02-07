@@ -11,7 +11,6 @@ import excutor.MyExecutor;
 import gui.FuturePanel;
 import gui.FuturePanelLine;
 import lists.MyDoubleList;
-import lists.MyIntList;
 import lists.MyList;
 import lists.RegularListUpdater;
 import locals.L;
@@ -235,7 +234,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     // Start all
     public void startAll() {
 
-        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ){
+//        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ){
 
                 if ( Manifest.DB ) {
                     getDb( ).startAll( );
@@ -263,7 +262,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
                 setStarted( true );
             }
-        }
+//        }
 
         public LocalDate convertStringToDate ( String dateString ){
 

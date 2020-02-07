@@ -192,7 +192,7 @@ public class IndexTableDay extends TableDayFather {
             table.setBase( client.getBase( ).getVal() );
             table.setCon_up( client.getConUp( ) );
             table.setCon_down( client.getConDown( ) );
-            table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsJson().getVal() );
+            table.setOptions( client.getOptionsHandler( ).getMainOptions( ).getOptionsJson().getVal().toString() );
             table.setOpAvg( client.getOptionsHandler( ).getMainOptions( ).getOpAvg().getVal() );
             table.setOpAvg15( client.getOptionsHandler( ).getMainOptions( ).getOpAvg15( ) );
             table.setEqualMove( client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).getMove( ).getVal() );

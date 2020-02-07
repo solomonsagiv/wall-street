@@ -1,5 +1,7 @@
 package locals;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MyObjects {
@@ -206,6 +208,41 @@ public class MyObjects {
                     '}';
         }
     }
+
+
+
+    // Json object
+    public abstract static class MyJSONObject extends MyBaseObject {
+
+        JSONObject val = new JSONObject();
+
+        public MyJSONObject( ArrayList< MyBaseObject > objectsList ) {
+            super( objectsList );
+        }
+
+        public MyJSONObject() {}
+
+        public abstract JSONObject getValByCurrentCalc();
+
+        public abstract void calc();
+
+        public JSONObject getVal() {
+            return val;
+        }
+
+        public void setVal( JSONObject val ) {
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return "MyJSONObject{" +
+                    "val=" + val +
+                    '}';
+        }
+    }
+
+
 
     // Interface
     public interface IMyObject {

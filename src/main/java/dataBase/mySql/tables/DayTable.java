@@ -160,7 +160,7 @@ public class DayTable extends BaseTable {
         };
 
         // Options
-        options = new TableComps.MyTableColumn( this, "options", client.getOptionsHandler( ).getMainOptions( ).getOptionsJson( ) ) {
+        options = new TableComps.MyTableColumn( this, "options", TableComps.MyTableColumn.STRING ) {
             @Override
             public Object getVal() {
                 return getMyString( ).getVal( );

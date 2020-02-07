@@ -38,6 +38,10 @@ public class TableComps {
             this.myString = myString;
         }
 
+//        public MyTableColumn(DayTable dayTable, String options, MyObjects.MyJSONObject optionsJson) {
+//
+//        }
+
         public abstract Object getVal();
 
         public MyObjects.MyDouble getMyDouble() {

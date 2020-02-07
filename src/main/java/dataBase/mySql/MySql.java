@@ -51,8 +51,6 @@ public class MySql {
 
             try
             {
-
-
                 Connection conn = ConnectionPool.getConnectionsPoolInstance().getConnection();
                 // create the java statement
                 st = conn.createStatement();
