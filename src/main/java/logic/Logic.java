@@ -426,20 +426,7 @@ public class Logic {
             Runnable r = new Runnable( ) {
                 @Override
                 public void run() {
-                    try {
-                        Color forg = textField.getForeground();
-
-                        for ( int i = 0; i < 200; i++ ) {
-                            textField.setBackground( color );
-                            textField.setForeground( Color.WHITE );
-                            Thread.sleep( 10 );
-                        }
-
-                        textField.setForeground( forg );
-                        textField.setBackground( light_grey_back );
-                    } catch ( InterruptedException e ) {
-                        e.printStackTrace( );
-                    }
+                    LogicService.doNois( textField, color, light_grey_back );
                 }
 
             };

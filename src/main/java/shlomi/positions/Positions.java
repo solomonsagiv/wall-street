@@ -1,4 +1,4 @@
-package shlomi;
+package shlomi.positions;
 
 import serverObjects.BASE_CLIENT_OBJECT;
 

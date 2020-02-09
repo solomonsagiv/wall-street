@@ -1,5 +1,6 @@
 package locals;
 
+import javax.swing.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -61,6 +62,16 @@ public class L {
             df10.setNegativePrefix( "-" );
         }
         return df10.format( num );
+    }
+
+
+    public void popUp( JFrame frame, String text ) {
+        JOptionPane.showMessageDialog( frame, text );
+    }
+
+    public void popUp( JFrame frame, Exception e ) {
+        String text = e.getMessage() + "\n" + e.getCause();
+        JOptionPane.showMessageDialog( frame, text );
     }
 
     public static double floor(double d, int zeros) {

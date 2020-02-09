@@ -1,4 +1,4 @@
-package shlomi;
+package shlomi.positions;
 
 import com.ib.client.Contract;
 import options.Option;
@@ -55,77 +55,6 @@ public class Position {
     }
 
     // ---------- Getters and Setters ---------- //
-    public int getId() {
-        return id;
-    }
-
-    public void setId( int id ) {
-        this.id = id;
-    }
-
-    public boolean isLive() {
-        return live;
-    }
-
-    public void setLive( boolean live ) {
-        this.live = live;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity( int quantity ) {
-        this.quantity = quantity;
-    }
-
-    public double getStoplossPrice() {
-        return stoplossPrice;
-    }
-
-    public void setStoplossPrice( double stoplossPrice ) {
-        this.stoplossPrice = stoplossPrice;
-    }
-
-    public double getProfitPrice() {
-        return profitPrice;
-    }
-
-    public void setProfitPrice( double profitPrice ) {
-        this.profitPrice = profitPrice;
-    }
-
-    public int getStoplossId() {
-        return stoplossId;
-    }
-
-    public void setStoplossId( int stoplossId ) {
-        this.stoplossId = stoplossId;
-    }
-
-    public int getProfitId() {
-        return profitId;
-    }
-
-    public void setProfitId( int profitId ) {
-        this.profitId = profitId;
-    }
-
-    public double getStartPrice() {
-        return startPrice;
-    }
-
-    public void setStartPrice( double startPrice ) {
-        this.startPrice = startPrice;
-    }
-
-    public double getClosePrice() {
-        return closePrice;
-    }
-
-    public void setClosePrice( double closePrice ) {
-        this.closePrice = closePrice;
-    }
 
     public double getPnl() {
 
@@ -188,78 +117,101 @@ public class Position {
         return returnString;
     }
 
-    /**
-     * @return the option
-     */
     public Option getOption() {
         return option;
     }
-
-    /**
-     * @param option the option to set
-     */
     public void setOption( Option option ) {
         this.option = option;
     }
-
-    /**
-     * @return the contract
-     */
     public Contract getContract() {
         return contract;
     }
-
-    /**
-     * @param contract the contract to set
-     */
     public void setContract( Contract contract ) {
         this.contract = contract;
     }
-
-    /**
-     * @return the position
-     */
     public int getPosition() {
         return position;
     }
-
-    /**
-     * @param position the position to set
-     */
     public void setPosition( int position ) {
         this.position = position;
     }
-
     public LocalTime getStartTime() {
         return startTime;
     }
-
     public void setStartTime( LocalTime startTime ) {
         this.startTime = startTime;
     }
-
     public LocalTime getCloseTime() {
         return closeTime;
     }
-
     public void setCloseTime( LocalTime closeTime ) {
         this.closeTime = closeTime;
     }
-
     public String getPositionType() {
         return positionType;
     }
-
     public void setPositionType( String positionType ) {
         this.positionType = positionType;
     }
-
     public BASE_CLIENT_OBJECT getClient() {
         return client;
     }
-
     public void setClient( BASE_CLIENT_OBJECT client ) {
         this.client = client;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId( int id ) {
+        this.id = id;
+    }
+    public boolean isLive() {
+        return live;
+    }
+    public void setLive( boolean live ) {
+        this.live = live;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity( int quantity ) {
+        this.quantity = quantity;
+    }
+    public double getStoplossPrice() {
+        return stoplossPrice;
+    }
+    public void setStoplossPrice( double stoplossPrice ) {
+        this.stoplossPrice = stoplossPrice;
+    }
+    public double getProfitPrice() {
+        return profitPrice;
+    }
+    public void setProfitPrice( double profitPrice ) {
+        this.profitPrice = profitPrice;
+    }
+    public int getStoplossId() {
+        return stoplossId;
+    }
+    public void setStoplossId( int stoplossId ) {
+        this.stoplossId = stoplossId;
+    }
+    public int getProfitId() {
+        return profitId;
+    }
+    public void setProfitId( int profitId ) {
+        this.profitId = profitId;
+    }
+    public double getStartPrice() {
+        return startPrice;
+    }
+    public void setStartPrice( double startPrice ) {
+        this.startPrice = startPrice;
+    }
+    public double getClosePrice() {
+        return closePrice;
+    }
+    public void setClosePrice( double closePrice ) {
+        this.closePrice = closePrice;
     }
 
 }

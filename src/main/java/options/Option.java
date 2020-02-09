@@ -1,6 +1,6 @@
 package options;
 
-import shlomi.Position;
+import shlomi.positions.Position;
 
 import java.util.ArrayList;
 

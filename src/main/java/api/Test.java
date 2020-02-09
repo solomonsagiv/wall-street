@@ -1,8 +1,7 @@
 package api;
 
 import java.sql.SQLException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
 
 @EnableAsync
 public class Test {
@@ -33,31 +32,51 @@ public class Test {
 //        System.out.println( duration / 1000 );
 
 
-        ExecutorService executor = Executors.newCachedThreadPool();
+//        ExecutorService executor = Executors.newCachedThreadPool();
+//
+//        executor.submit(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                for (int i = 0; i < 30; i++) {
+//                    try {
+//                        Thread.sleep(10);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println("3");
+//                }
+//
+//            }
+//        });
+//
+//        executor.submit(() -> {
+//            String threadName = Thread.currentThread().getName();
+//            System.out.println("Hello " + threadName);
+//        });
+//
+//        System.out.println("None");
+//        executor.shutdown();
+        A a = new A("a");
+        A a1 = new A( "a1" );
 
-        executor.submit(new Runnable() {
-            @Override
-            public void run() {
+        ArrayList<A> list = new ArrayList<>();
+        list.add(a1);
 
-                for (int i = 0; i < 30; i++) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("3");
-                }
+        System.out.println( list );
 
-            }
-        });
+        list.remove( a );
 
-        executor.submit(() -> {
-            String threadName = Thread.currentThread().getName();
-            System.out.println("Hello " + threadName);
-        });
+        System.out.println( list );
 
-        System.out.println("None");
-        executor.shutdown();
+    }
+
+    static class A {
+        String name;
+
+        public A( String name ) {
+            this.name = name;
+        }
     }
 
 }

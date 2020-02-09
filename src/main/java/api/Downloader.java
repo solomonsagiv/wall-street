@@ -1,5 +1,6 @@
 package api;
 
+import arik.Arik;
 import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
@@ -534,9 +535,9 @@ public class Downloader extends Thread implements EWrapper {
         System.out.println( "Order : " + orderId + " Contract: " + contract + "Order: " + order );
         System.out.println( );
 
-//        String text = contract.symbol() + "\n" + order.totalQuantity();
+        String text = contract.symbol() + "\n" + order.totalQuantity();
 //
-//        Arik.getInstance().sendMessage( Arik.nivosID, text, null );
+        Arik.getInstance().sendMessage( Arik.nivosID, text, null );
 
     }
 

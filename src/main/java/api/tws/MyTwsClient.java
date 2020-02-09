@@ -6,7 +6,7 @@ import com.ib.client.EClientSocket;
 import com.ib.client.Order;
 import com.ib.client.OrderType;
 import serverObjects.indexObjects.SpxCLIENTObject;
-import shlomi.Position;
+import shlomi.positions.Position;
 
 public class MyTwsClient {
 

@@ -20,7 +20,7 @@ import logic.Logic;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
 import serverObjects.indexObjects.SpxCLIENTObject;
-import shlomi.Positions;
+import shlomi.positions.Positions;
 import shlomi.Shlomi;
 import tables.Tables;
 import tables.TablesHandler;
@@ -234,7 +234,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
     // Start all
     public void startAll() {
 
-//        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ){
+        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ){
 
                 if ( Manifest.DB ) {
                     getDb( ).startAll( );
@@ -262,7 +262,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
                 setStarted( true );
             }
-//        }
+        }
 
         public LocalDate convertStringToDate ( String dateString ){
 
@@ -590,6 +590,22 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase {
 
         public void setConUp ( int conUp ){
             this.conUp = conUp;
+        }
+
+        public void conUpPlus() {
+            conUp++;
+        }
+
+        public void conDownPlus() {
+            conDown++;
+        }
+
+        public void indUpPlus() {
+            indexUp++;
+        }
+
+        public void indDownPlus() {
+            indexDown++;
         }
 
         public boolean isDbRunning ( ) {
