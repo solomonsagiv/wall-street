@@ -19,8 +19,8 @@ public class MyServiceHandler extends MyThread implements Runnable {
     // Constructor
     public MyServiceHandler( BASE_CLIENT_OBJECT client ) {
         super( client );
-        servies = new ArrayList<>( );
-        executor = Executors.newCachedThreadPool( );
+        servies = new ArrayList<>();
+        executor = Executors.newCachedThreadPool();
     }
 
     @Override
@@ -31,6 +31,7 @@ public class MyServiceHandler extends MyThread implements Runnable {
     private void init() {
         while ( isRun( ) ) {
             try {
+
                 Thread.sleep( sleep );
 
                 executServices( );

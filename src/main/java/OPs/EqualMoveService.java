@@ -5,14 +5,13 @@ import lists.MyList;
 import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
-import threads.MyThread;
+import service.MyBaseService;
 
 import java.util.ArrayList;
 
-public class EqualMoveCalculator extends MyThread implements Runnable {
+public class EqualMoveService extends MyBaseService {
 
     // Variables
-    private int sleep = 200;
     private double opPlag;
 
     private Options options;
@@ -26,13 +25,13 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
     private MyObjects.MyDouble move;
     private MyList moveList;
 
-    // Constructor
-    public EqualMoveCalculator( BASE_CLIENT_OBJECT client, double opPlag, Options options ) {
-        super( client );
-        setName( "EqualMove" );
-        this.opPlag = opPlag;
-        this.options = options;
 
+    // Constructor
+    public EqualMoveService(BASE_CLIENT_OBJECT client, String name, int type, int sleep, Options options, double opPlag ) {
+        super(client, name, type, sleep);
+
+        this.options = options;
+        this.opPlag = opPlag;
         move = new MyObjects.MySimpleDouble( ) {
             @Override
             public double getVal() {
@@ -43,32 +42,15 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
     }
 
     @Override
-    public void initRunnable() {
-        setRunnable( this );
-    }
-
-    @Override
-    public void run() {
-
-        while ( isRun( ) ) {
-            try {
-
-                // Sleep
-                Thread.sleep( sleep );
-
-                // Calculate from index
-                calculateFromIndex( );
-
-            } catch ( InterruptedException e ) {
-                break;
-            }
-        }
+    public void go() {
+        calculateFromIndex();
     }
 
     private void calculateFromIndex() {
 
         double op = options.getOp().getVal();
 
+        // ----- Equal area ----- //
         if ( op > oposite( opPlag ) && op < opPlag ) {
 
             // Start of the move
@@ -87,6 +69,7 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
             // Set status true
             equalStatusIndex = true;
 
+            // ----- Outside area ----- //
         } else {
 
             // End of the move
@@ -111,6 +94,7 @@ public class EqualMoveCalculator extends MyThread implements Runnable {
 
         }
     }
+
 
     private double oposite( double d ) {
         return d * -1;
