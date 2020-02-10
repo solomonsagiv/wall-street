@@ -7,7 +7,7 @@ import threads.MyThread;
 public class MyExecutor extends MyThread implements Runnable {
 
     int sleepCount = 0;
-    int sleep = 150;
+    int sleep = 200;
 
     public MyExecutor( BASE_CLIENT_OBJECT client ) {
         super( client );

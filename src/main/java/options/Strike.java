@@ -2,8 +2,8 @@ package options;
 
 public class Strike {
 
-    private Option call;
-    private Option put;
+    private Call call;
+    private Put put;
     private double strike;
     private double stDev = 0;
 
@@ -11,33 +11,35 @@ public class Strike {
     public Strike() {
     }
 
-    public Strike( Option call, Option put, double strike ) {
+    public Strike( Call call, Put put, double strike ) {
         this.call = call;
         this.put = put;
         this.strike = strike;
 
     }
 
-    public Strike( double strike, int callId, int putId ) {
-        this.strike = strike;
-        this.call = new Option( "c", strike, callId );
-        this.put = new Option( "p", strike, putId );
-    }
+//    public Strike( double strike, int callId, int putId ) {
+////        this.strike = strike;
+////        this.call = new Call( strike, callId );
+////        this.put = new Put( strike, putId );
+////    }
 
     // Getters and Setters
-    public Option getCall() {
+
+
+    public Call getCall() {
         return call;
     }
 
-    public void setCall( Option call ) {
+    public void setCall( Call call ) {
         this.call = call;
     }
 
-    public Option getPut() {
+    public Put getPut() {
         return put;
     }
 
-    public void setPut( Option put ) {
+    public void setPut( Put put ) {
         this.put = put;
     }
 

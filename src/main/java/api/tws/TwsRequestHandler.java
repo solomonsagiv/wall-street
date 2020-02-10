@@ -2,8 +2,9 @@ package api.tws;
 
 import api.Downloader;
 import com.ib.client.Contract;
-import options.Option;
+import options.Call;
 import options.Options;
+import options.Put;
 import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.TwsData;
@@ -45,7 +46,7 @@ public class TwsRequestHandler {
         if ( twsData.getIndexContract( ) != null ) {
             downloader.reqMktData( twsData.getIndexId( ), twsData.getIndexContract( ) );
         }
-        
+
     }
 
     public void requestOptions( Options options ) {
@@ -54,24 +55,26 @@ public class TwsRequestHandler {
 
         for ( Strike strike : options.getStrikes( ) ) {
             try {
-                Option call = strike.getCall( );
-                Option put = strike.getPut( );
+
+                Thread.sleep( 100 );
+
+                Call call = strike.getCall( );
+                Put put = strike.getPut( );
 
                 // ----- Call ----- //
-                contract.strike( call.getStrike( ) );
+                contract.strike( strike.getStrike( ) );
                 contract.right( call.getSide( ).toUpperCase( ) );
 
                 // Request
                 downloader.reqMktData( call.getId( ), contract );
 
                 // ----- Put ----- //
-                contract.strike( put.getStrike( ) );
+                contract.strike( strike.getStrike( ) );
                 contract.right( put.getSide( ).toUpperCase( ) );
 
                 // Request
                 downloader.reqMktData( put.getId( ), contract );
 
-                Thread.sleep( 100 );
             } catch ( Exception e ) {
                 e.printStackTrace( );
             }
@@ -128,7 +131,7 @@ public class TwsRequestHandler {
                     // Request options on first time
                     if ( !options.isRequested( ) ) {
 
-                        if ( getClient( ).getFuture( ).getVal() != 0 ) {
+                        if ( getClient( ).getFuture( ).getVal( ) != 0 ) {
                             requestOptions( options );
                             options.setRequested( true );
 

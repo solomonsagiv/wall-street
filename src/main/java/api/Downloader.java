@@ -5,13 +5,11 @@ import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
 import options.OptionsHandler;
-import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.NdxCLIENTObject;
 import serverObjects.indexObjects.SpxCLIENTObject;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -20,12 +18,10 @@ import java.util.Set;
 public class Downloader extends Thread implements EWrapper {
 
     public static Downloader downloader;
-    ArrayList< BASE_CLIENT_OBJECT > stocksList;
     EJavaSignal m_signal;
     EClientSocket client;
     MyLogger logger;
 
-    ArrayList< Thread > threads = new ArrayList<>( );
     int NextOrderId = -1;
     NdxCLIENTObject ndxClient;
     OptionsHandler ndxOptionsHandler;
@@ -53,28 +49,15 @@ public class Downloader extends Thread implements EWrapper {
     }
 
     public static void main( String[] args ) {
-//        SpxCLIENTObject.getInstance( ).getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
-//        SpxCLIENTObject.getInstance( ).getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
-//
-//        NdxCLIENTObject.getInstance( ).getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
-//        NdxCLIENTObject.getInstance( ).getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
-//        Arik.getInstance( ).sendMessageToEveryOne( SpxCLIENTObject.getInstance( ).getArikSumLine( ) );
-//        Arik.getInstance( ).sendMessageToEveryOne( NdxCLIENTObject.getInstance( ).getArikSumLine( ) );
-
         Downloader downloader = new Downloader( );
         downloader.start( );
     }
 
     public void close() {
-        try {
-            for ( Thread thread : threads ) {
-                thread.interrupt( );
-            }
-            client.reqGlobalCancel( );
-            client.eDisconnect( );
-        } finally {
-            downloader = null;
-        }
+        client.reqGlobalCancel( );
+        client.eDisconnect( );
+        interrupt( );
+        downloader = null;
     }
 
     public boolean isConnected() {
@@ -89,27 +72,16 @@ public class Downloader extends Thread implements EWrapper {
         final EReader reader = new EReader( client, m_signal );
         reader.start( );
 
-        new Thread( ) {
-            public void run() {
-                while ( client.isConnected( ) ) {
-                    m_signal.waitForSignal( );
-                    try {
-                        javax.swing.SwingUtilities.invokeAndWait( new Runnable( ) {
-                            @Override
-                            public void run() {
-                                try {
-                                    reader.processMsgs( );
-                                } catch ( IOException e ) {
-                                    error( e );
-                                }
-                            }
-                        } );
-                    } catch ( Exception e ) {
-                        error( e );
-                    }
+        new Thread( () -> {
+            while ( client.isConnected( ) ) {
+                m_signal.waitForSignal( );
+                try {
+                    reader.processMsgs( );
+                } catch ( Exception e ) {
+                    System.out.println( "Exception: " + e.getMessage( ) );
                 }
             }
-        }.start( );
+        } ).start( );
 
         if ( NextOrderId < -10 ) {
             try {
@@ -118,12 +90,6 @@ public class Downloader extends Thread implements EWrapper {
                 e.printStackTrace( );
             }
         }
-
-//        SpxCLIENTObject.getInstance().setFuture( 3227 );
-//
-//
-//        Contract contract = SpxCLIENTObject.getInstance().getTwsData().getOptionMonthContract();
-//        client.reqContractDetails( 60, contract );
 
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
@@ -247,15 +213,15 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             if ( field == 6 ) {
-                spxClient.getHigh().setVal( price );
+                spxClient.getHigh( ).setVal( price );
             }
 
             if ( field == 7 ) {
-                spxClient.getLow().setVal( price );
+                spxClient.getLow( ).setVal( price );
             }
 
             if ( field == 9 ) {
-                spxClient.getBase().setVal( price );
+                spxClient.getBase( ).setVal( price );
             }
 
         }
@@ -535,9 +501,9 @@ public class Downloader extends Thread implements EWrapper {
         System.out.println( "Order : " + orderId + " Contract: " + contract + "Order: " + order );
         System.out.println( );
 
-        String text = contract.symbol() + "\n" + order.totalQuantity();
+        String text = contract.symbol( ) + "\n" + order.totalQuantity( );
 //
-        Arik.getInstance().sendMessage( Arik.nivosID, text, null );
+        Arik.getInstance( ).sendMessage( Arik.nivosID, text, null );
 
     }
 
@@ -555,16 +521,6 @@ public class Downloader extends Thread implements EWrapper {
                                  double averageCost, double unrealizedPNL, double realizedPNL, String accountName ) {
         System.out.println( "P/L: " + realizedPNL );
 
-        switch ( contract.symbol( ) ) {
-            case "NQ":
-                ndxClient.getPositions( ).setTwsTotalPnl( realizedPNL );
-                ndxClient.getPositions( ).setTwsPositionPnl( unrealizedPNL );
-                break;
-            case "ES":
-                spxClient.getPositions( ).setTwsTotalPnl( realizedPNL );
-                spxClient.getPositions( ).setTwsPositionPnl( unrealizedPNL );
-                break;
-        }
     }
 
     @Override
@@ -677,17 +633,6 @@ public class Downloader extends Thread implements EWrapper {
         System.out
                 .println( "Position. " + account + " - Symbol: " + contract.symbol( ) + ", SecType: " + contract.secType( )
                         + ", Currency: " + contract.currency( ) + ", Position: " + pos + ", Avg cost: " + avgCost );
-
-        switch ( contract.symbol( ) ) {
-            case "NQ":
-                ndxClient.getPositions( ).setPositionStatus( ( int ) pos );
-                break;
-            case "ES":
-                spxClient.getPositions( ).setPositionStatus( ( int ) pos );
-                break;
-            default:
-                break;
-        }
     }
 
     @Override

@@ -9,6 +9,7 @@ public abstract class MyBaseService implements IMyService {
     public static final int EQUAL_MOVE = 2;
     public static final int REGULAR_LISTS = 3;
     public static final int MYSQL_RUNNER = 4;
+    public static final int EXECUTOR = 5;
 
     BASE_CLIENT_OBJECT client;
     String name;
@@ -20,6 +21,7 @@ public abstract class MyBaseService implements IMyService {
         this.name = name;
         this.type = type;
         this.sleep = sleep;
+        client.getMyServiceHandler().addService( this );
     }
 
     public void execute( int sleepCount ) {

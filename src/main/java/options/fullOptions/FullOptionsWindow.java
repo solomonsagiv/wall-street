@@ -3,8 +3,10 @@ package options.fullOptions;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
+import options.Call;
 import options.Option;
 import options.Options;
+import options.Put;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
@@ -273,14 +275,12 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
                     // Call
                     if ( col < strikeCol ) {
 
-                        side = Option.CALL;
-                        Option option = getOptions( ).getOption( side, strike );
-
+                        Call call = getOptions().getCall( strike );
                         // Buy or Sell
                         if ( col == callBid ) {
-                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
+                            new CreatePositionWindow( call.getName( ) + " Sell", call, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == callAsk ) {
-                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
+                            new CreatePositionWindow( call.getName( ) + " Buy", call, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }
@@ -288,14 +288,13 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
                     // Put
                     if ( col > iv ) {
 
-                        side = Option.PUT;
-                        Option option = getOptions( ).getOption( side, strike );
+                        Put put = getOptions().getPut( strike );
 
                         // Buy or Sell
                         if ( col == putBid ) {
-                            new CreatePositionWindow( option.getName( ) + " Sell", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
+                            new CreatePositionWindow( put.getName( ) + " Sell", put, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == putAsk ) {
-                            new CreatePositionWindow( option.getName( ) + " Buy", option, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
+                            new CreatePositionWindow( put.getName( ) + " Buy", put, client.getOptionsHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }

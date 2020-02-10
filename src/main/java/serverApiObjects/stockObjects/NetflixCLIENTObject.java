@@ -98,16 +98,9 @@ public class NetflixCLIENTObject extends STOCK_CLIENT_OBJECT {
     }
 
     @Override
-    public void initMyLists() {
-
-    }
-
-    @Override
     public void initTablesHandlers() {
 
     }
-
-
     @Override
     public void initName() {
         setName( "netflix" );

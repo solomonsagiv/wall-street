@@ -20,7 +20,6 @@ public class MyServiceHandler extends MyThread implements Runnable {
     public MyServiceHandler( BASE_CLIENT_OBJECT client ) {
         super( client );
         servies = new ArrayList<>();
-        executor = Executors.newCachedThreadPool();
     }
 
     @Override
@@ -29,6 +28,9 @@ public class MyServiceHandler extends MyThread implements Runnable {
     }
 
     private void init() {
+
+        executor = Executors.newCachedThreadPool();
+
         while ( isRun( ) ) {
             try {
 

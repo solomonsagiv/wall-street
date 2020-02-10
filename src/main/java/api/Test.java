@@ -1,5 +1,10 @@
 package api;
 
+import logic.Logic;
+import logic.LogicService;
+import serverObjects.indexObjects.SpxCLIENTObject;
+import service.MyBaseService;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -57,17 +62,6 @@ public class Test {
 //
 //        System.out.println("None");
 //        executor.shutdown();
-        A a = new A("a");
-        A a1 = new A( "a1" );
-
-        ArrayList<A> list = new ArrayList<>();
-        list.add(a1);
-
-        System.out.println( list );
-
-        list.remove( a );
-
-        System.out.println( list );
 
     }
 

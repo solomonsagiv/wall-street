@@ -1,17 +1,20 @@
 package options;
 
 import OPs.EqualMoveCalculator;
+import OPs.EqualMoveService;
 import OPs.OpAvgEqualMoveCalculator;
+import OPs.OpAvgMoveService;
 import com.ib.client.Contract;
 import gui.WallStreetWindow;
 import lists.MyDoubleList;
 import lists.MyList;
 import locals.L;
 import locals.MyObjects;
+import logic.LogicService;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-
+import service.MyBaseService;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -68,6 +71,10 @@ public class Options {
     private MyObjects.MyDouble opAvg;
     private MyObjects.MyJSONObject optionsJson;
 
+    EqualMoveService equalMoveService;
+    OpAvgMoveService opAvgMoveService;
+    LogicService logicService;
+
     public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
         this.type = type;
         this.twsContract = twsContract;
@@ -79,16 +86,43 @@ public class Options {
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
 
-        opList = new MyDoubleList( client, getOp( ), getName() + " Op" );
-        opAvgList = new MyDoubleList( client, getOpAvg( ), getName() + " OpAvg" );
-        contractList = new MyDoubleList( client, getContract( ), getName() + " Contract" );
-        contractBidList = new MyDoubleList( client, getContractBid( ), getName() + " ContractBid" );
-        contractAskList = new MyDoubleList( client, getContractAsk( ), getName() + " ContractAsk" );
+        opList = new MyDoubleList( client, getOp( ), getName( ) + " Op" );
+        opAvgList = new MyDoubleList( client, getOpAvg( ), getName( ) + " OpAvg" );
+        contractList = new MyDoubleList( client, getContract( ), getName( ) + " Contract" );
+        contractBidList = new MyDoubleList( client, getContractBid( ), getName( ) + " ContractBid" );
+        contractAskList = new MyDoubleList( client, getContractAsk( ), getName( ) + " ContractAsk" );
 
         equalMoveCalculator = new EqualMoveCalculator( client, client.getEqualMovePlag( ), this );
         opAvgEqualMoveCalculator = new OpAvgEqualMoveCalculator( client, client.getEqualMovePlag( ), this );
         positionCalculator = new PositionCalculator( client );
 
+        // Services
+        equalMoveService = new EqualMoveService( client, "equalMove", MyBaseService.EQUAL_MOVE, 200, this, client.getEqualMovePlag( ) );
+        opAvgMoveService = new OpAvgMoveService( client, "opAvgMove", MyBaseService.OP_AVG_MOVE, 200, client.getEqualMovePlag( ), this );
+
+
+        if (type == Options.MONTH ) {
+            logicService = new LogicService( client, "logicService", MyBaseService.LOGIC, this, client.getPanel( ), 200 );
+        }
+
+    }
+
+    public Call getCall( double targetStrike ) {
+        for ( Strike strike: strikes) {
+            if ( targetStrike == strike.getStrike() ) {
+                return strike.getCall();
+            }
+        }
+        return null;
+    }
+
+    public Put getPut( double targetStrike ) {
+        for ( Strike strike: strikes) {
+            if ( targetStrike == strike.getStrike() ) {
+                return strike.getPut();
+            }
+        }
+        return null;
     }
 
     private void initMyObjects() {
@@ -120,9 +154,9 @@ public class Options {
             }
         };
 
-        contractBid = new MyObjects.MySimpleDouble(  );
+        contractBid = new MyObjects.MySimpleDouble( );
 
-        contractAsk = new MyObjects.MySimpleDouble(  );
+        contractAsk = new MyObjects.MySimpleDouble( );
 
         // Op avg
         opAvg = new MyObjects.MyDouble( client.getMyObjects( ) ) {
@@ -143,7 +177,6 @@ public class Options {
                 setVal( calcOpAvg( ) );
             }
         };
-
 
         // Options json as string
         optionsJson = new MyObjects.MyJSONObject( client.getMyObjects( ) ) {
@@ -182,12 +215,12 @@ public class Options {
         for ( double strike = startStrike; strike < endStrike; strike += strikeMrgin ) {
 
             // Call
-            Option call = new Option( "c", strike, id );
+            Call call = new Call( strike, id );
             setOption( call );
             id++;
 
             // Put
-            Option put = new Option( "p", strike, id );
+            Put put = new Put( strike, id );
             setOption( put );
             id++;
         }
@@ -280,7 +313,7 @@ public class Options {
 
 
     public double getContractByCurrentCalc() {
-        return calcContract();
+        return calcContract( );
     }
 
     // Claculate the index from options
@@ -295,14 +328,13 @@ public class Options {
             double startStrike = strikeInMoney - ( getStrikeMarginForContract( ) * 5 );
             double endStrike = strikeInMoney + ( getStrikeMarginForContract( ) * 5 );
 
+            Strike strike;
+            double callAsk = 0;
+            double callBid = 0;
+            double putAsk = 0;
+            double putBid = 0;
+
             for ( double strikePrice = startStrike; strikePrice <= endStrike; strikePrice += getStrikeMarginForContract( ) ) {
-
-                Strike strike;
-                double callAsk = 0;
-                double callBid = 0;
-                double putAsk = 0;
-                double putBid = 0;
-
                 try {
                     strike = getStrike( strikePrice );
 
@@ -353,7 +385,7 @@ public class Options {
 
             return future;
         } catch ( Exception e ) {
-            e.printStackTrace();
+            e.printStackTrace( );
             return 0;
         }
     }
@@ -362,7 +394,6 @@ public class Options {
     public double calcContractAbsolute() {
 
         try {
-
             ArrayList< Double > buys = new ArrayList<>( );
             ArrayList< Double > sells = new ArrayList<>( );
 
@@ -459,10 +490,10 @@ public class Options {
         return null;
     }
 
-    public Option getOption( int side, double targetStrike ) {
+    public Option getOption( Class c, double targetStrike ) {
         for ( Strike strike : strikes ) {
             if ( strike.getStrike( ) == targetStrike ) {
-                if ( side == Option.CALL ) {
+                if ( c == Call.class ) {
                     return strike.getCall( );
                 } else {
                     return strike.getPut( );
@@ -471,7 +502,6 @@ public class Options {
         }
         return null;
     }
-
 
     // Return single strike by strike price (double)
     public Strike getStrike( double strikePrice ) {
@@ -533,7 +563,7 @@ public class Options {
         optionsMap.put( option.getId( ), option );
 
         // Strikes list
-        boolean callPut = option.getSide( ).toLowerCase( ).contains( "c" );
+        boolean callPut = option instanceof Call;
 
         Strike strike = getStrike( option.getStrike( ) );
 
@@ -541,11 +571,11 @@ public class Options {
 
             if ( callPut ) {
                 if ( strike.getCall( ) == null ) {
-                    strike.setCall( option );
+                    strike.setCall( ( Call ) option );
                 }
             } else {
                 if ( strike.getPut( ) == null ) {
-                    strike.setPut( option );
+                    strike.setPut( ( Put ) option );
                 }
             }
         } else {
@@ -555,9 +585,9 @@ public class Options {
             strike.setStrike( option.getStrike( ) );
 
             if ( callPut ) {
-                strike.setCall( option );
+                strike.setCall( ( Call ) option );
             } else {
-                strike.setPut( option );
+                strike.setPut( ( Put ) option );
             }
 
             // Add strike
@@ -676,12 +706,12 @@ public class Options {
             putJson = new JSONObject( );
             strikeJson = new JSONObject( );
 
-            Option call = strike.getCall( );
+            Call call = strike.getCall( );
             callJson.put( "bid", call.getBid( ) );
             callJson.put( "ask", call.getAsk( ) );
             callJson.put( "bid_ask_counter", call.getBidAskCounter( ) );
 
-            Option put = strike.getPut( );
+            Put put = strike.getPut( );
             putJson.put( "bid", put.getBid( ) );
             putJson.put( "ask", put.getAsk( ) );
             putJson.put( "bid_ask_counter", put.getBidAskCounter( ) );
@@ -700,7 +730,6 @@ public class Options {
         mainJson.put( "opAvg15", L.floor( getOpAvg15( ), 100 ) );
 
         mainJson.put( "data", optionsData );
-
 
         return mainJson;
     }
@@ -722,12 +751,10 @@ public class Options {
             putJson = new JSONObject( );
             strikeJson = new JSONObject( );
 
-            Option call = strike.getCall( );
             callJson.put( "bid", 0 );
             callJson.put( "ask", 0 );
             callJson.put( "bid_ask_counter", 0 );
 
-            Option put = strike.getPut( );
             putJson.put( "bid", 0 );
             putJson.put( "ask", 0 );
             putJson.put( "bid_ask_counter", 0 );
@@ -787,8 +814,8 @@ public class Options {
         try {
             for ( Strike strike : getStrikes( ) ) {
 
-                Option call = strike.getCall( );
-                Option put = strike.getPut( );
+                Call call = strike.getCall( );
+                Put put = strike.getPut( );
 
                 call.setBidAskCounter( 0 );
                 call.getBidAskCounterList( ).clear( );

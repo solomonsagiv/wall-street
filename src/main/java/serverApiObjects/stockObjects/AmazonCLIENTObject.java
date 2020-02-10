@@ -95,11 +95,6 @@ public class AmazonCLIENTObject extends STOCK_CLIENT_OBJECT {
     }
 
     @Override
-    public void initMyLists() {
-
-    }
-
-    @Override
     public void initTablesHandlers() {
     }
 

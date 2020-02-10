@@ -53,7 +53,6 @@ public class DayTable extends BaseTable {
         dayTable.insert( );
         System.out.println( "Inserts success" );
 
-
         final long endTime = System.currentTimeMillis();
         System.out.println(endTime );
         System.out.println("Total execution time: " + (endTime - startTime) / 1000);
@@ -186,8 +185,8 @@ public class DayTable extends BaseTable {
 
     @Override
     public void insert() {
-
-        StringBuilder insertQuery = new StringBuilder( "INSERT INTO `stocks`.`spx` " );
+        String query = String.format( "INSERT INTO `stocks`.`%s` ", getName() );
+        StringBuilder insertQuery = new StringBuilder( query );
         StringBuilder insertColumns = new StringBuilder();
 
         String values = " VALUES ";
@@ -217,7 +216,6 @@ public class DayTable extends BaseTable {
 
         // Insert
         MySql.insert( insertQuery.toString( ) );
-
     }
 
     @Override

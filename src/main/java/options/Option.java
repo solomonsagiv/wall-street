@@ -4,16 +4,11 @@ import shlomi.positions.Position;
 
 import java.util.ArrayList;
 
-public class Option {
-
-    public static final int CALL = 1;
-    public static final int PUT = 2;
+public abstract class Option {
 
     // Variables
-    private double strike;
+    protected double strike;
     private int id;
-    private String side;
-    private int type;
     private double last;
     private double high;
     private double low;
@@ -39,35 +34,10 @@ public class Option {
     private ArrayList< Integer > bidAskCounterList = new ArrayList<>( );
 
     // Constructor
-    public Option( String side, double strike, int id ) {
-        this.side = side;
+    public Option( double strike, int id ) {
         this.strike = strike;
         this.id = id;
 
-        if ( side.toLowerCase( ).contains( "c" ) ) {
-            setCallOrPut( true );
-            setType( CALL );
-        } else {
-            setCallOrPut( false );
-            setType( PUT );
-        }
-
-        setPosition( new Position( ) );
-    }
-
-    // Constructor
-    public Option( int type, double strike, int id ) {
-        this.strike = strike;
-        this.id = id;
-        this.type = type;
-
-        if ( type == CALL ) {
-            setCallOrPut( true );
-            setSide( "c" );
-        } else {
-            setCallOrPut( false );
-            setSide( "p" );
-        }
         setPosition( new Position( ) );
     }
 
@@ -109,14 +79,6 @@ public class Option {
 
     public void setId( int id ) {
         this.id = id;
-    }
-
-    public String getSide() {
-        return side;
-    }
-
-    public void setSide( String side ) {
-        this.side = side;
     }
 
     public double getLast() {
@@ -271,71 +233,42 @@ public class Option {
         this.bidAskCounterList = bidAskCounterList;
     }
 
-    public String getName() {
-        return getSide( ) + getStrike( );
-    }
-
-    public String getIntName() {
-        return getSide( ) + ((int)getStrike( ));
-    }
-
+    public abstract String getName();
+    public abstract String getIntName();
 
     public double getBidAskAvg() {
         return ( bid + ask ) / 2;
     }
 
-    @Override
-    public String toString() {
-        return getSide( ) + " [last=" + last + ", base=" + base + ", bid=" + bid + ", ask=" + ask + ", bidAskCounter="
-                + bidAskCounter + "]";
-    }
-
     public Position getPosition() {
         return position;
     }
-
     public void setPosition( Position position ) {
         this.position = position;
     }
-
     public double getTheoreticPrice() {
         return theoreticPrice;
     }
-
     public void setTheoreticPrice( double theoreticPrice ) {
         this.theoreticPrice = theoreticPrice;
     }
-
     public boolean isCallOrPut() {
         return callOrPut;
     }
-
     public void setCallOrPut( boolean callOrPut ) {
         this.callOrPut = callOrPut;
     }
-
     public double getVega() {
         return vega;
     }
-
     public void setVega( double vega ) {
         this.vega = vega;
     }
-
     public double getDelta() {
         return delta;
     }
-
     public void setDelta( double delta ) {
         this.delta = delta;
     }
 
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType( int type ) {
-        this.type = type;
-    }
 }

@@ -95,10 +95,6 @@ public class AppleCLIENTObject extends STOCK_CLIENT_OBJECT {
         getOptionsHandler( ).setMainOptions( getOptionsHandler( ).getOptionsDay( ) );
     }
 
-    @Override
-    public void initMyLists() {
-
-    }
 
     @Override
     public void initTablesHandlers() {

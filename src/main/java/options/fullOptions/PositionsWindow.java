@@ -19,14 +19,6 @@ import java.util.ArrayList;
 
 public class PositionsWindow extends MyGuiComps.MyFrame {
 
-    public static void main( String[] args ) {
-
-        ArrayList< PositionCalculator.OptionPosition > positions = new ArrayList<>( );
-        positions.add( new PositionCalculator.OptionPosition( 52, new Option( "C", 1850, 2 ), -5, 5.3 ) );
-
-        PositionsWindow positionsWindow = new PositionsWindow( SpxCLIENTObject.getInstance( ), positions );
-    }
-
     JFrame frame;
 
     // Variables

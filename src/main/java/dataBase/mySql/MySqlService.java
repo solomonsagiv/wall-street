@@ -16,34 +16,33 @@ public class MySqlService extends MyBaseService {
         this.tablesHandler = client.getTablesHandler();
     }
 
-
     @Override
     public void go() {
 
-        // Updater
-        if (Manifest.DB_UPDATER) {
-            // Status
-            if (sleepCount % 1000 == 0) {
-                client.getTablesHandler().getStatusHandler().getHandler().updateData();
-            }
-        }
-
-        // DB runner
-        if (Manifest.DB_RUNNER) {
-
-            // Insert line
-            client.getTablesHandler().getDayHandler().getHandler().insertLine();
-
-            // Arrays
-            if (sleepCount % 30000 == 0) {
-                client.getTablesHandler().getArrayHandler().getHandler().updateData();
-            }
-
-            // Reset sleep count
-            if (sleepCount == 3000000) {
-                sleepCount = 0;
-            }
-        }
+//        // Updater
+//        if (Manifest.DB_UPDATER) {
+//            // Status
+//            if (sleepCount % 1000 == 0) {
+//                client.getTablesHandler().getStatusHandler().getHandler().updateData();
+//            }
+//        }
+//
+//        // DB runner
+//        if (Manifest.DB_RUNNER) {
+//
+//            // Insert line
+//            client.getTablesHandler().getDayHandler().getHandler().insertLine();
+//
+//            // Arrays
+//            if (sleepCount % 30000 == 0) {
+//                client.getTablesHandler().getArrayHandler().getHandler().updateData();
+//            }
+//
+//            // Reset sleep count
+//            if (sleepCount == 3000000) {
+//                sleepCount = 0;
+//            }
+//        }
     }
 }
 

@@ -110,10 +110,6 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
         getOptionsHandler( ).setMainOptions( getOptionsHandler( ).getOptionsMonth( ) );
     }
 
-    @Override
-    public void initMyLists() {
-
-    }
 
     @Override
     public void initTablesHandlers() {
