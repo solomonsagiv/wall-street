@@ -125,10 +125,8 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initStrikeMargin() {
-        getOptionsHandler( ).getOptionsMonth( ).setStrikeMargin( 5 );
-        getOptionsHandler( ).getOptionsDay( ).setStrikeMargin( 5 );
-        getOptionsHandler( ).getOptionsQuarter( ).setStrikeMargin( 5 );
+    public double getStrikeMargin() {
+        return 5;
     }
 
     @Override
@@ -197,11 +195,6 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
                 return new IndexArraysTable( );
             }
         } );
-    }
-
-    @Override
-    public void initOptions() {
-        getOptionsHandler( ).setMainOptions( getOptionsHandler( ).getOptionsMonth( ) );
     }
 
     @Override

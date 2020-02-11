@@ -105,11 +105,6 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
         } );
     }
 
-    @Override
-    public void initOptions() {
-        getOptionsHandler( ).setMainOptions( getOptionsHandler( ).getOptionsMonth( ) );
-    }
-
 
     @Override
     public void initTablesHandlers() {
@@ -132,9 +127,8 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initStrikeMargin() {
-        getOptionsHandler( ).getOptionsMonth( ).setStrikeMargin( 100 );
-        getOptionsHandler( ).getOptionsDay( ).setStrikeMargin( 100 );
+    public double getStrikeMargin() {
+        return 100;
     }
 
     @Override

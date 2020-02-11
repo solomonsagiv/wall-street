@@ -91,6 +91,8 @@ public class Downloader extends Thread implements EWrapper {
             }
         }
 
+        spxClient.setFuture(3340);
+
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
         client.reqAccountUpdates( true, Manifest.ACCOUNT );

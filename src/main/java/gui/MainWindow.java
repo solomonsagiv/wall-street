@@ -315,19 +315,6 @@ public class MainWindow {
         wallstreetWindowBtn.setFont( new Font( "Arial", Font.BOLD, 12 ) );
         wallstreetWindowBtn.setBounds( 10, 85, 104, 27 );
         panel_2.add( wallstreetWindowBtn );
-        JButton ndxStocksWindowBtn = new JButton( "Stocks" );
-        ndxStocksWindowBtn.setBounds( 10, 123, 104, 27 );
-        panel_2.add( ndxStocksWindowBtn );
-        ndxStocksWindowBtn.setBorder( new TitledBorder( null, "", TitledBorder.LEFT, TitledBorder.TOP, null, null ) );
-        ndxStocksWindowBtn.setForeground( new Color( 255, 255, 255 ) );
-        ndxStocksWindowBtn.setBackground( new Color( 51, 51, 51 ) );
-        ndxStocksWindowBtn.addActionListener( new ActionListener( ) {
-            public void actionPerformed( ActionEvent e ) {
-                StocksWindow stocksWindow = new StocksWindow( );
-                stocksWindow.start( );
-            }
-        } );
-        ndxStocksWindowBtn.setFont( new Font( "Arial", Font.BOLD, 12 ) );
 
         JLabel lblWindow = new JLabel( "Windows" );
         lblWindow.setHorizontalAlignment( SwingConstants.LEFT );

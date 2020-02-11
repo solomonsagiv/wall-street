@@ -1,19 +1,12 @@
 package setting;
 
-import arik.Arik;
-import arik.locals.Emojis;
 import dataBase.HB;
 import gui.MyGuiComps;
-import lists.MyList;
 import locals.L;
 import locals.MyObjects;
 import locals.Themes;
 import options.Options;
 import org.json.JSONObject;
-import serverApiObjects.stockObjects.AmazonCLIENTObject;
-import serverApiObjects.stockObjects.AppleCLIENTObject;
-import serverApiObjects.stockObjects.FacebookCLIENTObject;
-import serverApiObjects.stockObjects.NetflixCLIENTObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.DaxCLIENTObject;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -895,7 +888,6 @@ public class Setting {
             mainOptionsBtn.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    client.getOptionsHandler( ).setMainOptions( options );
                 }
             } );
             setting_panel_inside.add( mainOptionsBtn );
@@ -1043,11 +1035,6 @@ public class Setting {
         private JRadioButton spxRadioButton;
         private JRadioButton ndxRadioButton;
 
-        private JRadioButton amazonRadioButton;
-        private JRadioButton facebookRadioButton;
-        private JRadioButton appleRadioButton;
-        private JRadioButton netflixRadioButton;
-
         private ButtonGroup group;
 
         public ChooserPanel( String indexOrStock ) {
@@ -1069,16 +1056,6 @@ public class Setting {
             spxRadioButton = initMyRadioButton( "Spx" );
             spxRadioButton.setBounds( width += width + 5, 10, width, 20 );
 
-            // Stocks
-            amazonRadioButton = initMyRadioButton( "Amazon" );
-            amazonRadioButton.setBounds( width += width + 5, 10, width, 20 );
-            facebookRadioButton = initMyRadioButton( "Facebook" );
-            facebookRadioButton.setBounds( width += width + 5, 10, width, 20 );
-            appleRadioButton = initMyRadioButton( "Apple" );
-            appleRadioButton.setBounds( width += width + 5, 10, width, 20 );
-            netflixRadioButton = initMyRadioButton( "Netflix" );
-            netflixRadioButton.setBounds( width += width + 5, 10, width, 20 );
-
             if ( indexOrStock.contains( "index" ) ) {
                 add( daxRadioButton );
                 add( ndxRadioButton );
@@ -1089,17 +1066,6 @@ public class Setting {
                 group.add( ndxRadioButton );
                 group.add( spxRadioButton );
 
-            } else if ( indexOrStock.contains( "stock" ) ) {
-                add( amazonRadioButton );
-                add( facebookRadioButton );
-                add( appleRadioButton );
-                add( netflixRadioButton );
-
-                group = new ButtonGroup( );
-                group.add( amazonRadioButton );
-                group.add( facebookRadioButton );
-                group.add( appleRadioButton );
-                group.add( netflixRadioButton );
             }
 
         }
@@ -1124,18 +1090,6 @@ public class Setting {
             }
             if ( spxRadioButton.isSelected( ) ) {
                 client = SpxCLIENTObject.getInstance( );
-            }
-            if ( amazonRadioButton.isSelected( ) ) {
-                client = AmazonCLIENTObject.getInstance( );
-            }
-            if ( appleRadioButton.isSelected( ) ) {
-                client = AppleCLIENTObject.getInstance( );
-            }
-            if ( facebookRadioButton.isSelected( ) ) {
-                client = FacebookCLIENTObject.getInstance( );
-            }
-            if ( netflixRadioButton.isSelected( ) ) {
-                client = NetflixCLIENTObject.getInstance( );
             }
         }
 
@@ -1167,18 +1121,6 @@ public class Setting {
             }
             if ( spxRadioButton.isSelected( ) ) {
                 client = SpxCLIENTObject.getInstance( );
-            }
-            if ( amazonRadioButton.isSelected( ) ) {
-                client = AmazonCLIENTObject.getInstance( );
-            }
-            if ( appleRadioButton.isSelected( ) ) {
-                client = AppleCLIENTObject.getInstance( );
-            }
-            if ( facebookRadioButton.isSelected( ) ) {
-                client = FacebookCLIENTObject.getInstance( );
-            }
-            if ( netflixRadioButton.isSelected( ) ) {
-                client = NetflixCLIENTObject.getInstance( );
             }
         }
     }

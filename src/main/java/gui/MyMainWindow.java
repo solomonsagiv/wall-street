@@ -186,17 +186,6 @@ public class MyMainWindow {
         label.setBounds( 10, 35, 61, 34 );
         panel_3.add( label );
 
-        JButton ndxStocksWindowBtn = new JButton( "Window" );
-        ndxStocksWindowBtn.addActionListener( new ActionListener( ) {
-            public void actionPerformed( ActionEvent e ) {
-                StocksWindow stocksWindow = new StocksWindow( );
-                stocksWindow.start( );
-            }
-        } );
-        ndxStocksWindowBtn.setFont( new Font( "Arial", Font.BOLD, 15 ) );
-        ndxStocksWindowBtn.setBounds( 10, 65, 101, 27 );
-        panel_3.add( ndxStocksWindowBtn );
-
         JPanel panel_4 = new JPanel( );
         panel_4.setBounds( 281, 134, 321, 309 );
         twsPanel.add( panel_4 );

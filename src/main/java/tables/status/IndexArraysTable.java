@@ -2,7 +2,7 @@ package tables.status;
 
 import arik.Arik;
 import dataBase.HB;
-import lists.MyList;
+import options.Options;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -97,6 +97,8 @@ public class IndexArraysTable extends TablesArraysFather {
                 int id = client.getDbId( );
 
                 IndexArraysTable table = ( IndexArraysTable ) HB.get_line_by_id( entityClass, id, client.getSessionfactory( ) );
+
+                Options options = client.getOptionsHandler().getMainOptions();
 
                 convertJsonArrayToDoubleArray( new JSONArray( table.getOpList( ) ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ).getList() );
                 convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getIndexList().getList() );

@@ -71,10 +71,10 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     // Lists map
     private String name = null;
     private BackRunner backRunner;
-    private List< MyList > lists;
+    private List< MyList > lists = new ArrayList<>( );;
 
     // ObjectsList
-    private ArrayList< MyObjects.MyBaseObject > myObjects;
+    private ArrayList< MyObjects.MyBaseObject > myObjects = new ArrayList<>( );;
 
     // DB
     private int dbId = 0;
@@ -94,7 +94,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     private FuturePanelLine panelLine;
 
     // MyService
-    private MyServiceHandler myServiceHandler;
+    private MyServiceHandler myServiceHandler = new MyServiceHandler( this );;
 
     // OpMove
     private double equalMovePlag = 0;
@@ -127,7 +127,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     ListsService listsService;
     LogicService logicService;
     MySqlService mySqlService;
-    MyExecutorService myExecutorService;
+    MyExecutorService  myExecutorService = new MyExecutorService( this, "executorService", MyBaseService.EXECUTOR, 100 );;
 
     MyList indexList;
     MyList indexBidList;
@@ -146,22 +146,17 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     public BASE_CLIENT_OBJECT() {
 
         LocalHandler.clients.add( this );
-        myObjects = new ArrayList<>( );
         myExecutor = new MyExecutor( this );
-        lists = new ArrayList<>( );
-        myServiceHandler = new MyServiceHandler( this );
-        optionsHandler = new OptionsHandler( this );
+
+        initTwsData( );
 
         // This
         initMyLists( );
 
         // Call subClasses abstract functions
         initIds( );
-        initTwsData( );
-        initOptions( );
         initName( );
         initRacesMargin( );
-        initStrikeMargin( );
         initStartOfIndexTrading( );
         initEndOfIndexTrading( );
         initEndOfFutureTrading( );
@@ -171,10 +166,11 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         initStrikeMarginForContract( );
         initTablesHandlers( );
 
+        optionsHandler = new OptionsHandler( this );
+
         // MyServices
         listsService = new ListsService( this, "listService", MyBaseService.REGULAR_LISTS, 1000 );
         mySqlService = new MySqlService( this, "mysql", MyBaseService.MYSQL_RUNNER, 500 );
-        myExecutorService = new MyExecutorService( this, "executorService", MyBaseService.EXECUTOR, 100 );
 
     }
 
@@ -196,7 +192,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
             setLoadFromDb( true );
         }
 
-        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ) {
+//        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ) {
 
 
             myServiceHandler.getHandler( ).start( );
@@ -218,7 +214,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 //            getRegularListUpdater().getHandler().start();
 
             setStarted( true );
-        }
+//        }
     }
 
     public LocalDate convertStringToDate( String dateString ) {
@@ -280,9 +276,9 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     // ---------- Getters and Setters ---------- //
     public void setFuture( double future ) {
         if ( this.future.getVal( ) == 0 ) {
+            this.future.setVal( future );
             getOptionsHandler( ).initOptions( future );
         }
-        this.future.setVal( future );
     }
 
     public boolean isStarted() {

@@ -40,7 +40,6 @@ public class Options {
     private LocalDate toDay = LocalDate.now( );
     private LocalDate expDate;
     private double daysToExp = -1;
-    private double strikeMargin = 0;
     private double strikeMarginForContract = 0;
     private double interest = 1;
     private double interestZero = 0;
@@ -208,7 +207,7 @@ public class Options {
 
         double startStrike = client.getStartStrike( );
         double endStrike = client.getEndStrike( );
-        double strikeMrgin = getStrikeMargin( );
+        double strikeMrgin = client.getStrikeMargin( );
 
         int id = getBaseID( );
 
@@ -223,6 +222,7 @@ public class Options {
             Put put = new Put( strike, id );
             setOption( put );
             id++;
+
         }
 
     }
@@ -276,7 +276,7 @@ public class Options {
                     Thread.sleep( 1000 );
                     boolean bool = true;
 
-                    double increment = getStrikeMargin( );
+                    double increment = client.getStrikeMargin( );
 
                     // For each strike
                     double strikInMoney = getStrikeInMoney( client.getFuture( ).getVal( ), 0 ).getStrike( );
@@ -320,9 +320,10 @@ public class Options {
     private double calcContract() {
 
         try {
-
             ArrayList< Double > buys = new ArrayList<>( );
             ArrayList< Double > sells = new ArrayList<>( );
+
+            MyObjects.MySimpleDouble mySimpleDouble = client.getFuture();
 
             double strikeInMoney = getStrikeInMoney( client.getFuture( ).getVal( ), 0 ).getStrike( );
             double startStrike = strikeInMoney - ( getStrikeMarginForContract( ) * 5 );
@@ -951,14 +952,6 @@ public class Options {
 
     public LocalDate getToDay() {
         return toDay;
-    }
-
-    public double getStrikeMargin() {
-        return strikeMargin;
-    }
-
-    public void setStrikeMargin( double strikeMargin ) {
-        this.strikeMargin = strikeMargin;
     }
 
     public int getMinId() {

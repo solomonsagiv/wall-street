@@ -12,11 +12,9 @@ public class OptionsHandler {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    private Options mainOptions;
     private Options optionsMonth;
     private Options optionsDay;
     private Options optionsQuarter;
-    private Options optionsQuarterFar;
     private HashMap< Integer, Options > optionsMap;
     private ArrayList< Options > optionsList;
     private PositionCalculator positionCalculator;
@@ -126,10 +124,6 @@ public class OptionsHandler {
         return optionsQuarter;
     }
 
-    public Options getOptionsQuarterFar() {
-        return optionsQuarterFar;
-    }
-
     public Options getOptionsDay() {
         return optionsDay;
     }
@@ -143,11 +137,7 @@ public class OptionsHandler {
     }
 
     public Options getMainOptions() {
-        return mainOptions;
-    }
-
-    public void setMainOptions( Options mainOptions ) {
-        this.mainOptions = mainOptions;
+        return optionsMonth;
     }
 
     public HashMap< Integer, Options > getOptionsMap() {

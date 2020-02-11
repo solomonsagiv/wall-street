@@ -4,10 +4,9 @@ public interface IBaseClient {
 
     void initIds( );
     void initTwsData( );
-    void initOptions( );
     void initName( );
     void initRacesMargin( );
-    void initStrikeMargin( );
+    double getStrikeMargin( );
     void initStartOfIndexTrading( );
     void initEndOfIndexTrading( );
     void initEndOfFutureTrading( );

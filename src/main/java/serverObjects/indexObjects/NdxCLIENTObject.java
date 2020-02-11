@@ -175,22 +175,16 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initStrikeMargin() {
-        getOptionsHandler( ).getOptionsMonth( ).setStrikeMargin( 40 );
-        getOptionsHandler( ).getOptionsDay( ).setStrikeMargin( 40 );
-        getOptionsHandler( ).getOptionsQuarter( ).setStrikeMargin( 40 );
+    public double getStrikeMargin() {
+        return 40;
     }
+
 
     @Override
     public void initStrikeMarginForContract() {
         getOptionsHandler( ).getOptionsMonth( ).setStrikeMarginForContract( 40 );
         getOptionsHandler( ).getOptionsDay( ).setStrikeMarginForContract( 40 );
         getOptionsHandler( ).getOptionsQuarter( ).setStrikeMarginForContract( 40 );
-    }
-
-    @Override
-    public void initOptions() {
-        getOptionsHandler( ).setMainOptions( getOptionsHandler( ).getOptionsMonth( ) );
     }
 
     @Override
