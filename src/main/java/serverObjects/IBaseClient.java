@@ -10,10 +10,8 @@ public interface IBaseClient {
     void initStartOfIndexTrading( );
     void initEndOfIndexTrading( );
     void initEndOfFutureTrading( );
-    void initLogic( );
     void initDbId( );
     void initTables( );
-    void initStrikeMarginForContract( );
     void initTablesHandlers( );
 
 }

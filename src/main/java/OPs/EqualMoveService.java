@@ -1,13 +1,11 @@
 package OPs;
 
-import lists.MyDoubleList;
-import lists.MyList;
-import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EqualMoveService extends MyBaseService {
 
@@ -15,16 +13,13 @@ public class EqualMoveService extends MyBaseService {
     private double opPlag;
 
     private Options options;
-    private ArrayList< Double > moveListIndex = new ArrayList<>( );
     private boolean equalStatusIndex = false;
-    private double startPriceIndex = 0;
-    private double endPriceIndex = 0;
-    private double moveIndex = 0;
-    private double liveMoveIndex = 0;
+    private double startPrice = 0;
+    private double endPrice = 0;
+    private double move = 0;
+    private double liveMove = 0;
 
-    private MyObjects.MyDouble move;
-    private MyList moveList;
-
+    private List moveList = new ArrayList<Double>();
 
     // Constructor
     public EqualMoveService(BASE_CLIENT_OBJECT client, String name, int type, int sleep, Options options, double opPlag ) {
@@ -32,13 +27,6 @@ public class EqualMoveService extends MyBaseService {
 
         this.options = options;
         this.opPlag = opPlag;
-        move = new MyObjects.MySimpleDouble( ) {
-            @Override
-            public double getVal() {
-                return floor( moveIndex + liveMoveIndex, 10 );
-            }
-        };
-        moveList = new MyDoubleList( client, getMove(), "EqualMove" );
     }
 
     @Override
@@ -48,7 +36,7 @@ public class EqualMoveService extends MyBaseService {
 
     private void calculateFromIndex() {
 
-        double op = options.getOp().getVal();
+        double op = options.getOp();
 
         // ----- Equal area ----- //
         if ( op > oposite( opPlag ) && op < opPlag ) {
@@ -57,14 +45,14 @@ public class EqualMoveService extends MyBaseService {
             if ( !equalStatusIndex ) {
 
                 // Set start price
-                startPriceIndex = getClient( ).getIndex( ).getVal();
+                startPrice = getClient( ).getIndex( );
 
             }
 
             // Set equalLiveMove
-            endPriceIndex = getClient( ).getIndex( ).getVal();
-            double equalLiveMove = endPriceIndex - startPriceIndex;
-            setLiveMoveIndex( equalLiveMove );
+            endPrice = getClient( ).getIndex( );
+            double equalLiveMove = endPrice - startPrice;
+            setLiveMove( equalLiveMove );
 
             // Set status true
             equalStatusIndex = true;
@@ -76,13 +64,13 @@ public class EqualMoveService extends MyBaseService {
             if ( equalStatusIndex ) {
 
                 // Reset live move
-                setLiveMoveIndex( 0 );
+                setLiveMove( 0 );
 
                 // Set end price
-                endPriceIndex = getClient( ).getIndex( ).getVal();
+                endPrice = getClient( ).getIndex( );
 
                 // Get the move
-                double move = floor( endPriceIndex - startPriceIndex, 10 );
+                double move = floor( endPrice - startPrice, 10 );
 
                 // Append the move
                 appendMoveIndex( move );
@@ -104,12 +92,12 @@ public class EqualMoveService extends MyBaseService {
         return Math.floor( d * zeros ) / zeros;
     }
 
-    private double getLiveMoveIndex() {
-        return liveMoveIndex;
+    private double getLiveMove() {
+        return liveMove;
     }
 
-    public void setLiveMoveIndex( double liveMove ) {
-        this.liveMoveIndex = liveMove;
+    public void setLiveMove( double liveMove ) {
+        this.liveMove = liveMove;
     }
 
     public Options getOptions() {
@@ -120,23 +108,31 @@ public class EqualMoveService extends MyBaseService {
         this.options = options;
     }
 
-    public void setMoveIndex( double move ) {
-        this.moveIndex = move;
+    public void setMove( double move ) {
+        this.move = move;
     }
 
     public void appendMoveIndex( double move ) {
-        this.moveIndex += move;
+        this.move += move;
     }
 
-    public ArrayList< Double > getMoveIndexListIndex() {
-        return moveListIndex;
+    public double getOpPlag() {
+        return opPlag;
     }
 
-    public MyObjects.MyDouble getMove() {
-        return move;
+    public void setOpPlag( double opPlag ) {
+        this.opPlag = opPlag;
     }
 
-    public MyList getMoveList() {
+    public List getMoveList() {
         return moveList;
+    }
+
+    public void setMoveList( List moveList ) {
+        this.moveList = moveList;
+    }
+
+    public double getMove() {
+        return move + liveMove;
     }
 }

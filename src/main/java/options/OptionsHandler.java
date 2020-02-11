@@ -15,15 +15,13 @@ public class OptionsHandler {
     private Options optionsMonth;
     private Options optionsDay;
     private Options optionsQuarter;
-    private HashMap< Integer, Options > optionsMap;
-    private ArrayList< Options > optionsList;
+    private HashMap< Integer, Options > optionsMap = new HashMap<>( );
+    private ArrayList< Options > optionsList = new ArrayList<>( );
     private PositionCalculator positionCalculator;
 
     // Constructor
     public OptionsHandler( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        optionsList = new ArrayList<>( );
-        optionsMap = new HashMap<>( );
 
         positionCalculator = new PositionCalculator( client );
 
@@ -46,10 +44,10 @@ public class OptionsHandler {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
 
-            if (options.getOptionsJson().getVal().length() == 0 || !client.isStarted()) {
-                object.put( options.getName( ), options.getOptionsJson().getValByCurrentCalc() );
+            if (options.getOptionsAsJson().length() == 0 || !client.isStarted()) {
+                object.put( options.getName( ), options.getOptionsAsJson() );
             } else {
-                object.put( options.getName( ), options.getOptionsJson().getVal() );
+                object.put( options.getName( ), options.getOptionsAsJson() );
             }
 
         }

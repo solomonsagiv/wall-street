@@ -183,7 +183,7 @@ public class MainWindow {
                         Thread.sleep( 3000 );
 
                         spx.getTwsRequestHandler( ).requestFutreAndIndex( );
-                        ndx.getTwsRequestHandler( ).requestFutreAndIndex( );
+//                        ndx.getTwsRequestHandler( ).requestFutreAndIndex( );
 
                     } catch ( InterruptedException e ) {
                         // TODO Auto-generated catch block
@@ -394,7 +394,7 @@ public class MainWindow {
         panel_4.add( lblContractsDetails );
 
         spxDayOptionExpField = new JTextField( );
-        spxDayOptionExpField.setText( "20200210" );
+        spxDayOptionExpField.setText( "20200212" );
         spxDayOptionExpField.setHorizontalAlignment( SwingConstants.CENTER );
         spxDayOptionExpField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
         spxDayOptionExpField.setColumns( 10 );

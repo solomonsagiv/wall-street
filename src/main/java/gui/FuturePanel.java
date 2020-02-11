@@ -424,29 +424,29 @@ public class FuturePanel extends BaseFuturePanel {
                     updateLists( );
 
                     // ---------- Ticker ---------- //
-                    openField.setText( L.format100( client.getOpen( ).getVal( ) ) );
-                    highField.setText( L.format100( client.getHigh( ).getVal( ) ) );
-                    lowField.setText( L.format100( client.getLow( ).getVal( ) ) );
-                    indexField.setText( L.format100( client.getIndex( ).getVal( ) ) );
-                    futureField.setText( L.format100( mainOptions.getContract( ).getVal( ) ) );
+                    openField.setText( L.format100( client.getOpen( ) ) );
+                    highField.setText( L.format100( client.getHigh( ) ) );
+                    lowField.setText( L.format100( client.getLow( ) ) );
+                    indexField.setText( L.format100( client.getIndex( ) ) );
+                    futureField.setText( L.format100( mainOptions.getContract( ) ) );
 
                     // Ticker present
-                    openPresentField.colorBack( toPresent( client.getOpen( ).getVal( ) ), L.format100( ), "%" );
-                    highPresentField.colorBack( toPresent( client.getHigh( ).getVal( ) ), L.format100( ), "%" );
-                    lowPresentField.colorBack( toPresent( client.getLow( ).getVal( ) ), L.format100( ), "%" );
-                    indexPresentField.colorBack( toPresent( client.getIndex( ).getVal( ) ), L.format100( ), "%" );
+                    openPresentField.colorBack( toPresent( client.getOpen( ) ), L.format100( ), "%" );
+                    highPresentField.colorBack( toPresent( client.getHigh( ) ), L.format100( ), "%" );
+                    lowPresentField.colorBack( toPresent( client.getLow( ) ), L.format100( ), "%" );
+                    indexPresentField.colorBack( toPresent( client.getIndex( ) ), L.format100( ), "%" );
 
                     // OP
-                    opAvgField.colorForge( mainOptions.getOpAvg( ).getVal( ), L.format100( ) );
-                    opField.colorBack( mainOptions.getOp( ).getVal( ), L.format100( ) );
+                    opAvgField.colorForge( mainOptions.getOpAvg( ), L.format100( ) );
+                    opField.colorBack( mainOptions.getOp( ), L.format100( ) );
 
                     // Equal move OpAvg
-                    opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgEqualMoveCalculator( ).getMove( ).getVal( ), L.format100( ) );
+                    opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgMoveService( ).getMove( ), L.format100( ) );
 
                     // Quarter
-                    opQuarterField.colorBack( optionsQuarter.getOp( ).getVal( ), L.format100( ) );
-                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ).getVal( ), L.format100( ) );
-                    contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ).getVal( ) ) );
+                    opQuarterField.colorBack( optionsQuarter.getOp( ), L.format100( ) );
+                    opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ), L.format100( ) );
+                    contractQuarterField.setText( L.format100( client.getOptionsHandler( ).getOptionsQuarter( ).getContract( ) ) );
 
                     // Races and roll
                     // Races
@@ -454,8 +454,8 @@ public class FuturePanel extends BaseFuturePanel {
                     indRacesField.colorForge( client.getIndexSum( ) );
 
                     // Roll
-                    double month = optionsMonth.getContract( ).getVal( );
-                    double quarter = optionsQuarter.getContract( ).getVal( );
+                    double month = optionsMonth.getContract( );
+                    double quarter = optionsQuarter.getContract( );
                     rollField.colorForge( quarter - month, L.format100( ) );
 
                     mySleep += 1000;
@@ -466,7 +466,7 @@ public class FuturePanel extends BaseFuturePanel {
         }
 
         private double toPresent( double d ) {
-            double base = client.getBase( ).getVal( );
+            double base = client.getBase( );
             return ( ( d - base ) / base ) * 100;
         }
 

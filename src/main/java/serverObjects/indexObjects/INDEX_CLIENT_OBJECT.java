@@ -1,8 +1,5 @@
 package serverObjects.indexObjects;
 
-import lists.MyDoubleList;
-import lists.MyIntList;
-import lists.MyList;
 import options.Options;
 import org.hibernate.SessionFactory;
 import serverObjects.BASE_CLIENT_OBJECT;

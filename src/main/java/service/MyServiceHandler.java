@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class MyServiceHandler extends MyThread implements Runnable {
 
     // Variables
-    private List< MyBaseService > servies;
+    private List< MyBaseService > servies = new ArrayList<>();
     private ExecutorService executor;
     final int sleep = 100;
     int sleepCount = 0;
@@ -19,7 +19,6 @@ public class MyServiceHandler extends MyThread implements Runnable {
     // Constructor
     public MyServiceHandler( BASE_CLIENT_OBJECT client ) {
         super( client );
-        servies = new ArrayList<>();
     }
 
     @Override
@@ -44,6 +43,8 @@ public class MyServiceHandler extends MyThread implements Runnable {
                 e.printStackTrace( );
                 executor.shutdownNow();
                 break;
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
         }
     }
@@ -63,7 +64,6 @@ public class MyServiceHandler extends MyThread implements Runnable {
                 break;
             }
         }
-
         return exist;
     }
 

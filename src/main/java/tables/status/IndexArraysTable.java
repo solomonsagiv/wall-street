@@ -100,8 +100,8 @@ public class IndexArraysTable extends TablesArraysFather {
 
                 Options options = client.getOptionsHandler().getMainOptions();
 
-                convertJsonArrayToDoubleArray( new JSONArray( table.getOpList( ) ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ).getList() );
-                convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getIndexList().getList() );
+                convertJsonArrayToDoubleArray( new JSONArray( table.getOpList( ) ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
+                convertJsonArrayToDoubleArray( new JSONArray( table.getIndexlist( ) ), ( ArrayList< Double > ) client.getIndexList() );
 
                 client.setLoadArraysFromHB( true );
 
@@ -138,8 +138,8 @@ public class IndexArraysTable extends TablesArraysFather {
                             new JSONArray( ).toString( ),
                             new JSONArray( ).toString( ),
                             new JSONArray( ).toString( ),
-                            new JSONArray( ( ( INDEX_CLIENT_OBJECT ) client ).getIndexList().getList() ).toString( ),
-                            new JSONArray( client.getOptionsHandler( ).getMainOptions( ).getOpList( ).getList().toString( ) ).toString( ) );
+                            new JSONArray( ( ( INDEX_CLIENT_OBJECT ) client ).getIndexList() ).toString( ),
+                            new JSONArray( client.getOptionsHandler( ).getMainOptions( ).getOpList( ).toString( ) ).toString( ) );
 
                     HB.update( client.getSessionfactory( ), arraysTable );
                 }

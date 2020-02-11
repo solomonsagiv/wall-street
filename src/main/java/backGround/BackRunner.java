@@ -46,7 +46,7 @@ public class BackRunner {
     public class Runner extends Thread {
 
         boolean run = true;
-        double last_0 = client.getIndex( ).getVal();
+        double last_0 = client.getIndex( );
 
         @Override
         public void run() {
@@ -61,13 +61,13 @@ public class BackRunner {
 
                     now = LocalTime.now( );
 
-                    double last = client.getIndex( ).getVal();
+                    double last = client.getIndex( );
 
                     // Start
                     if ( now.isAfter( client.getStartOfIndexTrading( ) ) && !client.isStarted( ) && last_0 != last ) {
 
-                        if ( client.getOpen( ).getVal() == 0 ) {
-                            client.getOpen().setVal( last );
+                        if ( client.getOpen( ) == 0 ) {
+                            client.setOpen( last );
                         }
 
                         client.startAll( );
@@ -82,8 +82,7 @@ public class BackRunner {
                         }
 
                         client.getDb( ).closeAll( );
-                        client.getRegularListUpdater( ).getHandler( ).close( );
-
+                        client.getMyServiceHandler().removeService( client.getListsService() );
                     }
 
                     // Export

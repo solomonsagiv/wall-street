@@ -91,8 +91,6 @@ public class Downloader extends Thread implements EWrapper {
             }
         }
 
-        spxClient.setFuture(3340);
-
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
         client.reqAccountUpdates( true, Manifest.ACCOUNT );
@@ -173,15 +171,15 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             if ( field == 6 ) {
-                ndxClient.getHigh( ).setVal( price );
+                ndxClient.setHigh( price );
             }
 
             if ( field == 7 ) {
-                ndxClient.getLow( ).setVal( price );
+                ndxClient.setLow( price );
             }
 
             if ( field == 9 ) {
-                ndxClient.getBase( ).setVal( price );
+                ndxClient.setBase( price );
             }
         }
 
@@ -205,25 +203,25 @@ public class Downloader extends Thread implements EWrapper {
 
         }
 
-
         if ( tickerId == index && price > 0 ) {
 
             if ( field == 4 ) {
                 spxClient.setIndex( price );
-                spxClient.getIndexBid( ).setVal( price - .5 );
-                spxClient.getIndexAsk( ).setVal( price + .5 );
+                spxClient.setIndexBid( price - .5 );
+                spxClient.setIndexAsk( price + .5 );
             }
 
             if ( field == 6 ) {
-                spxClient.getHigh( ).setVal( price );
+
+                spxClient.setHigh( price );
             }
 
             if ( field == 7 ) {
-                spxClient.getLow( ).setVal( price );
+                spxClient.setLow( price );
             }
 
             if ( field == 9 ) {
-                spxClient.getBase( ).setVal( price );
+                spxClient.setBase( price );
             }
 
         }

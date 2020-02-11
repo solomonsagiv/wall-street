@@ -1,6 +1,5 @@
 package options;
 
-import lists.MyList;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.SpxCLIENTObject;
@@ -263,8 +262,8 @@ public class OptionsWindow {
         boolean run = true;
 
         int minsInSecondes = 900;
-        ArrayList< Double > indexList = client.getIndexList().getAsDoubleList();
-
+        ArrayList<Double> indexList = ( ArrayList< Double > ) client.getIndexList();
+        
         @Override
         public void run() {
 
@@ -284,7 +283,7 @@ public class OptionsWindow {
                         start15Move = indexList.get( 0 );
                     }
 
-                    double move15Min = floor( ( ( client.getIndex( ).getVal() - start15Move ) / start15Move ) * 100 );
+                    double move15Min = floor( ( ( client.getIndex( ) - start15Move ) / start15Move ) * 100 );
 
                     for ( Strike strike : optionsFather.getStrikes( ) ) {
 
@@ -302,7 +301,7 @@ public class OptionsWindow {
                     }
 
                     colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptionsMonth( ).getContractBidAskCounter( ) );
-                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ).getVal(), null );
+                    colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), null );
                     colorForf( opAvg15Field, client.getOptionsHandler( ).getMainOptions( ).getOpAvg15( ), null );
                     colorForf( move15Field, move15Min, "%" );
 

@@ -87,7 +87,7 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
 
         FullOptionsWindow.indexLabel.setText( str( getClient( ).getIndex( ) ) );
 
-        double indexPre = floor( ( ( getClient( ).getIndex( ).getVal() - getClient( ).getBase( ).getVal() ) / getClient( ).getBase( ).getVal() ) * 100 );
+        double indexPre = floor( ( ( getClient( ).getIndex( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
         colorBackPresent( FullOptionsWindow.indexPresentLabel, indexPre );
 
         // Delta

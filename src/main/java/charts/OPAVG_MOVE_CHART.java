@@ -1,16 +1,15 @@
 package charts;
 
-import lists.MyList;
 import locals.Themes;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OPAVG_MOVE_CHART implements IChartCreator {
@@ -45,8 +44,8 @@ public class OPAVG_MOVE_CHART implements IChartCreator {
         Marker marker = new ValueMarker( 0 );
         marker.setPaint( Color.BLACK );
 
-        Map< String, MyList > map = new HashMap< String, MyList >( );
-        map.put( "opAvgMove", client.getOptionsHandler().getMainOptions().getOpAvgEqualMoveCalculator().getMoveList() );
+        Map< String, List<Double> > map = new HashMap< String, List<Double> >( );
+        map.put( "opAvgMove", client.getOptionsHandler().getMainOptions().getOpAvgMoveService().getMoveList() );
 
         // Create chart
         chart = new MySingleFreeChart( client, series, colors, 1, map, 0, true, 0, 1.5f, false, true

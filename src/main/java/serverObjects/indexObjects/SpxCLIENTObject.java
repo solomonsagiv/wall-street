@@ -2,7 +2,6 @@ package serverObjects.indexObjects;
 
 import api.Manifest;
 import com.ib.client.Contract;
-import logic.Logic;
 import serverObjects.TwsData;
 import tables.*;
 import tables.daily.SpxTable;
@@ -130,13 +129,6 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initStrikeMarginForContract() {
-        getOptionsHandler( ).getOptionsMonth( ).setStrikeMarginForContract( 10 );
-        getOptionsHandler( ).getOptionsDay( ).setStrikeMarginForContract( 10 );
-        getOptionsHandler( ).getOptionsQuarter( ).setStrikeMarginForContract( 10 );
-    }
-
-    @Override
     public void initStartOfIndexTrading() {
         setStartOfIndexTrading( LocalTime.of( 16, 30, 0 ) );
     }
@@ -158,11 +150,6 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
         getTwsData( ).setIndexId( getBaseId( ) + 1 );
         getTwsData( ).setFutureId( getBaseId( ) + 2 );
 
-    }
-
-    @Override
-    public void initLogic() {
-        setLogic( new Logic( getPanel( ), this ) );
     }
 
     @Override

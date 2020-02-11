@@ -1,7 +1,7 @@
 package charts;
 
-import locals.MyObjects;
 import locals.Themes;
+import options.Options;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.AxisLocation;
@@ -41,16 +41,16 @@ public class MySingleFreeChartLive {
     private JFreeChart chart;
     private MyChartPanel chartPanel;
     private boolean includeTickerData;
-    MyObjects.MyDouble mainContract;
-    MyObjects.MyDouble quarterContract;
+    Options mainOptions;
+    Options quarterOptions;
 
 
     public MySingleFreeChartLive( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
                                   ArrayList< String > list, int seconds, boolean includeTickerData, double rangeTickUnit,
                                   float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
 
-        this.mainContract = client.getOptionsHandler().getMainOptions().getContract();
-        this.quarterContract = client.getOptionsHandler().getOptionsQuarter().getContract();
+        this.mainOptions = client.getOptionsHandler().getMainOptions();
+        this.quarterOptions = client.getOptionsHandler().getOptionsQuarter();
         this.client = client;
         this.series = series;
         this.colors = colors;
@@ -287,15 +287,15 @@ public class MySingleFreeChartLive {
         private double getItem( String string ) {
             switch ( string ) {
                 case "index":
-                    return client.getIndex( ).getVal();
+                    return client.getIndex( );
                 case "contract":
-                    return mainContract.getVal();
+                    return mainOptions.getContract();
                 case "indexBid":
-                    return client.getIndexBid( ).getVal();
+                    return client.getIndexBid( );
                 case "indexAsk":
-                    return client.getIndexAsk( ).getVal();
+                    return client.getIndexAsk( );
                 case "quarterContract":
-                    return quarterContract.getVal();
+                    return quarterOptions.getContract();
                 default:
                     return 0;
             }

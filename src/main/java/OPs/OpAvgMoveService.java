@@ -1,10 +1,11 @@
 package OPs;
 
-import lists.MyDoubleList;
-import locals.MyObjects;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OpAvgMoveService extends MyBaseService {
 
@@ -16,45 +17,35 @@ public class OpAvgMoveService extends MyBaseService {
     private double startPriceOpAvg = 0;
     private double endPriceOpAvg = 0;
     private double moveOpAvg = 0;
-    private double liveMoveOpAvg = 0;
+    private double liveMove = 0;
     public double marginFromOpAvg;
-    private MyObjects.MyDouble opAvg;
-    private MyObjects.MySimpleDouble move;
+    private double move;
 
-    private MyDoubleList moveList;
+    List moveList = new ArrayList<Double>();
 
     public OpAvgMoveService(BASE_CLIENT_OBJECT client, String name, int type, int sleep, double opPlag, Options options ) {
         super(client, name, type, sleep);
 
         this.opPlag = opPlag;
         this.options = options;
-
-        opAvg = options.getOpAvg();
-        move = new MyObjects.MySimpleDouble( ) {
-            @Override
-            public double getVal() {
-                return moveOpAvg + liveMoveOpAvg;
-            }
-        };
-        moveList = new MyDoubleList( client, getMove(), "OpAvgMove" );
     }
 
     private void calculateFromOpAvg() {
 
-        marginFromOpAvg = options.getOp( ).getVal( ) - options.getOpAvg( ).getVal( );
+        marginFromOpAvg = options.getOp( ) - options.getOpAvg( );
 
         if ( marginFromOpAvg > oposite( opPlag ) && marginFromOpAvg < opPlag ) {
 
             // Start of the move
             if ( !equalStatusOpAvg ) {
                 // Set start price
-                startPriceOpAvg = getClient( ).getIndex( ).getVal( );
+                startPriceOpAvg = getClient( ).getIndex( );
             }
 
             // Set equalLiveMove
-            endPriceOpAvg = getClient( ).getIndex( ).getVal( );
+            endPriceOpAvg = getClient( ).getIndex( );
             double equalLiveMove = endPriceOpAvg - startPriceOpAvg;
-            setLiveMoveOpAvg( equalLiveMove );
+            setLiveMove( equalLiveMove );
 
             // Set status true
             equalStatusOpAvg = true;
@@ -65,10 +56,10 @@ public class OpAvgMoveService extends MyBaseService {
             if ( equalStatusOpAvg ) {
 
                 // Reset live move
-                setLiveMoveOpAvg( 0 );
+                setLiveMove( 0 );
 
                 // Set end price
-                endPriceOpAvg = getClient( ).getIndex( ).getVal( );
+                endPriceOpAvg = getClient( ).getIndex( );
 
                 // Get the move
                 double move = endPriceOpAvg - startPriceOpAvg;
@@ -122,23 +113,23 @@ public class OpAvgMoveService extends MyBaseService {
         this.moveOpAvg = moveOpAvg;
     }
 
-    public double getLiveMoveOpAvg() {
-        return liveMoveOpAvg;
+    public double getLiveMove() {
+        return liveMove;
     }
 
-    public void setLiveMoveOpAvg( double liveMoveOpAvg ) {
-        this.liveMoveOpAvg = liveMoveOpAvg;
+    public void setLiveMove( double liveMove ) {
+        this.liveMove = liveMove;
     }
 
     public void appendMoveOpAvg( double move ) {
         this.moveOpAvg += move;
     }
 
-    public MyObjects.MySimpleDouble getMove() {
-        return move;
+    public double getMove() {
+        return move + liveMove;
     }
 
-    public MyDoubleList getMoveList() {
+    public List getMoveList() {
         return moveList;
     }
 

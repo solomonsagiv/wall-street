@@ -2,7 +2,6 @@ package serverObjects.indexObjects;
 
 import api.Manifest;
 import com.ib.client.Contract;
-import logic.Logic;
 import serverObjects.TwsData;
 import tables.*;
 import tables.daily.NdxTable;
@@ -127,11 +126,6 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initLogic() {
-        setLogic( new Logic( getPanel( ), this ) );
-    }
-
-    @Override
     public void initDbId() {
         setDbId( 3 );
     }
@@ -177,14 +171,6 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
     @Override
     public double getStrikeMargin() {
         return 40;
-    }
-
-
-    @Override
-    public void initStrikeMarginForContract() {
-        getOptionsHandler( ).getOptionsMonth( ).setStrikeMarginForContract( 40 );
-        getOptionsHandler( ).getOptionsDay( ).setStrikeMarginForContract( 40 );
-        getOptionsHandler( ).getOptionsQuarter( ).setStrikeMarginForContract( 40 );
     }
 
     @Override

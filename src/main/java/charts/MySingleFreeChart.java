@@ -1,6 +1,5 @@
 package charts;
 
-import lists.MyList;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -23,6 +22,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -37,7 +37,7 @@ public class MySingleFreeChart {
     int seconds;
     int basicSecondes;
     int secondesOnMess = 10;
-    Map< String, MyList > map;
+    Map< String, List<Double> > map;
     private JFreeChart chart;
     private MyChartPanel chartPanel;
     private boolean includeTickerData;
@@ -46,7 +46,7 @@ public class MySingleFreeChart {
 
 
     public MySingleFreeChart( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
-                              Map< String, MyList > map, int seconds, boolean includeTickerData, double rangeTickUnit,
+                              Map< String, List<Double> > map, int seconds, boolean includeTickerData, double rangeTickUnit,
                               float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, boolean rangeFixer, Marker marker ) {
 
         this.rangeFixer = rangeFixer;
@@ -138,13 +138,13 @@ public class MySingleFreeChart {
     private class ChartUpdater extends Thread {
 
         ArrayList< Double > dots = new ArrayList<>( );
-        Map< String, MyList > map;
+        Map< String, List<Double> > map;
         NumberAxis range;
         boolean run = true;
 
         int x = 0;
 
-        public ChartUpdater( Map< String, MyList > map ) {
+        public ChartUpdater( Map< String, List<Double> > map ) {
             this.map = map;
         }
 
@@ -232,10 +232,10 @@ public class MySingleFreeChart {
                 XYSeries currentSerie;
 
                 int i = 0;
-                for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
+                for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
 
                     // Get current
-                    MyList myList = entry.getValue( );
+                    List<Double> myList = entry.getValue( );
                     currentSerie = series[ i ];
 
                     // Remove index 0
@@ -243,7 +243,7 @@ public class MySingleFreeChart {
                     dots.remove( 0 );
 
                     // Append last item
-                    double item = ( double ) myList.getLastItem( );
+                    double item = ( double ) myList.get( myList.size() - 1 );
                     currentSerie.add( x, item );
                     dots.add( item );
 
@@ -297,14 +297,14 @@ public class MySingleFreeChart {
                 XYSeries currentSerie;
 
                 int i = 0;
-                for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
+                for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
 
                     // Get current
-                    MyList myList = entry.getValue( );
+                    List<Double> myList = entry.getValue( );
                     currentSerie = series[ i ];
 
                     // Append last item
-                    double item = ( double ) myList.getLastItem( );
+                    double item = ( double ) myList.get( myList.size() - 1 );
                     currentSerie.add( x, item );
                     dots.add( item );
 
@@ -329,8 +329,8 @@ public class MySingleFreeChart {
             if ( map.size( ) == 1 && includeTickerData ) {
                 try {
                     ArrayList< Double > list = null;
-                    for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
-                        list = ( ArrayList< Double > ) entry.getValue( ).getList( );
+                    for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
+                        list = ( ArrayList< Double > ) entry.getValue( );
                     }
 
                     if ( list.size( ) > 0 ) {
@@ -354,9 +354,9 @@ public class MySingleFreeChart {
         // Load charts data from DB
         private void loadDataFromDB() {
             int i = 0;
-            for ( Map.Entry< String, MyList > entry : map.entrySet( ) ) {
+            for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
 
-                ArrayList< Double > list = ( ArrayList< Double > ) entry.getValue( ).getList( );
+                ArrayList< Double > list = ( ArrayList< Double > ) entry.getValue( );
 
                 if ( list.size( ) > 0 ) {
 

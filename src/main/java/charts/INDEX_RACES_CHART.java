@@ -1,17 +1,15 @@
 package charts;
 
-import lists.MyDoubleList;
-import lists.MyList;
 import locals.Themes;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class INDEX_RACES_CHART implements IChartCreator {
@@ -46,8 +44,7 @@ public class INDEX_RACES_CHART implements IChartCreator {
         Marker marker = new ValueMarker( 0 );
         marker.setPaint( Color.BLACK );
 
-        Map< String, MyList > map = new HashMap< String, MyList >( );
-        map = new HashMap< String, MyList >( );
+        Map< String, List<Double> > map = new HashMap< String, List<Double> >( );
         map.put( "indexRaces", client.getIndexRacesList() );
 
         // Create chart

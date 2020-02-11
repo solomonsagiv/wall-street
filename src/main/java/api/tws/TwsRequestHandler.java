@@ -117,7 +117,6 @@ public class TwsRequestHandler {
                 } catch ( Exception e ) {
                     e.printStackTrace( );
                 }
-
             }
 
         }
@@ -131,16 +130,14 @@ public class TwsRequestHandler {
                     // Request options on first time
                     if ( !options.isRequested( ) ) {
 
-                        if ( getClient( ).getFuture( ).getVal( ) != 0 ) {
+                        if ( getClient( ).getFuture( ) != 0 ) {
                             requestOptions( options );
                             options.setRequested( true );
-
                         }
 
                     }
 
                     // Look for adding new requests
-
 
                 }
 

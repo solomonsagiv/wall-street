@@ -8,19 +8,10 @@ import backGround.BackRunner;
 import dataBase.DB;
 import dataBase.HBsession;
 import dataBase.mySql.MySqlService;
-import excutor.MyExecutor;
-import excutor.MyExecutorService;
 import gui.FuturePanel;
-import gui.FuturePanelLine;
 import lists.ListsService;
-import lists.MyDoubleList;
-import lists.MyList;
-import lists.RegularListUpdater;
 import locals.L;
 import locals.LocalHandler;
-import locals.MyObjects;
-import logic.Logic;
-import logic.LogicService;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
 import service.MyBaseService;
@@ -65,16 +56,9 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     private boolean loadStatusFromHB = false;
     private boolean loadArraysFromHB = false;
 
-    // Executor
-    MyExecutor myExecutor;
-
     // Lists map
     private String name = null;
     private BackRunner backRunner;
-    private List< MyList > lists = new ArrayList<>( );;
-
-    // ObjectsList
-    private ArrayList< MyObjects.MyBaseObject > myObjects = new ArrayList<>( );;
 
     // DB
     private int dbId = 0;
@@ -83,56 +67,36 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     private TablesHandler tablesHandler;
     private HBsession hBsession;
 
-    // Races
-    private Logic logic;
-
     // Options handler
     private OptionsDataHandler optionsDataHandler;
 
     // Panel
     private FuturePanel futurePanel;
-    private FuturePanelLine panelLine;
 
     // MyService
-    private MyServiceHandler myServiceHandler = new MyServiceHandler( this );;
+    private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
 
     // OpMove
     private double equalMovePlag = 0;
 
-    // List updater
-    private RegularListUpdater regularListUpdater;
-
     // Basic
     private double dbContract = 0;
-    private MyObjects.MySimpleDouble index = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble indexBid = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble indexAsk = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble future = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble futureBid = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble futureAsk = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble open = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble high = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble low = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleDouble base = new MyObjects.MySimpleDouble( );
-    private MyObjects.MySimpleInteger futureBidAskCounter = new MyObjects.MySimpleInteger( );
-    private MyObjects.MySimpleDouble indexSumRaces = new MyObjects.MySimpleDouble( ) {
-        @Override
-        public double getVal() {
-            return getIndexUp( ) - getIndexDown( );
-        }
-    };
+    private double index = 0;
+    private double indexBid = 0;
+    private double indexAsk = 0;
+    private double future = 0;
+    private double futureBid = 0;
+    private double futureAsk = 0;
+    private double open = 0;
+    private double high = 0;
+    private double low = 0;
+    private double base = 0;
+    private int futureBidAskCounter = 0;
     private double indexBidAskMargin = 0;
 
     // Services
     ListsService listsService;
-    LogicService logicService;
     MySqlService mySqlService;
-    MyExecutorService  myExecutorService = new MyExecutorService( this, "executorService", MyBaseService.EXECUTOR, 100 );;
-
-    MyList indexList;
-    MyList indexBidList;
-    MyList indexAskList;
-    MyList indexRacesList;
 
     // Races
     private double racesMargin = 0;
@@ -143,15 +107,15 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     private int indexDown = 0;
     private int optimiPesimiCount = 0;
 
+    List indexList = new ArrayList< Double >( );
+    List indexBidList = new ArrayList< Double >( );
+    List indexAskList = new ArrayList< Double >( );
+    List indexRacesList = new ArrayList< Double >( );
+
     public BASE_CLIENT_OBJECT() {
 
-        LocalHandler.clients.add( this );
-        myExecutor = new MyExecutor( this );
-
         initTwsData( );
-
-        // This
-        initMyLists( );
+        LocalHandler.clients.add( this );
 
         // Call subClasses abstract functions
         initIds( );
@@ -160,25 +124,14 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         initStartOfIndexTrading( );
         initEndOfIndexTrading( );
         initEndOfFutureTrading( );
-        initLogic( );
         initDbId( );
         initTables( );
-        initStrikeMarginForContract( );
         initTablesHandlers( );
-
-        optionsHandler = new OptionsHandler( this );
 
         // MyServices
         listsService = new ListsService( this, "listService", MyBaseService.REGULAR_LISTS, 1000 );
         mySqlService = new MySqlService( this, "mysql", MyBaseService.MYSQL_RUNNER, 500 );
 
-    }
-
-    private void initMyLists() {
-        indexList = new MyDoubleList( this, getIndex( ), "Index" );
-        indexBidList = new MyDoubleList( this, getIndexBid( ), "IndexBid" );
-        indexAskList = new MyDoubleList( this, getIndexAsk( ), "IndexAsk" );
-        indexRacesList = new MyDoubleList( this, getIndexSumRaces( ), "IndexRaces" );
     }
 
     // Start all
@@ -192,15 +145,12 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
             setLoadFromDb( true );
         }
 
-//        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ) {
-
+        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ) {
 
             myServiceHandler.getHandler( ).start( );
 
-            getMyExecutor( ).getHandler( ).start( );
-//
-//            getPanel().getUpdater().getHandler().start();
-//
+            getPanel( ).getUpdater( ).getHandler( ).start( );
+
 //            // Index Move
 //            getOptionsHandler().getOptionsMonth().getEqualMoveCalculator().getHandler().start();
 //            getOptionsHandler().getOptionsQuarter().getEqualMoveCalculator().getHandler().start();
@@ -214,7 +164,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 //            getRegularListUpdater().getHandler().start();
 
             setStarted( true );
-//        }
+        }
     }
 
     public LocalDate convertStringToDate( String dateString ) {
@@ -275,8 +225,8 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     // ---------- Getters and Setters ---------- //
     public void setFuture( double future ) {
-        if ( this.future.getVal( ) == 0 ) {
-            this.future.setVal( future );
+        if ( this.future == 0 ) {
+            this.future = future;
             getOptionsHandler( ).initOptions( future );
         }
     }
@@ -290,7 +240,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     }
 
     public void setIndex( double index ) {
-        this.index.setVal( index );
+        this.index = index;
     }
 
     public int getConDown() {
@@ -331,14 +281,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     public void setEndStrike( double endStrike ) {
         this.endStrike = endStrike;
-    }
-
-    public Logic getLogic() {
-        return logic;
-    }
-
-    public void setLogic( Logic logic ) {
-        this.logic = logic;
     }
 
     public FuturePanel getPanel() {
@@ -386,17 +328,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     public void setStocksNames( String[] stocksNames ) {
         this.stocksNames = stocksNames;
-    }
-
-    public FuturePanelLine getPanelLine() {
-        if ( panelLine == null ) {
-            panelLine = new FuturePanelLine( this );
-        }
-        return panelLine;
-    }
-
-    public void setPanelLine( FuturePanelLine panelLine ) {
-        this.panelLine = panelLine;
     }
 
     public DB getDb() {
@@ -447,13 +378,13 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         String text = "";
         text += "***** " + getName( ).toUpperCase( ) + " *****" + "\n";
         text += "Date: " + LocalDate.now( ).minusDays( 1 ) + "\n";
-        text += "Open: " + open.getVal( ) + "\n";
-        text += "High: " + high.getVal( ) + "\n";
-        text += "Low: " + low.getVal( ) + "\n";
-        text += "Close: " + index.getVal( ) + "\n";
-        text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getContract( ).getVal( ) ) + "\n";
+        text += "Open: " + open + "\n";
+        text += "High: " + high + "\n";
+        text += "Low: " + low + "\n";
+        text += "Close: " + index + "\n";
+        text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getContract( ) ) + "\n";
         text += "Ind races: " + getIndexSum( ) + "\n";
-        text += "Avg move: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvgEqualMoveCalculator( ).getMove( ).getVal( ) ) + "\n";
+        text += "Avg move: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvgMoveService( ).getMove( ) ) + "\n";
         text += "Contract counter: " + getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( ) + "\n";
 
         return text;
@@ -482,20 +413,20 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     public void setFutureBid( double futureBid ) {
 
-        if ( futureBid > this.futureBid.getVal( ) ) {
-            futureBidAskCounter.increment( );
+        if ( futureBid > this.futureBid ) {
+            futureBidAskCounter++;
         }
 
-        this.futureBid.setVal( futureBid );
+        this.futureBid = futureBid;
     }
 
     public void setFutureAsk( double futureAsk ) {
 
-        if ( futureAsk < this.futureAsk.getVal( ) ) {
-            futureBidAskCounter.decrement( );
+        if ( futureAsk < this.futureAsk ) {
+            futureBidAskCounter--;
         }
 
-        this.futureAsk.setVal( futureAsk );
+        this.futureAsk = futureAsk;
     }
 
     public int getConUp() {
@@ -617,13 +548,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         this.name = name;
     }
 
-    public RegularListUpdater getRegularListUpdater() {
-        if ( regularListUpdater == null ) {
-            regularListUpdater = new RegularListUpdater( this );
-        }
-        return regularListUpdater;
-    }
-
     public int getBaseId() {
         return baseId;
     }
@@ -648,80 +572,113 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     public abstract double getTheoAvgMargin();
 
-    public ArrayList< MyObjects.MyBaseObject > getMyObjects() {
-        return myObjects;
+    public MyServiceHandler getMyServiceHandler() {
+        return myServiceHandler;
     }
 
-    public MyExecutor getMyExecutor() {
-        return myExecutor;
+    public JTable getRacesTable() {
+        return racesTable;
     }
 
-    public MyObjects.MySimpleDouble getIndex() {
+    public double getIndex() {
         return index;
     }
 
-    public MyObjects.MySimpleDouble getIndexBid() {
+    public double getIndexBid() {
         return indexBid;
     }
 
-    public MyObjects.MySimpleDouble getIndexAsk() {
+    public double getIndexAsk() {
         return indexAsk;
     }
 
-    public MyObjects.MySimpleDouble getFuture() {
+    public double getFuture() {
         return future;
     }
 
-    public MyObjects.MySimpleDouble getFutureBid() {
+    public double getFutureBid() {
         return futureBid;
     }
 
-    public MyObjects.MySimpleDouble getFutureAsk() {
+    public double getFutureAsk() {
         return futureAsk;
     }
 
-    public MyObjects.MySimpleDouble getOpen() {
+    public double getOpen() {
         return open;
     }
 
-    public MyObjects.MySimpleDouble getHigh() {
+    public double getHigh() {
         return high;
     }
 
-    public MyObjects.MySimpleDouble getLow() {
+    public double getLow() {
         return low;
     }
 
-    public MyObjects.MySimpleDouble getBase() {
+    public double getBase() {
         return base;
     }
 
-    public List< MyList > getLists() {
-        return lists;
+    public int getFutureBidAskCounter() {
+        return futureBidAskCounter;
     }
 
-    public MyObjects.MySimpleDouble getIndexSumRaces() {
-        return indexSumRaces;
+    public int getIndexSumRaces() {
+        return indexUp - indexDown;
     }
 
-    public MyList getIndexList() {
+
+    public void setRacesTable( JTable racesTable ) {
+        this.racesTable = racesTable;
+    }
+
+    public void setIndexBid( double indexBid ) {
+        this.indexBid = indexBid;
+    }
+
+    public void setIndexAsk( double indexAsk ) {
+        this.indexAsk = indexAsk;
+    }
+
+    public void setOpen( double open ) {
+        this.open = open;
+    }
+
+    public void setHigh( double high ) {
+        this.high = high;
+    }
+
+    public void setLow( double low ) {
+        this.low = low;
+    }
+
+    public void setBase( double base ) {
+        this.base = base;
+    }
+
+    public String[] getStocksNames() {
+        return stocksNames;
+    }
+
+    public List getIndexList() {
         return indexList;
     }
 
-    public MyList getIndexBidList() {
+    public List getIndexBidList() {
         return indexBidList;
     }
 
-    public MyList getIndexAskList() {
+    public List getIndexAskList() {
         return indexAskList;
     }
 
-    public MyList getIndexRacesList() {
+    public List getIndexRacesList() {
         return indexRacesList;
     }
 
-    public MyServiceHandler getMyServiceHandler() {
-        return myServiceHandler;
+    public ListsService getListsService() {
+        return listsService;
     }
 
     @Override
@@ -746,21 +703,16 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
                 ", started=" + started +
                 ", loadStatusFromHB=" + loadStatusFromHB +
                 ", loadArraysFromHB=" + loadArraysFromHB +
-                ", myExecutor=" + myExecutor +
                 ", name='" + name + '\'' +
                 ", backRunner=" + backRunner +
-                ", myObjects=" + myObjects +
                 ", dbId=" + dbId +
                 ", db=" + db +
                 ", tables=" + tables +
                 ", tablesHandler=" + tablesHandler +
                 ", hBsession=" + hBsession +
-                ", logic=" + logic +
                 ", optionsDataHandler=" + optionsDataHandler +
                 ", futurePanel=" + futurePanel +
-                ", panelLine=" + panelLine +
                 ", equalMovePlag=" + equalMovePlag +
-                ", regularListUpdater=" + regularListUpdater +
                 ", dbContract=" + dbContract +
                 ", index=" + index +
                 ", indexBid=" + indexBid +

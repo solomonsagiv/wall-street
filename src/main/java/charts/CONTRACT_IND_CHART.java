@@ -1,14 +1,13 @@
 package charts;
 
-import lists.MyList;
 import locals.Themes;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CONTRACT_IND_CHART implements IChartCreator {
@@ -45,12 +44,11 @@ public class CONTRACT_IND_CHART implements IChartCreator {
         colors[ 2 ] = Themes.BLUE;
         colors[ 3 ] = Themes.RED;
 
-        Map< String, MyList > map = new HashMap< String, MyList >( );
-        map = new HashMap< String, MyList >( );
-        map.put( "index", ( MyList ) client.getIndexList().getList() );
-        map.put( "contract", ( MyList ) client.getOptionsHandler().getMainOptions().getContractList().getList() );
-        map.put( "indexBid", ( MyList ) client.getIndexBidList().getList() );
-        map.put( "indexAsk", ( MyList ) client.getIndexAskList().getList() );
+        Map< String, List<Double> > map = new HashMap<>();
+        map.put( "index", client.getIndexList() );
+        map.put( "contract",  client.getOptionsHandler().getMainOptions().getConList() );
+        map.put( "indexBid", client.getIndexBidList() );
+        map.put( "indexAsk", client.getIndexAskList() );
 
         // Create chart
         chart = new MySingleFreeChart( client, series, colors, 0.17, map, 180, false, 0, 2.5f, false, false, true, null );

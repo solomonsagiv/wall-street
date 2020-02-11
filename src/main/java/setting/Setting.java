@@ -3,7 +3,6 @@ package setting;
 import dataBase.HB;
 import gui.MyGuiComps;
 import locals.L;
-import locals.MyObjects;
 import locals.Themes;
 import options.Options;
 import org.json.JSONObject;
@@ -305,7 +304,7 @@ public class Setting {
             open.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
                     try {
-                        client.getOpen().setVal( Double.parseDouble( open.getText( ) )   );
+                        client.setOpen(  Double.parseDouble( open.getText( ) )    );
                     } catch ( Exception e ) {
                         e.printStackTrace();
                     }
@@ -329,7 +328,7 @@ public class Setting {
             base.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        client.getBase().setVal( Double.parseDouble( base.getText( ) ) );
+                        client.setBase( Double.parseDouble( base.getText( ) )  );
                     } catch ( Exception e1 ) {
                         e1.printStackTrace();
                     }
@@ -384,7 +383,7 @@ public class Setting {
                 @Override
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        client.getLogic( ).getLogicRunner( ).refresh( );
+                        options.getLogicService().refresh();
                     } catch ( Exception e1 ) {
                         // TODO: handle exception
                     }
@@ -707,13 +706,10 @@ public class Setting {
             opAvgField.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
 
-                    MyObjects.MySimpleDouble op = new MyObjects.MySimpleDouble();
-
                     try {
-                        double opFromUser = Double.parseDouble( opAvgField.getText( ) );
-                        op.setVal( opFromUser );
+                        double opAvgFromUser = Double.parseDouble( opAvgField.getText( ) );
 
-                        options.getOpAvgList().setValues( op );
+                        options.setOpValues( opAvgFromUser );
 
                     } catch ( Exception e ) {
                         e.printStackTrace( );
@@ -739,7 +735,7 @@ public class Setting {
 
                     try {
                         double d = L.dbl( opAvgMoveField.getText( ) );
-                        options.getOpAvgEqualMoveCalculator( ).setMoveOpAvg( d );
+                        options.getOpAvgMoveService().setMoveOpAvg( d );
                     } catch ( Exception e ) {
                         e.printStackTrace();
                     }
@@ -765,7 +761,7 @@ public class Setting {
 
                     try {
                         equalMove = Double.parseDouble( equalMoveField.getText( ) );
-                        client.getOptionsHandler( ).getMainOptions( ).getEqualMoveCalculator( ).setMoveIndex( equalMove );
+                        client.getOptionsHandler( ).getMainOptions( ).getEqualMoveService( ).setMove( equalMove );
                     } catch ( Exception e ) {
                         popup( "Faild to set equalMove", e );
                     }

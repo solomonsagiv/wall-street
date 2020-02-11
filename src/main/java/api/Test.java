@@ -1,12 +1,6 @@
 package api;
 
-import logic.Logic;
-import logic.LogicService;
-import serverObjects.indexObjects.SpxCLIENTObject;
-import service.MyBaseService;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 @EnableAsync
 public class Test {

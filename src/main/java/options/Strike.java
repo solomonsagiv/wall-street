@@ -7,10 +7,9 @@ public class Strike {
     private double strike;
     private double stDev = 0;
 
-    // Constructor
-    public Strike() {
-    }
+    public Strike() {}
 
+    // Constructor
     public Strike( Call call, Put put, double strike ) {
         this.call = call;
         this.put = put;
@@ -18,15 +17,7 @@ public class Strike {
 
     }
 
-//    public Strike( double strike, int callId, int putId ) {
-////        this.strike = strike;
-////        this.call = new Call( strike, callId );
-////        this.put = new Put( strike, putId );
-////    }
-
     // Getters and Setters
-
-
     public Call getCall() {
         return call;
     }

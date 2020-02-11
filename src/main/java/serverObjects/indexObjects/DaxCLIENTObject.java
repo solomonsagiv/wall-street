@@ -2,7 +2,6 @@ package serverObjects.indexObjects;
 
 import api.Manifest;
 import com.ib.client.Contract;
-import logic.Logic;
 import serverObjects.TwsData;
 import tables.TableDayFather;
 import tables.TableSumFather;
@@ -105,12 +104,10 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
         } );
     }
 
-
     @Override
     public void initTablesHandlers() {
 
     }
-
     @Override
     public double getTheoAvgMargin() {
         return 0;
@@ -154,18 +151,8 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initLogic() {
-        setLogic( new Logic( getPanel( ), this ) );
-    }
-
-    @Override
     public void initDbId() {
         setDbId( 1 );
     }
 
-    @Override
-    public void initStrikeMarginForContract() {
-        getOptionsHandler( ).getOptionsMonth( ).setStrikeMarginForContract( 100 );
-        getOptionsHandler( ).getOptionsDay( ).setStrikeMarginForContract( 100 );
-    }
 }

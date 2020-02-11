@@ -26,14 +26,14 @@ public class AlertsThread extends Thread {
 
     @Override
     public void run() {
-        future = client.getIndex( ).getVal();
+        future = client.getIndex( );
 
         // Check id the target price is greater or lower than current price
         up = target_price > future;
 
         while ( run ) {
             try {
-                future = client.getIndex( ).getVal();
+                future = client.getIndex( );
                 System.out.println( "Running for: " + target_price + ", Future: " + future + ", Boolean: " + up );
 
                 if ( up ) {

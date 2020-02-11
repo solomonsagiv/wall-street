@@ -1,7 +1,6 @@
 package logic;
 
 import gui.FuturePanel;
-import locals.MyObjects;
 import locals.Themes;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -14,7 +13,6 @@ public class LogicService extends MyBaseService {
     // Variables
     Color light_grey_back = new Color( 248, 248, 255 );
     Options options;
-    MyObjects.MyDouble con;
 
     // regular count
     int conRunnerUpCount = 0;
@@ -40,7 +38,6 @@ public class LogicService extends MyBaseService {
     public LogicService( BASE_CLIENT_OBJECT client, String name, int ID, Options options, FuturePanel panel, int sleep ) {
         super( client, name, ID, sleep );
         this.options = options;
-        this.con = options.getContract( );
         this.margin = client.getRacesMargin( );
         this.panel = panel;
     }
@@ -51,8 +48,8 @@ public class LogicService extends MyBaseService {
         double future = 0;
         double index = 0;
 
-        future = con.getVal( );
-        index = getClient( ).getIndex( ).getVal( );
+        future = options.getContract();
+        index = getClient( ).getIndex( );
 
         // set for the first time the hoze and stock 0
         if ( conRunner == 0.0 && indRunner == 0.0 && !first ) {
