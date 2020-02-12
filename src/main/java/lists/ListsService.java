@@ -10,23 +10,33 @@ import java.util.List;
 // Regular list updater
 public class ListsService extends MyBaseService {
 
-    List indexList = new ArrayList< Double >( );
-    List indexBidList = new ArrayList< Double >( );
-    List indexAskList = new ArrayList< Double >( );
-    List indexRacesList = new ArrayList< Integer >( );
-
     // Variables
     BASE_CLIENT_OBJECT client;
 
     // Constructor
-    public ListsService(BASE_CLIENT_OBJECT client, String name, int type, int sleep) {
-        super(client, name, type, sleep);
+    public ListsService(BASE_CLIENT_OBJECT client) {
+        super( client );
         this.client = client;
     }
 
     @Override
     public void go() {
         insert();
+    }
+
+    @Override
+    public String getName() {
+        return "lists";
+    }
+
+    @Override
+    public int getSleep() {
+        return 1000;
+    }
+
+    @Override
+    public int getType() {
+        return MyBaseService.REGULAR_LISTS;
     }
 
     private void insert() {

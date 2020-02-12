@@ -129,8 +129,8 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         initTablesHandlers( );
 
         // MyServices
-        listsService = new ListsService( this, "listService", MyBaseService.REGULAR_LISTS, 1000 );
-        mySqlService = new MySqlService( this, "mysql", MyBaseService.MYSQL_RUNNER, 500 );
+        listsService = new ListsService( this );
+        mySqlService = new MySqlService( this );
 
     }
 

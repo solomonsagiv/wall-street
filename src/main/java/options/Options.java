@@ -77,11 +77,11 @@ public class Options {
         positionCalculator = new PositionCalculator( client );
 
         // Services
-        equalMoveService = new EqualMoveService( client, "equalMove", MyBaseService.EQUAL_MOVE, 200, this, client.getEqualMovePlag( ) );
-        opAvgMoveService = new OpAvgMoveService( client, "opAvgMove", MyBaseService.OP_AVG_MOVE, 200, client.getEqualMovePlag( ), this );
+        equalMoveService = new EqualMoveService( client, this, client.getEqualMovePlag( ) );
+        opAvgMoveService = new OpAvgMoveService( client, this, client.getEqualMovePlag( ) );
 
         if ( type == Options.MONTH ) {
-            logicService = new LogicService( client, "logicService", MyBaseService.LOGIC, this, client.getPanel( ), 200 );
+            logicService = new LogicService( client, this, client.getPanel( ) );
         }
 
     }
@@ -103,7 +103,6 @@ public class Options {
         }
         return null;
     }
-
 
     public void initOptions() {
 

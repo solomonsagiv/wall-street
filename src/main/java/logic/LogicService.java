@@ -35,11 +35,27 @@ public class LogicService extends MyBaseService {
     FuturePanel panel;
 
     // Constructor
-    public LogicService( BASE_CLIENT_OBJECT client, String name, int ID, Options options, FuturePanel panel, int sleep ) {
-        super( client, name, ID, sleep );
+    public LogicService( BASE_CLIENT_OBJECT client, Options options, FuturePanel panel ) {
+        super( client );
         this.options = options;
         this.margin = client.getRacesMargin( );
         this.panel = panel;
+    }
+
+
+    @Override
+    public String getName() {
+        return "logic";
+    }
+
+    @Override
+    public int getSleep() {
+        return 200;
+    }
+
+    @Override
+    public int getType() {
+        return MyBaseService.LOGIC;
     }
 
     @Override

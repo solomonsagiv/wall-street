@@ -11,8 +11,8 @@ public class MySqlService extends MyBaseService {
     BASE_CLIENT_OBJECT client;
     TablesHandler tablesHandler;
 
-    public MySqlService(BASE_CLIENT_OBJECT client, String name, int type, int sleep) {
-        super(client, name, type, sleep);
+    public MySqlService(BASE_CLIENT_OBJECT client) {
+        super( client );
         this.tablesHandler = client.getTablesHandler();
     }
 
@@ -43,6 +43,21 @@ public class MySqlService extends MyBaseService {
 //                sleepCount = 0;
 //            }
 //        }
+    }
+
+    @Override
+    public String getName() {
+        return "mysql";
+    }
+
+    @Override
+    public int getSleep() {
+        return 500;
+    }
+
+    @Override
+    public int getType() {
+        return MyBaseService.MYSQL_RUNNER;
     }
 }
 

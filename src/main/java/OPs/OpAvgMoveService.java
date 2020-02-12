@@ -22,13 +22,12 @@ public class OpAvgMoveService extends MyBaseService {
 
     List moveList = new ArrayList<Double>();
 
-    public OpAvgMoveService(BASE_CLIENT_OBJECT client, String name, int type, int sleep, double opPlag, Options options) {
-        super(client, name, type, sleep);
+    public OpAvgMoveService(BASE_CLIENT_OBJECT client,Options options, double opPlag ) {
+        super(client);
 
         this.opPlag = opPlag;
         this.options = options;
     }
-
 
     @Override
     public void go() {
@@ -76,6 +75,21 @@ public class OpAvgMoveService extends MyBaseService {
             // Set status false
             equalStatusOpAvg = false;
         }
+    }
+
+    @Override
+    public String getName() {
+        return "opAvgMove";
+    }
+
+    @Override
+    public int getSleep() {
+        return 200;
+    }
+
+    @Override
+    public int getType() {
+        return MyBaseService.OP_AVG_MOVE;
     }
 
     private double oposite(double d) {

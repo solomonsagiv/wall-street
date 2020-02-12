@@ -11,7 +11,6 @@ public class Manifest {
     public static int SNUPPI_PORT = 7496;
     public static String SNUPPI_ACCOUNT = "U3450352";
 
-
     // TEST ACCOUNT
     public static String TEST_ACCOUNT = "DU1293791";
     public static int TEST_PORT = 3333;
@@ -20,8 +19,8 @@ public class Manifest {
     public static boolean DB = false;
     public static boolean DB_RUNNER = false;
     public static boolean DB_UPDATER = false;
-    public static String ACCOUNT = SNUPPI_ACCOUNT;
-    public static int PORT = SNUPPI_PORT;
+    public static String ACCOUNT = REAL_ACCOUNT;
+    public static int PORT = REAL_PORT;
     public static int SCREEN = 1;
 
     // FUTURES

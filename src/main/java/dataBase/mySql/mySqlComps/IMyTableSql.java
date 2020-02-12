@@ -1,12 +1,12 @@
-package dataBase.mySql.tables;
+package dataBase.mySql.mySqlComps;
 
-public interface IMYsqlTable {
+public interface IMyTableSql {
 
     void initColumns();
     void insert();
     void load();
     void update();
     void reset();
-    Object getTableObject();
+    MyTableSql getObject();
 
 }

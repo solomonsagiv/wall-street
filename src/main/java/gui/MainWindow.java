@@ -183,7 +183,7 @@ public class MainWindow {
                         Thread.sleep( 3000 );
 
                         spx.getTwsRequestHandler( ).requestFutreAndIndex( );
-//                        ndx.getTwsRequestHandler( ).requestFutreAndIndex( );
+                        ndx.getTwsRequestHandler( ).requestFutreAndIndex( );
 
                     } catch ( InterruptedException e ) {
                         // TODO Auto-generated catch block
