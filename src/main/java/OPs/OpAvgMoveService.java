@@ -16,36 +16,41 @@ public class OpAvgMoveService extends MyBaseService {
     private boolean equalStatusOpAvg = false;
     private double startPriceOpAvg = 0;
     private double endPriceOpAvg = 0;
-    private double moveOpAvg = 0;
     private double liveMove = 0;
     public double marginFromOpAvg;
     private double move;
 
     List moveList = new ArrayList<Double>();
 
-    public OpAvgMoveService(BASE_CLIENT_OBJECT client, String name, int type, int sleep, double opPlag, Options options ) {
+    public OpAvgMoveService(BASE_CLIENT_OBJECT client, String name, int type, int sleep, double opPlag, Options options) {
         super(client, name, type, sleep);
 
         this.opPlag = opPlag;
         this.options = options;
     }
 
+
+    @Override
+    public void go() {
+        calculateFromOpAvg();
+    }
+
     private void calculateFromOpAvg() {
 
-        marginFromOpAvg = options.getOp( ) - options.getOpAvg( );
+        marginFromOpAvg = options.getOp() - options.getOpAvg();
 
-        if ( marginFromOpAvg > oposite( opPlag ) && marginFromOpAvg < opPlag ) {
+        if (marginFromOpAvg > oposite(opPlag) && marginFromOpAvg < opPlag) {
 
             // Start of the move
-            if ( !equalStatusOpAvg ) {
+            if (!equalStatusOpAvg) {
                 // Set start price
-                startPriceOpAvg = getClient( ).getIndex( );
+                startPriceOpAvg = getClient().getIndex();
             }
 
             // Set equalLiveMove
-            endPriceOpAvg = getClient( ).getIndex( );
+            endPriceOpAvg = getClient().getIndex();
             double equalLiveMove = endPriceOpAvg - startPriceOpAvg;
-            setLiveMove( equalLiveMove );
+            setLiveMove(equalLiveMove);
 
             // Set status true
             equalStatusOpAvg = true;
@@ -53,19 +58,19 @@ public class OpAvgMoveService extends MyBaseService {
         } else {
 
             // End of the move
-            if ( equalStatusOpAvg ) {
+            if (equalStatusOpAvg) {
 
                 // Reset live move
-                setLiveMove( 0 );
+                setLiveMove(0);
 
                 // Set end price
-                endPriceOpAvg = getClient( ).getIndex( );
+                endPriceOpAvg = getClient().getIndex();
 
                 // Get the move
                 double move = endPriceOpAvg - startPriceOpAvg;
 
                 // Append the move
-                appendMoveOpAvg( move );
+                appendMove(move);
             }
 
             // Set status false
@@ -73,68 +78,30 @@ public class OpAvgMoveService extends MyBaseService {
         }
     }
 
-    private double oposite( double d ) {
+    private double oposite(double d) {
         return d * -1;
     }
-
     public Options getOptions() {
         return options;
     }
-
-    public void setOptions( Options options ) {
+    public void setOptions(Options options) {
         this.options = options;
     }
-
-    public boolean isEqualStatusOpAvg() {
-        return equalStatusOpAvg;
-    }
-
-    public void setEqualStatusOpAvg( boolean equalStatusOpAvg ) {
-        this.equalStatusOpAvg = equalStatusOpAvg;
-    }
-
-    public double getStartPriceOpAvg() {
-        return startPriceOpAvg;
-    }
-
-    public void setStartPriceOpAvg( double startPriceOpAvg ) {
-        this.startPriceOpAvg = startPriceOpAvg;
-    }
-
-    public double getEndPriceOpAvg() {
-        return endPriceOpAvg;
-    }
-
-    public void setEndPriceOpAvg( double endPriceOpAvg ) {
-        this.endPriceOpAvg = endPriceOpAvg;
-    }
-
-    public void setMoveOpAvg( double moveOpAvg ) {
-        this.moveOpAvg = moveOpAvg;
-    }
-
-    public double getLiveMove() {
-        return liveMove;
-    }
-
-    public void setLiveMove( double liveMove ) {
+    public void setLiveMove(double liveMove) {
         this.liveMove = liveMove;
     }
-
-    public void appendMoveOpAvg( double move ) {
-        this.moveOpAvg += move;
+    public void appendMove(double move) {
+        this.move += move;
     }
-
     public double getMove() {
         return move + liveMove;
     }
-
+    public void setMove(double move) {
+        this.move = move;
+    }
     public List getMoveList() {
         return moveList;
     }
 
-    @Override
-    public void go() {
 
-    }
 }

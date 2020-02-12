@@ -735,7 +735,7 @@ public class Setting {
 
                     try {
                         double d = L.dbl( opAvgMoveField.getText( ) );
-                        options.getOpAvgMoveService().setMoveOpAvg( d );
+                        options.getOpAvgMoveService().setMove( d );
                     } catch ( Exception e ) {
                         e.printStackTrace();
                     }

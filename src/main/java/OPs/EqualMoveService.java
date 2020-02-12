@@ -87,51 +87,27 @@ public class EqualMoveService extends MyBaseService {
     private double oposite( double d ) {
         return d * -1;
     }
-
     private double floor( double d, int zeros ) {
         return Math.floor( d * zeros ) / zeros;
     }
-
-    private double getLiveMove() {
-        return liveMove;
-    }
-
     public void setLiveMove( double liveMove ) {
         this.liveMove = liveMove;
     }
-
     public Options getOptions() {
         return options;
     }
-
     public void setOptions( Options options ) {
         this.options = options;
     }
-
     public void setMove( double move ) {
         this.move = move;
     }
-
     public void appendMoveIndex( double move ) {
         this.move += move;
     }
-
-    public double getOpPlag() {
-        return opPlag;
-    }
-
-    public void setOpPlag( double opPlag ) {
-        this.opPlag = opPlag;
-    }
-
     public List getMoveList() {
         return moveList;
     }
-
-    public void setMoveList( List moveList ) {
-        this.moveList = moveList;
-    }
-
     public double getMove() {
         return move + liveMove;
     }
