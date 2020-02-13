@@ -14,7 +14,6 @@ import locals.L;
 import locals.LocalHandler;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
-import service.MyBaseService;
 import service.MyServiceHandler;
 import tables.Tables;
 import tables.TablesHandler;
@@ -150,18 +149,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
             myServiceHandler.getHandler( ).start( );
 
             getPanel( ).getUpdater( ).getHandler( ).start( );
-
-//            // Index Move
-//            getOptionsHandler().getOptionsMonth().getEqualMoveCalculator().getHandler().start();
-//            getOptionsHandler().getOptionsQuarter().getEqualMoveCalculator().getHandler().start();
-//
-//            if (this instanceof SpxCLIENTObject) {
-//                // OpAvg move
-//                getOptionsHandler().getOptionsMonth().getOpAvgEqualMoveCalculator().getHandler().start();
-//            }
-//
-//            getLogic().getLogicRunner().getHandler().start();
-//            getRegularListUpdater().getHandler().start();
 
             setStarted( true );
         }

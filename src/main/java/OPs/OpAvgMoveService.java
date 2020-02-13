@@ -22,7 +22,7 @@ public class OpAvgMoveService extends MyBaseService {
 
     List moveList = new ArrayList<Double>();
 
-    public OpAvgMoveService(BASE_CLIENT_OBJECT client,Options options, double opPlag ) {
+    public OpAvgMoveService(BASE_CLIENT_OBJECT client, Options options, double opPlag) {
         super(client);
 
         this.opPlag = opPlag;
@@ -95,24 +95,31 @@ public class OpAvgMoveService extends MyBaseService {
     private double oposite(double d) {
         return d * -1;
     }
+
     public Options getOptions() {
         return options;
     }
+
     public void setOptions(Options options) {
         this.options = options;
     }
+
     public void setLiveMove(double liveMove) {
         this.liveMove = liveMove;
     }
+
     public void appendMove(double move) {
         this.move += move;
     }
+
     public double getMove() {
         return move + liveMove;
     }
+
     public void setMove(double move) {
         this.move = move;
     }
+
     public List getMoveList() {
         return moveList;
     }

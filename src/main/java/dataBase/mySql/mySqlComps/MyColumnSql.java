@@ -8,6 +8,7 @@ public abstract class MyColumnSql<T> {
     protected MyTableSql myTableSql;
     protected String name;
     BASE_CLIENT_OBJECT client;
+    public Class<T> myClass;
 
     // Constructor
     public MyColumnSql( MyTableSql myTableSql, String name ) {
@@ -20,7 +21,11 @@ public abstract class MyColumnSql<T> {
     // Abstracts functions
     public abstract T getObject();
 
-    public abstract T setLoadedObject();
+    public abstract void setLoadedObject(T object );
+
+    public abstract Class getClassType();
+
+
 
 }
 
