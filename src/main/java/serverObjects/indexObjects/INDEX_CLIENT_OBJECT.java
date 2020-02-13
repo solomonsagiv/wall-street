@@ -14,11 +14,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         setStocksNames( new String[] { "Dax", "Ndx", "Spx", "Russell" } );
     }
 
-    @Override
-    public SessionFactory getSessionfactory() {
-        return gethBsession( ).getParisFactory( );
-    }
-
     public Options getFutureOptionsFather() {
         if ( futureOptionsFather == null ) {
             futureOptionsFather = new Options( this, Options.FUTURE, getTwsData( ).getFutureOptionContract( ) );

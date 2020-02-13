@@ -5,9 +5,8 @@ import api.tws.TwsRequestHandler;
 import arik.Arik;
 import arik.locals.Emojis;
 import backGround.BackRunner;
-import dataBase.DB;
-import dataBase.HBsession;
 import dataBase.mySql.MySqlService;
+import dataBase.mySql.mySqlComps.MyTableHandler;
 import gui.FuturePanel;
 import lists.ListsService;
 import locals.L;
@@ -15,11 +14,7 @@ import locals.LocalHandler;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
 import service.MyServiceHandler;
-import tables.Tables;
-import tables.TablesHandler;
-import tables.daily.SpxTable;
 import threads.MyThread;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
@@ -29,7 +24,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
+public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Table
     JTable racesTable;
@@ -61,10 +56,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     // DB
     private int dbId = 0;
-    private DB db;
-    private Tables tables;
-    private TablesHandler tablesHandler;
-    private HBsession hBsession;
+    protected MyTableHandler myTableHandler;
 
     // Options handler
     private OptionsDataHandler optionsDataHandler;
@@ -124,7 +116,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         initEndOfIndexTrading( );
         initEndOfFutureTrading( );
         initDbId( );
-        initTables( );
         initTablesHandlers( );
 
         // MyServices
@@ -136,9 +127,7 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     // Start all
     public void startAll() {
 
-        if ( Manifest.DB ) {
-            getDb( ).startAll( );
-        } else {
+        if ( !Manifest.DB ) {
             setLoadStatusFromHB( true );
             setLoadArraysFromHB( true );
             setLoadFromDb( true );
@@ -182,12 +171,9 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
     public void fullExport() {
         try {
 
-            SpxTable.Handler arrayHandler = new SpxTable.Handler( this );
-            arrayHandler.resetData( );
-
-            getTablesHandler( ).getSumHandler( ).getHandler( ).insertLine( );
-            getTablesHandler( ).getStatusHandler( ).getHandler( ).resetData( );
-            getTablesHandler( ).getArrayHandler( ).getHandler( ).resetData( );
+            getMyTableHandler().getMySumTable().insert();
+            getMyTableHandler().getMyStatusTable().reset();
+            getMyTableHandler().getMyArraysTable().reset();
 
             // Notify
             Arik.getInstance( ).sendMessage( Arik.sagivID, getName( ) + " Export success " + Emojis.check_mark, null );
@@ -315,17 +301,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     public void setStocksNames( String[] stocksNames ) {
         this.stocksNames = stocksNames;
-    }
-
-    public DB getDb() {
-        if ( db == null ) {
-            db = new DB( this );
-        }
-        return db;
-    }
-
-    public void setDb( DB db ) {
-        this.db = db;
     }
 
     public BackRunner getBackRunner() {
@@ -464,35 +439,12 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         this.dbId = dbId;
     }
 
-    public Tables getTables() {
-        return tables;
-    }
-
-    public void setTables( Tables tables ) {
-        this.tables = tables;
-    }
-
-    public TablesHandler getTablesHandler() {
-        return tablesHandler;
-    }
-
-    public void setTablesHandler( TablesHandler tablesHandler ) {
-        this.tablesHandler = tablesHandler;
-    }
-
     public void setLoadStatusFromHB( boolean loadStatusFromHB ) {
         this.loadStatusFromHB = loadStatusFromHB;
     }
 
     public void setLoadArraysFromHB( boolean loadArraysFromHB ) {
         this.loadArraysFromHB = loadArraysFromHB;
-    }
-
-    public HBsession gethBsession() {
-        if ( hBsession == null ) {
-            hBsession = new HBsession( );
-        }
-        return hBsession;
     }
 
     public int getIndexSum() {
@@ -561,6 +513,10 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
 
     public MyServiceHandler getMyServiceHandler() {
         return myServiceHandler;
+    }
+
+    public MyTableHandler getMyTableHandler() {
+        return myTableHandler;
     }
 
     public JTable getRacesTable() {
@@ -668,6 +624,10 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
         return listsService;
     }
 
+    public MySqlService getMySqlService() {
+        return mySqlService;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
@@ -693,10 +653,6 @@ public abstract class BASE_CLIENT_OBJECT implements IDataBase, IBaseClient {
                 ", name='" + name + '\'' +
                 ", backRunner=" + backRunner +
                 ", dbId=" + dbId +
-                ", db=" + db +
-                ", tables=" + tables +
-                ", tablesHandler=" + tablesHandler +
-                ", hBsession=" + hBsession +
                 ", optionsDataHandler=" + optionsDataHandler +
                 ", futurePanel=" + futurePanel +
                 ", equalMovePlag=" + equalMovePlag +

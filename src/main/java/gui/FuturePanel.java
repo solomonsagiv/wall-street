@@ -151,7 +151,7 @@ public class FuturePanel extends BaseFuturePanel {
                     exportSumLine.addActionListener( new ActionListener( ) {
                         @Override
                         public void actionPerformed( ActionEvent e ) {
-                            client.getTablesHandler( ).getSumHandler( ).getHandler( ).insertLine( );
+                            client.getMyTableHandler().getMySumTable().insert();
                         }
                     } );
 

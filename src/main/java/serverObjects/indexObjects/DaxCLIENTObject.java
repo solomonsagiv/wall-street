@@ -3,15 +3,6 @@ package serverObjects.indexObjects;
 import api.Manifest;
 import com.ib.client.Contract;
 import serverObjects.TwsData;
-import tables.TableDayFather;
-import tables.TableSumFather;
-import tables.Tables;
-import tables.daily.DaxTable;
-import tables.status.IndexArraysTable;
-import tables.status.IndexStatusTable;
-import tables.status.TableStatusfather;
-import tables.status.TablesArraysFather;
-import tables.summery.Dax_daily;
 
 import java.time.LocalTime;
 
@@ -78,31 +69,6 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
 
-    @Override
-    public void initTables() {
-        setTables( new Tables( ) {
-
-            @Override
-            public TableSumFather getTableSum() {
-                return new Dax_daily( );
-            }
-
-            @Override
-            public TableStatusfather getTableStatus() {
-                return new IndexStatusTable( );
-            }
-
-            @Override
-            public TableDayFather getTableDay() {
-                return new DaxTable( );
-            }
-
-            @Override
-            public TablesArraysFather getTableArrays() {
-                return new IndexArraysTable( );
-            }
-        } );
-    }
 
     @Override
     public void initTablesHandlers() {

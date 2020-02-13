@@ -11,7 +11,6 @@ public interface IBaseClient {
     void initEndOfIndexTrading( );
     void initEndOfFutureTrading( );
     void initDbId( );
-    void initTables( );
     void initTablesHandlers( );
 
 }

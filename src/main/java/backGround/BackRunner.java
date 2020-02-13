@@ -81,7 +81,7 @@ public class BackRunner {
                             Arik.getInstance().sendMessageToEveryOne( client.getArikSumLine() );
                         }
 
-                        client.getDb( ).closeAll( );
+                        client.getMyServiceHandler().removeService( client.getMySqlService() );
                         client.getMyServiceHandler().removeService( client.getListsService() );
                     }
 

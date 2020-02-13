@@ -1,6 +1,7 @@
 package setting;
 
-import dataBase.HB;
+import arik.Arik;
+import arik.locals.Emojis;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
@@ -11,7 +12,6 @@ import serverObjects.indexObjects.DaxCLIENTObject;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.NdxCLIENTObject;
 import serverObjects.indexObjects.SpxCLIENTObject;
-import tables.status.IndexStatusTable;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -628,7 +628,7 @@ public class Setting {
             btnStopDb.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
                     try {
-                        client.getDb( ).getMySql( ).getHandler( ).close( );
+                        client.getMyServiceHandler().removeService( client.getMySqlService() );
                     } catch ( Exception e ) {
                         popup( "Stop mysql faild", e );
                     }
@@ -644,9 +644,7 @@ public class Setting {
             btnStartDb.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
                     try {
-
-                        client.getDb( ).getMySql( ).getHandler( ).start( );
-
+                        client.getMyServiceHandler().addService( client.getMySqlService() );
                     } catch ( Exception e2 ) {
                         popup( "Start mysql faild", e2 );
                     }
@@ -677,9 +675,10 @@ public class Setting {
             btnResetStatus = new JButton( "Reset status" );
             btnResetStatus.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
-                    client.getTablesHandler( ).getArrayHandler( ).getHandler( ).resetData( );
-                    client.getTablesHandler( ).getStatusHandler( ).getHandler( ).resetData( );
-//                    Arik.getInstance( ).sendMessage( Arik.sagivID, "Reset success " + Emojis.check_mark, null );
+
+                    client.getMyTableHandler().getMyStatusTable().reset();
+                    client.getMyTableHandler().getMyArraysTable().reset();
+                    Arik.getInstance( ).sendMessage( Arik.sagivID, "Reset success " + Emojis.check_mark, null );
                 }
             } );
             btnResetStatus.setForeground( new Color( 0, 0, 51 ) );
@@ -691,9 +690,7 @@ public class Setting {
             btnLoadStatus = new JButton( "Load status " );
             btnLoadStatus.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
-
-                    client.getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
-
+                    client.getMyTableHandler().getMyStatusTable().load();
                 }
             } );
             btnLoadStatus.setForeground( new Color( 0, 0, 51 ) );
@@ -801,7 +798,7 @@ public class Setting {
             JButton btnSumLine = new JButton( "Sum line" );
             btnSumLine.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
-                    client.getTablesHandler( ).getSumHandler( ).getHandler( ).insertLine( );
+                    client.getMyTableHandler().getMyStatusTable().insert();
                 }
             } );
             btnSumLine.setForeground( new Color( 0, 0, 51 ) );
@@ -822,13 +819,6 @@ public class Setting {
 
                         // If Index object
                         if ( client instanceof INDEX_CLIENT_OBJECT ) {
-
-                            // Load data from DB
-                            IndexStatusTable table = ( IndexStatusTable ) HB.get_line_by_id( IndexStatusTable.class,
-                                    client.getDbId( ), client.getSessionfactory( ) );
-
-                            JSONObject props = new JSONObject( table.getOptions( ) ).getJSONObject( options.getName( ) ).getJSONObject( "props" );
-                            options.setPropsDataFromJson( props );
 
                             // Set data
                             if ( !InterestField.getText( ).isEmpty( ) ) {
@@ -852,16 +842,14 @@ public class Setting {
                             }
 
                             // Update to DB
-                            table.setOptions( client.getOptionsHandler( ).getAllOptionsAsJson( ).toString( ) );
-
-                            HB.update( client.getSessionfactory( ), table );
+                            client.getMyTableHandler().getMyStatusTable().update();
 
                             // Update status
                             updateStatus( );
                         }
 
                     } catch ( Exception e2 ) {
-
+                        e2.printStackTrace();
                         popup( "Update faild", e2 );
 
                     }

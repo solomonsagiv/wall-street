@@ -11,6 +11,7 @@ public abstract class MyTableSql implements IMyTableSql {
     // Variables
     public String tableName;
     public Set< MyColumnSql > columns = new HashSet<>( );
+    public Set< MyLoadAbleColumn > loadAbleColumns = new HashSet<>( );
     protected BASE_CLIENT_OBJECT client;
 
     // Constructor
@@ -22,6 +23,12 @@ public abstract class MyTableSql implements IMyTableSql {
 
     public void addColumn( MyColumnSql columnSql ) {
         columns.add( columnSql );
+    }
+
+    public void addLoadAbleColumn( MyColumnSql columnSql ) {
+        if ( columnSql instanceof MyLoadAbleColumn ) {
+            loadAbleColumns.add( ( MyLoadAbleColumn ) columnSql );
+        }
     }
 
 

@@ -1,13 +1,13 @@
 package charts;
 
+import arik.Arik;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tables.bounds.BoundsTable;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
 
 public class MyFreeChart extends JFrame {
 
@@ -48,11 +48,24 @@ public class MyFreeChart extends JFrame {
     private void init() {
 
         new Thread( () -> {
+            try {
+                ResultSet rs = client.getMyTableHandler( ).getMyBoundsTable( ).getBound( client.getName( ), getName( ) );
 
-            BoundsTable boundsTable = client.getTablesHandler( ).getBoundsHandler( ).getBound( client.getName( ), getName( ) );
-            setPreferredSize( new Dimension( boundsTable.getWidth( ), boundsTable.getHeight( ) ) );
-            setBounds( boundsTable.getX( ), boundsTable.getY( ), boundsTable.getWidth( ), boundsTable.getHeight( ) );
+                int width = 100, height = 100, x = 100, y = 100;
 
+                while ( rs.next( ) ) {
+                    x = rs.getInt( "x" );
+                    y = rs.getInt( "y" );
+                    width = rs.getInt( "width" );
+                    height = rs.getInt( "height" );
+                }
+
+                setPreferredSize( new Dimension( width, height ) );
+                setBounds( x, y, width, height );
+            } catch ( Exception e ) {
+                e.printStackTrace();
+                Arik.getInstance().sendErrorMessage( e );
+            }
         } ).start( );
 
 
@@ -79,7 +92,7 @@ public class MyFreeChart extends JFrame {
     public void onClose( WindowEvent e ) {
 
         new Thread( () -> {
-            client.getTablesHandler( ).getBoundsHandler( ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
+            client.getMyTableHandler( ).getMyBoundsTable( ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
         } ).start( );
 
         for ( MySingleFreeChart mySingleFreeChart : singleFreeCharts ) {

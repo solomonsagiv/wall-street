@@ -2,14 +2,10 @@ package serverObjects.indexObjects;
 
 import api.Manifest;
 import com.ib.client.Contract;
+import dataBase.mySql.mySqlComps.MyTableHandler;
+import dataBase.mySql.tables.MyDayTable;
+import dataBase.mySql.tables.MySumTable;
 import serverObjects.TwsData;
-import tables.*;
-import tables.daily.NdxTable;
-import tables.status.IndexArraysTable;
-import tables.status.IndexStatusTable;
-import tables.status.TableStatusfather;
-import tables.status.TablesArraysFather;
-import tables.summery.Ndx_daily;
 
 import java.time.LocalTime;
 
@@ -131,34 +127,6 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initTables() {
-
-
-        setTables( new Tables( ) {
-
-            @Override
-            public TableSumFather getTableSum() {
-                return new Ndx_daily( );
-            }
-
-            @Override
-            public TableStatusfather getTableStatus() {
-                return new IndexStatusTable( );
-            }
-
-            @Override
-            public TableDayFather getTableDay() {
-                return new NdxTable( );
-            }
-
-            @Override
-            public TablesArraysFather getTableArrays() {
-                return new IndexArraysTable( );
-            }
-        } );
-    }
-
-    @Override
     public void initName() {
         setName( "ndx" );
     }
@@ -175,8 +143,10 @@ public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initTablesHandlers() {
-        setTablesHandler( new TablesHandler( new NdxTable.Handler( this ), new IndexTableSum.Handler( this ),
-                new IndexStatusTable.Handler( this ), new IndexArraysTable.Handler( this ) ) );
+        MyDayTable myDayTable = new MyDayTable( this, "ndx" );
+        MySumTable mySumTable = new MySumTable( this, "ndx_daily" );
+
+        myTableHandler = new MyTableHandler( this, myDayTable, mySumTable);
     }
 
     @Override

@@ -29,7 +29,6 @@ public class ConnectionPool implements IConnectionPool {
     public static ConnectionPool getConnectionsPoolInstance() {
         if ( connectionPool == null ) {
             try {
-
                 String url = "jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/";
                 String user = "sagivMasterUser";
                 String password = "Solomonsagivawsmaster12";

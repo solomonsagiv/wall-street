@@ -2,14 +2,10 @@ package serverObjects.indexObjects;
 
 import api.Manifest;
 import com.ib.client.Contract;
+import dataBase.mySql.mySqlComps.MyTableHandler;
+import dataBase.mySql.tables.MyDayTable;
+import dataBase.mySql.tables.MySumTable;
 import serverObjects.TwsData;
-import tables.*;
-import tables.daily.SpxTable;
-import tables.status.IndexArraysTable;
-import tables.status.IndexStatusTable;
-import tables.status.TableStatusfather;
-import tables.status.TablesArraysFather;
-import tables.summery.SpxDaily;
 
 import java.time.LocalTime;
 
@@ -158,36 +154,12 @@ public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initTables() {
-
-        setTables( new Tables( ) {
-
-            @Override
-            public TableSumFather getTableSum() {
-                return new SpxDaily( );
-            }
-
-            @Override
-            public TableStatusfather getTableStatus() {
-                return new IndexStatusTable( );
-            }
-
-            @Override
-            public TableDayFather getTableDay() {
-                return new SpxTable( );
-            }
-
-            @Override
-            public TablesArraysFather getTableArrays() {
-                return new IndexArraysTable( );
-            }
-        } );
-    }
-
-    @Override
     public void initTablesHandlers() {
-        setTablesHandler( new TablesHandler( new SpxTable.Handler( this ), new IndexTableSum.Handler( this ),
-                new IndexStatusTable.Handler( this ), new IndexArraysTable.Handler( this ) ) );
+
+        MyDayTable myDayTable = new MyDayTable( this, "spx" );
+        MySumTable mySumTable = new MySumTable( this, "spx_daily" );
+
+        myTableHandler = new MyTableHandler( this, myDayTable, mySumTable);
     }
 
     @Override

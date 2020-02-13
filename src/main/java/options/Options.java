@@ -271,7 +271,6 @@ public class Options {
 
             return future;
         } catch ( Exception e ) {
-            e.printStackTrace( );
             return 0;
         }
     }

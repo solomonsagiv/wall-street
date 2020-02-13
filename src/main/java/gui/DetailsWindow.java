@@ -234,7 +234,7 @@ public class DetailsWindow {
             list.add( "Base: " + client.getBase( ) );
             list.add( "\n" );
             list.add( "DB: " + client.isDbRunning( ) );
-            list.add( "MySql: " + client.getDb( ).getMySql( ).isRun( ) );
+            list.add( "MySql: " + client.getMyServiceHandler().isExist( client.getMySqlService() ) );
             list.add( "\n" );
             list.add( "Exp date: " + options.getExpDate( ) );
             list.add( "Days: " + options.getDays( ) );

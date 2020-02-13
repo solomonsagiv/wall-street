@@ -1,19 +1,16 @@
 package dataBase.mySql;
 
-import api.Manifest;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
-import tables.TablesHandler;
 
 //MySql class
 public class MySqlService extends MyBaseService {
 
     BASE_CLIENT_OBJECT client;
-    TablesHandler tablesHandler;
 
     public MySqlService(BASE_CLIENT_OBJECT client) {
         super( client );
-        this.tablesHandler = client.getTablesHandler();
+        this.client = client;
     }
 
     @Override

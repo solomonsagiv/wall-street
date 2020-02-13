@@ -1,7 +1,9 @@
 package dataBase.mySql.tables;
 
+import arik.Arik;
 import dataBase.mySql.MySql;
 import dataBase.mySql.mySqlComps.MyColumnSql;
+import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MyTableSql;
 import options.Options;
 import org.json.JSONObject;
@@ -14,228 +16,163 @@ import java.time.LocalTime;
 
 public class MyStatusTable extends MyTableSql {
 
+    private MyColumnSql< String > name;
+    private MyColumnSql< String > time;
+    private MyColumnSql< Double > ind;
+    private MyLoadAbleColumn< Integer > conUp;
+    private MyLoadAbleColumn< Integer > conDown;
+    private MyLoadAbleColumn< Integer > indUp;
+    private MyLoadAbleColumn< Integer > indDown;
+    private MyColumnSql< Double > base;
+    private MyColumnSql< Double > open;
+    private MyColumnSql< Double > high;
+    private MyColumnSql< Double > low;
+    private MyLoadAbleColumn< String > options;
 
-    public static void main(String[] args) {
-        MyStatusTable myStatusTable = new MyStatusTable(DaxCLIENTObject.getInstance(), "status");
-        myStatusTable.update();
-    }
-
-    private MyColumnSql<String> name;
-    private MyColumnSql<String> time;
-    private MyColumnSql<Double> ind;
-    private MyColumnSql<Integer> conUp;
-    private MyColumnSql<Integer> conDown;
-    private MyColumnSql<Integer> indUp;
-    private MyColumnSql<Integer> indDown;
-    private MyColumnSql<Double> base;
-    private MyColumnSql<Double> open;
-    private MyColumnSql<Double> high;
-    private MyColumnSql<Double> low;
-    private MyColumnSql<String> options;
-
-    public MyStatusTable(BASE_CLIENT_OBJECT client, String name) {
-        super(client, name);
+    public MyStatusTable( BASE_CLIENT_OBJECT client, String tableName ) {
+        super( client, tableName );
     }
 
     @Override
     public void initColumns() {
-        name = new MyColumnSql<>(this, "name") {
+        name = new MyColumnSql<>( this, "name", MyColumnSql.STRING ) {
             @Override
             public String getObject() {
-                return client.getName();
-            }
-
-            @Override
-            public void setLoadedObject(String name) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return String.class;
+                return client.getName( );
             }
         };
 
-        time = new MyColumnSql<>(this, "time") {
+        time = new MyColumnSql<>( this, "time", MyColumnSql.STRING ) {
             @Override
             public String getObject() {
-                return LocalTime.now().toString();
-            }
-
-            @Override
-            public void setLoadedObject(String object) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return String.class;
+                return LocalTime.now( ).toString( );
             }
         };
 
-        ind = new MyColumnSql<>(this, "ind") {
+        ind = new MyColumnSql<>( this, "ind", MyColumnSql.DOUBLE ) {
             @Override
             public Double getObject() {
-                return client.getIndex();
-            }
-
-            @Override
-            public void setLoadedObject(Double object) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return Double.class;
+                return client.getIndex( );
             }
         };
 
-        conUp = new MyColumnSql<>(this, "conUp") {
+        conUp = new MyLoadAbleColumn<>( this, "conUp", MyColumnSql.INT ) {
             @Override
             public Integer getObject() {
-                return client.getConUp();
+                return client.getConUp( );
             }
 
             @Override
-            public void setLoadedObject(Integer object) {
-                client.setConUp(object);
+            public void setLoadedObject( Integer object ) {
+                client.setConUp( object );
             }
 
             @Override
-            public Class getClassType() {
-                return Integer.class;
+            public Integer getResetObject() {
+                return 0;
             }
+
         };
 
-        conDown = new MyColumnSql<>(this, "conDown") {
+        conDown = new MyLoadAbleColumn<>( this, "conDown", MyColumnSql.INT ) {
             @Override
             public Integer getObject() {
-                return client.getConDown();
+                return client.getConDown( );
             }
 
             @Override
-            public void setLoadedObject(Integer object) {
-                client.setConDown(object);
+            public void setLoadedObject( Integer object ) {
+                client.setConDown( object );
             }
 
             @Override
-            public Class getClassType() {
-                return Integer.class;
+            public Integer getResetObject() {
+                return 0;
             }
+
         };
 
-        indUp = new MyColumnSql<>(this, "indUp") {
+        indUp = new MyLoadAbleColumn<>( this, "indUp", MyColumnSql.INT ) {
             @Override
             public Integer getObject() {
-                return client.getIndexUp();
+                return client.getIndexUp( );
             }
 
             @Override
-            public void setLoadedObject(Integer object) {
-                client.setIndexUp(object);
+            public void setLoadedObject( Integer object ) {
+                client.setIndexUp( object );
             }
 
             @Override
-            public Class getClassType() {
-                return Integer.class;
+            public Integer getResetObject() {
+                return 0;
             }
+
         };
 
-        indDown = new MyColumnSql<>(this, "indDown") {
+        indDown = new MyLoadAbleColumn<>( this, "indDown", MyColumnSql.INT ) {
             @Override
             public Integer getObject() {
-                return client.getIndexDown();
+                return client.getIndexDown( );
             }
 
             @Override
-            public void setLoadedObject(Integer object) {
-                client.setIndexDown(object);
+            public void setLoadedObject( Integer object ) {
+                client.setIndexDown( object );
             }
 
             @Override
-            public Class getClassType() {
-                return Integer.class;
+            public Integer getResetObject() {
+                return 0;
             }
+
         };
 
-        base = new MyColumnSql<>(this, "base") {
+        base = new MyColumnSql< Double >( this, "base", MyColumnSql.DOUBLE ) {
             @Override
             public Double getObject() {
-                return client.getBase();
-            }
-
-            @Override
-            public void setLoadedObject(Double object) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return Double.class;
+                return client.getBase( );
             }
         };
 
-        open = new MyColumnSql<>(this, "open") {
+        open = new MyColumnSql<>( this, "open", MyColumnSql.DOUBLE ) {
             @Override
             public Double getObject() {
-                return client.getOpen();
-            }
-
-            @Override
-            public void setLoadedObject(Double object) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return Double.class;
+                return client.getOpen( );
             }
         };
 
-        high = new MyColumnSql<>(this, "high") {
+        high = new MyColumnSql<>( this, "high", MyColumnSql.DOUBLE ) {
             @Override
             public Double getObject() {
-                return client.getHigh();
-            }
-
-            @Override
-            public void setLoadedObject(Double object) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return Double.class;
+                return client.getHigh( );
             }
         };
 
-        low = new MyColumnSql<>(this, "low") {
+        low = new MyColumnSql<>( this, "low", MyColumnSql.DOUBLE ) {
             @Override
             public Double getObject() {
-                return client.getLow();
-            }
-
-            @Override
-            public void setLoadedObject(Double object) {
-            }
-
-            @Override
-            public Class getClassType() {
-                return Double.class;
+                return client.getLow( );
             }
         };
 
-        options = new MyColumnSql<>(this, "options") {
+        options = new MyLoadAbleColumn< String >( this, "options", MyColumnSql.STRING ) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getAllOptionsAsJson().toString();
+                return client.getOptionsHandler( ).getAllOptionsAsJson( ).toString( );
             }
 
             @Override
-            public void setLoadedObject(String object) {
-                JSONObject optionsData = new JSONObject(object);
-                for (Options options : client.getOptionsHandler().getOptionsList()) {
-                    options.setDataFromJson(optionsData.getJSONObject(options.getName()));
+            public void setLoadedObject( String object ) {
+                JSONObject optionsData = new JSONObject( object );
+                for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+                    options.setDataFromJson( optionsData.getJSONObject( options.getName( ) ) );
                 }
             }
 
             @Override
-            public Class getClassType() {
-                return String.class;
+            public String getResetObject() {
+                return client.getOptionsHandler( ).getAllOptionsEmptyJson( ).toString( );
             }
         };
     }
@@ -247,38 +184,69 @@ public class MyStatusTable extends MyTableSql {
     @Override
     public void load() {
         try {
-            String query = String.format("SELECT * FROM stock.%s WHERE id ='%S'", name, client.getDbId());
-            ResultSet rs = MySql.select(query);
 
-            while (true) {
+            String ta = tableName;
+            int id = client.getDbId();
 
-                if (!rs.next()) break;
+            String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", tableName, client.getDbId( ) );
 
-                    for (MyColumnSql column: columns) {
-                        if (column.getClassType().getClass() instanceof String.getc){
+            System.out.println( query );
+            ResultSet rs = MySql.select( query );
 
-                        }
+            while ( rs.next( ) ) {
+
+                for ( MyLoadAbleColumn column : loadAbleColumns ) {
+                    switch ( column.type ) {
+                        case MyColumnSql.DOUBLE:
+                            double d = rs.getDouble( column.name );
+                            column.setLoadedObject( d );
+                            break;
+                        case MyColumnSql.INT:
+                            int i = rs.getInt( column.name );
+                            column.setLoadedObject( i );
+                            break;
+                        case MyColumnSql.STRING:
+                            String s = rs.getString( column.name );
+                            column.setLoadedObject( s );
+                            break;
+                        default:
+                            break;
                     }
-
-                String lastName = rs.getString("Lname");
-                System.out.println(lastName + "\n");
+                }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch ( SQLException e ) {
+            e.printStackTrace( );
+            Arik.getInstance( ).sendErrorMessage( e );
         }
-
-
     }
 
     @Override
     public void update() {
-        super.updateFromSuper();
+        super.updateFromSuper( );
     }
 
     @Override
     public void reset() {
+        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", tableName ) );
+        int i = 0;
 
+        for ( MyLoadAbleColumn column : loadAbleColumns ) {
+            if ( i < loadAbleColumns.size( ) - 1 ) {
+                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'," );
+            } else {
+                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'" );
+            }
+            i++;
+        }
+
+        String endQuery = String.format( " WHERE `id`='%s';", client.getDbId( ) );
+
+        query.append( endQuery );
+
+        System.out.println( query );
+
+        MySql.update( query.toString( ) );
     }
 
     @Override

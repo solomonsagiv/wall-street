@@ -5,6 +5,7 @@ import api.Manifest;
 import locals.L;
 import locals.Themes;
 import logger.MyLogger;
+import serverObjects.indexObjects.DaxCLIENTObject;
 import serverObjects.indexObjects.NdxCLIENTObject;
 import serverObjects.indexObjects.SpxCLIENTObject;
 import setting.Setting;
@@ -87,15 +88,16 @@ public class MainWindow {
     }
 
     private static void loadOnStartUp() {
+        DaxCLIENTObject.getInstance();
 
         SpxCLIENTObject spx = SpxCLIENTObject.getInstance( );
-        spx.getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
-        spx.getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
+
+        spx.getMyTableHandler().getMyStatusTable().load();
+        spx.getMyTableHandler().getMyArraysTable().load();
 
         NdxCLIENTObject ndx = NdxCLIENTObject.getInstance( );
-        ndx.getTablesHandler( ).getStatusHandler( ).getHandler( ).loadData( );
-        ndx.getTablesHandler( ).getArrayHandler( ).getHandler( ).loadData( );
-
+        ndx.getMyTableHandler().getMyStatusTable().load();
+        ndx.getMyTableHandler().getMyArraysTable().load();
     }
 
     /**
