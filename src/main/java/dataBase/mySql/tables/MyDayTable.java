@@ -2,9 +2,9 @@ package dataBase.mySql.tables;
 
 import api.Manifest;
 import dataBase.mySql.mySqlComps.MyColumnSql;
-import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MyTableSql;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -26,7 +26,7 @@ public class MyDayTable extends MyTableSql {
     private MyColumnSql<Integer> index_down;
     private MyColumnSql options;
     private MyColumnSql base;
-    private MyColumnSql<Double> opAvg;
+    private MyColumnSql<Double> op_avg;
 
     // Constructor
     public MyDayTable( BASE_CLIENT_OBJECT client, String tableName ) {
@@ -133,7 +133,7 @@ public class MyDayTable extends MyTableSql {
             }
         };
 
-        opAvg = new MyColumnSql<>( this, "opAvg", MyColumnSql.DOUBLE ) {
+        op_avg = new MyColumnSql<>( this, "op_avg", MyColumnSql.DOUBLE ) {
             @Override
             public Double getObject() {
                 return client.getOptionsHandler().getMainOptions().getOpAvg();

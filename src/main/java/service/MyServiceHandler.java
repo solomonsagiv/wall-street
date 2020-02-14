@@ -72,7 +72,7 @@ public class MyServiceHandler extends MyThread implements Runnable {
     }
 
     private void initSleepCount() {
-        if ( sleepCount == 10000 ) {
+        if ( sleepCount == 300000 ) {
             sleepCount = 0;
         }
         sleepCount += sleep;

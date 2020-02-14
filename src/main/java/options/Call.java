@@ -10,6 +10,7 @@ public class Call extends Option {
         super( strike, id );
 
         name = side + strike;
+        setCallOrPut(true);
         intName = side + (int) strike;
     }
 

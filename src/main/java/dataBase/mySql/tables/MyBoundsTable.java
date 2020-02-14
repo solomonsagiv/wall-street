@@ -10,6 +10,8 @@ public class MyBoundsTable extends MyTableSql {
 
     private int id;
 
+    String tableName = "bounds.bounds";
+
     // Constructor
     public MyBoundsTable( BASE_CLIENT_OBJECT client, String tableName ) {
         super( client, tableName );
@@ -17,7 +19,7 @@ public class MyBoundsTable extends MyTableSql {
 
     public ResultSet getBound( String stockName, String name ) {
         try {
-            String query = String.format( "from %s where %s = '%s' and %s = '%s'", "BoundsTable", "stockName", stockName, "name", name );
+            String query = String.format( "SELECT * FROM %s WHERE %s = '%s' AND %s = '%s'", "bounds.bounds", "stockName", stockName, "name", name );
             return MySql.select( query );
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -29,7 +31,7 @@ public class MyBoundsTable extends MyTableSql {
     private void updateBound( String stockName, String name, int x, int y, int width, int height ) {
         try {
             String query = String.format( "UPDATE `bounds`.`bounds` SET `stockName`='%S', `name`='%S', `x`='%S', `y`='%S', " +
-                    "`width`='%S', `height`='%S' WHERE `stockName`='%S';", stockName, name, x, y, width, height );
+                    "`width`='%S', `height`='%S' WHERE `stockName`='%S';", stockName, name, x, y, width, height, stockName );
             // Update the new bound
             MySql.update( query );
         } catch ( Exception e ) {

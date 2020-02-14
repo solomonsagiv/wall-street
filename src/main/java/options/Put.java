@@ -10,6 +10,7 @@ public class Put extends Option {
         super( strike, id );
 
         name = side + strike;
+        setCallOrPut(false);
         intName = side + (int) strike;
     }
 

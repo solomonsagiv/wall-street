@@ -2,6 +2,9 @@ package serverObjects.indexObjects;
 
 import api.Manifest;
 import com.ib.client.Contract;
+import dataBase.mySql.mySqlComps.MyTableHandler;
+import dataBase.mySql.tables.MyDayTable;
+import dataBase.mySql.tables.MySumTable;
 import serverObjects.TwsData;
 
 import java.time.LocalTime;
@@ -12,14 +15,14 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
 
     // Private constructor
     private DaxCLIENTObject() {
-        super( );
-        setSpecificData( );
+        super();
+        setSpecificData();
     }
 
     // Get instance
     public static DaxCLIENTObject getInstance() {
-        if ( client == null ) {
-            client = new DaxCLIENTObject( );
+        if (client == null) {
+            client = new DaxCLIENTObject();
         }
         return client;
     }
@@ -27,53 +30,57 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
     // Specification
     private void setSpecificData() {
         // Equal move
-        setEqualMovePlag( 1 );
+        setEqualMovePlag(1);
     }
 
     @Override
     public void initTwsData() {
 
-        TwsData twsData = new TwsData( );
+        TwsData twsData = new TwsData();
 
-        twsData.setQuantity( 1 );
+        twsData.setQuantity(1);
 
-        Contract indexContract = new Contract( );
-        indexContract.symbol( "DAX" );
-        indexContract.secType( "IND" );
-        indexContract.currency( "EUR" );
-        indexContract.exchange( "DTB" );
-        indexContract.multiplier( "25" );
-        twsData.setIndexContract( indexContract );
+        Contract indexContract = new Contract();
+        indexContract.symbol("DAX");
+        indexContract.secType("IND");
+        indexContract.currency("EUR");
+        indexContract.exchange("DTB");
+        indexContract.multiplier("25");
+        twsData.setIndexContract(indexContract);
 
-        Contract futureContract = new Contract( );
-        futureContract.symbol( "DAX" );
-        futureContract.secType( "FUT" );
-        futureContract.currency( "EUR" );
-        futureContract.exchange( "DTB" );
-        futureContract.multiplier( "5" );
-        futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
-        twsData.setFutureContract( futureContract );
+        Contract futureContract = new Contract();
+        futureContract.symbol("DAX");
+        futureContract.secType("FUT");
+        futureContract.currency("EUR");
+        futureContract.exchange("DTB");
+        futureContract.multiplier("5");
+        futureContract.lastTradeDateOrContractMonth(Manifest.EXPIRY);
+        twsData.setFutureContract(futureContract);
 
-        Contract indexOptionContract = new Contract( );
-        indexOptionContract.secType( "OPT" );
-        indexOptionContract.symbol( "ODAX" );
-        indexOptionContract.tradingClass( "ODAX" );
-        indexOptionContract.currency( "EUR" );
-        indexOptionContract.exchange( "DTB" );
-        indexOptionContract.multiplier( "5" );
-        indexOptionContract.includeExpired( true );
-        twsData.setOptionMonthContract( indexOptionContract );
+        Contract indexOptionContract = new Contract();
+        indexOptionContract.secType("OPT");
+        indexOptionContract.symbol("ODAX");
+        indexOptionContract.tradingClass("ODAX");
+        indexOptionContract.currency("EUR");
+        indexOptionContract.exchange("DTB");
+        indexOptionContract.multiplier("5");
+        indexOptionContract.includeExpired(true);
+        twsData.setOptionMonthContract(indexOptionContract);
 
-        setTwsData( twsData );
+        setTwsData(twsData);
 
     }
-
 
 
     @Override
     public void initTablesHandlers() {
 
+        MyDayTable myDayTable = new MyDayTable(this, "dax");
+        MySumTable mySumTable = new MySumTable(this, "dax_daily");
+
+        myTableHandler = new MyTableHandler(this, myDayTable, mySumTable);
     }
+
     @Override
     public double getTheoAvgMargin() {
         return 0;
@@ -81,12 +88,12 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initName() {
-        setName( "dax" );
+        setName("dax");
     }
 
     @Override
     public void initRacesMargin() {
-        setRacesMargin( 1.5 );
+        setRacesMargin(1.5);
     }
 
     @Override
@@ -96,29 +103,29 @@ public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initStartOfIndexTrading() {
-        setStartOfIndexTrading( LocalTime.of( 10, 0, 0 ) );
+        setStartOfIndexTrading(LocalTime.of(10, 0, 0));
     }
 
     @Override
     public void initEndOfIndexTrading() {
-        setEndOfIndexTrading( LocalTime.of( 18, 30, 0 ) );
+        setEndOfIndexTrading(LocalTime.of(18, 30, 0));
     }
 
     @Override
     public void initEndOfFutureTrading() {
-        initEndOfIndexTrading( );
+        initEndOfIndexTrading();
     }
 
     @Override
     public void initIds() {
-        setBaseId( 5000 );
-        getTwsData( ).setIndexId( getBaseId( ) + 1 );
-        getTwsData( ).setFutureId( getBaseId( ) + 2 );
+        setBaseId(5000);
+        getTwsData().setIndexId(getBaseId() + 1);
+        getTwsData().setFutureId(getBaseId() + 2);
     }
 
     @Override
     public void initDbId() {
-        setDbId( 1 );
+        setDbId(1);
     }
 
 }

@@ -2,11 +2,12 @@ package setting;
 
 import arik.Arik;
 import arik.locals.Emojis;
+import dataBase.mySql.mySqlComps.MyTableHandler;
+import dataBase.mySql.tables.MyStatusTable;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
 import options.Options;
-import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.DaxCLIENTObject;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -840,6 +841,9 @@ public class Setting {
                                 devidend = Double.parseDouble( devidendField.getText( ) );
                                 options.setDevidend( devidend );
                             }
+
+                            MyTableHandler myTableHandler = client.getMyTableHandler();
+                            MyStatusTable statusTable = client.getMyTableHandler().getMyStatusTable();
 
                             // Update to DB
                             client.getMyTableHandler().getMyStatusTable().update();

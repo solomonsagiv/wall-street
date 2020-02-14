@@ -47,6 +47,7 @@ public class MyBlackScholes {
                 double callCalc = BlackScholesFormula.calculate( call.isCallOrPut( ), targetPrice, call.getStrike( ),
                         interest, timeToExp, stDev );
 
+
                 if ( !callEntered ) {
 
                     if ( callCalc < call.getBidAskAvg( ) ) {

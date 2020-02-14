@@ -1,5 +1,6 @@
 package dataBase.mySql;
 
+import api.Manifest;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
@@ -16,30 +17,30 @@ public class MySqlService extends MyBaseService {
     @Override
     public void go() {
 
-//        // Updater
-//        if (Manifest.DB_UPDATER) {
-//            // Status
-//            if (sleepCount % 1000 == 0) {
-//                client.getTablesHandler().getStatusHandler().getHandler().updateData();
-//            }
-//        }
-//
-//        // DB runner
-//        if (Manifest.DB_RUNNER) {
-//
-//            // Insert line
-//            client.getTablesHandler().getDayHandler().getHandler().insertLine();
-//
-//            // Arrays
-//            if (sleepCount % 30000 == 0) {
-//                client.getTablesHandler().getArrayHandler().getHandler().updateData();
-//            }
-//
-//            // Reset sleep count
-//            if (sleepCount == 3000000) {
-//                sleepCount = 0;
-//            }
-//        }
+        // Updater
+        if (Manifest.DB_UPDATER) {
+            // Status
+            if (sleepCount % 1000 == 0) {
+                client.getMyTableHandler().getMyStatusTable().update();
+            }
+        }
+
+        // DB runner
+        if (Manifest.DB_RUNNER) {
+
+            // Insert line
+            client.getMyTableHandler().getMyDayTable().insert();
+
+            // Arrays
+            if (sleepCount % 30000 == 0) {
+                client.getMyTableHandler().getMyArraysTable().update();
+            }
+
+            // Reset sleep count
+            if (sleepCount == 3000000) {
+                sleepCount = 0;
+            }
+        }
     }
 
     @Override

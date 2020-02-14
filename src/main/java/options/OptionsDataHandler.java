@@ -89,8 +89,6 @@ public class OptionsDataHandler {
 
                     sleepCount += sleep;
 
-                    System.out.println( "Runner: " + getName() );
-
                 } catch ( InterruptedException e ) {
                     break;
                 } catch ( Exception e ) {

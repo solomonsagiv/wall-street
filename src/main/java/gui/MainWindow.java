@@ -95,9 +95,18 @@ public class MainWindow {
         spx.getMyTableHandler().getMyStatusTable().load();
         spx.getMyTableHandler().getMyArraysTable().load();
 
+        spx.setLoadStatusFromHB( true );
+        spx.setLoadArraysFromHB( true );
+        spx.setLoadFromDb( true );
+
         NdxCLIENTObject ndx = NdxCLIENTObject.getInstance( );
         ndx.getMyTableHandler().getMyStatusTable().load();
         ndx.getMyTableHandler().getMyArraysTable().load();
+
+        ndx.setLoadStatusFromHB( true );
+        ndx.setLoadArraysFromHB( true );
+        ndx.setLoadFromDb( true );
+
     }
 
     /**
