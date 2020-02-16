@@ -24,9 +24,12 @@ public class MyDayTable extends MyTableSql {
     private MyColumnSql<Integer> con_down;
     private MyColumnSql<Integer> index_up;
     private MyColumnSql<Integer> index_down;
-    private MyColumnSql options;
-    private MyColumnSql base;
+    private MyColumnSql<String> options;
+    private MyColumnSql<Double> base;
     private MyColumnSql<Double> op_avg;
+    private MyColumnSql<Double> equalMove;
+    private MyColumnSql<Double> opAvgMove;
+
 
     // Constructor
     public MyDayTable( BASE_CLIENT_OBJECT client, String tableName ) {
@@ -137,6 +140,20 @@ public class MyDayTable extends MyTableSql {
             @Override
             public Double getObject() {
                 return client.getOptionsHandler().getMainOptions().getOpAvg();
+            }
+        };
+
+        equalMove = new MyColumnSql<>(this, "equalMove", MyColumnSql.DOUBLE) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getMainOptions().getEqualMoveService().getMove();
+            }
+        };
+
+        opAvgMove = new MyColumnSql<>( this, "opAvgMove", MyColumnSql.DOUBLE) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getMainOptions().getOpAvgMoveService().getMove();
             }
         };
 
