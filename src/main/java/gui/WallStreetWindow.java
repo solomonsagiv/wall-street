@@ -3,8 +3,8 @@ package gui;
 import api.Manifest;
 import locals.Themes;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import setting.Setting;
 
 import javax.swing.*;
@@ -32,20 +32,20 @@ public class WallStreetWindow {
     // JTables
     public JTable futuresTable;
     public JTable spxOptionsTable;
-    NdxCLIENTObject ndxClientObject;
-    SpxCLIENTObject spxClientObject;
+    Ndx ndx;
+    Spx spx;
     private JMenu mnStart;
     private JMenuItem mntmSetting;
     private JPanel panel;
 
     public WallStreetWindow() {
 
-        ndxClientObject = NdxCLIENTObject.getInstance( );
-        spxClientObject = SpxCLIENTObject.getInstance( );
+        ndx = Ndx.getInstance( );
+        spx = Spx.getInstance( );
 
         clients = new ArrayList<>( );
-        clients.add( ndxClientObject );
-        clients.add( spxClientObject );
+        clients.add(ndx);
+        clients.add(spx);
     }
 
     public static void main( String[] args ) {
@@ -120,8 +120,8 @@ public class WallStreetWindow {
     private void load_on_startup( WallStreetWindow window ) {
 
         Thread thread = new Thread( () -> {
-            ndxClientObject.getBackRunner( ).startRunner( );
-            spxClientObject.getBackRunner( ).startRunner( );
+            ndx.getBackRunner( ).startRunner( );
+            spx.getBackRunner( ).startRunner( );
         } );
         thread.start( );
     }
@@ -259,10 +259,10 @@ public class WallStreetWindow {
         panel_12.setBackground( backGround );
         frame.getContentPane( ).add( panel_12 );
 
-        ndxClientObject.getPanel( ).setBounds( 0, 166, 611, 140 );
-        spxClientObject.getPanel( ).setBounds( 0, 26, 611, 140 );
-        frame.getContentPane( ).add( ndxClientObject.getPanel( ) );
-        frame.getContentPane( ).add( spxClientObject.getPanel( ) );
+        ndx.getPanel( ).setBounds( 0, 166, 611, 140 );
+        spx.getPanel( ).setBounds( 0, 26, 611, 140 );
+        frame.getContentPane( ).add( ndx.getPanel( ) );
+        frame.getContentPane( ).add( spx.getPanel( ) );
 
         panel = new JPanel( );
         panel.setBounds( 0, 500, 463, 27 );
@@ -336,8 +336,8 @@ public class WallStreetWindow {
         scrollPane.setBounds( 10, 5, 140, 91 );
         panel_1.add( scrollPane );
 
-        tableMaker = new TableMaker( new MenuMaker( spxClientObject ).spxOptionsTableMenu( ) );
-        spxOptionsTable = tableMaker.myTable( spxClientObject, new Object[ 7 ][ 5 ], new String[] { "", "", "", "", "" },
+        tableMaker = new TableMaker( new MenuMaker(spx).spxOptionsTableMenu( ) );
+        spxOptionsTable = tableMaker.myTable(spx, new Object[ 7 ][ 5 ], new String[] { "", "", "", "", "" },
                 21 );
 
         ask = new JTextField( );

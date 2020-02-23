@@ -15,8 +15,8 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.Layer;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -179,11 +179,11 @@ public class MySingleFreeChart {
 
             int marginFromMaxToMin = 0;
 
-            if ( client instanceof SpxCLIENTObject ) {
+            if ( client instanceof Spx) {
                 marginFromMaxToMin = 7;
             }
 
-            if ( client instanceof NdxCLIENTObject ) {
+            if ( client instanceof Ndx) {
                 marginFromMaxToMin = 30;
             }
 

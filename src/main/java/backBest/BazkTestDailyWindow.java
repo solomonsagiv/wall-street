@@ -1,7 +1,6 @@
 package backBest;
 
 import locals.Themes;
-import serverObjects.indexObjects.SpxCLIENTObject;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

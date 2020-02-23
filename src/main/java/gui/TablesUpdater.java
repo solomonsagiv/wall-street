@@ -1,9 +1,9 @@
 package gui;
 
 import options.Option;
-import serverObjects.indexObjects.DaxCLIENTObject;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,17 +13,17 @@ public class TablesUpdater {
     static int spxStartTableStrike = 0;
     static int spxEndTableStrike = 0;
     WallStreetWindow window;
-    DaxCLIENTObject daxClientObject;
-    SpxCLIENTObject spxClientObject;
-    NdxCLIENTObject ndxClientObject;
+    Dax dax;
+    Spx spx;
+    Ndx ndx;
     private Runner runner;
 
     public TablesUpdater() {
         this.window = WallStreetWindow.window;
 
-        daxClientObject = DaxCLIENTObject.getInstance( );
-        spxClientObject = SpxCLIENTObject.getInstance( );
-        ndxClientObject = NdxCLIENTObject.getInstance( );
+        dax = Dax.getInstance( );
+        spx = Spx.getInstance( );
+        ndx = Ndx.getInstance( );
 
         try {
             Thread.sleep( 3000 );
@@ -31,8 +31,8 @@ public class TablesUpdater {
             // TODO Auto-generated catch block
             e.printStackTrace( );
         }
-        spxClientObject.setFuture( spxClientObject.getFuture( ) );
-        setSpxTableStrikes( ( ( int ) ( spxClientObject.getFuture( ) / 10 ) ) * 10 );
+        spx.setFuture( spx.getFuture( ) );
+        setSpxTableStrikes( ( ( int ) ( spx.getFuture( ) / 10 ) ) * 10 );
 
     }
 
@@ -90,10 +90,10 @@ public class TablesUpdater {
                 double strike;
                 try {
                     strike = ( int ) spxTable.getValueAt( row, 1 );
-                    Option call = spxClientObject.getOptionsHandler( ).getOptionsDay( ).getOption( "c" + strike );
+                    Option call = spx.getOptionsHandler( ).getOptionsDay( ).getOption( "c" + strike );
                     spxTable.setValueAt( call.getBidAskCounter( ), row, 0 );
 
-                    Option put = spxClientObject.getOptionsHandler( ).getOptionsDay( ).getOption( "p" + strike );
+                    Option put = spx.getOptionsHandler( ).getOptionsDay( ).getOption( "p" + strike );
                     spxTable.setValueAt( put.getBidAskCounter( ), row, 2 );
 
                 } catch ( NullPointerException e ) {

@@ -9,20 +9,20 @@ import serverObjects.TwsData;
 
 import java.time.LocalTime;
 
-public class DaxCLIENTObject extends INDEX_CLIENT_OBJECT {
+public class Dax extends INDEX_CLIENT_OBJECT {
 
-    static DaxCLIENTObject client = null;
+    static Dax client = null;
 
     // Private constructor
-    private DaxCLIENTObject() {
+    private Dax() {
         super();
         setSpecificData();
     }
 
     // Get instance
-    public static DaxCLIENTObject getInstance() {
+    public static Dax getInstance() {
         if (client == null) {
-            client = new DaxCLIENTObject();
+            client = new Dax();
         }
         return client;
     }

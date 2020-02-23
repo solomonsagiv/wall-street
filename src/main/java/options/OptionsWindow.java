@@ -2,7 +2,7 @@ package options;
 
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -42,8 +42,8 @@ public class OptionsWindow {
         EventQueue.invokeLater( new Runnable( ) {
             public void run() {
                 try {
-                    OptionsWindow window = new OptionsWindow( SpxCLIENTObject.getInstance( ),
-                            SpxCLIENTObject.getInstance( ).getFutureOptionsFather( ) );
+                    OptionsWindow window = new OptionsWindow( Spx.getInstance( ),
+                            Spx.getInstance( ).getFutureOptionsFather( ) );
                     window.frame.setVisible( true );
                     window.startWindowUpdater( );
 

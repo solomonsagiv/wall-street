@@ -5,7 +5,7 @@ import com.ib.client.Contract;
 import com.ib.client.EClientSocket;
 import com.ib.client.Order;
 import com.ib.client.OrderType;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Spx;
 import shlomi.positions.Position;
 
 public class MyTwsClient {
@@ -23,10 +23,10 @@ public class MyTwsClient {
 
         Thread.sleep( 2000 );
 
-        Contract contract = SpxCLIENTObject.getInstance( ).getTwsData( ).getFutureContract( );
+        Contract contract = Spx.getInstance( ).getTwsData( ).getFutureContract( );
         System.out.println( contract );
 
-        connection.getTwsClient( ).sellMarket( SpxCLIENTObject.getInstance( ).getTwsData( ).getFutureContract( ), 3 );
+        connection.getTwsClient( ).sellMarket( Spx.getInstance( ).getTwsData( ).getFutureContract( ), 3 );
     }
 
     public int nextOrderId() {

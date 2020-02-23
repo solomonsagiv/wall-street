@@ -9,10 +9,10 @@ import locals.L;
 import locals.Themes;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.DaxCLIENTObject;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -80,7 +80,7 @@ public class Setting {
         this.indexOrStock = indexOrStock;
         initialize( );
 
-        client = SpxCLIENTObject.getInstance( );
+        client = Spx.getInstance( );
         options = client.getOptionsHandler( ).getMainOptions( );
     }
 
@@ -1071,13 +1071,13 @@ public class Setting {
         public void mouseClicked( MouseEvent e ) {
 
             if ( daxRadioButton.isSelected( ) ) {
-                client = DaxCLIENTObject.getInstance( );
+                client = Dax.getInstance( );
             }
             if ( ndxRadioButton.isSelected( ) ) {
-                client = NdxCLIENTObject.getInstance( );
+                client = Ndx.getInstance( );
             }
             if ( spxRadioButton.isSelected( ) ) {
-                client = SpxCLIENTObject.getInstance( );
+                client = Spx.getInstance( );
             }
         }
 
@@ -1102,13 +1102,13 @@ public class Setting {
         @Override
         public void mouseReleased( MouseEvent e ) {
             if ( daxRadioButton.isSelected( ) ) {
-                client = DaxCLIENTObject.getInstance( );
+                client = Dax.getInstance( );
             }
             if ( ndxRadioButton.isSelected( ) ) {
-                client = NdxCLIENTObject.getInstance( );
+                client = Ndx.getInstance( );
             }
             if ( spxRadioButton.isSelected( ) ) {
-                client = SpxCLIENTObject.getInstance( );
+                client = Spx.getInstance( );
             }
         }
     }

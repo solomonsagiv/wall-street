@@ -2,7 +2,7 @@ package gui;
 
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -255,7 +255,7 @@ public class TableMaker {
             // Set the middle strike for spx table
             if ( event.getClickCount( ) == 3 ) {
                 try {
-                    SpxCLIENTObject spx = SpxCLIENTObject.getInstance( );
+                    Spx spx = Spx.getInstance( );
                     int strike = ( int ) spx.getOptionsHandler( ).getOptionsMonth( ).getStrikeInMoney( );
                     TablesUpdater.setSpxTableStrikes( strike );
                 } catch ( Exception e ) {

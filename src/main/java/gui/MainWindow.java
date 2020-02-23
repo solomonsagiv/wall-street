@@ -5,9 +5,9 @@ import api.Manifest;
 import locals.L;
 import locals.Themes;
 import logger.MyLogger;
-import serverObjects.indexObjects.DaxCLIENTObject;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import setting.Setting;
 
 import javax.swing.*;
@@ -23,8 +23,8 @@ public class MainWindow {
     public JFrame frame;
     JLabel connectionStatusLbl;
     Thread runner;
-    SpxCLIENTObject spx;
-    NdxCLIENTObject ndx;
+    Spx spx;
+    Ndx ndx;
     JTextField spxQuarterField;
     JTextField ndxQuarterField;
     JTextField spxQuarterFarField;
@@ -41,8 +41,8 @@ public class MainWindow {
      */
     public MainWindow() {
 
-        ndx = NdxCLIENTObject.getInstance( );
-        spx = SpxCLIENTObject.getInstance( );
+        ndx = Ndx.getInstance( );
+        spx = Spx.getInstance( );
 
         initialize( );
 
@@ -88,9 +88,9 @@ public class MainWindow {
     }
 
     private static void loadOnStartUp() {
-        DaxCLIENTObject.getInstance();
+        Dax.getInstance();
 
-        SpxCLIENTObject spx = SpxCLIENTObject.getInstance( );
+        Spx spx = Spx.getInstance( );
 
         spx.getMyTableHandler().getMyStatusTable().load();
         spx.getMyTableHandler().getMyArraysTable().load();
@@ -99,7 +99,7 @@ public class MainWindow {
         spx.setLoadArraysFromHB( true );
         spx.setLoadFromDb( true );
 
-        NdxCLIENTObject ndx = NdxCLIENTObject.getInstance( );
+        Ndx ndx = Ndx.getInstance( );
         ndx.getMyTableHandler().getMyStatusTable().load();
         ndx.getMyTableHandler().getMyArraysTable().load();
 

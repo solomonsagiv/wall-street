@@ -3,11 +3,9 @@ package charts;
 import locals.Themes;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
 
