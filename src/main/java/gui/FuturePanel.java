@@ -220,74 +220,74 @@ public class FuturePanel extends BaseFuturePanel {
         ticker.setBounds( 0, 0, 311, height );
         ticker.setBackground( backGround );
 
-        openField = new MyGuiComps.MyTextField( 20 );
+        openField = new MyGuiComps.MyTextField(  );
         openField.setXY( 5, 6 );
         ticker.add( openField );
 
-        openPresentField = new MyGuiComps.MyTextField( 20 );
+        openPresentField = new MyGuiComps.MyTextField(  );
         openPresentField.setForeground( Color.WHITE );
         openPresentField.setFont( openPresentField.getFont( ).deriveFont( Font.BOLD ) );
         openPresentField.setXY( 5, 35 );
         ticker.add( openPresentField );
 
-        indexField = new MyGuiComps.MyTextField( 20 );
+        indexField = new MyGuiComps.MyTextField(  );
         indexField.setXY( 80, 6 );
         ticker.add( indexField );
 
-        indexPresentField = new MyGuiComps.MyTextField( 20 );
+        indexPresentField = new MyGuiComps.MyTextField(  );
         indexPresentField.setForeground( Color.WHITE );
         indexPresentField.setFont( indexPresentField.getFont( ).deriveFont( Font.BOLD ) );
         indexPresentField.setXY( 80, 35 );
         ticker.add( indexPresentField );
 
-        lowField = new MyGuiComps.MyTextField( 20 );
+        lowField = new MyGuiComps.MyTextField(  );
         lowField.setXY( 155, 6 );
         ticker.add( lowField );
 
-        lowPresentField = new MyGuiComps.MyTextField( 20 );
+        lowPresentField = new MyGuiComps.MyTextField(  );
         lowPresentField.setForeground( Color.WHITE );
         lowPresentField.setFont( lowPresentField.getFont( ).deriveFont( Font.BOLD ) );
         lowPresentField.setXY( 155, 35 );
         ticker.add( lowPresentField );
 
-        highField = new MyGuiComps.MyTextField( 20 );
+        highField = new MyGuiComps.MyTextField(  );
         highField.setXY( 230, 6 );
         ticker.add( highField );
 
-        highPresentField = new MyGuiComps.MyTextField( 20 );
+        highPresentField = new MyGuiComps.MyTextField(  );
         highPresentField.setForeground( Color.WHITE );
         highPresentField.setFont( highPresentField.getFont( ).deriveFont( Font.BOLD ) );
         highPresentField.setXY( 230, 35 );
         ticker.add( highPresentField );
 
-        futureField = new MyGuiComps.MyTextField( 20 );
+        futureField = new MyGuiComps.MyTextField(  );
         futureField.setXY( 5, 64 );
         ticker.add( futureField );
 
-        opField = new MyGuiComps.MyTextField( 20 );
+        opField = new MyGuiComps.MyTextField(  );
         opField.setForeground( Color.WHITE );
         opField.setFont( opField.getFont( ).deriveFont( Font.BOLD ) );
         opField.setXY( 80, 64 );
         ticker.add( opField );
 
-        opAvgEqualeMoveField = new MyGuiComps.MyTextField( 20 );
+        opAvgEqualeMoveField = new MyGuiComps.MyTextField(  );
         opAvgEqualeMoveField.setXY( 230, 64 );
         ticker.add( opAvgEqualeMoveField );
 
-        opAvgField = new MyGuiComps.MyTextField( 20 );
+        opAvgField = new MyGuiComps.MyTextField(  );
         opAvgField.setXY( 155, 64 );
         ticker.add( opAvgField );
 
         // Quarter
-        opAvgQuarterField = new MyGuiComps.MyTextField( 20 );
+        opAvgQuarterField = new MyGuiComps.MyTextField(  );
         opAvgQuarterField.setXY( 155, 93 );
         ticker.add( opAvgQuarterField );
 
-        contractQuarterField = new MyGuiComps.MyTextField( 20 );
+        contractQuarterField = new MyGuiComps.MyTextField(  );
         contractQuarterField.setXY( 5, 93 );
         ticker.add( contractQuarterField );
 
-        opQuarterField = new MyGuiComps.MyTextField( 20 );
+        opQuarterField = new MyGuiComps.MyTextField(  );
         opQuarterField.setForeground( Color.WHITE );
         opQuarterField.setFont( opQuarterField.getFont( ).deriveFont( Font.BOLD ) );
         opQuarterField.setXY( 80, 93 );
@@ -313,7 +313,7 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( conRacesLbl );
 
         // Con field
-        conRacesField = new MyGuiComps.MyTextField( 20 );
+        conRacesField = new MyGuiComps.MyTextField(  );
         conRacesField.setBounds( 55, 7, 50, 25 );
         racesAndRollPanel.add( conRacesField );
 
@@ -326,7 +326,7 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( indRacesLbl );
 
         // Ind field
-        indRacesField = new MyGuiComps.MyTextField( 20 );
+        indRacesField = new MyGuiComps.MyTextField(  );
         indRacesField.setBounds( 55, 37, 50, 25 );
         racesAndRollPanel.add( indRacesField );
 
@@ -338,7 +338,7 @@ public class FuturePanel extends BaseFuturePanel {
         racesAndRollPanel.add( rollLbl );
 
         // Roll field
-        rollField = new MyGuiComps.MyTextField( 20 );
+        rollField = new MyGuiComps.MyTextField(  );
         rollField.setBounds( 55, 67, 50, 25 );
         racesAndRollPanel.add( rollField );
 
@@ -354,7 +354,7 @@ public class FuturePanel extends BaseFuturePanel {
         expMoveLbl.setFont( Themes.VEDANA_12 );
         expPanel.add( expMoveLbl );
 
-        expMoveField = new MyGuiComps.MyTextField( 20 );
+        expMoveField = new MyGuiComps.MyTextField(  );
         expMoveField.setBounds( 55, 7, 50, 25 );
         expPanel.add( expMoveField );
 
@@ -364,7 +364,7 @@ public class FuturePanel extends BaseFuturePanel {
         expRacesLbl.setBounds( 5, 37, 50, 25 );
         expPanel.add( expRacesLbl );
 
-        expRacesField = new MyGuiComps.MyTextField( 20 );
+        expRacesField = new MyGuiComps.MyTextField(  );
         expRacesField.setBounds( 55, 37, 50, 25 );
         expPanel.add( expRacesField );
 
@@ -374,7 +374,7 @@ public class FuturePanel extends BaseFuturePanel {
         expOpAvgLbl.setBounds( 5, 67, 50, 25 );
         expPanel.add( expOpAvgLbl );
 
-        expOpAvgField = new MyGuiComps.MyTextField( 20 );
+        expOpAvgField = new MyGuiComps.MyTextField(  );
         expOpAvgField.setBounds( 55, 67, 50, 25 );
         expPanel.add( expOpAvgField );
 
@@ -421,8 +421,6 @@ public class FuturePanel extends BaseFuturePanel {
                     // Sleep
                     Thread.sleep( 1000 );
 
-                    updateLists( );
-
                     // ---------- Ticker ---------- //
                     openField.setText( L.format100( client.getOpen( ) ) );
                     highField.setText( L.format100( client.getHigh( ) ) );
@@ -468,19 +466,6 @@ public class FuturePanel extends BaseFuturePanel {
         private double toPresent( double d ) {
             double base = client.getBase( );
             return ( ( d - base ) / base ) * 100;
-        }
-
-        private void updateLists() {
-
-            // Options lists
-            for ( Strike strike : client.getOptionsHandler( ).getMainOptions( ).getStrikes( ) ) {
-                Option call = strike.getCall( );
-                call.getBidAskCounterList( ).add( call.getBidAskCounter( ) );
-
-                Option put = strike.getPut( );
-                put.getBidAskCounterList( ).add( put.getBidAskCounter( ) );
-
-            }
         }
 
         public void close() {

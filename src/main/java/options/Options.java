@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class Options {
+public abstract class Options {
 
     public static final int DAY = 1;
     public static final int MONTH = 2;
@@ -31,28 +31,28 @@ public class Options {
     double bidMin = 0;
     double askMax = 0;
     private boolean requested = false;
-    private int type;
-    private String name = "";
-    private LocalDate toDay = LocalDate.now( );
-    private LocalDate expDate;
-    private double daysToExp = -1;
-    private double interest = 1;
-    private double interestZero = 0;
-    private double devidend = -1;
-    private double borrow = 0;
-    private int contractBidAskCounter = 0;
-    private int baseID = 0;
-    private int minId = 0;
-    private int maxId = 0;
-    private Contract twsContract;
-    private boolean gotData = false;
+    protected int type;
+    protected String name = "";
+    protected LocalDate toDay = LocalDate.now( );
+    protected LocalDate expDate;
+    protected double daysToExp = -1;
+    protected double interest = 1;
+    protected double interestZero = 0;
+    protected double devidend = -1;
+    protected double borrow = 0;
+    protected int contractBidAskCounter = 0;
+    protected int baseID = 0;
+    protected int minId = 0;
+    protected int maxId = 0;
+    protected Contract twsContract;
+    protected boolean gotData = false;
 
-    private double contractBid = 0;
-    private double contractAsk = 0;
+    protected double contractBid = 0;
+    protected double contractAsk = 0;
 
-    private double currStrike = 0;
+    protected double currStrike = 0;
 
-    private PositionCalculator positionCalculator;
+    protected PositionCalculator positionCalculator;
 
     EqualMoveService equalMoveService;
     OpAvgMoveService opAvgMoveService;
@@ -85,6 +85,12 @@ public class Options {
         }
 
     }
+
+    // Abstracts functions
+    public abstract double getStrikeInMoney();
+    public abstract Strike getStrikeInMoneyIfZero();
+    public abstract double getCalcDevidend();
+    public abstract double getCalcBorrow();
 
     public Call getCall( double targetStrike ) {
         for ( Strike strike : strikes ) {
@@ -340,47 +346,11 @@ public class Options {
         return d + 1;
     }
 
-    public double getStrikeInMoney() {
 
-        if ( currStrike != 0 ) {
-
-            if ( client.getFuture( ) - currStrike > client.getStrikeMargin( ) ) {
-
-                currStrike += client.getStrikeMargin( );
-
-            } else if ( client.getFuture( ) - currStrike < -client.getStrikeMargin( ) ) {
-
-                currStrike -= client.getStrikeMargin( );
-
-            }
-        } else {
-            currStrike = getStrikeInMoneyIfZero( ).getStrike( );
-        }
-        return currStrike;
-    }
 
 
     public double getOp() {
         return L.floor( getContract( ) - client.getIndex( ), 100 );
-    }
-
-    public Strike getStrikeInMoneyIfZero() {
-        double margin = 1000000;
-        Strike targetStrike = new Strike( );
-
-        for ( Strike strike : getStrikes( ) ) {
-            double newMargin = absolute( strike.getStrike( ) - client.getFuture( ) );
-
-            if ( newMargin < margin ) {
-
-                margin = newMargin;
-                targetStrike = strike;
-
-            } else {
-                break;
-            }
-        }
-        return targetStrike;
     }
 
     public Option getOption( String side, double targetStrike ) {
@@ -808,35 +778,12 @@ public class Options {
         this.devidend = devidend;
     }
 
-    public double getCalcDevidend() {
-
-        if ( devidend <= 0 ) {
-            return 0;
-        }
-
-        double calcDev = getDevidend( ) * 360.0 / getDays( ) / client.getFuture( );
-
-        if ( Double.isInfinite( calcDev ) ) {
-            return 0;
-        }
-
-        return calcDev;
-    }
-
-    private double getBorrow() {
+    protected double getBorrow() {
         return borrow;
     }
 
     public void setBorrow( double borrow ) {
         this.borrow = borrow;
-    }
-
-    public double getCalcBorrow() {
-        if ( getBorrow( ) != 0 ) {
-            return getBorrow( );
-        } else {
-            return floor( client.getFuture( ) * 0.002 / 360.0 * getDays( ), 10000 );
-        }
     }
 
     public static int getDAY() {

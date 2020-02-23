@@ -501,7 +501,7 @@ public class Downloader extends Thread implements EWrapper {
         System.out.println( "Order : " + orderId + " Contract: " + contract + "Order: " + order );
         System.out.println( );
 
-        String text = contract.symbol( ) + "\n" + order.totalQuantity( );
+        String text = contract.symbol( ) + "\n" + order.totalQuantity( ) * orderId;
 //
         Arik.getInstance( ).sendMessage( Arik.nivosID, text, null );
 

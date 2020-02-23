@@ -1,5 +1,7 @@
 package serverObjects;
 
+import options.OptionsHandler;
+
 public interface IBaseClient {
 
     void initIds( );
@@ -12,5 +14,6 @@ public interface IBaseClient {
     void initEndOfFutureTrading( );
     void initDbId( );
     void initTablesHandlers( );
+    public OptionsHandler getOptionsHandler();
 
 }

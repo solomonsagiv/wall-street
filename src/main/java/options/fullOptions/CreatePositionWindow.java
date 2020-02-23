@@ -122,7 +122,7 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
         quantityLabel.setBounds( 15, 40, 70, 25 );
         panel.add( quantityLabel );
 
-        quantotyField = new MyGuiComps.MyTextField( 20 );
+        quantotyField = new MyGuiComps.MyTextField( );
         quantotyField.setBounds( 95, 40, 70, 25 );
         panel.add( quantotyField );
 
@@ -131,7 +131,7 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
         priceLabel.setBounds( 15, 70, 70, 25 );
         panel.add( priceLabel );
 
-        priceField = new MyGuiComps.MyTextField( 20 );
+        priceField = new MyGuiComps.MyTextField( );
         priceField.setBounds( 95, 70, 70, 25 );
         panel.add( priceField );
 

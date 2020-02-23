@@ -275,16 +275,16 @@ public class Setting {
             setting_panel_inside.add( label_2 );
 
 
-            futureField = new JTextField( 10 );
-            futureField.setBounds( 300, 5, 65, 30 );
-            futureField.addActionListener( new ActionListener( ) {
-                @Override
-                public void actionPerformed( ActionEvent actionEvent ) {
-                    client.setFuture( Double.parseDouble( futureField.getText( ) ) );
-                    System.out.println( futureField.getText( ) );
-                }
-            } );
-            setting_panel_inside.add( futureField );
+//            futureField = new JTextField( 10 );
+//            futureField.setBounds( 300, 5, 65, 30 );
+//            futureField.addActionListener( new ActionListener( ) {
+//                @Override
+//                public void actionPerformed( ActionEvent actionEvent ) {
+//                    client.setFuture( Double.parseDouble( futureField.getText( ) ) );
+//                    System.out.println( futureField.getText( ) );
+//                }
+//            } );
+//            setting_panel_inside.add( futureField );
 
             JLabel lblExpirationStartPrice = new JLabel( "Open" );
             lblExpirationStartPrice.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
@@ -724,7 +724,7 @@ public class Setting {
             opAvgField.setBounds( 355, 239, 72, 22 );
             setting_panel_inside.add( opAvgField );
 
-            opAvgMoveField = new MyGuiComps.MyTextField( 20 );
+            opAvgMoveField = new MyGuiComps.MyTextField(  );
             opAvgMoveField.setXY( 355, 270 );
             opAvgMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
             opAvgMoveField.addActionListener( new ActionListener( ) {

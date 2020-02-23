@@ -21,14 +21,9 @@ public class MyGuiComps {
         }
 
         private void init() {
-
             setDefaultCloseOperation( DISPOSE_ON_CLOSE );
             setBackground( Themes.GREY_LIGHT );
-            pack();
-            setVisible( true );
-            setBounds( 100, 100, 400, 400 );
             getContentPane( ).setLayout( null );
-
         }
 
         public abstract void onClose();
@@ -62,15 +57,15 @@ public class MyGuiComps {
         public void setHeight( int height ) {
             setBounds( getX( ), getY( ), getWidth( ), height );
         }
+        
     }
 
 
     // ---------- JTextField ---------- //
     public static class MyTextField extends JTextField {
 
-        public MyTextField( int columns ) {
-            super( columns );
-
+        public MyTextField() {
+            super();
             init( );
         }
 
@@ -83,13 +78,13 @@ public class MyGuiComps {
         }
 
         private void init() {
-
             setBounds( new Rectangle( 65, 25 ) );
             setFont( Themes.VEDANA_12 );
             setForeground( Color.BLACK );
             setHorizontalAlignment( JTextField.CENTER );
             setBackground( Themes.GREY_VERY_LIGHT );
             setBorder( null );
+            setEnabled( false );
         }
 
         public void setXY( int x, int y ) {

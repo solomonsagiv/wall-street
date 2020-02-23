@@ -64,12 +64,12 @@ public class Position {
 
             // Long
             if ( position > 0 ) {
-                pnl = floor( client.getFuture( ) - startPrice );
+                pnl = floor( client.getIndex( ) - startPrice );
             }
 
             // Short
             if ( position < 0 ) {
-                pnl = floor( client.getFuture( ) - startPrice );
+                pnl = floor( client.getIndex( ) - startPrice );
             }
 
         }

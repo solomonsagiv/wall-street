@@ -8,6 +8,8 @@ import options.Put;
 import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.TwsData;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
 
 public class TwsRequestHandler {
@@ -130,10 +132,23 @@ public class TwsRequestHandler {
                     // Request options on first time
                     if ( !options.isRequested( ) ) {
 
-                        if ( getClient( ).getFuture( ) != 0 ) {
-                            requestOptions( options );
-                            options.setRequested( true );
+                        if ( client instanceof INDEX_CLIENT_OBJECT ) {
+
+                            INDEX_CLIENT_OBJECT client_object = (INDEX_CLIENT_OBJECT) client ;
+
+                            if ( client_object.getFuture( ) != 0 ) {
+                                requestOptions( options );
+                                options.setRequested( true );
+                            }
                         }
+
+                        if ( client instanceof STOCK_OBJECT ) {
+                            if ( getClient( ).getIndex( ) != 0 ) {
+                                requestOptions( options );
+                                options.setRequested( true );
+                            }
+                        }
+
 
                     }
 

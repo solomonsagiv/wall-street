@@ -27,17 +27,15 @@ import java.util.List;
 public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Table
-    JTable racesTable;
     DefaultTableModel model = new DefaultTableModel( );
     // Options
-    OptionsHandler optionsHandler;
+    protected OptionsHandler optionsHandler;
     private double startStrike;
     private double endStrike;
     private TwsData twsData;
     private LocalTime startOfIndexTrading;
     private LocalTime endOfIndexTrading;
     private LocalTime endFutureTrading;
-    private String[] stocksNames;
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
     private TwsRequestHandler twsRequestHandler;
@@ -59,7 +57,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected MyTableHandler myTableHandler;
 
     // Options handler
-    private OptionsDataHandler optionsDataHandler;
+    protected OptionsDataHandler optionsDataHandler;
 
     // Panel
     private FuturePanel futurePanel;
@@ -75,7 +73,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double index = 0;
     private double indexBid = 0;
     private double indexAsk = 0;
-    private double future = 0;
     private double futureBid = 0;
     private double futureAsk = 0;
     private double open = 0;
@@ -197,12 +194,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     // ---------- Getters and Setters ---------- //
-    public void setFuture( double future ) {
-        if ( this.future == 0 ) {
-            this.future = future;
-            getOptionsHandler( ).initOptions( future );
-        }
-    }
 
     public boolean isStarted() {
         return started;
@@ -297,10 +288,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setEndOfIndexTrading( LocalTime endOfIndexTrading ) {
         this.endOfIndexTrading = endOfIndexTrading;
-    }
-
-    public void setStocksNames( String[] stocksNames ) {
-        this.stocksNames = stocksNames;
     }
 
     public BackRunner getBackRunner() {
@@ -502,13 +489,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return twsRequestHandler;
     }
 
-    public OptionsHandler getOptionsHandler() {
-        if ( optionsHandler == null ) {
-            optionsHandler = new OptionsHandler( this );
-        }
-        return optionsHandler;
-    }
-
     public abstract double getTheoAvgMargin();
 
     public MyServiceHandler getMyServiceHandler() {
@@ -517,10 +497,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public MyTableHandler getMyTableHandler() {
         return myTableHandler;
-    }
-
-    public JTable getRacesTable() {
-        return racesTable;
     }
 
     public double getIndex() {
@@ -533,10 +509,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public double getIndexAsk() {
         return indexAsk;
-    }
-
-    public double getFuture() {
-        return future;
     }
 
     public double getFutureBid() {
@@ -571,11 +543,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexUp - indexDown;
     }
 
-
-    public void setRacesTable( JTable racesTable ) {
-        this.racesTable = racesTable;
-    }
-
     public void setIndexBid( double indexBid ) {
         this.indexBid = indexBid;
     }
@@ -600,9 +567,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.base = base;
     }
 
-    public String[] getStocksNames() {
-        return stocksNames;
-    }
 
     public List getIndexList() {
         return indexList;
@@ -631,7 +595,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                "racesTable=" + racesTable +
                 ", model=" + model +
                 ", optionsHandler=" + optionsHandler +
                 ", startStrike=" + startStrike +
@@ -640,7 +603,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", startOfIndexTrading=" + startOfIndexTrading +
                 ", endOfIndexTrading=" + endOfIndexTrading +
                 ", endFutureTrading=" + endFutureTrading +
-                ", stocksNames=" + Arrays.toString( stocksNames ) +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", twsRequestHandler=" + twsRequestHandler +
@@ -660,7 +622,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", index=" + index +
                 ", indexBid=" + indexBid +
                 ", indexAsk=" + indexAsk +
-                ", future=" + future +
                 ", futureBid=" + futureBid +
                 ", futureAsk=" + futureAsk +
                 ", open=" + open +

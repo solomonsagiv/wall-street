@@ -4,6 +4,8 @@ import locals.L;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.stockObjects.STOCK_OBJECT;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,20 +22,39 @@ public class OptionsHandler {
     private PositionCalculator positionCalculator;
 
     // Constructor
-    public OptionsHandler( BASE_CLIENT_OBJECT client ) {
+    public OptionsHandler( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
 
         positionCalculator = new PositionCalculator( client );
 
-        optionsDay = new Options( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
+        optionsDay = new IndexOptions( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
         getOptionsList( ).add( optionsDay );
         getOptionsMap( ).put( optionsDay.getType(), optionsDay );
 
-        optionsMonth = new Options( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
+        optionsMonth = new IndexOptions( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
         getOptionsList( ).add( optionsMonth );
         getOptionsMap( ).put( optionsMonth.getType(), optionsMonth );
 
-        optionsQuarter = new Options( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
+        optionsQuarter = new IndexOptions( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
+        getOptionsList( ).add( optionsQuarter );
+        getOptionsMap( ).put( optionsQuarter.getType(), optionsQuarter );
+
+    }
+
+    public OptionsHandler( STOCK_OBJECT client ) {
+        this.client = client;
+
+        positionCalculator = new PositionCalculator( client );
+
+        optionsDay = new StockOptions( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
+        getOptionsList( ).add( optionsDay );
+        getOptionsMap( ).put( optionsDay.getType(), optionsDay );
+
+        optionsMonth = new StockOptions( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
+        getOptionsList( ).add( optionsMonth );
+        getOptionsMap( ).put( optionsMonth.getType(), optionsMonth );
+
+        optionsQuarter = new StockOptions( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
         getOptionsList( ).add( optionsQuarter );
         getOptionsMap( ).put( optionsQuarter.getType(), optionsQuarter );
 

@@ -143,9 +143,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
 
         vegaLbl = new MyGuiComps.MyLabel( "" );
         sumPanel.setLabel( vegaLbl, 0, 3 );
-
-        // Pnl
-
+        
     }
 
     private JTable createTable( MyGuiComps.MyFrame frame ) {

@@ -32,12 +32,20 @@ public class L {
         return df100;
     }
 
+    public static double present( double val, double base ) {
+        if ( base != 0 ) {
+            return floor( ( ( val - base ) / base ) * 100, 100 );
+        } else {
+            return 0;
+        }
+    }
+
     public static String coma( double d ) {
-        return NumberFormat.getNumberInstance( Locale.US).format(d);
+        return NumberFormat.getNumberInstance( Locale.US ).format( d );
     }
 
     public static String coma( int i ) {
-        return NumberFormat.getNumberInstance( Locale.US).format( i );
+        return NumberFormat.getNumberInstance( Locale.US ).format( i );
     }
 
     public static DecimalFormat format10() {
@@ -70,11 +78,11 @@ public class L {
     }
 
     public void popUp( JFrame frame, Exception e ) {
-        String text = e.getMessage() + "\n" + e.getCause();
+        String text = e.getMessage( ) + "\n" + e.getCause( );
         JOptionPane.showMessageDialog( frame, text );
     }
 
-    public static double floor(double d, int zeros) {
+    public static double floor( double d, int zeros ) {
         return Math.floor( d * zeros ) / zeros;
     }
 
