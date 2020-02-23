@@ -9,19 +9,19 @@ import serverObjects.TwsData;
 
 import java.time.LocalTime;
 
-public class NdxCLIENTObject extends INDEX_CLIENT_OBJECT {
+public class Ndx extends INDEX_CLIENT_OBJECT {
 
-    static NdxCLIENTObject client = null;
+    static Ndx client = null;
 
     // Private constructor
-    public NdxCLIENTObject() {
+    public Ndx() {
         super( );
     }
 
     // Get instance
-    public static NdxCLIENTObject getInstance() {
+    public static Ndx getInstance() {
         if ( client == null ) {
-            client = new NdxCLIENTObject( );
+            client = new Ndx( );
         }
         return client;
     }

@@ -1,9 +1,9 @@
 package gui;
 
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.DaxCLIENTObject;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -85,15 +85,15 @@ public class MenuMaker {
         name = name.toLowerCase( );
 
         if ( name.equals( "dax" ) ) {
-            client = DaxCLIENTObject.getInstance( );
+            client = Dax.getInstance( );
         }
 
         if ( name.equals( "spx" ) ) {
-            client = SpxCLIENTObject.getInstance( );
+            client = Spx.getInstance( );
         }
 
         if ( name.equals( "ndx" ) ) {
-            client = NdxCLIENTObject.getInstance( );
+            client = Ndx.getInstance( );
         }
 
         return client;

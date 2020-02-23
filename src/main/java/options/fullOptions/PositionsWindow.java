@@ -4,9 +4,7 @@ import arik.Arik;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
-import options.Option;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
 import threads.MyThread;
 
 import javax.swing.*;

@@ -1,9 +1,7 @@
 package dataBase;
 
-import serverObjects.indexObjects.SpxCLIENTObject;
 import javax.swing.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class DBCheker {
 

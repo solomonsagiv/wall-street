@@ -5,8 +5,8 @@ import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
 import options.OptionsHandler;
-import serverObjects.indexObjects.NdxCLIENTObject;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -23,17 +23,17 @@ public class Downloader extends Thread implements EWrapper {
     MyLogger logger;
 
     int NextOrderId = -1;
-    NdxCLIENTObject ndxClient;
+    Ndx ndxClient;
     OptionsHandler ndxOptionsHandler;
-    SpxCLIENTObject spxClient;
+    Spx spxClient;
     OptionsHandler spxOptionsHandler;
 
     // Constructor
     private Downloader() {
 
         logger = MyLogger.getInstance( );
-        ndxClient = NdxCLIENTObject.getInstance( );
-        spxClient = SpxCLIENTObject.getInstance( );
+        ndxClient = Ndx.getInstance( );
+        spxClient = Spx.getInstance( );
         ndxOptionsHandler = ndxClient.getOptionsHandler( );
         spxOptionsHandler = spxClient.getOptionsHandler( );
 

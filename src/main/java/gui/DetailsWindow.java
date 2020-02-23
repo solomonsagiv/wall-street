@@ -2,7 +2,7 @@ package gui;
 
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -48,7 +48,7 @@ public class DetailsWindow {
         EventQueue.invokeLater( new Runnable( ) {
             public void run() {
                 try {
-                    window = new DetailsWindow( SpxCLIENTObject.getInstance( ) );
+                    window = new DetailsWindow( Spx.getInstance( ) );
                     window.frame.setVisible( true );
                 } catch ( Exception e ) {
                     e.printStackTrace( );

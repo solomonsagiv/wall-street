@@ -2,14 +2,14 @@ package shlomi.dataBase;
 
 import dataBase.mySql.MySql;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.SpxCLIENTObject;
+import serverObjects.indexObjects.Spx;
 
 import java.sql.ResultSet;
 
 public class DB {
 
     public static void main( String[] args ) {
-        DB db = new DB( SpxCLIENTObject.getInstance() );
+        DB db = new DB( Spx.getInstance() );
         db.loadData();
     }
 

@@ -9,19 +9,19 @@ import serverObjects.TwsData;
 
 import java.time.LocalTime;
 
-public class SpxCLIENTObject extends INDEX_CLIENT_OBJECT {
+public class Spx extends INDEX_CLIENT_OBJECT {
 
-    static SpxCLIENTObject client = null;
+    static Spx client = null;
 
     // Constructor
-    public SpxCLIENTObject() {
+    public Spx() {
         super( );
     }
 
     // Get instance
-    public static SpxCLIENTObject getInstance() {
+    public static Spx getInstance() {
         if ( client == null ) {
-            client = new SpxCLIENTObject( );
+            client = new Spx( );
         }
         return client;
     }
