@@ -7,7 +7,7 @@ import options.Options;
 import options.Put;
 import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.TwsData;
+import tws.TwsData;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;

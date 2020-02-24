@@ -14,6 +14,6 @@ public interface IBaseClient {
     void initEndOfFutureTrading( );
     void initDbId( );
     void initTablesHandlers( );
-    public OptionsHandler getOptionsHandler();
+    void initOptionsHandler();
 
 }

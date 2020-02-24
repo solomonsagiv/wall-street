@@ -9,7 +9,6 @@ import logic.LogicService;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-import service.MyBaseService;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -20,18 +19,13 @@ import java.util.List;
 
 public abstract class Options {
 
-    public static final int DAY = 1;
-    public static final int MONTH = 2;
-    public static final int QUARTER = 3;
-    public static final int QUARTER_FAR = 4;
-    public static final int FUTURE = 5;
     List< Strike > strikes;
     HashMap< Integer, Option > optionsMap;
     BASE_CLIENT_OBJECT client;
     double bidMin = 0;
     double askMax = 0;
     private boolean requested = false;
-    protected int type;
+    protected OptionsEnum type;
     protected String name = "";
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
@@ -64,7 +58,7 @@ public abstract class Options {
     List< Double > conBidList = new ArrayList<>( );
     List< Double > conAskList = new ArrayList<>( );
 
-    public Options( BASE_CLIENT_OBJECT client, int type, Contract twsContract ) {
+    public Options( BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
         this.type = type;
         this.twsContract = twsContract;
         this.client = client;
@@ -80,7 +74,7 @@ public abstract class Options {
         equalMoveService = new EqualMoveService( client, this, client.getEqualMovePlag( ) );
         opAvgMoveService = new OpAvgMoveService( client, this, client.getEqualMovePlag( ) );
 
-        if ( type == Options.MONTH ) {
+        if ( type == OptionsEnum.MONTH ) {
             logicService = new LogicService( client, this, client.getPanel( ) );
         }
 
@@ -88,8 +82,11 @@ public abstract class Options {
 
     // Abstracts functions
     public abstract double getStrikeInMoney();
+
     public abstract Strike getStrikeInMoneyIfZero();
+
     public abstract double getCalcDevidend();
+
     public abstract double getCalcBorrow();
 
     public Call getCall( double targetStrike ) {
@@ -135,7 +132,7 @@ public abstract class Options {
 
     private void initType() {
         switch ( type ) {
-            case DAY:
+            case WEEK:
                 setBaseID( client.getBaseId( ) + 2000 );
                 setName( "Day" );
                 break;
@@ -251,7 +248,7 @@ public abstract class Options {
                     sells.add( sell );
 
                 } catch ( Exception e ) {
-                    System.out.println("Exeption" );
+                    System.out.println( "Exeption" );
                 }
             }
 
@@ -345,8 +342,6 @@ public abstract class Options {
         double d = ( int ) ChronoUnit.DAYS.between( LocalDate.now( ), getExpDate( ) );
         return d + 1;
     }
-
-
 
 
     public double getOp() {
@@ -709,10 +704,17 @@ public abstract class Options {
                 put.getBidAskCounterList( ).clear( );
             }
         } catch ( Exception e ) {
-            WallStreetWindow.popup( "Reset option faild", e );
+            WallStreetWindow.popup( "Reset option failed", e );
         }
     }
 
+    public OptionsEnum getType() {
+        return type;
+    }
+
+    public void setType( OptionsEnum type ) {
+        this.type = type;
+    }
 
     public double floor( double d, int zeros ) {
         return Math.floor( d * zeros ) / zeros;
@@ -726,10 +728,6 @@ public abstract class Options {
 
     public double absolute( double d ) {
         return Math.abs( d );
-    }
-
-    public static int getQUARTER() {
-        return QUARTER;
     }
 
     public EqualMoveService getEqualMoveService() {
@@ -784,10 +782,6 @@ public abstract class Options {
 
     public void setBorrow( double borrow ) {
         this.borrow = borrow;
-    }
-
-    public static int getDAY() {
-        return DAY;
     }
 
     public int getContractBidAskCounter() {
@@ -896,14 +890,6 @@ public abstract class Options {
         this.gotData = gotData;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType( int type ) {
-        this.type = type;
-    }
-
     public String getName() {
         return name;
     }
@@ -920,7 +906,6 @@ public abstract class Options {
         this.positionCalculator = positionCalculator;
     }
 
-
     public double getContractBid() {
         return contractBid;
     }
@@ -935,10 +920,6 @@ public abstract class Options {
 
     public void setContractAsk( double contractAsk ) {
         this.contractAsk = contractAsk;
-    }
-
-    public static int getMONTH() {
-        return MONTH;
     }
 
     public List< Double > getOpList() {

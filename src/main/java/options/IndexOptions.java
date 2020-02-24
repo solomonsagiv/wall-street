@@ -8,7 +8,7 @@ public class IndexOptions extends Options {
     INDEX_CLIENT_OBJECT client;
 
     // Constructor
-    public IndexOptions( INDEX_CLIENT_OBJECT client, int type, Contract twsContract ) {
+    public IndexOptions( INDEX_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
         super( client, type, twsContract );
     }
 

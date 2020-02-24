@@ -1,6 +1,8 @@
 package serverObjects.indexObjects;
 
+import options.IndexOptions;
 import options.Options;
+import options.OptionsEnum;
 import options.OptionsHandler;
 import org.hibernate.SessionFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -24,11 +26,17 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         return future;
     }
 
-    public OptionsHandler getOptionsHandler() {
-        if ( optionsHandler == null ) {
-            optionsHandler = new OptionsHandler( this );
-        }
-        return optionsHandler;
-    }
 
+    @Override
+    public void initOptionsHandler() {
+
+        OptionsHandler optionsHandler = new OptionsHandler( this ) {
+            @Override
+            public void initOptions() {
+
+            }
+        };
+
+        setOptionsHandler( optionsHandler );
+    }
 }

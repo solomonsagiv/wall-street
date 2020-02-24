@@ -271,10 +271,8 @@ public class MainWindow {
         JButton btnSetting = new JButton( "Setting" );
         btnSetting.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent arg0 ) {
-
                 Setting setting = new Setting( "index" );
                 setting.frmSetting.setVisible( true );
-
             }
         } );
         btnSetting.setForeground( Color.WHITE );

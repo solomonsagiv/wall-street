@@ -1,11 +1,10 @@
 package serverObjects.stockObjects;
 
-import api.Manifest;
 import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
-import serverObjects.TwsData;
+import tws.TwsData;
 import java.time.LocalTime;
 
 public class Apple extends STOCK_OBJECT {

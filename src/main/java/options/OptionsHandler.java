@@ -10,16 +10,17 @@ import serverObjects.stockObjects.STOCK_OBJECT;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class OptionsHandler {
+public abstract class OptionsHandler implements IOptionsHandler {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    private Options optionsMonth;
-    private Options optionsDay;
-    private Options optionsQuarter;
-    private HashMap< Integer, Options > optionsMap = new HashMap<>( );
+    private HashMap< OptionsEnum, Options > optionsMap = new HashMap<>( );
     private ArrayList< Options > optionsList = new ArrayList<>( );
     private PositionCalculator positionCalculator;
+
+    public Options getOptions( OptionsEnum options ) {
+        return optionsMap.get( options );
+    }
 
     // Constructor
     public OptionsHandler( INDEX_CLIENT_OBJECT client ) {
@@ -27,17 +28,17 @@ public class OptionsHandler {
 
         positionCalculator = new PositionCalculator( client );
 
-        optionsDay = new IndexOptions( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
+        optionsDay = new IndexOptions( client, OptionsEnum.WEEK, client.getTwsData( ).getOptionsDayContract( ) );
         getOptionsList( ).add( optionsDay );
-        getOptionsMap( ).put( optionsDay.getType(), optionsDay );
+        getOptionsMap( ).put( optionsDay.getType( ), optionsDay );
 
-        optionsMonth = new IndexOptions( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
+        optionsMonth = new IndexOptions( client, OptionsEnum.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
         getOptionsList( ).add( optionsMonth );
-        getOptionsMap( ).put( optionsMonth.getType(), optionsMonth );
+        getOptionsMap( ).put( optionsMonth.getType( ), optionsMonth );
 
-        optionsQuarter = new IndexOptions( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
+        optionsQuarter = new IndexOptions( client, OptionsEnum.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
         getOptionsList( ).add( optionsQuarter );
-        getOptionsMap( ).put( optionsQuarter.getType(), optionsQuarter );
+        getOptionsMap( ).put( optionsQuarter.getType( ), optionsQuarter );
 
     }
 
@@ -46,18 +47,23 @@ public class OptionsHandler {
 
         positionCalculator = new PositionCalculator( client );
 
-        optionsDay = new StockOptions( client, Options.DAY, client.getTwsData( ).getOptionsDayContract( ) );
+        optionsDay = new StockOptions( client, OptionsEnum.WEEK, client.getTwsData( ).getOptionsDayContract( ) );
         getOptionsList( ).add( optionsDay );
-        getOptionsMap( ).put( optionsDay.getType(), optionsDay );
+        getOptionsMap( ).put( optionsDay.getType( ), optionsDay );
 
-        optionsMonth = new StockOptions( client, Options.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
+        optionsMonth = new StockOptions( client, OptionsEnum.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
         getOptionsList( ).add( optionsMonth );
-        getOptionsMap( ).put( optionsMonth.getType(), optionsMonth );
+        getOptionsMap( ).put( optionsMonth.getType( ), optionsMonth );
 
-        optionsQuarter = new StockOptions( client, Options.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
+        optionsQuarter = new StockOptions( client, OptionsEnum.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
         getOptionsList( ).add( optionsQuarter );
-        getOptionsMap( ).put( optionsQuarter.getType(), optionsQuarter );
+        getOptionsMap( ).put( optionsQuarter.getType( ), optionsQuarter );
 
+    }
+
+    public void addOptions( Options options ) {
+        getOptionsList( ).add( options );
+        getOptionsMap( ).put( options.getType( ), options );
     }
 
     // Functions
@@ -65,10 +71,10 @@ public class OptionsHandler {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
 
-            if (options.getOptionsAsJson().length() == 0 || !client.isStarted()) {
-                object.put( options.getName( ), options.getOptionsAsJson() );
+            if ( options.getOptionsAsJson( ).length( ) == 0 || !client.isStarted( ) ) {
+                object.put( options.getName( ), options.getOptionsAsJson( ) );
             } else {
-                object.put( options.getName( ), options.getOptionsAsJson() );
+                object.put( options.getName( ), options.getOptionsAsJson( ) );
             }
 
         }
@@ -139,31 +145,11 @@ public class OptionsHandler {
 
 
     // Getters and setters
-    public Options getOptionsQuarter() {
-        return optionsQuarter;
-    }
-
-    public Options getOptionsDay() {
-        return optionsDay;
-    }
-
-    public Options getOptionsMonth() {
-        return optionsMonth;
-    }
-
-    public void setOptionsMonth( Options optionsMonth ) {
-        this.optionsMonth = optionsMonth;
-    }
-
-    public Options getMainOptions() {
-        return optionsMonth;
-    }
-
-    public HashMap< Integer, Options > getOptionsMap() {
+    public HashMap< OptionsEnum, Options > getOptionsMap() {
         return optionsMap;
     }
 
-    public void setOptionsMap( HashMap< Integer, Options > optionsMap ) {
+    public void setOptionsMap( HashMap< OptionsEnum, Options > optionsMap ) {
         this.optionsMap = optionsMap;
     }
 
@@ -182,4 +168,11 @@ public class OptionsHandler {
     public void setPositionCalculator( PositionCalculator positionCalculator ) {
         this.positionCalculator = positionCalculator;
     }
+
+
+
+}
+
+interface IOptionsHandler {
+    void initOptions();
 }

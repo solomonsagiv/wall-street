@@ -1,32 +1,24 @@
 package options;
 
 import com.ib.client.Contract;
-import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 
 public class StockOptions extends Options {
 
     STOCK_OBJECT client;
 
-    public StockOptions( STOCK_OBJECT client, int type, Contract twsContract ) {
+    public StockOptions( STOCK_OBJECT client, OptionsEnum type, Contract twsContract ) {
         super( client, type, twsContract );
         this.client = client;
     }
 
     @Override
     public double getStrikeInMoney() {
-
         if ( currStrike != 0 ) {
-
             if ( client.getIndex( ) - currStrike > client.getStrikeMargin( ) ) {
-
                 currStrike += client.getStrikeMargin( );
-
             } else if ( client.getIndex( ) - currStrike < -client.getStrikeMargin( ) ) {
-
                 currStrike -= client.getStrikeMargin( );
-
             }
         } else {
             currStrike = getStrikeInMoneyIfZero( ).getStrike( );

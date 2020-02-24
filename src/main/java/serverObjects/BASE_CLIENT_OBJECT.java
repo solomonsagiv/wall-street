@@ -15,12 +15,12 @@ import options.OptionsDataHandler;
 import options.OptionsHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
-import javax.swing.*;
+import tws.TwsData;
+
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -114,6 +114,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         initEndOfFutureTrading( );
         initDbId( );
         initTablesHandlers( );
+        initOptionsHandler();
 
         // MyServices
         listsService = new ListsService( this );
@@ -131,11 +132,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         }
 
         if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ) {
-
             myServiceHandler.getHandler( ).start( );
-
             getPanel( ).getUpdater( ).getHandler( ).start( );
-
             setStarted( true );
         }
     }
@@ -590,6 +588,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public MySqlService getMySqlService() {
         return mySqlService;
+    }
+
+    public void setOptionsHandler( OptionsHandler optionsHandler ) {
+        this.optionsHandler = optionsHandler;
+    }
+
+    public OptionsHandler getOptionsHandler() {
+        return optionsHandler;
     }
 
     @Override
