@@ -5,6 +5,7 @@ import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
+import tws.TwsContractsEnum;
 import tws.TwsData;
 
 import java.time.LocalTime;
@@ -49,7 +50,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         indexContract.currency( "USD" );
         indexContract.exchange( "CBOE" );
         indexContract.multiplier( "50" );
-        twsData.setIndexContract( indexContract );
+        twsData.appendTwsContract( TwsContractsEnum.INDEX, indexContract );
 
         Contract futureContract = new Contract( );
         futureContract.symbol( "ES" );
@@ -58,7 +59,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
         futureContract.exchange( "GLOBEX" );
         futureContract.multiplier( "50" );
-        twsData.setFutureContract( futureContract );
+        twsData.appendTwsContract( TwsContractsEnum.FUTURE, futureContract );
 
         Contract optionsDayContract = new Contract( );
         optionsDayContract.secType( "OPT" );
@@ -68,7 +69,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsDayContract.multiplier( "100" );
         optionsDayContract.symbol( "SPXW" );
         optionsDayContract.includeExpired( true );
-        twsData.setOptionsDayContract( optionsDayContract );
+        twsData.appendTwsContract( TwsContractsEnum.WEEK, optionsDayContract );
 
         Contract optionsMonthContract = new Contract( );
         optionsMonthContract.secType( "OPT" );
@@ -78,7 +79,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsMonthContract.multiplier( "100" );
         optionsMonthContract.symbol( "SPX" );
         optionsMonthContract.includeExpired( true );
-        twsData.setOptionMonthContract( optionsMonthContract );
+        twsData.appendTwsContract( TwsContractsEnum.MONTH, optionsMonthContract );
 
         Contract optionsQuarterContract = new Contract( );
         optionsQuarterContract.secType( "OPT" );
@@ -88,7 +89,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsQuarterContract.multiplier( "100" );
         optionsQuarterContract.symbol( "SPX" );
         optionsQuarterContract.includeExpired( true );
-        twsData.setOptionsQuarterContract( optionsQuarterContract );
+        twsData.appendTwsContract( TwsContractsEnum.QUARTER, optionsQuarterContract );
 
         Contract optionsQuarterFarContract = new Contract( );
         optionsQuarterFarContract.secType( "OPT" );
@@ -98,15 +99,15 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsQuarterFarContract.multiplier( "100" );
         optionsQuarterFarContract.symbol( "SPX" );
         optionsQuarterFarContract.includeExpired( true );
-        twsData.setOptionsQuarterFarContract( optionsQuarterFarContract );
+        twsData.appendTwsContract( TwsContractsEnum.QUARTER_FAR, optionsQuarterFarContract );
 
-        Contract futureOptionContract = new Contract( );
-        futureOptionContract.secType( "FOP" );
-        futureOptionContract.currency( "USD" );
-        futureOptionContract.exchange( "GLOBEX" );
-        futureOptionContract.multiplier( "50" );
-        futureOptionContract.includeExpired( true );
-        twsData.setFutureOptionContract( futureOptionContract );
+//        Contract futureOptionContract = new Contract( );
+//        futureOptionContract.secType( "FOP" );
+//        futureOptionContract.currency( "USD" );
+//        futureOptionContract.exchange( "GLOBEX" );
+//        futureOptionContract.multiplier( "50" );
+//        futureOptionContract.includeExpired( true );
+//        twsData.setFutureOptionContract( futureOptionContract );
     }
 
     @Override

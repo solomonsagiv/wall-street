@@ -2,6 +2,7 @@ package charts;
 
 import locals.Themes;
 import options.Options;
+import options.OptionsEnum;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.AxisLocation;
@@ -50,7 +51,7 @@ public class MySingleFreeChartLive {
                                   float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
 
         this.mainOptions = client.getOptionsHandler().getMainOptions();
-        this.quarterOptions = client.getOptionsHandler().getOptionsQuarter();
+        this.quarterOptions = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
         this.client = client;
         this.series = series;
         this.colors = colors;

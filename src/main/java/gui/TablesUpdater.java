@@ -1,6 +1,7 @@
 package gui;
 
 import options.Option;
+import options.OptionsEnum;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
@@ -90,10 +91,10 @@ public class TablesUpdater {
                 double strike;
                 try {
                     strike = ( int ) spxTable.getValueAt( row, 1 );
-                    Option call = spx.getOptionsHandler( ).getOptionsDay( ).getOption( "c" + strike );
+                    Option call = spx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getOption( "c" + strike );
                     spxTable.setValueAt( call.getBidAskCounter( ), row, 0 );
 
-                    Option put = spx.getOptionsHandler( ).getOptionsDay( ).getOption( "p" + strike );
+                    Option put = spx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getOption( "p" + strike );
                     spxTable.setValueAt( put.getBidAskCounter( ), row, 2 );
 
                 } catch ( NullPointerException e ) {

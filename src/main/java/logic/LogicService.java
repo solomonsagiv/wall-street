@@ -1,6 +1,6 @@
 package logic;
 
-import gui.FuturePanel;
+import gui.panels.IndexPanel;
 import locals.Themes;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -11,7 +11,6 @@ import java.awt.*;
 public class LogicService extends MyBaseService {
 
     // Variables
-    Color light_grey_back = new Color( 248, 248, 255 );
     Options options;
 
     // regular count
@@ -32,10 +31,10 @@ public class LogicService extends MyBaseService {
     boolean bool = true;
     boolean run = true;
     double margin;
-    FuturePanel panel;
+    IndexPanel panel;
 
     // Constructor
-    public LogicService( BASE_CLIENT_OBJECT client, Options options, FuturePanel panel ) {
+    public LogicService( BASE_CLIENT_OBJECT client, Options options, IndexPanel panel ) {
         super( client );
         this.options = options;
         this.margin = client.getRacesMargin( );
@@ -167,11 +166,13 @@ public class LogicService extends MyBaseService {
                         conCompetion = false;
                         conUpDown = 0;
 
-                        noisy( panel.conRacesField, Themes.GREEN );
-                        conRunnerUpCount = 1;
+//                        noisy( panel.conRacesField, Themes.GREEN );
+                        getClient().conUpPlus();
+//                        conRunnerUpCount = 1;
 
                         conRunner = future;
                         indRunner = index;
+                        return;
                     }
 
                     // new Competition
@@ -198,8 +199,9 @@ public class LogicService extends MyBaseService {
                         conCompetion = false;
                         conUpDown = 0;
 
-                        conRunnerDownCount = 1;
-                        noisy( panel.conRacesField, Themes.RED );
+                        getClient().conDownPlus();
+//                        conRunnerDownCount = 1;
+//                        noisy( panel.conRacesField, Themes.RED );
                         conRunner = future;
                         indRunner = index;
                     }
@@ -231,8 +233,9 @@ public class LogicService extends MyBaseService {
                         indCompetition = false;
                         indUpDown = 0;
 
-                        indRunnerUpCount = 1;
-                        noisy( panel.indRacesField, Themes.GREEN );
+                        getClient().indUpPlus();
+//                        indRunnerUpCount = 1;
+//                        noisy( panel.indRacesField, Themes.GREEN );
 
                         conRunner = future;
                         indRunner = index;
@@ -262,9 +265,9 @@ public class LogicService extends MyBaseService {
                         indCompetition = false;
                         indUpDown = 0;
 
-                        indRunnerDownCount = 1;
-
-                        noisy( panel.indRacesField, Themes.RED );
+                        getClient().indDownPlus();
+//                        indRunnerDownCount = 1;
+//                        noisy( panel.indRacesField, Themes.RED );
 
                         conRunner = future;
                         indRunner = index;
@@ -376,31 +379,6 @@ public class LogicService extends MyBaseService {
 
     }
 
-
-    // noisy
-    private void noisy( JTextField textField, Color color ) {
-        Runnable r = () -> {
-            doNois( textField, color, light_grey_back );
-        };
-        new Thread( r ).start( );
-    }
-
-    static void doNois( JTextField textField, Color color, Color light_grey_back ) {
-        try {
-            Color forg = textField.getForeground( );
-
-            for ( int i = 0; i < 200; i++ ) {
-                textField.setBackground( color );
-                textField.setForeground( Color.WHITE );
-                Thread.sleep( 10 );
-            }
-
-            textField.setForeground( forg );
-            textField.setBackground( light_grey_back );
-        } catch ( InterruptedException e ) {
-            e.printStackTrace( );
-        }
-    }
 
     public void close() {
         run = false;

@@ -7,11 +7,11 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.mySqlComps.MyTableHandler;
-import gui.FuturePanel;
 import lists.ListsService;
 import locals.L;
 import locals.LocalHandler;
 import options.OptionsDataHandler;
+import options.OptionsEnum;
 import options.OptionsHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
@@ -59,9 +59,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Options handler
     protected OptionsDataHandler optionsDataHandler;
 
-    // Panel
-    private FuturePanel futurePanel;
-
     // MyService
     private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
 
@@ -93,6 +90,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private int conDown = 0;
     private int indexUp = 0;
     private int indexDown = 0;
+
+    private boolean conUpChanged = false;
+    private boolean conDownChanged = false;
+    private boolean indUpChanged = false;
+    private boolean indDownChanged = false;
+
     private int optimiPesimiCount = 0;
 
     List indexList = new ArrayList< Double >( );
@@ -131,9 +134,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             setLoadFromDb( true );
         }
 
-        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptionsQuarter( ).isGotData( ) && isLoadFromDb( ) ) {
+        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).isGotData( ) && isLoadFromDb( ) ) {
             myServiceHandler.getHandler( ).start( );
-            getPanel( ).getUpdater( ).getHandler( ).start( );
             setStarted( true );
         }
     }
@@ -243,17 +245,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setEndStrike( double endStrike ) {
         this.endStrike = endStrike;
-    }
-
-    public FuturePanel getPanel() {
-        if ( futurePanel == null ) {
-            futurePanel = new FuturePanel( this );
-        }
-        return futurePanel;
-    }
-
-    public void setPanel( FuturePanel panel ) {
-        this.futurePanel = panel;
     }
 
     public double getRacesMargin() {
@@ -386,18 +377,22 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void conUpPlus() {
         conUp++;
+        setConUpChanged( true );
     }
 
     public void conDownPlus() {
         conDown++;
+        setConDownChanged( true );
     }
 
     public void indUpPlus() {
         indexUp++;
+        setIndUpChanged( true );
     }
 
     public void indDownPlus() {
         indexDown++;
+        setIndDownChanged( true );
     }
 
     public boolean isDbRunning() {
@@ -595,7 +590,40 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public OptionsHandler getOptionsHandler() {
-        return optionsHandler;
+        if ( optionsHandler == null ) throw new NullPointerException( );
+        return optionsHandler ;
+    }
+
+    public boolean isConUpChanged() {
+        return conUpChanged;
+    }
+
+    public void setConUpChanged( boolean conUpChanged ) {
+        this.conUpChanged = conUpChanged;
+    }
+
+    public boolean isConDownChanged() {
+        return conDownChanged;
+    }
+
+    public void setConDownChanged( boolean conDownChanged ) {
+        this.conDownChanged = conDownChanged;
+    }
+
+    public boolean isIndUpChanged() {
+        return indUpChanged;
+    }
+
+    public void setIndUpChanged( boolean indUpChanged ) {
+        this.indUpChanged = indUpChanged;
+    }
+
+    public boolean isIndDownChanged() {
+        return indDownChanged;
+    }
+
+    public void setIndDownChanged( boolean indDownChanged ) {
+        this.indDownChanged = indDownChanged;
     }
 
     @Override
@@ -622,7 +650,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", backRunner=" + backRunner +
                 ", dbId=" + dbId +
                 ", optionsDataHandler=" + optionsDataHandler +
-                ", futurePanel=" + futurePanel +
                 ", equalMovePlag=" + equalMovePlag +
                 ", dbContract=" + dbContract +
                 ", index=" + index +

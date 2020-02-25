@@ -4,9 +4,11 @@ import arik.Arik;
 import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
+import options.OptionsEnum;
 import options.OptionsHandler;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+import tws.TwsContractsEnum;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -94,6 +96,8 @@ public class Downloader extends Thread implements EWrapper {
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
         client.reqAccountUpdates( true, Manifest.ACCOUNT );
+
+        client.reqContractDetails( 569398, Spx.getInstance().getTwsData().getContract( TwsContractsEnum.MONTH ) );
 
         try {
             System.in.read( );
@@ -231,7 +235,7 @@ public class Downloader extends Thread implements EWrapper {
         if ( ndxClient.isStarted( ) ) {
 
             // Day
-            Options options = ndxOptionsHandler.getOptionsDay( );
+            Options options = ndxOptionsHandler.getOptions( OptionsEnum.WEEK );
             int minId = options.getMinId( );
             int maxId = options.getMaxId( );
 
@@ -249,7 +253,7 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             // Month
-            options = ndxOptionsHandler.getOptionsMonth( );
+            options = ndxOptionsHandler.getOptions( OptionsEnum.MONTH );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -268,7 +272,7 @@ public class Downloader extends Thread implements EWrapper {
 
 
             // Three Month
-            options = ndxOptionsHandler.getOptionsQuarter( );
+            options = ndxOptionsHandler.getOptions( OptionsEnum.QUARTER );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -289,7 +293,7 @@ public class Downloader extends Thread implements EWrapper {
 
 
             // Day
-            Options options = ndxOptionsHandler.getOptionsDay( );
+            Options options = ndxOptionsHandler.getOptions( OptionsEnum.WEEK );
             int minId = options.getMinId( );
             int maxId = options.getMaxId( );
 
@@ -307,7 +311,7 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             // Month
-            options = ndxOptionsHandler.getOptionsMonth( );
+            options = ndxOptionsHandler.getOptions( OptionsEnum.MONTH );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -326,7 +330,7 @@ public class Downloader extends Thread implements EWrapper {
 
 
             // Three Month
-            options = ndxOptionsHandler.getOptionsQuarter( );
+            options = ndxOptionsHandler.getOptions( OptionsEnum.QUARTER );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -348,7 +352,7 @@ public class Downloader extends Thread implements EWrapper {
         if ( spxClient.isStarted( ) ) {
 
             // Day
-            Options options = spxOptionsHandler.getOptionsDay( );
+            Options options = spxOptionsHandler.getOptions( OptionsEnum.WEEK );
             int minId = options.getMinId( );
             int maxId = options.getMaxId( );
 
@@ -366,7 +370,7 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             // Month
-            options = spxOptionsHandler.getOptionsMonth( );
+            options = spxOptionsHandler.getOptions( OptionsEnum.MONTH );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -385,7 +389,7 @@ public class Downloader extends Thread implements EWrapper {
 
 
             // Three Month
-            options = spxOptionsHandler.getOptionsQuarter( );
+            options = spxOptionsHandler.getOptions( OptionsEnum.QUARTER );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -405,7 +409,7 @@ public class Downloader extends Thread implements EWrapper {
         } else {
 
             // Day
-            Options options = spxOptionsHandler.getOptionsDay( );
+            Options options = spxOptionsHandler.getOptions( OptionsEnum.WEEK );
             int minId = options.getMinId( );
             int maxId = options.getMaxId( );
 
@@ -423,7 +427,7 @@ public class Downloader extends Thread implements EWrapper {
             }
 
             // Month
-            options = spxOptionsHandler.getOptionsMonth( );
+            options = spxOptionsHandler.getOptions( OptionsEnum.MONTH );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 
@@ -442,7 +446,7 @@ public class Downloader extends Thread implements EWrapper {
 
 
             // Three Month
-            options = spxOptionsHandler.getOptionsQuarter( );
+            options = spxOptionsHandler.getOptions( OptionsEnum.QUARTER );
             minId = options.getMinId( );
             maxId = options.getMaxId( );
 

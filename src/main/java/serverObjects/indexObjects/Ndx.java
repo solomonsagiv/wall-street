@@ -5,6 +5,7 @@ import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
+import tws.TwsContractsEnum;
 import tws.TwsData;
 
 import java.time.LocalTime;
@@ -47,7 +48,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         indexContract.currency( "USD" );
         indexContract.exchange( "NASDAQ" );
         indexContract.multiplier( "20" );
-        twsData.setIndexContract( indexContract );
+        twsData.appendTwsContract( TwsContractsEnum.INDEX, indexContract );
 
         Contract futureContract = new Contract( );
         futureContract.symbol( "NQ" );
@@ -56,7 +57,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         futureContract.exchange( "GLOBEX" );
         futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
         futureContract.multiplier( "20" );
-        twsData.setFutureContract( futureContract );
+        twsData.appendTwsContract( TwsContractsEnum.FUTURE, futureContract );
 
         Contract optionsDayContract = new Contract( );
         optionsDayContract.secType( "OPT" );
@@ -65,35 +66,35 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsDayContract.tradingClass( "NDXP" );
         optionsDayContract.symbol( "NDXP" );
         optionsDayContract.includeExpired( true );
-        twsData.setOptionsDayContract( optionsDayContract );
+        twsData.appendTwsContract( TwsContractsEnum.WEEK, optionsDayContract );
 
-        Contract optoinsMonthContract = new Contract( );
-        optoinsMonthContract.secType( "OPT" );
-        optoinsMonthContract.currency( "USD" );
-        optoinsMonthContract.exchange( "SMART" );
-        optoinsMonthContract.tradingClass( "NDX" );
-        optoinsMonthContract.symbol( "NDX" );
-        optoinsMonthContract.includeExpired( true );
-        twsData.setOptionMonthContract( optoinsMonthContract );
+        Contract optionsMonthContract = new Contract( );
+        optionsMonthContract.secType( "OPT" );
+        optionsMonthContract.currency( "USD" );
+        optionsMonthContract.exchange( "SMART" );
+        optionsMonthContract.tradingClass( "NDX" );
+        optionsMonthContract.symbol( "NDX" );
+        optionsMonthContract.includeExpired( true );
+        twsData.appendTwsContract( TwsContractsEnum.MONTH, optionsMonthContract );
 
-        Contract optoinsQuarterContract = new Contract( );
-        optoinsQuarterContract.secType( "OPT" );
-        optoinsQuarterContract.currency( "USD" );
-        optoinsQuarterContract.exchange( "SMART" );
-        optoinsQuarterContract.symbol( "NDX" );
-        optoinsQuarterContract.multiplier( "100" );
-        optoinsQuarterContract.tradingClass( "NDX" );
-        optoinsQuarterContract.includeExpired( true );
-        twsData.setOptionsQuarterContract( optoinsQuarterContract );
+        Contract optionsQuarterContract = new Contract( );
+        optionsQuarterContract.secType( "OPT" );
+        optionsQuarterContract.currency( "USD" );
+        optionsQuarterContract.exchange( "SMART" );
+        optionsQuarterContract.symbol( "NDX" );
+        optionsQuarterContract.multiplier( "100" );
+        optionsQuarterContract.tradingClass( "NDX" );
+        optionsQuarterContract.includeExpired( true );
+        twsData.appendTwsContract( TwsContractsEnum.QUARTER, optionsQuarterContract );
 
-        Contract optoinsQuarterFarContract = new Contract( );
-        optoinsQuarterFarContract.secType( "OPT" );
-        optoinsQuarterFarContract.currency( "USD" );
-        optoinsQuarterFarContract.exchange( "SMART" );
-        optoinsQuarterFarContract.tradingClass( "NDX" );
-        optoinsQuarterFarContract.symbol( "NDX" );
-        optoinsQuarterFarContract.includeExpired( true );
-        twsData.setOptionsQuarterFarContract( optoinsQuarterFarContract );
+        Contract optionsQuarterFarContract = new Contract( );
+        optionsQuarterFarContract.secType( "OPT" );
+        optionsQuarterFarContract.currency( "USD" );
+        optionsQuarterFarContract.exchange( "SMART" );
+        optionsQuarterFarContract.tradingClass( "NDX" );
+        optionsQuarterFarContract.symbol( "NDX" );
+        optionsQuarterFarContract.includeExpired( true );
+        twsData.appendTwsContract( TwsContractsEnum.QUARTER_FAR, optionsQuarterFarContract );
 
     }
 

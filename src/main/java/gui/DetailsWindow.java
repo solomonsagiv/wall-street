@@ -1,6 +1,7 @@
 package gui;
 
 import options.Options;
+import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class DetailsWindow {
 
     public static DetailsWindow window;
-    JFrame frame;
+    public JFrame frame;
     JLabel stockNameField;
     JTextArea textArea;
     JTextArea optionsArea;
@@ -104,13 +105,13 @@ public class DetailsWindow {
             public void actionPerformed( ActionEvent actionEvent ) {
                 switch ( optionsCombo.getSelectedItem( ).toString( ).toLowerCase( ) ) {
                     case "day":
-                        options = client.getOptionsHandler( ).getOptionsDay( );
+                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
                         break;
                     case "month":
-                        options = client.getOptionsHandler( ).getOptionsMonth( );
+                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
                         break;
                     case "quarter":
-                        options = client.getOptionsHandler( ).getOptionsQuarter( );
+                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
                         break;
                     case "main":
                         options = client.getOptionsHandler( ).getMainOptions( );

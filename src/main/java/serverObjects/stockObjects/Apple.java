@@ -4,6 +4,7 @@ import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
+import tws.TwsContractsEnum;
 import tws.TwsData;
 import java.time.LocalTime;
 
@@ -46,7 +47,7 @@ public class Apple extends STOCK_OBJECT {
         indexContract.primaryExch( "NASDAQ" );
         indexContract.currency( "USD" );
         indexContract.exchange( "SMART" );
-        twsData.setIndexContract( indexContract );
+        twsData.appendTwsContract( TwsContractsEnum.INDEX, indexContract );
 
         Contract optionsMonthContract = new Contract( );
         optionsMonthContract.secType( "OPT" );
@@ -56,7 +57,7 @@ public class Apple extends STOCK_OBJECT {
         optionsMonthContract.multiplier( "100" );
         optionsMonthContract.symbol( "AAPL" );
         optionsMonthContract.includeExpired( true );
-        twsData.setOptionMonthContract( optionsMonthContract );
+        twsData.appendTwsContract( TwsContractsEnum.MONTH, optionsMonthContract );
 
     }
 

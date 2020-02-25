@@ -13,10 +13,11 @@ import java.util.HashMap;
 public abstract class OptionsHandler implements IOptionsHandler {
 
     // Variables
-    BASE_CLIENT_OBJECT client;
+    public BASE_CLIENT_OBJECT client;
     private HashMap< OptionsEnum, Options > optionsMap = new HashMap<>( );
     private ArrayList< Options > optionsList = new ArrayList<>( );
     private PositionCalculator positionCalculator;
+    Options mainOptions;
 
     public Options getOptions( OptionsEnum options ) {
         return optionsMap.get( options );
@@ -27,44 +28,19 @@ public abstract class OptionsHandler implements IOptionsHandler {
         this.client = client;
 
         positionCalculator = new PositionCalculator( client );
-
-        optionsDay = new IndexOptions( client, OptionsEnum.WEEK, client.getTwsData( ).getOptionsDayContract( ) );
-        getOptionsList( ).add( optionsDay );
-        getOptionsMap( ).put( optionsDay.getType( ), optionsDay );
-
-        optionsMonth = new IndexOptions( client, OptionsEnum.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
-        getOptionsList( ).add( optionsMonth );
-        getOptionsMap( ).put( optionsMonth.getType( ), optionsMonth );
-
-        optionsQuarter = new IndexOptions( client, OptionsEnum.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
-        getOptionsList( ).add( optionsQuarter );
-        getOptionsMap( ).put( optionsQuarter.getType( ), optionsQuarter );
-
     }
 
     public OptionsHandler( STOCK_OBJECT client ) {
         this.client = client;
 
         positionCalculator = new PositionCalculator( client );
-
-        optionsDay = new StockOptions( client, OptionsEnum.WEEK, client.getTwsData( ).getOptionsDayContract( ) );
-        getOptionsList( ).add( optionsDay );
-        getOptionsMap( ).put( optionsDay.getType( ), optionsDay );
-
-        optionsMonth = new StockOptions( client, OptionsEnum.MONTH, client.getTwsData( ).getOptionMonthContract( ) );
-        getOptionsList( ).add( optionsMonth );
-        getOptionsMap( ).put( optionsMonth.getType( ), optionsMonth );
-
-        optionsQuarter = new StockOptions( client, OptionsEnum.QUARTER, client.getTwsData( ).getOptionsQuarterContract( ) );
-        getOptionsList( ).add( optionsQuarter );
-        getOptionsMap( ).put( optionsQuarter.getType( ), optionsQuarter );
-
     }
 
     public void addOptions( Options options ) {
         getOptionsList( ).add( options );
         getOptionsMap( ).put( options.getType( ), options );
     }
+
 
     // Functions
     public JSONObject getAllOptionsAsJson() {
@@ -169,10 +145,16 @@ public abstract class OptionsHandler implements IOptionsHandler {
         this.positionCalculator = positionCalculator;
     }
 
+    public Options getMainOptions() {
+        return mainOptions;
+    }
 
-
+    public void setMainOptions( Options mainOptions ) {
+        this.mainOptions = mainOptions;
+    }
 }
 
 interface IOptionsHandler {
     void initOptions();
+    void initMainOptions();
 }

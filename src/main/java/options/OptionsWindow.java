@@ -67,7 +67,7 @@ public class OptionsWindow {
 
         String[] header = { "Call", "Strike", "Put" };
 
-        int striksNum = client.getOptionsHandler( ).getOptionsMonth( ).getStrikes( ).size( );
+        int striksNum = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getStrikes( ).size( );
 
         Object[][] data = new Object[ striksNum ][ 3 ];
 
@@ -285,7 +285,7 @@ public class OptionsWindow {
                         row++;
                     }
 
-                    colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptionsMonth( ).getContractBidAskCounter( ) );
+                    colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getContractBidAskCounter( ) );
                     colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), null );
                     colorForf( opAvg15Field, client.getOptionsHandler( ).getMainOptions( ).getOpAvg15( ), null );
                     colorForf( move15Field, move15Min, "%" );

@@ -1,6 +1,7 @@
 package locals;
 
 import javax.swing.*;
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -72,7 +73,6 @@ public class L {
         return df10.format( num );
     }
 
-
     public void popUp( JFrame frame, String text ) {
         JOptionPane.showMessageDialog( frame, text );
     }
@@ -81,6 +81,33 @@ public class L {
         String text = e.getMessage( ) + "\n" + e.getCause( );
         JOptionPane.showMessageDialog( frame, text );
     }
+
+
+    // noisy
+    public static void noisy( JTextField textField, Color color ) {
+        Runnable r = () -> {
+            doNois( textField, color, Themes.GREY_VERY_LIGHT );
+        };
+        new Thread( r ).start( );
+    }
+
+    static void doNois( JTextField textField, Color color, Color light_grey_back ) {
+        try {
+            Color forg = textField.getForeground( );
+
+            for ( int i = 0; i < 200; i++ ) {
+                textField.setBackground( color );
+                textField.setForeground( Color.WHITE );
+                Thread.sleep( 10 );
+            }
+
+            textField.setForeground( forg );
+            textField.setBackground( light_grey_back );
+        } catch ( InterruptedException e ) {
+            e.printStackTrace( );
+        }
+    }
+
 
     public static double floor( double d, int zeros ) {
         return Math.floor( d * zeros ) / zeros;

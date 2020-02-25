@@ -23,10 +23,10 @@ public class MyTwsClient {
 
         Thread.sleep( 2000 );
 
-        Contract contract = Spx.getInstance( ).getTwsData( ).getFutureContract( );
-        System.out.println( contract );
-
-        connection.getTwsClient( ).sellMarket( Spx.getInstance( ).getTwsData( ).getFutureContract( ), 3 );
+//        Contract contract = Spx.getInstance( ).getTwsData( ).getFutureContract( );
+//        System.out.println( contract );
+//
+//        connection.getTwsClient( ).sellMarket( Spx.getInstance( ).getTwsData( ).getFutureContract( ), 3 );
     }
 
     public int nextOrderId() {

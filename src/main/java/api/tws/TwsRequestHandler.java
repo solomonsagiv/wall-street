@@ -7,6 +7,7 @@ import options.Options;
 import options.Put;
 import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 import tws.TwsData;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
@@ -40,13 +41,13 @@ public class TwsRequestHandler {
         TwsData twsData = client.getTwsData( );
 
         // Future
-        if ( twsData.getFutureContract( ) != null ) {
-            downloader.reqMktData( twsData.getFutureId( ), twsData.getFutureContract( ) );
+        if ( twsData.isContractExist( TwsContractsEnum.FUTURE ) ) {
+            downloader.reqMktData( twsData.getFutureId( ), twsData.getContract( TwsContractsEnum.FUTURE ) );
         }
 
         // Index
-        if ( twsData.getIndexContract( ) != null ) {
-            downloader.reqMktData( twsData.getIndexId( ), twsData.getIndexContract( ) );
+        if ( twsData.isContractExist( TwsContractsEnum.INDEX ) ) {
+            downloader.reqMktData( twsData.getIndexId( ), twsData.getContract( TwsContractsEnum.INDEX ) );
         }
 
     }

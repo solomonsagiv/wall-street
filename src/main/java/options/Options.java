@@ -40,7 +40,7 @@ public abstract class Options {
     protected int maxId = 0;
     protected Contract twsContract;
     protected boolean gotData = false;
-
+    
     protected double contractBid = 0;
     protected double contractAsk = 0;
 

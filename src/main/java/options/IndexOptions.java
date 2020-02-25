@@ -5,7 +5,7 @@ import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 public class IndexOptions extends Options {
 
-    INDEX_CLIENT_OBJECT client;
+    protected INDEX_CLIENT_OBJECT client;
 
     // Constructor
     public IndexOptions( INDEX_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {

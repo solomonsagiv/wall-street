@@ -3,6 +3,7 @@ package dataBase.mySql.tables;
 import api.Manifest;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyTableSql;
+import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalDate;
@@ -69,21 +70,21 @@ public class MyDayTable extends MyTableSql {
         conDay = new MyColumnSql<>(this, "conDay", MyColumnSql.DOUBLE) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptionsDay().getContract();
+                return client.getOptionsHandler().getOptions( OptionsEnum.WEEK ).getContract();
             }
         };
 
         conMonth = new MyColumnSql<>(this, "conMonth", MyColumnSql.DOUBLE) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptionsMonth().getContract();
+                return client.getOptionsHandler().getOptions( OptionsEnum.MONTH ).getContract();
             }
         };
 
         conQuarter = new MyColumnSql<>(this, "conQuarter", MyColumnSql.DOUBLE) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptionsQuarter().getContract();
+                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getContract();
             }
         };
 

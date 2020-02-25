@@ -8,6 +8,7 @@ import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
 import options.Options;
+import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -522,13 +523,13 @@ public class Setting {
 
                     switch ( selected.toLowerCase( ) ) {
                         case "day":
-                            options = client.getOptionsHandler( ).getOptionsDay( );
+                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
                             break;
                         case "month":
-                            options = client.getOptionsHandler( ).getOptionsMonth( );
+                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
                             break;
                         case "three month":
-                            options = client.getOptionsHandler( ).getOptionsQuarter( );
+                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
                             break;
                         case "main options":
                             options = client.getOptionsHandler( ).getMainOptions( );
@@ -586,7 +587,7 @@ public class Setting {
             conBdCounterField.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
                     try {
-                        client.getOptionsHandler( ).getOptionsMonth( ).setContractBidAskCounter( Integer.parseInt( conBdCounterField.getText( ) ) );
+                        client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setContractBidAskCounter( Integer.parseInt( conBdCounterField.getText( ) ) );
                     } catch ( Exception e ) {
                         // TODO: handle exception
                     }
@@ -610,7 +611,7 @@ public class Setting {
             conDayBdCounterField.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        client.getOptionsHandler( ).getOptionsDay( ).setContractBidAskCounter( Integer.parseInt( conDayBdCounterField.getText( ) ) );
+                        client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setContractBidAskCounter( Integer.parseInt( conDayBdCounterField.getText( ) ) );
                     } catch ( Exception e2 ) {
                         // TODO: handle exception
                     }

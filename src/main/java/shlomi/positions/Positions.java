@@ -1,6 +1,7 @@
 package shlomi.positions;
 
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -40,7 +41,7 @@ public class Positions {
 
     public Position openNewPosition( String positionType, int pos, double startPrice ) {
 
-        Position position = new Position( getNextId( ), positionType, client.getTwsData( ).getFutureContract( ), pos, client );
+        Position position = new Position( getNextId( ), positionType, client.getTwsData( ).getContract( TwsContractsEnum.MONTH ), pos, client );
         position.open( startPrice );
 
         positions.put( position.getId( ), position );

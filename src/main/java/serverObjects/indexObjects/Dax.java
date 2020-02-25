@@ -40,32 +40,32 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
         twsData.setQuantity(1);
 
-        Contract indexContract = new Contract();
-        indexContract.symbol("DAX");
-        indexContract.secType("IND");
-        indexContract.currency("EUR");
-        indexContract.exchange("DTB");
-        indexContract.multiplier("25");
-        twsData.setIndexContract(indexContract);
-
-        Contract futureContract = new Contract();
-        futureContract.symbol("DAX");
-        futureContract.secType("FUT");
-        futureContract.currency("EUR");
-        futureContract.exchange("DTB");
-        futureContract.multiplier("5");
-        futureContract.lastTradeDateOrContractMonth(Manifest.EXPIRY);
-        twsData.setFutureContract(futureContract);
-
-        Contract indexOptionContract = new Contract();
-        indexOptionContract.secType("OPT");
-        indexOptionContract.symbol("ODAX");
-        indexOptionContract.tradingClass("ODAX");
-        indexOptionContract.currency("EUR");
-        indexOptionContract.exchange("DTB");
-        indexOptionContract.multiplier("5");
-        indexOptionContract.includeExpired(true);
-        twsData.setOptionMonthContract(indexOptionContract);
+//        Contract indexContract = new Contract();
+//        indexContract.symbol("DAX");
+//        indexContract.secType("IND");
+//        indexContract.currency("EUR");
+//        indexContract.exchange("DTB");
+//        indexContract.multiplier("25");
+//        twsData.setIndexContract(indexContract);
+//
+//        Contract futureContract = new Contract();
+//        futureContract.symbol("DAX");
+//        futureContract.secType("FUT");
+//        futureContract.currency("EUR");
+//        futureContract.exchange("DTB");
+//        futureContract.multiplier("5");
+//        futureContract.lastTradeDateOrContractMonth(Manifest.EXPIRY);
+//        twsData.setFutureContract(futureContract);
+//
+//        Contract indexOptionContract = new Contract();
+//        indexOptionContract.secType("OPT");
+//        indexOptionContract.symbol("ODAX");
+//        indexOptionContract.tradingClass("ODAX");
+//        indexOptionContract.currency("EUR");
+//        indexOptionContract.exchange("DTB");
+//        indexOptionContract.multiplier("5");
+//        indexOptionContract.includeExpired(true);
+//        twsData.setOptionMonthContract(indexOptionContract);
 
         setTwsData(twsData);
 

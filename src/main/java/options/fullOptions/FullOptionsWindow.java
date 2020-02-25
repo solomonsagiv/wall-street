@@ -3,10 +3,7 @@ package options.fullOptions;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
-import options.Call;
-import options.Option;
-import options.Options;
-import options.Put;
+import options.*;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
@@ -45,7 +42,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     public FullOptionsWindow( BASE_CLIENT_OBJECT client ) {
         super( "Options" );
         this.client = client;
-        this.options = client.getOptionsHandler( ).getOptionsDay( );
+        this.options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
         initialize( );
         initListeners( );
 
@@ -349,8 +346,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
             optionsMonth.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    setOptions( client.getOptionsHandler( ).getOptionsMonth( ) );
-                    client.getOptionsDataHandler( ).setOptions( client.getOptionsHandler( ).getOptionsMonth( ) );
+                    setOptions( client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ) );
+                    client.getOptionsDataHandler( ).setOptions( client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ) );
                 }
             } );
 
@@ -359,8 +356,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
             optionsDay.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    setOptions( client.getOptionsHandler( ).getOptionsDay( ) );
-                    client.getOptionsDataHandler( ).setOptions( client.getOptionsHandler( ).getOptionsDay( ) );
+                    setOptions( client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ) );
+                    client.getOptionsDataHandler( ).setOptions( client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ) );
                 }
             } );
 

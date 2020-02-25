@@ -1,6 +1,7 @@
 package gui;
 
 import locals.Themes;
+import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -256,7 +257,7 @@ public class TableMaker {
             if ( event.getClickCount( ) == 3 ) {
                 try {
                     Spx spx = Spx.getInstance( );
-                    int strike = ( int ) spx.getOptionsHandler( ).getOptionsMonth( ).getStrikeInMoney( );
+                    int strike = ( int ) spx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getStrikeInMoney( );
                     TablesUpdater.setSpxTableStrikes( strike );
                 } catch ( Exception e ) {
                     AlertWindow.Show( e.getMessage( ), e.getCause( ).toString( ), e.getStackTrace( ).toString( ) );
