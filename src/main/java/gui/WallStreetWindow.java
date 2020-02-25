@@ -259,10 +259,10 @@ public class WallStreetWindow {
         panel_12.setBackground( backGround );
         frame.getContentPane( ).add( panel_12 );
 
-        ndx.getPanel( ).setBounds( 0, 166, 611, 140 );
-        spx.getPanel( ).setBounds( 0, 26, 611, 140 );
-        frame.getContentPane( ).add( ndx.getPanel( ) );
-        frame.getContentPane( ).add( spx.getPanel( ) );
+//        ndx.getPanel( ).setBounds( 0, 166, 611, 140 );
+//        spx.getPanel( ).setBounds( 0, 26, 611, 140 );
+//        frame.getContentPane( ).add( ndx.getPanel( ) );
+//        frame.getContentPane( ).add( spx.getPanel( ) );
 
         panel = new JPanel( );
         panel.setBounds( 0, 500, 463, 27 );

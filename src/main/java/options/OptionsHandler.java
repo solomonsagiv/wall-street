@@ -152,6 +152,14 @@ public abstract class OptionsHandler implements IOptionsHandler {
     public void setMainOptions( Options mainOptions ) {
         this.mainOptions = mainOptions;
     }
+
+
+    @Override
+    public String toString() {
+        return "OptionsHandler{" +
+                "optionsList=" + optionsList +
+                '}';
+    }
 }
 
 interface IOptionsHandler {

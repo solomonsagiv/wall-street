@@ -14,7 +14,7 @@ import options.OptionsWindow;
 import options.fullOptions.FullOptionsWindow;
 import options.fullOptions.PositionsWindow;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
 
 import javax.swing.*;
@@ -24,7 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class IndexPanel extends JPanel implements IMyPanel {
+public class StockPanel extends JPanel implements IMyPanel {
 
     // Url
     String url = "";
@@ -80,7 +80,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
     Color red = Themes.RED;
     Color backGround = Themes.GREY_LIGHT;
 
-    INDEX_CLIENT_OBJECT client;
+    STOCK_OBJECT client;
     Options optionsMonth;
     Options optionsQuarter;
     Options mainOptions;
@@ -89,7 +89,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     private Updater updater;
 
-    public IndexPanel(INDEX_CLIENT_OBJECT client) {
+    public StockPanel(STOCK_OBJECT client) {
         this.client = client;
         optionsMonth = client.getOptionsHandler().getOptions(OptionsEnum.MONTH);
         optionsQuarter = client.getOptionsHandler().getOptions(OptionsEnum.QUARTER);

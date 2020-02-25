@@ -246,7 +246,9 @@ public class DetailsWindow {
             list.add( "Devidend: " + options.getDevidend( ) );
             list.add( "Calc Devidend: " + options.getCalcDevidend( ) );
             list.add( "Borrow: " + options.getCalcBorrow( ) );
-
+            list.add("");
+            list.add("All details");
+            list.add(client.toString());
             return list;
         }
 

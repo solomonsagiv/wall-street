@@ -630,29 +630,23 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", model=" + model +
-                ", optionsHandler=" + optionsHandler +
+                ", optionsHandler=" + optionsHandler.toString() +
                 ", startStrike=" + startStrike +
                 ", endStrike=" + endStrike +
-                ", twsData=" + twsData +
+                ", twsData=" + twsData.toString() +
                 ", startOfIndexTrading=" + startOfIndexTrading +
                 ", endOfIndexTrading=" + endOfIndexTrading +
                 ", endFutureTrading=" + endFutureTrading +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
-                ", twsRequestHandler=" + twsRequestHandler +
                 ", baseId=" + baseId +
                 ", threads=" + threads +
                 ", ids=" + ids +
                 ", started=" + started +
-                ", loadStatusFromHB=" + loadStatusFromHB +
-                ", loadArraysFromHB=" + loadArraysFromHB +
-                ", name='" + name + '\'' +
                 ", backRunner=" + backRunner +
                 ", dbId=" + dbId +
-                ", optionsDataHandler=" + optionsDataHandler +
+                ", myServiceHandler=" + myServiceHandler.toString() +
                 ", equalMovePlag=" + equalMovePlag +
-                ", dbContract=" + dbContract +
                 ", index=" + index +
                 ", indexBid=" + indexBid +
                 ", indexAsk=" + indexAsk +
@@ -664,14 +658,23 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", base=" + base +
                 ", futureBidAskCounter=" + futureBidAskCounter +
                 ", indexBidAskMargin=" + indexBidAskMargin +
+                ", listsService=" + listsService +
+                ", mySqlService=" + mySqlService +
                 ", racesMargin=" + racesMargin +
                 ", optimiPesimiMargin=" + optimiPesimiMargin +
                 ", conUp=" + conUp +
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
+                ", conUpChanged=" + conUpChanged +
+                ", conDownChanged=" + conDownChanged +
+                ", indUpChanged=" + indUpChanged +
+                ", indDownChanged=" + indDownChanged +
                 ", optimiPesimiCount=" + optimiPesimiCount +
+                ", indexList=" + indexList +
+                ", indexBidList=" + indexBidList +
+                ", indexAskList=" + indexAskList +
+                ", indexRacesList=" + indexRacesList +
                 '}';
     }
-
 }

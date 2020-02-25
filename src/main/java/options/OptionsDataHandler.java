@@ -10,6 +10,7 @@ public class OptionsDataHandler {
     public Runner runner;
     String[] state = { "", "" };
     BASE_CLIENT_OBJECT client;
+
     Options options;
     private int sleep = 300;
     private int sleepCount = 0;

@@ -33,6 +33,17 @@ public class TwsData {
         contractsMap.put( twsContractsEnum, contract );
     }
 
+
+    @Override
+    public String toString() {
+        return "TwsData{" +
+                "contractsMap=" + contractsMap +
+                ", indexId=" + indexId +
+                ", futureId=" + futureId +
+                ", quantity=" + quantity +
+                '}';
+    }
+
     // Getters and Setters
     public int getQuantity() {
         return quantity;

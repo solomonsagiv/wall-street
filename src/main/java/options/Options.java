@@ -75,7 +75,7 @@ public abstract class Options {
         opAvgMoveService = new OpAvgMoveService( client, this, client.getEqualMovePlag( ) );
 
         if ( type == OptionsEnum.MONTH ) {
-            logicService = new LogicService( client, this, client.getPanel( ) );
+//            logicService = new LogicService( client, this, client.getPanel( ) );
         }
 
     }
