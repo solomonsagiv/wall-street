@@ -134,6 +134,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             setLoadFromDb( true );
         }
 
+        // To start
         if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).isGotData( ) && isLoadFromDb( ) ) {
             myServiceHandler.getHandler( ).start( );
             setStarted( true );
