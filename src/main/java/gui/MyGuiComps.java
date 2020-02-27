@@ -1,9 +1,8 @@
 package gui;
 
-import api.LayOutTest;
 import locals.L;
 import locals.Themes;
-
+import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -13,21 +12,40 @@ public class MyGuiComps {
     // ---------- JFrame ---------- //
     public static abstract class MyFrame extends JFrame {
 
+        protected BASE_CLIENT_OBJECT client;
+
         public MyFrame( String title ) throws HeadlessException {
             super( title );
-
-            onClose( );
             init( );
+            initialize();
+            packAndFinish();
+            onClose( );
+        }
+
+        public MyFrame( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
+            super( title );
+            this.client = client;
+            init( );
+            initialize();
+            packAndFinish();
+            onClose( );
+        }
+
+        private void packAndFinish() {
+            pack();
+            setVisible( true );
         }
 
         private void init() {
             setDefaultCloseOperation( DISPOSE_ON_CLOSE );
             setBackground( Themes.GREY_LIGHT );
             getContentPane( ).setLayout( null );
+            setLayout( null );
         }
 
         public abstract void onClose();
-
+        public abstract void initListeners();
+        public abstract void initialize();
     }
 
 
@@ -38,12 +56,11 @@ public class MyGuiComps {
             init( );
         }
 
-        private void init() {
-
+        protected void init() {
             setFont( Themes.VEDANA_12 );
             setBackground( Themes.GREY_LIGHT );
             setBorder( null );
-//            setLayout( null );
+            setLayout( null );
         }
 
         public void setXY( int x, int y ) {

@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 public class EditPositionWindow extends MyGuiComps.MyFrame {
 
     PositionCalculator.OptionPosition position;
-
     private MyGuiComps.MyButton submitBtn;
     private MyGuiComps.MyTextField quantotyField;
     private MyGuiComps.MyTextField priceField;
@@ -35,11 +34,10 @@ public class EditPositionWindow extends MyGuiComps.MyFrame {
 
         setBounds( x, y, 200, 203 );
 
-        initialize();
-        initListeners();
     }
 
-    private void initialize() {
+    @Override
+    public void initialize() {
 
         // Main panel
         panel = new MyGuiComps.MyPanel();
@@ -81,7 +79,8 @@ public class EditPositionWindow extends MyGuiComps.MyFrame {
     }
 
     // ---------- Listeners ---------- //
-    private void initListeners() {
+    @Override
+    public void initListeners() {
 
         // Quantity
         quantotyField.addActionListener( new ActionListener( ) {

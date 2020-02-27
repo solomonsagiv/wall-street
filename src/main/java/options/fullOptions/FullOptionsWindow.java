@@ -67,7 +67,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
         } );
     }
 
-    private void initListeners() {
+    @Override
+    public void initListeners() {
 
         // Setting panel
         settingPanel.addMouseListener( new MouseAdapter( ) {
@@ -84,7 +85,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize() {
+    @Override
+    public void initialize() {
 
         Container mainContainer = rootPane.getContentPane( );
         mainContainer.setLayout( new BorderLayout( ) );

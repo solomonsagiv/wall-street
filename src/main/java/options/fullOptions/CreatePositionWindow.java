@@ -43,9 +43,6 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
         int y  = (frame.getY() + (frame.getHeight() / 2)) - (getHeight() / 2);
 
         setBounds( x, y, 200, 203 );
-
-        init( );
-        initListeners( );
     }
 
     public CreatePositionWindow( String optionName ) {
@@ -53,13 +50,11 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
 
         this.orderText = optionName;
 
-        init( );
-        initListeners( );
-
     }
 
     // ---------- Listeners ---------- //
-    private void initListeners() {
+    @Override
+    public void initListeners() {
 
         // Quantity
         quantotyField.addActionListener( new ActionListener( ) {
@@ -98,7 +93,9 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
     }
 
     // ---------- Gui ---------- //
-    private void init() {
+
+    @Override
+    public void initialize() {
 
         // Main panel
         panel = new MyGuiComps.MyPanel();

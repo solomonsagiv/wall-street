@@ -3,8 +3,6 @@ package gui;
 import api.Manifest;
 import locals.Themes;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
-import serverObjects.indexObjects.Spx;
 import setting.Setting;
 
 import javax.swing.*;
@@ -12,19 +10,16 @@ import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class WallStreetWindow {
+
     public static WallStreetWindow window;
 
     // Get window instance
     public static JTextField ask;
     public static JTextField bid;
-    static ArrayList< INDEX_CLIENT_OBJECT > clients;
-    /**
-     * @wbp.parser.entryPoint
-     */
+    INDEX_CLIENT_OBJECT client;
     public int i = 1;
     public int s;
     public JFrame frame;
@@ -32,20 +27,15 @@ public class WallStreetWindow {
     // JTables
     public JTable futuresTable;
     public JTable spxOptionsTable;
-    Ndx ndx;
-    Spx spx;
     private JMenu mnStart;
     private JMenuItem mntmSetting;
     private JPanel panel;
 
+    public WallStreetWindow( INDEX_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
+
     public WallStreetWindow() {
-
-        ndx = Ndx.getInstance( );
-        spx = Spx.getInstance( );
-
-        clients = new ArrayList<>( );
-        clients.add(ndx);
-        clients.add(spx);
     }
 
     public static void main( String[] args ) {
@@ -84,18 +74,6 @@ public class WallStreetWindow {
         JOptionPane.showMessageDialog( null, message + "\n" + e.getMessage( ) );
     }
 
-    public static void export() {
-        try {
-            // Export
-            for ( INDEX_CLIENT_OBJECT client : clients ) {
-                client.fullExport( );
-            }
-        } catch ( Exception e2 ) {
-            popup( "Export failed: ", e2 );
-            e2.printStackTrace( );
-        }
-    }
-
     /**
      * Launch the application.
      */
@@ -120,8 +98,8 @@ public class WallStreetWindow {
     private void load_on_startup( WallStreetWindow window ) {
 
         Thread thread = new Thread( () -> {
-            ndx.getBackRunner( ).startRunner( );
-            spx.getBackRunner( ).startRunner( );
+//            ndx.getBackRunner( ).startRunner( );
+//            spx.getBackRunner( ).startRunner( );
         } );
         thread.start( );
     }
@@ -145,11 +123,7 @@ public class WallStreetWindow {
                 int res = JOptionPane.showOptionDialog( null, "Are you sure you want to close the program ?", "Title",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[ 0 ] );
                 if ( res == 0 ) {
-
-                    for ( INDEX_CLIENT_OBJECT client : clients ) {
-                        client.closeAll( );
-                    }
-
+                    client.closeAll( );
                     ( ( JFrame ) e.getSource( ) ).setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
                 } else if ( res == 1 ) {
                     ( ( JFrame ) e.getSource( ) ).setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
@@ -259,11 +233,6 @@ public class WallStreetWindow {
         panel_12.setBackground( backGround );
         frame.getContentPane( ).add( panel_12 );
 
-//        ndx.getPanel( ).setBounds( 0, 166, 611, 140 );
-//        spx.getPanel( ).setBounds( 0, 26, 611, 140 );
-//        frame.getContentPane( ).add( ndx.getPanel( ) );
-//        frame.getContentPane( ).add( spx.getPanel( ) );
-
         panel = new JPanel( );
         panel.setBounds( 0, 500, 463, 27 );
         frame.getContentPane( ).add( panel );
@@ -285,7 +254,7 @@ public class WallStreetWindow {
         export.addActionListener( new ActionListener( ) {
             @SuppressWarnings( "unchecked" )
             public void actionPerformed( ActionEvent e ) {
-                export( );
+//                export( );
             }
         } );
         export.setBackground( new Color( 0, 0, 51 ) );
@@ -336,9 +305,9 @@ public class WallStreetWindow {
         scrollPane.setBounds( 10, 5, 140, 91 );
         panel_1.add( scrollPane );
 
-        tableMaker = new TableMaker( new MenuMaker(spx).spxOptionsTableMenu( ) );
-        spxOptionsTable = tableMaker.myTable(spx, new Object[ 7 ][ 5 ], new String[] { "", "", "", "", "" },
-                21 );
+//        tableMaker = new TableMaker( new MenuMaker( spx ).spxOptionsTableMenu( ) );
+//        spxOptionsTable = tableMaker.myTable( spx, new Object[ 7 ][ 5 ], new String[] { "", "", "", "", "" },
+//                21 );
 
         ask = new JTextField( );
         ask.setFont( font );

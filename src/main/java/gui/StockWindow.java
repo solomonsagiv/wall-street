@@ -72,18 +72,8 @@ public class StockWindow extends MyGuiComps.MyFrame {
     int datePanelHeight = 95;
 
     // Initialize
-    private void initialize() {
-        initFields( );
-        initListeners();
-    }
-
-    private void initListeners() {
-
-        
-
-    }
-
-    private void initFields() {
+    @Override
+    public void initialize() {
         // ----- Header ----- //
         tickerHeadPanel = new MyGuiComps.MyPanel( );
         tickerHeadPanel.setLayout( null );
@@ -202,6 +192,10 @@ public class StockWindow extends MyGuiComps.MyFrame {
         conRacesField.setWidth( 50 );
         conRacesField.setXY( 60, 33 );
         racesPanel.add( conRacesField );
+    }
+
+    @Override
+    public void initListeners() {
     }
 
     // Update text

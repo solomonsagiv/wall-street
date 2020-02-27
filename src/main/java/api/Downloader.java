@@ -8,13 +8,12 @@ import options.OptionsEnum;
 import options.OptionsHandler;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+import tws.TwsContractsEnum;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class Downloader extends Thread implements EWrapper {
 
@@ -96,25 +95,19 @@ public class Downloader extends Thread implements EWrapper {
         client.reqPositions();
         client.reqAccountUpdates(true, Manifest.ACCOUNT);
 
-//        client.reqContractDetails( 569398, Spx.getInstance().getTwsData().getContract( TwsContractsEnum.MONTH ) );
+        Manifest.CLIENT_ID = 2343;
 
 
-        Contract indexContract = new Contract( );
-        indexContract.symbol( "SPX" );
-        indexContract.secType( "IND" );
-        indexContract.currency( "USD" );
-        indexContract.exchange( "CBOE" );
-        indexContract.multiplier( "50" );
 
-
-        reqMktData(4545454, indexContract);
-
+        client.reqContractDetails( 5659894, Spx.getInstance().getTwsData().getContract( TwsContractsEnum.MONTH ) );
         try {
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    Set<Integer> dates = new HashSet<>();
 
     // Parse double
     public double dbl(String s) {
@@ -202,7 +195,6 @@ public class Downloader extends Thread implements EWrapper {
         index = spxClient.getTwsData().getIndexId();
 
         if (tickerId == future && price > 0) {
-
             if (field == 1) {
                 spxClient.setFutureBid(price);
             }
@@ -218,6 +210,9 @@ public class Downloader extends Thread implements EWrapper {
         }
 
         if (tickerId == index && price > 0) {
+
+
+            System.out.println(price + " " );
 
             if (field == 1) {
                 System.out.println("Spx bid: " + price);
@@ -482,7 +477,6 @@ public class Downloader extends Thread implements EWrapper {
                 }
             }
         }
-
     }
 
     @Override
@@ -556,21 +550,23 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void contractDetails(int reqId, ContractDetails contractDetails) {
+        dates.add( Integer.parseInt( contractDetails.contract().lastTradeDateOrContractMonth()) );
         System.out.println("ID: " + reqId);
-        System.out.println(contractDetails.toString());
+        System.out.println(contractDetails.contract().lastTradeDateOrContractMonth());
         System.out.println();
-        System.out.println(contractDetails.nextOptionDate());
     }
 
     @Override
     public void bondContractDetails(int reqId, ContractDetails contractDetails) {
-        System.out.println();
-        System.out.println("Id: " + reqId);
-        System.out.println(contractDetails);
     }
 
     @Override
     public void contractDetailsEnd(int reqId) {
+
+        Collections.sort( new ArrayList<Integer>( dates ) );
+
+        System.out.println( dates );
+
     }
 
     @Override

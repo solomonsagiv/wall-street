@@ -168,7 +168,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void fullExport() {
         try {
-
             getMyTableHandler().getMySumTable().insert();
             getMyTableHandler().getMyStatusTable().reset();
             getMyTableHandler().getMyArraysTable().reset();

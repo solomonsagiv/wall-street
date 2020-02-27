@@ -14,7 +14,7 @@ public class ContractDetails {
     private String m_validExchanges;
     private int m_underConid;
     private String m_longName;
-    private String m_contractMonth;
+    public String m_contractMonth;
     private String m_industry;
     private String m_category;
     private String m_subcategory;

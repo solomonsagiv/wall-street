@@ -1,0 +1,54 @@
+package gui.panels;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+
+public class ResizablePanel extends JPanel {
+
+    private boolean drag = false;
+    private Point dragLocation  = new Point();
+
+    public  ResizablePanel() {
+        setBorder(BorderFactory.createBevelBorder( BevelBorder.RAISED));
+        setPreferredSize(new Dimension(500, 500));
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed( MouseEvent e) {
+                drag = true;
+                dragLocation = e.getPoint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                drag = false;
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (drag) {
+                    if (dragLocation.getX()> getWidth()-10 && dragLocation.getY()>getHeight()-10) {
+                        System.err.println("in");
+                        setSize((int)(getWidth()+(e.getPoint().getX()-dragLocation.getX())),
+                                (int)(getHeight()+(e.getPoint().getY()-dragLocation.getY())));
+                        dragLocation = e.getPoint();
+                    }
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        new ResizablePanel();
+    }
+
+    public void paintComponent(Graphics g) {
+        g.setColor(Color.red);
+        g.fillRect(0, 0, getWidth(), getHeight());
+    }
+
+}

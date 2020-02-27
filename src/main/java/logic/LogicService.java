@@ -1,12 +1,9 @@
 package logic;
 
-import gui.panels.IndexPanel;
-import locals.Themes;
+import gui.index.IndexPanel;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
-import javax.swing.*;
-import java.awt.*;
 
 public class LogicService extends MyBaseService {
 

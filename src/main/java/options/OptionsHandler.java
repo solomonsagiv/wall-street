@@ -26,13 +26,15 @@ public abstract class OptionsHandler implements IOptionsHandler {
     // Constructor
     public OptionsHandler( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
-
+        initOptions();
+        initMainOptions();
         positionCalculator = new PositionCalculator( client );
     }
 
     public OptionsHandler( STOCK_OBJECT client ) {
         this.client = client;
-
+        initOptions();
+        initMainOptions();
         positionCalculator = new PositionCalculator( client );
     }
 
@@ -41,32 +43,26 @@ public abstract class OptionsHandler implements IOptionsHandler {
         getOptionsMap( ).put( options.getType( ), options );
     }
 
-
     // Functions
     public JSONObject getAllOptionsAsJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-
             if ( options.getOptionsAsJson( ).length( ) == 0 || !client.isStarted( ) ) {
                 object.put( options.getName( ), options.getOptionsAsJson( ) );
             } else {
                 object.put( options.getName( ), options.getOptionsAsJson( ) );
             }
-
         }
         return object;
     }
 
 
     public JSONObject getAllOptionsEmptyJson() {
-
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
             object.put( options.getName( ), options.getEmptyOptionsAsJson( ) );
         }
-
         return object;
-
     }
 
     private void initStartEndStrikes( double future ) {

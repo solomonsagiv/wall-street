@@ -51,15 +51,14 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
 
         positionPanels = new ArrayList<>( );
 
-        init( );
-
         runner = new Runner( client );
         runner.getHandler( ).start( );
 
         frame = this;
     }
 
-    private void init() {
+    @Override
+    public void initialize() {
 
         setBounds( 100, 100, 560, 200 );
 
@@ -75,6 +74,11 @@ public class PositionsWindow extends MyGuiComps.MyFrame {
         positionsAreaPanel.setBackground( Themes.GREY_VERY_LIGHT );
         positionsAreaPanel.setBounds( 0, headerPanel.getHeight( ) + 1, getWidth( ), getHeight( ) - headerPanel.getHeight( ) );
         add( positionsAreaPanel );
+
+    }
+
+    @Override
+    public void initListeners() {
 
     }
 

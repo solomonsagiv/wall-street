@@ -319,8 +319,7 @@ public class MainWindow {
         wallstreetWindowBtn.setBackground( new Color( 51, 51, 51 ) );
         wallstreetWindowBtn.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent e ) {
-                WallStreetWindow window = new WallStreetWindow( );
-                window.start( );
+                // TODO
             }
         } );
         wallstreetWindowBtn.setFont( new Font( "Arial", Font.BOLD, 12 ) );
@@ -357,7 +356,7 @@ public class MainWindow {
         lblNdx.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
 
         spxField = new JTextField( );
-        spxField.setText( "20200220" );
+        spxField.setText( "20200319" );
         spxField.setBorder( new CompoundBorder( ) );
         spxField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
         spxField.setBackground( new Color( 204, 204, 204 ) );
@@ -367,7 +366,7 @@ public class MainWindow {
         spxField.setColumns( 10 );
 
         ndxField = new JTextField( );
-        ndxField.setText( "20200220" );
+        ndxField.setText( "20200319" );
         ndxField.setBorder( new CompoundBorder( ) );
         ndxField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
         ndxField.setBackground( new Color( 204, 204, 204 ) );
@@ -377,7 +376,7 @@ public class MainWindow {
         ndxField.setColumns( 10 );
 
         ndxDayOptionExpField = new JTextField( );
-        ndxDayOptionExpField.setText( "20200212" );
+        ndxDayOptionExpField.setText( "20200226" );
         ndxDayOptionExpField.setBorder( new CompoundBorder( ) );
         ndxDayOptionExpField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
         ndxDayOptionExpField.setBackground( new Color( 204, 204, 204 ) );
@@ -387,7 +386,7 @@ public class MainWindow {
         ndxDayOptionExpField.setColumns( 10 );
 
         ndxQuarterField = new JTextField( );
-        ndxQuarterField.setText( "20200319" );
+        ndxQuarterField.setText( "20200618" );
         ndxQuarterField.setBorder( new CompoundBorder( ) );
         ndxQuarterField.setColumns( 10 );
         ndxQuarterField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
@@ -405,7 +404,7 @@ public class MainWindow {
         panel_4.add( lblContractsDetails );
 
         spxDayOptionExpField = new JTextField( );
-        spxDayOptionExpField.setText( "20200212" );
+        spxDayOptionExpField.setText( "20200226" );
         spxDayOptionExpField.setHorizontalAlignment( SwingConstants.CENTER );
         spxDayOptionExpField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
         spxDayOptionExpField.setColumns( 10 );
@@ -414,7 +413,7 @@ public class MainWindow {
         spxDayOptionExpField.setBounds( 69, 52, 70, 20 );
         panel_4.add( spxDayOptionExpField );
 
-        spxQuarterField = new JTextField( "20200319" );
+        spxQuarterField = new JTextField( "20200618" );
         spxQuarterField.setHorizontalAlignment( SwingConstants.CENTER );
         spxQuarterField.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
         spxQuarterField.setColumns( 10 );
