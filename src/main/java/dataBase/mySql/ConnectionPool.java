@@ -1,7 +1,5 @@
 package dataBase.mySql;
 
-import arik.Arik;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,7 +11,7 @@ public class ConnectionPool implements IConnectionPool {
     private static final int MAX_POOL_SIZE = 30;
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = 10;
+    private static int INITIAL_POOL_SIZE = 1;
     private String url;
     private String user;
     private String password;

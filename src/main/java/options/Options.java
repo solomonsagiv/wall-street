@@ -12,10 +12,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public abstract class Options {
 
@@ -46,6 +43,8 @@ public abstract class Options {
 
     protected double currStrike = 0;
 
+    Set<Integer> dates = new HashSet<>();
+
     protected PositionCalculator positionCalculator;
 
     EqualMoveService equalMoveService;
@@ -65,8 +64,8 @@ public abstract class Options {
 
         initType( );
 
-        strikes = new ArrayList<>( );
-        optionsMap = new HashMap<>( );
+        strikes = new ArrayList<>();
+        optionsMap = new HashMap<>();
 
         positionCalculator = new PositionCalculator( client );
 
@@ -75,7 +74,7 @@ public abstract class Options {
         opAvgMoveService = new OpAvgMoveService( client, this, client.getEqualMovePlag( ) );
 
         if ( type == OptionsEnum.MONTH ) {
-//            logicService = new LogicService( client, this, client.getPanel( ) );
+            logicService = new LogicService( client, this, client.getPanel( ) );
         }
 
     }
@@ -944,5 +943,13 @@ public abstract class Options {
 
     public LogicService getLogicService() {
         return logicService;
+    }
+
+    public Set<Integer> getDates() {
+        return dates;
+    }
+
+    public void setDates(Set<Integer> dates) {
+        this.dates = dates;
     }
 }

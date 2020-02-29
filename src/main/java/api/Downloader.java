@@ -2,13 +2,14 @@ package api;
 
 import arik.Arik;
 import com.ib.client.*;
+import locals.LocalHandler;
 import logger.MyLogger;
 import options.Options;
 import options.OptionsEnum;
 import options.OptionsHandler;
+import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-import tws.TwsContractsEnum;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -95,11 +96,6 @@ public class Downloader extends Thread implements EWrapper {
         client.reqPositions();
         client.reqAccountUpdates(true, Manifest.ACCOUNT);
 
-        Manifest.CLIENT_ID = 2343;
-
-
-
-        client.reqContractDetails( 5659894, Spx.getInstance().getTwsData().getContract( TwsContractsEnum.MONTH ) );
         try {
             System.in.read();
         } catch (IOException e) {
@@ -107,7 +103,6 @@ public class Downloader extends Thread implements EWrapper {
         }
     }
 
-    Set<Integer> dates = new HashSet<>();
 
     // Parse double
     public double dbl(String s) {
@@ -212,7 +207,7 @@ public class Downloader extends Thread implements EWrapper {
         if (tickerId == index && price > 0) {
 
 
-            System.out.println(price + " " );
+            System.out.println(price + " ");
 
             if (field == 1) {
                 System.out.println("Spx bid: " + price);
@@ -550,10 +545,16 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void contractDetails(int reqId, ContractDetails contractDetails) {
-        dates.add( Integer.parseInt( contractDetails.contract().lastTradeDateOrContractMonth()) );
-        System.out.println("ID: " + reqId);
-        System.out.println(contractDetails.contract().lastTradeDateOrContractMonth());
-        System.out.println();
+
+        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+            for ( Options options: client.getOptionsHandler().getOptionsList() ) {
+                if ( options )
+            }
+        }
+
+        if ( dates.size() > 5 ) {
+            dates.add(Integer.parseInt(contractDetails.contract().lastTradeDateOrContractMonth()));
+        }
     }
 
     @Override
@@ -562,11 +563,8 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void contractDetailsEnd(int reqId) {
-
-        Collections.sort( new ArrayList<Integer>( dates ) );
-
-        System.out.println( dates );
-
+        List<Integer> numbersList = new ArrayList<>(dates);
+        Collections.sort(numbersList);
     }
 
     @Override

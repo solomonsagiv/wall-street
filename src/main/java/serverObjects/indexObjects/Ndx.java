@@ -115,11 +115,10 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initIds() {
-
         setBaseId( 20000 );
         getTwsData( ).setIndexId( getBaseId( ) + 1 );
         getTwsData( ).setFutureId( getBaseId( ) + 2 );
-
+        getTwsData().setContractDetailsId(getBaseId() + 3);
     }
 
     @Override

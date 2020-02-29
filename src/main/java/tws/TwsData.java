@@ -11,6 +11,7 @@ public class TwsData {
 
     private int indexId;
     private int futureId;
+    private int contractDetailsId;
     private int quantity = 0;
 
     public TwsData() {
@@ -30,6 +31,7 @@ public class TwsData {
     }
 
     public void setContracts( TwsContractsEnum twsContractsEnum, Contract contract ) {
+        contract.
         contractsMap.put( twsContractsEnum, contract );
     }
 
@@ -67,5 +69,13 @@ public class TwsData {
 
     public void setFutureId( int futureId ) {
         this.futureId = futureId;
+    }
+
+    public int getContractDetailsId() {
+        return contractDetailsId;
+    }
+
+    public void setContractDetailsId(int contractDetailsId) {
+        this.contractDetailsId = contractDetailsId;
     }
 }

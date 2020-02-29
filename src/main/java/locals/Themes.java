@@ -15,6 +15,7 @@ public class Themes {
     public static Color ORANGE = new Color( 187, 133, 25 );
     public static Color LIGHT_BLUE_2 = new Color( 0, 237, 255 );
     public static Color BLUE_STRIKE = new Color( 48, 82, 181 );
+    public static Color BLUE_DARK = new Color( 0, 24, 49 );
     public static Color GREY_VERY_LIGHT = new Color( 246, 241, 246 );
     public static Color GREY_LIGHT = new Color( 234, 229, 234 );
     public static Color GREY = new Color( 203, 225, 222 );
@@ -30,7 +31,9 @@ public class Themes {
     public static Color BLUE = new Color( 0, 51, 102 );
     public static Color LIGHT_BLUE = new Color( 176, 196, 222 );
     public static Color GREEN = new Color( 7, 153, 98 );
+    public static Color GREEN_LIGHT = new Color( 7, 217, 147);
     public static Color RED = new Color( 229, 19, 0 );
+    public static Color PINK_LIGHT = new Color( 255, 124, 176);
 
 //	public static Color GREEN = new Color( 0 , 128 , 0 );
 
