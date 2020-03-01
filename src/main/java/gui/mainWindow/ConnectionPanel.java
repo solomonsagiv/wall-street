@@ -1,5 +1,6 @@
 package gui.mainWindow;
 
+import DDE.DDEReader;
 import api.Downloader;
 import api.Manifest;
 import gui.LogWindow;
@@ -22,6 +23,9 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel portLbl = new MyGuiComps.MyLabel("Port");
     MyGuiComps.MyTextField portField = new MyGuiComps.MyTextField();
 
+    DDEReader ddeReader;
+    Downloader downloader;
+
     // Constructor
     public ConnectionPanel() {
         super();
@@ -37,13 +41,36 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
 
                 // Downloader
-                Downloader.getInstance( ).start( );
+                downloader = Downloader.getInstance();
+                downloader.start();
+
+                // DDE connect
+                ddeReader = new DDEReader();
+                ddeReader.getHandler().start();
 
                 // Log window
                 LogWindow logWindow = new LogWindow( );
                 logWindow.frame.setVisible( true );
             }
         });
+
+        // Disconnect btn
+        disConnectBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                ddeReader.getHandler().close();
+            }
+        } );
+
+        // Log btn
+        logBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                // Log window
+                LogWindow logWindow = new LogWindow( );
+                logWindow.frame.setVisible( true );
+            }
+        } );
 
     }
 

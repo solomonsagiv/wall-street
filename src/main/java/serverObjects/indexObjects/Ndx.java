@@ -1,5 +1,6 @@
 package serverObjects.indexObjects;
 
+import DDE.DDECells;
 import api.Manifest;
 import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
@@ -147,6 +148,22 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         MySumTable mySumTable = new MySumTable( this, "ndx_daily" );
 
         myTableHandler = new MyTableHandler( this, myDayTable, mySumTable);
+    }
+
+    @Override
+    public void initDDECells() {
+
+        DDECells ddeCells = new DDECells( ) {
+            @Override
+            public boolean isWorkWithDDE() {
+                return true;
+            }
+        };
+
+        // TODO init cells
+
+        setDdeCells( ddeCells );
+
     }
 
     @Override

@@ -23,6 +23,10 @@ public abstract class MyThread {
 
     }
 
+    public MyThread() {
+        initRunnable( );
+    }
+
     public abstract void initRunnable();
 
     // Getters and setters

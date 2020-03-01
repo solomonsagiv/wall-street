@@ -10,11 +10,9 @@ import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -1019,8 +1017,6 @@ public class Setting {
     class ChooserPanel extends JPanel implements MouseListener {
 
         private String indexOrStock;
-
-        private JRadioButton daxRadioButton;
         private JRadioButton spxRadioButton;
         private JRadioButton ndxRadioButton;
 
@@ -1038,25 +1034,19 @@ public class Setting {
             int width = 50;
 
             // Indexes
-            daxRadioButton = initMyRadioButton( "Dax" );
-            daxRadioButton.setBounds( 5, 10, width, 20 );
             ndxRadioButton = initMyRadioButton( "Ndx" );
             ndxRadioButton.setBounds( width += width + 5, 10, width, 20 );
             spxRadioButton = initMyRadioButton( "Spx" );
             spxRadioButton.setBounds( width += width + 5, 10, width, 20 );
 
             if ( indexOrStock.contains( "index" ) ) {
-                add( daxRadioButton );
                 add( ndxRadioButton );
                 add( spxRadioButton );
 
                 group = new ButtonGroup( );
-                group.add( daxRadioButton );
                 group.add( ndxRadioButton );
                 group.add( spxRadioButton );
-
             }
-
         }
 
         // Init my radioButton
@@ -1071,9 +1061,6 @@ public class Setting {
         @Override
         public void mouseClicked( MouseEvent e ) {
 
-            if ( daxRadioButton.isSelected( ) ) {
-                client = Dax.getInstance( );
-            }
             if ( ndxRadioButton.isSelected( ) ) {
                 client = Ndx.getInstance( );
             }
@@ -1102,9 +1089,6 @@ public class Setting {
 
         @Override
         public void mouseReleased( MouseEvent e ) {
-            if ( daxRadioButton.isSelected( ) ) {
-                client = Dax.getInstance( );
-            }
             if ( ndxRadioButton.isSelected( ) ) {
                 client = Ndx.getInstance( );
             }

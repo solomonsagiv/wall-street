@@ -27,7 +27,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     // Constructor
     public MyMainWindow(String title) throws HeadlessException {
         super(title);
-        appendClients();
     }
 
     private void appendClients() {
@@ -42,12 +41,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void initListeners() {
-
-    }
+    public void initListeners() {}
 
     @Override
     public void initialize() {
+
+        appendClients();
 
         // This
         setXY(100, 100);
@@ -66,7 +65,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
         // Windows
         windowsPanel = new WindowsPanel();
-        windowsPanel.setXY(0, connectionPanel.getHeight() + 1);
+        windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
         add(windowsPanel);
 
     }

@@ -1,10 +1,8 @@
 package gui;
 
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,20 +71,13 @@ public class MenuMaker {
                 }
             }
         } );
-
         menu.add( setStrike );
-
         return menu;
     }
-
 
     public BASE_CLIENT_OBJECT getClientByStringName( String name ) {
 
         name = name.toLowerCase( );
-
-        if ( name.equals( "dax" ) ) {
-            client = Dax.getInstance( );
-        }
 
         if ( name.equals( "spx" ) ) {
             client = Spx.getInstance( );

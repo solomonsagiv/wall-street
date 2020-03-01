@@ -15,5 +15,6 @@ public interface IBaseClient {
     void initDbId( );
     void initTablesHandlers( );
     void initOptionsHandler();
+    void initDDECells();
 
 }

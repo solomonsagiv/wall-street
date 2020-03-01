@@ -83,7 +83,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
     Options optionsQuarter;
     Options mainOptions;
 
-
     int listSleep = 1000;
 
     private Updater updater;

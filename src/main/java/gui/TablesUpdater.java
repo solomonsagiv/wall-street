@@ -2,7 +2,6 @@ package gui;
 
 import options.Option;
 import options.OptionsEnum;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
@@ -14,15 +13,12 @@ public class TablesUpdater {
     static int spxStartTableStrike = 0;
     static int spxEndTableStrike = 0;
     WallStreetWindow window;
-    Dax dax;
     Spx spx;
     Ndx ndx;
     private Runner runner;
 
     public TablesUpdater() {
         this.window = WallStreetWindow.window;
-
-        dax = Dax.getInstance( );
         spx = Spx.getInstance( );
         ndx = Ndx.getInstance( );
 

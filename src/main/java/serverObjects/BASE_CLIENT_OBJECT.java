@@ -1,5 +1,6 @@
 package serverObjects;
 
+import DDE.DDECells;
 import api.Manifest;
 import api.tws.TwsRequestHandler;
 import arik.Arik;
@@ -39,6 +40,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
     private TwsRequestHandler twsRequestHandler;
+    protected DDECells ddeCells;
     // Base id
     private int baseId;
     // Position
@@ -135,7 +137,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         }
 
         // To start
-        if ( getOptionsHandler( ).getMainOptions( ).isGotData( ) && getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).isGotData( ) && isLoadFromDb( ) ) {
+        if ( isLoadFromDb( ) ) {
             myServiceHandler.getHandler( ).start( );
             setStarted( true );
         }
@@ -560,7 +562,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.base = base;
     }
 
-
     public List getIndexList() {
         return indexList;
     }
@@ -626,26 +627,26 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.indDownChanged = indDownChanged;
     }
 
+    public DDECells getDdeCells() {
+        return ddeCells;
+    }
+
+    public void setDdeCells( DDECells ddeCells ) {
+        this.ddeCells = ddeCells;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
                 ", optionsHandler=" + optionsHandler.toString() +
-                ", startStrike=" + startStrike +
-                ", endStrike=" + endStrike +
-                ", twsData=" + twsData.toString() +
                 ", startOfIndexTrading=" + startOfIndexTrading +
                 ", endOfIndexTrading=" + endOfIndexTrading +
                 ", endFutureTrading=" + endFutureTrading +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
-                ", baseId=" + baseId +
-                ", threads=" + threads +
                 ", ids=" + ids +
                 ", started=" + started +
-                ", backRunner=" + backRunner +
                 ", dbId=" + dbId +
-                ", myServiceHandler=" + myServiceHandler.toString() +
-                ", equalMovePlag=" + equalMovePlag +
                 ", index=" + index +
                 ", indexBid=" + indexBid +
                 ", indexAsk=" + indexAsk +
@@ -669,11 +670,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", conDownChanged=" + conDownChanged +
                 ", indUpChanged=" + indUpChanged +
                 ", indDownChanged=" + indDownChanged +
-                ", optimiPesimiCount=" + optimiPesimiCount +
-                ", indexList=" + indexList +
-                ", indexBidList=" + indexBidList +
-                ", indexAskList=" + indexAskList +
-                ", indexRacesList=" + indexRacesList +
+                ", indexList=" + indexList.size() +
+                ", indexBidList=" + indexBidList.size() +
+                ", indexAskList=" + indexAskList.size() +
+                ", indexRacesList=" + indexRacesList.size() +
                 '}';
     }
 }

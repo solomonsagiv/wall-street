@@ -1,7 +1,6 @@
 package tws;
 
 import com.ib.client.Contract;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,10 +30,8 @@ public class TwsData {
     }
 
     public void setContracts( TwsContractsEnum twsContractsEnum, Contract contract ) {
-        contract.
         contractsMap.put( twsContractsEnum, contract );
     }
-
 
     @Override
     public String toString() {

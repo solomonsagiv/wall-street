@@ -1,5 +1,6 @@
 package serverObjects.indexObjects;
 
+import DDE.DDECells;
 import api.Manifest;
 import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
@@ -101,13 +102,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsQuarterFarContract.includeExpired( true );
         twsData.appendTwsContract( TwsContractsEnum.QUARTER_FAR, optionsQuarterFarContract );
 
-//        Contract futureOptionContract = new Contract( );
-//        futureOptionContract.secType( "FOP" );
-//        futureOptionContract.currency( "USD" );
-//        futureOptionContract.exchange( "GLOBEX" );
-//        futureOptionContract.multiplier( "50" );
-//        futureOptionContract.includeExpired( true );
-//        twsData.setFutureOptionContract( futureOptionContract );
     }
 
     @Override
@@ -160,6 +154,28 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         MySumTable mySumTable = new MySumTable( this, "spx_daily" );
 
         myTableHandler = new MyTableHandler( this, myDayTable, mySumTable);
+    }
+
+    @Override
+    public void initDDECells() {
+        DDECells ddeCells = new DDECells( ) {
+            @Override
+            public boolean isWorkWithDDE() {
+                return true;
+            }
+        };
+
+        // Fut
+        ddeCells.setFutCell( "R3C10" );
+        ddeCells.setFutBidCell( "R4C10" );
+        ddeCells.setFutAskCell( "R2C10" );
+
+        // Ind
+        ddeCells.setIndCell( "R6C3" );
+        ddeCells.setIndBidCell( "R6C4" );
+        ddeCells.setIndAskCell( "R6C2" );
+
+        setDdeCells( ddeCells );
     }
 
     @Override

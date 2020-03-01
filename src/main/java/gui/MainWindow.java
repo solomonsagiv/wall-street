@@ -6,12 +6,10 @@ import locals.L;
 import locals.Themes;
 import logger.MyLogger;
 import options.OptionsEnum;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import setting.Setting;
 import tws.TwsContractsEnum;
-
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
@@ -42,9 +40,6 @@ public class MainWindow {
      * Create the application.
      */
     public MainWindow() {
-
-        ndx = Ndx.getInstance( );
-        spx = Spx.getInstance( );
 
         initialize( );
 
@@ -90,8 +85,6 @@ public class MainWindow {
     }
 
     private static void loadOnStartUp() {
-        Dax.getInstance();
-
         Spx spx = Spx.getInstance( );
 
         spx.getMyTableHandler().getMyStatusTable().load();

@@ -1,5 +1,6 @@
 package serverObjects.stockObjects;
 
+import DDE.DDECells;
 import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
@@ -104,5 +105,16 @@ public class Apple extends STOCK_OBJECT {
         MySumTable mySumTable = new MySumTable( this, "apple_daily" );
 
         myTableHandler = new MyTableHandler( this, myDayTable, mySumTable );
+    }
+
+    @Override
+    public void initDDECells() {
+        DDECells ddeCells = new DDECells( ) {
+            @Override
+            public boolean isWorkWithDDE() {
+                return false;
+            }
+        };
+        setDdeCells( ddeCells );
     }
 }

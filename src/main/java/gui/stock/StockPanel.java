@@ -1,4 +1,4 @@
-package gui.panels;
+package gui.stock;
 
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
@@ -6,6 +6,7 @@ import charts.OPAVG_MOVE_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
+import gui.panels.IMyPanel;
 import locals.L;
 import locals.Themes;
 import options.Options;
