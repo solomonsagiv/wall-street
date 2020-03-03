@@ -120,6 +120,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         initDbId( );
         initTablesHandlers( );
         initOptionsHandler();
+        initDDECells();
 
         // MyServices
         listsService = new ListsService( this );
