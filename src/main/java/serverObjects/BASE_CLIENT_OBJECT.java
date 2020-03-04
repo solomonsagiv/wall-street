@@ -2,7 +2,7 @@ package serverObjects;
 
 import DDE.DDECells;
 import api.Manifest;
-import api.tws.TwsRequestHandler;
+import api.tws.TwsHandler;
 import arik.Arik;
 import arik.locals.Emojis;
 import backGround.BackRunner;
@@ -12,7 +12,6 @@ import lists.ListsService;
 import locals.L;
 import locals.LocalHandler;
 import options.OptionsDataHandler;
-import options.OptionsEnum;
 import options.OptionsHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
@@ -33,13 +32,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected OptionsHandler optionsHandler;
     private double startStrike;
     private double endStrike;
-    private TwsData twsData;
     private LocalTime startOfIndexTrading;
     private LocalTime endOfIndexTrading;
     private LocalTime endFutureTrading;
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
-    private TwsRequestHandler twsRequestHandler;
+    private TwsHandler twsRequestHandler;
     protected DDECells ddeCells;
     // Base id
     private int baseId;
@@ -68,8 +66,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double equalMovePlag = 0;
 
     // Basic
-    private double dbContract = 0;
-    private double index = 0;
+    protected double index = 0;
     private double indexBid = 0;
     private double indexAsk = 0;
     private double futureBid = 0;
@@ -331,19 +328,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return text;
     }
 
-    public TwsData getTwsData() {
-
-        if ( twsData == null ) {
-            twsData = new TwsData( );
-        }
-
-        return twsData;
-    }
-
-    public void setTwsData( TwsData twsData ) {
-        this.twsData = twsData;
-    }
-
     public boolean isLoadFromDb() {
         return loadStatusFromHB && loadArraysFromHB;
     }
@@ -478,9 +462,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.baseId = baseId;
     }
 
-    public TwsRequestHandler getTwsRequestHandler() {
+    public TwsHandler getTwsRequestHandler() {
         if ( twsRequestHandler == null ) {
-            twsRequestHandler = new TwsRequestHandler( this );
+            twsRequestHandler = new TwsHandler( this );
         }
         return twsRequestHandler;
     }

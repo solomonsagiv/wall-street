@@ -1,0 +1,90 @@
+package api.tws;
+
+import api.Downloader;
+import com.ib.client.Contract;
+import options.Call;
+import options.Options;
+import options.Put;
+import options.Strike;
+import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.stockObjects.STOCK_OBJECT;
+import threads.MyThread;
+import tws.MyContract;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class TwsHandler {
+
+    // Variables
+    Map< Integer, MyContract > myContracts = new HashMap<>( );
+
+
+    // Constructor
+    public TwsHandler() {
+    }
+
+    public void removeMyContract( int id ) {
+        myContracts.remove( id );
+    }
+
+    public void addContract( MyContract contract ) {
+        myContracts.put( contract.getMyId( ), contract );
+    }
+
+    public MyContract getMyContract( int id ) throws Exception {
+        MyContract myContract = myContracts.get( id );
+        if ( myContract != null ) {
+            return myContract;
+        } else {
+            throw new Exception( "No contract with this id: " + id );
+        }
+    }
+
+    public boolean isRequested( int id ) throws Exception {
+        MyContract myContract = myContracts.get( id );
+        if ( myContract != null ) {
+            return myContract.isRequested( );
+        } else {
+            throw new Exception( "No contract with this id: " + id );
+        }
+    }
+
+    public void request( MyContract contract ) {
+        try {
+            Downloader.getInstance( ).reqMktData( contract.getMyId( ), contract );
+            contract.setRequested( true );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+        }
+    }
+
+    public void request( int id ) throws Exception {
+        MyContract contract = getMyContract( id );
+        request( contract );
+    }
+
+    public void requestOptions( Options options ) {
+        for ( Strike strike : options.getStrikes( ) ) {
+            try {
+
+                // Sleep
+                Thread.sleep( 100 );
+
+                // ----- Call ----- //
+                Call call = strike.getCall( );
+                request( call.getMyContract( ) );
+
+                // ----- Put ----- //
+                Put put = strike.getPut( );
+                request( put.getMyContract( ) );
+
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+        }
+        options.setRequested( true );
+    }
+}
+

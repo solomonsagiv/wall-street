@@ -5,6 +5,7 @@ import api.Downloader;
 import api.Manifest;
 import gui.LogWindow;
 import gui.MyGuiComps;
+import locals.L;
 import locals.Themes;
 
 import javax.swing.*;
@@ -95,6 +96,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     public void connectTws() {
         try {
+            Manifest.CLIENT_ID = L.INT( portField.getText() );
             downloader = Downloader.getInstance( );
             downloader.start( );
         } catch ( Exception e ) {

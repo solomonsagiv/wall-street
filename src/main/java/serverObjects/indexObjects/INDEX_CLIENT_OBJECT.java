@@ -1,11 +1,10 @@
 package serverObjects.indexObjects;
 
 import options.IndexOptions;
-import options.Options;
 import options.OptionsEnum;
 import options.OptionsHandler;
-import org.hibernate.SessionFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.MyContract;
 import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
@@ -30,9 +29,15 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() {
 
-        IndexOptions weekOptions = new IndexOptions( this, OptionsEnum.WEEK, getTwsData().getContract( TwsContractsEnum.WEEK ) );
-        IndexOptions monthOptions = new IndexOptions( this, OptionsEnum.MONTH, getTwsData().getContract( TwsContractsEnum.MONTH ) );
-        IndexOptions quarterOptions = new IndexOptions( this, OptionsEnum.QUARTER, getTwsData().getContract( TwsContractsEnum.QUARTER ) );
+
+
+
+
+
+
+        IndexOptions weekOptions = new IndexOptions( this, OptionsEnum.WEEK,  );
+        IndexOptions monthOptions = new IndexOptions( this, OptionsEnum.MONTH, getTwsData().getContract( TwsContractsEnum.OPT_MONTH ) );
+        IndexOptions quarterOptions = new IndexOptions( this, OptionsEnum.QUARTER, getTwsData().getContract( TwsContractsEnum.OPT_QUARTER ) );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override

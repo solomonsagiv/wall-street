@@ -160,27 +160,27 @@ public class MainWindow {
                     try {
 
                         // ----- Spx ----- //
-                        spx.getTwsData( ).getContract( TwsContractsEnum.MONTH ).lastTradeDateOrContractMonth( spxField.getText( ) );
+                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ).lastTradeDateOrContractMonth( spxField.getText( ) );
                         spx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setExpDate( spx.convertStringToDate( spxField.getText( ) ) );
                         // Day
-                        spx.getTwsData( ).getContract( TwsContractsEnum.WEEK ).lastTradeDateOrContractMonth( spxDayOptionExpField.getText( ) );
+                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_WEEK ).lastTradeDateOrContractMonth( spxDayOptionExpField.getText( ) );
                         spx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setExpDate( spx.convertStringToDate( spxDayOptionExpField.getText( ) ) );
 
                         // Quarter
-                        spx.getTwsData( ).getContract( TwsContractsEnum.QUARTER ).lastTradeDateOrContractMonth( spxQuarterField.getText( ) );
+                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_QUARTER ).lastTradeDateOrContractMonth( spxQuarterField.getText( ) );
                         spx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).setExpDate( spx.convertStringToDate( spxQuarterField.getText( ) ) );
 
                         // ----- Ndx ----- //
                         // Day
-                        ndx.getTwsData( ).getContract( TwsContractsEnum.WEEK ).lastTradeDateOrContractMonth( ndxDayOptionExpField.getText( ) );
+                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_WEEK ).lastTradeDateOrContractMonth( ndxDayOptionExpField.getText( ) );
                         ndx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setExpDate( ndx.convertStringToDate( ndxDayOptionExpField.getText( ) ) );
 
                         // Month
-                        ndx.getTwsData( ).getContract( TwsContractsEnum.MONTH ).lastTradeDateOrContractMonth( ndxField.getText( ) );
+                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ).lastTradeDateOrContractMonth( ndxField.getText( ) );
                         ndx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setExpDate( ndx.convertStringToDate( ndxField.getText( ) ) );
 
                         // Quarter
-                        ndx.getTwsData( ).getContract( TwsContractsEnum.QUARTER ).lastTradeDateOrContractMonth( ndxQuarterField.getText( ) );
+                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_QUARTER ).lastTradeDateOrContractMonth( ndxQuarterField.getText( ) );
                         ndx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).setExpDate( ndx.convertStringToDate( ndxQuarterField.getText( ) ) );
 
                         Downloader.getInstance( ).start( );
@@ -188,8 +188,8 @@ public class MainWindow {
                         logWindow.frame.setVisible( true );
                         Thread.sleep( 3000 );
 
-                        spx.getTwsRequestHandler( ).requestFutreAndIndex( );
-                        ndx.getTwsRequestHandler( ).requestFutreAndIndex( );
+                        spx.getTwsRequestHandler( ).requestFutureAndIndex( );
+                        ndx.getTwsRequestHandler( ).requestFutureAndIndex( );
 
                     } catch ( InterruptedException e ) {
                         // TODO Auto-generated catch block

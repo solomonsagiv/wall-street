@@ -5,6 +5,7 @@ import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
 import serverObjects.stockObjects.Apple;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Downloader extends Thread implements EWrapper {
 
     // Constructor
     private Downloader() {
-        appleOptions = apple.getOptionsHandler().getMainOptions();
+        appleOptions = apple.getOptionsHandler( ).getMainOptions( );
         logger = MyLogger.getInstance( );
         m_signal = new EJavaSignal( );
         client = new EClientSocket( this, m_signal );
@@ -167,10 +168,12 @@ public class Downloader extends Thread implements EWrapper {
             // Bid
             if ( field == 1 ) {
                 appleOptions.getOptionById( tickerId ).setBid( price );
+                return;
             }
             // Ask
             if ( field == 2 ) {
                 appleOptions.getOptionById( tickerId ).setAsk( price );
+                return;
             }
         }
     }
@@ -508,10 +511,13 @@ public class Downloader extends Thread implements EWrapper {
         NextOrderId = nextOrderId;
     }
 
-    public void reqMktData( int tickerID, Contract contract ) {
-        client.reqMktData( tickerID, contract,
-                "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null );
+    public void reqMktData( int tickerID, Contract contract ) throws Exception {
+        if ( client.isConnected( ) ) {
+            client.reqMktData( tickerID, contract,
+                    "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null );
+        } else {
+            throw new Exception( "Tws client in not connected" );
+        }
     }
-
 
 }

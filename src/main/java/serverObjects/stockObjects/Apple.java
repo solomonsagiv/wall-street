@@ -58,7 +58,7 @@ public class Apple extends STOCK_OBJECT {
         optionsMonthContract.multiplier( "100" );
         optionsMonthContract.symbol( "AAPL" );
         optionsMonthContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.MONTH, optionsMonthContract );
+        twsData.appendTwsContract( TwsContractsEnum.OPT_MONTH, optionsMonthContract );
 
     }
 

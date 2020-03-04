@@ -4,18 +4,18 @@ import com.ib.client.Contract;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TwsData {
+public abstract class TwsData {
 
-    Map< TwsContractsEnum, Contract > contractsMap;
+    Map< TwsContractsEnum, Contract > contractsMap = new HashMap<>();
 
     private int indexId;
     private int futureId;
     private int contractDetailsId;
     private int quantity = 0;
 
-    public TwsData() {
-        contractsMap = new HashMap<>( );
-    }
+
+
+    public TwsData() {}
 
     public Contract getContract( TwsContractsEnum twsContractsEnum ) {
         return contractsMap.get( twsContractsEnum );

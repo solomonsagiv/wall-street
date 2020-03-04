@@ -1,6 +1,8 @@
 package options;
 
+import com.ib.client.Contract;
 import shlomi.positions.Position;
+import tws.MyContract;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public abstract class Option {
     private boolean callOrPut;
     private double vega;
     private double delta;
+    private MyContract myContract;
 
     // Trading variables
     private Position position;
@@ -270,5 +273,10 @@ public abstract class Option {
     public void setDelta( double delta ) {
         this.delta = delta;
     }
-
+    public MyContract getMyContract() {
+        return myContract;
+    }
+    public void setMyContract( MyContract myContract ) {
+        this.myContract = myContract;
+    }
 }

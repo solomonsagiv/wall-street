@@ -67,7 +67,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsDayContract.tradingClass( "NDXP" );
         optionsDayContract.symbol( "NDXP" );
         optionsDayContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.WEEK, optionsDayContract );
+        twsData.appendTwsContract( TwsContractsEnum.OPT_WEEK, optionsDayContract );
 
         Contract optionsMonthContract = new Contract( );
         optionsMonthContract.secType( "OPT" );
@@ -76,7 +76,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsMonthContract.tradingClass( "NDX" );
         optionsMonthContract.symbol( "NDX" );
         optionsMonthContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.MONTH, optionsMonthContract );
+        twsData.appendTwsContract( TwsContractsEnum.OPT_MONTH, optionsMonthContract );
 
         Contract optionsQuarterContract = new Contract( );
         optionsQuarterContract.secType( "OPT" );
@@ -86,7 +86,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsQuarterContract.multiplier( "100" );
         optionsQuarterContract.tradingClass( "NDX" );
         optionsQuarterContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.QUARTER, optionsQuarterContract );
+        twsData.appendTwsContract( TwsContractsEnum.OPT_QUARTER, optionsQuarterContract );
 
         Contract optionsQuarterFarContract = new Contract( );
         optionsQuarterFarContract.secType( "OPT" );
@@ -95,7 +95,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsQuarterFarContract.tradingClass( "NDX" );
         optionsQuarterFarContract.symbol( "NDX" );
         optionsQuarterFarContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.QUARTER_FAR, optionsQuarterFarContract );
+        twsData.appendTwsContract( TwsContractsEnum.OPT_QUARTER_FAR, optionsQuarterFarContract );
 
     }
 

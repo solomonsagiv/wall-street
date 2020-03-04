@@ -3,12 +3,14 @@ package options;
 import OPs.EqualMoveService;
 import OPs.OpAvgMoveService;
 import com.ib.client.Contract;
+import com.ib.client.Types;
 import gui.WallStreetWindow;
 import locals.L;
 import logic.LogicService;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.MyContract;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -37,7 +39,7 @@ public abstract class Options {
     protected int maxId = 0;
     protected Contract twsContract;
     protected boolean gotData = false;
-    
+
     protected double contractBid = 0;
     protected double contractAsk = 0;
 
@@ -112,21 +114,37 @@ public abstract class Options {
         double endStrike = client.getEndStrike( );
 
         int id = getBaseID( );
+        MyContract contract = ( MyContract ) getTwsContract();
 
         for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
 
-            // Call
+            // ----- Call ------ //
             Call call = new Call( strike, id );
+
+            // MyTwsContract
+            contract.setMyId( id );
+            contract.strike( strike );
+            contract.right( Types.Right.Call );
+
+            call.setMyContract( contract );
+
             setOption( call );
             id++;
 
-            // Put
+            // ----- Put ------ //
             Put put = new Put( strike, id );
+
+            // MyTwsContract
+            contract.setMyId( id );
+            contract.strike( strike );
+            contract.right( Types.Right.Put );
+
+            put.setMyContract( contract );
+
             setOption( put );
             id++;
 
         }
-
     }
 
     private void initType() {

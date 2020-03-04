@@ -13,7 +13,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() {
 
-        StockOptions monthOptions = new StockOptions( this, OptionsEnum.MONTH, getTwsData().getContract( TwsContractsEnum.MONTH ) );
+        StockOptions monthOptions = new StockOptions( this, OptionsEnum.MONTH, getTwsData().getContract( TwsContractsEnum.OPT_MONTH ) );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
@@ -29,4 +29,11 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         setOptionsHandler( optionsHandler );
     }
 
+    @Override
+    public void setIndex( double index ) {
+        if ( this.index == 0 ) {
+            this.index = index;
+            getOptionsHandler( ).initOptions( index );
+        }
+    }
 }
