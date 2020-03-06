@@ -68,9 +68,10 @@ public abstract class OptionsHandler implements IOptionsHandler {
     private void initStartEndStrikes( double future ) {
 
         double last = L.modulu( future );
-        double margin = L.modulu( last * 0.03 );
-        double startStrike = last - margin;
-        double endStrike = last + margin;
+        double margin = client.getStrikeMargin();
+
+        double startStrike = last - ( margin * 20 );
+        double endStrike = last + ( margin * 20 );
 
         client.setStartStrike( startStrike );
         client.setEndStrike( endStrike );
@@ -84,11 +85,8 @@ public abstract class OptionsHandler implements IOptionsHandler {
         for ( Options options : getOptionsList( ) ) {
             System.out.println( "Init options: " + options.getName( ) );
             options.initOptions( );
-
             System.out.println( options.toStringVertical( ) );
         }
-
-        client.getTwsRequestHandler( ).startRunner( );
 
     }
 
@@ -114,7 +112,6 @@ public abstract class OptionsHandler implements IOptionsHandler {
 
         return json;
     }
-
 
     // Getters and setters
     public HashMap< OptionsEnum, Options > getOptionsMap() {

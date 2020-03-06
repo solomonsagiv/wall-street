@@ -5,6 +5,7 @@ import com.ib.client.*;
 import logger.MyLogger;
 import options.Options;
 import serverObjects.stockObjects.Apple;
+import tws.TwsContractsEnum;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -139,7 +140,11 @@ public class Downloader extends Thread implements EWrapper {
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = apple.getTwsData( ).getIndexId( );
+        index = apple.getTwsHandler().getMyContract( TwsContractsEnum.INDEX ).getMyId();
+        
+        System.out.println("index id: " + index );
+
+        System.out.println( price );
 
         if ( tickerId == index && price > 0 ) {
             // Last

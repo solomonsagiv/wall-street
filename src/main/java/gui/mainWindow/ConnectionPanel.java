@@ -55,6 +55,12 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     default:
                         break;
                 }
+
+                if ( Downloader.getInstance( ).isConnected( ) ) {
+                    statusLbl.setText( "Connected" );
+                    statusLbl.setForeground( Themes.GREEN );
+                }
+
                 // Log window
                 LogWindow logWindow = new LogWindow( );
                 logWindow.frame.setVisible( true );
@@ -66,6 +72,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 ddeReader.getHandler( ).close( );
+
+                statusLbl.setText( "Disconnect" );
+                statusLbl.setForeground( Themes.RED );
+
             }
         } );
 
@@ -96,7 +106,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     public void connectTws() {
         try {
-            Manifest.CLIENT_ID = L.INT( portField.getText() );
+            Manifest.CLIENT_ID = L.INT( portField.getText( ) );
             downloader = Downloader.getInstance( );
             downloader.start( );
         } catch ( Exception e ) {

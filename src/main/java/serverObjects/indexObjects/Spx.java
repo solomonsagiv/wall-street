@@ -7,6 +7,7 @@ import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
+import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
 import tws.TwsData;
@@ -41,7 +42,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initTwsData() {
+    public void initTwsHandler() {
 
         TwsHandler twsHandler = new TwsHandler();
 
@@ -78,7 +79,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         twsHandler.addContract( optWeekContract );
 
-
         // Month options
         MyContract optionsMonthContract = new MyContract( getBaseId() + 2000, TwsContractsEnum.OPT_MONTH );
         optionsMonthContract.secType( "OPT" );
@@ -113,6 +113,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsQuarterFarContract.includeExpired( true );
 
         twsHandler.addContract( optionsQuarterFarContract );
+
+        setTwsHandler( twsHandler );
     }
 
     @Override
@@ -184,6 +186,16 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         ddeCells.setIndAskCell( "R6C2" );
 
         setDdeCells( ddeCells );
+    }
+
+    @Override
+    public ApiEnum getApi() {
+        return ApiEnum.DDE;
+    }
+
+    @Override
+    public void requestApi() {
+
     }
 
     @Override

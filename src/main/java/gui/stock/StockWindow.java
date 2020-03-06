@@ -18,7 +18,10 @@ public class StockWindow extends MyGuiComps.MyFrame {
     // Constructor
     public StockWindow( String title, STOCK_OBJECT client ) throws HeadlessException {
         super( title, client );
-        client.getTwsRequestHandler().startRunner();
+
+        // Tws request
+        client.requestApi();
+
     }
 
     @Override

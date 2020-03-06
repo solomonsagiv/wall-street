@@ -13,8 +13,6 @@ public abstract class TwsData {
     private int contractDetailsId;
     private int quantity = 0;
 
-
-
     public TwsData() {}
 
     public Contract getContract( TwsContractsEnum twsContractsEnum ) {

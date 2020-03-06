@@ -113,6 +113,9 @@ public abstract class Options {
         double startStrike = client.getStartStrike( );
         double endStrike = client.getEndStrike( );
 
+        System.out.println( "Start strike: " + startStrike );
+        System.out.println( "End strike: " + endStrike );
+
         int id = getBaseID( );
         MyContract contract = ( MyContract ) getTwsContract();
 

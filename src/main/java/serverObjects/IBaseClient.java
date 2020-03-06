@@ -1,11 +1,9 @@
 package serverObjects;
 
-import options.OptionsHandler;
-
 public interface IBaseClient {
 
     void initIds( );
-    void initTwsData( );
+    void initTwsHandler( );
     void initName( );
     void initRacesMargin( );
     double getStrikeMargin( );
@@ -14,7 +12,9 @@ public interface IBaseClient {
     void initEndOfFutureTrading( );
     void initDbId( );
     void initTablesHandlers( );
-    void initOptionsHandler();
+    void initOptionsHandler() throws Exception;
     void initDDECells();
+    ApiEnum getApi();
+    void requestApi();
 
 }

@@ -154,53 +154,53 @@ public class MainWindow {
         connectBtn.setBackground( new Color( 51, 51, 51 ) );
         connectBtn.setBounds( 83, 76, 122, 27 );
         panel_1.add( connectBtn );
-        connectBtn.addActionListener( new ActionListener( ) {
-            public void actionPerformed( ActionEvent arg0 ) {
-                new Thread( () -> {
-                    try {
-
-                        // ----- Spx ----- //
-                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ).lastTradeDateOrContractMonth( spxField.getText( ) );
-                        spx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setExpDate( spx.convertStringToDate( spxField.getText( ) ) );
-                        // Day
-                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_WEEK ).lastTradeDateOrContractMonth( spxDayOptionExpField.getText( ) );
-                        spx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setExpDate( spx.convertStringToDate( spxDayOptionExpField.getText( ) ) );
-
-                        // Quarter
-                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_QUARTER ).lastTradeDateOrContractMonth( spxQuarterField.getText( ) );
-                        spx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).setExpDate( spx.convertStringToDate( spxQuarterField.getText( ) ) );
-
-                        // ----- Ndx ----- //
-                        // Day
-                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_WEEK ).lastTradeDateOrContractMonth( ndxDayOptionExpField.getText( ) );
-                        ndx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setExpDate( ndx.convertStringToDate( ndxDayOptionExpField.getText( ) ) );
-
-                        // Month
-                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ).lastTradeDateOrContractMonth( ndxField.getText( ) );
-                        ndx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setExpDate( ndx.convertStringToDate( ndxField.getText( ) ) );
-
-                        // Quarter
-                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_QUARTER ).lastTradeDateOrContractMonth( ndxQuarterField.getText( ) );
-                        ndx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).setExpDate( ndx.convertStringToDate( ndxQuarterField.getText( ) ) );
-
-                        Downloader.getInstance( ).start( );
-                        LogWindow logWindow = new LogWindow( );
-                        logWindow.frame.setVisible( true );
-                        Thread.sleep( 3000 );
-
-                        spx.getTwsRequestHandler( ).requestFutureAndIndex( );
-                        ndx.getTwsRequestHandler( ).requestFutureAndIndex( );
-
-                    } catch ( InterruptedException e ) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace( );
-                    } finally {
-                        String connectionStatus = L.str( Downloader.getInstance( ).getClient( ).isConnected( ) );
-                        connectionStatusLbl.setText( String.valueOf( connectionStatus ) );
-                    }
-                } ).start( );
-            }
-        } );
+//        connectBtn.addActionListener( new ActionListener( ) {
+//            public void actionPerformed( ActionEvent arg0 ) {
+//                new Thread( () -> {
+//                    try {
+//
+//                        // ----- Spx ----- //
+//                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ).lastTradeDateOrContractMonth( spxField.getText( ) );
+//                        spx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setExpDate( spx.convertStringToDate( spxField.getText( ) ) );
+//                        // Day
+//                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_WEEK ).lastTradeDateOrContractMonth( spxDayOptionExpField.getText( ) );
+//                        spx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setExpDate( spx.convertStringToDate( spxDayOptionExpField.getText( ) ) );
+//
+//                        // Quarter
+//                        spx.getTwsData( ).getContract( TwsContractsEnum.OPT_QUARTER ).lastTradeDateOrContractMonth( spxQuarterField.getText( ) );
+//                        spx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).setExpDate( spx.convertStringToDate( spxQuarterField.getText( ) ) );
+//
+//                        // ----- Ndx ----- //
+//                        // Day
+//                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_WEEK ).lastTradeDateOrContractMonth( ndxDayOptionExpField.getText( ) );
+//                        ndx.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).setExpDate( ndx.convertStringToDate( ndxDayOptionExpField.getText( ) ) );
+//
+//                        // Month
+//                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ).lastTradeDateOrContractMonth( ndxField.getText( ) );
+//                        ndx.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).setExpDate( ndx.convertStringToDate( ndxField.getText( ) ) );
+//
+//                        // Quarter
+//                        ndx.getTwsData( ).getContract( TwsContractsEnum.OPT_QUARTER ).lastTradeDateOrContractMonth( ndxQuarterField.getText( ) );
+//                        ndx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).setExpDate( ndx.convertStringToDate( ndxQuarterField.getText( ) ) );
+//
+//                        Downloader.getInstance( ).start( );
+//                        LogWindow logWindow = new LogWindow( );
+//                        logWindow.frame.setVisible( true );
+//                        Thread.sleep( 3000 );
+//
+//                        spx.getTwsRequestHandler( ).requestFutureAndIndex( );
+//                        ndx.getTwsRequestHandler( ).requestFutureAndIndex( );
+//
+//                    } catch ( InterruptedException e ) {
+//                        // TODO Auto-generated catch block
+//                        e.printStackTrace( );
+//                    } finally {
+//                        String connectionStatus = L.str( Downloader.getInstance( ).getClient( ).isConnected( ) );
+//                        connectionStatusLbl.setText( String.valueOf( connectionStatus ) );
+//                    }
+//                } ).start( );
+//            }
+//        } );
         connectBtn.setFont( new Font( "Arial", Font.BOLD, 15 ) );
 
         connectionStatusLbl = new JLabel( "False" );

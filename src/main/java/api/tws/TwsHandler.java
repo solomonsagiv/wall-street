@@ -11,6 +11,7 @@ import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
 import tws.MyContract;
+import tws.TwsContractsEnum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,12 +19,10 @@ import java.util.Map;
 public class TwsHandler {
 
     // Variables
-    Map< Integer, MyContract > myContracts = new HashMap<>( );
-
+    Map< Integer, MyContract > myContracts = new HashMap<>();
 
     // Constructor
-    public TwsHandler() {
-    }
+    public TwsHandler() {}
 
     public void removeMyContract( int id ) {
         myContracts.remove( id );
@@ -38,8 +37,19 @@ public class TwsHandler {
         if ( myContract != null ) {
             return myContract;
         } else {
-            throw new Exception( "No contract with this id: " + id );
+            throw new NullPointerException( "No contract with this id: " + id );
         }
+    }
+
+    public MyContract getMyContract( TwsContractsEnum twsContractsEnum ) throws NullPointerException {
+        for ( Map.Entry< Integer, MyContract > entry: myContracts.entrySet()) {
+            MyContract contract = entry.getValue();
+            if ( twsContractsEnum == contract.getType() ) {
+                return contract;
+            }
+        }
+
+        throw new NullPointerException( "Contract not exist: " + twsContractsEnum );
     }
 
     public boolean isRequested( int id ) throws Exception {
@@ -51,10 +61,16 @@ public class TwsHandler {
         }
     }
 
+    public boolean isRequested( MyContract myContract ) throws Exception {
+        return isRequested( myContract.getMyId() );
+    }
+
     public void request( MyContract contract ) {
         try {
-            Downloader.getInstance( ).reqMktData( contract.getMyId( ), contract );
-            contract.setRequested( true );
+            if ( !isRequested( contract ) ) {
+                Downloader.getInstance( ).reqMktData( contract.getMyId( ), contract );
+                contract.setRequested( true );
+            }
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

@@ -4,6 +4,7 @@ import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import locals.L;
 import locals.LocalHandler;
+import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import threads.MyThread;
@@ -53,7 +54,7 @@ public class DDEReader extends MyThread implements Runnable {
     private void read() throws DDEException {
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
             System.out.println(client );
-            if ( client.getDdeCells( ).isWorkWithDDE( ) && client instanceof INDEX_CLIENT_OBJECT && client.isStarted() ) {
+            if ( client.getApi() == ApiEnum.DDE && client.isStarted() ) {
                 updateData( ( INDEX_CLIENT_OBJECT ) client );
             }
         }

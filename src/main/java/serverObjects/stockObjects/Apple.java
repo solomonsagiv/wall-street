@@ -1,12 +1,14 @@
 package serverObjects.stockObjects;
 
 import DDE.DDECells;
-import com.ib.client.Contract;
+import api.tws.TwsHandler;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
+import serverObjects.ApiEnum;
+import tws.MyContract;
 import tws.TwsContractsEnum;
-import tws.TwsData;
+
 import java.time.LocalTime;
 
 public class Apple extends STOCK_OBJECT {
@@ -33,24 +35,24 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initIds() {
+        setBaseId( 30000 );
         setDbId( 4 );
     }
 
     @Override
-    public void initTwsData() {
-        TwsData twsData = getTwsData( );
+    public void initTwsHandler() {
+        TwsHandler twsData = new TwsHandler( );
 
-        twsData.setQuantity( 3 );
-
-        Contract indexContract = new Contract( );
+        MyContract indexContract = new MyContract( getBaseId( ) + 1, TwsContractsEnum.INDEX );
         indexContract.symbol( "AAPL" );
         indexContract.secType( "STK" );
         indexContract.primaryExch( "NASDAQ" );
         indexContract.currency( "USD" );
         indexContract.exchange( "SMART" );
-        twsData.appendTwsContract( TwsContractsEnum.INDEX, indexContract );
 
-        Contract optionsMonthContract = new Contract( );
+        twsData.addContract( indexContract );
+
+        MyContract optionsMonthContract = new MyContract( getBaseId( ) + 1000, TwsContractsEnum.OPT_MONTH );
         optionsMonthContract.secType( "OPT" );
         optionsMonthContract.currency( "USD" );
         optionsMonthContract.exchange( "SMART" );
@@ -58,8 +60,10 @@ public class Apple extends STOCK_OBJECT {
         optionsMonthContract.multiplier( "100" );
         optionsMonthContract.symbol( "AAPL" );
         optionsMonthContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.OPT_MONTH, optionsMonthContract );
 
+        twsData.addContract( optionsMonthContract );
+
+        setTwsHandler( twsData );
     }
 
     @Override
@@ -94,9 +98,7 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initDbId() {
-        setBaseId( 30000 );
-        getTwsData( ).setIndexId( getBaseId( ) + 1 );
-        getTwsData( ).setFutureId( getBaseId( ) + 2 );
+        // TODO
     }
 
     @Override
@@ -116,5 +118,16 @@ public class Apple extends STOCK_OBJECT {
             }
         };
         setDdeCells( ddeCells );
+    }
+
+    @Override
+    public ApiEnum getApi() {
+        return ApiEnum.TWS;
+    }
+
+    @Override
+    public void requestApi() {
+        TwsHandler handler = getTwsHandler( );
+        handler.request( handler.getMyContract( TwsContractsEnum.INDEX ) );
     }
 }

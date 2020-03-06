@@ -15,7 +15,6 @@ import options.OptionsDataHandler;
 import options.OptionsHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
-import tws.TwsData;
 
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
@@ -37,7 +36,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime endFutureTrading;
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
-    private TwsHandler twsRequestHandler;
+    protected TwsHandler twsHandler;
     protected DDECells ddeCells;
     // Base id
     private int baseId;
@@ -103,26 +102,29 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     List indexRacesList = new ArrayList< Double >( );
 
     public BASE_CLIENT_OBJECT() {
+        try {
+            initTwsHandler( );
+            LocalHandler.clients.add( this );
 
-        initTwsData( );
-        LocalHandler.clients.add( this );
+            // Call subClasses abstract functions
+            initIds( );
+            initName( );
+            initRacesMargin( );
+            initStartOfIndexTrading( );
+            initEndOfIndexTrading( );
+            initEndOfFutureTrading( );
+            initDbId( );
+            initTablesHandlers( );
+            initOptionsHandler( );
+            initDDECells( );
 
-        // Call subClasses abstract functions
-        initIds( );
-        initName( );
-        initRacesMargin( );
-        initStartOfIndexTrading( );
-        initEndOfIndexTrading( );
-        initEndOfFutureTrading( );
-        initDbId( );
-        initTablesHandlers( );
-        initOptionsHandler();
-        initDDECells();
+            // MyServices
+            listsService = new ListsService( this );
+            mySqlService = new MySqlService( this );
 
-        // MyServices
-        listsService = new ListsService( this );
-        mySqlService = new MySqlService( this );
-
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+        }
     }
 
     // Start all
@@ -168,9 +170,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void fullExport() {
         try {
-            getMyTableHandler().getMySumTable().insert();
-            getMyTableHandler().getMyStatusTable().reset();
-            getMyTableHandler().getMyArraysTable().reset();
+            getMyTableHandler( ).getMySumTable( ).insert( );
+            getMyTableHandler( ).getMyStatusTable( ).reset( );
+            getMyTableHandler( ).getMyArraysTable( ).reset( );
 
             // Notify
             Arik.getInstance( ).sendMessage( Arik.sagivID, getName( ) + " Export success " + Emojis.check_mark, null );
@@ -462,13 +464,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.baseId = baseId;
     }
 
-    public TwsHandler getTwsRequestHandler() {
-        if ( twsRequestHandler == null ) {
-            twsRequestHandler = new TwsHandler( this );
-        }
-        return twsRequestHandler;
-    }
-
     public abstract double getTheoAvgMargin();
 
     public MyServiceHandler getMyServiceHandler() {
@@ -577,7 +572,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public OptionsHandler getOptionsHandler() {
         if ( optionsHandler == null ) throw new NullPointerException( );
-        return optionsHandler ;
+        return optionsHandler;
     }
 
     public boolean isConUpChanged() {
@@ -620,10 +615,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.ddeCells = ddeCells;
     }
 
+    public TwsHandler getTwsHandler() {
+        return twsHandler;
+    }
+
+    public void setTwsHandler( TwsHandler twsHandler ) {
+        this.twsHandler = twsHandler;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", optionsHandler=" + optionsHandler.toString() +
+                ", optionsHandler=" + optionsHandler.toString( ) +
                 ", startOfIndexTrading=" + startOfIndexTrading +
                 ", endOfIndexTrading=" + endOfIndexTrading +
                 ", endFutureTrading=" + endFutureTrading +
@@ -655,10 +658,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", conDownChanged=" + conDownChanged +
                 ", indUpChanged=" + indUpChanged +
                 ", indDownChanged=" + indDownChanged +
-                ", indexList=" + indexList.size() +
-                ", indexBidList=" + indexBidList.size() +
-                ", indexAskList=" + indexAskList.size() +
-                ", indexRacesList=" + indexRacesList.size() +
+                ", indexList=" + indexList.size( ) +
+                ", indexBidList=" + indexBidList.size( ) +
+                ", indexAskList=" + indexAskList.size( ) +
+                ", indexRacesList=" + indexRacesList.size( ) +
                 '}';
     }
 }

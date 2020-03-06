@@ -2,10 +2,13 @@ package serverObjects.indexObjects;
 
 import DDE.DDECells;
 import api.Manifest;
+import api.tws.TwsHandler;
 import com.ib.client.Contract;
 import dataBase.mySql.mySqlComps.MyTableHandler;
 import dataBase.mySql.tables.MyDayTable;
 import dataBase.mySql.tables.MySumTable;
+import serverObjects.ApiEnum;
+import tws.MyContract;
 import tws.TwsContractsEnum;
 import tws.TwsData;
 
@@ -39,46 +42,46 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initTwsData() {
+    public void initTwsHandler() {
 
-        TwsData twsData = getTwsData( );
+        TwsHandler twsData = new TwsHandler( );
 
-        Contract indexContract = new Contract( );
+        MyContract indexContract = new MyContract( getBaseId() + 1, TwsContractsEnum.INDEX);
         indexContract.symbol( "NDX" );
         indexContract.secType( "IND" );
         indexContract.currency( "USD" );
         indexContract.exchange( "NASDAQ" );
         indexContract.multiplier( "20" );
-        twsData.appendTwsContract( TwsContractsEnum.INDEX, indexContract );
+        twsData.addContract( indexContract );
 
-        Contract futureContract = new Contract( );
+        MyContract futureContract = new MyContract( getBaseId() + 2, TwsContractsEnum.FUTURE );
         futureContract.symbol( "NQ" );
         futureContract.secType( "FUT" );
         futureContract.currency( "USD" );
         futureContract.exchange( "GLOBEX" );
         futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
         futureContract.multiplier( "20" );
-        twsData.appendTwsContract( TwsContractsEnum.FUTURE, futureContract );
+        twsData.addContract( futureContract );
 
-        Contract optionsDayContract = new Contract( );
+        MyContract optionsDayContract = new MyContract( getBaseId() + 1000, TwsContractsEnum.OPT_WEEK );
         optionsDayContract.secType( "OPT" );
         optionsDayContract.currency( "USD" );
         optionsDayContract.exchange( "SMART" );
         optionsDayContract.tradingClass( "NDXP" );
         optionsDayContract.symbol( "NDXP" );
         optionsDayContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.OPT_WEEK, optionsDayContract );
+        twsData.addContract( optionsDayContract );
 
-        Contract optionsMonthContract = new Contract( );
+        MyContract optionsMonthContract = new MyContract( getBaseId() + 2000, TwsContractsEnum.OPT_MONTH );
         optionsMonthContract.secType( "OPT" );
         optionsMonthContract.currency( "USD" );
         optionsMonthContract.exchange( "SMART" );
         optionsMonthContract.tradingClass( "NDX" );
         optionsMonthContract.symbol( "NDX" );
         optionsMonthContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.OPT_MONTH, optionsMonthContract );
+        twsData.addContract( optionsMonthContract );
 
-        Contract optionsQuarterContract = new Contract( );
+        MyContract optionsQuarterContract = new MyContract( getBaseId() + 3000, TwsContractsEnum.OPT_QUARTER );
         optionsQuarterContract.secType( "OPT" );
         optionsQuarterContract.currency( "USD" );
         optionsQuarterContract.exchange( "SMART" );
@@ -86,16 +89,16 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsQuarterContract.multiplier( "100" );
         optionsQuarterContract.tradingClass( "NDX" );
         optionsQuarterContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.OPT_QUARTER, optionsQuarterContract );
+        twsData.addContract( optionsQuarterContract );
 
-        Contract optionsQuarterFarContract = new Contract( );
+        MyContract optionsQuarterFarContract = new MyContract( getBaseId() + 4000, TwsContractsEnum.OPT_QUARTER );
         optionsQuarterFarContract.secType( "OPT" );
         optionsQuarterFarContract.currency( "USD" );
         optionsQuarterFarContract.exchange( "SMART" );
         optionsQuarterFarContract.tradingClass( "NDX" );
         optionsQuarterFarContract.symbol( "NDX" );
         optionsQuarterFarContract.includeExpired( true );
-        twsData.appendTwsContract( TwsContractsEnum.OPT_QUARTER_FAR, optionsQuarterFarContract );
+        twsData.addContract( optionsQuarterFarContract );
 
     }
 
@@ -117,9 +120,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public void initIds() {
         setBaseId( 20000 );
-        getTwsData( ).setIndexId( getBaseId( ) + 1 );
-        getTwsData( ).setFutureId( getBaseId( ) + 2 );
-        getTwsData().setContractDetailsId(getBaseId() + 3);
     }
 
     @Override
@@ -163,6 +163,16 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         // TODO init cells
 
         setDdeCells( ddeCells );
+
+    }
+
+    @Override
+    public ApiEnum getApi() {
+        return ApiEnum.TWS;
+    }
+
+    @Override
+    public void requestApi() {
 
     }
 

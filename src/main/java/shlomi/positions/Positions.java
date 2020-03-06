@@ -41,7 +41,7 @@ public class Positions {
 
     public Position openNewPosition( String positionType, int pos, double startPrice ) {
 
-        Position position = new Position( getNextId( ), positionType, client.getTwsData( ).getContract( TwsContractsEnum.OPT_MONTH ), pos, client );
+        Position position = new Position( getNextId( ), positionType, client.getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH ), pos, client );
         position.open( startPrice );
 
         positions.put( position.getId( ), position );

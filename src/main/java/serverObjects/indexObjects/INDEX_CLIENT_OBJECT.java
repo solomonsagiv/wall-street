@@ -27,17 +27,11 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void initOptionsHandler() {
+    public void initOptionsHandler() throws NullPointerException {
 
-
-
-
-
-
-
-        IndexOptions weekOptions = new IndexOptions( this, OptionsEnum.WEEK,  );
-        IndexOptions monthOptions = new IndexOptions( this, OptionsEnum.MONTH, getTwsData().getContract( TwsContractsEnum.OPT_MONTH ) );
-        IndexOptions quarterOptions = new IndexOptions( this, OptionsEnum.QUARTER, getTwsData().getContract( TwsContractsEnum.OPT_QUARTER ) );
+        IndexOptions weekOptions = new IndexOptions( this, OptionsEnum.WEEK, getTwsHandler().getMyContract( TwsContractsEnum.OPT_WEEK ));
+        IndexOptions monthOptions = new IndexOptions( this, OptionsEnum.MONTH, getTwsHandler().getMyContract( TwsContractsEnum.OPT_MONTH ) );
+        IndexOptions quarterOptions = new IndexOptions( this, OptionsEnum.QUARTER, getTwsHandler().getMyContract( TwsContractsEnum.OPT_QUARTER ) );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
