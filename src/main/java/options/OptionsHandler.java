@@ -48,9 +48,9 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
             if ( options.getOptionsAsJson( ).length( ) == 0 || !client.isStarted( ) ) {
-                object.put( options.getName( ), options.getOptionsAsJson( ) );
+                object.put( options.getType().toString(), options.getOptionsAsJson( ) );
             } else {
-                object.put( options.getName( ), options.getOptionsAsJson( ) );
+                object.put( options.getType().toString(), options.getOptionsAsJson( ) );
             }
         }
         return object;
@@ -59,7 +59,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
     public JSONObject getAllOptionsEmptyJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            object.put( options.getName( ), options.getEmptyOptionsAsJson( ) );
+            object.put( options.getType().toString(), options.getEmptyOptionsAsJson( ) );
         }
         return object;
     }
@@ -82,7 +82,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         initStartEndStrikes( future );
 
         for ( Options options : getOptionsList( ) ) {
-            System.out.println( "Init options: " + options.getName( ) );
+            System.out.println( "Init options: " + options.getType().toString() );
             options.initOptions( );
             System.out.println( options.toStringVertical( ) );
         }
@@ -95,7 +95,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject json = new JSONObject( );
 
         for ( Options options : getOptionsList( ) ) {
-            json.put( options.getName( ), options.getProps( ) );
+            json.put( options.getType().toString(), options.getProps( ) );
         }
 
         return json;
@@ -106,7 +106,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject json = new JSONObject( );
 
         for ( Options options : getOptionsList( ) ) {
-            json.put( options.getName( ), options.getEmptyProps( ) );
+            json.put( options.getType( ).toString(), options.getEmptyProps( ) );
         }
 
         return json;

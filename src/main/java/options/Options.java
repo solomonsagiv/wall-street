@@ -25,7 +25,6 @@ public abstract class Options {
     double askMax = 0;
     private boolean requested = false;
     protected OptionsEnum type;
-    protected String name = "";
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
     protected double daysToExp = -1;
@@ -112,9 +111,6 @@ public abstract class Options {
         double startStrike = client.getStartStrike( );
         double endStrike = client.getEndStrike( );
 
-        System.out.println( "Start strike: " + startStrike );
-        System.out.println( "End strike: " + endStrike );
-
         int id = getBaseID();
 
         for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
@@ -122,15 +118,13 @@ public abstract class Options {
             // ----- Call ------ //
             Call call = new Call( strike, id );
 
-            MyContract contractCall = ( MyContract ) getTwsContract();
+            MyContract contractCall = getCopyTwsContract();
 
             // MyTwsContract
             contractCall.setMyId( id );
             contractCall.strike( strike );
             contractCall.right( Types.Right.Call );
-
-            System.out.println(contractCall);
-            System.out.println( "MyID: " + contractCall.getMyId());
+            client.getTwsHandler().addContract( contractCall );
 
             call.setMyContract( contractCall );
 
@@ -140,12 +134,13 @@ public abstract class Options {
             // ----- Put ------ //
             Put put = new Put( strike, id );
 
-            MyContract contractPut = ( MyContract ) getTwsContract();
+            MyContract contractPut = getCopyTwsContract();
 
             // MyTwsContract
             contractPut.setMyId( id );
             contractPut.strike( strike );
             contractPut.right( Types.Right.Put );
+            client.getTwsHandler().addContract( contractPut );
 
             put.setMyContract( contractPut );
 
@@ -524,7 +519,9 @@ public abstract class Options {
         props.put( "interest", getInterest( ) );
         props.put( "borrow", getCalcBorrow( ) );
         props.put( "devidend", getDevidend( ) );
+        props.put( "date", getExpDate() );
         props.put( "days", getDays( ) );
+        System.out.println(props );
         return props;
 
     }
@@ -535,21 +532,24 @@ public abstract class Options {
         json.put( "interest", 1 );
         json.put( "borrow", 0 );
         json.put( "devidend", 0 );
+        json.put( "date", getExpDate() );
         json.put( "days", 0 );
 
         return json;
     }
 
-    public void setPropsDataFromJson( JSONObject json ) {
+    public void setPropsDataFromJson( JSONObject json ) throws Exception {
 
         double interest = json.getDouble( "interest" );
         double devidend = json.getDouble( "devidend" );
         double borrow = json.getDouble( "borrow" );
+        LocalDate date =  L.parseDate( json.getString( "date" ) );
         double days = json.getDouble( "days" );
 
         setInterestZero( interest - 1 );
         setInterest( interest );
         setDevidend( devidend );
+        setExpDate( date );
         setBorrow( borrow );
         setDaysToExp( days );
 
@@ -566,7 +566,7 @@ public abstract class Options {
     public String toStringVertical() {
         String string = "";
 
-        string += getName( ) + "\n\n";
+        string += getType().toString() + "\n\n";
 
         for ( Strike strike : strikes ) {
             string += strike.toString( ) + "\n\n";
@@ -663,12 +663,13 @@ public abstract class Options {
     }
 
 
-    public void setDataFromJson( JSONObject json ) {
+    public void setDataFromJson( JSONObject json ) throws Exception {
 
         getEqualMoveService( ).setMove( json.getDouble( "equalMove" ) );
         setContractBidAskCounter( json.getInt( "contractBidAskCounter" ) );
         setPropsDataFromJson( json.getJSONObject( "props" ) );
         setOptionsData( json.getJSONObject( "data" ) );
+
 
     }
 
@@ -693,7 +694,6 @@ public abstract class Options {
     }
 
     public void resetOptionsBidAskCounter() {
-
         try {
             for ( Strike strike : getStrikes( ) ) {
 
@@ -758,7 +758,6 @@ public abstract class Options {
     }
 
     public void setInterestWithCalc( double interest ) {
-
         this.interestZero = interest * 0.01;
         this.interest = 1 + ( interest * 0.01 );
     }
@@ -881,6 +880,28 @@ public abstract class Options {
         return twsContract;
     }
 
+    public MyContract getCopyTwsContract() {
+
+        // Base contract
+        MyContract contract = ( MyContract ) getTwsContract();
+
+        // Copy
+        MyContract copy = new MyContract();
+        copy.setMyId( contract.getMyId() );
+        copy.symbol( contract.symbol() );
+        copy.secType( contract.secType() );
+        copy.primaryExch( contract.primaryExch() );
+        copy.currency(contract.currency());
+        copy.tradingClass( contract.tradingClass() );
+        copy.multiplier(contract.multiplier());
+        copy.includeExpired( contract.includeExpired() );
+        copy.exchange( contract.exchange() );
+        copy.localSymbol( contract.localSymbol() );
+        copy.lastTradeDateOrContractMonth( contract.lastTradeDateOrContractMonth() );
+
+        return copy;
+    }
+
     public void setTwsContract( Contract twsContract ) {
         this.twsContract = twsContract;
     }
@@ -891,14 +912,6 @@ public abstract class Options {
 
     public void setGotData( boolean gotData ) {
         this.gotData = gotData;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName( String name ) {
-        this.name = name;
     }
 
     public PositionCalculator getPositionCalculator() {

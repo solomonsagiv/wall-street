@@ -1,12 +1,24 @@
 package api;
 
+import locals.L;
+import serverObjects.indexObjects.Spx;
+import serverObjects.stockObjects.Apple;
+
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 @EnableAsync
 public class Test {
 
 
     public static void main( String[] args ) throws SQLException {
+
+        Apple spx = Apple.getInstance();
+        spx.getMyTableHandler().getMyStatusTable().load();
+        spx.getOptionsHandler().getMainOptions().setExpDate( L.parseDate( "20200101" ) );
+        spx.getMyTableHandler().getMyStatusTable().update();
+
+
 
 //        String url = "jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/";
 //        String userName = "sagivMasterUser";

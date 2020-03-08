@@ -65,7 +65,11 @@ public class StockOptions extends Options {
         if ( getBorrow( ) != 0 ) {
             return getBorrow( );
         } else {
-            return floor( client.getIndexBid( ) * 0.002 / 360.0 * getDays( ), 10000 );
+            try {
+                return floor( client.getIndexBid( ) * 0.002 / 360.0 * getDays( ), 10000 );
+            } catch ( NullPointerException e ) {
+                return 0;
+            }
         }
     }
 }

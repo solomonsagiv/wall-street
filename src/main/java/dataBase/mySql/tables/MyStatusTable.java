@@ -6,6 +6,7 @@ import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MyTableSql;
 import options.Options;
+import options.OptionsEnum;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import java.sql.ResultSet;
@@ -164,7 +165,11 @@ public class MyStatusTable extends MyTableSql {
             public void setLoadedObject( String object ) {
                 JSONObject optionsData = new JSONObject( object );
                 for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
-                    options.setDataFromJson( optionsData.getJSONObject( options.getName( ) ) );
+                    try {
+                        options.setDataFromJson( optionsData.getJSONObject( options.getType( ).toString() ) );
+                    } catch ( Exception e ) {
+                        e.printStackTrace( );
+                    }
                 }
             }
 

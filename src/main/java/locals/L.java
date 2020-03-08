@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.Locale;
 
 public class L {
@@ -105,6 +106,18 @@ public class L {
             textField.setBackground( light_grey_back );
         } catch ( InterruptedException e ) {
             e.printStackTrace( );
+        }
+    }
+
+
+    public static LocalDate parseDate( String dateStr ) {
+        if ( dateStr.length() == 8 ) {
+            String year = dateStr.substring( 0, 4 );
+            String month = dateStr.substring( 4, 6 );
+            String day = dateStr.substring( 6, 8 );
+            return LocalDate.parse( year + "-" + month + "-" + day );
+        } else {
+            return LocalDate.now();
         }
     }
 

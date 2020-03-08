@@ -64,7 +64,7 @@ public class DetailsWindow {
 
         int i = 0;
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
-            optionsTypes[ i ] = options.getName( );
+            optionsTypes[ i ] = options.getType( ).toString();
             i++;
         }
     }
