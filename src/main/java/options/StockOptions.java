@@ -7,8 +7,8 @@ public class StockOptions extends Options {
 
     STOCK_OBJECT client;
 
-    public StockOptions( STOCK_OBJECT client, OptionsEnum type, Contract twsContract ) {
-        super( client, type, twsContract );
+    public StockOptions( int baseID, STOCK_OBJECT client, OptionsEnum type, Contract twsContract ) {
+        super( baseID, client, type, twsContract );
         this.client = client;
     }
 

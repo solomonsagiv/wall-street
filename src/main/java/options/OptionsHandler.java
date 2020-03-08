@@ -56,7 +56,6 @@ public abstract class OptionsHandler implements IOptionsHandler {
         return object;
     }
 
-
     public JSONObject getAllOptionsEmptyJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {

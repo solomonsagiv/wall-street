@@ -2,10 +2,11 @@ package DDE;
 /*
  * Copyright 2009 www.pretty-tools.com. All rights reserved.
  */
-import javax.swing.JOptionPane;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+
+import javax.swing.*;
 /**
  * Excel Example.
  *

@@ -4,7 +4,6 @@ import options.IndexOptions;
 import options.OptionsEnum;
 import options.OptionsHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.MyContract;
 import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
@@ -29,9 +28,9 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() throws NullPointerException {
 
-        IndexOptions weekOptions = new IndexOptions( this, OptionsEnum.WEEK, getTwsHandler().getMyContract( TwsContractsEnum.OPT_WEEK ));
-        IndexOptions monthOptions = new IndexOptions( this, OptionsEnum.MONTH, getTwsHandler().getMyContract( TwsContractsEnum.OPT_MONTH ) );
-        IndexOptions quarterOptions = new IndexOptions( this, OptionsEnum.QUARTER, getTwsHandler().getMyContract( TwsContractsEnum.OPT_QUARTER ) );
+        IndexOptions weekOptions = new IndexOptions( getBaseId() + 1000, this, OptionsEnum.WEEK, getTwsHandler().getMyContract( TwsContractsEnum.OPT_WEEK ));
+        IndexOptions monthOptions = new IndexOptions( getBaseId() + 2000,  this, OptionsEnum.MONTH, getTwsHandler().getMyContract( TwsContractsEnum.OPT_MONTH ) );
+        IndexOptions quarterOptions = new IndexOptions( getBaseId() + 3000,  this, OptionsEnum.QUARTER, getTwsHandler().getMyContract( TwsContractsEnum.OPT_QUARTER ) );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override

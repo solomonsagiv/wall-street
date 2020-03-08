@@ -59,12 +59,11 @@ public abstract class Options {
     List< Double > conBidList = new ArrayList<>( );
     List< Double > conAskList = new ArrayList<>( );
 
-    public Options( BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
+    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
+        this.baseID = baseID;
         this.type = type;
         this.twsContract = twsContract;
         this.client = client;
-
-        initType( );
 
         strikes = new ArrayList<>();
         optionsMap = new HashMap<>();
@@ -116,20 +115,24 @@ public abstract class Options {
         System.out.println( "Start strike: " + startStrike );
         System.out.println( "End strike: " + endStrike );
 
-        int id = getBaseID( );
-        MyContract contract = ( MyContract ) getTwsContract();
+        int id = getBaseID();
 
         for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
 
             // ----- Call ------ //
             Call call = new Call( strike, id );
 
-            // MyTwsContract
-            contract.setMyId( id );
-            contract.strike( strike );
-            contract.right( Types.Right.Call );
+            MyContract contractCall = ( MyContract ) getTwsContract();
 
-            call.setMyContract( contract );
+            // MyTwsContract
+            contractCall.setMyId( id );
+            contractCall.strike( strike );
+            contractCall.right( Types.Right.Call );
+
+            System.out.println(contractCall);
+            System.out.println( "MyID: " + contractCall.getMyId());
+
+            call.setMyContract( contractCall );
 
             setOption( call );
             id++;
@@ -137,12 +140,14 @@ public abstract class Options {
             // ----- Put ------ //
             Put put = new Put( strike, id );
 
-            // MyTwsContract
-            contract.setMyId( id );
-            contract.strike( strike );
-            contract.right( Types.Right.Put );
+            MyContract contractPut = ( MyContract ) getTwsContract();
 
-            put.setMyContract( contract );
+            // MyTwsContract
+            contractPut.setMyId( id );
+            contractPut.strike( strike );
+            contractPut.right( Types.Right.Put );
+
+            put.setMyContract( contractPut );
 
             setOption( put );
             id++;
@@ -150,28 +155,6 @@ public abstract class Options {
         }
     }
 
-    private void initType() {
-        switch ( type ) {
-            case WEEK:
-                setBaseID( client.getBaseId( ) + 2000 );
-                setName( "Day" );
-                break;
-            case MONTH:
-                setBaseID( client.getBaseId( ) + 4000 );
-                setName( "Month" );
-                break;
-            case QUARTER:
-                setBaseID( client.getBaseId( ) + 6000 );
-                setName( "Quarter" );
-                break;
-            case QUARTER_FAR:
-                setBaseID( client.getBaseId( ) + 8000 );
-                setName( "Quarter Far" );
-                break;
-            default:
-                break;
-        }
-    }
 
     public Option getOption( String name ) {
 

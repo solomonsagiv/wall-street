@@ -1,19 +1,15 @@
 package api.tws;
 
 import api.Downloader;
-import com.ib.client.Contract;
 import options.Call;
 import options.Options;
 import options.Put;
 import options.Strike;
-import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.stockObjects.STOCK_OBJECT;
-import threads.MyThread;
 import tws.MyContract;
 import tws.TwsContractsEnum;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TwsHandler {
@@ -79,6 +75,12 @@ public class TwsHandler {
     public void request( int id ) throws Exception {
         MyContract contract = getMyContract( id );
         request( contract );
+    }
+
+    public void requestOptions( List<Options> optionsList ) {
+        for ( Options options: optionsList ) {
+            requestOptions( options );
+        }
     }
 
     public void requestOptions( Options options ) {

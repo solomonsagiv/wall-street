@@ -8,8 +8,8 @@ public class IndexOptions extends Options {
     protected INDEX_CLIENT_OBJECT client;
 
     // Constructor
-    public IndexOptions( INDEX_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
-        super( client, type, twsContract );
+    public IndexOptions( int baseID, INDEX_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
+        super( baseID, client, type, twsContract );
     }
 
     @Override

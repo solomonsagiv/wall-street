@@ -142,10 +142,6 @@ public class Downloader extends Thread implements EWrapper {
         // ---------- Apple ---------- //
         index = apple.getTwsHandler().getMyContract( TwsContractsEnum.INDEX ).getMyId();
         
-        System.out.println("index id: " + index );
-
-        System.out.println( price );
-
         if ( tickerId == index && price > 0 ) {
             // Last
             if ( field == 4 ) {

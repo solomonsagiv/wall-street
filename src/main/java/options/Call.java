@@ -30,6 +30,6 @@ public class Call extends Option {
 
     @Override
     public String toString() {
-        return getName() + ": " + "Bid: " + getBid() + ", Ask: " + getAsk() + ", Last: " + getLast();
+        return getName() + ": " + "Bid: " + getBid() + ", Ask: " + getAsk() + ", Last: " + getLast() + "\n" + "id: " + getMyContract().getMyId();
     }
 }

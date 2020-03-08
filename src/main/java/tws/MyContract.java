@@ -13,6 +13,10 @@ public class MyContract extends Contract {
         this.type = type;
     }
 
+    public MyContract( TwsContractsEnum type ) {
+        this.type = type;
+    }
+
     public int getMyId() {
         return myId;
     }

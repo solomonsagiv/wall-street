@@ -4,7 +4,6 @@ import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
-import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
 
@@ -46,7 +45,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         appendClients();
-
+        
         // This
         setXY(100, 100);
         setSize(500, 500);
