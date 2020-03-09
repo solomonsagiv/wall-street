@@ -19,6 +19,9 @@ public class StockWindow extends MyGuiComps.MyFrame {
     public StockWindow( String title, STOCK_OBJECT client ) throws HeadlessException {
         super( title, client );
 
+        // Load data
+        client.getMyTableHandler().getMyStatusTable().load();
+
         // Tws request
         client.requestApi();
 
@@ -26,7 +29,7 @@ public class StockWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void onClose() {
-
+        stockPanel.getUpdater().getHandler().close();
     }
 
     @Override

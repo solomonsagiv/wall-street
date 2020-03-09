@@ -86,7 +86,6 @@ public class MainWindow {
 
     private static void loadOnStartUp() {
         Spx spx = Spx.getInstance( );
-
         spx.getMyTableHandler().getMyStatusTable().load();
         spx.getMyTableHandler().getMyArraysTable().load();
 

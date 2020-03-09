@@ -4,6 +4,7 @@ import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
+import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
 
@@ -13,9 +14,9 @@ import java.awt.*;
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
     // Main
-    public static void main(String[] args) {
-        MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println(mainWindow.getWidth());
+    public static void main( String[] args ) {
+        MyMainWindow mainWindow = new MyMainWindow( "My main window" );
+        System.out.println( mainWindow.getWidth( ) );
     }
 
     // Variables
@@ -24,47 +25,66 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     WindowsPanel windowsPanel;
 
     // Constructor
-    public MyMainWindow(String title) throws HeadlessException {
-        super(title);
+    public MyMainWindow( String title ) throws HeadlessException {
+        super( title );
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(Spx.getInstance());
-        LocalHandler.clients.add(Apple.getInstance());
+        LocalHandler.clients.add( Spx.getInstance( ) );
+        LocalHandler.clients.add( Apple.getInstance( ) );
     }
 
     @Override
     public void onClose() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     }
 
     @Override
-    public void initListeners() {}
+    public void initListeners() {
+    }
 
     @Override
     public void initialize() {
 
-        appendClients();
-        
+        // Append clients
+        appendClients( );
+
+        // Load data from DB
+        loadOnStartUp( );
+
         // This
-        setXY(100, 100);
-        setSize(500, 500);
-        setLayout(null);
+        setXY( 100, 100 );
+        setSize( 500, 500 );
+        setLayout( null );
 
         // Head
-        headPanel = new HeadPanel();
-        headPanel.setXY(0, 0);
-        add(headPanel);
+        headPanel = new HeadPanel( );
+        headPanel.setXY( 0, 0 );
+        add( headPanel );
 
         // Connection
-        connectionPanel = new ConnectionPanel();
-        connectionPanel.setXY(0, headPanel.getHeight());
-        getContentPane().add(connectionPanel);
+        connectionPanel = new ConnectionPanel( );
+        connectionPanel.setXY( 0, headPanel.getHeight( ) );
+        getContentPane( ).add( connectionPanel );
 
         // Windows
-        windowsPanel = new WindowsPanel();
-        windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
-        add(windowsPanel);
+        windowsPanel = new WindowsPanel( );
+        windowsPanel.setXY( 0, connectionPanel.getY( ) + connectionPanel.getHeight( ) + 1 );
+        add( windowsPanel );
+
+    }
+
+    private void loadOnStartUp() {
+
+        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+
+            client.getMyTableHandler().getMyStatusTable().load();
+            client.getMyTableHandler().getMyArraysTable().load();
+
+            client.setLoadStatusFromHB( true );
+            client.setLoadArraysFromHB( true );
+            client.setLoadFromDb( true );
+        }
 
     }
 }

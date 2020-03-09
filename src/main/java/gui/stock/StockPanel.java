@@ -98,6 +98,9 @@ public class StockPanel extends JPanel implements IMyPanel {
 
         init();
         initListeners();
+
+        // Updater
+        getUpdater().getHandler().start();
     }
 
     private void initListeners() {
@@ -291,41 +294,44 @@ public class StockPanel extends JPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        try {
+            // ---------- Ticker ---------- //
+            openField.setText( L.format100( client.getOpen( ) ) );
+            highField.setText( L.format100( client.getHigh( ) ) );
+            lowField.setText( L.format100( client.getLow( ) ) );
+            indexField.setText( L.format100( client.getIndex( ) ) );
+            futureField.setText( L.format100( mainOptions.getContract( ) ) );
 
-        // ---------- Ticker ---------- //
-        openField.setText(L.format100(client.getOpen()));
-        highField.setText(L.format100(client.getHigh()));
-        lowField.setText(L.format100(client.getLow()));
-        indexField.setText(L.format100(client.getIndex()));
-        futureField.setText(L.format100(mainOptions.getContract()));
+            // Ticker present
+            openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
+            highPresentField.colorBack( L.present( client.getHigh( ), client.getBase( ) ), L.format100( ), "%" );
+            lowPresentField.colorBack( L.present( client.getLow( ), client.getBase( ) ), L.format100( ), "%" );
+            indexPresentField.colorBack( L.present( client.getIndex( ), client.getBase( ) ), L.format100( ), "%" );
 
-        // Ticker present
-        openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
-        highPresentField.colorBack(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
-        lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
-        indexPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
+            // OP
+            opAvgField.colorForge( mainOptions.getOpAvg( ), L.format100( ) );
+            opField.colorBack( mainOptions.getOp( ), L.format100( ) );
 
-        // OP
-        opAvgField.colorForge(mainOptions.getOpAvg(), L.format100());
-        opField.colorBack(mainOptions.getOp(), L.format100());
+            // Equal move OpAvg
+            opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgMoveService( ).getMove( ), L.format100( ) );
 
-        // Equal move OpAvg
-        opAvgEqualeMoveField.colorForge(mainOptions.getOpAvgMoveService().getMove(), L.format100());
+            // Quarter
+            opQuarterField.colorBack( optionsQuarter.getOp( ), L.format100( ) );
+            opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ), L.format100( ) );
+            contractQuarterField.setText( L.format100( optionsQuarter.getContract( ) ) );
 
-        // Quarter
-        opQuarterField.colorBack(optionsQuarter.getOp(), L.format100());
-        opAvgQuarterField.colorForge(optionsQuarter.getOpAvg(), L.format100());
-        contractQuarterField.setText(L.format100(optionsQuarter.getContract()));
+            // Races and roll
+            // Races
+            conRacesField.colorForge( client.getFutSum( ) );
+            indRacesField.colorForge( client.getIndexSum( ) );
 
-        // Races and roll
-        // Races
-        conRacesField.colorForge(client.getFutSum());
-        indRacesField.colorForge(client.getIndexSum());
-
-        // Roll
-        double month = optionsMonth.getContract();
-        double quarter = optionsQuarter.getContract();
-        rollField.colorForge(quarter - month, L.format100());
+            // Roll
+            double month = optionsMonth.getContract( );
+            double quarter = optionsQuarter.getContract( );
+            rollField.colorForge( quarter - month, L.format100( ) );
+        } catch ( NullPointerException e ) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -356,7 +362,6 @@ public class StockPanel extends JPanel implements IMyPanel {
     }
 
     public class Updater extends MyThread implements Runnable {
-
 
         long mySleep = 0;
 
@@ -391,13 +396,11 @@ public class StockPanel extends JPanel implements IMyPanel {
             }
         }
 
-
         public void close() {
             setRun(false);
         }
 
     }
-
 
     public void showPopUpMenu(MouseEvent event) {
         // Main menu

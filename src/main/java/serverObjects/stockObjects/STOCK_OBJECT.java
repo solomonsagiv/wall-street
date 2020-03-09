@@ -5,6 +5,7 @@ import options.OptionsHandler;
 import options.StockOptions;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.MyContract;
 import tws.TwsContractsEnum;
 
 public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
@@ -13,13 +14,19 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     @Override
     public void initOptionsHandler() throws Exception {
+        // Month
+        MyContract monthContract = getTwsHandler().getMyContract( TwsContractsEnum.OPT_MONTH );
+        StockOptions monthOptions = new StockOptions( monthContract.getMyId(), this, OptionsEnum.MONTH, monthContract );
 
-        StockOptions monthOptions = new StockOptions( getBaseId() + 2000, this, OptionsEnum.MONTH, getTwsHandler().getMyContract( TwsContractsEnum.OPT_MONTH ) );
+        // Quarter
+        MyContract quarterContract = getTwsHandler().getMyContract( TwsContractsEnum.OPT_QUARTER );
+        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId(), this, OptionsEnum.QUARTER, quarterContract );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
             public void initOptions() {
                 addOptions( monthOptions );
+                addOptions( quarterOptions );
             }
 
             @Override

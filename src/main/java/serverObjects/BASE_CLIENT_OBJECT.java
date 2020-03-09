@@ -103,11 +103,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public BASE_CLIENT_OBJECT() {
         try {
+            initIds( );
             initTwsHandler( );
             LocalHandler.clients.add( this );
 
             // Call subClasses abstract functions
-            initIds( );
             initName( );
             initRacesMargin( );
             initStartOfIndexTrading( );
@@ -156,7 +156,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         }
 
         return null;
-
     }
 
     // Start all

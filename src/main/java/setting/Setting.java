@@ -13,6 +13,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -273,7 +274,6 @@ public class Setting {
             label_2.setBounds( 68, 386, 45, 21 );
             setting_panel_inside.add( label_2 );
 
-
 //            futureField = new JTextField( 10 );
 //            futureField.setBounds( 300, 5, 65, 30 );
 //            futureField.addActionListener( new ActionListener( ) {
@@ -304,9 +304,9 @@ public class Setting {
             open.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
                     try {
-                        client.setOpen(  Double.parseDouble( open.getText( ) )    );
+                        client.setOpen( Double.parseDouble( open.getText( ) ) );
                     } catch ( Exception e ) {
-                        e.printStackTrace();
+                        e.printStackTrace( );
                     }
                 }
             } );
@@ -328,9 +328,9 @@ public class Setting {
             base.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        client.setBase( Double.parseDouble( base.getText( ) )  );
+                        client.setBase( Double.parseDouble( base.getText( ) ) );
                     } catch ( Exception e1 ) {
-                        e1.printStackTrace();
+                        e1.printStackTrace( );
                     }
                 }
             } );
@@ -383,7 +383,7 @@ public class Setting {
                 @Override
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        options.getLogicService().refresh();
+                        options.getLogicService( ).refresh( );
                     } catch ( Exception e1 ) {
                         // TODO: handle exception
                     }
@@ -628,7 +628,7 @@ public class Setting {
             btnStopDb.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
                     try {
-                        client.getMyServiceHandler().removeService( client.getMySqlService() );
+                        client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
                     } catch ( Exception e ) {
                         popup( "Stop mysql faild", e );
                     }
@@ -644,7 +644,7 @@ public class Setting {
             btnStartDb.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
                     try {
-                        client.getMyServiceHandler().addService( client.getMySqlService() );
+                        client.getMyServiceHandler( ).addService( client.getMySqlService( ) );
                     } catch ( Exception e2 ) {
                         popup( "Start mysql faild", e2 );
                     }
@@ -676,8 +676,8 @@ public class Setting {
             btnResetStatus.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
 
-                    client.getMyTableHandler().getMyStatusTable().reset();
-                    client.getMyTableHandler().getMyArraysTable().reset();
+                    client.getMyTableHandler( ).getMyStatusTable( ).reset( );
+                    client.getMyTableHandler( ).getMyArraysTable( ).reset( );
                     Arik.getInstance( ).sendMessage( Arik.sagivID, "Reset success " + Emojis.check_mark, null );
                 }
             } );
@@ -690,7 +690,7 @@ public class Setting {
             btnLoadStatus = new JButton( "Load status " );
             btnLoadStatus.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent e ) {
-                    client.getMyTableHandler().getMyStatusTable().load();
+                    client.getMyTableHandler( ).getMyStatusTable( ).load( );
                 }
             } );
             btnLoadStatus.setForeground( new Color( 0, 0, 51 ) );
@@ -723,7 +723,7 @@ public class Setting {
             opAvgField.setBounds( 355, 239, 72, 22 );
             setting_panel_inside.add( opAvgField );
 
-            opAvgMoveField = new MyGuiComps.MyTextField(  );
+            opAvgMoveField = new MyGuiComps.MyTextField( );
             opAvgMoveField.setXY( 355, 270 );
             opAvgMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
             opAvgMoveField.addActionListener( new ActionListener( ) {
@@ -732,9 +732,9 @@ public class Setting {
 
                     try {
                         double d = L.dbl( opAvgMoveField.getText( ) );
-                        options.getOpAvgMoveService().setMove( d );
+                        options.getOpAvgMoveService( ).setMove( d );
                     } catch ( Exception e ) {
-                        e.printStackTrace();
+                        e.printStackTrace( );
                     }
                 }
             } );
@@ -798,7 +798,7 @@ public class Setting {
             JButton btnSumLine = new JButton( "Sum line" );
             btnSumLine.addActionListener( new ActionListener( ) {
                 public void actionPerformed( ActionEvent arg0 ) {
-                    client.getMyTableHandler().getMyStatusTable().insert();
+                    client.getMyTableHandler( ).getMyStatusTable( ).insert( );
                 }
             } );
             btnSumLine.setForeground( new Color( 0, 0, 51 ) );
@@ -841,18 +841,18 @@ public class Setting {
                                 options.setDevidend( devidend );
                             }
 
-                            MyTableHandler myTableHandler = client.getMyTableHandler();
-                            MyStatusTable statusTable = client.getMyTableHandler().getMyStatusTable();
+                            MyTableHandler myTableHandler = client.getMyTableHandler( );
+                            MyStatusTable statusTable = client.getMyTableHandler( ).getMyStatusTable( );
 
                             // Update to DB
-                            client.getMyTableHandler().getMyStatusTable().update();
+                            client.getMyTableHandler( ).getMyStatusTable( ).update( );
 
                             // Update status
                             updateStatus( );
                         }
 
                     } catch ( Exception e2 ) {
-                        e2.printStackTrace();
+                        e2.printStackTrace( );
                         popup( "Update faild", e2 );
 
                     }

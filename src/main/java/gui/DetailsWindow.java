@@ -122,13 +122,11 @@ public class DetailsWindow {
             }
         } );
 
-
         JPanel panel = new JPanel( );
         panel.setBackground( new Color( 255, 255, 255 ) );
         panel.setBounds( 0, 0, 800, 415 );
         frame.getContentPane( ).add( panel );
         panel.setLayout( null );
-
         panel.add( optionsCombo );
 
         JPanel panel_1 = new JPanel( );
@@ -166,7 +164,6 @@ public class DetailsWindow {
         panel_2.setBackground( SystemColor.inactiveCaption );
         panel_2.setBounds( 250, 53, 406, 351 );
         panel.add( panel_2 );
-
 
         optionsArea = new JTextArea( );
         optionsArea.setFont( new Font( "Dubai Medium", Font.PLAIN, 14 ) );
@@ -248,7 +245,7 @@ public class DetailsWindow {
             list.add( "Borrow: " + options.getCalcBorrow( ) );
             list.add("");
             list.add("All details");
-            list.add(client.toString());
+            list.add(client.toStringPretty());
             return list;
         }
 

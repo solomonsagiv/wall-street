@@ -155,7 +155,7 @@ public class MyStatusTable extends MyTableSql {
             }
         };
 
-        options = new MyLoadAbleColumn< String >( this, "options", MyColumnSql.STRING ) {
+        options = new MyLoadAbleColumn<>( this, "options", MyColumnSql.STRING ) {
             @Override
             public String getObject() {
                 return client.getOptionsHandler( ).getAllOptionsAsJson( ).toString( );
@@ -188,12 +188,8 @@ public class MyStatusTable extends MyTableSql {
     public void load() {
         try {
 
-            String ta = tableName;
-            int id = client.getDbId();
-
             String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", tableName, client.getDbId( ) );
 
-            System.out.println( query );
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {

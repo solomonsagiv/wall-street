@@ -9,6 +9,7 @@ import locals.L;
 import logic.LogicService;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
+import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
 
@@ -543,7 +544,7 @@ public abstract class Options {
         double interest = json.getDouble( "interest" );
         double devidend = json.getDouble( "devidend" );
         double borrow = json.getDouble( "borrow" );
-        LocalDate date =  L.parseDate( json.getString( "date" ) );
+        LocalDate date =  LocalDate.parse( json.getString( "date" ) );
         double days = json.getDouble( "days" );
 
         setInterestZero( interest - 1 );
@@ -552,6 +553,8 @@ public abstract class Options {
         setExpDate( date );
         setBorrow( borrow );
         setDaysToExp( days );
+
+        getTwsContract().lastTradeDateOrContractMonth( date.toString().replace( "-", "" ) );
 
     }
 
@@ -670,7 +673,6 @@ public abstract class Options {
         setPropsDataFromJson( json.getJSONObject( "props" ) );
         setOptionsData( json.getJSONObject( "data" ) );
 
-
     }
 
     public void setOptionsData( JSONObject json ) {
@@ -723,11 +725,9 @@ public abstract class Options {
         return Math.floor( d * zeros ) / zeros;
     }
 
-
     public String str( Object o ) {
         return String.valueOf( o );
     }
-
 
     public double absolute( double d ) {
         return Math.abs( d );

@@ -69,8 +69,8 @@ public abstract class OptionsHandler implements IOptionsHandler {
         double last = L.modulu( future );
         double margin = client.getStrikeMargin();
 
-        double startStrike = last - ( margin * 20 );
-        double endStrike = last + ( margin * 20 );
+        double startStrike = last - ( margin * 10 );
+        double endStrike = last + ( margin * 10 );
 
         client.setStartStrike( startStrike );
         client.setEndStrike( endStrike );
