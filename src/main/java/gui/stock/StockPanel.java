@@ -131,7 +131,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         ticker.add(openField);
 
         openPresentField = new MyGuiComps.MyTextField();
-        openPresentField.setForeground(Color.WHITE);
         openPresentField.setFont(openPresentField.getFont().deriveFont(Font.BOLD));
         openPresentField.setXY(5, 35);
         ticker.add(openPresentField);
@@ -141,7 +140,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         ticker.add(indexField);
 
         indexPresentField = new MyGuiComps.MyTextField();
-        indexPresentField.setForeground(Color.WHITE);
         indexPresentField.setFont(indexPresentField.getFont().deriveFont(Font.BOLD));
         indexPresentField.setXY(80, 35);
         ticker.add(indexPresentField);
@@ -151,7 +149,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         ticker.add(lowField);
 
         lowPresentField = new MyGuiComps.MyTextField();
-        lowPresentField.setForeground(Color.WHITE);
         lowPresentField.setFont(lowPresentField.getFont().deriveFont(Font.BOLD));
         lowPresentField.setXY(155, 35);
         ticker.add(lowPresentField);
@@ -161,7 +158,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         ticker.add(highField);
 
         highPresentField = new MyGuiComps.MyTextField();
-        highPresentField.setForeground(Color.WHITE);
         highPresentField.setFont(highPresentField.getFont().deriveFont(Font.BOLD));
         highPresentField.setXY(230, 35);
         ticker.add(highPresentField);
@@ -171,7 +167,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         ticker.add(futureField);
 
         opField = new MyGuiComps.MyTextField();
-        opField.setForeground(Color.WHITE);
         opField.setFont(opField.getFont().deriveFont(Font.BOLD));
         opField.setXY(80, 64);
         ticker.add(opField);
@@ -194,7 +189,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         ticker.add(contractQuarterField);
 
         opQuarterField = new MyGuiComps.MyTextField();
-        opQuarterField.setForeground(Color.WHITE);
         opQuarterField.setFont(opQuarterField.getFont().deriveFont(Font.BOLD));
         opQuarterField.setXY(80, 93);
         opQuarterField.setForeground(Color.WHITE);

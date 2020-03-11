@@ -3,10 +3,12 @@ package gui.stock;
 import gui.MyGuiComps;
 import gui.index.IndexPanel;
 import locals.Themes;
+import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
 import serverObjects.stockObjects.STOCK_OBJECT;
+import setting.Setting;
 
 import java.awt.*;
 
@@ -24,6 +26,9 @@ public class StockWindow extends MyGuiComps.MyFrame {
 
         // Tws request
         client.requestApi();
+
+        // Start client background runner
+        client.getBackRunner().startRunner();
 
     }
 
@@ -67,7 +72,9 @@ class HeaderPanel extends MyGuiComps.MyPanel {
         initListeners();
     }
 
-    private void initListeners() {}
+    private void initListeners() {
+
+    }
 
     private void initMe() {
 

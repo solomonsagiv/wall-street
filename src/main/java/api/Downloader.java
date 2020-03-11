@@ -77,11 +77,9 @@ public class Downloader extends Thread implements EWrapper {
                 e.printStackTrace( );
             }
         }
-
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
         client.reqAccountUpdates( true, Manifest.ACCOUNT );
-
         try {
             System.in.read( );
         } catch ( IOException e ) {
