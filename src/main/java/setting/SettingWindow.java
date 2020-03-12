@@ -2,21 +2,19 @@ package setting;
 
 import gui.MyGuiComps;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
+import serverObjects.stockObjects.Apple;
+
 import java.awt.*;
 
 public class SettingWindow extends MyGuiComps.MyFrame {
 
     public static void main( String[] args ) {
-        SettingWindow settingWindow = new SettingWindow( "Setting", Spx.getInstance() );
+        SettingWindow settingWindow = new SettingWindow( "Setting", Apple.getInstance() );
     }
 
-    // Variables
-    BASE_CLIENT_OBJECT client;
-
     // Races panel
-    RacesPanel racesPanel;
     TickerPanel tickerPanel;
+    OptionsPanel optionsPanel;
 
     // Constructor
     public SettingWindow( String title ) throws HeadlessException {
@@ -24,8 +22,8 @@ public class SettingWindow extends MyGuiComps.MyFrame {
     }
 
     public SettingWindow( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
-        super( title );
-        this.client = client;
+        super( title, client );
+
     }
 
     @Override
@@ -44,17 +42,18 @@ public class SettingWindow extends MyGuiComps.MyFrame {
         // This
         setXY( 200, 200 );
         setLayout( null );
-        setSize( 600, 800 );
-
-        // Races
-        racesPanel = new RacesPanel( client );
-        racesPanel.setXY( 10, 10 );
-        add( racesPanel );
+        setSize( 850, 400 );
 
         // Ticker
         tickerPanel = new TickerPanel( client );
-        tickerPanel.setXY( racesPanel.getX() + racesPanel.getWidth(), racesPanel.getY() );
+        tickerPanel.setBounds( 0, 0, ( int ) getPreferredSize().getWidth(), 125 );
         add( tickerPanel );
+
+        // Options
+        optionsPanel = new OptionsPanel( client );
+        optionsPanel.setXY( 0, tickerPanel.getY() + tickerPanel.getHeight() + 1 );
+        optionsPanel.setSize( ( int ) getPreferredSize().getWidth(), 300 );
+        add( optionsPanel );
 
     }
 }

@@ -77,36 +77,37 @@ public class RacesPanel extends MyGuiComps.MyPanel {
         // Con up
         conUpField = new MyGuiComps.MyTextField( );
         conUpField.setEnabled( true );
-        conUpField.setXY( 15, 20 );
+        conUpField.setXY( 10, 20 );
         conUpField.setWidth( 50 );
         add( conUpField );
 
         // Con down
         conDownField = new MyGuiComps.MyTextField( );
         conDownField.setEnabled( true );
-        conDownField.setXY( 15, 50 );
+        conDownField.setXY( 10, 50 );
         conDownField.setWidth( 50 );
         add( conDownField );
 
         // Ind up
         indUpField = new MyGuiComps.MyTextField( );
         indUpField.setEnabled( true );
-        indUpField.setXY( 70, 20 );
+        indUpField.setXY( 65, 20 );
         indUpField.setWidth( 50 );
         add( indUpField );
 
         // Ind down
         indDownField = new MyGuiComps.MyTextField( );
         indDownField.setEnabled( true );
-        indDownField.setXY( 70, 50 );
+        indDownField.setXY( 65, 50 );
         indDownField.setWidth( 50 );
         add( indDownField );
 
         // Submit
         submitBtn = new MyGuiComps.MyButton( "Submit" );
-        submitBtn.setXY( 15, 90 );
-        submitBtn.setWidth( 105 );
-        submitBtn.setBackground( Themes.BLUE_LIGHT_2 );
+        submitBtn.setXY( 10, 90 );
+        submitBtn.setWidth( 70 );
+        submitBtn.setFont( submitBtn.getFont().deriveFont( 9f ) );
+        submitBtn.setBackground( Themes.BLUE );
         submitBtn.setForeground( Themes.GREY_VERY_LIGHT );
         add( submitBtn );
 

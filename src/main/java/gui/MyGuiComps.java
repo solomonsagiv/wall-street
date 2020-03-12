@@ -110,6 +110,12 @@ public class MyGuiComps {
             init();
         }
 
+        public MyTextField(boolean enable) {
+            super();
+            init();
+            setEnabled( enable );
+        }
+
         public void setWidth(int width) {
             setBounds(getX(), getY(), width, getHeight());
         }

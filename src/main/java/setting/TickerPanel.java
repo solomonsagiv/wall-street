@@ -32,18 +32,41 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         // This
         setSize( 200, 125 );
 
-        // ----- Open ----- //
-        // Label
-
-
-    }
-
-    public void addBorder( JTextField textField, String title ) {
-        TitledBorder titledBorder = BorderFactory.createTitledBorder( title );
+        TitledBorder titledBorder = BorderFactory.createTitledBorder( "Ticker" );
         titledBorder.setTitleColor( Themes.BLUE_DARK );
 
-        textField.setBorder( titledBorder );
-    }
+        setBorder( titledBorder );
 
+
+        // ----- Open ----- //
+        // Lbl
+        openLbl = new MyGuiComps.MyLabel( "Open" );
+        openLbl.setXY( 10, 10 );
+        openLbl.setHorizontalAlignment( JLabel.LEFT );
+        openLbl.setFont( openLbl.getFont().deriveFont( 9f ) );
+        openLbl.setLabelFor( openField );
+        add( openLbl );
+
+        // Field
+        openField = new MyGuiComps.MyTextField( true );
+        openField.setXY( 10, 30 );
+        openField.setSize( 50, 20 );
+        add( openField );
+
+        // ----- Base ----- //
+        // Lbl
+        baseLbl = new MyGuiComps.MyLabel( "Base" );
+        baseLbl.setXY( 65, 10 );
+        baseLbl.setHorizontalAlignment( JLabel.LEFT );
+        baseLbl.setFont( baseLbl.getFont().deriveFont( 9f ) );
+        baseLbl.setLabelFor( baseField );
+        add( baseLbl );
+
+        // Field
+        baseField = new MyGuiComps.MyTextField( true );
+        baseField.setXY( 65, 30 );
+        baseField.setSize( 50, 20 );
+        add( baseField );
+    }
 
 }
