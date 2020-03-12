@@ -28,12 +28,12 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
     }
 
     private void initialize() {
+
         // This
+        setSize( 150, 150 );
         TitledBorder titledBorder = new TitledBorder( "Data base" );
         titledBorder.setTitleColor( Themes.BLUE_DARK );
         setBorder( titledBorder );
-
-
 
     }
 }

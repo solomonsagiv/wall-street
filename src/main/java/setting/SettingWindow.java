@@ -15,6 +15,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
     // Races panel
     TickerPanel tickerPanel;
     OptionsPanel optionsPanel;
+    DataBasePanel dataBasePanel;
 
     // Constructor
     public SettingWindow( String title ) throws HeadlessException {
@@ -54,6 +55,12 @@ public class SettingWindow extends MyGuiComps.MyFrame {
         optionsPanel.setXY( 0, tickerPanel.getY() + tickerPanel.getHeight() + 1 );
         optionsPanel.setSize( ( int ) getPreferredSize().getWidth(), 300 );
         add( optionsPanel );
+
+        // Data base
+        dataBasePanel = new DataBasePanel( client );
+        dataBasePanel.setXY( 0, optionsPanel.getY() + optionsPanel.getHeight() + 1 );
+        optionsPanel.setSize(  ( int ) getPreferredSize().getWidth(), 300  );
+        add( dataBasePanel );
 
     }
 }
