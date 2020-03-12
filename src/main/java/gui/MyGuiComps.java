@@ -105,6 +105,11 @@ public class MyGuiComps {
             init();
         }
 
+        public MyTextField(int columns) {
+            super(columns);
+            init();
+        }
+
         public void setWidth(int width) {
             setBounds(getX(), getY(), width, getHeight());
         }

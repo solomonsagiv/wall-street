@@ -6,7 +6,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
 
 public class TickerPanel extends MyGuiComps.MyPanel {
 
@@ -34,13 +33,8 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         setSize( 200, 125 );
 
         // ----- Open ----- //
-        // Field
-        openField = new MyGuiComps.MyTextField();
-        openField.setXY( 15, 50 );
-        openField.setEnabled( true );
-        openField.setSize( 50, 25 );
-        addBorder( openField, "Open" );
-        add( openField );
+        // Label
+
 
     }
 
