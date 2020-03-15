@@ -19,8 +19,6 @@ public class MyArraysTable extends MyTableSql {
     private MyColumnSql< String > time;
     private MyLoadAbleColumn< String > indexlist;
     private MyLoadAbleColumn< String > opList;
-    private MyLoadAbleColumn< String > equalMoveList;
-    private MyLoadAbleColumn< String > opAvgMoveList;
 
     public MyArraysTable( BASE_CLIENT_OBJECT client, String tableName ) {
         super( client, tableName );
@@ -68,40 +66,6 @@ public class MyArraysTable extends MyTableSql {
             @Override
             public void setLoadedObject( String object ) {
                 convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        };
-
-        equalMoveList = new MyLoadAbleColumn<>( this, "equalMoveList", MyColumnSql.STRING ) {
-            @Override
-            public String getObject() {
-                return client.getOptionsHandler( ).getMainOptions( ).getEqualMoveService( ).getMoveList( ).toString( );
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getEqualMoveService( ).getMoveList( ) );
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        };
-
-        opAvgMoveList = new MyLoadAbleColumn<>( this, "opAvgMoveList", MyColumnSql.STRING ) {
-            @Override
-            public String getObject() {
-                return client.getOptionsHandler( ).getMainOptions( ).getOpAvgMoveService( ).getMoveList( ).toString( );
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpAvgMoveService( ).getMoveList( ) );
             }
 
             @Override

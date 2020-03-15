@@ -7,6 +7,7 @@ import locals.LocalHandler;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
 public class DDEReader extends MyThread implements Runnable {
@@ -14,7 +15,7 @@ public class DDEReader extends MyThread implements Runnable {
     // Variables
     int sleep = 150;
     private DDEConnection ddeConnection = new DDEConnection( );
-    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]spx";
+    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
     DDEClientConversation conversation;
 
     // Constructor
@@ -33,9 +34,15 @@ public class DDEReader extends MyThread implements Runnable {
 
         while ( isRun( ) ) {
             try {
-
                 // Sleep
                 Thread.sleep( sleep );
+
+                System.out.println( );
+                System.out.println( Spx.getInstance().getFutureBid() );
+                System.out.println(  Spx.getInstance().getFutureAsk() );
+                System.out.println(Spx.getInstance().getIndex() );
+                System.out.println(Spx.getInstance().getIndexBid() );
+                System.out.println(Spx.getInstance().getIndexAsk() );
 
                 // DDE
                 read( );
@@ -53,14 +60,15 @@ public class DDEReader extends MyThread implements Runnable {
 
     private void read() throws DDEException {
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            System.out.println(client );
-            if ( client.getApi() == ApiEnum.DDE && client.isStarted() ) {
+            System.out.println("For loop " );
+            if ( client.getApi() == ApiEnum.DDE ) {
                 updateData( ( INDEX_CLIENT_OBJECT ) client );
             }
         }
     }
 
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
+
         // Future
         client.setFuture( L.dbl( conversation.request( client.getDdeCells( ).getFutCell( ) ) ) );
         client.setFutureBid( L.dbl( conversation.request( client.getDdeCells( ).getFutBidCell( ) ) ) );

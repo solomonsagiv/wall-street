@@ -1,9 +1,13 @@
 package setting;
 
+import arik.Arik;
+import arik.locals.Emojis;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DataBasePanel extends MyGuiComps.MyPanel {
 
@@ -25,6 +29,60 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
     }
 
     private void initListeners() {
+
+        // Start
+        startBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.getMyServiceHandler( ).addService( client.getMySqlService( ) );
+            }
+        } );
+
+        // Stop
+        stopBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
+            }
+        } );
+
+        // Reset
+        resetBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.getMyTableHandler( ).getMyStatusTable( ).reset( );
+                client.getMyTableHandler( ).getMyArraysTable( ).reset( );
+                Arik.getInstance( ).sendMessage( Arik.sagivID, "Reset success " + Emojis.check_mark, null );
+            }
+        } );
+
+        // Update
+        updateBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.getMyTableHandler().getMyStatusTable().update();
+                client.getMyTableHandler().getMyArraysTable().update();
+            }
+        } );
+
+        // Load
+        updateBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.getMyTableHandler().getMyStatusTable().load();
+                client.getMyTableHandler().getMyArraysTable().load();
+            }
+        } );
+
+        // Sum line
+        sumBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.getMyTableHandler().getMySumTable().insert();
+                Arik.getInstance( ).sendMessage( Arik.sagivID, "Sum line inserted " + Emojis.check_mark, null );
+            }
+        } );
+
     }
 
     private void initialize() {
@@ -43,7 +101,6 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         startBtn.setFont( startBtn.getFont( ).deriveFont( 9f ) );
         startBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(startBtn);
-
 
         // Stop
         stopBtn = new MyGuiComps.MyButton("Stop mysql");

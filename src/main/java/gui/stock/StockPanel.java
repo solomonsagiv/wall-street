@@ -2,7 +2,6 @@ package gui.stock;
 
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
-import charts.OPAVG_MOVE_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -16,6 +15,7 @@ import options.fullOptions.FullOptionsWindow;
 import options.fullOptions.PositionsWindow;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
+import setting.SettingWindow;
 import threads.MyThread;
 
 import javax.swing.*;
@@ -43,7 +43,6 @@ public class StockPanel extends JPanel implements IMyPanel {
     MyGuiComps.MyTextField futureField;
     MyGuiComps.MyTextField opField;
     MyGuiComps.MyTextField opAvgField;
-    MyGuiComps.MyTextField opAvgEqualeMoveField;
 
     // Exp
     MyGuiComps.MyPanel exp;
@@ -170,10 +169,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         opField.setFont(opField.getFont().deriveFont(Font.BOLD));
         opField.setXY(80, 64);
         ticker.add(opField);
-
-        opAvgEqualeMoveField = new MyGuiComps.MyTextField();
-        opAvgEqualeMoveField.setXY(230, 64);
-        ticker.add(opAvgEqualeMoveField);
 
         opAvgField = new MyGuiComps.MyTextField();
         opAvgField.setXY(155, 64);
@@ -306,9 +301,6 @@ public class StockPanel extends JPanel implements IMyPanel {
             opAvgField.colorForge( mainOptions.getOpAvg( ), L.format100( ) );
             opField.colorBack( mainOptions.getOp( ), L.format100( ) );
 
-            // Equal move OpAvg
-            opAvgEqualeMoveField.colorForge( mainOptions.getOpAvgMoveService( ).getMove( ), L.format100( ) );
-
             // Quarter
             opQuarterField.colorBack( optionsQuarter.getOp( ), L.format100( ) );
             opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ), L.format100( ) );
@@ -403,25 +395,21 @@ public class StockPanel extends JPanel implements IMyPanel {
         // Charts menu
         JMenu charts = new JMenu("Charts");
 
+        // Setting
+        JMenuItem settingWindow = new JMenuItem("Setting");
+        settingWindow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SettingWindow( client.getName(), client );
+            }
+        });
+
         JMenuItem indexRacesChart = new JMenuItem("Index races");
         indexRacesChart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 INDEX_RACES_CHART chart = new INDEX_RACES_CHART(client);
                 chart.createChart();
-
-            }
-        });
-
-        JMenuItem opAvgMoveChart = new JMenuItem("Op avg move");
-        opAvgMoveChart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                OPAVG_MOVE_CHART chart = new OPAVG_MOVE_CHART(client);
-                chart.createChart();
-
             }
         });
 
@@ -429,10 +417,8 @@ public class StockPanel extends JPanel implements IMyPanel {
         contractIndexRealTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 CONTRACT_IND_CHART_LIVE chart = new CONTRACT_IND_CHART_LIVE(client);
                 chart.createChart();
-
             }
         });
 
@@ -440,10 +426,8 @@ public class StockPanel extends JPanel implements IMyPanel {
         quarterContractIndexRealTime.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 QUARTER_CONTRACT_IND_CHART_LIVE chart = new QUARTER_CONTRACT_IND_CHART_LIVE(client);
                 chart.createChart();
-
             }
         });
 
@@ -498,9 +482,9 @@ public class StockPanel extends JPanel implements IMyPanel {
         charts.add(quarterContractIndexRealTime);
         charts.add(contractIndexRealTime);
         charts.add(indexRacesChart);
-        charts.add(opAvgMoveChart);
 
         menu.add(details);
+        menu.add(settingWindow);
         menu.add(export);
         menu.add(charts);
         menu.add(optionsCounter);

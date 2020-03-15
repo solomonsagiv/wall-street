@@ -48,10 +48,6 @@ public abstract class Options {
 
     protected PositionCalculator positionCalculator;
 
-    EqualMoveService equalMoveService;
-    OpAvgMoveService opAvgMoveService;
-    LogicService logicService;
-
     List< Double > opList = new ArrayList<>( );
     List< Double > opAvgList = new ArrayList<>( );
     List< Double > conList = new ArrayList<>( );
@@ -68,15 +64,6 @@ public abstract class Options {
         optionsMap = new HashMap<>();
 
         positionCalculator = new PositionCalculator( client );
-
-        // Services
-        equalMoveService = new EqualMoveService( client, this, client.getEqualMovePlag( ) );
-        opAvgMoveService = new OpAvgMoveService( client, this, client.getEqualMovePlag( ) );
-
-        if ( type == OptionsEnum.MONTH ) {
-//            logicService = new LogicService( client, this, client.getPanel( ) );
-        }
-
     }
 
     // Abstracts functions
@@ -609,7 +596,6 @@ public abstract class Options {
         }
 
         mainJson.put( "contractBidAskCounter", getContractBidAskCounter( ) );
-        mainJson.put( "equalMove", getEqualMoveService( ).getMove( ) );
         mainJson.put( "con", getContract( ) );
         mainJson.put( "props", getProps( ) );
         mainJson.put( "opAvg", L.floor( getOpAvg( ), 100 ) );
@@ -666,12 +652,9 @@ public abstract class Options {
 
 
     public void setDataFromJson( JSONObject json ) throws Exception {
-
-        getEqualMoveService( ).setMove( json.getDouble( "equalMove" ) );
         setContractBidAskCounter( json.getInt( "contractBidAskCounter" ) );
         setPropsDataFromJson( json.getJSONObject( "props" ) );
         setOptionsData( json.getJSONObject( "data" ) );
-
     }
 
     public void setOptionsData( JSONObject json ) {
@@ -688,9 +671,7 @@ public abstract class Options {
                 strike.getCall( ).setBidAskCounter( callJson.getInt( "bid_ask_counter" ) );
                 strike.getPut( ).setBidAskCounter( putJson.getInt( "bid_ask_counter" ) );
 
-            } catch ( Exception e ) {
-//				e.printStackTrace ( );
-            }
+            } catch ( Exception e ) {}
         }
     }
 
@@ -730,14 +711,6 @@ public abstract class Options {
 
     public double absolute( double d ) {
         return Math.abs( d );
-    }
-
-    public EqualMoveService getEqualMoveService() {
-        return equalMoveService;
-    }
-
-    public OpAvgMoveService getOpAvgMoveService() {
-        return opAvgMoveService;
     }
 
     public LocalDate getExpDate() {
@@ -955,10 +928,6 @@ public abstract class Options {
 
     public List< Double > getConAskList() {
         return conAskList;
-    }
-
-    public LogicService getLogicService() {
-        return logicService;
     }
 
     public Set<Integer> getDates() {

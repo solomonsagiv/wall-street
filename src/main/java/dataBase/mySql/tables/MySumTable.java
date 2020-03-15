@@ -24,8 +24,6 @@ public class MySumTable extends MyTableSql {
     private MyColumnSql< String > options;
     private MyColumnSql< Double > base;
     private MyColumnSql< Integer > con_bid_ask_counter;
-    private MyColumnSql< Double > equalMove;
-    private MyColumnSql< Double > opAvgMove;
 
     // Constructor
     public MySumTable( BASE_CLIENT_OBJECT client, String name ) {
@@ -131,20 +129,6 @@ public class MySumTable extends MyTableSql {
             @Override
             public Integer getObject() {
                 return client.getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( );
-            }
-        };
-
-        equalMove = new MyColumnSql<>( this, "equalMove", MyColumnSql.DOUBLE ) {
-            @Override
-            public Double getObject() {
-                return client.getOptionsHandler( ).getMainOptions( ).getEqualMoveService( ).getMove( );
-            }
-        };
-
-        opAvgMove = new MyColumnSql<>( this, "opAvgMove", MyColumnSql.DOUBLE ) {
-            @Override
-            public Double getObject() {
-                return client.getOptionsHandler( ).getMainOptions( ).getOpAvgMoveService( ).getMove( );
             }
         };
 

@@ -1,16 +1,23 @@
 package setting;
 
 import gui.MyGuiComps;
+import locals.L;
 import locals.Themes;
+import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
+import setting.optionsPanel.OptionsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Optional;
 
 public class TwsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
+    Options options;
 
     MyGuiComps.MyLabel dateLbl;
     MyGuiComps.MyTextField dateField;
@@ -18,11 +25,28 @@ public class TwsPanel extends MyGuiComps.MyPanel {
     // Constructor
     public TwsPanel(BASE_CLIENT_OBJECT client) {
         this.client = client;
+        options = OptionsPanel.options;
         initialize();
         initListeners();
     }
 
     private void initListeners() {
+
+        // Date
+        dateField.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                // Interest
+                if ( !dateField.getText().isEmpty() ) {
+                    try {
+                        String s = dateField.getText();
+                        options.getTwsContract().lastTradeDateOrContractMonth( s );
+                    } catch ( Exception e ) {}
+                }
+            }
+        } );
+
+
     }
 
     private void initialize() {

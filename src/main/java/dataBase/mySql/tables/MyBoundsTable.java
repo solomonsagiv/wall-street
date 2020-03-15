@@ -64,7 +64,7 @@ public class MyBoundsTable extends MyTableSql {
 
             // If not exist -> create new one
             if ( !exist ) {
-                String query = String.format( "INSERT INTO `bounds`.`bounds` (`stockName`, `name`, `x`, `y`, `width`, `height`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');", stockName, name, x, y, width, height);
+                String query = String.format( "INSERT INTO `bounds`.`bounds` (`stockName`, `name`, `x`, `y`, `width`, `height`) VALUES ('%s', '%s', '%s', '%s', '%s', '%s');", stockName, name, x, y, width, height);
                 MySql.insert(query);
             } else {
                 updateBound( stockName, name, x, y, width, height );

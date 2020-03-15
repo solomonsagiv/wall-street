@@ -19,6 +19,8 @@ public class TickerPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel baseLbl;
     MyGuiComps.MyTextField openField;
     MyGuiComps.MyTextField baseField;
+    MyGuiComps.MyButton startBtn;
+    MyGuiComps.MyButton stopBtn;
 
     // Constructor
     public TickerPanel(BASE_CLIENT_OBJECT client) {
@@ -54,6 +56,22 @@ public class TickerPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
+
+        // Start
+        startBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.startAll();
+            }
+        } );
+
+        // Start
+        stopBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                client.closeAll();
+            }
+        } );
     }
 
     private void initialize() {
@@ -96,6 +114,26 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         baseField.setFontSize(9);
         baseField.setSize(50, 20);
         add(baseField);
+
+        // ----- Start ----- //
+        startBtn = new MyGuiComps.MyButton( "Start" );
+        startBtn.setXY( 10, 60 );
+        startBtn.setWidth(70);
+        startBtn.setFont( startBtn.getFont( ).deriveFont( 9f ) );
+        startBtn.setBackground(Themes.BLUE);
+        startBtn.setForeground(Themes.GREY_VERY_LIGHT);
+        add(startBtn);
+
+        // ----- Stop ----- //
+        stopBtn = new MyGuiComps.MyButton( "Stop" );
+        stopBtn.setXY( 85, 60 );
+        stopBtn.setWidth(70);
+        stopBtn.setFont( stopBtn.getFont( ).deriveFont( 9f ) );
+        stopBtn.setBackground(Themes.BLUE);
+        stopBtn.setForeground(Themes.GREY_VERY_LIGHT);
+        add(stopBtn);
+
     }
+
 
 }

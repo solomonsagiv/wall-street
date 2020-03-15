@@ -69,7 +69,7 @@ public class BackRunner {
                         if ( client.getOpen( ) == 0 ) {
                             client.setOpen( last );
                         }
-                        
+
                         client.startAll( );
                     }
 
@@ -102,13 +102,9 @@ public class BackRunner {
         }
 
         public void checkAllOptionsData() {
-
             for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
-
                 options.checkOptionData( );
-
             }
-
         }
 
         public boolean isRun() {

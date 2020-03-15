@@ -55,10 +55,6 @@ public class ListsService extends MyBaseService {
             options.getConList().add( options.getContract() );
             options.getConBidList().add( options.getContractBid() );
             options.getConAskList().add( options.getContractAsk() );
-
-            // Equal Move
-            options.getEqualMoveService().getMoveList().add( options.getEqualMoveService().getMove() );
-            options.getOpAvgMoveService().getMoveList().add( options.getOpAvgMoveService().getMove() );
         }
 
 

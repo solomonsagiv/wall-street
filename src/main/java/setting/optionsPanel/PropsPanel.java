@@ -1,6 +1,9 @@
 package setting.optionsPanel;
 
+import dataBase.mySql.mySqlComps.MyTableHandler;
+import dataBase.mySql.tables.MyStatusTable;
 import gui.MyGuiComps;
+import locals.L;
 import locals.Themes;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -27,6 +30,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
     // Constructor
     public PropsPanel( BASE_CLIENT_OBJECT client ) {
         this.client = client;
+        options = OptionsPanel.options;
         initialize( );
         initListeners( );
     }
@@ -36,14 +40,39 @@ public class PropsPanel extends MyGuiComps.MyPanel {
         // Submit
         submitBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
+            public void actionPerformed( ActionEvent actionEvent ) {
                 // Interest
+                if ( !interestField.getText().isEmpty() ) {
+                    try {
+                        double d = L.dbl( interestField.getText() );
+                        OptionsPanel.options.setInterestWithCalc( d );
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
+                }
+                // Div
+                if ( !divField.getText().isEmpty() ) {
+                    try {
+                        double d = L.dbl( divField.getText() );
+                        OptionsPanel.options.setDevidend( d );
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
+                }
+                // Days
+                if ( !daysField.getText().isEmpty() ) {
+                    try {
+                        double d = L.dbl( daysField.getText() );
+                        OptionsPanel.options.setDaysToExp( d );
+                    } catch ( Exception e ) {
+                        e.printStackTrace();
+                    }
+                }
 
-
+                // Update to DB
+                client.getMyTableHandler( ).getMyStatusTable( ).update( );
             }
         });
-
     }
 
     private void initialize() {

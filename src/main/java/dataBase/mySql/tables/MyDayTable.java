@@ -147,14 +147,14 @@ public class MyDayTable extends MyTableSql {
         equalMove = new MyColumnSql<>(this, "equalMove", MyColumnSql.DOUBLE) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getEqualMoveService().getMove();
+                return 0.0;
             }
         };
 
         opAvgMove = new MyColumnSql<>(this, "opAvgMove", MyColumnSql.DOUBLE) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getOpAvgMoveService().getMove();
+                return 0.0;
             }
         };
 

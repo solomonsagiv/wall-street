@@ -49,6 +49,14 @@ public class MyServiceHandler extends MyThread implements Runnable {
         }
     }
 
+    public List< MyBaseService > getServies() {
+        return servies;
+    }
+
+    public void setServies( List< MyBaseService > servies ) {
+        this.servies = servies;
+    }
+
     public void addService( MyBaseService newService ) {
         if ( !isExist( newService ) ) {
             servies.add( newService );

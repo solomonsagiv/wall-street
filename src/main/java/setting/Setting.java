@@ -64,12 +64,10 @@ public class Setting {
     private JButton btnResetStatus;
     private JButton btnLoadStatus;
     private JTextField opAvgField;
-    private JTextField equalMoveField;
     private JTextField askCoastField;
     private JButton btnUpdate;
     private JComboBox optionsCombo;
     private JTextField futureField;
-    private MyGuiComps.MyTextField opAvgMoveField;
 
     /**
      * Create the application.
@@ -373,24 +371,6 @@ public class Setting {
             separator_1.setForeground( Color.BLACK );
             separator_1.setBounds( 10, 48, 417, 9 );
             setting_panel_inside.add( separator_1 );
-
-            JButton btnRefrseh = new JButton( "Refrseh" );
-            btnRefrseh.setForeground( new Color( 0, 0, 51 ) );
-            btnRefrseh.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
-            btnRefrseh.setBackground( new Color( 220, 220, 220 ) );
-            btnRefrseh.addActionListener( new ActionListener( ) {
-
-                @Override
-                public void actionPerformed( ActionEvent e ) {
-                    try {
-                        options.getLogicService( ).refresh( );
-                    } catch ( Exception e1 ) {
-                        // TODO: handle exception
-                    }
-                }
-            } );
-            btnRefrseh.setBounds( 10, 212, 99, 22 );
-            setting_panel_inside.add( btnRefrseh );
 
             JLabel lblRaces_2 = new JLabel( "Races" );
             lblRaces_2.setFont( new Font( "Dubai Medium", Font.PLAIN, 20 ) );
@@ -723,23 +703,6 @@ public class Setting {
             opAvgField.setBounds( 355, 239, 72, 22 );
             setting_panel_inside.add( opAvgField );
 
-            opAvgMoveField = new MyGuiComps.MyTextField( );
-            opAvgMoveField.setXY( 355, 270 );
-            opAvgMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            opAvgMoveField.addActionListener( new ActionListener( ) {
-                @Override
-                public void actionPerformed( ActionEvent actionEvent ) {
-
-                    try {
-                        double d = L.dbl( opAvgMoveField.getText( ) );
-                        options.getOpAvgMoveService( ).setMove( d );
-                    } catch ( Exception e ) {
-                        e.printStackTrace( );
-                    }
-                }
-            } );
-            setting_panel_inside.add( opAvgMoveField );
-
             JLabel lblOpavg = new JLabel( "OpAvg" );
             lblOpavg.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
             lblOpavg.setBounds( 355, 212, 45, 21 );
@@ -749,29 +712,6 @@ public class Setting {
             lblEqualMove.setFont( new Font( "Dubai Medium", Font.PLAIN, 15 ) );
             lblEqualMove.setBounds( 371, 86, 82, 21 );
             setting_panel_inside.add( lblEqualMove );
-
-            equalMoveField = new JTextField( );
-            equalMoveField.addActionListener( new ActionListener( ) {
-                public void actionPerformed( ActionEvent arg0 ) {
-
-                    double equalMove = 0;
-
-                    try {
-                        equalMove = Double.parseDouble( equalMoveField.getText( ) );
-                        client.getOptionsHandler( ).getMainOptions( ).getEqualMoveService( ).setMove( equalMove );
-                    } catch ( Exception e ) {
-                        popup( "Faild to set equalMove", e );
-                    }
-                }
-            } );
-            equalMoveField.setHorizontalAlignment( SwingConstants.CENTER );
-            equalMoveField.setForeground( new Color( 0, 51, 153 ) );
-            equalMoveField.setFont( new Font( "Arial", Font.PLAIN, 15 ) );
-            equalMoveField.setColumns( 10 );
-            equalMoveField.setBorder( new LineBorder( new Color( 220, 220, 220 ), 2, true ) );
-            equalMoveField.setBackground( Color.WHITE );
-            equalMoveField.setBounds( 371, 113, 72, 22 );
-            setting_panel_inside.add( equalMoveField );
 
             JLabel lblAskcoast = new JLabel( "Ask coast" );
             lblAskcoast.setHorizontalAlignment( SwingConstants.CENTER );
@@ -816,7 +756,6 @@ public class Setting {
                     double devidend = 0;
 
                     try {
-
                         // If Index object
                         if ( client instanceof INDEX_CLIENT_OBJECT ) {
 

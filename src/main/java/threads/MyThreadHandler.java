@@ -7,7 +7,6 @@ public class MyThreadHandler {
     // Variables
     MyThread myThread;
     Thread thread;
-    Arik arik = Arik.getInstance();
 
     // Constructor
     public MyThreadHandler( MyThread myThread ) {
@@ -26,7 +25,11 @@ public class MyThreadHandler {
             thread.start( );
         }
 
-        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Started" );
+        try {
+            Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Started" );
+        } catch ( Exception e ) {
+            Arik.getInstance( ).sendMessage( myThread.getName( ) + " Started" );
+        }
     }
 
     // Close
@@ -37,8 +40,12 @@ public class MyThreadHandler {
             myThread.setRun( false );
             thread = null;
         }
-        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
 
+        try {
+            Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
+        } catch ( Exception e ) {
+            Arik.getInstance( ).sendMessage( myThread.getName( ) + " Closed" );
+        }
     }
 
     // Restart
@@ -47,7 +54,10 @@ public class MyThreadHandler {
         close( );
         start( );
 
-        arik.sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Restarted" );
-
+        try {
+            Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Restarted" );
+        } catch ( Exception e ) {
+            Arik.getInstance( ).sendMessage( myThread.getName( ) + " Restarted" );
+        }
     }
 }

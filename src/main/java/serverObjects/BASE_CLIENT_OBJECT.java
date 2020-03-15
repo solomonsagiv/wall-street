@@ -122,6 +122,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
 
+            System.out.println( getMyServiceHandler().getServies() );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -323,7 +324,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "Close: " + index + "\n";
         text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getContract( ) ) + "\n";
         text += "Ind races: " + getIndexSum( ) + "\n";
-        text += "Avg move: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvgMoveService( ).getMove( ) ) + "\n";
         text += "Contract counter: " + getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( ) + "\n";
 
         return text;

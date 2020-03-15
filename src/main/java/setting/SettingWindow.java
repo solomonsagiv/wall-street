@@ -25,7 +25,6 @@ public class SettingWindow extends MyGuiComps.MyFrame {
 
     public SettingWindow( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
         super( title, client );
-
     }
 
     @Override
@@ -35,7 +34,6 @@ public class SettingWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initListeners() {
-
     }
 
     @Override
@@ -45,6 +43,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
         setXY( 200, 200 );
         setLayout( null );
         setSize( 800, 450 );
+        setResizable( false );
 
         // Ticker
         tickerPanel = new TickerPanel( client );
