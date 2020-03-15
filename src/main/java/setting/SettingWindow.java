@@ -3,6 +3,7 @@ package setting;
 import gui.MyGuiComps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.Apple;
+import setting.optionsPanel.OptionsPanel;
 
 import java.awt.*;
 
@@ -43,7 +44,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
         // This
         setXY( 200, 200 );
         setLayout( null );
-        setSize( 850, 400 );
+        setSize( 800, 450 );
 
         // Ticker
         tickerPanel = new TickerPanel( client );
@@ -53,13 +54,13 @@ public class SettingWindow extends MyGuiComps.MyFrame {
         // Options
         optionsPanel = new OptionsPanel( client );
         optionsPanel.setXY( 0, tickerPanel.getY() + tickerPanel.getHeight() + 1 );
-        optionsPanel.setSize( ( int ) getPreferredSize().getWidth(), 300 );
+        optionsPanel.setSize( ( int ) getPreferredSize().getWidth(), optionsPanel.getHeight() );
         add( optionsPanel );
 
         // Data base
         dataBasePanel = new DataBasePanel( client );
         dataBasePanel.setXY( 0, optionsPanel.getY() + optionsPanel.getHeight() + 1 );
-        optionsPanel.setSize(  ( int ) getPreferredSize().getWidth(), 300  );
+        dataBasePanel.setSize(  ( int ) getPreferredSize().getWidth(), 150  );
         add( dataBasePanel );
 
     }

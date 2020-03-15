@@ -134,6 +134,10 @@ public class MyGuiComps {
             setEnabled(false);
         }
 
+        public void setFontSize( int size ) {
+            setFont( getFont().deriveFont( (float) size ) );
+        }
+
         public void setXY(int x, int y) {
             setBounds(x, y, getWidth(), getHeight());
         }

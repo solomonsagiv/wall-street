@@ -79,12 +79,14 @@ public class RacesPanel extends MyGuiComps.MyPanel {
         conUpField.setEnabled( true );
         conUpField.setXY( 10, 20 );
         conUpField.setWidth( 50 );
+        conUpField.setFontSize(9);
         add( conUpField );
 
         // Con down
         conDownField = new MyGuiComps.MyTextField( );
         conDownField.setEnabled( true );
         conDownField.setXY( 10, 50 );
+        conDownField.setFontSize(9);
         conDownField.setWidth( 50 );
         add( conDownField );
 
@@ -92,6 +94,7 @@ public class RacesPanel extends MyGuiComps.MyPanel {
         indUpField = new MyGuiComps.MyTextField( );
         indUpField.setEnabled( true );
         indUpField.setXY( 65, 20 );
+        indUpField.setFontSize(9);
         indUpField.setWidth( 50 );
         add( indUpField );
 
@@ -99,6 +102,7 @@ public class RacesPanel extends MyGuiComps.MyPanel {
         indDownField = new MyGuiComps.MyTextField( );
         indDownField.setEnabled( true );
         indDownField.setXY( 65, 50 );
+        indDownField.setFontSize(9);
         indDownField.setWidth( 50 );
         add( indDownField );
 
