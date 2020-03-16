@@ -2,6 +2,7 @@ package setting;
 
 import arik.Arik;
 import arik.locals.Emojis;
+import dataBase.mySql.myTables.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -50,8 +51,8 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         resetBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getMyTableHandler( ).getMyStatusTable( ).reset( );
-                client.getMyTableHandler( ).getMyArraysTable( ).reset( );
+                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).reset( );
+                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).reset( );
                 Arik.getInstance( ).sendMessage( Arik.sagivID, "Reset success " + Emojis.check_mark, null );
             }
         } );
@@ -60,8 +61,8 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         updateBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getMyTableHandler().getMyStatusTable().update();
-                client.getMyTableHandler().getMyArraysTable().update();
+                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
+                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).update( );
             }
         } );
 
@@ -69,8 +70,8 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         updateBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getMyTableHandler().getMyStatusTable().load();
-                client.getMyTableHandler().getMyArraysTable().load();
+                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
+                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
             }
         } );
 
@@ -78,7 +79,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         sumBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getMyTableHandler().getMySumTable().insert();
+                client.getTablesHandler().getTable(TablesEnum.SUM).insert();
                 Arik.getInstance( ).sendMessage( Arik.sagivID, "Sum line inserted " + Emojis.check_mark, null );
             }
         } );

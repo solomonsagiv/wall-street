@@ -1,14 +1,9 @@
 package gui.stock;
 
+import dataBase.mySql.myTables.TablesEnum;
 import gui.MyGuiComps;
-import gui.index.IndexPanel;
 import locals.Themes;
-import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.Apple;
 import serverObjects.stockObjects.STOCK_OBJECT;
-import setting.Setting;
 
 import java.awt.*;
 
@@ -22,7 +17,7 @@ public class StockWindow extends MyGuiComps.MyFrame {
         super( title, client );
 
         // Load data
-        client.getMyTableHandler().getMyStatusTable().load();
+        client.getTablesHandler().getTable( TablesEnum.STATUS).load();
 
         // Tws request
         client.requestApi();
@@ -58,7 +53,7 @@ public class StockWindow extends MyGuiComps.MyFrame {
         // Index panel
         stockPanel = new StockPanel( ( STOCK_OBJECT ) client );
         stockPanel.setBounds( 0, 26, 550 ,200 );
-        getContentPane().add( stockPanel );
+              getContentPane().add( stockPanel );
 
     }
 

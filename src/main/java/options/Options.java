@@ -1,12 +1,8 @@
 package options;
 
-import OPs.EqualMoveService;
-import OPs.OpAvgMoveService;
 import com.ib.client.Contract;
 import com.ib.client.Types;
-import gui.WallStreetWindow;
 import locals.L;
-import logic.LogicService;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -689,7 +685,7 @@ public abstract class Options {
                 put.getBidAskCounterList( ).clear( );
             }
         } catch ( Exception e ) {
-            WallStreetWindow.popup( "Reset option failed", e );
+            e.printStackTrace();
         }
     }
 

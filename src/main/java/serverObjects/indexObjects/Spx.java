@@ -3,9 +3,8 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import api.Manifest;
 import api.tws.TwsHandler;
-import dataBase.mySql.mySqlComps.MyTableHandler;
-import dataBase.mySql.tables.MyDayTable;
-import dataBase.mySql.tables.MySumTable;
+import dataBase.mySql.myTables.MyDayTable;
+import dataBase.mySql.myTables.MySumTable;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
@@ -145,15 +144,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void initDbId() {
         setDbId( 2 );
-    }
-
-    @Override
-    public void initTablesHandlers() {
-
-        MyDayTable myDayTable = new MyDayTable( this, "spx" );
-        MySumTable mySumTable = new MySumTable( this, "spx_daily" );
-
-        myTableHandler = new MyTableHandler( this, myDayTable, mySumTable );
     }
 
     @Override

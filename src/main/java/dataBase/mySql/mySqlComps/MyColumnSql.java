@@ -13,7 +13,7 @@ public abstract class MyColumnSql< T > {
     public String name;
     public int type;
     BASE_CLIENT_OBJECT client;
-
+    
     // Constructor
     public MyColumnSql( MyTableSql myTableSql, String name, int type ) {
         this.myTableSql = myTableSql;
@@ -21,7 +21,6 @@ public abstract class MyColumnSql< T > {
         this.client = myTableSql.client;
         this.type = type;
         myTableSql.addColumn( this );
-        myTableSql.addLoadAbleColumn( this );
     }
 
     // Abstracts functions

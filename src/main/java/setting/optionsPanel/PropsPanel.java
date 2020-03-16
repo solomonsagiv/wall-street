@@ -1,7 +1,6 @@
 package setting.optionsPanel;
 
-import dataBase.mySql.mySqlComps.MyTableHandler;
-import dataBase.mySql.tables.MyStatusTable;
+import dataBase.mySql.myTables.TablesEnum;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
@@ -70,7 +69,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                 }
 
                 // Update to DB
-                client.getMyTableHandler( ).getMyStatusTable( ).update( );
+                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
             }
         });
     }

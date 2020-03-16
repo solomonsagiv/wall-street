@@ -2,9 +2,8 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.TwsHandler;
-import dataBase.mySql.mySqlComps.MyTableHandler;
-import dataBase.mySql.tables.MyDayTable;
-import dataBase.mySql.tables.MySumTable;
+import dataBase.mySql.myTables.MyDayTable;
+import dataBase.mySql.myTables.MySumTable;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
@@ -110,14 +109,6 @@ public class Apple extends STOCK_OBJECT {
     @Override
     public void initDbId() {
         // TODO
-    }
-
-    @Override
-    public void initTablesHandlers() {
-        MyDayTable myDayTable = new MyDayTable( this, "apple" );
-        MySumTable mySumTable = new MySumTable( this, "apple_daily" );
-
-        myTableHandler = new MyTableHandler( this, myDayTable, mySumTable );
     }
 
     @Override

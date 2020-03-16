@@ -7,7 +7,8 @@ import arik.Arik;
 import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.mySqlComps.MyTableHandler;
+import dataBase.mySql.TablesHandler;
+import dataBase.mySql.myTables.TablesEnum;
 import lists.ListsService;
 import locals.L;
 import locals.LocalHandler;
@@ -53,10 +54,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // DB
     private int dbId = 0;
-    protected MyTableHandler myTableHandler;
 
     // Options handler
     protected OptionsDataHandler optionsDataHandler;
+
+    // TablesHandler
+    TablesHandler tablesHandler;
 
     // MyService
     private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
@@ -121,8 +124,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
-
-            System.out.println( getMyServiceHandler().getServies() );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -142,6 +143,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             myServiceHandler.getHandler( ).start( );
             setStarted( true );
         }
+
     }
 
     public LocalDate convertStringToDate( String dateString ) {
@@ -170,9 +172,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void fullExport() {
         try {
-            getMyTableHandler( ).getMySumTable( ).insert( );
-            getMyTableHandler( ).getMyStatusTable( ).reset( );
-            getMyTableHandler( ).getMyArraysTable( ).reset( );
+            getTablesHandler( ).getTable( TablesEnum.SUM ).insert( );
+            getTablesHandler( ).getTable( TablesEnum.STATUS ).reset( );
+            getTablesHandler( ).getTable( TablesEnum.ARRAYS ).reset( );
 
             // Notify
             Arik.getInstance( ).sendMessage( Arik.sagivID, getName( ) + " Export success " + Emojis.check_mark, null );
@@ -469,10 +471,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return myServiceHandler;
     }
 
-    public MyTableHandler getMyTableHandler() {
-        return myTableHandler;
-    }
-
     public double getIndex() {
         return index;
     }
@@ -620,6 +618,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setTwsHandler( TwsHandler twsHandler ) {
         this.twsHandler = twsHandler;
+    }
+
+    public TablesHandler getTablesHandler() {
+        return tablesHandler;
+    }
+
+    public void setTablesHandler( TablesHandler tablesHandler ) {
+        this.tablesHandler = tablesHandler;
     }
 
     @Override

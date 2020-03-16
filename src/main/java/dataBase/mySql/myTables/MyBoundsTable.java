@@ -1,4 +1,4 @@
-package dataBase.mySql.tables;
+package dataBase.mySql.myTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
@@ -7,10 +7,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.sql.ResultSet;
 
 public class MyBoundsTable extends MyTableSql {
-
-    private int id;
-
-    String tableName = "bounds.bounds";
 
     // Constructor
     public MyBoundsTable( BASE_CLIENT_OBJECT client, String tableName ) {
@@ -39,8 +35,6 @@ public class MyBoundsTable extends MyTableSql {
             Arik.getInstance( ).sendErrorMessage( e );
         }
     }
-
-
 
     public void updateBoundOrCreateNewOne( String stockName, String name, int x, int y, int width, int height ) {
         try {

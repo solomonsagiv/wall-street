@@ -3,14 +3,11 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import api.Manifest;
 import api.tws.TwsHandler;
-import com.ib.client.Contract;
-import dataBase.mySql.mySqlComps.MyTableHandler;
-import dataBase.mySql.tables.MyDayTable;
-import dataBase.mySql.tables.MySumTable;
+import dataBase.mySql.myTables.MyDayTable;
+import dataBase.mySql.myTables.MySumTable;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
-import tws.TwsData;
 
 import java.time.LocalTime;
 
@@ -140,14 +137,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public double getStrikeMargin() {
         return 40;
-    }
-
-    @Override
-    public void initTablesHandlers() {
-        MyDayTable myDayTable = new MyDayTable( this, "ndx" );
-        MySumTable mySumTable = new MySumTable( this, "ndx_daily" );
-
-        myTableHandler = new MyTableHandler( this, myDayTable, mySumTable);
     }
 
     @Override

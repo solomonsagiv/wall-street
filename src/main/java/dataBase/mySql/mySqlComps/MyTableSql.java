@@ -23,14 +23,14 @@ public abstract class MyTableSql implements IMyTableSql {
 
     public void addColumn( MyColumnSql columnSql ) {
         columns.add( columnSql );
+        addLoadAbleColumn( columnSql );
     }
 
-    public void addLoadAbleColumn( MyColumnSql columnSql ) {
+    private void addLoadAbleColumn( MyColumnSql columnSql ) {
         if ( columnSql instanceof MyLoadAbleColumn ) {
             loadAbleColumns.add( ( MyLoadAbleColumn ) columnSql );
         }
     }
-
 
     protected void insertFromSuper() {
 

@@ -1,5 +1,6 @@
 package gui.mainWindow;
 
+import dataBase.mySql.myTables.TablesEnum;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
@@ -78,8 +79,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
 
-            client.getMyTableHandler().getMyStatusTable().load();
-            client.getMyTableHandler().getMyArraysTable().load();
+            client.getTablesHandler().getTable( TablesEnum.STATUS).load();
+            client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
 
             client.setLoadStatusFromHB( true );
             client.setLoadArraysFromHB( true );

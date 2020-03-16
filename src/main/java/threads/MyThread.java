@@ -5,7 +5,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public abstract class MyThread {
 
     // Variables
-    private boolean run = false;
+    private boolean run = true;
 
     private String name;
     private MyThreadHandler handler;

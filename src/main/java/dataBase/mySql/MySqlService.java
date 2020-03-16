@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import api.Manifest;
+import dataBase.mySql.myTables.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
@@ -21,7 +22,7 @@ public class MySqlService extends MyBaseService {
         if (Manifest.DB_UPDATER) {
             // Status
             if (sleepCount % 1000 == 0) {
-                client.getMyTableHandler().getMyStatusTable().update();
+                client.getTablesHandler().getTable( TablesEnum.STATUS ).update();
             }
         }
 
@@ -29,11 +30,11 @@ public class MySqlService extends MyBaseService {
         if (Manifest.DB_RUNNER) {
 
             // Insert line
-            client.getMyTableHandler().getMyDayTable().insert();
+            client.getTablesHandler().getTable(TablesEnum.DAY).insert();
 
             // Arrays
             if (sleepCount % 30000 == 0) {
-                client.getMyTableHandler().getMyArraysTable().update();
+                client.getTablesHandler().getTable(TablesEnum.ARRAYS).update();
             }
 
             // Reset sleep count

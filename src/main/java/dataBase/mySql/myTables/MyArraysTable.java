@@ -1,4 +1,4 @@
-package dataBase.mySql.tables;
+package dataBase.mySql.myTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
@@ -13,12 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class MyArraysTable extends MyTableSql {
-
-    private MyColumnSql< String > name;
-    private MyColumnSql< String > time;
-    private MyLoadAbleColumn< String > indexlist;
-    private MyLoadAbleColumn< String > opList;
+public abstract class MyArraysTable extends MyTableSql {
 
     public MyArraysTable( BASE_CLIENT_OBJECT client, String tableName ) {
         super( client, tableName );
@@ -26,53 +21,6 @@ public class MyArraysTable extends MyTableSql {
 
     @Override
     public void initColumns() {
-        name = new MyColumnSql< String >( this, "name", MyColumnSql.STRING ) {
-            @Override
-            public String getObject() {
-                return client.getName( );
-            }
-        };
-
-        time = new MyColumnSql< String >( this, "time", MyColumnSql.STRING ) {
-            @Override
-            public String getObject() {
-                return LocalTime.now( ).toString( );
-            }
-        };
-
-        indexlist = new MyLoadAbleColumn<>( this, "indexlist", MyColumnSql.STRING ) {
-            @Override
-            public String getObject() {
-                return client.getIndexList( ).toString( );
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getIndexList( ) );
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        };
-
-        opList = new MyLoadAbleColumn<>( this, "opList", MyColumnSql.STRING ) {
-            @Override
-            public String getObject() {
-                return client.getOptionsHandler( ).getMainOptions( ).getOpList( ).toString( );
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        };
 
     }
 

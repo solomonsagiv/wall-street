@@ -3,6 +3,7 @@ package gui.index;
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
+import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
@@ -447,7 +448,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         exportSumLine.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                client.getMyTableHandler( ).getMySumTable( ).insert( );
+                client.getTablesHandler( ).getTable( TablesEnum.SUM ).insert( );
             }
         } );
 

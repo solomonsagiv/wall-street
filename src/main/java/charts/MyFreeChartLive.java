@@ -1,6 +1,8 @@
 package charts;
 
 import arik.Arik;
+import dataBase.mySql.myTables.MyBoundsTable;
+import dataBase.mySql.myTables.TablesEnum;
 import locals.Themes;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
@@ -50,7 +52,7 @@ public class MyFreeChartLive extends JFrame {
 
         new Thread( () -> {
             try {
-                ResultSet rs = client.getMyTableHandler( ).getMyBoundsTable( ).getBound( client.getName( ), getName( ) );
+                ResultSet rs = (( MyBoundsTable )client.getTablesHandler( ).getTable( TablesEnum.BOUNDS )).getBound( client.getName( ), getName( ) );
 
                 int width = 100, height = 100, x = 100, y = 100;
 
@@ -97,7 +99,7 @@ public class MyFreeChartLive extends JFrame {
 
     public void onClose( WindowEvent e ) {
         new Thread( () -> {
-            client.getMyTableHandler( ).getMyBoundsTable( ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
+            (( MyBoundsTable )client.getTablesHandler( ).getTable( TablesEnum.BOUNDS )).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
         } ).start( );
 
         for ( MySingleFreeChartLive mySingleFreeChart : singleFreeCharts ) {

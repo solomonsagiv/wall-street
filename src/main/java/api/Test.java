@@ -10,9 +10,6 @@ public class Test {
 
     public static void main( String[] args ) throws SQLException {
 
-        Apple client = Apple.getInstance( );
-        client.getMyTableHandler( ).getMyStatusTable( ).load( );
-
 //        String url = "jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/";
 //        String userName = "sagivMasterUser";
 //        String password = "Solomonsagivawsmaster12";

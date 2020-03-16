@@ -96,4 +96,12 @@ public class MyServiceHandler extends MyThread implements Runnable {
     public void initRunnable() {
         setRunnable( this );
     }
+
+    public String toStringServices() {
+        StringBuilder sb = new StringBuilder();
+        for ( MyBaseService service : servies ) {
+            sb.append( service.getName() + "\n" );
+        }
+        return sb.toString();
+    }
 }

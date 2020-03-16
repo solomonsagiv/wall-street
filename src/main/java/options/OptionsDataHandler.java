@@ -1,7 +1,6 @@
 package options;
 
 import blackScholes.MyBlackScholes;
-import gui.WallStreetWindow;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 
@@ -49,8 +48,6 @@ public class OptionsDataHandler {
 
         if ( options.getStrikes( ).size( ) != 0 ) {
             this.options = options;
-        } else {
-            WallStreetWindow.popup( "No options found", null );
         }
     }
 
@@ -93,7 +90,7 @@ public class OptionsDataHandler {
                 } catch ( InterruptedException e ) {
                     break;
                 } catch ( Exception e ) {
-                    WallStreetWindow.popup( "Options data handler: " + getClient( ).getName( ), e );
+                    e.printStackTrace();
                     break;
                 }
             }
