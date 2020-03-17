@@ -95,6 +95,10 @@ public class IndexPanel extends JPanel implements IMyPanel {
         mainOptions = client.getOptionsHandler( ).getMainOptions( );
         init( );
         initListeners( );
+
+        // Updater
+        getUpdater().getHandler().start();
+
     }
 
     private void initListeners() {

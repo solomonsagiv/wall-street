@@ -1,61 +1,20 @@
 package DDE;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class DDECells {
 
-    private String indCell = "";
-    private String indBidCell = "";
-    private String indAskCell = "";
-    private String futCell = "";
-    private String futBidCell = "";
-    private String futAskCell = "";
+    Map cells = new HashMap<DDECellsEnum, String>();
 
     public abstract boolean isWorkWithDDE();
 
-    public String getIndCell() {
-        return indCell;
+    public void addCell( DDECellsEnum ddeCellsEnum,String cellLocation ) {
+        cells.put( ddeCellsEnum, cellLocation );
     }
 
-    public void setIndCell( String indCell ) {
-        this.indCell = indCell;
+    public String getCell( DDECellsEnum ddeCellsEnum ) {
+        return ( String ) cells.get( ddeCellsEnum );
     }
 
-    public String getIndBidCell() {
-        return indBidCell;
-    }
-
-    public void setIndBidCell( String indBidCell ) {
-        this.indBidCell = indBidCell;
-    }
-
-    public String getIndAskCell() {
-        return indAskCell;
-    }
-
-    public void setIndAskCell( String indAskCell ) {
-        this.indAskCell = indAskCell;
-    }
-
-    public String getFutCell() {
-        return futCell;
-    }
-
-    public void setFutCell( String futCell ) {
-        this.futCell = futCell;
-    }
-
-    public String getFutBidCell() {
-        return futBidCell;
-    }
-
-    public void setFutBidCell( String futBidCell ) {
-        this.futBidCell = futBidCell;
-    }
-
-    public String getFutAskCell() {
-        return futAskCell;
-    }
-
-    public void setFutAskCell( String futAskCell ) {
-        this.futAskCell = futAskCell;
-    }
 }

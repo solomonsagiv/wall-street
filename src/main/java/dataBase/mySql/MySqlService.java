@@ -28,7 +28,7 @@ public class MySqlService extends MyBaseService {
 
         // DB runner
         if (Manifest.DB_RUNNER) {
-
+            
             // Insert line
             client.getTablesHandler().getTable(TablesEnum.DAY).insert();
 

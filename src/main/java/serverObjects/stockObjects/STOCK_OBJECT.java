@@ -15,15 +15,13 @@ import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
 import tws.TwsContractsEnum;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
-    public STOCK_OBJECT() {
-    }
+    public STOCK_OBJECT() {}
 
     @Override
     public void initOptionsHandler() throws Exception {
@@ -53,7 +51,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void setIndex( double index ) {
         if ( this.index == 0 ) {
-            this.index = index;
             getOptionsHandler( ).initOptions( index );
 
             // Request options tws
@@ -61,6 +58,8 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                 getTwsHandler( ).requestOptions( getOptionsHandler( ).getOptionsList( ) );
             }
         }
+
+        this.index = index;
     }
 
     @Override
@@ -93,12 +92,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                     @Override
                     public Double getObject() {
                         return client.getOptionsHandler( ).getMainOptions( ).getContract( );
-                    }
-                } );
-                addColumn( new MyColumnSql<>( this, "conDay", MyColumnSql.DOUBLE ) {
-                    @Override
-                    public Double getObject() {
-                        return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getContract( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "conMonth", MyColumnSql.DOUBLE ) {

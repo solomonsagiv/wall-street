@@ -113,7 +113,7 @@ public class MyGuiComps {
         public MyTextField(boolean enable) {
             super();
             init();
-            setEnabled( enable );
+//            setEnabled( enable );
         }
 
         public void setWidth(int width) {
@@ -131,7 +131,7 @@ public class MyGuiComps {
             setHorizontalAlignment(JTextField.CENTER);
             setBackground(Themes.GREY_VERY_LIGHT);
             setBorder(null);
-            setEnabled(false);
+//            setEnabled(false);
         }
 
         public void setFontSize( int size ) {

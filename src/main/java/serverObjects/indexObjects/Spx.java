@@ -1,13 +1,17 @@
 package serverObjects.indexObjects;
 
 import DDE.DDECells;
+import DDE.DDECellsEnum;
 import api.Manifest;
 import api.tws.TwsHandler;
-import dataBase.mySql.myTables.MyDayTable;
-import dataBase.mySql.myTables.MySumTable;
+import options.IndexOptions;
+import options.OptionsDDeCells;
+import options.OptionsEnum;
+import options.OptionsHandler;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
+
 import java.time.LocalTime;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
@@ -106,6 +110,33 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setTwsHandler( twsHandler );
     }
 
+
+    @Override
+    public void initOptionsHandler() throws NullPointerException {
+
+        // Fut month
+        OptionsDDeCells monthDDeCells = new OptionsDDeCells( "R5C3", "R5C2", "R5C4" );
+        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 2000, this, OptionsEnum.MONTH, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH ), monthDDeCells );
+
+        // Fut Quarter
+        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R5C2", "R21C1", "R5C3" );
+        IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ), quarterDDeCells );
+
+        OptionsHandler optionsHandler = new OptionsHandler( this ) {
+            @Override
+            public void initOptions() {
+                addOptions( monthOptions );
+                addOptions( quarterOptions );
+            }
+
+            @Override
+            public void initMainOptions() {
+                setMainOptions( monthOptions );
+            }
+        };
+        setOptionsHandler( optionsHandler );
+    }
+
     @Override
     public void initName() {
         setName( "spx" );
@@ -155,15 +186,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             }
         };
 
-        // Fut
-        ddeCells.setFutBidCell( "R5C2" );
-        ddeCells.setFutCell( "R5C3" );
-        ddeCells.setFutAskCell( "R5C4" );
-
         // Ind
-        ddeCells.setIndBidCell( "R2C2" );
-        ddeCells.setIndCell( "R2C3" );
-        ddeCells.setIndAskCell( "R2C4" );
+        ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
+        ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
+        ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
 
         setDdeCells( ddeCells );
     }

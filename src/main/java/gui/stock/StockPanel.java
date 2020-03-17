@@ -3,6 +3,7 @@ package gui.stock;
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
+import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -27,9 +28,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StockPanel extends JPanel implements IMyPanel {
-
-    // Url
-    String url = "";
 
     // Ticker
     MyGuiComps.MyPanel ticker;
@@ -76,17 +74,12 @@ public class StockPanel extends JPanel implements IMyPanel {
 
     int height = 200;
 
-    Font font = Themes.VEDANA_12;
-    Color green = Themes.GREEN;
-    Color red = Themes.RED;
     Color backGround = Themes.GREY_LIGHT;
 
     STOCK_OBJECT client;
     Options optionsMonth;
     Options optionsQuarter;
     Options mainOptions;
-
-    int listSleep = 1000;
 
     private Updater updater;
 
@@ -189,7 +182,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         opQuarterField.setXY( 80, 93 );
         opQuarterField.setForeground( Color.WHITE );
         ticker.add( opQuarterField );
-
         add( ticker );
 
         // ---------- Races and roll ---------- //
@@ -217,7 +209,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         indRacesLbl.setHorizontalAlignment( JLabel.CENTER );
         indRacesLbl.setBounds( 5, 35, 50, 25 );
         indRacesLbl.setForeground( Themes.BLUE );
-
         racesAndRollPanel.add( indRacesLbl );
 
         // Ind field
@@ -229,7 +220,6 @@ public class StockPanel extends JPanel implements IMyPanel {
         rollLbl.setHorizontalAlignment( JLabel.CENTER );
         rollLbl.setBounds( 5, 65, 50, 25 );
         rollLbl.setForeground( Themes.BLUE );
-
         racesAndRollPanel.add( rollLbl );
 
         // Roll field
@@ -285,8 +275,6 @@ public class StockPanel extends JPanel implements IMyPanel {
     @Override
     public void updateText() {
         try {
-
-            System.out.println( "Update" );
 
             // ---------- Ticker ---------- //
             openField.setText( L.format100( client.getOpen( ) ) );
@@ -371,9 +359,6 @@ public class StockPanel extends JPanel implements IMyPanel {
 
             while ( isRun( ) ) {
                 try {
-
-                    System.out.println( " Panel " );
-
                     // Sleep
                     Thread.sleep( 1000 );
 
@@ -381,6 +366,7 @@ public class StockPanel extends JPanel implements IMyPanel {
 
                     mySleep += 1000;
                 } catch ( InterruptedException e ) {
+                    System.out.println(isRun() );
                     e.printStackTrace( );
                 }
             }

@@ -97,8 +97,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private boolean indUpChanged = false;
     private boolean indDownChanged = false;
 
-    private int optimiPesimiCount = 0;
-
     List indexList = new ArrayList< Double >( );
     List indexBidList = new ArrayList< Double >( );
     List indexAskList = new ArrayList< Double >( );

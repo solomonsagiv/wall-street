@@ -4,6 +4,7 @@ import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import locals.L;
 import locals.LocalHandler;
+import options.Options;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -69,14 +70,15 @@ public class DDEReader extends MyThread implements Runnable {
 
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
 
-        // Future
-        client.setFuture( L.dbl( conversation.request( client.getDdeCells( ).getFutCell( ) ) ) );
-        client.setFutureBid( L.dbl( conversation.request( client.getDdeCells( ).getFutBidCell( ) ) ) );
-        client.setFutureAsk( L.dbl( conversation.request( client.getDdeCells( ).getFutAskCell( ) ) ) );
+        for ( Options options: client.getOptionsHandler().getOptionsList() ) {
+            options.setContract( L.dbl( conversation.request( options.getOptionsDDeCells().getFut()) ) );
+            client.setFutureBid( L.dbl( conversation.request( options.getOptionsDDeCells().getFutBid()) ) );
+            client.setFutureAsk( L.dbl( conversation.request( options.getOptionsDDeCells().getFutAsk()) ) );
+        }
 
         // Index
-        client.setIndex( L.dbl( conversation.request( client.getDdeCells( ).getIndCell( ) ) ) );
-        client.setIndexBid( L.dbl( conversation.request( client.getDdeCells( ).getIndBidCell( ) ) ) );
-        client.setIndexAsk( L.dbl( conversation.request( client.getDdeCells( ).getIndAskCell( ) ) ) );
+        client.setIndex( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND ) ) ) );
+        client.setIndexBid( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND_BID ) ) ) );
+        client.setIndexAsk( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND_ASK ) ) ) );
     }
 }

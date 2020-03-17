@@ -2,6 +2,8 @@ package threads;
 
 import arik.Arik;
 
+import javax.swing.*;
+
 public class MyThreadHandler {
 
     // Variables
@@ -40,7 +42,7 @@ public class MyThreadHandler {
             myThread.setRun( false );
             thread = null;
         }
-
+        JOptionPane.showMessageDialog( null, thread.getName() );
         try {
             Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
         } catch ( Exception e ) {

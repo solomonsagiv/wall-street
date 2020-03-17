@@ -59,8 +59,6 @@ public abstract class MyThread {
         return client;
     }
 
-
-
     public void setClient( BASE_CLIENT_OBJECT client ) {
         this.client = client;
     }

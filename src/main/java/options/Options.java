@@ -14,6 +14,7 @@ import java.util.*;
 
 public abstract class Options {
 
+    OptionsDDeCells optionsDDeCells;
     List< Strike > strikes;
     HashMap< Integer, Option > optionsMap;
     BASE_CLIENT_OBJECT client;
@@ -34,6 +35,8 @@ public abstract class Options {
     protected int maxId = 0;
     protected Contract twsContract;
     protected boolean gotData = false;
+
+    private double contract = 0;
 
     protected double contractBid = 0;
     protected double contractAsk = 0;
@@ -61,6 +64,12 @@ public abstract class Options {
 
         positionCalculator = new PositionCalculator( client );
     }
+
+    public Options ( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract, OptionsDDeCells dDeCells ) {
+        this( baseID,  client,  type,  twsContract );
+        this.optionsDDeCells = dDeCells;
+    }
+
 
     // Abstracts functions
     public abstract double getStrikeInMoney();
@@ -197,6 +206,10 @@ public abstract class Options {
 
     // Claculate the index from options
     public double getContract() {
+
+        if ( contract != 0 ) {
+            return contract;
+        }
 
         try {
             ArrayList< Double > buys = new ArrayList<>( );
@@ -504,7 +517,6 @@ public abstract class Options {
         props.put( "devidend", getDevidend( ) );
         props.put( "date", getExpDate() );
         props.put( "days", getDays( ) );
-        System.out.println(props );
         return props;
 
     }
@@ -932,5 +944,17 @@ public abstract class Options {
 
     public void setDates(Set<Integer> dates) {
         this.dates = dates;
+    }
+
+    public void setContract( double contract ) {
+        this.contract = contract;
+    }
+
+    public OptionsDDeCells getOptionsDDeCells() {
+        return optionsDDeCells;
+    }
+
+    public void setOptionsDDeCells( OptionsDDeCells optionsDDeCells ) {
+        this.optionsDDeCells = optionsDDeCells;
     }
 }

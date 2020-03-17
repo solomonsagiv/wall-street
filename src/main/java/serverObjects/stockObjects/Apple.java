@@ -48,7 +48,6 @@ public class Apple extends STOCK_OBJECT {
         indexContract.primaryExch( "NASDAQ" );
         indexContract.currency( "USD" );
         indexContract.exchange( "SMART" );
-
         twsData.addContract( indexContract );
 
         MyContract optionsMonthContract = new MyContract( getBaseId( ) + 2000, TwsContractsEnum.OPT_MONTH );

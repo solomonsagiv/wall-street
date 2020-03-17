@@ -1,6 +1,7 @@
 package options;
 
 import com.ib.client.Contract;
+import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 public class IndexOptions extends Options {
@@ -10,6 +11,10 @@ public class IndexOptions extends Options {
     // Constructor
     public IndexOptions( int baseID, INDEX_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
         super( baseID, client, type, twsContract );
+    }
+
+    public IndexOptions( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract, OptionsDDeCells dDeCells ) {
+        super( baseID, client, type, twsContract, dDeCells );
     }
 
     @Override

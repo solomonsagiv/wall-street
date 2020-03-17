@@ -140,21 +140,33 @@ public class Downloader extends Thread implements EWrapper {
         // ---------- Apple ---------- //
         index = apple.getTwsHandler().getMyContract( TwsContractsEnum.INDEX ).getMyId();
 
+
         if ( tickerId == index && price > 0 ) {
             // Last
             if ( field == 4 ) {
                 apple.setIndex( price );
-                return;
             }
             // Bid
             if ( field == 1 ) {
                 apple.setIndexBid( price );
-                return;
             }
             // Ask
             if ( field == 2 ) {
                 apple.setIndexAsk( price );
-                return;
+            }
+
+            // Bid
+            if ( field == 6 ) {
+                apple.setHigh( price );
+            }
+            // Ask
+            if ( field == 7 ) {
+                apple.setLow( price );
+            }
+
+            // Base
+            if ( field == 9 ) {
+                apple.setBase( price );
             }
         }
 
@@ -167,12 +179,10 @@ public class Downloader extends Thread implements EWrapper {
             // Bid
             if ( field == 1 ) {
                 appleOptions.getOptionById( tickerId ).setBid( price );
-                return;
             }
             // Ask
             if ( field == 2 ) {
                 appleOptions.getOptionById( tickerId ).setAsk( price );
-                return;
             }
         }
     }
