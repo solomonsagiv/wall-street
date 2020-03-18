@@ -91,12 +91,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                         return client.getOptionsHandler( ).getMainOptions( ).getContract( );
                     }
                 } );
-                addColumn( new MyColumnSql<>( this, "conDay", MyColumnSql.DOUBLE ) {
-                    @Override
-                    public Double getObject() {
-                        return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getContract( );
-                    }
-                } );
                 addColumn( new MyColumnSql<>( this, "conMonth", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {

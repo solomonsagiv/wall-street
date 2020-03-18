@@ -38,13 +38,6 @@ public class DDEReader extends MyThread implements Runnable {
                 // Sleep
                 Thread.sleep( sleep );
 
-                System.out.println( );
-                System.out.println( Spx.getInstance().getFutureBid() );
-                System.out.println(  Spx.getInstance().getFutureAsk() );
-                System.out.println(Spx.getInstance().getIndex() );
-                System.out.println(Spx.getInstance().getIndexBid() );
-                System.out.println(Spx.getInstance().getIndexAsk() );
-
                 // DDE
                 read( );
 
@@ -61,7 +54,6 @@ public class DDEReader extends MyThread implements Runnable {
 
     private void read() throws DDEException {
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            System.out.println("For loop " );
             if ( client.getApi() == ApiEnum.DDE ) {
                 updateData( ( INDEX_CLIENT_OBJECT ) client );
             }
@@ -80,5 +72,12 @@ public class DDEReader extends MyThread implements Runnable {
         client.setIndex( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND ) ) ) );
         client.setIndexBid( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND_BID ) ) ) );
         client.setIndexAsk( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND_ASK ) ) ) );
+
+        // Ticker
+        client.setOpen( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.OPEN ) ) ) );
+        client.setHigh( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.HIGH ) ) ) );
+        client.setLow( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.LOW ) ) ) );
+        client.setBase( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.BASE ) ) ) );
+
     }
 }

@@ -28,9 +28,6 @@ import java.awt.event.MouseEvent;
 
 public class IndexPanel extends JPanel implements IMyPanel {
 
-    // Url
-    String url = "";
-
     // Ticker
     MyGuiComps.MyPanel ticker;
     MyGuiComps.MyTextField openField;
@@ -82,8 +79,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
     Options optionsMonth;
     Options optionsQuarter;
     Options mainOptions;
-
-    int listSleep = 1000;
 
     private Updater updater;
 
@@ -352,7 +347,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     public class Updater extends MyThread implements Runnable {
 
-
         long mySleep = 0;
 
         public Updater( BASE_CLIENT_OBJECT client ) {
@@ -386,7 +380,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         }
 
-
         public void close() {
             setRun( false );
         }
@@ -401,7 +394,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
         // Charts menu
         JMenu charts = new JMenu( "Charts" );
 
-
         // Setting
         JMenuItem settingWindow = new JMenuItem("Setting");
         settingWindow.addActionListener(new ActionListener() {
@@ -411,15 +403,12 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         });
 
-
         JMenuItem indexRacesChart = new JMenuItem( "Index races" );
         indexRacesChart.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-
                 INDEX_RACES_CHART chart = new INDEX_RACES_CHART( client );
                 chart.createChart( );
-
             }
         } );
 
@@ -427,10 +416,8 @@ public class IndexPanel extends JPanel implements IMyPanel {
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-
                 CONTRACT_IND_CHART_LIVE chart = new CONTRACT_IND_CHART_LIVE( client );
                 chart.createChart( );
-
             }
         } );
 
@@ -438,10 +425,8 @@ public class IndexPanel extends JPanel implements IMyPanel {
         quarterContractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-
                 QUARTER_CONTRACT_IND_CHART_LIVE chart = new QUARTER_CONTRACT_IND_CHART_LIVE( client );
                 chart.createChart( );
-
             }
         } );
 

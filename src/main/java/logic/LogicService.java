@@ -4,6 +4,7 @@ import gui.index.IndexPanel;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+import service.ServiceEnum;
 
 public class LogicService extends MyBaseService {
 
@@ -36,6 +37,7 @@ public class LogicService extends MyBaseService {
         this.options = options;
         this.margin = client.getRacesMargin( );
         this.panel = panel;
+
     }
 
 
@@ -47,11 +49,6 @@ public class LogicService extends MyBaseService {
     @Override
     public int getSleep() {
         return 200;
-    }
-
-    @Override
-    public int getType() {
-        return MyBaseService.LOGIC;
     }
 
     @Override

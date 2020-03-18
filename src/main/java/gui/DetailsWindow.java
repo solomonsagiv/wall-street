@@ -32,16 +32,15 @@ public class DetailsWindow {
      */
     public DetailsWindow( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.options = client.getOptionsHandler( ).getMainOptions( );
+        this.options = client.getOptionsHandler().getMainOptions();
 
-        onStartUp( );
+        onStartUp();
 
-        initialize( );
+        initialize();
 
         // Start Runner thread
-        startRunner( );
+        startRunner();
     }
-
     /**
      * Launch the application.
      */
@@ -59,9 +58,7 @@ public class DetailsWindow {
     }
 
     private void onStartUp() {
-
         optionsTypes = new String[ client.getOptionsHandler( ).getOptionsList( ).size( ) ];
-
         int i = 0;
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
             optionsTypes[ i ] = options.getType( ).toString();
@@ -75,7 +72,6 @@ public class DetailsWindow {
         }
         runner.start( );
     }
-
 
     public void closeRunner() {
         if ( runner != null ) {
@@ -225,7 +221,6 @@ public class DetailsWindow {
 
         private ArrayList< String > getToStringList() {
             ArrayList< String > list = new ArrayList<>( );
-
             list.add( "Started: " + client.isStarted( ) );
             list.add( "Contract: " + options.getContract() );
             list.add( "Index: " + client.getIndex( ) );

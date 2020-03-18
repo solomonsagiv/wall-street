@@ -3,6 +3,7 @@ package lists;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+import service.ServiceEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,8 @@ public class ListsService extends MyBaseService {
     }
 
     @Override
-    public int getType() {
-        return MyBaseService.REGULAR_LISTS;
+    public ServiceEnum getType() {
+        return ServiceEnum.REGULAR_LISTS;
     }
 
     private void insert() {
@@ -56,7 +57,6 @@ public class ListsService extends MyBaseService {
             options.getConBidList().add( options.getContractBid() );
             options.getConAskList().add( options.getContractAsk() );
         }
-
 
     }
 }

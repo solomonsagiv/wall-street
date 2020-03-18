@@ -110,7 +110,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setTwsHandler( twsHandler );
     }
 
-
     @Override
     public void initOptionsHandler() throws NullPointerException {
 
@@ -119,7 +118,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 2000, this, OptionsEnum.MONTH, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH ), monthDDeCells );
 
         // Fut Quarter
-        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R5C2", "R21C1", "R5C3" );
+        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R5C3" );
         IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ), quarterDDeCells );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
@@ -190,6 +189,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
         ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
         ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
+
+        ddeCells.addCell( DDECellsEnum.OPEN, "R10C4" );
+        ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
+        ddeCells.addCell( DDECellsEnum.LOW, "R10C2" );
+        ddeCells.addCell( DDECellsEnum.BASE, "R8C5" );
 
         setDdeCells( ddeCells );
     }

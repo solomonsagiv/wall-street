@@ -3,6 +3,7 @@ package OPs;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+import service.ServiceEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,8 +89,8 @@ public class OpAvgMoveService extends MyBaseService {
     }
 
     @Override
-    public int getType() {
-        return MyBaseService.OP_AVG_MOVE;
+    public ServiceEnum getType() {
+        return ServiceEnum.OP_AVG_MOVE;
     }
 
     private double oposite(double d) {

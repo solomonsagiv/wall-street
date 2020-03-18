@@ -4,6 +4,7 @@ import api.Manifest;
 import dataBase.mySql.myTables.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+import service.ServiceEnum;
 
 //MySql class
 public class MySqlService extends MyBaseService {
@@ -55,8 +56,8 @@ public class MySqlService extends MyBaseService {
     }
 
     @Override
-    public int getType() {
-        return MyBaseService.MYSQL_RUNNER;
+    public ServiceEnum getType() {
+        return ServiceEnum.MYSQL_RUNNER;
     }
 }
 

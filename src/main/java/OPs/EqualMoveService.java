@@ -3,6 +3,7 @@ package OPs;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+import service.ServiceEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +94,8 @@ public class EqualMoveService extends MyBaseService {
     }
 
     @Override
-    public int getType() {
-        return MyBaseService.EQUAL_MOVE;
+    public ServiceEnum getType() {
+        return ServiceEnum.EQUAL_MOVE;
     }
 
     private double oposite( double d ) {

@@ -122,6 +122,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
+
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
