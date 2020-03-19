@@ -90,12 +90,12 @@ public class DetailsWindow {
                 runner.close( );
             }
         } );
-        frame.setBounds( 100, 100, 830, 454 );
+        frame.setBounds( 100, 100, 900, 454 );
         frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         frame.getContentPane( ).setLayout( null );
 
         optionsCombo = new JComboBox( optionsTypes );
-        optionsCombo.setBounds( 680, 50, 120, 30 );
+        optionsCombo.setBounds( 750, 50, 120, 30 );
         optionsCombo.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
@@ -120,7 +120,7 @@ public class DetailsWindow {
 
         JPanel panel = new JPanel( );
         panel.setBackground( new Color( 255, 255, 255 ) );
-        panel.setBounds( 0, 0, 800, 415 );
+        panel.setBounds( 0, 0, 900, 415 );
         frame.getContentPane( ).add( panel );
         panel.setLayout( null );
         panel.add( optionsCombo );
@@ -128,7 +128,7 @@ public class DetailsWindow {
         JPanel panel_1 = new JPanel( );
         panel_1.setBorder( null );
         panel_1.setBackground( SystemColor.inactiveCaption );
-        panel_1.setBounds( 0, 53, 214, 351 );
+        panel_1.setBounds( 0, 53, 300, 351 );
         panel.add( panel_1 );
         panel_1.setLayout( null );
 
@@ -136,7 +136,7 @@ public class DetailsWindow {
         textArea.setBackground( Color.WHITE );
         textArea.setFont( new Font( "Dubai Medium", Font.PLAIN, 14 ) );
         textArea.setBorder( new EmptyBorder( 7, 7, 7, 7 ) );
-        textArea.setBounds( 0, 0, 4, 15 );
+        textArea.setBounds( 0, 0, 6, 15 );
 
         JScrollPane scrollPane = new JScrollPane( textArea );
         scrollPane.setBorder( null );
@@ -151,14 +151,14 @@ public class DetailsWindow {
         JSeparator separator = new JSeparator( );
         separator.setForeground( Color.BLACK );
         separator.setBackground( Color.BLACK );
-        separator.setBounds( 10, 42, 191, 11 );
+        separator.setBounds( 10, 42, 230, 11 );
         panel.add( separator );
 
         JPanel panel_2 = new JPanel( );
         panel_2.setLayout( null );
         panel_2.setBorder( null );
         panel_2.setBackground( SystemColor.inactiveCaption );
-        panel_2.setBounds( 250, 53, 406, 351 );
+        panel_2.setBounds( 300, 53, 406, 351 );
         panel.add( panel_2 );
 
         optionsArea = new JTextArea( );
@@ -175,12 +175,12 @@ public class DetailsWindow {
         JSeparator separator_1 = new JSeparator( );
         separator_1.setForeground( Color.BLACK );
         separator_1.setBackground( Color.BLACK );
-        separator_1.setBounds( 257, 42, 389, 11 );
+        separator_1.setBounds( 300, 42, 430, 11 );
         panel.add( separator_1 );
 
         JLabel lblOptions = new JLabel( "Options" );
         lblOptions.setFont( new Font( "Dubai Medium", Font.PLAIN, 16 ) );
-        lblOptions.setBounds( 257, 11, 128, 20 );
+        lblOptions.setBounds( 300, 11, 128, 20 );
         panel.add( lblOptions );
 
     }

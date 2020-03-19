@@ -3,6 +3,7 @@ package gui.index;
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
+import charts.ROLL_CHART;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -412,6 +413,15 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
+        JMenuItem rollChart = new JMenuItem( "Month & Quarter AVG" );
+        rollChart.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                ROLL_CHART roll_chart = new ROLL_CHART( client );
+                roll_chart.createChart();
+            }
+        } );
+
         JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
@@ -478,8 +488,9 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         export.add( exportSumLine );
 
-        charts.add( quarterContractIndexRealTime );
         charts.add( contractIndexRealTime );
+        charts.add( quarterContractIndexRealTime );
+        charts.add( rollChart );
         charts.add( indexRacesChart );
 
         menu.add( details );

@@ -2,27 +2,25 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.TwsHandler;
-import dataBase.mySql.myTables.MyDayTable;
-import dataBase.mySql.myTables.MySumTable;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 
-public class Apple extends STOCK_OBJECT {
+public class Vxx extends STOCK_OBJECT {
 
-    static Apple client = null;
+    static Vxx client = null;
 
     // Constructor
-    public Apple() {
+    public Vxx() {
         super( );
     }
 
     // Get instance
-    public static Apple getInstance() {
+    public static Vxx getInstance() {
         if ( client == null ) {
-            client = new Apple( );
+            client = new Vxx( );
         }
         return client;
     }
@@ -34,8 +32,8 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initIds() {
-        setBaseId( 30000 );
-        setDbId( 4 );
+        setBaseId( 40000 );
+        setDbId( 5 );
     }
 
     @Override
@@ -43,9 +41,9 @@ public class Apple extends STOCK_OBJECT {
         TwsHandler twsData = new TwsHandler( );
 
         MyContract indexContract = new MyContract( getBaseId( ) + 1, TwsContractsEnum.INDEX );
-        indexContract.symbol( "AAPL" );
+        indexContract.symbol( "VXX" );
         indexContract.secType( "STK" );
-        indexContract.primaryExch( "NASDAQ" );
+        indexContract.primaryExch( "BATS" );
         indexContract.currency( "USD" );
         indexContract.exchange( "SMART" );
         twsData.addContract( indexContract );
@@ -54,21 +52,21 @@ public class Apple extends STOCK_OBJECT {
         optionsMonthContract.secType( "OPT" );
         optionsMonthContract.currency( "USD" );
         optionsMonthContract.exchange( "SMART" );
-        optionsMonthContract.tradingClass( "AAPL" );
+        optionsMonthContract.tradingClass( "VXX" );
         optionsMonthContract.multiplier( "100" );
-        optionsMonthContract.symbol( "AAPL" );
+        optionsMonthContract.symbol( "VXX" );
         optionsMonthContract.includeExpired( true );
 
         twsData.addContract( optionsMonthContract );
 
         MyContract optionsQuarterContract = new MyContract( getBaseId( ) + 3000, TwsContractsEnum.OPT_QUARTER );
-        optionsQuarterContract.secType( "OPT" );
-        optionsQuarterContract.currency( "USD" );
-        optionsQuarterContract.exchange( "SMART" );
-        optionsQuarterContract.tradingClass( "AAPL" );
-        optionsQuarterContract.multiplier( "100" );
-        optionsQuarterContract.symbol( "AAPL" );
-        optionsQuarterContract.includeExpired( true );
+        optionsMonthContract.secType( "OPT" );
+        optionsMonthContract.currency( "USD" );
+        optionsMonthContract.exchange( "SMART" );
+        optionsMonthContract.tradingClass( "VXX" );
+        optionsMonthContract.multiplier( "100" );
+        optionsMonthContract.symbol( "VXX" );
+        optionsMonthContract.includeExpired( true );
 
         twsData.addContract( optionsQuarterContract );
 
@@ -77,7 +75,7 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initName() {
-        setName( "apple" );
+        setName( "Vxx" );
     }
 
     @Override

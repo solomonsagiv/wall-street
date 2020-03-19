@@ -142,6 +142,22 @@ public abstract class Options {
         }
     }
 
+    public void removeStrike( double strikeToRemove ) {
+
+        for ( Strike strike: getStrikes()) {
+            if ( strikeToRemove == strike.getStrike() ) {
+                getStrikes().remove( strike );
+            }
+        }
+
+        for ( Map.Entry< Integer, Option > entry : optionsMap.entrySet()) {
+            Option option = entry.getValue();
+            if ( strikeToRemove == option.getStrike() ) {
+                optionsMap.remove( option );
+            }
+        }
+
+    }
 
     public Option getOption( String name ) {
 
@@ -383,18 +399,6 @@ public abstract class Options {
         ArrayList< Double > list = new ArrayList<>( );
         strikes.forEach( strike -> list.add( strike.getStrike( ) ) );
         return list;
-    }
-
-    // Remove strike from strikes arr by strike price (double)
-    public void removeStrike( double strike ) {
-        int indexToRemove = 0;
-
-        for ( int i = 0; i < strikes.size( ); i++ ) {
-            if ( strikes.get( i ).getStrike( ) == strike ) {
-                indexToRemove = i;
-            }
-        }
-        strikes.remove( indexToRemove );
     }
 
     // Remove strike from strikes arr by strike class
@@ -956,5 +960,9 @@ public abstract class Options {
 
     public void setOptionsDDeCells( OptionsDDeCells optionsDDeCells ) {
         this.optionsDDeCells = optionsDDeCells;
+    }
+
+    public HashMap< Integer, Option > getOptionsMap() {
+        return optionsMap;
     }
 }

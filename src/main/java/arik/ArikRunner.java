@@ -87,7 +87,7 @@ public class ArikRunner extends Thread {
                             String user_text = update.message( ).text( );
                             System.out.println( user_text );
 
-                            arik.sendMessage( update, update.message().from().firstName() + " \n" + update.message().from().id(), KeyBoards.main() );
+                            arik.sendMessage( update, update.message( ).from( ).firstName( ) + " \n" + update.message( ).from( ).id( ), KeyBoards.main( ) );
 
                         } catch ( Exception e ) {
                             arik.sendMessage( update, e.getMessage( ), null );

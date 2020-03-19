@@ -9,6 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Vxx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +49,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "APPLE":
                         new StockWindow( "Apple", Apple.getInstance( ) );
                         break;
+                    case "VXX":
+                        new StockWindow( "Vxx", Vxx.getInstance( ) );
+                        break;
                     default:
                         break;
                 }
@@ -78,7 +82,6 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
         add( clientsCombo );
 
     }
-
 
     private void initCombo() {
         Set< BASE_CLIENT_OBJECT > clients = LocalHandler.clients;

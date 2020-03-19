@@ -15,22 +15,26 @@ import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
 import tws.TwsContractsEnum;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
 public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
-    public STOCK_OBJECT() {}
+    public STOCK_OBJECT() {
+    }
 
     @Override
     public void initOptionsHandler() throws Exception {
         // Month
         MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
+//        monthContract.lastTradeDateOrContractMonth( "20200417" );
         StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.MONTH, monthContract );
 
         // Quarter
         MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER );
+//        quarterContract.lastTradeDateOrContractMonth( "20200618" );
         StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER, quarterContract );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {

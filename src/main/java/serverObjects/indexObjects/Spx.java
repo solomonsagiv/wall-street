@@ -153,17 +153,17 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initStartOfIndexTrading() {
-        setStartOfIndexTrading( LocalTime.of( 16, 30, 0 ) );
+        setStartOfIndexTrading( LocalTime.of( 15, 30, 0 ) );
     }
 
     @Override
     public void initEndOfIndexTrading() {
-        setEndOfIndexTrading( LocalTime.of( 23, 0, 0 ) );
+        setEndOfIndexTrading( LocalTime.of( 22, 0, 0 ) );
     }
 
     @Override
     public void initEndOfFutureTrading() {
-        setEndFutureTrading( LocalTime.of( 23, 15, 0 ) );
+        setEndFutureTrading( LocalTime.of( 22, 15, 0 ) );
     }
 
     @Override

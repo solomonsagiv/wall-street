@@ -8,6 +8,7 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Vxx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +33,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
         LocalHandler.clients.add( Spx.getInstance( ) );
-        LocalHandler.clients.add( Apple.getInstance( ) );
+//        LocalHandler.clients.add( Apple.getInstance( ) );
+        LocalHandler.clients.add( Vxx.getInstance() );
     }
 
     @Override

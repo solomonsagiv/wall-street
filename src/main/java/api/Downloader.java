@@ -2,9 +2,13 @@ package api;
 
 import arik.Arik;
 import com.ib.client.*;
+import locals.LocalHandler;
 import logger.MyLogger;
+import options.Option;
 import options.Options;
+import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Vxx;
 import tws.TwsContractsEnum;
 
 import javax.swing.*;
@@ -29,11 +33,14 @@ public class Downloader extends Thread implements EWrapper {
     MyLogger logger;
     int NextOrderId = -1;
     Apple apple = Apple.getInstance( );
+    Vxx vxx = Vxx.getInstance();
     Options appleOptions;
+    Options vxxOptions;
 
     // Constructor
     private Downloader() {
         appleOptions = apple.getOptionsHandler( ).getMainOptions( );
+        vxxOptions = vxx.getOptionsHandler().getMainOptions();
         logger = MyLogger.getInstance( );
         m_signal = new EJavaSignal( );
         client = new EClientSocket( this, m_signal );
@@ -114,8 +121,20 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void error( int id, int errorCode, String errorMsg ) {
+
         System.out.println( EWrapperMsgGenerator.error( id, errorCode, errorMsg ) );
         logger.getLogger( ).info( EWrapperMsgGenerator.error( id, errorCode, errorMsg ) );
+
+        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+            for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+                try {
+                    Option option = options.getOptionsMap( ).get( id );
+                    options.removeStrike( option.getStrike() );
+                    System.out.println("Removed: " + client.getName() + " id: " + id + " Strike: " + option.getStrike() );
+                } catch ( Exception e ) {
+                }
+            }
+        }
     }
 
     @Override
@@ -138,7 +157,7 @@ public class Downloader extends Thread implements EWrapper {
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = apple.getTwsHandler().getMyContract( TwsContractsEnum.INDEX ).getMyId();
+        index = apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
 
         if ( tickerId == index && price > 0 ) {
@@ -183,6 +202,54 @@ public class Downloader extends Thread implements EWrapper {
             // Ask
             if ( field == 2 ) {
                 appleOptions.getOptionById( tickerId ).setAsk( price );
+            }
+        }
+
+        // ---------- Vxx ---------- //
+        index = vxx.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+
+        if ( tickerId == index && price > 0 ) {
+            // Last
+            if ( field == 4 ) {
+                vxx.setIndex( price );
+            }
+            // Bid
+            if ( field == 1 ) {
+                vxx.setIndexBid( price );
+            }
+            // Ask
+            if ( field == 2 ) {
+                vxx.setIndexAsk( price );
+            }
+
+            // Bid
+            if ( field == 6 ) {
+                vxx.setHigh( price );
+            }
+            // Ask
+            if ( field == 7 ) {
+                vxx.setLow( price );
+            }
+
+            // Base
+            if ( field == 9 ) {
+                vxx.setBase( price );
+            }
+        }
+
+        // Apple options
+        minID = vxxOptions.getMinId( );
+        maxID = vxxOptions.getMaxId( );
+
+        // Call
+        if ( tickerId >= minID && tickerId <= maxID && price > 0 ) {
+            // Bid
+            if ( field == 1 ) {
+                vxxOptions.getOptionById( tickerId ).setBid( price );
+            }
+            // Ask
+            if ( field == 2 ) {
+                vxxOptions.getOptionById( tickerId ).setAsk( price );
             }
         }
     }
