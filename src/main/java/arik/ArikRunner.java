@@ -1,42 +1,34 @@
 package arik;
 
+import arik.cases.ChooseStockCase;
+import arik.cases.DontKnowCaes;
+import arik.cases.DataCase;
 import arik.locals.Emojis;
-import arik.locals.KeyBoards;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ArikRunner extends Thread {
 
     boolean run = true;
-
     int[] allowed = { 365117561, 948009529, 513323078 };
-
     int sagiv_id = 365117561;
-
     Arik arik;
-    boolean openOrders = false;
 
-    int alert_lvl = 0;
-    int kill_alert_lvl = 0;
 
-    String current_url;
-
-    INDEX_CLIENT_OBJECT stockObject;
+    CasesHandler casesHandler;
 
     // Constructor
     public ArikRunner( Arik arik ) {
         this.arik = arik;
-    }
+        casesHandler = new CasesHandler( );
 
-    public static void main( String[] args ) {
-        // Arik the bot
-//        Arik bot = Arik.getInstance( );
-//        ArikRunner arik = new ArikRunner( bot );
-//        arik.start( );
+        casesHandler.addCase( new DataCase() );
+        casesHandler.addCase( new ChooseStockCase() );
     }
 
     // Run
@@ -51,6 +43,9 @@ public class ArikRunner extends Thread {
     public void close() {
         run = false;
     }
+
+
+    public static ArikCase statusCase;
 
     // Loop
     private void loop() throws InterruptedException {
@@ -84,10 +79,12 @@ public class ArikRunner extends Thread {
                     if ( is_allowed( allowed, update.message( ).from( ).id( ) ) ) {
                         try {
 
+                            // Get text from user
                             String user_text = update.message( ).text( );
                             System.out.println( user_text );
 
-                            arik.sendMessage( update, update.message( ).from( ).firstName( ) + " \n" + update.message( ).from( ).id( ), KeyBoards.main( ) );
+                            // Run cases
+                            runCases( update );
 
                         } catch ( Exception e ) {
                             arik.sendMessage( update, e.getMessage( ), null );
@@ -107,6 +104,32 @@ public class ArikRunner extends Thread {
                 }
             }
         }
+    }
+
+    public void runCases( Update update ) {
+
+        ExecutorService executorService = Executors.newFixedThreadPool( 10 );
+
+        for ( ArikCase arikCase : casesHandler.getCases( ) ) {
+
+            if ( statusCase == arikCase ) {
+                arikCase.doCase( update );
+                return;
+            }
+
+            if ( arikCase.getMyMessage( ).toLowerCase( ).equals( update.message( ).text( ) ) ) {
+                executorService.submit( new Runnable( ) {
+                    @Override
+                    public void run() {
+                        arikCase.doCase( update );
+                        statusCase = arikCase;
+                    }
+                } );
+                return;
+            }
+
+        }
+        new DontKnowCaes().doCase( update );
     }
 
     // Is allowed
