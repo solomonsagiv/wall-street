@@ -52,6 +52,9 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         setOptionsHandler( optionsHandler );
     }
 
+
+
+
     @Override
     public void setIndex( double index ) {
         if ( this.index == 0 ) {

@@ -6,7 +6,6 @@ import locals.L;
 import locals.Themes;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;

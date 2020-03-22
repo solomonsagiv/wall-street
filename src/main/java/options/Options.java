@@ -35,12 +35,9 @@ public abstract class Options {
     protected int maxId = 0;
     protected Contract twsContract;
     protected boolean gotData = false;
-
     private double contract = 0;
-
     protected double contractBid = 0;
     protected double contractAsk = 0;
-
     protected double currStrike = 0;
 
     Set<Integer> dates = new HashSet<>();
@@ -268,6 +265,7 @@ public abstract class Options {
             // Update contract bid, ask
             setContractBid( currentBidMin );
             setContractAsk( currentAskMax );
+
 
             if ( currentBidMin > bidMin && bidMin != 0 ) {
                 setContractBidAskCounter( getContractBidAskCounter( ) + 1 );
@@ -910,17 +908,41 @@ public abstract class Options {
         return contractBid;
     }
 
+    private double conAskForCheck = 0;
     public void setContractBid( double contractBid ) {
+
+        // If increment state
+        if ( contractBid > this.contractBid && conAskForCheck == this.contractAsk ) {
+            contractBidAskCounter++;
+        }
         this.contractBid = contractBid;
+
+        // Ask for bid change state
+        conBidForCheck = contractBid;
+        conAskForCheck = this.contractAsk;
+
     }
 
     public double getContractAsk() {
         return contractAsk;
     }
 
+    private double conBidForCheck = 0;
     public void setContractAsk( double contractAsk ) {
+
+        // If increment state
+        if ( contractAsk > this.contractAsk && conBidForCheck == this.contractBid ) {
+            contractBidAskCounter--;
+        }
         this.contractAsk = contractAsk;
+
+        // Ask for bid change state
+        conAskForCheck = contractAsk;
+        conBidForCheck = this.contractBid;
+
     }
+
+
 
     public List< Double > getOpList() {
         return opList;

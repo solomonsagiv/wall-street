@@ -3,7 +3,6 @@ package gui.stock;
 import charts.CONTRACT_IND_CHART_LIVE;
 import charts.INDEX_RACES_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
-import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -342,8 +341,6 @@ public class StockPanel extends JPanel implements IMyPanel {
 
     public class Updater extends MyThread implements Runnable {
 
-        long mySleep = 0;
-
         public Updater( BASE_CLIENT_OBJECT client ) {
             super( client );
             setName( "UPDATER" );
@@ -360,11 +357,10 @@ public class StockPanel extends JPanel implements IMyPanel {
             while ( isRun( ) ) {
                 try {
                     // Sleep
-                    Thread.sleep( 1000 );
+                    Thread.sleep( 500 );
 
                     updateText( );
 
-                    mySleep += 1000;
                 } catch ( InterruptedException e ) {
                     System.out.println(isRun() );
                     e.printStackTrace( );

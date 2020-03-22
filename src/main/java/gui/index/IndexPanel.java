@@ -348,8 +348,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     public class Updater extends MyThread implements Runnable {
 
-        long mySleep = 0;
-
         public Updater( BASE_CLIENT_OBJECT client ) {
             super( client );
 
@@ -370,11 +368,10 @@ public class IndexPanel extends JPanel implements IMyPanel {
                 try {
 
                     // Sleep
-                    Thread.sleep( 1000 );
+                    Thread.sleep( 500 );
 
                     updateText( );
 
-                    mySleep += 1000;
                 } catch ( InterruptedException e ) {
                     break;
                 }

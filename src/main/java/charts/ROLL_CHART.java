@@ -6,6 +6,7 @@ import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,6 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 public class ROLL_CHART implements IChartCreator {
+
+    public static void main(String[] args) {
+        ROLL_CHART roll_chart = new ROLL_CHART(Spx.getInstance());
+        roll_chart.createChart();
+    }
 
     BASE_CLIENT_OBJECT client;
     MySingleFreeChart[] singleFreeCharts;
@@ -48,6 +54,8 @@ public class ROLL_CHART implements IChartCreator {
         map.put( "quarter", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getOpAvgList() );
 
         Marker marker = new ValueMarker(0);
+        marker.setStroke(new BasicStroke(2f));
+        marker.setPaint(Color.BLACK);
 
         // Create chart
         chart = new MySingleFreeChart( client, series, colors, 1, map, 0, false, 0, 2.5f, true, true, true, marker );
