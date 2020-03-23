@@ -15,6 +15,7 @@ import options.OptionsEnum;
 import options.OptionsWindow;
 import options.fullOptions.FullOptionsWindow;
 import options.fullOptions.PositionsWindow;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import setting.SettingWindow;
@@ -314,9 +315,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         indRacesField.colorForge( client.getIndexSum( ) );
 
         // Roll
-        double month = optionsMonth.getContract( );
-        double quarter = optionsQuarter.getContract( );
-        rollField.colorForge( quarter - month, L.format100( ) );
+        rollField.colorForge( client.getRollHandler().getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll(), L.format100( ) );
     }
 
     @Override

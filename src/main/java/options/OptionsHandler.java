@@ -89,7 +89,6 @@ public abstract class OptionsHandler implements IOptionsHandler {
 
     }
 
-
     public JSONObject getOptionsProps() {
 
         JSONObject json = new JSONObject( );

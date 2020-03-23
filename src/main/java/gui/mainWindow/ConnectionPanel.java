@@ -1,6 +1,7 @@
 package gui.mainWindow;
 
 import DDE.DDEReader;
+import DDE.DDEWriter;
 import api.Downloader;
 import api.Manifest;
 import gui.LogWindow;
@@ -26,6 +27,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyTextField portField = new MyGuiComps.MyTextField( );
 
     DDEReader ddeReader;
+    DDEWriter ddeWriter;
     Downloader downloader;
 
     // Constructor
@@ -99,6 +101,9 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         try {
             ddeReader = new DDEReader( );
             ddeReader.getHandler( ).start( );
+
+            ddeWriter = new DDEWriter(  );
+            ddeWriter.getHandler( ).start( );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

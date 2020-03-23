@@ -1,12 +1,16 @@
 package lists;
 
 import options.Options;
+import options.OptionsEnum;
+import roll.Roll;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 // Regular list updater
 public class ListsService extends MyBaseService {
@@ -42,7 +46,6 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        // TODO
         // Client lists
         client.getIndexList().add( client.getIndex() );
         client.getIndexBidList().add( client.getIndexBid() );
@@ -56,6 +59,12 @@ public class ListsService extends MyBaseService {
             options.getConList().add( options.getContract() );
             options.getConBidList().add( options.getContractBid() );
             options.getConAskList().add( options.getContractAsk() );
+        }
+
+        // Roll lists
+        for ( Map.Entry< RollEnum, Roll > entry : getClient().getRollHandler().getRollMap().entrySet() ) {
+            Roll roll = entry.getValue();
+            roll.addRoll();
         }
 
     }

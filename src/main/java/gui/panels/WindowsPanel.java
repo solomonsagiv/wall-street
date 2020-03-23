@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class WindowsPanel extends MyGuiComps.MyPanel {
@@ -84,7 +85,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
     }
 
     private void initCombo() {
-        Set< BASE_CLIENT_OBJECT > clients = LocalHandler.clients;
+        Set<BASE_CLIENT_OBJECT>clients = LocalHandler.clients;
         String[] clientNames = new String[ LocalHandler.clients.size( ) ];
         int i = 0;
         for ( BASE_CLIENT_OBJECT client : clients ) {

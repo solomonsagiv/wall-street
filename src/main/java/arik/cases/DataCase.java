@@ -23,7 +23,7 @@ public class DataCase extends ArikCase {
     public DataCase() {
         setKeyboard( keyboard );
 
-        caseMaps.put( "status", new StatusCase() );
+//        caseMaps.put( "status", new StatusCase() );
         caseMaps.put( "exp", new ExpCase() );
         caseMaps.put( "yesterday", new YesterDayCase() );
 
@@ -35,9 +35,6 @@ public class DataCase extends ArikCase {
         for ( Map.Entry<String, ArikCase> entry: caseMaps.entrySet()) {
             ArikCase arikCase = entry.getValue();
 
-            if ( arikCase ) {
-
-            }
 
         }
 

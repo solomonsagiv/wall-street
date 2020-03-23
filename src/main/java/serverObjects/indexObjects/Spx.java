@@ -8,6 +8,9 @@ import options.IndexOptions;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
 import options.OptionsHandler;
+import roll.Roll;
+import roll.RollEnum;
+import roll.RollHandler;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
@@ -21,6 +24,15 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     // Constructor
     public Spx() {
         super( );
+        roll();
+    }
+
+    private void roll() {
+        rollHandler = new RollHandler( this );
+
+        Roll quarter_quarterFar = new Roll( getOptionsHandler().getOptions( OptionsEnum.QUARTER ), getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ) );
+        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
+
     }
 
     // Get instance
@@ -113,24 +125,24 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() throws NullPointerException {
 
-        // Fut month
-        OptionsDDeCells monthDDeCells = new OptionsDDeCells( "R5C3", "R5C2", "R5C4" );
-        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 2000, this, OptionsEnum.MONTH, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH ), monthDDeCells );
-
         // Fut Quarter
-        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R5C3" );
+        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R5C3", "R5C2", "R5C4" );
         IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ), quarterDDeCells );
+
+        // Fut Quarter far
+        OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R5C3" );
+        IndexOptions quarterFarOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR ), quarterFarDDeCells );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
             public void initOptions() {
-                addOptions( monthOptions );
                 addOptions( quarterOptions );
+                addOptions( quarterFarOptions );
             }
 
             @Override
             public void initMainOptions() {
-                setMainOptions( monthOptions );
+                setMainOptions( quarterOptions );
             }
         };
         setOptionsHandler( optionsHandler );

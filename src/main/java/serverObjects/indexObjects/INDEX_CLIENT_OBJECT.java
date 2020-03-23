@@ -282,7 +282,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     }
 
-
                     @Override
                     public Integer getResetObject() {
                         return 0;

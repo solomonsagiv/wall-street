@@ -14,6 +14,7 @@ import locals.L;
 import locals.LocalHandler;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
+import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
 import javax.swing.table.DefaultTableModel;
@@ -53,6 +54,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Lists map
     private String name = null;
     private BackRunner backRunner;
+
+    // Roll
+    protected RollHandler rollHandler;
 
     // DB
     private int dbId = 0;
@@ -148,9 +152,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         // To start
         if (isLoadFromDb()) {
             myServiceHandler.getHandler().start();
-            setStarted(true);
+            setStarted( true );
         }
-
     }
 
     public LocalDate convertStringToDate(String dateString) {
@@ -669,6 +672,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public int getIndexBidAskCounter() {
         return indexBidAskCounter;
+    }
+
+    public void setRollHandler( RollHandler rollHandler ) {
+        this.rollHandler = rollHandler;
+    }
+
+    public RollHandler getRollHandler() {
+        if ( rollHandler == null ) throw new NullPointerException( getName() + " Roll inn't set" );
+        return rollHandler;
     }
 
     @Override

@@ -117,16 +117,16 @@ public class ArikRunner extends Thread {
                 return;
             }
 
-            if ( arikCase.getMyMessage( ).toLowerCase( ).equals( update.message( ).text( ) ) ) {
-                executorService.submit( new Runnable( ) {
-                    @Override
-                    public void run() {
-                        arikCase.doCase( update );
-                        statusCase = arikCase;
-                    }
-                } );
-                return;
-            }
+//            if ( arikCase.getMyMessage( ).toLowerCase( ).equals( update.message( ).text( ) ) ) {
+//                executorService.submit( new Runnable( ) {
+//                    @Override
+//                    public void run() {
+//                        arikCase.doCase( update );
+//                        statusCase = arikCase;
+//                    }
+//                } );
+//                return;
+//            }
 
         }
         new DontKnowCaes().doCase( update );
