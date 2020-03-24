@@ -42,16 +42,16 @@ public class ROLL_CHART implements IChartCreator {
         // ---------- Index ---------- //
         // Params
         series = new XYSeries[ 2 ];
-        series[ 0 ] = new XYSeries( "month" );
-        series[ 1 ] = new XYSeries( "quarter" );
+        series[ 0 ] = new XYSeries( "quarter" );
+        series[ 1 ] = new XYSeries( "quarterFar" );
 
         colors = new Color[ 2 ];
         colors[ 0 ] = Themes.GREEN;
         colors[ 1 ] = Themes.GREEN_LIGHT;
 
         Map< String, List<Double> > map = new HashMap<>();
-        map.put( "month", client.getOptionsHandler().getOptions( OptionsEnum.MONTH ).getOpAvgList() );
         map.put( "quarter", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getOpAvgList() );
+        map.put( "quarterFar", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getOpAvgList() );
 
         Marker marker = new ValueMarker(0);
         marker.setStroke(new BasicStroke(2f));

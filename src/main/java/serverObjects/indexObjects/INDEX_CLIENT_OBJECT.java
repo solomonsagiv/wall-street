@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         MyDayTable myDayTable = new MyDayTable( this, tablesHandler.getDayName( this ) ) {
             @Override
             public void initColumns() {
+
                 addColumn( new MyColumnSql<>( this, "date", MyColumnSql.STRING ) {
                     @Override
                     public String getObject() {
@@ -91,22 +93,72 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                         return client.getOptionsHandler( ).getMainOptions( ).getContract( );
                     }
                 } );
-                addColumn( new MyColumnSql<>( this, "conMonth", MyColumnSql.DOUBLE ) {
+                addColumn( new MyColumnSql<>( this, "conQuarterFar", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
-                        return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getContract( );
+                        return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContract( );
                     }
                 } );
+
+                addColumn( new MyColumnSql<>( this, "conQuarterFarBid", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContractBid( );
+                    }
+                } );
+
+                addColumn( new MyColumnSql<>( this, "conQuarterFarAsk", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContractAsk( );
+                    }
+                } );
+
                 addColumn( new MyColumnSql<>( this, "conQuarter", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getContract( );
                     }
                 } );
+                addColumn( new MyColumnSql<>( this, "conQuarterBid", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getContractBid( );
+                    }
+                } );
+
+                addColumn( new MyColumnSql<>( this, "conQuarterAsk", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getContractAsk( );
+                    }
+                } );
+
                 addColumn( new MyColumnSql<>( this, "ind", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getIndex( );
+                    }
+                } );
+
+                addColumn( new MyColumnSql<>( this, "indBid", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getIndexBid( );
+                    }
+                } );
+
+                addColumn( new MyColumnSql<>( this, "indAsk", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getIndexAsk( );
+                    }
+                } );
+
+                addColumn( new MyColumnSql<>( this, "indBidAskCounter", MyColumnSql.INT ) {
+                    @Override
+                    public Integer getObject() {
+                        return client.getIndexBidAskCounter( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "con_up", MyColumnSql.INT ) {
@@ -279,7 +331,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( Integer object ) {
-
+                        client.setConUp( object );
                     }
 
                     @Override
@@ -361,6 +413,22 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                     @Override
                     public Double getObject() {
                         return client.getLow( );
+                    }
+                } );
+                addColumn( new MyLoadAbleColumn<Integer>( this, "indexBidAskCounter", MyColumnSql.INT ) {
+                    @Override
+                    public void setLoadedObject( Integer object ) {
+                        client.setIndexBidAskCounter( object );
+                    }
+
+                    @Override
+                    public Integer getResetObject() {
+                        return 0;
+                    }
+
+                    @Override
+                    public Integer getObject() {
+                        return client.getIndexBidAskCounter();
                     }
                 } );
                 addColumn( new MyLoadAbleColumn< String >( this, "options", MyColumnSql.STRING ) {

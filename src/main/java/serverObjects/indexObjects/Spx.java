@@ -126,11 +126,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public void initOptionsHandler() throws NullPointerException {
 
         // Fut Quarter
-        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R5C3", "R5C2", "R5C4" );
+        OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
         IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ), quarterDDeCells );
 
         // Fut Quarter far
-        OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R5C3" );
+        OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
         IndexOptions quarterFarOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR ), quarterFarDDeCells );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {

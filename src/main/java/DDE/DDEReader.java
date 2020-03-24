@@ -5,10 +5,10 @@ import com.pretty_tools.dde.client.DDEClientConversation;
 import locals.L;
 import locals.LocalHandler;
 import options.Options;
+import options.OptionsEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
 public class DDEReader extends MyThread implements Runnable {
@@ -55,7 +55,7 @@ public class DDEReader extends MyThread implements Runnable {
 
     private void read() throws DDEException {
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            if ( client.getApi() == ApiEnum.DDE ) {
+            if ( client.getApi( ) == ApiEnum.DDE ) {
                 updateData( ( INDEX_CLIENT_OBJECT ) client );
             }
         }
@@ -63,10 +63,11 @@ public class DDEReader extends MyThread implements Runnable {
 
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
 
-        for ( Options options: client.getOptionsHandler().getOptionsList() ) {
-            options.setContract( L.dbl( conversation.request( options.getOptionsDDeCells().getFut()) ) );
-            client.setFutureBid( L.dbl( conversation.request( options.getOptionsDDeCells().getFutBid()) ) );
-            client.setFutureAsk( L.dbl( conversation.request( options.getOptionsDDeCells().getFutAsk()) ) );
+        // Options
+        for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+            options.setContract( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+            options.setContractBid( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutBid( ) ) ) );
+            options.setContractAsk( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutAsk( ) ) ) );
         }
 
         // Index

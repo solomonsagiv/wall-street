@@ -45,6 +45,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                         double d = L.dbl( interestField.getText() );
                         OptionsPanel.options.setInterestWithCalc( d );
                     } catch ( Exception e ) {
+                        JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();
                     }
                 }
@@ -54,6 +55,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                         double d = L.dbl( divField.getText() );
                         OptionsPanel.options.setDevidend( d );
                     } catch ( Exception e ) {
+                        JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();
                     }
                 }
@@ -63,6 +65,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                         double d = L.dbl( daysField.getText() );
                         OptionsPanel.options.setDaysToExp( d );
                     } catch ( Exception e ) {
+                        JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();
                     }
                 }

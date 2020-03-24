@@ -5,6 +5,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.Apple;
 import setting.optionsPanel.OptionsPanel;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class SettingWindow extends MyGuiComps.MyFrame {

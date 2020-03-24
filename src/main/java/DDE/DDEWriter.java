@@ -16,7 +16,7 @@ public class DDEWriter extends MyThread implements Runnable {
 
     Spx spx = Spx.getInstance( );
 
-    String opAvgCell = "R10C2";
+    String opAvgCell = "R2C10";
     String rollCell = "R2C11";
     String indexBidAskCounterCell = "R2C12";
 
@@ -40,7 +40,7 @@ public class DDEWriter extends MyThread implements Runnable {
                 writeData( );
 
                 // Sleep
-                Thread.sleep( 2000 );
+                Thread.sleep( 4000 );
             } catch ( InterruptedException e ) {
                 close( );
             }

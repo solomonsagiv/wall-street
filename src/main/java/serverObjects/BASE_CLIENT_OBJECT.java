@@ -334,8 +334,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100(getOptionsHandler().getMainOptions().getContract()) + "\n";
-        text += "Ind races: " + getIndexSum() + "\n";
+        text += "OP avg: " + L.format100(getOptionsHandler().getMainOptions().getOpAvg()) + "\n";
+        text += "Ind bidAskCounter: " + getIndexBidAskCounter() + "\n";
         text += "Contract counter: " + getOptionsHandler().getMainOptions().getContractBidAskCounter() + "\n";
 
         return text;
@@ -672,6 +672,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public int getIndexBidAskCounter() {
         return indexBidAskCounter;
+    }
+
+    public void setIndexBidAskCounter( int indexBidAskCounter ) {
+        this.indexBidAskCounter = indexBidAskCounter;
     }
 
     public void setRollHandler( RollHandler rollHandler ) {

@@ -36,6 +36,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 client.getMyServiceHandler( ).addService( client.getMySqlService( ) );
+                startBtn.complete();
             }
         } );
 
@@ -44,6 +45,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
+                stopBtn.complete();
             }
         } );
 
@@ -53,7 +55,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 client.getTablesHandler( ).getTable( TablesEnum.STATUS ).reset( );
                 client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).reset( );
-                Arik.getInstance( ).sendMessage( Arik.sagivID, "Reset success " + Emojis.check_mark, null );
+                resetBtn.complete();
             }
         } );
 
@@ -63,6 +65,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
                 client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).update( );
+                updateBtn.complete();
             }
         } );
 
@@ -72,6 +75,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
                 client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
+                updateBtn.complete();
             }
         } );
 
@@ -80,7 +84,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 client.getTablesHandler().getTable(TablesEnum.SUM).insert();
-                Arik.getInstance( ).sendMessage( Arik.sagivID, "Sum line inserted " + Emojis.check_mark, null );
+                sumBtn.complete();
             }
         } );
 

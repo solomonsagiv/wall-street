@@ -1,18 +1,21 @@
 package setting.optionsPanel;
 
 import gui.MyGuiComps;
+import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ExecutorsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
 
-    MyGuiComps.MyLabel testLbl;
-    MyGuiComps.MyTextField testField;
+    MyGuiComps.MyLabel opAvgLbl;
+    MyGuiComps.MyTextField opAvgField;
 
     // Constructor
     public ExecutorsPanel( BASE_CLIENT_OBJECT client ) {
@@ -22,6 +25,20 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
     }
 
     private void initListeners() {
+
+        // OP Avg
+        opAvgField.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                try {
+                    double  opAvg = L.dbl( opAvgField.getText() );
+                    OptionsPanel.options.setOpAvg( opAvg );
+                } catch ( Exception e ) {
+                    JOptionPane.showMessageDialog( null, e.getMessage() );
+                }
+            }
+        } );
+
     }
 
     private void initialize() {
@@ -33,19 +50,19 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
         setBorder( titledBorder );
 
         // ----- Interest ----- //
-        testLbl = new MyGuiComps.MyLabel( "Test" );
-        testLbl.setXY( 10, 10 );
-        testLbl.setHorizontalAlignment( JLabel.LEFT );
-        testLbl.setFont( testLbl.getFont( ).deriveFont( 9f ) );
-        testLbl.setLabelFor( testLbl );
-        add( testLbl );
+        opAvgLbl = new MyGuiComps.MyLabel( "O/P Avg" );
+        opAvgLbl.setXY( 10, 10 );
+        opAvgLbl.setHorizontalAlignment( JLabel.LEFT );
+        opAvgLbl.setFont( opAvgLbl.getFont( ).deriveFont( 9f ) );
+        opAvgLbl.setLabelFor( opAvgLbl );
+        add( opAvgLbl );
 
         // Field
-        testField = new MyGuiComps.MyTextField( true );
-        testField.setXY( 10, 30 );
-        testField.setFontSize(9);
-        testField.setSize( 50, 20 );
-        add( testField );
+        opAvgField = new MyGuiComps.MyTextField( true );
+        opAvgField.setXY( 10, 30 );
+        opAvgField.setFontSize(9);
+        opAvgField.setSize( 50, 20 );
+        add( opAvgField );
 
     }
 

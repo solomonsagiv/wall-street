@@ -508,7 +508,16 @@ public abstract class Options {
         } else {
             return 0;
         }
+    }
 
+    public void setOpAvg( double opAvg ) {
+        int size = opList.size();
+
+        opList.clear();
+
+        for ( int i = 0; i < size; i++ ) {
+            opList.add( opAvg );
+        }
     }
 
     public JSONObject getProps() {

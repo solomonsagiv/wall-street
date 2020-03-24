@@ -19,6 +19,8 @@ public class TickerPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel baseLbl;
     MyGuiComps.MyTextField openField;
     MyGuiComps.MyTextField baseField;
+    MyGuiComps.MyLabel indexBidAskCounterLbl;
+    MyGuiComps.MyTextField indexBidAskCounterField;
     MyGuiComps.MyButton startBtn;
     MyGuiComps.MyButton stopBtn;
 
@@ -39,6 +41,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
                     double d = L.dbl( openField.getText() );
                     client.setOpen( d );
                 } catch ( Exception e ) {
+                    JOptionPane.showMessageDialog( null, e.getMessage() );
                     e.printStackTrace();
                 }
             }
@@ -52,10 +55,25 @@ public class TickerPanel extends MyGuiComps.MyPanel {
                     double d = L.dbl( baseField.getText() );
                     client.setBase( d );
                 } catch ( Exception e ) {
+                    JOptionPane.showMessageDialog( null, e.getMessage() );
                     e.printStackTrace();
                 }
             }
         });
+
+        // Index bid ask counter
+        indexBidAskCounterField.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                try {
+                    int counter = L.INT( baseField.getText() );
+                    client.setIndexBidAskCounter( counter );
+                } catch ( Exception e ) {
+                    JOptionPane.showMessageDialog( null, e.getMessage() );
+                    e.printStackTrace();
+                }
+            }
+        } );
 
         // Start
         startBtn.addActionListener( new ActionListener( ) {
@@ -114,6 +132,23 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         baseField.setFontSize(9);
         baseField.setSize(50, 20);
         add(baseField);
+
+        // ----- Index bid ask counter ----- //
+        // Lbl
+        indexBidAskCounterLbl = new MyGuiComps.MyLabel("Ind B/A counter");
+        indexBidAskCounterLbl.setXY(120, 10);
+        indexBidAskCounterLbl.setWidth( 100 );
+        indexBidAskCounterLbl.setHorizontalAlignment(JLabel.LEFT);
+        indexBidAskCounterLbl.setFont(indexBidAskCounterLbl.getFont().deriveFont(9f));
+        indexBidAskCounterLbl.setLabelFor(indexBidAskCounterField);
+        add(indexBidAskCounterLbl);
+
+        // Field
+        indexBidAskCounterField = new MyGuiComps.MyTextField(true);
+        indexBidAskCounterField.setXY(120, 30);
+        indexBidAskCounterField.setFontSize(9);
+        indexBidAskCounterField.setSize(70, 20);
+        add(indexBidAskCounterField);
 
         // ----- Start ----- //
         startBtn = new MyGuiComps.MyButton( "Start" );

@@ -22,7 +22,8 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton connectionBtn = new MyGuiComps.MyButton( "Connect" );
     MyGuiComps.MyButton disConnectBtn = new MyGuiComps.MyButton( "Disconnect" );
     MyGuiComps.MyButton logBtn = new MyGuiComps.MyButton( "Log" );
-    MyGuiComps.MyLabel statusLbl = new MyGuiComps.MyLabel( "Not connected" );
+    MyGuiComps.MyLabel ddeStatusLbl = new MyGuiComps.MyLabel( "DDE" );
+    MyGuiComps.MyLabel twsStatusLbl = new MyGuiComps.MyLabel( "TWS" );
     MyGuiComps.MyLabel portLbl = new MyGuiComps.MyLabel( "Port" );
     MyGuiComps.MyTextField portField = new MyGuiComps.MyTextField( );
 
@@ -57,15 +58,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     default:
                         break;
                 }
-
-                if ( Downloader.getInstance( ).isConnected( ) ) {
-                    statusLbl.setText( "Connected" );
-                    statusLbl.setForeground( Themes.GREEN );
-                }
-
-                // Log window
-                LogWindow logWindow = new LogWindow( );
-                logWindow.frame.setVisible( true );
             }
         } );
 
@@ -74,10 +66,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 ddeReader.getHandler( ).close( );
-
-                statusLbl.setText( "Disconnect" );
-                statusLbl.setForeground( Themes.RED );
-
+                ddeStatusLbl.setForeground( Themes.RED );
             }
         } );
 
@@ -104,6 +93,8 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
             ddeWriter = new DDEWriter(  );
             ddeWriter.getHandler( ).start( );
+
+            ddeStatusLbl.setForeground( Themes.GREEN );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -114,6 +105,21 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             Manifest.CLIENT_ID = L.INT( portField.getText( ) );
             downloader = Downloader.getInstance( );
             downloader.start( );
+
+            new Thread( () -> {
+                for ( int i = 0; i < 5; i++ ) {
+                    try {
+                        Thread.sleep( 1000 );
+                        if ( downloader.isConnected() ) {
+                            twsStatusLbl.setForeground( Themes.GREEN );
+                            break;
+                        }
+                    } catch ( InterruptedException e ) {
+                        e.printStackTrace( );
+                    }
+                }
+            } ).start();
+
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -177,14 +183,21 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         add( disConnectBtn );
 
         // Status lbl
-        statusLbl.setXY( disConnectBtn.getX( ) + disConnectBtn.getWidth( ) + 20, disConnectBtn.getY( ) );
-        statusLbl.setWidth( 120 );
-        statusLbl.setHorizontalAlignment( JLabel.LEFT );
-        statusLbl.setForeground( Themes.RED );
-        add( statusLbl );
+        ddeStatusLbl.setXY( disConnectBtn.getX( ) + disConnectBtn.getWidth( ) + 20, disConnectBtn.getY( ) );
+        ddeStatusLbl.setWidth( 60 );
+        ddeStatusLbl.setHorizontalAlignment( JLabel.LEFT );
+        ddeStatusLbl.setForeground( Themes.RED );
+        add( ddeStatusLbl );
+
+        // Status lbl
+        twsStatusLbl.setXY( ddeStatusLbl.getX( ) + ddeStatusLbl.getWidth( ) + 1, ddeStatusLbl.getY( ) );
+        twsStatusLbl.setWidth( 60 );
+        twsStatusLbl.setHorizontalAlignment( JLabel.LEFT );
+        twsStatusLbl.setForeground( Themes.RED );
+        add( twsStatusLbl );
 
         // Log btn
-        logBtn.setXY( statusLbl.getX( ) + statusLbl.getWidth( ) + 60, 80 );
+        logBtn.setXY( ddeStatusLbl.getX( ) + ddeStatusLbl.getWidth( ) + 60, 80 );
         logBtn.setBackground( Color.WHITE );
         logBtn.setBorder( BorderFactory.createLineBorder( Themes.BLUE_DARK.brighter( ) ) );
         logBtn.setForeground( Themes.BLUE_DARK );
