@@ -51,6 +51,7 @@ public class ListsService extends MyBaseService {
         client.getIndexBidList().add( client.getIndexBid() );
         client.getIndexAskList().add( client.getIndexAsk() );
         client.getIndexRacesList().add( ( double ) client.getIndexSum() );
+        client.getIndexBidAskCounterList().add( client.getIndexBidAskCounter() );
 
         // Options lists
         for ( Options options: client.getOptionsHandler().getOptionsList() ) {

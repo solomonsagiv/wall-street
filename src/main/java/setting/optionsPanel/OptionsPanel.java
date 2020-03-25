@@ -92,7 +92,6 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         comboBox.setForeground( Themes.GREY_VERY_LIGHT );
         comboBox.setBounds( twsPanel.getX( ) + twsPanel.getWidth( ) + 5, twsPanel.getY( ), 120, 25 );
         add( comboBox );
-
     }
 
     public String[] getOptionsArrayString() {
@@ -104,6 +103,5 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         }
         return optionsTypes;
     }
-
 
 }

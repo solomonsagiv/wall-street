@@ -35,6 +35,7 @@ public class StockWindow extends MyGuiComps.MyFrame {
             @Override
             public void windowClosed( WindowEvent e ) {
                 stockPanel.getUpdater( ).getHandler( ).close( );
+                client.getBackRunner().closeRunner();
             }
         } );
     }

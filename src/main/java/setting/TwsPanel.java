@@ -67,7 +67,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
         add( dateLbl );
 
         // Field
-        dateField = new MyGuiComps.MyTextField( true );
+        dateField = new MyGuiComps.MyTextField( );
         dateField.setXY( 10, 30 );
         dateField.setFontSize(9);
         dateField.setSize( 70, 20 );

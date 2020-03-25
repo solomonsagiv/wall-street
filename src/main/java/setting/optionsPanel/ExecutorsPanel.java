@@ -58,7 +58,7 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
         add( opAvgLbl );
 
         // Field
-        opAvgField = new MyGuiComps.MyTextField( true );
+        opAvgField = new MyGuiComps.MyTextField( );
         opAvgField.setXY( 10, 30 );
         opAvgField.setFontSize(9);
         opAvgField.setSize( 50, 20 );

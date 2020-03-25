@@ -85,7 +85,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double base = 0;
     private int futureBidAskCounter = 0;
     private double indexBidAskMargin = 0;
-    private int indexBidAskCounter = 0;
+    private double indexBidAskCounter = 0;
 
     private double[] indexBidState = new double[2];
     private double[] indexAskState = new double[2];
@@ -113,6 +113,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     List indexBidList = new ArrayList<Double>();
     List indexAskList = new ArrayList<Double>();
     List indexRacesList = new ArrayList<Double>();
+    List indexBidAskCounterList = new ArrayList<Double>();
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -597,6 +598,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexRacesList;
     }
 
+    public List getIndexBidAskCounterList() {
+        return indexBidAskCounterList;
+    }
+
     public ListsService getListsService() {
         return listsService;
     }
@@ -670,11 +675,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.tablesHandler = tablesHandler;
     }
 
-    public int getIndexBidAskCounter() {
+    public double getIndexBidAskCounter() {
         return indexBidAskCounter;
     }
 
-    public void setIndexBidAskCounter( int indexBidAskCounter ) {
+    public void setIndexBidAskCounter( double indexBidAskCounter ) {
         this.indexBidAskCounter = indexBidAskCounter;
     }
 

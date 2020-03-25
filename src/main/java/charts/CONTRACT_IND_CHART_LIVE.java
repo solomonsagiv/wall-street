@@ -3,11 +3,34 @@ package charts;
 import locals.Themes;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
+
+    public static void main( String[] args ) {
+
+        Spx spx = Spx.getInstance( );
+
+        CONTRACT_IND_CHART_LIVE chartLive = new CONTRACT_IND_CHART_LIVE( spx );
+        chartLive.createChart();
+
+        while ( true ) {
+            System.out.println( );
+            System.out.println( "Enter future" );
+            double future = new Scanner( System.in ).nextDouble( );
+
+            spx.getOptionsHandler( ).getMainOptions( ).setContract( future );
+            spx.setIndex( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 1 );
+            spx.setIndexBid( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 2 );
+            spx.setIndexAsk( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) + 1 );
+
+        }
+    }
+
 
     BASE_CLIENT_OBJECT client;
     MySingleFreeChartLive[] singleFreeChartsLive;
@@ -23,7 +46,6 @@ public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
         singleFreeChartsLive = new MySingleFreeChartLive[ 1 ];
 
     }
-
 
     @Override
     public void createChart() {
@@ -50,7 +72,7 @@ public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
         list.add( "indexAsk" );
 
         // Create chart
-        chart = new MySingleFreeChartLive( client, series, colors, .2, list, 150, false, 0, 1.5f, false, null );
+        chart = new MySingleFreeChartLive( client, series, colors, .2, list, 150, false, 0, 2.25f, false, null );
 
         singleFreeChartsLive[ 0 ] = chart;
 

@@ -111,7 +111,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         add(openLbl);
 
         // Field
-        openField = new MyGuiComps.MyTextField(true);
+        openField = new MyGuiComps.MyTextField();
         openField.setXY(10, 30);
         openField.setSize(50, 20);
         openField.setFontSize(9);
@@ -127,7 +127,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         add(baseLbl);
 
         // Field
-        baseField = new MyGuiComps.MyTextField(true);
+        baseField = new MyGuiComps.MyTextField();
         baseField.setXY(65, 30);
         baseField.setFontSize(9);
         baseField.setSize(50, 20);
@@ -144,7 +144,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         add(indexBidAskCounterLbl);
 
         // Field
-        indexBidAskCounterField = new MyGuiComps.MyTextField(true);
+        indexBidAskCounterField = new MyGuiComps.MyTextField();
         indexBidAskCounterField.setXY(120, 30);
         indexBidAskCounterField.setFontSize(9);
         indexBidAskCounterField.setSize(70, 20);

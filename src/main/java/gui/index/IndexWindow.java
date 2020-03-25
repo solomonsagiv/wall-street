@@ -1,11 +1,14 @@
 package gui.index;
 
+import dataBase.mySql.myTables.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class IndexWindow extends MyGuiComps.MyFrame {
 
@@ -22,11 +25,24 @@ public class IndexWindow extends MyGuiComps.MyFrame {
     // Constructor
     public IndexWindow( String title, INDEX_CLIENT_OBJECT client ) throws HeadlessException {
         super( title, client );
+
+        // Load data
+        client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
+
+        client.requestApi();
+
+        client.getBackRunner().startRunner();
     }
 
     @Override
     public void onClose() {
-
+        addWindowListener( new WindowAdapter( ) {
+            @Override
+            public void windowClosed( WindowEvent e ) {
+                indexPanel.getUpdater( ).getHandler( ).close( );
+                client.getBackRunner().closeRunner();
+            }
+        } );
     }
 
     @Override

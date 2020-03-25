@@ -93,7 +93,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
         add( interestLbl );
 
         // Field
-        interestField = new MyGuiComps.MyTextField( true );
+        interestField = new MyGuiComps.MyTextField( );
         interestField.setXY( 10, 30 );
         interestField.setFontSize(9);
         interestField.setSize( 50, 20 );
@@ -108,7 +108,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
         add( divLbl );
 
         // Field
-        divField = new MyGuiComps.MyTextField( true );
+        divField = new MyGuiComps.MyTextField( );
         divField.setXY( 65, 30 );
         divField.setSize( 50, 20 );
         divField.setFontSize(9);
@@ -123,7 +123,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
         add( daystLbl );
 
         // Field
-        daysField = new MyGuiComps.MyTextField( true );
+        daysField = new MyGuiComps.MyTextField( );
         daysField.setXY( 120, 30 );
         daysField.setSize( 50, 20 );
         daysField.setFontSize(9);

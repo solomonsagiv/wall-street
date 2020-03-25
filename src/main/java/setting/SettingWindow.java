@@ -2,6 +2,7 @@ package setting;
 
 import gui.MyGuiComps;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
 import setting.optionsPanel.OptionsPanel;
 
@@ -11,18 +12,13 @@ import java.awt.*;
 public class SettingWindow extends MyGuiComps.MyFrame {
 
     public static void main( String[] args ) {
-        SettingWindow settingWindow = new SettingWindow( "Setting", Apple.getInstance() );
+        SettingWindow settingWindow = new SettingWindow( "Setting", Spx.getInstance() );
     }
 
     // Races panel
     TickerPanel tickerPanel;
     OptionsPanel optionsPanel;
     DataBasePanel dataBasePanel;
-
-    // Constructor
-    public SettingWindow( String title ) throws HeadlessException {
-        super( title );
-    }
 
     public SettingWindow( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
         super( title, client );

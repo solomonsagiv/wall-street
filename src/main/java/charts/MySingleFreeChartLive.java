@@ -176,11 +176,11 @@ public class MySingleFreeChartLive {
 
             int marginFromMaxToMin = 0;
 
-            if ( client instanceof Spx) {
+            if ( client instanceof Spx ) {
                 marginFromMaxToMin = 20;
             }
 
-            if ( client instanceof Ndx) {
+            if ( client instanceof Ndx ) {
                 marginFromMaxToMin = 30;
             }
 
@@ -324,13 +324,9 @@ public class MySingleFreeChartLive {
                             dots.remove( j );
 
                         }
-
                     }
-
                 }
-
             }
-
         }
 
         private void appendDataToSeries() {

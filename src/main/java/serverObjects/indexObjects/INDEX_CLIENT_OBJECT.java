@@ -41,8 +41,8 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() throws NullPointerException {
 
-        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 2000, this, OptionsEnum.MONTH, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH ) );
-        IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ) );
+        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ) );
+        IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR ) );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
@@ -158,7 +158,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                 addColumn( new MyColumnSql<>( this, "indBidAskCounter", MyColumnSql.INT ) {
                     @Override
                     public Integer getObject() {
-                        return client.getIndexBidAskCounter( );
+                        return (int)client.getIndexBidAskCounter( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "con_up", MyColumnSql.INT ) {
@@ -428,7 +428,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public Integer getObject() {
-                        return client.getIndexBidAskCounter();
+                        return (int)client.getIndexBidAskCounter();
                     }
                 } );
                 addColumn( new MyLoadAbleColumn< String >( this, "options", MyColumnSql.STRING ) {

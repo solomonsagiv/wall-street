@@ -118,7 +118,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         optionsQuarterFarContract.symbol( "SPX" );
         optionsQuarterFarContract.includeExpired( true );
         twsHandler.addContract( optionsQuarterFarContract );
-
         setTwsHandler( twsHandler );
     }
 
@@ -217,7 +216,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void requestApi() {
-
+        
     }
 
     @Override

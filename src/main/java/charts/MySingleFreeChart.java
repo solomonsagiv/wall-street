@@ -243,7 +243,7 @@ public class MySingleFreeChart {
                     dots.remove( 0 );
 
                     // Append last item
-                    double item = ( double ) myList.get( myList.size() - 1 );
+                    double item =  myList.get( myList.size() - 1 );
                     currentSerie.add( x, item );
                     dots.add( item );
 
@@ -253,7 +253,6 @@ public class MySingleFreeChart {
             } else {
                 // Append last item to series
                 appendDataToSeries( );
-
             }
 
         }

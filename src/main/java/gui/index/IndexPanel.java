@@ -1,9 +1,6 @@
 package gui.index;
 
-import charts.CONTRACT_IND_CHART_LIVE;
-import charts.INDEX_RACES_CHART;
-import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
-import charts.ROLL_CHART;
+import charts.*;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -78,8 +75,8 @@ public class IndexPanel extends JPanel implements IMyPanel {
     Color backGround = Themes.GREY_LIGHT;
 
     INDEX_CLIENT_OBJECT client;
-    Options optionsMonth;
     Options optionsQuarter;
+    Options optionsQuarterFar;
     Options mainOptions;
 
     private Updater updater;
@@ -87,8 +84,8 @@ public class IndexPanel extends JPanel implements IMyPanel {
     public IndexPanel( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
         client.getOptionsHandler( );
-        optionsMonth = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
         optionsQuarter = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+        optionsQuarterFar = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
         mainOptions = client.getOptionsHandler( ).getMainOptions( );
         init( );
         initListeners( );
@@ -305,9 +302,9 @@ public class IndexPanel extends JPanel implements IMyPanel {
         opField.colorBack( mainOptions.getOp( ), L.format100( ) );
 
         // Quarter
-        opQuarterField.colorBack( optionsQuarter.getOp( ), L.format100( ) );
-        opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ), L.format100( ) );
-        contractQuarterField.setText( L.format100( optionsQuarter.getContract( ) ) );
+        opQuarterField.colorBack( optionsQuarterFar.getOp( ), L.format100( ) );
+        opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvg( ), L.format100( ) );
+        contractQuarterField.setText( L.format100( optionsQuarterFar.getContract( ) ) );
 
         // Races and roll
         // Races
@@ -409,12 +406,12 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
-        JMenuItem rollChart = new JMenuItem( "Month & Quarter AVG" );
-        rollChart.addActionListener( new ActionListener( ) {
+        JMenuItem indexBidAskCounterItem = new JMenuItem( "Index B/A counter" );
+        indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                ROLL_CHART roll_chart = new ROLL_CHART( client );
-                roll_chart.createChart();
+                INDEX_BID_ASK_COUNTER_CHART indexBidAskCounterChart = new INDEX_BID_ASK_COUNTER_CHART( client );
+                indexBidAskCounterChart.createChart();
             }
         } );
 
@@ -486,7 +483,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         charts.add( contractIndexRealTime );
         charts.add( quarterContractIndexRealTime );
-        charts.add( rollChart );
+        charts.add( indexBidAskCounterItem );
         charts.add( indexRacesChart );
 
         menu.add( details );

@@ -50,15 +50,15 @@ public class ROLL_CHART implements IChartCreator {
         colors[ 1 ] = Themes.GREEN_LIGHT;
 
         Map< String, List<Double> > map = new HashMap<>();
-        map.put( "quarter", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getOpAvgList() );
-        map.put( "quarterFar", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getOpAvgList() );
+        map.put( "quarter", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getOpList() );
+        map.put( "quarterFar", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getOpList() );
 
         Marker marker = new ValueMarker(0);
-        marker.setStroke(new BasicStroke(2f));
-        marker.setPaint(Color.BLACK);
+        marker.setStroke( new BasicStroke(1.5f) );
+        marker.setPaint( Color.BLACK );
 
         // Create chart
-        chart = new MySingleFreeChart( client, series, colors, 1, map, 0, false, 0, 2.5f, true, true, true, marker );
+        chart = new MySingleFreeChart( client, series, colors, 1, map, 0, false, 0, 2.5f, true, true, false, marker );
 
         singleFreeCharts[ 0 ] = chart;
 
