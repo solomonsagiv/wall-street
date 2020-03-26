@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 
-public class MySingleFreeChartLive {
+public class MySingleFreeChartLiveFixed {
 
     XYSeries[] series;
     Color[] colors;
@@ -45,10 +45,9 @@ public class MySingleFreeChartLive {
     Options mainOptions;
     Options quarterOptions;
 
-
-    public MySingleFreeChartLive( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
-                                  ArrayList< String > list, int seconds, boolean includeTickerData, double rangeTickUnit,
-                                  float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
+    public MySingleFreeChartLiveFixed( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
+                                       ArrayList< String > list, int seconds, boolean includeTickerData, double rangeTickUnit,
+                                       float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
 
         this.mainOptions = client.getOptionsHandler().getMainOptions();
         this.quarterOptions = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
@@ -255,7 +254,6 @@ public class MySingleFreeChartLive {
             }
 
         }
-
 
         private boolean isDataChanged() {
 

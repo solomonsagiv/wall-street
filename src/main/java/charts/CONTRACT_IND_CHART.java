@@ -1,6 +1,7 @@
 package charts;
 
 import locals.Themes;
+import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -15,7 +16,7 @@ public class CONTRACT_IND_CHART implements IChartCreator {
     BASE_CLIENT_OBJECT client;
     MySingleFreeChart[] singleFreeCharts;
     MySingleFreeChart chart;
-    XYSeries[] series;
+    TimeSeries[] series;
     Color[] colors;
     ArrayList< ArrayList< Double > > lists;
 
@@ -32,11 +33,11 @@ public class CONTRACT_IND_CHART implements IChartCreator {
 
         // ---------- Index ---------- //
         // Params
-        series = new XYSeries[ 4 ];
-        series[ 0 ] = new XYSeries( "index" );
-        series[ 1 ] = new XYSeries( "contract" );
-        series[ 2 ] = new XYSeries( "indexBid" );
-        series[ 3 ] = new XYSeries( "indexAsk" );
+        series = new TimeSeries[ 4 ];
+        series[ 0 ] = new TimeSeries( "index" );
+        series[ 1 ] = new TimeSeries( "contract" );
+        series[ 2 ] = new TimeSeries( "indexBid" );
+        series[ 3 ] = new TimeSeries( "indexAsk" );
 
         colors = new Color[ 4 ];
         colors[ 0 ] = Color.BLACK;
@@ -51,7 +52,7 @@ public class CONTRACT_IND_CHART implements IChartCreator {
         map.put( "indexAsk", client.getIndexAskList() );
 
         // Create chart
-        chart = new MySingleFreeChart( client, series, colors, 0.17, map, 180, false, 0, 2.5f, false, false, true, null );
+        chart = new MySingleFreeChart( client, series, colors, 0.17, map, 180, false, 0, 2.5f, false, false, false, null );
 
         singleFreeCharts[ 0 ] = chart;
 

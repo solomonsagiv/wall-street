@@ -3,14 +3,12 @@ package charts;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.AxisLocation;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.NumberTickUnit;
-import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.*;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.Layer;
@@ -20,15 +18,13 @@ import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class MySingleFreeChart {
 
-    XYSeries[] series;
+    TimeSeries[] series;
     Color[] colors;
     BASE_CLIENT_OBJECT client;
     XYPlot plot;
@@ -37,7 +33,7 @@ public class MySingleFreeChart {
     int seconds;
     int basicSecondes;
     int secondesOnMess = 10;
-    Map< String, List<Double> > map;
+    Map< String, List< Double > > map;
     private JFreeChart chart;
     private MyChartPanel chartPanel;
     private boolean includeTickerData;
@@ -45,8 +41,8 @@ public class MySingleFreeChart {
     private boolean rangeFixer;
 
 
-    public MySingleFreeChart( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
-                              Map< String, List<Double> > map, int seconds, boolean includeTickerData, double rangeTickUnit,
+    public MySingleFreeChart( BASE_CLIENT_OBJECT client, TimeSeries[] series, Color[] colors, double margin,
+                              Map< String, List< Double > > map, int seconds, boolean includeTickerData, double rangeTickUnit,
                               float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, boolean rangeFixer, Marker marker ) {
 
         this.rangeFixer = rangeFixer;
@@ -61,10 +57,12 @@ public class MySingleFreeChart {
         setIncludeTickerData( includeTickerData );
 
         // Series
-        XYSeriesCollection data = new XYSeriesCollection( );
+        TimeSeriesCollection data = new TimeSeriesCollection( );
 
         // Create the chart
-        chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false);
+//        chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false );
+
+        chart = ChartFactory.createTimeSeriesChart(null, "Time", "Value", data, true, true, false);
 
         plot = chart.getXYPlot( );
         plot.setBackgroundPaint( Color.WHITE );
@@ -72,7 +70,10 @@ public class MySingleFreeChart {
         plot.setDomainGridlinesVisible( false );
         plot.setRangeGridlinePaint( Color.BLACK );
         plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
-        plot.getDomainAxis( ).setVisible( false );
+        plot.getDomainAxis( ).setVisible( true );
+
+        DateAxis axis = ( DateAxis ) plot.getDomainAxis( );
+        axis.setDateFormatOverride( new SimpleDateFormat( "HH:mm:ss" ) );
 
         if ( marker != null ) {
             plot.addRangeMarker( marker, Layer.BACKGROUND );
@@ -138,13 +139,13 @@ public class MySingleFreeChart {
     private class ChartUpdater extends Thread {
 
         ArrayList< Double > dots = new ArrayList<>( );
-        Map< String, List<Double> > map;
+        Map< String, List< Double > > map;
         NumberAxis range;
         boolean run = true;
 
         int x = 0;
 
-        public ChartUpdater( Map< String, List<Double> > map ) {
+        public ChartUpdater( Map< String, List< Double > > map ) {
             this.map = map;
         }
 
@@ -179,11 +180,11 @@ public class MySingleFreeChart {
 
             int marginFromMaxToMin = 0;
 
-            if ( client instanceof Spx) {
+            if ( client instanceof Spx ) {
                 marginFromMaxToMin = 7;
             }
 
-            if ( client instanceof Ndx) {
+            if ( client instanceof Ndx ) {
                 marginFromMaxToMin = 30;
             }
 
@@ -229,22 +230,22 @@ public class MySingleFreeChart {
 
             if ( seconds > 0 && series[ 0 ].getItemCount( ) > seconds ) {
 
-                XYSeries currentSerie;
+                TimeSeries currentSerie;
 
                 int i = 0;
-                for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
+                for ( Map.Entry< String, List< Double > > entry : map.entrySet( ) ) {
 
                     // Get current
-                    List<Double> myList = entry.getValue( );
+                    List< Double > myList = entry.getValue( );
                     currentSerie = series[ i ];
 
                     // Remove index 0
-                    currentSerie.remove( 0 );
-                    dots.remove( 0 );
+//                    currentSerie.re;
+//                    dots.remove( 0 );
 
                     // Append last item
-                    double item =  myList.get( myList.size() - 1 );
-                    currentSerie.add( x, item );
+                    double item = myList.get( myList.size( ) - 1 );
+                    currentSerie.add( new Second( ), item );
                     dots.add( item );
 
                     i++;
@@ -265,7 +266,7 @@ public class MySingleFreeChart {
                     // If need to rerange
                     if ( max - min > marginFromMaxToMin ) {
 
-                        XYSeries currentSerie;
+                        TimeSeries currentSerie;
 
                         // For each serie
                         for ( int i = 0; i < map.size( ); i++ ) {
@@ -276,8 +277,8 @@ public class MySingleFreeChart {
                             // Navigate last "secondesOnmess" items
                             for ( int j = 0; j < currentSerie.getItemCount( ) - secondesOnMess; j++ ) {
 
-                                currentSerie.remove( j );
-                                dots.remove( j );
+//                                currentSerie.remove( j );
+//                                dots.remove( j );
 
                             }
 
@@ -293,18 +294,18 @@ public class MySingleFreeChart {
         private void appendDataToSeries() {
 
             try {
-                XYSeries currentSerie;
+                TimeSeries currentSerie;
 
                 int i = 0;
-                for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
+                for ( Map.Entry< String, List< Double > > entry : map.entrySet( ) ) {
 
                     // Get current
-                    List<Double> myList = entry.getValue( );
+                    List< Double > myList = entry.getValue( );
                     currentSerie = series[ i ];
 
                     // Append last item
-                    double item = ( double ) myList.get( myList.size() - 1 );
-                    currentSerie.add( x, item );
+                    double item = ( double ) myList.get( myList.size( ) - 1 );
+                    currentSerie.addOrUpdate( new Second(  ), item );
                     dots.add( item );
 
                     i++;
@@ -328,7 +329,7 @@ public class MySingleFreeChart {
             if ( map.size( ) == 1 && includeTickerData ) {
                 try {
                     ArrayList< Double > list = null;
-                    for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
+                    for ( Map.Entry< String, List< Double > > entry : map.entrySet( ) ) {
                         list = ( ArrayList< Double > ) entry.getValue( );
                     }
 
@@ -353,7 +354,7 @@ public class MySingleFreeChart {
         // Load charts data from DB
         private void loadDataFromDB() {
             int i = 0;
-            for ( Map.Entry< String, List<Double> > entry : map.entrySet( ) ) {
+            for ( Map.Entry< String, List< Double > > entry : map.entrySet( ) ) {
 
                 ArrayList< Double > list = ( ArrayList< Double > ) entry.getValue( );
 
@@ -367,7 +368,7 @@ public class MySingleFreeChart {
                     for ( int j = start; j < list.size( ); j++ ) {
 
                         if ( list.get( j ) != 0 ) {
-                            series[ i ].add( j, list.get( j ) );
+                            series[ i ].addOrUpdate( new Second(  ), list.get( j ) );
                             dots.add( list.get( j ) );
                         }
 

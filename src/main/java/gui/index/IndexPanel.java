@@ -1,6 +1,7 @@
 package gui.index;
 
 import charts.*;
+import charts.spxChart.SpxChart;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -410,7 +411,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                INDEX_BID_ASK_COUNTER_CHART indexBidAskCounterChart = new INDEX_BID_ASK_COUNTER_CHART( client );
+                INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART indexBidAskCounterChart = new INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART( client );
                 indexBidAskCounterChart.createChart();
             }
         } );
@@ -419,17 +420,9 @@ public class IndexPanel extends JPanel implements IMyPanel {
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                CONTRACT_IND_CHART_LIVE chart = new CONTRACT_IND_CHART_LIVE( client );
-                chart.createChart( );
-            }
-        } );
-
-        JMenuItem quarterContractIndexRealTime = new JMenuItem( "Quarter vs Ind real time" );
-        quarterContractIndexRealTime.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                QUARTER_CONTRACT_IND_CHART_LIVE chart = new QUARTER_CONTRACT_IND_CHART_LIVE( client );
-                chart.createChart( );
+                SpxChart chart = new SpxChart( client.getName(), client );
+                chart.pack();
+                chart.setVisible(true);
             }
         } );
 
@@ -482,7 +475,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
         export.add( exportSumLine );
 
         charts.add( contractIndexRealTime );
-        charts.add( quarterContractIndexRealTime );
         charts.add( indexBidAskCounterItem );
         charts.add( indexRacesChart );
 

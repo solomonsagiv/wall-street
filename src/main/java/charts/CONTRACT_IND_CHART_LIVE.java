@@ -1,5 +1,6 @@
 package charts;
 
+import locals.L;
 import locals.Themes;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -7,6 +8,7 @@ import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
@@ -21,12 +23,22 @@ public class CONTRACT_IND_CHART_LIVE implements IChartCreator {
         while ( true ) {
             System.out.println( );
             System.out.println( "Enter future" );
-            double future = new Scanner( System.in ).nextDouble( );
+            double future = 0;
 
-            spx.getOptionsHandler( ).getMainOptions( ).setContract( future );
-            spx.setIndex( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 1 );
-            spx.setIndexBid( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 2 );
-            spx.setIndexAsk( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) + 1 );
+            String text = new Scanner( System.in ).nextLine();
+            if ( !text.isEmpty() ) {
+                future = L.dbl( text );
+                spx.getOptionsHandler( ).getMainOptions( ).setContract( future );
+                spx.setIndex( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 1 );
+                spx.setIndexBid( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 2 );
+                spx.setIndexAsk( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) + 1 );
+            } else {
+                future = new Random(  ).nextDouble() * 10;
+                spx.getOptionsHandler( ).getMainOptions( ).setContract( future );
+                spx.setIndex( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 1 );
+                spx.setIndexBid( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) - 2 );
+                spx.setIndexAsk( spx.getOptionsHandler( ).getMainOptions( ).getContract( ) + 1 );
+            }
 
         }
     }

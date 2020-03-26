@@ -507,6 +507,22 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                         return new JSONArray( ).toString( );
                     }
                 });
+                addColumn( new MyLoadAbleColumn<String>( this, "indexBidAskCounterList", MyColumnSql.STRING ) {
+                    @Override
+                    public String getObject() {
+                        return client.getIndexBidAskCounterList().toString();
+                    }
+
+                    @Override
+                    public void setLoadedObject( String object ) {
+                        convertJsonArrayToIntegerArray( new JSONArray( object ), ( ArrayList< Integer > ) client.getIndexBidAskCounterList() );
+                    }
+
+                    @Override
+                    public String getResetObject() {
+                        return new JSONArray( ).toString( );
+                    }
+                });
             }
         };
 

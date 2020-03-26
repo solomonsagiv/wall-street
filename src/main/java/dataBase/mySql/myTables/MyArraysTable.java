@@ -92,4 +92,14 @@ public abstract class MyArraysTable extends MyTableSql {
         }
 
     }
+
+    public void convertJsonArrayToIntegerArray( JSONArray jsonArray, ArrayList< Integer > list ) {
+
+        for ( int i = 0; i < jsonArray.length( ); i++ ) {
+
+            list.add( jsonArray.getInt( i ) );
+
+        }
+
+    }
 }

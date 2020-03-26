@@ -4,6 +4,7 @@ import locals.Themes;
 import options.OptionsEnum;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
+import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
@@ -24,7 +25,7 @@ public class ROLL_CHART implements IChartCreator {
     BASE_CLIENT_OBJECT client;
     MySingleFreeChart[] singleFreeCharts;
     MySingleFreeChart chart;
-    XYSeries[] series;
+    TimeSeries[] series;
     Color[] colors;
     ArrayList< ArrayList< Double > > lists;
 
@@ -41,9 +42,10 @@ public class ROLL_CHART implements IChartCreator {
 
         // ---------- Index ---------- //
         // Params
-        series = new XYSeries[ 2 ];
-        series[ 0 ] = new XYSeries( "quarter" );
-        series[ 1 ] = new XYSeries( "quarterFar" );
+        series = new TimeSeries[ 2 ];
+        Comparable name;
+        series[ 0 ] = new TimeSeries( "quarter" );
+        series[ 1 ] = new TimeSeries( "quarterFar" );
 
         colors = new Color[ 2 ];
         colors[ 0 ] = Themes.GREEN;

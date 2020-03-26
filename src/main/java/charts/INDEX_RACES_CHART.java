@@ -3,6 +3,7 @@ package charts;
 import locals.Themes;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
+import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -17,7 +18,7 @@ public class INDEX_RACES_CHART implements IChartCreator {
     BASE_CLIENT_OBJECT client;
     MySingleFreeChart[] singleFreeCharts;
     MySingleFreeChart chart;
-    XYSeries[] series;
+    TimeSeries[] series;
     Color[] colors;
     ArrayList< ArrayList< Double > > lists;
 
@@ -34,8 +35,8 @@ public class INDEX_RACES_CHART implements IChartCreator {
 
         // ---------- Index ---------- //
         // Params
-        series = new XYSeries[ 1 ];
-        series[ 0 ] = new XYSeries( "indexRaces" );
+        series = new TimeSeries[ 1 ];
+        series[ 0 ] = new TimeSeries( "indexRaces" );
 
         colors = new Color[ 1 ];
         colors[ 0 ] = Themes.BLUE;
