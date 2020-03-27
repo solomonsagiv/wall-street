@@ -3,10 +3,8 @@ package setting;
 import gui.MyGuiComps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.Apple;
 import setting.optionsPanel.OptionsPanel;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class SettingWindow extends MyGuiComps.MyFrame {
@@ -26,7 +24,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void onClose() {
-
+        
     }
 
     @Override

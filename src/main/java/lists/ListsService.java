@@ -1,15 +1,12 @@
 package lists;
 
 import options.Options;
-import options.OptionsEnum;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 // Regular list updater
@@ -46,12 +43,11 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        // Client lists
-        client.getIndexList().add( client.getIndex() );
-        client.getIndexBidList().add( client.getIndexBid() );
+        // List for charts
+        client.getIndexList().add( client.getIndex());
+        client.getIndexBidList().add(client.getIndexBid() );
         client.getIndexAskList().add( client.getIndexAsk() );
-        client.getIndexRacesList().add( ( double ) client.getIndexSum() );
-        client.getIndexBidAskCounterList().add( client.getIndexBidAskCounter() );
+        client.getIndexBidAskCounterList().add(client.getIndexBidAskCounter());
 
         // Options lists
         for ( Options options: client.getOptionsHandler().getOptionsList() ) {

@@ -398,15 +398,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         });
 
-        JMenuItem indexRacesChart = new JMenuItem( "Index races" );
-        indexRacesChart.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                INDEX_RACES_CHART chart = new INDEX_RACES_CHART( client );
-                chart.createChart( );
-            }
-        } );
-
         JMenuItem indexBidAskCounterItem = new JMenuItem( "Index B/A counter" );
         indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
@@ -476,7 +467,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         charts.add( contractIndexRealTime );
         charts.add( indexBidAskCounterItem );
-        charts.add( indexRacesChart );
 
         menu.add( details );
         menu.add( settingWindow );

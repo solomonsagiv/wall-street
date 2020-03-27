@@ -1,7 +1,6 @@
 package gui.stock;
 
 import charts.CONTRACT_IND_CHART_LIVE;
-import charts.INDEX_RACES_CHART;
 import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
@@ -390,14 +389,6 @@ public class StockPanel extends JPanel implements IMyPanel {
             }
         } );
 
-        JMenuItem indexRacesChart = new JMenuItem( "Index races" );
-        indexRacesChart.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                INDEX_RACES_CHART chart = new INDEX_RACES_CHART( client );
-                chart.createChart( );
-            }
-        } );
 
         JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
         contractIndexRealTime.addActionListener( new ActionListener( ) {
@@ -467,7 +458,6 @@ public class StockPanel extends JPanel implements IMyPanel {
 
         charts.add( quarterContractIndexRealTime );
         charts.add( contractIndexRealTime );
-        charts.add( indexRacesChart );
 
         menu.add( details );
         menu.add( settingWindow );

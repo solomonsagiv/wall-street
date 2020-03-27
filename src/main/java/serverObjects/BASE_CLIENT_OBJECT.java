@@ -17,6 +17,7 @@ import options.OptionsHandler;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -112,7 +113,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     List indexList = new ArrayList<Double>();
     List indexBidList = new ArrayList<Double>();
     List indexAskList = new ArrayList<Double>();
-    List indexRacesList = new ArrayList<Double>();
     List indexBidAskCounterList = new ArrayList<Double>();
 
     public BASE_CLIENT_OBJECT() {
@@ -153,7 +153,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         // To start
         if (isLoadFromDb()) {
             myServiceHandler.getHandler().start();
-            setStarted( true );
+            setStarted(true);
         }
     }
 
@@ -352,10 +352,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
 
     private double futureAskForCheck = 0;
+
     public void setFutureBid(double futureBid) {
 
         // If increment state
-        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk ) {
+        if (futureBid > this.futureBid && futureAskForCheck == this.futureAsk) {
             indexBidAskCounter++;
         }
         this.futureBid = futureBid;
@@ -366,10 +367,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     private double futureBidForCheck = 0;
+
     public void setFutureAsk(double futureAsk) {
 
         // If increment state
-        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid ) {
+        if (futureAsk < this.futureAsk && futureBidForCheck == this.futureBid) {
             indexBidAskCounter--;
         }
         this.futureAsk = futureAsk;
@@ -538,10 +540,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     private double indexAskForCheck = 0;
+
     public void setIndexBid(double indexBid) {
 
         // If increment state
-        if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
+        if (indexBid > this.indexBid && indexAskForCheck == this.indexAsk) {
             indexBidAskCounter++;
         }
         this.indexBid = indexBid;
@@ -553,9 +556,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     private double indexBidForCheck = 0;
+
     public void setIndexAsk(double indexAsk) {
         // If increment state
-        if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
+        if (indexAsk < this.indexAsk && indexBidForCheck == indexBid) {
             indexBidAskCounter--;
         }
         this.indexAsk = indexAsk;
@@ -592,10 +596,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public List getIndexAskList() {
         return indexAskList;
-    }
-
-    public List getIndexRacesList() {
-        return indexRacesList;
     }
 
     public List getIndexBidAskCounterList() {
@@ -679,16 +679,16 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexBidAskCounter;
     }
 
-    public void setIndexBidAskCounter( double indexBidAskCounter ) {
+    public void setIndexBidAskCounter(double indexBidAskCounter) {
         this.indexBidAskCounter = indexBidAskCounter;
     }
 
-    public void setRollHandler( RollHandler rollHandler ) {
+    public void setRollHandler(RollHandler rollHandler) {
         this.rollHandler = rollHandler;
     }
 
     public RollHandler getRollHandler() {
-        if ( rollHandler == null ) throw new NullPointerException( getName() + " Roll inn't set" );
+        if (rollHandler == null) throw new NullPointerException(getName() + " Roll inn't set");
         return rollHandler;
     }
 
@@ -705,6 +705,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", started=" + started +
                 ", dbId=" + dbId +
                 ", index=" + index +
+                ", indexBidAskCounter=" + indexBidAskCounter +
                 ", indexBid=" + indexBid +
                 ", indexAsk=" + indexAsk +
                 ", futureBid=" + futureBid +
@@ -730,7 +731,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexList=" + indexList.size() +
                 ", indexBidList=" + indexBidList.size() +
                 ", indexAskList=" + indexAskList.size() +
-                ", indexRacesList=" + indexRacesList.size() +
                 '}';
     }
 }
