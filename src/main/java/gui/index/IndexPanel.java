@@ -407,6 +407,15 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
+        JMenuItem indexBidAskCounteNoIndexItem = new JMenuItem( "Index B/A counter" );
+        indexBidAskCounteNoIndexItem.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                INDEX_BID_ASK_COUNTER_CHART indexBidAskCounterChart = new INDEX_BID_ASK_COUNTER_CHART( client );
+                indexBidAskCounterChart.createChart();
+            }
+        } );
+
         JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
@@ -467,6 +476,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         charts.add( contractIndexRealTime );
         charts.add( indexBidAskCounterItem );
+        charts.add( indexBidAskCounteNoIndexItem );
 
         menu.add( details );
         menu.add( settingWindow );

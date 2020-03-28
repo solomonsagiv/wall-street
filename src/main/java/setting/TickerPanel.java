@@ -66,7 +66,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 try {
-                    int counter = L.INT( baseField.getText() );
+                    int counter = L.INT( indexBidAskCounterField.getText() );
                     client.setIndexBidAskCounter( counter );
                 } catch ( Exception e ) {
                     JOptionPane.showMessageDialog( null, e.getMessage() );

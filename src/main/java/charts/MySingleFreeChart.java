@@ -1,6 +1,8 @@
 package charts;
 
+import locals.L;
 import locals.Themes;
+import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
@@ -365,10 +367,10 @@ public class MySingleFreeChart {
                     }
 
                     for ( int j = start; j < list.size( ); j++ ) {
+                        if ( list.get( j ) instanceof Double && list.get( j ) != 0 ) {
 
-                        if ( list.get( j ) != 0 ) {
-                            series[ i ].addOrUpdate( new Second(  ), list.get( j ) );
-                            dots.add( list.get( j ) );
+                            series[ i ].addOrUpdate( new Second(  ), list.get( j )  );
+                            dots.add( list.get( j )  );
                         }
 
                     }
