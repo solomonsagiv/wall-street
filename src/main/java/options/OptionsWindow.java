@@ -2,7 +2,6 @@ package options;
 
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -247,7 +246,7 @@ public class OptionsWindow {
         boolean run = true;
 
         int minsInSecondes = 900;
-        ArrayList<Double> indexList = ( ArrayList< Double > ) client.getIndexList();
+        ArrayList<Double> indexList = client.getIndexList().getValues();
         
         @Override
         public void run() {

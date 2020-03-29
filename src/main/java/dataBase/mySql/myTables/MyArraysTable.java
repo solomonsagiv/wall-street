@@ -2,7 +2,6 @@ package dataBase.mySql.myTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
-import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MyTableSql;
 import org.json.JSONArray;
@@ -10,7 +9,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public abstract class MyArraysTable extends MyTableSql {
@@ -93,13 +91,4 @@ public abstract class MyArraysTable extends MyTableSql {
 
     }
 
-    public void convertJsonArrayToIntegerArray( JSONArray jsonArray, ArrayList< Integer > list ) {
-
-        for ( int i = 0; i < jsonArray.length( ); i++ ) {
-
-            list.add( jsonArray.getInt( i ) );
-
-        }
-
-    }
 }

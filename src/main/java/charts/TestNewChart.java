@@ -8,12 +8,24 @@ import serverObjects.indexObjects.Spx;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class TestNewChart {
 
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws InterruptedException {
         TestNewChart testNewChart = new TestNewChart();
         testNewChart.create();
+
+        Spx spx = Spx.getInstance();
+
+        while (true) {
+
+            spx.setIndex(new Random().nextDouble() * 100);
+
+            Thread.sleep(200);
+        }
+
+
     }
 
     public void create() {
@@ -76,7 +88,7 @@ public class TestNewChart {
         MyTimeSeries indexSerie = new MyTimeSeries( "Index", Color.BLACK, props.getStrokeSize(), props, spx.getIndexList() ) {
             @Override
             public double getData() {
-                return 0;
+                return spx.getIndex();
             }
         };
 

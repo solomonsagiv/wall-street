@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -483,7 +482,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getIndexList( ) );
+                        convertJsonArrayToDoubleArray( new JSONArray( object ), client.getIndexList( ).getValues() );
                     }
 
                     @Override
@@ -515,7 +514,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        convertJsonArrayToIntegerArray( new JSONArray( object ), ( ArrayList< Integer > ) client.getIndexBidAskCounterList() );
+                        convertJsonArrayToDoubleArray( new JSONArray( object ),  client.getIndexBidAskCounterList().getValues() );
                     }
 
                     @Override

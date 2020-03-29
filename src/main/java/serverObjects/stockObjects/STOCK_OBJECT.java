@@ -422,7 +422,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getIndexList( ) );
+                        convertJsonArrayToDoubleArray( new JSONArray( object ), client.getIndexList( ).getValues() );
                     }
 
                     @Override
