@@ -1,11 +1,12 @@
 package charts;
 
+import charts.myChart.MyChart;
+import charts.myChart.MyChartContainer;
 import locals.Themes;
 import options.OptionsEnum;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.time.TimeSeries;
-import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -23,8 +24,8 @@ public class ROLL_CHART implements IChartCreator {
     }
 
     BASE_CLIENT_OBJECT client;
-    MySingleFreeChart[] singleFreeCharts;
-    MySingleFreeChart chart;
+    MyChart[] singleFreeCharts;
+    MyChart chart;
     TimeSeries[] series;
     Color[] colors;
     ArrayList< ArrayList< Double > > lists;
@@ -33,41 +34,41 @@ public class ROLL_CHART implements IChartCreator {
     public ROLL_CHART( BASE_CLIENT_OBJECT client ) {
 
         this.client = client;
-        singleFreeCharts = new MySingleFreeChart[ 1 ];
+//        singleFreeCharts = new MyChart[ 1 ];
 
     }
 
     @Override
     public void createChart() {
-
-        // ---------- Index ---------- //
-        // Params
-        series = new TimeSeries[ 2 ];
-        Comparable name;
-        series[ 0 ] = new TimeSeries( "quarter" );
-        series[ 1 ] = new TimeSeries( "quarterFar" );
-
-        colors = new Color[ 2 ];
-        colors[ 0 ] = Themes.GREEN;
-        colors[ 1 ] = Themes.GREEN_LIGHT;
-
-        Map< String, List<Double> > map = new HashMap<>();
-        map.put( "quarter", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getOpList() );
-        map.put( "quarterFar", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getOpList() );
-
-        Marker marker = new ValueMarker(0);
-        marker.setStroke( new BasicStroke(1.5f) );
-        marker.setPaint( Color.BLACK );
-
-        // Create chart
-        chart = new MySingleFreeChart( client, series, colors, 1, map, 0, false, 0, 2.5f, true, true, false, marker );
-
-        singleFreeCharts[ 0 ] = chart;
-
-        // Display chart
-        MyFreeChart myFreeChart = new MyFreeChart( singleFreeCharts, client, getClass( ).getName( ) );
-        myFreeChart.pack( );
-        myFreeChart.setVisible( true );
+//
+//        // ---------- Index ---------- //
+//        // Params
+//        series = new TimeSeries[ 2 ];
+//        Comparable name;
+//        series[ 0 ] = new TimeSeries( "quarter" );
+//        series[ 1 ] = new TimeSeries( "quarterFar" );
+//
+//        colors = new Color[ 2 ];
+//        colors[ 0 ] = Themes.GREEN;
+//        colors[ 1 ] = Themes.GREEN_LIGHT;
+//
+//        Map< String, List<Double> > map = new HashMap<>();
+//        map.put( "quarter", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getOpList() );
+//        map.put( "quarterFar", client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getOpList() );
+//
+//        Marker marker = new ValueMarker(0);
+//        marker.setStroke( new BasicStroke(1.5f) );
+//        marker.setPaint( Color.BLACK );
+//
+//        // Create chart
+////        chart = new MyChart( client, series, colors, 1, map, 0, false, 0, 2.5f, true, true, false, marker );
+//
+//        singleFreeCharts[ 0 ] = chart;
+//
+//        // Display chart
+//        MyChartContainer myFreeChart = new MyChartContainer( singleFreeCharts, client, getClass( ).getName( ) );
+//        myFreeChart.pack( );
+//        myFreeChart.setVisible( true );
 
     }
 
