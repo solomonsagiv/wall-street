@@ -1,19 +1,30 @@
 package charts;
 
+import lists.MyChartList;
 import locals.Themes;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.time.TimeSeries;
-import org.jfree.data.xy.XYSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART implements IChartCreator {
+
+    public static void main(String[] args) throws InterruptedException {
+        INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART chart = new INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART(Spx.getInstance());
+        chart.createChart();
+
+        while (true) {
+            Thread.sleep(1000);
+            Spx.getInstance().getIndexList().add(new Random().nextDouble()*100);
+            Spx.getInstance().getIndexBidAskCounterList().add(new Random().nextDouble()*100);
+        }
+    }
+
 
     BASE_CLIENT_OBJECT client;
     MySingleFreeChart[] singleFreeCharts;
@@ -45,7 +56,7 @@ public class INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART implements IChartCreator {
         Marker marker = new ValueMarker( 0 );
         marker.setPaint( Color.BLACK );
 
-        Map< String, List<Double> > map = new HashMap< String, List<Double> >( );
+        Map< String, MyChartList> map = new HashMap<>( );
         map.put( "Index", client.getIndexList() );
 
         // Create chart
@@ -62,7 +73,7 @@ public class INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART implements IChartCreator {
         colors = new Color[ 1 ];
         colors[ 0 ] = Themes.ORANGE;
 
-        map = new HashMap< String, List<Double> >( );
+        map = new HashMap<>( );
         map.put( "IndexBidAskCounter", client.getIndexBidAskCounterList() );
 
         // Create chart

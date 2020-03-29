@@ -1,5 +1,6 @@
 package charts;
 
+import lists.MyChartList;
 import locals.L;
 import locals.Themes;
 import org.apache.pdfbox.pdmodel.interactive.documentnavigation.outline.PDOutlineItem;
@@ -42,9 +43,9 @@ public class MySingleFreeChart {
     private boolean rangeFixer;
 
 
-    public MySingleFreeChart( BASE_CLIENT_OBJECT client, TimeSeries[] series, Color[] colors, double margin,
-                              Map< String, List< Double > > map, int seconds, boolean includeTickerData, double rangeTickUnit,
-                              float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, boolean rangeFixer, Marker marker ) {
+    public MySingleFreeChart(BASE_CLIENT_OBJECT client, TimeSeries[] series, Color[] colors, double margin,
+                             Map< String, MyChartList> map, int seconds, boolean includeTickerData, double rangeTickUnit,
+                             float strokeSize, boolean rangeGridLineVisible, boolean loadFromHB, boolean rangeFixer, Marker marker ) {
 
         this.rangeFixer = rangeFixer;
         this.client = client;

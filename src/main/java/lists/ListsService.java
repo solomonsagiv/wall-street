@@ -1,6 +1,7 @@
 package lists;
 
 import options.Options;
+import org.jfree.data.time.Second;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -17,7 +18,7 @@ public class ListsService extends MyBaseService {
 
     // Constructor
     public ListsService(BASE_CLIENT_OBJECT client) {
-        super( client );
+        super(client);
         this.client = client;
     }
 
@@ -44,22 +45,22 @@ public class ListsService extends MyBaseService {
     private void insert() {
 
         // List for charts
-        client.getIndexList().add( client.getIndex());
-        client.getIndexBidList().add(client.getIndexBid() );
-        client.getIndexAskList().add( client.getIndexAsk() );
-        client.getIndexBidAskCounterList().add(client.getIndexBidAskCounter());
+        client.getIndexList().add(new MyChartPoint(new Second(), client.getIndex()));
+        client.getIndexBidList().add(new MyChartPoint(new Second(), client.getIndexBid()));
+        client.getIndexAskList().add(new MyChartPoint(new Second(), client.getIndexAsk()));
+        client.getIndexBidAskCounterList().add(new MyChartPoint(new Second(), client.getIndexBidAskCounter()));
 
         // Options lists
-        for ( Options options: client.getOptionsHandler().getOptionsList() ) {
-            options.getOpList().add( options.getOp() );
-            options.getOpAvgList().add( options.getOpAvg() );
-            options.getConList().add( options.getContract() );
-            options.getConBidList().add( options.getContractBid() );
-            options.getConAskList().add( options.getContractAsk() );
+        for (Options options : client.getOptionsHandler().getOptionsList()) {
+            options.getOpList().add(options.getOp());
+            options.getOpAvgList().add(options.getOpAvg());
+            options.getConList().add(options.getContract());
+            options.getConBidList().add(options.getContractBid());
+            options.getConAskList().add(options.getContractAsk());
         }
 
         // Roll lists
-        for ( Map.Entry< RollEnum, Roll > entry : getClient().getRollHandler().getRollMap().entrySet() ) {
+        for (Map.Entry<RollEnum, Roll> entry : getClient().getRollHandler().getRollMap().entrySet()) {
             Roll roll = entry.getValue();
             roll.addRoll();
         }

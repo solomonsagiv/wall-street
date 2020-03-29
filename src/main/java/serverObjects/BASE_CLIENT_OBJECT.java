@@ -10,6 +10,7 @@ import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myTables.TablesEnum;
 import lists.ListsService;
+import lists.MyChartList;
 import locals.L;
 import locals.LocalHandler;
 import options.OptionsDataHandler;
@@ -23,7 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
@@ -110,10 +110,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private boolean indUpChanged = false;
     private boolean indDownChanged = false;
 
-    List indexList = new ArrayList<Double>();
-    List indexBidList = new ArrayList<Double>();
-    List indexAskList = new ArrayList<Double>();
-    List indexBidAskCounterList = new ArrayList<Double>();
+    MyChartList indexList = new MyChartList();
+    MyChartList indexBidList = new MyChartList();
+    MyChartList indexAskList = new MyChartList();
+    MyChartList indexBidAskCounterList = new MyChartList();
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -586,19 +586,19 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.base = base;
     }
 
-    public List getIndexList() {
+    public MyChartList getIndexList() {
         return indexList;
     }
 
-    public List getIndexBidList() {
+    public MyChartList getIndexBidList() {
         return indexBidList;
     }
 
-    public List getIndexAskList() {
+    public MyChartList getIndexAskList() {
         return indexAskList;
     }
 
-    public List getIndexBidAskCounterList() {
+    public MyChartList getIndexBidAskCounterList() {
         return indexBidAskCounterList;
     }
 

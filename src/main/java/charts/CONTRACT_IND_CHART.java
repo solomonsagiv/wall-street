@@ -1,5 +1,6 @@
 package charts;
 
+import lists.MyChartList;
 import locals.Themes;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYSeries;
@@ -45,7 +46,7 @@ public class CONTRACT_IND_CHART implements IChartCreator {
         colors[ 2 ] = Themes.BLUE;
         colors[ 3 ] = Themes.RED;
 
-        Map< String, List<Double> > map = new HashMap<>();
+        Map< String, MyChartList> map = new HashMap<>();
         map.put( "index", client.getIndexList() );
         map.put( "contract",  client.getOptionsHandler().getMainOptions().getConList() );
         map.put( "indexBid", client.getIndexBidList() );
