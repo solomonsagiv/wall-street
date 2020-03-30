@@ -5,8 +5,8 @@ import lists.MyChartPoint;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
+
 import java.awt.*;
-import java.util.ArrayList;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
@@ -37,7 +37,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         if ( props.isLive() ) {
             data = getData();
             add( new Second( ), data );
-
         } else {
             MyChartPoint point = myChartList.getLast();
             data = point.getValue();

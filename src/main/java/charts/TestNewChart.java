@@ -1,35 +1,36 @@
 package charts;
 
 import charts.myChart.*;
-import charts.myChart.MyChart;
+import locals.Themes;
 import org.jfree.chart.plot.Marker;
 import serverObjects.indexObjects.Spx;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class TestNewChart {
 
+
     public static void main( String[] args ) throws InterruptedException {
-        TestNewChart testNewChart = new TestNewChart();
+        Spx spx = Spx.getInstance();
+        TestNewChart testNewChart = new TestNewChart(spx);
         testNewChart.create();
 
-        Spx spx = Spx.getInstance();
-
         while (true) {
-
             spx.setIndex(new Random().nextDouble() * 100);
-
             Thread.sleep(200);
         }
 
+    }
 
+    Spx spx;
+
+    public TestNewChart(Spx spx) {
+        this.spx = spx;
     }
 
     public void create() {
-        Spx spx = Spx.getInstance();
 
         // Props
         MyChartProps props = new MyChartProps( ) {
@@ -85,7 +86,7 @@ public class TestNewChart {
         };
 
         // Index
-        MyTimeSeries indexSerie = new MyTimeSeries( "Index", Color.BLACK, props.getStrokeSize(), props, spx.getIndexList() ) {
+        MyTimeSeries indexSerie = new MyTimeSeries( "Index", Themes.RED, props.getStrokeSize(), props, spx.getIndexList() ) {
             @Override
             public double getData() {
                 return spx.getIndex();

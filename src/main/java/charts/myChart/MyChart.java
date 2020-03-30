@@ -87,7 +87,6 @@ public class MyChart {
         int i = 0;
         for ( Map.Entry< MySeriesEnum, MyTimeSeries > entry : series.entrySet( ) ) {
             MyTimeSeries serie = entry.getValue( );
-
             // Append serie
             data.addSeries( serie );
 
@@ -150,6 +149,8 @@ public class MyChart {
 
                         // Append data
                         dots.add( serie.add( ) );
+                        System.out.println(serie.getMyChartList().getValues());
+                        System.out.println(serie.getItemCount());
 
                         // If bigger then targetSeconds
                         if ( serie.getItemCount( ) > props.getSeconds( ) ) {
