@@ -10,7 +10,7 @@ interface IChartProps {
 
     int getSeconds();
     boolean isIncludeTicker();
-    double getMarginMaxMain();
+    double getMarginMaxMin();
     float getStrokeSize();
     double getRangeMargin();
     boolean isGridLineVisible();
@@ -18,4 +18,7 @@ interface IChartProps {
     Marker getMarker();
     boolean isLive();
     int getSleep();
+    double getChartHighInDots();
+    int getSecondsOnMess();
+
 }

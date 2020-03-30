@@ -356,7 +356,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public void setFutureBid(double futureBid) {
 
         // If increment state
-        if (futureBid > this.futureBid && futureAskForCheck == this.futureAsk) {
+        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk ) {
             indexBidAskCounter++;
         }
         this.futureBid = futureBid;

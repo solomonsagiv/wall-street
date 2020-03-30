@@ -2,8 +2,8 @@ package charts.myChart;
 
 import lists.MyChartList;
 import lists.MyChartPoint;
+import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 
 import java.awt.*;
@@ -26,21 +26,16 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         this.myChartList = myChartList;
     }
 
-    @Override
-    public void add( RegularTimePeriod period, double value ) {
-
-    }
-
-    public double add() {
+    public double add( RegularTimePeriod timePeriod ) {
         double data;
         // live data
         if ( props.isLive() ) {
             data = getData();
-            add( new Second( ), data );
+            addOrUpdate( timePeriod, data );
         } else {
             MyChartPoint point = myChartList.getLast();
             data = point.getValue();
-            add( point.getTime(), point.getValue() );
+            addOrUpdate( point.getTime(), data );
         }
         return data;
     }

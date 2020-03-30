@@ -53,6 +53,11 @@ public class MyChartContainer extends JFrame {
 
     }
 
+    public void create() {
+        pack();
+        setVisible( true );
+    }
+
     private void appendCharts() {
         for ( MyChart myChart : charts ) {
             MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.isIncludeTicker() );
@@ -79,7 +84,6 @@ public class MyChartContainer extends JFrame {
                 setBounds( x, y, width, height );
             } catch ( Exception e ) {
                 e.printStackTrace();
-                Arik.getInstance().sendErrorMessage( e );
             }
         } ).start( );
     }

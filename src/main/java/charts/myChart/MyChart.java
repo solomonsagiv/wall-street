@@ -12,6 +12,7 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -34,15 +35,16 @@ public class MyChart {
     MyChartPanel chartPanel;
     public ChartUpdater updater;
 
-    Map< MySeriesEnum, MyTimeSeries > series;
+    MyTimeSeries[] series;
     MyChartProps props;
 
     // Constructor
-    public MyChart( BASE_CLIENT_OBJECT client, Map< MySeriesEnum, MyTimeSeries > series, MyChartProps props ) {
+
+    public MyChart( BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyChartProps props ) {
         this.client = client;
         this.series = series;
         this.props = props;
-        oldVals = new double[ series.size( ) ];
+        oldVals = new double[ series.length ];
 
         // Init
         init( series, props );
@@ -50,10 +52,9 @@ public class MyChart {
         // Start updater
         updater = new ChartUpdater( series );
         updater.getHandler( ).start( );
-
     }
 
-    private void init( Map< MySeriesEnum, MyTimeSeries > series, MyChartProps props ) {
+    private void init( MyTimeSeries[] series, MyChartProps props ) {
         // Series
         TimeSeriesCollection data = new TimeSeriesCollection( );
 
@@ -85,8 +86,8 @@ public class MyChart {
         plot.setRenderer( renderer );
 
         int i = 0;
-        for ( Map.Entry< MySeriesEnum, MyTimeSeries > entry : series.entrySet( ) ) {
-            MyTimeSeries serie = entry.getValue( );
+        for ( MyTimeSeries serie : series ) {
+
             // Append serie
             data.addSeries( serie );
 
@@ -109,11 +110,11 @@ public class MyChart {
 
         // Variables
         ArrayList< Double > dots = new ArrayList<>( );
-        Map< MySeriesEnum, MyTimeSeries > series;
+        MyTimeSeries[] series;
         NumberAxis range;
 
         // Constructor
-        public ChartUpdater( Map< MySeriesEnum, MyTimeSeries > series ) {
+        public ChartUpdater( MyTimeSeries[] series ) {
             this.series = series;
         }
 
@@ -124,14 +125,19 @@ public class MyChart {
             while ( isRun( ) ) {
                 try {
 
-                    // Append data
-                    appendDataToSeries( );
-
-                    // Update chart range
-                    updateChartRange( );
-
                     // Sleep
                     Thread.sleep( 200 );
+
+                    if ( isDataChanged( ) ) {
+
+                        // Append data
+                        appendDataToSeries( );
+
+                        // Change range getting bigger
+                        chartRangeGettingBigFilter( );
+
+                    }
+
                 } catch ( InterruptedException e ) {
                     e.printStackTrace( );
                     break;
@@ -142,31 +148,30 @@ public class MyChart {
         // Append data to series
         private void appendDataToSeries() {
             try {
-                // If new val
-                if ( isDataChanged( ) ) {
-                    for ( Map.Entry< MySeriesEnum, MyTimeSeries > entry : series.entrySet( ) ) {
-                        MyTimeSeries serie = entry.getValue( );
 
-                        // Append data
-                        dots.add( serie.add( ) );
-                        System.out.println(serie.getMyChartList().getValues());
-                        System.out.println(serie.getItemCount());
+                Millisecond millisecond = new Millisecond();
 
-                        // If bigger then targetSeconds
-                        if ( serie.getItemCount( ) > props.getSeconds( ) ) {
-                            serie.delete( serie.getMyChartList( ).get( 0 ).getTime( ) );
-                            dots.remove( 0 );
-                        }
+                for ( MyTimeSeries serie : series ) {
+
+                    // If bigger then target Seconds
+                    if ( serie.getItemCount( ) > props.getSeconds( ) ) {
+                        serie.delete( 0, 0 );
+                        dots.remove( 0 );
                     }
+
+                    // Append data
+                    dots.add( serie.add( millisecond ) );
                 }
             } catch ( IndexOutOfBoundsException e ) {
             }
         }
 
-        private void updateChartRange() {
+        private void updateChartRange( double min, double max ) {
             try {
-                range = ( NumberAxis ) plot.getRangeAxis( );
-                range.setRange( Collections.min( dots ) - props.getMarginMaxMain( ), Collections.max( dots ) + props.getMarginMaxMain( ) );
+                if ( dots.size( ) > 0 ) {
+                    range = ( NumberAxis ) plot.getRangeAxis( );
+                    range.setRange( min, max );
+                }
             } catch ( NoSuchElementException e ) {
                 e.printStackTrace( );
             }
@@ -183,6 +188,36 @@ public class MyChart {
             }
         }
 
+        private void chartRangeGettingBigFilter() {
+
+            if ( dots.size( ) > 0 ) {
+                double min = Collections.min( dots ) - props.getMarginMaxMin( );
+                double max = Collections.max( dots ) + props.getMarginMaxMin( );
+
+                if ( dots.size( ) > series.length * props.getSecondsOnMess( ) ) {
+
+                    // If need to rearrange
+                    if ( max - min > props.getChartHighInDots( ) ) {
+
+                        // For each serie
+                        for ( MyTimeSeries serie : series ) {
+
+                            serie.delete( 0, serie.getItemCount( ) - props.getSecondsOnMess( ) - 1 );
+
+                            for ( int i = 0; i < dots.size( ) -  ( props.getSecondsOnMess( ) * series.length ); i++ ) {
+                                dots.remove( i );
+                            }
+
+                        }
+                    }
+                }
+
+                // Update chart range
+                updateChartRange( min, max );
+            }
+
+        }
+
         // Is data changed
         private boolean isDataChanged() {
 
@@ -191,18 +226,20 @@ public class MyChart {
             double newVal = 0;
 
             int i = 0;
-            for ( Map.Entry< MySeriesEnum, MyTimeSeries > entry : series.entrySet( ) ) {
-
-                MyTimeSeries serie = entry.getValue( );
+            for ( MyTimeSeries serie : series ) {
 
                 oldVal = oldVals[ i ];
                 newVal = serie.getData( );
+
+                // If 0
+                if ( newVal == 0 ) {
+                    break;
+                }
 
                 // If new val
                 if ( newVal != oldVal ) {
                     oldVals[ i ] = newVal;
                     change = true;
-                    break;
                 }
                 i++;
             }
@@ -215,15 +252,3 @@ public class MyChart {
         }
     }
 }
-
-// Update the range
-// try {
-// range = (NumberAxis) plot.getRangeAxis();
-// range.setRange(Collections.min(dots) - margin, Collections.max(dots) +
-// margin);
-// range.setAutoRangeIncludesZero(false);
-// range.setDefaultAutoRange(new Range(Collections.min(dots) - margin,
-// Collections.max(dots) + margin));
-// } catch (NoSuchElementException e) {
-// e.printStackTrace();
-// }

@@ -1,13 +1,17 @@
 package charts;
 
 import charts.myChart.*;
+import locals.L;
 import locals.Themes;
+import options.OptionsEnum;
 import org.jfree.chart.plot.Marker;
 import serverObjects.indexObjects.Spx;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TestNewChart {
 
@@ -18,7 +22,18 @@ public class TestNewChart {
         testNewChart.create();
 
         while (true) {
-            spx.setIndex(new Random().nextDouble() * 100);
+
+            System.out.println( "Enter future: " );
+            String input = new Scanner( System.in ).nextLine();
+
+            double d = new Random(  ).nextDouble() * 10;
+
+            if ( !input.isEmpty() ) {
+                d = L.dbl( input );
+            }
+
+            spx.setIndex( d );
+            spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).setContract( d - 1 );
             Thread.sleep(200);
         }
 
@@ -36,7 +51,7 @@ public class TestNewChart {
         MyChartProps props = new MyChartProps( ) {
             @Override
             public int getSeconds() {
-                return 150;
+                return 30;
             }
 
             @Override
@@ -45,7 +60,7 @@ public class TestNewChart {
             }
 
             @Override
-            public double getMarginMaxMain() {
+            public double getMarginMaxMin() {
                 return 0.17;
             }
 
@@ -83,27 +98,49 @@ public class TestNewChart {
             public int getSleep() {
                 return 200;
             }
+
+            @Override
+            public double getChartHighInDots() {
+                return 25;
+            }
+
+            @Override
+            public int getSecondsOnMess() {
+                return 10;
+            }
         };
 
         // Index
-        MyTimeSeries indexSerie = new MyTimeSeries( "Index", Themes.RED, props.getStrokeSize(), props, spx.getIndexList() ) {
+        MyTimeSeries indexSerie = new MyTimeSeries( "Index", Color.BLACK, props.getStrokeSize(), props, spx.getIndexList() ) {
             @Override
             public double getData() {
                 return spx.getIndex();
             }
         };
 
+        // Index
+        MyTimeSeries futureSerie = new MyTimeSeries( "Future", Themes.GREEN, props.getStrokeSize(), props, null ) {
+            @Override
+            public double getData() {
+                return spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getContract();
+            }
+        };
+
+
+        MyTimeSeries[] series = {};
+
         Map< MySeriesEnum, MyTimeSeries > seriesMap = new HashMap<>();
         seriesMap.put( MySeriesEnum.INDEX, indexSerie );
+        seriesMap.put( MySeriesEnum.QUARTER_CONTRACT, futureSerie );
 
-        MyChart myChart = new MyChart( spx, seriesMap, props );
+//        MyChart myChart = new MyChart( spx, seriesMap, props );
 
-        MyChart[] charts = {myChart};
+//        MyChart[] charts = {myChart};
 
-        MyChartContainer myChartContainer = new MyChartContainer( spx, charts , "4Lines" );
+//        MyChartContainer myChartContainer = new MyChartContainer( spx, charts , "4Lines" );
 
-        myChartContainer.pack();
-        myChartContainer.setVisible( true );
+//        myChartContainer.pack();
+//        myChartContainer.setVisible( true );
 
     }
 
