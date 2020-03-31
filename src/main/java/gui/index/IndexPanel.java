@@ -1,10 +1,9 @@
 package gui.index;
 
-import charts.*;
 import charts.myCharts.IndexBidAskCounter;
 import charts.myCharts.IndexBidAskCounterIndex;
 import charts.myCharts.IndexVsQuarterLive;
-import charts.spxChart.SpxChart;
+import charts.myCharts.IndexVsQuarterQuarterFarLive;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -44,9 +43,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
     MyGuiComps.MyTextField futureField;
     MyGuiComps.MyTextField opField;
     MyGuiComps.MyTextField opAvgField;
-
-    // Exp
-    MyGuiComps.MyPanel exp;
 
     // Quarter
     MyGuiComps.MyTextField opAvgQuarterField;
@@ -432,7 +428,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         quarter_quarterFar_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterLive chart = new IndexVsQuarterLive( client );
+                IndexVsQuarterQuarterFarLive chart = new IndexVsQuarterQuarterFarLive( client );
                 chart.createChart();
             }
         } );

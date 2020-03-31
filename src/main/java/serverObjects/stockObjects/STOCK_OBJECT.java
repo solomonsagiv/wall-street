@@ -28,14 +28,14 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() throws Exception {
         // Month
-        MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
+        MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER );
 //        monthContract.lastTradeDateOrContractMonth( "20200417" );
-        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.MONTH, monthContract );
+        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.QUARTER, monthContract );
         
         // Quarter
-        MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER );
+        MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR );
 //        quarterContract.lastTradeDateOrContractMonth( "20200618" );
-        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER, quarterContract );
+        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER_FAR, quarterContract );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
@@ -98,16 +98,16 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                         return client.getOptionsHandler( ).getMainOptions( ).getContract( );
                     }
                 } );
-                addColumn( new MyColumnSql<>( this, "conMonth", MyColumnSql.DOUBLE ) {
-                    @Override
-                    public Double getObject() {
-                        return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getContract( );
-                    }
-                } );
                 addColumn( new MyColumnSql<>( this, "conQuarter", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getContract( );
+                    }
+                } );
+                addColumn( new MyColumnSql<>( this, "conQuarterFar", MyColumnSql.DOUBLE ) {
+                    @Override
+                    public Double getObject() {
+                        return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContract( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "ind", MyColumnSql.DOUBLE ) {
@@ -422,7 +422,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        convertJsonArrayToDoubleArray( new JSONArray( object ), client.getIndexList( ).getValues() );
+                        client.getIndexList().setData(new JSONArray(object));
                     }
 
                     @Override
@@ -439,6 +439,23 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                     @Override
                     public void setLoadedObject( String object ) {
                         convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
+                    }
+
+                    @Override
+                    public String getResetObject() {
+                        return new JSONArray( ).toString( );
+                    }
+                } );
+
+                addColumn( new MyLoadAbleColumn< String >( this, "indexBidAskCounterList", MyColumnSql.STRING ) {
+                    @Override
+                    public String getObject() {
+                        return client.getIndexBidAskCounterList().toString();
+                    }
+
+                    @Override
+                    public void setLoadedObject( String object ) {
+                        client.getIndexBidAskCounterList().setData(new JSONArray(object));
                     }
 
                     @Override

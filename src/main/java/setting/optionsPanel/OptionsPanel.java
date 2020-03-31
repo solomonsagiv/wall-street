@@ -45,6 +45,8 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                             options = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
                         case "QUARTER":
                             options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+                        case "QUARTER_FAR":
+                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
                         case "MAIN":
                             options = client.getOptionsHandler( ).getMainOptions( );
                         default:

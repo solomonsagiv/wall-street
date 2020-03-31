@@ -4,9 +4,7 @@ import charts.myChart.*;
 import lists.MyChartPoint;
 import locals.L;
 import locals.Themes;
-import options.OptionsEnum;
 import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.Second;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 

@@ -2,8 +2,10 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.TwsHandler;
-import dataBase.mySql.myTables.MyDayTable;
-import dataBase.mySql.myTables.MySumTable;
+import options.OptionsEnum;
+import roll.Roll;
+import roll.RollEnum;
+import roll.RollHandler;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
@@ -17,6 +19,11 @@ public class Apple extends STOCK_OBJECT {
     // Constructor
     public Apple() {
         super( );
+
+        rollHandler = new RollHandler( this );
+        Roll quarter_quarterFar = new Roll( getOptionsHandler().getOptions( OptionsEnum.QUARTER ), getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ) );
+        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
+
     }
 
     // Get instance
@@ -69,8 +76,18 @@ public class Apple extends STOCK_OBJECT {
         optionsQuarterContract.multiplier( "100" );
         optionsQuarterContract.symbol( "AAPL" );
         optionsQuarterContract.includeExpired( true );
-
         twsData.addContract( optionsQuarterContract );
+
+        MyContract optionsQuarterFarContract = new MyContract( getBaseId( ) + 4000, TwsContractsEnum.OPT_QUARTER_FAR );
+        optionsQuarterFarContract.secType( "OPT" );
+        optionsQuarterFarContract.currency( "USD" );
+        optionsQuarterFarContract.exchange( "SMART" );
+        optionsQuarterFarContract.tradingClass( "AAPL" );
+        optionsQuarterFarContract.multiplier( "100" );
+        optionsQuarterFarContract.symbol( "AAPL" );
+        optionsQuarterFarContract.includeExpired( true );
+
+        twsData.addContract( optionsQuarterFarContract );
 
         setTwsHandler( twsData );
     }
@@ -92,17 +109,17 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initStartOfIndexTrading() {
-        setStartOfIndexTrading( LocalTime.of( 15, 30, 0 ) );
+        setStartOfIndexTrading( LocalTime.of( 16, 30, 0 ) );
     }
 
     @Override
     public void initEndOfIndexTrading() {
-        setEndOfIndexTrading( LocalTime.of( 22, 0, 0 ) );
+        setEndOfIndexTrading( LocalTime.of( 23, 0, 0 ) );
     }
 
     @Override
     public void initEndOfFutureTrading() {
-        setEndFutureTrading( LocalTime.of( 22, 0, 0 ) );
+        setEndFutureTrading( LocalTime.of( 23, 0, 0 ) );
     }
 
     @Override

@@ -109,6 +109,9 @@ public class DetailsWindow {
                     case "quarter":
                         options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
                         break;
+                    case "quarter_far":
+                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
+                        break;
                     case "main":
                         options = client.getOptionsHandler( ).getMainOptions( );
                         break;

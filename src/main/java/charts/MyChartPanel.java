@@ -4,7 +4,6 @@ import gui.MyGuiComps;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class MyChartPanel extends ChartPanel {
@@ -19,7 +18,7 @@ public class MyChartPanel extends ChartPanel {
 
         if ( includeTicker ) {
 
-            add( createLbl( "Last", Color.BLACK, 20, 0 ) );
+            add( createLbl( "Last", Color.BLACK, 20, -20 ) );
             lastLbl = createLbl( "Last", Color.BLACK, 20, 20 );
             add( lastLbl );
             add( createLbl( "High", Color.BLACK, 70, 0 ) );

@@ -1,5 +1,7 @@
 package gui.stock;
 
+import charts.myCharts.IndexBidAskCounterIndex;
+import charts.myCharts.IndexVsQuarterLive;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -73,16 +75,16 @@ public class StockPanel extends JPanel implements IMyPanel {
     Color backGround = Themes.GREY_LIGHT;
 
     STOCK_OBJECT client;
-    Options optionsMonth;
     Options optionsQuarter;
+    Options optionsQuarterFar;
     Options mainOptions;
 
     private Updater updater;
 
     public StockPanel( STOCK_OBJECT client ) {
         this.client = client;
-        optionsMonth = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
         optionsQuarter = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+        optionsQuarterFar = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
         mainOptions = client.getOptionsHandler( ).getMainOptions( );
 
         init( );
@@ -289,9 +291,9 @@ public class StockPanel extends JPanel implements IMyPanel {
             opField.colorBack( mainOptions.getOp( ), L.format100( ) );
 
             // Quarter
-            opQuarterField.colorBack( optionsQuarter.getOp( ), L.format100( ) );
-            opAvgQuarterField.colorForge( optionsQuarter.getOpAvg( ), L.format100( ) );
-            contractQuarterField.setText( L.format100( optionsQuarter.getContract( ) ) );
+            opQuarterField.colorBack( optionsQuarterFar.getOp( ), L.format100( ) );
+            opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvg( ), L.format100( ) );
+            contractQuarterField.setText( L.format100( optionsQuarterFar.getContract( ) ) );
 
             // Races and roll
             // Races
@@ -299,8 +301,8 @@ public class StockPanel extends JPanel implements IMyPanel {
             indRacesField.colorForge( client.getIndexSum( ) );
 
             // Roll
-            double month = optionsMonth.getContract( );
-            double quarter = optionsQuarter.getContract( );
+            double month = optionsQuarter.getContract( );
+            double quarter = optionsQuarterFar.getContract( );
             rollField.colorForge( quarter - month, L.format100( ) );
         } catch ( NullPointerException e ) {
             e.printStackTrace( );
@@ -359,7 +361,6 @@ public class StockPanel extends JPanel implements IMyPanel {
                     updateText( );
 
                 } catch ( InterruptedException e ) {
-                    System.out.println(isRun() );
                     e.printStackTrace( );
                 }
             }
@@ -388,19 +389,28 @@ public class StockPanel extends JPanel implements IMyPanel {
         } );
 
 
-        JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
+        JMenuItem contractIndexRealTime = new JMenuItem( "Quarter vs Ind real time" );
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-
+                IndexVsQuarterLive chart = new IndexVsQuarterLive(client);
+                chart.createChart();
             }
         } );
 
-        JMenuItem quarterContractIndexRealTime = new JMenuItem( "Quarter vs Ind real time" );
+        JMenuItem indexBidAskCounterItem = new JMenuItem( "Index - B / A" );
+        indexBidAskCounterItem.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                IndexBidAskCounterIndex chart = new IndexBidAskCounterIndex(client);
+                chart.createChart();
+            }
+        } );
+
+        JMenuItem quarterContractIndexRealTime = new JMenuItem( "Quarter far vs Ind real time" );
         quarterContractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-
             }
         } );
 
@@ -454,6 +464,7 @@ public class StockPanel extends JPanel implements IMyPanel {
 
         charts.add( quarterContractIndexRealTime );
         charts.add( contractIndexRealTime );
+        charts.add(indexBidAskCounterItem);
 
         menu.add( details );
         menu.add( settingWindow );

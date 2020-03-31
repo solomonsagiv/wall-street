@@ -1,35 +1,33 @@
 package lists;
 
-import org.jfree.data.time.RegularTimePeriod;
-
 public class MyChartPoint {
 
-    private Long time;
-    private double value;
+    private Long x;
+    private double y;
 
-    public MyChartPoint(Long time, double value) {
-        this.time = time;
-        this.value = value;
+    public MyChartPoint(Long x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public Long getTime() {
-        return time;
+    public Long getX() {
+        return x;
     }
 
-    public void setTime(Long time) {
-        this.time = time;
+    public void setX(Long x) {
+        this.x = x;
     }
 
-    public double getValue() {
-        return value;
+    public double getY() {
+        return y;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setY(double y) {
+        this.y = y;
     }
 
     @Override
     public String toString() {
-        return  "[" + time + ", " + value + "]";
+        return  "[" + x + ", " + y + "]";
     }
 }

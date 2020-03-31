@@ -1,7 +1,6 @@
 package setting;
 
 import gui.MyGuiComps;
-import locals.L;
 import locals.Themes;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -11,7 +10,6 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Optional;
 
 public class TwsPanel extends MyGuiComps.MyPanel {
 
@@ -21,6 +19,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
 
     MyGuiComps.MyLabel dateLbl;
     MyGuiComps.MyTextField dateField;
+    MyGuiComps.MyButton requestDataBtn;
 
     // Constructor
     public TwsPanel(BASE_CLIENT_OBJECT client) {
@@ -47,6 +46,19 @@ public class TwsPanel extends MyGuiComps.MyPanel {
         } );
 
 
+        // Request btn
+        requestDataBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    client.requestApi();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // todo
+                }
+            }
+        });
+
     }
 
     private void initialize() {
@@ -72,6 +84,11 @@ public class TwsPanel extends MyGuiComps.MyPanel {
         dateField.setFontSize(9);
         dateField.setSize( 70, 20 );
         add( dateField );
+
+        // Request button
+        requestDataBtn = new MyGuiComps.MyButton("Request");
+        requestDataBtn.setXY(10, 70);
+        add(requestDataBtn);
 
     }
 

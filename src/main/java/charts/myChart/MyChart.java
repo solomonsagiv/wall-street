@@ -39,7 +39,6 @@ public class MyChart {
     MyProps props;
 
     // Constructor
-
     public MyChart( BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props ) {
         this.client = client;
         this.series = series;
@@ -62,7 +61,7 @@ public class MyChart {
         chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false );
 
         plot = chart.getXYPlot( );
-        plot.setBackgroundPaint( Themes.GREY_VERY_LIGHT );
+        plot.setBackgroundPaint( Color.WHITE );
         plot.setRangeGridlinesVisible( props.getBool( ChartPropsEnum.IS_GRID_VISIBLE ) );
         plot.setDomainGridlinesVisible( false );
         plot.setRangeGridlinePaint( Color.BLACK );

@@ -8,7 +8,6 @@ import options.Option;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.Apple;
-import serverObjects.stockObjects.Vxx;
 import tws.TwsContractsEnum;
 
 import javax.swing.*;
@@ -33,14 +32,12 @@ public class Downloader extends Thread implements EWrapper {
     MyLogger logger;
     int NextOrderId = -1;
     Apple apple = Apple.getInstance( );
-    Vxx vxx = Vxx.getInstance();
     Options appleOptions;
     Options vxxOptions;
 
     // Constructor
     private Downloader() {
         appleOptions = apple.getOptionsHandler( ).getMainOptions( );
-        vxxOptions = vxx.getOptionsHandler().getMainOptions();
         logger = MyLogger.getInstance( );
         m_signal = new EJavaSignal( );
         client = new EClientSocket( this, m_signal );
@@ -205,53 +202,6 @@ public class Downloader extends Thread implements EWrapper {
             }
         }
 
-        // ---------- Vxx ---------- //
-        index = vxx.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
-
-        if ( tickerId == index && price > 0 ) {
-            // Last
-            if ( field == 4 ) {
-                vxx.setIndex( price );
-            }
-            // Bid
-            if ( field == 1 ) {
-                vxx.setIndexBid( price );
-            }
-            // Ask
-            if ( field == 2 ) {
-                vxx.setIndexAsk( price );
-            }
-
-            // Bid
-            if ( field == 6 ) {
-                vxx.setHigh( price );
-            }
-            // Ask
-            if ( field == 7 ) {
-                vxx.setLow( price );
-            }
-
-            // Base
-            if ( field == 9 ) {
-                vxx.setBase( price );
-            }
-        }
-
-        // Apple options
-        minID = vxxOptions.getMinId( );
-        maxID = vxxOptions.getMaxId( );
-
-        // Call
-        if ( tickerId >= minID && tickerId <= maxID && price > 0 ) {
-            // Bid
-            if ( field == 1 ) {
-                vxxOptions.getOptionById( tickerId ).setBid( price );
-            }
-            // Ask
-            if ( field == 2 ) {
-                vxxOptions.getOptionById( tickerId ).setAsk( price );
-            }
-        }
     }
 
     @Override
