@@ -4,19 +4,19 @@ import org.jfree.data.time.RegularTimePeriod;
 
 public class MyChartPoint {
 
-    private RegularTimePeriod time;
+    private Long time;
     private double value;
 
-    public MyChartPoint(RegularTimePeriod time, double value) {
+    public MyChartPoint(Long time, double value) {
         this.time = time;
         this.value = value;
     }
 
-    public RegularTimePeriod getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(RegularTimePeriod time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 

@@ -1,14 +1,18 @@
 package serverObjects.indexObjects;
 
 import api.Manifest;
+import com.google.gson.JsonObject;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.myTables.*;
+import lists.MyChartList;
+import lists.MyChartPoint;
 import options.IndexOptions;
 import options.Options;
 import options.OptionsEnum;
 import options.OptionsHandler;
+import org.jfree.data.time.Millisecond;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -17,10 +21,29 @@ import tws.TwsContractsEnum;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
     private double future = 0;
+
+    public static void main( String[] args ) {
+
+        String s = "[{\"x\":1585669518892,\"y\":0.5872646130148844},{\"x\":1585669518923,\"y\":0.00856472290344934},{\"x\":1585669518923,\"y\":0.6932180474286196}]";
+
+        JSONArray jsonArray = new JSONArray();
+
+        MyChartList list =  new MyChartList();
+        for ( Object o: jsonArray) {
+            JSONObject object = new JSONObject(o.toString());
+            list.add( new MyChartPoint( object.getLong( "x" )  , object.getDouble( "y" ) ));
+        }
+
+        System.out.println(list );
+
+    }
+
 
     public INDEX_CLIENT_OBJECT() {
         super( );
@@ -293,6 +316,12 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                     @Override
                     public Integer getObject() {
                         return client.getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( );
+                    }
+                } );
+                addColumn( new MyColumnSql<>( this, "indBidAskCounter", MyColumnSql.INT ) {
+                    @Override
+                    public Integer getObject() {
+                        return (int) client.getIndexBidAskCounter();
                     }
                 } );
             }

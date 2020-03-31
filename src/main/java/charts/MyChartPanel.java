@@ -1,5 +1,6 @@
 package charts;
 
+import gui.MyGuiComps;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
@@ -8,9 +9,9 @@ import java.awt.*;
 
 public class MyChartPanel extends ChartPanel {
 
-    JLabel highLbl;
-    JLabel lowLbl;
-    JLabel lastLbl;
+    private MyGuiComps.MyLabel highLbl;
+    private MyGuiComps.MyLabel lowLbl;
+    private MyGuiComps.MyLabel lastLbl;
 
     public MyChartPanel( JFreeChart chart, boolean includeTicker ) {
         super( chart );
@@ -32,11 +33,23 @@ public class MyChartPanel extends ChartPanel {
     }
 
     // Create basic lbl
-    public JLabel createLbl( String name, Color color, int x, int y ) {
-        final JLabel lbl = new JLabel( name );
+    public MyGuiComps.MyLabel createLbl( String name, Color color, int x, int y ) {
+        final MyGuiComps.MyLabel lbl = new MyGuiComps.MyLabel( name );
         lbl.setBounds( x, y, 50, 50 );
         lbl.setFont( new Font( "Arial", Font.BOLD, 14 ) );
         return lbl;
+    }
+
+    public MyGuiComps.MyLabel getHighLbl() {
+        return highLbl;
+    }
+
+    public MyGuiComps.MyLabel getLowLbl() {
+        return lowLbl;
+    }
+
+    public MyGuiComps.MyLabel getLastLbl() {
+        return lastLbl;
     }
 
 }

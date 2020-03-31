@@ -1,10 +1,9 @@
-package charts;
+package charts.myCharts;
 
 import charts.myChart.*;
 import locals.L;
 import locals.Themes;
 import options.OptionsEnum;
-import org.jfree.chart.plot.Marker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -12,12 +11,12 @@ import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
-public class IndexVsContractLive extends MyChartCreator {
+public class IndexVsQuarterLive extends MyChartCreator {
 
 
     public static void main( String[] args ) throws InterruptedException {
         Spx spx = Spx.getInstance();
-        IndexVsContractLive testNewChart = new IndexVsContractLive(spx);
+        IndexVsQuarterLive testNewChart = new IndexVsQuarterLive(spx);
         testNewChart.createChart();
 
         while (true) {
@@ -40,20 +39,30 @@ public class IndexVsContractLive extends MyChartCreator {
 
     }
 
-
     // Constructor
-    public IndexVsContractLive( BASE_CLIENT_OBJECT client ) {
+    public IndexVsQuarterLive( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
 
     @Override
     public void createChart() {
 
-
+        // Props
+        props = new MyProps();
+        props.setProp( ChartPropsEnum.SECONDS, 150 );
+        props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
+        props.setProp( ChartPropsEnum.MARGIN, .17 );
+        props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
+        props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
+        props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
+        props.setProp( ChartPropsEnum.IS_LIVE, true );
+        props.setProp( ChartPropsEnum.SLEEP, 200 );
+        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, client.getIndex() * 0.006 );
+        props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, props.getStrokeSize(), props, client.getIndexList() ) {
+        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 2.25f, props, client.getIndexList() ) {
             @Override
             public double getData() {
                 return client.getIndex();
@@ -61,7 +70,7 @@ public class IndexVsContractLive extends MyChartCreator {
         };
 
         // Index
-        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, props.getStrokeSize(), props, client.getIndexBidList() ) {
+        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
             @Override
             public double getData() {
                 return client.getIndexBid();
@@ -69,7 +78,7 @@ public class IndexVsContractLive extends MyChartCreator {
         };
 
         // Index
-        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, props.getStrokeSize(), props, client.getIndexAskList() ) {
+        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
             @Override
             public double getData() {
                 return client.getIndexAsk();
@@ -77,7 +86,7 @@ public class IndexVsContractLive extends MyChartCreator {
         };
 
         // Future
-        MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, props.getStrokeSize(), props, null ) {
+        MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
                 return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getContract();
@@ -96,70 +105,7 @@ public class IndexVsContractLive extends MyChartCreator {
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );
         chartContainer.create();
 
+
     }
-
-
-    // Props
-    MyChartProps props = new MyChartProps( ) {
-        @Override
-        public int getSeconds() {
-            return 150;
-        }
-
-        @Override
-        public boolean isIncludeTicker() {
-            return false;
-        }
-
-        @Override
-        public double getMarginMaxMin() {
-            return .17;
-        }
-
-        @Override
-        public float getStrokeSize() {
-            return 2.25f;
-        }
-
-        @Override
-        public double getRangeMargin() {
-            return 0;
-        }
-
-        @Override
-        public boolean isGridLineVisible() {
-            return false;
-        }
-
-        @Override
-        public boolean isLoadFromDB() {
-            return false;
-        }
-
-        @Override
-        public Marker getMarker() {
-            return null;
-        }
-
-        @Override
-        public boolean isLive() {
-            return true;
-        }
-
-        @Override
-        public int getSleep() {
-            return 200;
-        }
-
-        @Override
-        public double getChartHighInDots() {
-            return client.getIndex() * 0.006;
-        }
-
-        @Override
-        public int getSecondsOnMess() {
-            return 10;
-        }
-    };
 
 }

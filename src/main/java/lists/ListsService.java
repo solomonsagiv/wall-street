@@ -1,6 +1,7 @@
 package lists;
 
 import options.Options;
+import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.Second;
 import roll.Roll;
 import roll.RollEnum;
@@ -45,10 +46,10 @@ public class ListsService extends MyBaseService {
     private void insert() {
 
         // List for charts
-        client.getIndexList( ).add( new MyChartPoint( new Second( ), client.getIndex( ) ) );
-        client.getIndexBidList( ).add( new MyChartPoint( new Second( ), client.getIndexBid( ) ) );
-        client.getIndexAskList( ).add( new MyChartPoint( new Second( ), client.getIndexAsk( ) ) );
-        client.getIndexBidAskCounterList( ).add( new MyChartPoint( new Second( ), client.getIndexBidAskCounter( ) ) );
+        client.getIndexList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndex( ) ) );
+        client.getIndexBidList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndexBid( ) ) );
+        client.getIndexAskList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndexAsk( ) ) );
+        client.getIndexBidAskCounterList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndexBidAskCounter( ) ) );
 
         // Options lists
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {

@@ -1,7 +1,5 @@
 package gui.stock;
 
-import charts.CONTRACT_IND_CHART_LIVE;
-import charts.QUARTER_CONTRACT_IND_CHART_LIVE;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -394,8 +392,7 @@ public class StockPanel extends JPanel implements IMyPanel {
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                CONTRACT_IND_CHART_LIVE chart = new CONTRACT_IND_CHART_LIVE( client );
-                chart.createChart( );
+
             }
         } );
 
@@ -403,8 +400,7 @@ public class StockPanel extends JPanel implements IMyPanel {
         quarterContractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                QUARTER_CONTRACT_IND_CHART_LIVE chart = new QUARTER_CONTRACT_IND_CHART_LIVE( client );
-                chart.createChart( );
+
             }
         } );
 

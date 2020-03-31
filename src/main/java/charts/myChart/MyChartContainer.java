@@ -27,7 +27,6 @@ public class MyChartContainer extends JFrame {
         init( );
     }
 
-
     @Override
     public String getName() {
         return name;
@@ -60,7 +59,7 @@ public class MyChartContainer extends JFrame {
 
     private void appendCharts() {
         for ( MyChart myChart : charts ) {
-            MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.isIncludeTicker() );
+            MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) );
             myChart.chartPanel = chartPanel;
             add( chartPanel );
         }

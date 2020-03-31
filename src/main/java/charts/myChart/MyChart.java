@@ -9,6 +9,7 @@ import org.jfree.chart.axis.AxisLocation;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -22,7 +23,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class MyChart {
@@ -36,11 +36,11 @@ public class MyChart {
     public ChartUpdater updater;
 
     MyTimeSeries[] series;
-    MyChartProps props;
+    MyProps props;
 
     // Constructor
 
-    public MyChart( BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyChartProps props ) {
+    public MyChart( BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props ) {
         this.client = client;
         this.series = series;
         this.props = props;
@@ -54,7 +54,7 @@ public class MyChart {
         updater.getHandler( ).start( );
     }
 
-    private void init( MyTimeSeries[] series, MyChartProps props ) {
+    private void init( MyTimeSeries[] series, MyProps props ) {
         // Series
         TimeSeriesCollection data = new TimeSeriesCollection( );
 
@@ -63,21 +63,21 @@ public class MyChart {
 
         plot = chart.getXYPlot( );
         plot.setBackgroundPaint( Themes.GREY_VERY_LIGHT );
-        plot.setRangeGridlinesVisible( props.isGridLineVisible( ) );
+        plot.setRangeGridlinesVisible( props.getBool( ChartPropsEnum.IS_GRID_VISIBLE ) );
         plot.setDomainGridlinesVisible( false );
         plot.setRangeGridlinePaint( Color.BLACK );
         plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
         plot.getDomainAxis( ).setVisible( false );
 
         // Marker
-        if ( props.getMarker( ) != null ) {
-            plot.addRangeMarker( props.getMarker( ), Layer.BACKGROUND );
+        if ( props.get( ChartPropsEnum.MARKER ) != null ) {
+            plot.addRangeMarker( ( Marker ) props.get( ChartPropsEnum.MARKER ), Layer.BACKGROUND );
         }
 
         // Range unit
-        if ( props.getRangeMargin( ) > 0 ) {
+        if ( props.getDouble( ChartPropsEnum.RANGE_MARGIN ) > 0 ) {
             ValueAxis range = plot.getRangeAxis( );
-            ( ( NumberAxis ) range ).setTickUnit( new NumberTickUnit( props.getRangeMargin( ) ) );
+            ( ( NumberAxis ) range ).setTickUnit( new NumberTickUnit( props.getDouble( ChartPropsEnum.RANGE_MARGIN ) ) );
         }
 
         // Style lines
@@ -136,12 +136,28 @@ public class MyChart {
                         // Change range getting bigger
                         chartRangeGettingBigFilter( );
 
+                        // Ticker
+                        setTickerData();
+
                     }
 
                 } catch ( InterruptedException e ) {
                     e.printStackTrace( );
                     break;
                 }
+            }
+        }
+
+        public void setTickerData() {
+            if ( props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) ) {
+
+                double min = Collections.min( dots );
+                double max = Collections.max( dots );
+                double last = dots.get( dots.size() - 1 );
+
+                chartPanel.getHighLbl().colorForge( max, L.format10() );
+                chartPanel.getLowLbl().colorForge( min, L.format10() );
+                chartPanel.getLastLbl().colorForge( last, L.format10() );
             }
         }
 
@@ -154,7 +170,7 @@ public class MyChart {
                 for ( MyTimeSeries serie : series ) {
 
                     // If bigger then target Seconds
-                    if ( serie.getItemCount( ) > props.getSeconds( ) ) {
+                    if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
                         serie.delete( 0, 0 );
                         dots.remove( 0 );
                     }
@@ -191,20 +207,20 @@ public class MyChart {
         private void chartRangeGettingBigFilter() {
 
             if ( dots.size( ) > 0 ) {
-                double min = Collections.min( dots ) - props.getMarginMaxMin( );
-                double max = Collections.max( dots ) + props.getMarginMaxMin( );
+                double min = Collections.min( dots ) - props.getDouble( ChartPropsEnum.MARGIN );
+                double max = Collections.max( dots ) + props.getDouble( ChartPropsEnum.MARGIN );
 
-                if ( dots.size( ) > series.length * props.getSecondsOnMess( ) ) {
+                if ( dots.size( ) > series.length * props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) ) {
 
                     // If need to rearrange
-                    if ( max - min > props.getChartHighInDots( ) ) {
+                    if ( max - min > props.getDouble( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS ) ) {
 
                         // For each serie
                         for ( MyTimeSeries serie : series ) {
 
-                            serie.delete( 0, serie.getItemCount( ) - props.getSecondsOnMess( ) - 1 );
+                            serie.delete( 0, serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1 );
 
-                            for ( int i = 0; i < dots.size( ) -  ( props.getSecondsOnMess( ) * series.length ); i++ ) {
+                            for ( int i = 0; i < dots.size( ) -  ( props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) * series.length ); i++ ) {
                                 dots.remove( i );
                             }
 

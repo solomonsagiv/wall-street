@@ -1,6 +1,9 @@
 package gui.index;
 
 import charts.*;
+import charts.myCharts.IndexBidAskCounter;
+import charts.myCharts.IndexBidAskCounterIndex;
+import charts.myCharts.IndexVsQuarterLive;
 import charts.spxChart.SpxChart;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
@@ -398,31 +401,39 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         });
 
-        JMenuItem indexBidAskCounterItem = new JMenuItem( "Index B/A counter" );
+        JMenuItem indexBidAskCounter_indexItem = new JMenuItem( "Index - B/A" );
+        indexBidAskCounter_indexItem.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                IndexBidAskCounterIndex chart = new IndexBidAskCounterIndex( client );
+                chart.createChart();
+            }
+        } );
+
+        JMenuItem indexBidAskCounterItem = new JMenuItem( "B / A" );
         indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART indexBidAskCounterChart = new INDEX_BID_ASK_COUNTER__WITH_INDEX_CHART( client );
-                indexBidAskCounterChart.createChart();
+                IndexBidAskCounter chart = new IndexBidAskCounter( client );
+                chart.createChart();
             }
         } );
 
-        JMenuItem indexBidAskCounteNoIndexItem = new JMenuItem( "Index B/A counter" );
-        indexBidAskCounteNoIndexItem.addActionListener( new ActionListener( ) {
+        JMenuItem quarter_index_item = new JMenuItem( "Quarter / index" );
+        quarter_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                INDEX_BID_ASK_COUNTER_CHART indexBidAskCounterChart = new INDEX_BID_ASK_COUNTER_CHART( client );
-                indexBidAskCounterChart.createChart();
+                IndexVsQuarterLive chart = new IndexVsQuarterLive( client );
+                chart.createChart();
             }
         } );
 
-        JMenuItem contractIndexRealTime = new JMenuItem( "Contract vs Ind real time" );
-        contractIndexRealTime.addActionListener( new ActionListener( ) {
+        JMenuItem quarter_quarterFar_index_item = new JMenuItem( "Quarter / Quarter far / index" );
+        quarter_quarterFar_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                SpxChart chart = new SpxChart( client.getName(), client );
-                chart.pack();
-                chart.setVisible(true);
+                IndexVsQuarterLive chart = new IndexVsQuarterLive( client );
+                chart.createChart();
             }
         } );
 
@@ -474,9 +485,10 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         export.add( exportSumLine );
 
-        charts.add( contractIndexRealTime );
+        charts.add( quarter_quarterFar_index_item );
+        charts.add( quarter_quarterFar_index_item );
+        charts.add( indexBidAskCounter_indexItem );
         charts.add( indexBidAskCounterItem );
-        charts.add( indexBidAskCounteNoIndexItem );
 
         menu.add( details );
         menu.add( settingWindow );

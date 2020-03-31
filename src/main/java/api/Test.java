@@ -19,7 +19,6 @@ public class Test {
 
 }
 
-enum Props
-{
+enum Props {
     IND
 }
