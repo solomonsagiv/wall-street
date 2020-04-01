@@ -15,7 +15,6 @@ public class PropsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    Options options;
 
     MyGuiComps.MyLabel interestLbl;
     MyGuiComps.MyTextField interestField;
@@ -28,7 +27,6 @@ public class PropsPanel extends MyGuiComps.MyPanel {
     // Constructor
     public PropsPanel( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        options = OptionsPanel.options;
         initialize( );
         initListeners( );
     }

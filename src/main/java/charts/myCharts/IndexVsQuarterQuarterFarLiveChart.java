@@ -11,12 +11,12 @@ import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
-public class IndexVsQuarterLive extends MyChartCreator {
+public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
 
 
     public static void main( String[] args ) throws InterruptedException {
         Spx spx = Spx.getInstance();
-        IndexVsQuarterLive testNewChart = new IndexVsQuarterLive(spx);
+        IndexVsQuarterQuarterFarLiveChart testNewChart = new IndexVsQuarterQuarterFarLiveChart(spx);
         testNewChart.createChart();
 
         while (true) {
@@ -34,13 +34,15 @@ public class IndexVsQuarterLive extends MyChartCreator {
             spx.setIndexBid( d - 2 );
             spx.setIndexAsk( d + 1 );
             spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).setContract( d - 1 );
+            spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).setContract( d + 2 );
+
             Thread.sleep(200);
         }
 
     }
 
     // Constructor
-    public IndexVsQuarterLive( BASE_CLIENT_OBJECT client ) {
+    public IndexVsQuarterQuarterFarLiveChart( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
 
@@ -57,7 +59,7 @@ public class IndexVsQuarterLive extends MyChartCreator {
         props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
         props.setProp( ChartPropsEnum.IS_LIVE, true );
         props.setProp( ChartPropsEnum.SLEEP, 200 );
-        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, client.getIndex() * 0.006 );
+        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS,(double) INFINITE );
         props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
 
         // ----- Chart 1 ----- //
@@ -86,14 +88,22 @@ public class IndexVsQuarterLive extends MyChartCreator {
         };
 
         // Future
-        MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
+        MyTimeSeries quarter = new MyTimeSeries( "Quarter", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
                 return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getContract();
             }
         };
 
-        MyTimeSeries[] series = {index, bid, ask, future};
+        // Future
+        MyTimeSeries quarterFar = new MyTimeSeries( "QuarterFar", Themes.VERY_LIGHT_BLUE, 2.25f, props, null ) {
+            @Override
+            public double getData() {
+                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getContract();
+            }
+        };
+
+        MyTimeSeries[] series = {index, bid, ask, quarter, quarterFar};
 
         // Chart
         MyChart chart = new MyChart( client, series, props );

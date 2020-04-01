@@ -41,14 +41,19 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                     switch ( comboBox.getSelectedItem( ).toString( ) ) {
                         case "WEEK":
                             options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
+                            break;
                         case "MONTH":
                             options = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
+                            break;
                         case "QUARTER":
                             options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+                            break;
                         case "QUARTER_FAR":
                             options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
+                            break;
                         case "MAIN":
                             options = client.getOptionsHandler( ).getMainOptions( );
+                            break;
                         default:
                             break;
                     }
@@ -79,7 +84,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         add( propsPanel );
 
         // Executors
-        executorsPanel = new ExecutorsPanel( client );
+        executorsPanel = new ExecutorsPanel( client, options );
         executorsPanel.setXY( propsPanel.getX( ) + propsPanel.getWidth( ) + 1, propsPanel.getY( ) );
         add( executorsPanel );
 

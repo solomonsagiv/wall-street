@@ -1,9 +1,9 @@
 package gui.index;
 
-import charts.myCharts.IndexBidAskCounter;
-import charts.myCharts.IndexBidAskCounterIndex;
-import charts.myCharts.IndexVsQuarterLive;
-import charts.myCharts.IndexVsQuarterQuarterFarLive;
+import charts.myCharts.IndexBidAskCounterChart;
+import charts.myCharts.IndexBidAskCounterIndexChart;
+import charts.myCharts.IndexVsQuarterLiveChart;
+import charts.myCharts.IndexVsQuarterQuarterFarLiveChart;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -401,7 +401,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         indexBidAskCounter_indexItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexBidAskCounterIndex chart = new IndexBidAskCounterIndex( client );
+                IndexBidAskCounterIndexChart chart = new IndexBidAskCounterIndexChart( client );
                 chart.createChart();
             }
         } );
@@ -410,7 +410,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexBidAskCounter chart = new IndexBidAskCounter( client );
+                IndexBidAskCounterChart chart = new IndexBidAskCounterChart( client );
                 chart.createChart();
             }
         } );
@@ -419,7 +419,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         quarter_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterLive chart = new IndexVsQuarterLive( client );
+                IndexVsQuarterLiveChart chart = new IndexVsQuarterLiveChart( client );
                 chart.createChart();
             }
         } );
@@ -428,7 +428,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         quarter_quarterFar_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterQuarterFarLive chart = new IndexVsQuarterQuarterFarLive( client );
+                IndexVsQuarterQuarterFarLiveChart chart = new IndexVsQuarterQuarterFarLiveChart( client );
                 chart.createChart();
             }
         } );

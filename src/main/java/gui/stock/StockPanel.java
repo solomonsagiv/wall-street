@@ -1,7 +1,7 @@
 package gui.stock;
 
-import charts.myCharts.IndexBidAskCounterIndex;
-import charts.myCharts.IndexVsQuarterLive;
+import charts.myCharts.IndexBidAskCounterIndexChart;
+import charts.myCharts.IndexVsQuarterLiveChart;
 import dataBase.mySql.myTables.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -393,7 +393,7 @@ public class StockPanel extends JPanel implements IMyPanel {
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterLive chart = new IndexVsQuarterLive(client);
+                IndexVsQuarterLiveChart chart = new IndexVsQuarterLiveChart(client);
                 chart.createChart();
             }
         } );
@@ -402,7 +402,7 @@ public class StockPanel extends JPanel implements IMyPanel {
         indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexBidAskCounterIndex chart = new IndexBidAskCounterIndex(client);
+                IndexBidAskCounterIndexChart chart = new IndexBidAskCounterIndexChart(client);
                 chart.createChart();
             }
         } );

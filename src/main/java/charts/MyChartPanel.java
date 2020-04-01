@@ -18,7 +18,7 @@ public class MyChartPanel extends ChartPanel {
 
         if ( includeTicker ) {
 
-            add( createLbl( "Last", Color.BLACK, 20, -20 ) );
+            add( createLbl( "Last", Color.BLACK, 20, 0 ) );
             lastLbl = createLbl( "Last", Color.BLACK, 20, 20 );
             add( lastLbl );
             add( createLbl( "High", Color.BLACK, 70, 0 ) );

@@ -2,6 +2,7 @@ package options;
 
 import com.ib.client.Contract;
 import com.ib.client.Types;
+import locals.IJsonDataBase;
 import locals.L;
 import options.fullOptions.PositionCalculator;
 import org.json.JSONObject;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public abstract class Options {
+public abstract class Options implements IJsonDataBase {
 
     OptionsDDeCells optionsDDeCells;
     List< Strike > strikes;
@@ -33,7 +34,7 @@ public abstract class Options {
     protected int baseID = 0;
     protected int minId = 0;
     protected int maxId = 0;
-    protected Contract twsContract;
+    protected MyContract twsContract;
     protected boolean gotData = false;
     private double contract = 0;
     protected double contractBid = 0;
@@ -50,23 +51,21 @@ public abstract class Options {
     List< Double > conBidList = new ArrayList<>( );
     List< Double > conAskList = new ArrayList<>( );
 
-    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract ) {
+    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type ) {
         this.baseID = baseID;
         this.type = type;
-        this.twsContract = twsContract;
         this.client = client;
 
         strikes = new ArrayList<>();
         optionsMap = new HashMap<>();
-
+        twsContract = new MyContract();
         positionCalculator = new PositionCalculator( client );
     }
 
-    public Options ( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, Contract twsContract, OptionsDDeCells dDeCells ) {
-        this( baseID,  client,  type,  twsContract );
+    public Options ( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
+        this( baseID,  client,  type );
         this.optionsDDeCells = dDeCells;
     }
-
 
     // Abstracts functions
     public abstract double getStrikeInMoney();
@@ -520,28 +519,36 @@ public abstract class Options {
         }
     }
 
-    public JSONObject getProps() {
-
-        JSONObject props = new JSONObject( );
-        props.put( "interest", getInterest( ) );
-        props.put( "borrow", getCalcBorrow( ) );
-        props.put( "devidend", getDevidend( ) );
-        props.put( "date", getExpDate() );
-        props.put( "days", getDays( ) );
-        return props;
-
+    @Override
+    public JSONObject getAsJson() {
+        JSONObject object = new JSONObject( );
+        object.put( OptionsPropsEnum.INTEREST.toString(), getInterest( ) );
+        object.put( OptionsPropsEnum.DEVIDEND.toString(), getCalcDevidend( ) );
+        object.put( OptionsPropsEnum.DATE.toString(), getExpDate( ) );
+        object.put( OptionsPropsEnum.DAYS.toString(), getDays( ) );
+        object.put( OptionsPropsEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
+        return object;
     }
 
-    public JSONObject getEmptyProps() {
 
-        JSONObject json = new JSONObject( );
-        json.put( "interest", 1 );
-        json.put( "borrow", 0 );
-        json.put( "devidend", 0 );
-        json.put( "date", getExpDate() );
-        json.put( "days", 0 );
+    @Override
+    public JSONObject getResetObject() {
+        JSONObject object = new JSONObject( );
+        object.put( OptionsPropsEnum.INTEREST.toString(), 1 );
+        object.put( OptionsPropsEnum.DEVIDEND.toString(), 0 );
+        object.put( OptionsPropsEnum.DATE.toString(), getExpDate() );
+        object.put( OptionsPropsEnum.DAYS.toString(), 0 );
+        object.put( OptionsPropsEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
+        return object;
+    }
 
-        return json;
+    @Override
+    public void loadFromJson( JSONObject object ) {
+        setInterestWithCalc( object.getDouble( OptionsPropsEnum.INTEREST.toString() ) );
+        setDevidend( object.getDouble( OptionsPropsEnum.DEVIDEND.toString() ) );
+        setExpDate( LocalDate.parse( object.getString( OptionsPropsEnum.DATE.toString() ) ) );
+        setInterestWithCalc( object.getDouble( OptionsPropsEnum.DAYS.toString() ) );
+        getTwsContract().loadFromJson( object.getJSONObject( OptionsPropsEnum.TWS_CONTRACT.toString() ) );
     }
 
     public void setPropsDataFromJson( JSONObject json ) throws Exception {
@@ -867,7 +874,7 @@ public abstract class Options {
         this.requested = requested;
     }
 
-    public Contract getTwsContract() {
+    private MyContract getTwsContract() {
         return twsContract;
     }
 

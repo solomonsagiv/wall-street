@@ -221,7 +221,6 @@ public class DetailsWindow {
             optionsArea.setText( options.toStringVertical( ) );
         }
 
-
         private ArrayList< String > getToStringList() {
             ArrayList< String > list = new ArrayList<>( );
             list.add( "Started: " + client.isStarted( ) );
@@ -243,7 +242,7 @@ public class DetailsWindow {
             list.add( "Borrow: " + options.getCalcBorrow( ) );
             list.add("");
             list.add("Tws Contract");
-            list.add(options.getTwsContract().toString());
+            list.add(options.getCopyTwsContract().toString());
             list.add("");
             list.add("All details");
             list.add(client.toStringPretty());

@@ -1,28 +1,30 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
+import lists.MyChartPoint;
 import locals.L;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.AxisLocation;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.NumberTickUnit;
-import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.Marker;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
+import org.jfree.ui.RectangleInsets;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 public class MyChart {
@@ -58,7 +60,7 @@ public class MyChart {
         TimeSeriesCollection data = new TimeSeriesCollection( );
 
         // Create the chart
-        chart = ChartFactory.createXYLineChart( null, null, null, data, PlotOrientation.VERTICAL, false, true, false );
+        chart = ChartFactory.createTimeSeriesChart( null, null, null, data, false, true, false );
 
         plot = chart.getXYPlot( );
         plot.setBackgroundPaint( Color.WHITE );
@@ -66,7 +68,15 @@ public class MyChart {
         plot.setDomainGridlinesVisible( false );
         plot.setRangeGridlinePaint( Color.BLACK );
         plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
-        plot.getDomainAxis( ).setVisible( false );
+        plot.getDomainAxis( ).setVisible( true );
+        plot.setAxisOffset( new RectangleInsets( 50.0, 5.0, 5.0, 5.0 ) );
+        DateAxis axis = ( DateAxis ) plot.getDomainAxis( );
+        axis.setAutoRange( true );
+        axis.setDateFormatOverride( new SimpleDateFormat( "HH:mm" ) );
+
+        NumberAxis numberAxis = ( NumberAxis ) plot.getRangeAxis( );
+        DecimalFormat df = new DecimalFormat("#0000.##");
+        numberAxis.setNumberFormatOverride( df );
 
         // Marker
         if ( props.get( ChartPropsEnum.MARKER ) != null ) {
@@ -120,12 +130,15 @@ public class MyChart {
         @Override
         public void run() {
 
+            // Load data
+            loadChartData( );
+
             // While loop
             while ( isRun( ) ) {
                 try {
 
                     // Sleep
-                    Thread.sleep( 200 );
+                    Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
 
                     if ( isDataChanged( ) ) {
 
@@ -136,7 +149,7 @@ public class MyChart {
                         chartRangeGettingBigFilter( );
 
                         // Ticker
-                        setTickerData();
+                        setTickerData( );
 
                     }
 
@@ -147,16 +160,31 @@ public class MyChart {
             }
         }
 
+        private void loadChartData() {
+            if ( props.getBool( ChartPropsEnum.IS_LOAD_DB ) ) {
+                for ( MyTimeSeries serie : series ) {
+                    for ( int i = 0; i < serie.getMyChartList( ).size( ); i++ ) {
+                        MyChartPoint point = serie.getMyChartList( ).get( i );
+                        serie.addOrUpdate( new Millisecond( new Date( point.getX( ) ) ), point.getY( ) );
+                        dots.add( point.getY( ) );
+                    }
+                }
+            }
+        }
+
         public void setTickerData() {
             if ( props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) ) {
+                try {
+                    double min = Collections.min( dots );
+                    double max = Collections.max( dots );
+                    double last = dots.get( dots.size( ) - 1 );
 
-                double min = Collections.min( dots );
-                double max = Collections.max( dots );
-                double last = dots.get( dots.size() - 1 );
-
-                chartPanel.getHighLbl().colorForge( max, L.format10() );
-                chartPanel.getLowLbl().colorForge( min, L.format10() );
-                chartPanel.getLastLbl().colorForge( last, L.format10() );
+                    chartPanel.getHighLbl( ).colorForge( max, L.format10( ) );
+                    chartPanel.getLowLbl( ).colorForge( min, L.format10( ) );
+                    chartPanel.getLastLbl( ).colorForge( last, L.format10( ) );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                }
             }
         }
 
@@ -164,7 +192,7 @@ public class MyChart {
         private void appendDataToSeries() {
             try {
 
-                Millisecond millisecond = new Millisecond();
+                Millisecond millisecond = new Millisecond( );
 
                 for ( MyTimeSeries serie : series ) {
 
@@ -219,7 +247,7 @@ public class MyChart {
 
                             serie.delete( 0, serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1 );
 
-                            for ( int i = 0; i < dots.size( ) -  ( props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) * series.length ); i++ ) {
+                            for ( int i = 0; i < dots.size( ) - ( props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) * series.length ); i++ ) {
                                 dots.remove( i );
                             }
 

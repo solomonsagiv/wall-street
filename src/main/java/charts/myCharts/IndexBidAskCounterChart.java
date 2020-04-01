@@ -5,46 +5,16 @@ import lists.MyChartPoint;
 import locals.L;
 import locals.Themes;
 import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.Second;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
-import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
-public class IndexBidAskCounter extends MyChartCreator {
-
-
-    public static void main( String[] args ) throws InterruptedException {
-        Spx spx = Spx.getInstance();
-        IndexBidAskCounter testNewChart = new IndexBidAskCounter(spx);
-        testNewChart.createChart();
-
-        while (true) {
-
-            System.out.println( "Enter future: " );
-            String input = new Scanner( System.in ).nextLine();
-
-            double d = new Random(  ).nextDouble() * 10;
-
-            if ( !input.isEmpty() ) {
-                d = L.dbl( input );
-            }
-
-            spx.setIndex( d );
-            spx.getIndexList().add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), d ) );
-            spx.setIndexBid( d - 2 );
-            spx.setIndexAsk( d + 1 );
-            spx.getIndexBidAskCounterList().add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), spx.getIndexBidAskCounter() ) );
-
-            Thread.sleep(200);
-        }
-
-    }
+public class IndexBidAskCounterChart extends MyChartCreator {
 
     // Constructor
-    public IndexBidAskCounter( BASE_CLIENT_OBJECT client ) {
+    public IndexBidAskCounterChart( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
 

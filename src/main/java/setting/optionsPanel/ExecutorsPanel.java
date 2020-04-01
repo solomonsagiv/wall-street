@@ -3,6 +3,7 @@ package setting.optionsPanel;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
+import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -13,13 +14,15 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
+    Options options;
 
     MyGuiComps.MyLabel opAvgLbl;
     MyGuiComps.MyTextField opAvgField;
 
     // Constructor
-    public ExecutorsPanel( BASE_CLIENT_OBJECT client ) {
+    public ExecutorsPanel( BASE_CLIENT_OBJECT client, Options options ) {
         this.client = client;
+        this.options = options;
         initialize( );
         initListeners( );
     }
@@ -32,7 +35,7 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 try {
                     double  opAvg = L.dbl( opAvgField.getText() );
-                    OptionsPanel.options.setOpAvg( opAvg );
+                    options.setOpAvg( opAvg );
                 } catch ( Exception e ) {
                     JOptionPane.showMessageDialog( null, e.getMessage() );
                 }

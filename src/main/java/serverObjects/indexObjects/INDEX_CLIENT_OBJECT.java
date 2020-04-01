@@ -27,24 +27,7 @@ import java.util.Random;
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
     private double future = 0;
-
-    public static void main( String[] args ) {
-
-        String s = "[{\"x\":1585669518892,\"y\":0.5872646130148844},{\"x\":1585669518923,\"y\":0.00856472290344934},{\"x\":1585669518923,\"y\":0.6932180474286196}]";
-
-        JSONArray jsonArray = new JSONArray();
-
-        MyChartList list =  new MyChartList();
-        for ( Object o: jsonArray) {
-            JSONObject object = new JSONObject(o.toString());
-            list.add( new MyChartPoint( object.getLong( "x" )  , object.getDouble( "y" ) ));
-        }
-
-        System.out.println(list );
-
-    }
-
-
+    
     public INDEX_CLIENT_OBJECT() {
         super( );
     }
@@ -63,19 +46,19 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() throws NullPointerException {
 
-        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ) );
-        IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR ) );
+        IndexOptions optionsQuarter = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ) );
+        IndexOptions optionsQuarterFar = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR ) );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
             public void initOptions() {
-                addOptions( monthOptions );
-                addOptions( quarterOptions );
+                addOptions( optionsQuarter );
+                addOptions( optionsQuarterFar );
             }
 
             @Override
             public void initMainOptions() {
-                setMainOptions( monthOptions );
+                setMainOptions( optionsQuarter );
             }
         };
         setOptionsHandler( optionsHandler );
@@ -121,21 +104,18 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContract( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "conQuarterFarBid", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContractBid( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "conQuarterFarAsk", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getContractAsk( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "conQuarter", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
@@ -148,35 +128,30 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getContractBid( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "conQuarterAsk", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getContractAsk( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "ind", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getIndex( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "indBid", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getIndexBid( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "indAsk", MyColumnSql.DOUBLE ) {
                     @Override
                     public Double getObject() {
                         return client.getIndexAsk( );
                     }
                 } );
-
                 addColumn( new MyColumnSql<>( this, "indBidAskCounter", MyColumnSql.INT ) {
                     @Override
                     public Integer getObject() {
@@ -511,7 +486,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        convertJsonArrayToDoubleArray( new JSONArray( object ), client.getIndexList( ).getValues() );
+                        client.getIndexList().setData( new JSONArray( object ) );
                     }
 
                     @Override
@@ -543,7 +518,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        convertJsonArrayToDoubleArray( new JSONArray( object ),  client.getIndexBidAskCounterList().getValues() );
+                        client.getIndexBidAskCounterList().setData( new JSONArray( object ) );
                     }
 
                     @Override

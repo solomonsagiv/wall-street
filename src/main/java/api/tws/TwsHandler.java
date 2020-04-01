@@ -15,7 +15,7 @@ import java.util.Map;
 public class TwsHandler {
 
     // Variables
-    Map< Integer, MyContract > myContracts = new HashMap<>();
+    Map< TwsContractsEnum, MyContract > myContracts = new HashMap<>();
 
     // Constructor
     public TwsHandler() {}
@@ -25,30 +25,17 @@ public class TwsHandler {
     }
 
     public void addContract( MyContract contract ) {
-        myContracts.put( contract.getMyId( ), contract );
-    }
-
-    public MyContract getMyContract( int id ) throws Exception {
-        MyContract myContract = myContracts.get( id );
-        if ( myContract != null ) {
-            return myContract;
-        } else {
-            throw new NullPointerException( "No contract with this id: " + id );
-        }
+        myContracts.put( contract.getType( ), contract );
     }
 
     public MyContract getMyContract( TwsContractsEnum twsContractsEnum ) throws NullPointerException {
-        for ( Map.Entry< Integer, MyContract > entry: myContracts.entrySet()) {
-            MyContract contract = entry.getValue();
-            if ( twsContractsEnum == contract.getType() ) {
-                return contract;
-            }
+        if ( myContracts.containsKey( twsContractsEnum ) ) {
+            return myContracts.get( twsContractsEnum );
         }
-
         throw new NullPointerException( "Contract not exist: " + twsContractsEnum );
     }
 
-    public boolean isRequested( int id ) throws Exception {
+    public boolean isRequested( TwsContractsEnum id ) throws Exception {
         MyContract myContract = myContracts.get( id );
         if ( myContract != null ) {
             return myContract.isRequested( );
@@ -58,7 +45,7 @@ public class TwsHandler {
     }
 
     public boolean isRequested( MyContract myContract ) throws Exception {
-        return isRequested( myContract.getMyId() );
+        return isRequested( myContract.getType() );
     }
 
     public void request( MyContract contract ) {
@@ -72,7 +59,7 @@ public class TwsHandler {
         }
     }
 
-    public void request( int id ) throws Exception {
+    public void request( TwsContractsEnum id ) throws Exception {
         MyContract contract = getMyContract( id );
         request( contract );
     }

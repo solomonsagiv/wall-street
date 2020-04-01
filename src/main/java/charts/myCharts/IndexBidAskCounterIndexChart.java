@@ -12,38 +12,10 @@ import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
-public class IndexBidAskCounterIndex extends MyChartCreator {
-
-
-    public static void main( String[] args ) throws InterruptedException {
-        Spx spx = Spx.getInstance();
-        IndexBidAskCounterIndex testNewChart = new IndexBidAskCounterIndex(spx);
-        testNewChart.createChart();
-
-        while (true) {
-
-            System.out.println( "Enter future: " );
-            String input = new Scanner( System.in ).nextLine();
-
-            double d = new Random(  ).nextDouble() * 10;
-
-            if ( !input.isEmpty() ) {
-                d = L.dbl( input );
-            }
-
-            spx.setIndex( d );
-            spx.getIndexList().add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), d ) );
-            spx.setIndexBid( d - 2 );
-            spx.setIndexAsk( d + 1 );
-            spx.getIndexBidAskCounterList().add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), spx.getIndexBidAskCounter() ) );
-
-            Thread.sleep(200);
-        }
-
-    }
+public class IndexBidAskCounterIndexChart extends MyChartCreator {
 
     // Constructor
-    public IndexBidAskCounterIndex( BASE_CLIENT_OBJECT client ) {
+    public IndexBidAskCounterIndexChart( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
 
