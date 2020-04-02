@@ -46,8 +46,8 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() throws NullPointerException {
 
-        IndexOptions optionsQuarter = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER ) );
-        IndexOptions optionsQuarterFar = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR ) );
+        IndexOptions optionsQuarter = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER );
+        IndexOptions optionsQuarterFar = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
@@ -445,7 +445,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                         JSONObject optionsData = new JSONObject( object );
                         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
                             try {
-                                options.setDataFromJson( optionsData.getJSONObject( options.getType( ).toString( ) ) );
+                                options.loadFromJson( optionsData.getJSONObject( options.getType( ).toString( ) ) );
                             } catch ( Exception e ) {
                                 e.printStackTrace( );
                             }

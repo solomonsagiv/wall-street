@@ -2,14 +2,14 @@ package options;
 
 import com.ib.client.Contract;
 import serverObjects.stockObjects.STOCK_OBJECT;
+import tws.MyContract;
 
 public class StockOptions extends Options {
 
     STOCK_OBJECT client;
 
-
-    public StockOptions( int baseID, STOCK_OBJECT client, OptionsEnum type, Contract twsContract ) {
-        super( baseID, client, type, twsContract );
+    public StockOptions( int baseID, STOCK_OBJECT client, OptionsEnum type ) {
+        super( baseID, client, type );
         this.client = client;
     }
 
@@ -45,33 +45,6 @@ public class StockOptions extends Options {
             }
         }
         return targetStrike;
-    }
-
-
-    public double getCalcDevidend() {
-
-        if ( devidend <= 0 ) {
-            return 0;
-        }
-
-        double calcDev = getDevidend( ) * 360.0 / getDays( ) / client.getIndex( );
-
-        if ( Double.isInfinite( calcDev ) ) {
-            return 0;
-        }
-
-        return calcDev;
-    }
-    public double getCalcBorrow() {
-        if ( getBorrow( ) != 0 ) {
-            return getBorrow( );
-        } else {
-            try {
-                return floor( client.getIndexBid( ) * 0.002 / 360.0 * getDays( ), 10000 );
-            } catch ( NullPointerException e ) {
-                return 0;
-            }
-        }
     }
 
 }

@@ -1,10 +1,10 @@
 package options;
 
-import com.ib.client.Contract;
 import com.ib.client.Types;
 import locals.IJsonDataBase;
 import locals.L;
 import options.fullOptions.PositionCalculator;
+import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
@@ -26,10 +26,7 @@ public abstract class Options implements IJsonDataBase {
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
     protected double daysToExp = -1;
-    protected double interest = 1;
-    protected double interestZero = 0;
-    protected double devidend = -1;
-    protected double borrow = 0;
+    protected OptionsProps props;
     protected int contractBidAskCounter = 0;
     protected int baseID = 0;
     protected int minId = 0;
@@ -39,7 +36,8 @@ public abstract class Options implements IJsonDataBase {
     private double contract = 0;
     protected double contractBid = 0;
     protected double contractAsk = 0;
-    protected double currStrike = 0;
+    public double currStrike = 0;
+    IOptionsCalcs optionsCalcs;
 
     Set<Integer> dates = new HashSet<>();
 
@@ -60,6 +58,7 @@ public abstract class Options implements IJsonDataBase {
         optionsMap = new HashMap<>();
         twsContract = new MyContract();
         positionCalculator = new PositionCalculator( client );
+        props = new OptionsProps();
     }
 
     public Options ( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
@@ -67,14 +66,18 @@ public abstract class Options implements IJsonDataBase {
         this.optionsDDeCells = dDeCells;
     }
 
-    // Abstracts functions
-    public abstract double getStrikeInMoney();
+    // Inherith functions
+    public double getStrikeInMoney() {
+        return optionsCalcs.getStrikeInMoney();
+    }
 
-    public abstract Strike getStrikeInMoneyIfZero();
+    public Strike getStrikeInMoneyIfZero() {
+        return optionsCalcs.getStrikeInMoneyIfZero();
+    }
 
-    public abstract double getCalcDevidend();
-
-    public abstract double getCalcBorrow();
+    public double getCalcDevidend() {
+        return optionsCalcs.getCalcDevidend();
+    }
 
     public Call getCall( double targetStrike ) {
         for ( Strike strike : strikes ) {
@@ -246,7 +249,7 @@ public abstract class Options implements IJsonDataBase {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike( ) * ( Math.exp( ( -getInterestZero( ) - 0.002 + getCalcDevidend( ) ) * ( getDays( ) / 360.0 ) ) );
+                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero() - 0.002 + getCalcDevidend( ) ) * ( getDays( ) / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
 
@@ -319,7 +322,7 @@ public abstract class Options implements IJsonDataBase {
                         put_ask = 99999999;
                     }
 
-                    double v = ( strikePrice / ( Math.pow( getInterest( ), ( getAbsolutDays( ) / 360.0 ) ) ) );
+                    double v = ( strikePrice / ( Math.pow( props.getInterest(), ( getAbsolutDays( ) / 360.0 ) ) ) );
 
                     double buy = ( call_ask - put_bid ) + v;
                     double sell = ( call_bid - put_ask ) + v;
@@ -522,52 +525,31 @@ public abstract class Options implements IJsonDataBase {
     @Override
     public JSONObject getAsJson() {
         JSONObject object = new JSONObject( );
-        object.put( OptionsPropsEnum.INTEREST.toString(), getInterest( ) );
-        object.put( OptionsPropsEnum.DEVIDEND.toString(), getCalcDevidend( ) );
-        object.put( OptionsPropsEnum.DATE.toString(), getExpDate( ) );
-        object.put( OptionsPropsEnum.DAYS.toString(), getDays( ) );
-        object.put( OptionsPropsEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
+        object.put( JsonEnum.PROPS.toString(), getProps().getAsJson() );
+        object.put( JsonEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
+//        object.put( JsonEnum.DATA,  );
         return object;
     }
-
 
     @Override
     public JSONObject getResetObject() {
         JSONObject object = new JSONObject( );
-        object.put( OptionsPropsEnum.INTEREST.toString(), 1 );
-        object.put( OptionsPropsEnum.DEVIDEND.toString(), 0 );
-        object.put( OptionsPropsEnum.DATE.toString(), getExpDate() );
-        object.put( OptionsPropsEnum.DAYS.toString(), 0 );
-        object.put( OptionsPropsEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
+        object.put( JsonEnum.INTEREST.toString(), 1 );
+        object.put( JsonEnum.DEVIDEND.toString(), 0 );
+        object.put( JsonEnum.DATE.toString(), getExpDate() );
+        object.put( JsonEnum.DAYS.toString(), 0 );
+        object.put( JsonEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
         return object;
     }
 
     @Override
     public void loadFromJson( JSONObject object ) {
-        setInterestWithCalc( object.getDouble( OptionsPropsEnum.INTEREST.toString() ) );
-        setDevidend( object.getDouble( OptionsPropsEnum.DEVIDEND.toString() ) );
-        setExpDate( LocalDate.parse( object.getString( OptionsPropsEnum.DATE.toString() ) ) );
-        setInterestWithCalc( object.getDouble( OptionsPropsEnum.DAYS.toString() ) );
-        getTwsContract().loadFromJson( object.getJSONObject( OptionsPropsEnum.TWS_CONTRACT.toString() ) );
-    }
 
-    public void setPropsDataFromJson( JSONObject json ) throws Exception {
-
-        double interest = json.getDouble( "interest" );
-        double devidend = json.getDouble( "devidend" );
-        double borrow = json.getDouble( "borrow" );
-        LocalDate date =  LocalDate.parse( json.getString( "date" ) );
-        double days = json.getDouble( "days" );
-
-        setInterestZero( interest - 1 );
-        setInterest( interest );
-        setDevidend( devidend );
-        setExpDate( date );
-        setBorrow( borrow );
-        setDaysToExp( days );
-
-        getTwsContract().lastTradeDateOrContractMonth( date.toString().replace( "-", "" ) );
-
+//        setInterestWithCalc( object.getDouble( JsonEnum.INTEREST.toString() ) );
+//        setDevidend( object.getDouble( JsonEnum.DEVIDEND.toString() ) );
+//        setExpDate( LocalDate.parse( object.getString( JsonEnum.DATE.toString() ) ) );
+//        setInterestWithCalc( object.getDouble( JsonEnum.DAYS.toString() ) );
+//        getTwsContract().loadFromJson( object.getJSONObject( JsonEnum.TWS_CONTRACT.toString() ) );
     }
 
     public List< Strike > getStrikes() {
@@ -606,35 +588,33 @@ public abstract class Options implements IJsonDataBase {
             strikeJson = new JSONObject( );
 
             Call call = strike.getCall( );
-            callJson.put( "bid", call.getBid( ) );
-            callJson.put( "ask", call.getAsk( ) );
-            callJson.put( "bid_ask_counter", call.getBidAskCounter( ) );
+            callJson.put( JsonEnum.BID.toString(), call.getBid( ) );
+            callJson.put( JsonEnum.ASK.toString(), call.getAsk( ) );
+            callJson.put( JsonEnum.BID_ASK_COUNTER.toString(), call.getBidAskCounter( ) );
 
             Put put = strike.getPut( );
-            putJson.put( "bid", put.getBid( ) );
-            putJson.put( "ask", put.getAsk( ) );
-            putJson.put( "bid_ask_counter", put.getBidAskCounter( ) );
+            putJson.put( JsonEnum.BID.toString(), put.getBid( ) );
+            putJson.put( JsonEnum.ASK.toString(), put.getAsk( ) );
+            putJson.put( JsonEnum.BID_ASK_COUNTER.toString(), put.getBidAskCounter( ) );
 
-            strikeJson.put( "call", callJson );
-            strikeJson.put( "put", putJson );
+            strikeJson.put( JsonEnum.CALL.toString(), callJson );
+            strikeJson.put( JsonEnum.PUT.toString(), putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
         mainJson.put( "contractBidAskCounter", getContractBidAskCounter( ) );
-        mainJson.put( "con", getContract( ) );
+//        mainJson.put( , getContract( ) );
         mainJson.put( "props", getProps( ) );
         mainJson.put( "opAvg", L.floor( getOpAvg( ), 100 ) );
         mainJson.put( "opAvg15", L.floor( getOpAvg15( ), 100 ) );
 
-        mainJson.put( "data", optionsData );
+        mainJson.put( "DATA", optionsData );
 
         return mainJson;
     }
 
-
-    public JSONObject getEmptyOptionsAsJson() {
-
+    public JSONObject getDataAsJson() {
         JSONObject mainJson = new JSONObject( );
 
         JSONObject optionsData = new JSONObject( );
@@ -649,42 +629,28 @@ public abstract class Options implements IJsonDataBase {
             putJson = new JSONObject( );
             strikeJson = new JSONObject( );
 
-            callJson.put( "bid", 0 );
-            callJson.put( "ask", 0 );
-            callJson.put( "bid_ask_counter", 0 );
+            callJson.put( JsonEnum.BID.toString(), 0 );
+            callJson.put( JsonEnum.ASK.toString(), 0 );
+            callJson.put( JsonEnum.BID_ASK_COUNTER.toString(), 0 );
 
-            putJson.put( "bid", 0 );
-            putJson.put( "ask", 0 );
-            putJson.put( "bid_ask_counter", 0 );
+            putJson.put( JsonEnum.BID.toString(), 0 );
+            putJson.put( JsonEnum.ASK.toString(), 0 );
+            putJson.put( JsonEnum.BID_ASK_COUNTER.toString(), 0 );
 
-            strikeJson.put( "call", callJson );
-            strikeJson.put( "put", putJson );
+            strikeJson.put( JsonEnum.CALL.toString(), callJson );
+            strikeJson.put( JsonEnum.PUT.toString(), putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( "contractBidAskCounter", 0 );
-        mainJson.put( "equalMove", 0 );
-        mainJson.put( "con", 0 );
-        mainJson.put( "props", getEmptyProps( ) );
-        mainJson.put( "opAvg", 0 );
-        mainJson.put( "opAvg15", 0 );
-
-        mainJson.put( "data", optionsData );
-
+        mainJson.put( JsonEnum.CONTRACT.toString(), 0 );
+        mainJson.put( JsonEnum.OP_AVG.toString(), 0 );
+        mainJson.put( JsonEnum.DATA.toString(), optionsData );
 
         return mainJson;
     }
 
-
-    public void setDataFromJson( JSONObject json ) throws Exception {
-        setContractBidAskCounter( json.getInt( "contractBidAskCounter" ) );
-        setPropsDataFromJson( json.getJSONObject( "props" ) );
-        setOptionsData( json.getJSONObject( "data" ) );
-    }
-
     public void setOptionsData( JSONObject json ) {
-
         for ( Strike strike : getStrikes( ) ) {
             try {
                 double strikePrice = strike.getStrike( );
@@ -745,43 +711,6 @@ public abstract class Options implements IJsonDataBase {
 
     public void setExpDate( LocalDate expDate ) {
         this.expDate = expDate;
-    }
-
-    public double getInterest() {
-        return interest;
-    }
-
-    public void setInterest( double interest ) {
-        this.interest = interest;
-    }
-
-    public void setInterestWithCalc( double interest ) {
-        this.interestZero = interest * 0.01;
-        this.interest = 1 + ( interest * 0.01 );
-    }
-
-    public double getInterestZero() {
-        return interestZero;
-    }
-
-    public void setInterestZero( double interestZero ) {
-        this.interestZero = interestZero;
-    }
-
-    public double getDevidend() {
-        return devidend;
-    }
-
-    public void setDevidend( double devidend ) {
-        this.devidend = devidend;
-    }
-
-    protected double getBorrow() {
-        return borrow;
-    }
-
-    public void setBorrow( double borrow ) {
-        this.borrow = borrow;
     }
 
     public int getContractBidAskCounter() {
@@ -900,7 +829,7 @@ public abstract class Options implements IJsonDataBase {
         return copy;
     }
 
-    public void setTwsContract( Contract twsContract ) {
+    public void setTwsContract( MyContract twsContract ) {
         this.twsContract = twsContract;
     }
 
@@ -1002,5 +931,22 @@ public abstract class Options implements IJsonDataBase {
 
     public HashMap< Integer, Option > getOptionsMap() {
         return optionsMap;
+    }
+
+    public OptionsProps getProps() {
+        return props;
+    }
+
+    public void setProps( OptionsProps props ) {
+        this.props = props;
+    }
+
+    public IOptionsCalcs getOptionsCalcs() {
+        if ( optionsCalcs == null ) throw new NullPointerException( client.getName() + " " + getType() + " Options calc not set" );
+        return optionsCalcs;
+    }
+
+    public void setOptionsCalcs( IOptionsCalcs optionsCalcs ) {
+        this.optionsCalcs = optionsCalcs;
     }
 }

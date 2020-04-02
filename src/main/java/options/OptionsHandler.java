@@ -59,7 +59,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
     public JSONObject getAllOptionsEmptyJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            object.put( options.getType().toString(), options.getEmptyOptionsAsJson( ) );
+            object.put( options.getType().toString(), options.getResetObject() );
         }
         return object;
     }
@@ -105,7 +105,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject json = new JSONObject( );
 
         for ( Options options : getOptionsList( ) ) {
-            json.put( options.getType( ).toString(), options.getEmptyProps( ) );
+            json.put( options.getType( ).toString(), options.getResetObject() );
         }
 
         return json;

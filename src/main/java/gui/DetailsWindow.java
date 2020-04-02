@@ -236,10 +236,9 @@ public class DetailsWindow {
             list.add( "Start strike: " + client.getStartStrike( ) );
             list.add( "End strike: " + client.getEndStrike( ) );
             list.add( "Got options: " + options.isGotData( ) );
-            list.add( "Interest: " + options.getInterest( ) );
-            list.add( "Devidend: " + options.getDevidend( ) );
+            list.add( "Interest: " + options.getProps().getInterest( ) );
+            list.add( "Devidend: " + options.getProps().getDevidend( ) );
             list.add( "Calc Devidend: " + options.getCalcDevidend( ) );
-            list.add( "Borrow: " + options.getCalcBorrow( ) );
             list.add("");
             list.add("Tws Contract");
             list.add(options.getCopyTwsContract().toString());

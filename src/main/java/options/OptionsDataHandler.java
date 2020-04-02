@@ -100,7 +100,7 @@ public class OptionsDataHandler {
 
             contract = options.calcContractAbsolute( );
             daysLeft = options.getAbsolutDays( );
-            interest = options.getInterestZero( );
+            interest = options.getProps().getInterestZero( );
 
             for ( Strike strike : options.getStrikes( ) ) {
                 try {

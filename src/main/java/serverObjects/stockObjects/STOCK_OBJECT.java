@@ -30,12 +30,12 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         // Month
         MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER );
 //        monthContract.lastTradeDateOrContractMonth( "20200417" );
-        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.QUARTER, monthContract );
+        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.QUARTER );
         
         // Quarter
         MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR );
 //        quarterContract.lastTradeDateOrContractMonth( "20200618" );
-        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER_FAR, quarterContract );
+        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER_FAR );
 
         OptionsHandler optionsHandler = new OptionsHandler( this ) {
             @Override
@@ -381,7 +381,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                         JSONObject optionsData = new JSONObject( object );
                         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
                             try {
-                                options.setDataFromJson( optionsData.getJSONObject( options.getType( ).toString( ) ) );
+                                options.loadFromJson( optionsData.getJSONObject( options.getType( ).toString( ) ) );
                             } catch ( Exception e ) {
                                 e.printStackTrace( );
                             }
