@@ -7,6 +7,7 @@ import logger.MyLogger;
 import options.Option;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
 import tws.TwsContractsEnum;
 
@@ -81,6 +82,14 @@ public class Downloader extends Thread implements EWrapper {
                 e.printStackTrace( );
             }
         }
+
+
+        try {
+            reqMktData( 89898989, Spx.getInstance().getTwsHandler().getMyContract( TwsContractsEnum.FUTURE ) );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+        }
+
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
         client.reqAccountUpdates( true, Manifest.ACCOUNT );
@@ -149,6 +158,21 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs ) {
+
+
+        if ( tickerId == 89898989 ) {
+            if ( field == 1 ) {
+                Spx.getInstance().setFutureBid( price );
+                System.out.println( "Counter = " + Spx.getInstance().getFutureBidAskCounter() );
+            }
+
+            if ( field == 2 ) {
+                Spx.getInstance().setFutureAsk( price );
+                System.out.println( "Counter = " + Spx.getInstance().getFutureBidAskCounter() );
+            }
+        }
+
+
 
         int index;
         int minID, maxID;

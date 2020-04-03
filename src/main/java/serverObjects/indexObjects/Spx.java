@@ -71,7 +71,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         futureContract.symbol( "ES" );
         futureContract.secType( "FUT" );
         futureContract.currency( "USD" );
-        futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
+      //  futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
+        futureContract.lastTradeDateOrContractMonth( "20200918" );
         futureContract.exchange( "GLOBEX" );
         futureContract.multiplier( "50" );
         twsHandler.addContract( futureContract );
