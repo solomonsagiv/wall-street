@@ -191,7 +191,6 @@ public class Downloader extends Thread implements EWrapper {
             if (field == 1) {
                 spxQuarter.setContractBid(price);
                 ContractWindowTest.spxQuarterField.colorForge(spxQuarter.getContractBidAskCounter());
-                System.out.println("Spx close bid: "  + price + " id " + tickerId);
             }
 
             if (field == 2) {
@@ -205,7 +204,6 @@ public class Downloader extends Thread implements EWrapper {
             if (field == 1) {
                 spxQuarterfar.setContractBid(price);
                 ContractWindowTest.spxQuarterFarField.colorForge(spxQuarterfar.getContractBidAskCounter());
-                System.out.println("Spx far bid: "  + price + " id " + tickerId);
             }
 
             if (field == 2) {

@@ -41,7 +41,7 @@ public class ContractWindowTest extends MyGuiComps.MyFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                // TODO
+                System.exit( 0 );
             }
         });
     }
