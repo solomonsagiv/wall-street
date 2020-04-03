@@ -3,8 +3,6 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import api.Manifest;
 import api.tws.TwsHandler;
-import dataBase.mySql.myTables.MyDayTable;
-import dataBase.mySql.myTables.MySumTable;
 import serverObjects.ApiEnum;
 import tws.MyContract;
 import tws.TwsContractsEnum;
@@ -96,6 +94,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         optionsQuarterFarContract.symbol( "NDX" );
         optionsQuarterFarContract.includeExpired( true );
         twsData.addContract( optionsQuarterFarContract );
+
+        setTwsHandler(twsData);
 
     }
 
