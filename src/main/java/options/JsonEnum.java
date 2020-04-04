@@ -2,14 +2,8 @@ package options;
 
 public enum JsonEnum {
 
-    private String s;
-
-    private JsonEnum(String s) {
-        this.s = s;
-    }
-
-    INTEREST("INTEREST"),
-    DEVIDEND("DEVIDEND"),
+    INTEREST,
+    DEVIDEND,
     DATE,
     DAYS,
     TWS_CONTRACT,
