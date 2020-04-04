@@ -3,10 +3,12 @@ package options;
 import com.ib.client.Types;
 import locals.IJsonDataBase;
 import locals.L;
+import myJson.MyJson;
 import options.fullOptions.PositionCalculator;
 import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 import tws.MyContract;
 
 import java.time.LocalDate;
@@ -14,6 +16,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public abstract class Options implements IJsonDataBase {
+
+    public static void main(String[] args) {
+
+        MyJson json = new MyJson("{\"TWS_CONTRACT\":{\"ID\":0,\"SEC_TYPE\":\"None\",\"INCLUDE_EXPIRED\":true},\"DATA\":{\"DATA\":{},\"OP_AVG\":54,\"CONTRACT\":33,\"BID_ASK_COUNTER\":767676},\"PROPS\":{\"DEVIDEND\":445,\"DAYS\":67,\"INTEREST\":4,\"DATE\":\"2020-09-08\"}}");
+
+        IndexOptions options = new IndexOptions(33, Spx.getInstance(), OptionsEnum.QUARTER);
+        options.loadFromJson(json);
+        System.out.println(options.getAsJson());
+    }
 
     OptionsDDeCells optionsDDeCells;
     List< Strike > strikes;
@@ -523,33 +534,26 @@ public abstract class Options implements IJsonDataBase {
     }
 
     @Override
-    public JSONObject getAsJson() {
-        JSONObject object = new JSONObject( );
+    public MyJson getAsJson() {
+        MyJson object = new MyJson( );
         object.put( JsonEnum.PROPS.toString(), getProps().getAsJson() );
         object.put( JsonEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
-//        object.put( JsonEnum.DATA,  );
+        object.put( JsonEnum.DATA.toString(), getDataAsJson());
         return object;
     }
 
     @Override
-    public JSONObject getResetObject() {
-        JSONObject object = new JSONObject( );
-        object.put( JsonEnum.INTEREST.toString(), 1 );
-        object.put( JsonEnum.DEVIDEND.toString(), 0 );
-        object.put( JsonEnum.DATE.toString(), getExpDate() );
-        object.put( JsonEnum.DAYS.toString(), 0 );
+    public MyJson getResetObject() {
+        MyJson object = new MyJson( );
+        object.put( JsonEnum.DATA.toString(), getResetDataAsJson());
         object.put( JsonEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
         return object;
     }
 
     @Override
-    public void loadFromJson( JSONObject object ) {
-
-//        setInterestWithCalc( object.getDouble( JsonEnum.INTEREST.toString() ) );
-//        setDevidend( object.getDouble( JsonEnum.DEVIDEND.toString() ) );
-//        setExpDate( LocalDate.parse( object.getString( JsonEnum.DATE.toString() ) ) );
-//        setInterestWithCalc( object.getDouble( JsonEnum.DAYS.toString() ) );
-//        getTwsContract().loadFromJson( object.getJSONObject( JsonEnum.TWS_CONTRACT.toString() ) );
+    public void loadFromJson( MyJson object ) {
+        getProps().loadFromJson( object.getMyJson(JsonEnum.PROPS.toString()) );
+        getTwsContract().loadFromJson( object.getMyJson( JsonEnum.TWS_CONTRACT.toString() ) );
     }
 
     public List< Strike > getStrikes() {
@@ -571,7 +575,7 @@ public abstract class Options implements IJsonDataBase {
         return string;
     }
 
-    public JSONObject getOptionsAsJson() {
+    public JSONObject getDataAsJson() {
 
         JSONObject mainJson = new JSONObject( );
 
@@ -603,18 +607,15 @@ public abstract class Options implements IJsonDataBase {
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( "contractBidAskCounter", getContractBidAskCounter( ) );
-//        mainJson.put( , getContract( ) );
-        mainJson.put( "props", getProps( ) );
-        mainJson.put( "opAvg", L.floor( getOpAvg( ), 100 ) );
-        mainJson.put( "opAvg15", L.floor( getOpAvg15( ), 100 ) );
-
-        mainJson.put( "DATA", optionsData );
+        mainJson.put( JsonEnum.BID_ASK_COUNTER.toString(), getContractBidAskCounter( ) );
+        mainJson.put( JsonEnum.CONTRACT.toString(), getContract( ) );
+        mainJson.put( JsonEnum.OP_AVG.toString(), L.floor( getOpAvg( ), 100 ) );
+        mainJson.put( JsonEnum.DATA.toString(), optionsData );
 
         return mainJson;
     }
 
-    public JSONObject getDataAsJson() {
+    public JSONObject getResetDataAsJson() {
         JSONObject mainJson = new JSONObject( );
 
         JSONObject optionsData = new JSONObject( );

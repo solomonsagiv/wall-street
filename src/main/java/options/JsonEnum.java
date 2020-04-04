@@ -1,8 +1,15 @@
 package options;
 
 public enum JsonEnum {
-    INTEREST,
-    DEVIDEND,
+
+    private String s;
+
+    private JsonEnum(String s) {
+        this.s = s;
+    }
+
+    INTEREST("INTEREST"),
+    DEVIDEND("DEVIDEND"),
     DATE,
     DAYS,
     TWS_CONTRACT,
@@ -22,5 +29,14 @@ public enum JsonEnum {
     OP,
     FUTURE,
     INDEX,
-    BID_ASK_COUNTER
+    BID_ASK_COUNTER,
+    ID,
+    SEC_TYPE,
+    CURRENCY,
+    EXCHANGE,
+    TRADING_CLASS,
+    MULTIPLIER,
+    SYMBOL,
+    INCLUDE_EXPIRED,
+    LAST_TRADIND_DATE_OR_CONTRACT_MONTH
 }

@@ -1,28 +1,21 @@
 package serverObjects.indexObjects;
 
 import api.Manifest;
-import com.google.gson.JsonObject;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.myTables.*;
-import lists.MyChartList;
-import lists.MyChartPoint;
+import myJson.MyJson;
 import options.IndexOptions;
 import options.Options;
 import options.OptionsEnum;
 import options.OptionsHandler;
-import org.jfree.data.time.Millisecond;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.TwsContractsEnum;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
@@ -185,7 +178,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                 addColumn( new MyColumnSql<>( this, "options", MyColumnSql.STRING ) {
                     @Override
                     public String getObject() {
-                        return client.getOptionsHandler( ).getMainOptions( ).getOptionsAsJson( ).toString( );
+                        return client.getOptionsHandler( ).getMainOptions( ).getDataAsJson( ).toString( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "base", MyColumnSql.DOUBLE ) {
@@ -442,10 +435,10 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        JSONObject optionsData = new JSONObject( object );
+                        MyJson optionsData = new MyJson( object );
                         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
                             try {
-                                options.loadFromJson( optionsData.getJSONObject( options.getType( ).toString( ) ) );
+                                options.loadFromJson( optionsData.getMyJson( options.getType( ).toString( ) ) );
                             } catch ( Exception e ) {
                                 e.printStackTrace( );
                             }

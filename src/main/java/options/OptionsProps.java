@@ -2,7 +2,7 @@ package options;
 
 import charts.myChart.MyProps;
 import locals.IJsonDataBase;
-import org.json.JSONObject;
+import myJson.MyJson;
 
 import java.time.LocalDate;
 
@@ -14,8 +14,8 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
     private double days = 0;
     private LocalDate date;
 
-    public JSONObject getAsJson() {
-        JSONObject object = new JSONObject();
+    public MyJson getAsJson() {
+        MyJson object = new MyJson();
         object.put( JsonEnum.INTEREST.toString(), getInterest() );
         object.put( JsonEnum.DEVIDEND.toString(), getDevidend() );
         object.put( JsonEnum.DATE.toString(), getDate() );
@@ -24,7 +24,7 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
     }
 
     @Override
-    public void loadFromJson( JSONObject object ) {
+    public void loadFromJson( MyJson object ) {
         setInterestWithCalc( object.getDouble( JsonEnum.INTEREST.toString() ) );
         setDevidend( object.getDouble( JsonEnum.DEVIDEND.toString() ) );
         setDate( LocalDate.parse( object.getString( JsonEnum.DATE.toString() ) ) );
@@ -32,8 +32,8 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
     }
 
     @Override
-    public JSONObject getResetObject() {
-        JSONObject object = new JSONObject();
+    public MyJson getResetObject() {
+        MyJson object = new MyJson();
         object.put( JsonEnum.INTEREST.toString(), 1 );
         object.put( JsonEnum.DEVIDEND.toString(), 0 );
         object.put( JsonEnum.DATE.toString(), getDate() );

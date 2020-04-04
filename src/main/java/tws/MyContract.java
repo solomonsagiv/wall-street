@@ -3,7 +3,8 @@ package tws;
 import charts.myChart.MyProps;
 import com.ib.client.Contract;
 import locals.IJsonDataBase;
-import org.json.JSONObject;
+import myJson.MyJson;
+import options.JsonEnum;
 
 public class MyContract extends Contract implements IJsonDataBase {
 
@@ -12,47 +13,48 @@ public class MyContract extends Contract implements IJsonDataBase {
     private TwsContractsEnum type;
     private MyProps props;
 
-    public MyContract( int myId, TwsContractsEnum type ) {
+    public MyContract(int myId, TwsContractsEnum type) {
         this.myId = myId;
         this.type = type;
     }
 
     @Override
-    public JSONObject getAsJson() {
-        JSONObject object = new JSONObject( );
-        object.put( MyContractEnum.ID.toString( ), getMyId() );
-        object.put( MyContractEnum.SEC_TYPE.toString( ), secType( ) );
-        object.put( MyContractEnum.CURRENCY.toString( ), currency( ) );
-        object.put( MyContractEnum.EXCHANGE.toString( ), exchange( ) );
-        object.put( MyContractEnum.TRADING_CLASS.toString( ), tradingClass( ) );
-        object.put( MyContractEnum.MULTIPLIER.toString( ), multiplier( ) );
-        object.put( MyContractEnum.SYMBOL.toString( ), symbol( ) );
-        object.put( MyContractEnum.INCLUDE_EXPIRED.toString( ), includeExpired( ) );
-
+    public MyJson getAsJson() {
+        MyJson object = new MyJson();
+        object.put(JsonEnum.ID.toString(), getMyId());
+        object.put(JsonEnum.SEC_TYPE.toString(), secType());
+        object.put(JsonEnum.CURRENCY.toString(), currency());
+        object.put(JsonEnum.EXCHANGE.toString(), exchange());
+        object.put(JsonEnum.TRADING_CLASS.toString(), tradingClass());
+        object.put(JsonEnum.MULTIPLIER.toString(), multiplier());
+        object.put(JsonEnum.SYMBOL.toString(), symbol());
+        object.put(JsonEnum.INCLUDE_EXPIRED.toString(), includeExpired());
+        object.put(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString(), lastTradeDateOrContractMonth());
         return object;
     }
 
     @Override
-    public void loadFromJson( JSONObject object ) {
-        setMyId( object.getInt( MyContractEnum.ID.toString() ) );
-        secType( object.getString( MyContractEnum.SEC_TYPE.toString() ) );
-        currency( object.getString( MyContractEnum.CURRENCY.toString() ) );
-        exchange( object.getString( MyContractEnum.EXCHANGE.toString() ) );
-        tradingClass( object.getString( MyContractEnum.TRADING_CLASS.toString() ) );
-        multiplier( object.getString( MyContractEnum.MULTIPLIER.toString() ) );
-        symbol( object.getString( MyContractEnum.SYMBOL.toString() ) );
-        includeExpired( object.getBoolean( MyContractEnum.INCLUDE_EXPIRED.toString() ) );
+    public void loadFromJson(MyJson object) {
+        setMyId(object.getInt(JsonEnum.ID.toString()));
+        secType(object.getString(JsonEnum.SEC_TYPE.toString()));
+        currency(object.getString(JsonEnum.CURRENCY.toString()));
+        exchange(object.getString(JsonEnum.EXCHANGE.toString()));
+        tradingClass(object.getString(JsonEnum.TRADING_CLASS.toString()));
+        multiplier(object.getString(JsonEnum.MULTIPLIER.toString()));
+        symbol(object.getString(JsonEnum.SYMBOL.toString()));
+        includeExpired(object.getBoolean(JsonEnum.INCLUDE_EXPIRED.toString()));
+        lastTradeDateOrContractMonth(object.getString(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString()));
     }
 
     @Override
-    public JSONObject getResetObject() {
+    public MyJson getResetObject() {
         return getAsJson();
     }
 
     public MyContract() {
     }
 
-    public MyContract( TwsContractsEnum type ) {
+    public MyContract(TwsContractsEnum type) {
         this.type = type;
     }
 
@@ -60,7 +62,7 @@ public class MyContract extends Contract implements IJsonDataBase {
         return myId;
     }
 
-    public void setMyId( int myId ) {
+    public void setMyId(int myId) {
         this.myId = myId;
     }
 
@@ -68,7 +70,7 @@ public class MyContract extends Contract implements IJsonDataBase {
         return requested;
     }
 
-    public void setRequested( boolean requested ) {
+    public void setRequested(boolean requested) {
         this.requested = requested;
     }
 

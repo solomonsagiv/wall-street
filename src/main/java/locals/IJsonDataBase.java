@@ -1,11 +1,11 @@
 package locals;
 
-import org.json.JSONObject;
+import myJson.MyJson;
 
 public interface IJsonDataBase {
 
-    JSONObject getAsJson();
-    void loadFromJson(JSONObject object );
-    JSONObject getResetObject();
+    MyJson getAsJson();
+    void loadFromJson(MyJson object );
+    MyJson getResetObject();
 
 }
