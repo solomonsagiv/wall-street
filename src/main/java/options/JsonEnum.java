@@ -1,7 +1,6 @@
 package options;
 
 public enum JsonEnum {
-
     INTEREST,
     DEVIDEND,
     DATE,
