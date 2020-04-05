@@ -1,5 +1,6 @@
 package api;
 
+import api.tws.ITwsRequester;
 import arik.Arik;
 import com.ib.client.*;
 import locals.LocalHandler;
@@ -11,11 +12,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
-import tws.MyContract;
-import tws.TwsContractsEnum;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -35,13 +35,11 @@ public class Downloader extends Thread implements EWrapper {
     EClientSocket client;
     MyLogger logger;
     int NextOrderId = -1;
-    Apple apple = Apple.getInstance();
-    Options appleOptions;
-    Options vxxOptions;
+
+    ArrayList< ITwsRequester > iTwsRequesters = new ArrayList<>();
 
     // Constructor
     private Downloader() {
-        appleOptions = apple.getOptionsHandler().getMainOptions();
         logger = MyLogger.getInstance();
         m_signal = new EJavaSignal();
         client = new EClientSocket(this, m_signal);
@@ -86,37 +84,28 @@ public class Downloader extends Thread implements EWrapper {
             }
         }
 
-        try {
+        // Request
+        requestAll();
 
-            MyContract spxQuarterContract = Spx.getInstance().getTwsHandler().getMyContract(TwsContractsEnum.FUTURE);
-            spxQuarterContract.lastTradeDateOrContractMonth("20200619");
-            reqMktData(100000, spxQuarterContract);
-
-            MyContract spxQuarterFarContract = Spx.getInstance().getTwsHandler().getMyContract(TwsContractsEnum.FUTURE);
-            spxQuarterFarContract.lastTradeDateOrContractMonth("20200918");
-            reqMktData(200000, spxQuarterFarContract);
-
-            MyContract ndxQuarterContract = Ndx.getInstance().getTwsHandler().getMyContract(TwsContractsEnum.FUTURE);
-            ndxQuarterContract.lastTradeDateOrContractMonth("20200619");
-            reqMktData(300000, ndxQuarterContract);
-
-            MyContract ndxQuarterFarContract = Ndx.getInstance().getTwsHandler().getMyContract(TwsContractsEnum.FUTURE);
-            ndxQuarterFarContract.lastTradeDateOrContractMonth("20200918");
-            reqMktData(400000, ndxQuarterFarContract);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        client.reqAutoOpenOrders(true);
-        client.reqPositions();
-        client.reqAccountUpdates(true, Manifest.ACCOUNT);
         try {
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void requestAll() {
+        for ( ITwsRequester requester: iTwsRequesters ) {
+            requester.request( this );
+        }
+
+        client.reqAutoOpenOrders( true );
+        client.reqPositions();
+        client.reqAccountUpdates( true, Manifest.ACCOUNT );
+    }
+
+    public void addRequester( ITwsRequester requester) {
+        iTwsRequesters.add( requester );
     }
 
     // Close
@@ -175,125 +164,17 @@ public class Downloader extends Thread implements EWrapper {
         logger.getLogger().info(EWrapperMsgGenerator.error(str));
     }
 
-    Spx spx = Spx.getInstance();
-    Options spxQuarter = spx.getOptionsHandler().getOptions(OptionsEnum.QUARTER);
-    Options spxQuarterfar = spx.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR);
-
-    Ndx ndx = Ndx.getInstance();
-    Options ndxQuarter = ndx.getOptionsHandler().getOptions(OptionsEnum.QUARTER);
-    Options ndxQuarterfar = ndx.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR);
-
     @Override
-    public void tickPrice(int tickerId, int field, double price, TickAttr attribs) {
+    public void tickPrice( int tickerId, int field, double price, TickAttr attribs ) {
 
-        // Spx close
-        if (tickerId == 100000) {
-            if (field == 1) {
-                spxQuarter.setContractBid(price);
-                ContractWindowTest.spxQuarterField.colorForge(spxQuarter.getContractBidAskCounter());
-            }
-
-            if (field == 2) {
-                spxQuarter.setContractAsk(price);
-                ContractWindowTest.spxQuarterField.colorForge(spxQuarter.getContractBidAskCounter());
-            }
+        for ( ITwsRequester requester: iTwsRequesters ) {
+            requester.reciever( tickerId, field, price, attribs );
         }
-
-        // Spx far
-        if (tickerId == 200000) {
-            if (field == 1) {
-                spxQuarterfar.setContractBid(price);
-                ContractWindowTest.spxQuarterFarField.colorForge(spxQuarterfar.getContractBidAskCounter());
-            }
-
-            if (field == 2) {
-                spxQuarterfar.setContractAsk(price);
-                ContractWindowTest.spxQuarterFarField.colorForge(spxQuarterfar.getContractBidAskCounter());
-            }
-        }
-
-        // Ndx close
-        if (tickerId == 300000) {
-            if (field == 1) {
-                ndxQuarter.setContractBid(price);
-                ContractWindowTest.ndxQuarterField.colorForge(ndxQuarter.getContractBidAskCounter());
-            }
-
-            if (field == 2) {
-                ndxQuarter.setContractAsk(price);
-                ContractWindowTest.ndxQuarterField.colorForge(ndxQuarter.getContractBidAskCounter());
-            }
-        }
-
-        // Ndx far
-        if (tickerId == 400000) {
-            if (field == 1) {
-                ndxQuarterfar.setContractBid(price);
-                ContractWindowTest.ndxQuarterFarField.colorForge(ndxQuarterfar.getContractBidAskCounter());
-            }
-
-            if (field == 2) {
-                ndxQuarterfar.setContractAsk(price);
-                ContractWindowTest.ndxQuarterFarField.colorForge(ndxQuarterfar.getContractBidAskCounter());
-            }
-        }
-
-//        int index;
-//        int minID, maxID;
-//
-//        // ---------- Apple ---------- //
-//        index = apple.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
-//
-//
-//        if (tickerId == index && price > 0) {
-//            // Last
-//            if (field == 4) {
-//                apple.setIndex(price);
-//            }
-//            // Bid
-//            if (field == 1) {
-//                apple.setIndexBid(price);
-//            }
-//            // Ask
-//            if (field == 2) {
-//                apple.setIndexAsk(price);
-//            }
-//
-//            // Bid
-//            if (field == 6) {
-//                apple.setHigh(price);
-//            }
-//            // Ask
-//            if (field == 7) {
-//                apple.setLow(price);
-//            }
-//
-//            // Base
-//            if (field == 9) {
-//                apple.setBase(price);
-//            }
-//        }
-//
-//        // Apple options
-//        minID = appleOptions.getMinId();
-//        maxID = appleOptions.getMaxId();
-//
-//        // Call
-//        if (tickerId >= minID && tickerId <= maxID && price > 0) {
-//            // Bid
-//            if (field == 1) {
-//                appleOptions.getOptionById(tickerId).setBid(price);
-//            }
-//            // Ask
-//            if (field == 2) {
-//                appleOptions.getOptionById(tickerId).setAsk(price);
-//            }
-//        }
 
     }
 
     @Override
-    public void tickSize(int tickerId, int field, int size) {
+    public void tickSize( int tickerId, int field, int size ) {
     }
 
     @Override
