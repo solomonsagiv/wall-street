@@ -1,20 +1,27 @@
 package lists;
 
+import java.time.LocalTime;
+
 public class MyChartPoint {
 
-    private Long x;
+    private LocalTime x;
     private double y;
 
-    public MyChartPoint(Long x, double y) {
+    public MyChartPoint(String x, double y) {
+        this.x = LocalTime.parse( x );
+        this.y = y;
+    }
+
+    public MyChartPoint(LocalTime x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public Long getX() {
+    public LocalTime getX() {
         return x;
     }
 
-    public void setX(Long x) {
+    public void setX(LocalTime x) {
         this.x = x;
     }
 

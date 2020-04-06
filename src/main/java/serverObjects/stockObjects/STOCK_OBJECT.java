@@ -143,7 +143,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                 addColumn( new MyColumnSql<>( this, "options", MyColumnSql.STRING ) {
                     @Override
                     public String getObject() {
-                        return client.getOptionsHandler( ).getMainOptions( ).getDataAsJson( ).toString( );
+                        return client.getOptionsHandler( ).getMainOptions( ).getAsJson( ).toString( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "base", MyColumnSql.DOUBLE ) {
@@ -288,7 +288,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                     public void setLoadedObject( Integer object ) {
 
                     }
-
                     @Override
                     public Integer getResetObject() {
                         return 0;

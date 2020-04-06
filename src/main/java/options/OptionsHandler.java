@@ -47,10 +47,10 @@ public abstract class OptionsHandler implements IOptionsHandler {
     public JSONObject getAllOptionsAsJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            if ( options.getDataAsJson( ).length( ) == 0 || !client.isStarted( ) ) {
-                object.put( options.getType().toString(), options.getDataAsJson( ) );
+            if ( options.getAsJson( ).length( ) == 0 || !client.isStarted( ) ) {
+                object.put( options.getType().toString(), options.getAsJson( ) );
             } else {
-                object.put( options.getType().toString(), options.getDataAsJson( ) );
+                object.put( options.getType().toString(), options.getAsJson( ) );
             }
         }
         return object;

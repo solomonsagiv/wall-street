@@ -1,6 +1,7 @@
 package serverObjects.stockObjects;
 
 import DDE.DDECells;
+import api.Downloader;
 import api.tws.TwsHandler;
 import options.OptionsEnum;
 import roll.Roll;
@@ -143,6 +144,9 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void requestApi() {
+
+        Downloader downloader = Downloader.getInstance();
+
         TwsHandler handler = getTwsHandler( );
         handler.request( handler.getMyContract( TwsContractsEnum.INDEX ) );
     }

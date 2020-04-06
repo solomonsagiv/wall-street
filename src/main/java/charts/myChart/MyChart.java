@@ -165,7 +165,7 @@ public class MyChart {
                 for ( MyTimeSeries serie : series ) {
                     for ( int i = 0; i < serie.getMyChartList( ).size( ); i++ ) {
                         MyChartPoint point = serie.getMyChartList( ).get( i );
-                        serie.addOrUpdate( new Millisecond( new Date( point.getX( ) ) ), point.getY( ) );
+                        serie.addOrUpdate( new Millisecond( new Date( point.getX( ).getNano() ) ), point.getY( ) );
                         dots.add( point.getY( ) );
                     }
                 }

@@ -49,6 +49,7 @@ public abstract class MyStatusTable extends MyTableSql {
                             break;
                         case MyColumnSql.STRING:
                             String s = rs.getString( column.name );
+                            System.out.println(s );
                             column.setLoadedObject( s );
                             break;
                         default:

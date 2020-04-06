@@ -32,7 +32,6 @@ public class AppleRequester implements ITwsRequester {
         }
     }
 
-
     @Override
     public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
         int index;

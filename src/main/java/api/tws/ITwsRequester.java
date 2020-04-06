@@ -1,7 +1,6 @@
 package api.tws;
 
 import api.Downloader;
-import com.ib.client.EClientSocket;
 import com.ib.client.TickAttr;
 
 public interface ITwsRequester {

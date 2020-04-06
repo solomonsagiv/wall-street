@@ -166,11 +166,9 @@ public class Downloader extends Thread implements EWrapper {
 
     @Override
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs ) {
-
         for ( ITwsRequester requester: iTwsRequesters ) {
             requester.reciever( tickerId, field, price, attribs );
         }
-
     }
 
     @Override

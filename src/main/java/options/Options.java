@@ -575,7 +575,7 @@ public abstract class Options implements IJsonDataBase {
         return string;
     }
 
-    public JSONObject getDataAsJson() {
+    private JSONObject getDataAsJson() {
 
         JSONObject mainJson = new JSONObject( );
 

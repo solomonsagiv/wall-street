@@ -9,6 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
+import java.time.LocalTime;
 import java.util.Map;
 
 // Regular list updater
@@ -45,11 +46,13 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
+        LocalTime now = LocalTime.now();
+
         // List for charts
-        client.getIndexList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndex( ) ) );
-        client.getIndexBidList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndexBid( ) ) );
-        client.getIndexAskList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndexAsk( ) ) );
-        client.getIndexBidAskCounterList( ).add( new MyChartPoint( new Millisecond( ).getLastMillisecond(), client.getIndexBidAskCounter( ) ) );
+        client.getIndexList( ).add( new MyChartPoint( now, client.getIndex( ) ) );
+        client.getIndexBidList( ).add( new MyChartPoint( now, client.getIndexBid( ) ) );
+        client.getIndexAskList( ).add( new MyChartPoint( now, client.getIndexAsk( ) ) );
+        client.getIndexBidAskCounterList( ).add( new MyChartPoint( now, client.getIndexBidAskCounter( ) ) );
 
         // Options lists
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {

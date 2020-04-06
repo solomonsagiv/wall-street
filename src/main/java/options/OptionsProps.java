@@ -27,7 +27,7 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
     public void loadFromJson( MyJson object ) {
         setInterestWithCalc( object.getDouble( JsonEnum.INTEREST.toString() ) );
         setDevidend( object.getDouble( JsonEnum.DEVIDEND.toString() ) );
-        setDate( LocalDate.parse( object.getString( JsonEnum.DATE.toString() ) ) );
+        setDate( object.getDate( JsonEnum.DATE.toString() ) );
         setDays( object.getDouble( JsonEnum.DAYS.toString() ) );
     }
 

@@ -28,7 +28,7 @@ public class MyChartList extends ArrayList<MyChartPoint> {
     public void setData(JSONArray jsonArray) {
         for (Object o : jsonArray) {
             JSONObject object = new JSONObject(o.toString());
-            add(new MyChartPoint(object.getLong("x"), object.getDouble("y")));
+            add(new MyChartPoint(object.getString("x"), object.getDouble("y")));
         }
     }
 

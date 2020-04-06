@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
     private double future = 0;
-    
+
     public INDEX_CLIENT_OBJECT() {
         super( );
     }
@@ -178,7 +178,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
                 addColumn( new MyColumnSql<>( this, "options", MyColumnSql.STRING ) {
                     @Override
                     public String getObject() {
-                        return client.getOptionsHandler( ).getMainOptions( ).getDataAsJson( ).toString( );
+                        return client.getOptionsHandler( ).getMainOptions( ).getAsJson( ).toString( );
                     }
                 } );
                 addColumn( new MyColumnSql<>( this, "base", MyColumnSql.DOUBLE ) {

@@ -36,7 +36,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         } else {
             MyChartPoint point = myChartList.getLast();
             data = point.getY();
-            addOrUpdate( new Millisecond( new Date(point.getX())), data );
+            addOrUpdate( new Millisecond( new Date(point.getX().getNano())), data );
         }
         return data;
     }
