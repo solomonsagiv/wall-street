@@ -3,6 +3,7 @@ package serverObjects.stockObjects;
 import DDE.DDECells;
 import api.Downloader;
 import api.tws.TwsHandler;
+import api.tws.requesters.AppleRequester;
 import options.OptionsEnum;
 import roll.Roll;
 import roll.RollEnum;
@@ -20,6 +21,14 @@ public class Apple extends STOCK_OBJECT {
     // Constructor
     public Apple() {
         super( );
+        setName( "Apple" );
+        setRacesMargin( 0.1 );
+        setStrikeMargin( 5 );
+        setBaseId( 30000 );
+        setDbId( 4 );
+        initTablesHandlers();
+        initDDECells();
+        setiTwsRequester( new AppleRequester() );
 
         rollHandler = new RollHandler( this );
         Roll quarter_quarterFar = new Roll( getOptionsHandler().getOptions( OptionsEnum.QUARTER ), getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ) );
@@ -38,12 +47,6 @@ public class Apple extends STOCK_OBJECT {
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
-    }
-
-    @Override
-    public void initIds() {
-        setBaseId( 30000 );
-        setDbId( 4 );
     }
 
     @Override
@@ -92,41 +95,6 @@ public class Apple extends STOCK_OBJECT {
     }
 
     @Override
-    public void initName() {
-        setName( "apple" );
-    }
-
-    @Override
-    public void initRacesMargin() {
-
-    }
-
-    @Override
-    public double getStrikeMargin() {
-        return 2.5;
-    }
-
-    @Override
-    public void initStartOfIndexTrading() {
-        setStartOfIndexTrading( LocalTime.of( 16, 30, 0 ) );
-    }
-
-    @Override
-    public void initEndOfIndexTrading() {
-        setEndOfIndexTrading( LocalTime.of( 23, 0, 0 ) );
-    }
-
-    @Override
-    public void initEndOfFutureTrading() {
-        setEndFutureTrading( LocalTime.of( 23, 0, 0 ) );
-    }
-
-    @Override
-    public void initDbId() {
-        // TODO
-    }
-
-    @Override
     public void initDDECells() {
         DDECells ddeCells = new DDECells( ) {
             @Override
@@ -145,9 +113,5 @@ public class Apple extends STOCK_OBJECT {
     @Override
     public void requestApi() {
 
-        Downloader downloader = Downloader.getInstance();
-
-        TwsHandler handler = getTwsHandler( );
-        handler.request( handler.getMyContract( TwsContractsEnum.INDEX ) );
     }
 }

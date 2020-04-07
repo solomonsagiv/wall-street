@@ -30,6 +30,10 @@ public class TablesHandler {
         return "status";
     }
 
+    public String getSettingName() {
+        return "setting";
+    }
+
     public String getArraysName() {
         return "arrays";
     }

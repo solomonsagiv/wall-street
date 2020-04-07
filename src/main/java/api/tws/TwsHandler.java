@@ -1,6 +1,8 @@
 package api.tws;
 
 import api.Downloader;
+import locals.IJsonDataBase;
+import myJson.MyJson;
 import options.Call;
 import options.Options;
 import options.Put;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TwsHandler {
+public class TwsHandler implements IJsonDataBase {
 
     // Variables
     Map< TwsContractsEnum, MyContract > myContracts = new HashMap<>();
@@ -90,6 +92,29 @@ public class TwsHandler {
             }
         }
         options.setRequested( true );
+    }
+
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = new MyJson();
+        for ( Map.Entry<TwsContractsEnum, MyContract> entry : myContracts.entrySet() ) {
+            MyContract contract = entry.getValue();
+            json.put( contract.getType().toString(), contract.getAsJson() );
+        }
+        return json;
+    }
+
+    @Override
+    public void loadFromJson( MyJson json ) {
+        for ( Map.Entry<TwsContractsEnum, MyContract> entry : myContracts.entrySet() ) {
+            MyContract contract = entry.getValue();
+            contract.loadFromJson( json.getMyJson( contract.getType().toString() ) );
+        }
+    }
+
+    @Override
+    public MyJson getResetObject() {
+        return getAsJson();
     }
 }
 

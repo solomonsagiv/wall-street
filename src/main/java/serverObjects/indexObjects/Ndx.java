@@ -16,6 +16,14 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     // Private constructor
     public Ndx() {
         super( );
+        setName( "ndx" );
+        setRacesMargin( 0.7 );
+        setIndexBidAskMargin( 1.25 );
+        setDbId( 3 );
+        setStrikeMargin( 40 );
+        setBaseId( 20000 );
+        initTablesHandlers();
+        initDDECells();
     }
 
     // Get instance
@@ -24,16 +32,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             client = new Ndx( );
         }
         return client;
-    }
-
-    @Override
-    public double getEqualMovePlag() {
-        return .6;
-    }
-
-    @Override
-    public double getIndexBidAskMargin() {
-        return 1.25;
     }
 
     @Override
@@ -97,46 +95,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
         setTwsHandler(twsData);
 
-    }
-
-    @Override
-    public void initStartOfIndexTrading() {
-        setStartOfIndexTrading( LocalTime.of( 16, 30, 0 ) );
-    }
-
-    @Override
-    public void initEndOfIndexTrading() {
-        setEndOfIndexTrading( LocalTime.of( 23, 0, 0 ) );
-    }
-
-    @Override
-    public void initEndOfFutureTrading() {
-        setEndFutureTrading( LocalTime.of( 23, 15, 0 ) );
-    }
-
-    @Override
-    public void initIds() {
-        setBaseId( 20000 );
-    }
-
-    @Override
-    public void initDbId() {
-        setDbId( 3 );
-    }
-
-    @Override
-    public void initName() {
-        setName( "ndx" );
-    }
-
-    @Override
-    public void initRacesMargin() {
-        setRacesMargin( .7 );
-    }
-
-    @Override
-    public double getStrikeMargin() {
-        return 40;
     }
 
     @Override

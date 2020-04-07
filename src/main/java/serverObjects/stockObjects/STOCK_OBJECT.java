@@ -26,29 +26,20 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void initOptionsHandler() throws Exception {
+    public void initOptionsHandler() {
         // Month
         MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER );
-//        monthContract.lastTradeDateOrContractMonth( "20200417" );
         StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.QUARTER );
-        
+
         // Quarter
         MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR );
-//        quarterContract.lastTradeDateOrContractMonth( "20200618" );
         StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER_FAR );
 
-        OptionsHandler optionsHandler = new OptionsHandler( this ) {
-            @Override
-            public void initOptions() {
-                addOptions( monthOptions );
-                addOptions( quarterOptions );
-            }
+        OptionsHandler optionsHandler = new OptionsHandler( this );
+        optionsHandler.addOptions( monthOptions );
+        optionsHandler.addOptions( quarterOptions );
+        optionsHandler.setMainOptions( monthOptions );
 
-            @Override
-            public void initMainOptions() {
-                setMainOptions( monthOptions );
-            }
-        };
         setOptionsHandler( optionsHandler );
     }
 
@@ -288,6 +279,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                     public void setLoadedObject( Integer object ) {
 
                     }
+
                     @Override
                     public Integer getResetObject() {
                         return 0;
@@ -421,7 +413,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        client.getIndexList().setData(new JSONArray(object));
+                        client.getIndexList( ).setData( new JSONArray( object ) );
                     }
 
                     @Override
@@ -449,12 +441,12 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                 addColumn( new MyLoadAbleColumn< String >( this, "indexBidAskCounterList", MyColumnSql.STRING ) {
                     @Override
                     public String getObject() {
-                        return client.getIndexBidAskCounterList().toString();
+                        return client.getIndexBidAskCounterList( ).toString( );
                     }
 
                     @Override
                     public void setLoadedObject( String object ) {
-                        client.getIndexBidAskCounterList().setData(new JSONArray(object));
+                        client.getIndexBidAskCounterList( ).setData( new JSONArray( object ) );
                     }
 
                     @Override
@@ -466,6 +458,31 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         };
 
         tablesHandler.addTable( TablesEnum.ARRAYS, myArraysTable );
+
+
+        // ---------- Setting ---------- //
+        MySettingTable mySettingTable = new MySettingTable( this, tablesHandler.getSettingName()) {
+            @Override
+            public void initColumns() {
+                addColumn( new MyLoadAbleColumn< String >( this, "tradingHours", MyColumnSql.STRING ) {
+                    @Override
+                    public String getObject() {
+                        return client.getIndexList( ).toString( );
+                    }
+
+                    @Override
+                    public void setLoadedObject( String object ) {
+                        client.getIndexList( ).setData( new JSONArray( object ) );
+                    }
+
+                    @Override
+                    public String getResetObject() {
+                        return new JSONArray( ).toString( );
+                    }
+                } );
+            }
+        };
+
 
 
         // ---------- Bounds ---------- //

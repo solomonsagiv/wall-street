@@ -10,7 +10,7 @@ import serverObjects.stockObjects.STOCK_OBJECT;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class OptionsHandler implements IOptionsHandler {
+public class OptionsHandler {
 
     // Variables
     public BASE_CLIENT_OBJECT client;
@@ -26,15 +26,11 @@ public abstract class OptionsHandler implements IOptionsHandler {
     // Constructor
     public OptionsHandler( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
-        initOptions();
-        initMainOptions();
         positionCalculator = new PositionCalculator( client );
     }
 
     public OptionsHandler( STOCK_OBJECT client ) {
         this.client = client;
-        initOptions();
-        initMainOptions();
         positionCalculator = new PositionCalculator( client );
     }
 
@@ -48,9 +44,9 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
             if ( options.getAsJson( ).length( ) == 0 || !client.isStarted( ) ) {
-                object.put( options.getType().toString(), options.getAsJson( ) );
+                object.put( options.getType( ).toString( ), options.getAsJson( ) );
             } else {
-                object.put( options.getType().toString(), options.getAsJson( ) );
+                object.put( options.getType( ).toString( ), options.getAsJson( ) );
             }
         }
         return object;
@@ -59,7 +55,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
     public JSONObject getAllOptionsEmptyJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            object.put( options.getType().toString(), options.getResetObject() );
+            object.put( options.getType( ).toString( ), options.getResetObject( ) );
         }
         return object;
     }
@@ -67,7 +63,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
     private void initStartEndStrikes( double future ) {
 
         double last = L.modulu( future );
-        double margin = client.getStrikeMargin();
+        double margin = client.getStrikeMargin( );
 
         double startStrike = last - ( margin * 10 );
         double endStrike = last + ( margin * 10 );
@@ -82,7 +78,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         initStartEndStrikes( future );
 
         for ( Options options : getOptionsList( ) ) {
-            System.out.println( "Init options: " + options.getType().toString() );
+            System.out.println( "Init options: " + options.getType( ).toString( ) );
             options.initOptions( );
             System.out.println( options.toStringVertical( ) );
         }
@@ -94,7 +90,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject json = new JSONObject( );
 
         for ( Options options : getOptionsList( ) ) {
-            json.put( options.getType().toString(), options.getProps( ) );
+            json.put( options.getType( ).toString( ), options.getProps( ) );
         }
 
         return json;
@@ -105,7 +101,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
         JSONObject json = new JSONObject( );
 
         for ( Options options : getOptionsList( ) ) {
-            json.put( options.getType( ).toString(), options.getResetObject() );
+            json.put( options.getType( ).toString( ), options.getResetObject( ) );
         }
 
         return json;
@@ -137,6 +133,7 @@ public abstract class OptionsHandler implements IOptionsHandler {
     }
 
     public Options getMainOptions() {
+        if ( mainOptions == null ) throw new NullPointerException( "Options handler not set" );
         return mainOptions;
     }
 
@@ -151,9 +148,4 @@ public abstract class OptionsHandler implements IOptionsHandler {
                 "optionsList=" + optionsList +
                 '}';
     }
-}
-
-interface IOptionsHandler {
-    void initOptions();
-    void initMainOptions();
 }

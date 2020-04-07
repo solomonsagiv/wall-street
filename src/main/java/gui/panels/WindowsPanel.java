@@ -9,13 +9,11 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Apple;
-import serverObjects.stockObjects.Vxx;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class WindowsPanel extends MyGuiComps.MyPanel {
@@ -49,9 +47,6 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "APPLE":
                         new StockWindow( "Apple", Apple.getInstance( ) );
-                        break;
-                    case "VXX":
-                        new StockWindow( "Vxx", Vxx.getInstance( ) );
                         break;
                     default:
                         break;

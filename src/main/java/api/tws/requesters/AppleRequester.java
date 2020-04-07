@@ -20,7 +20,6 @@ public class AppleRequester implements ITwsRequester {
     @Override
     public void request( Downloader downloader ) {
         try {
-
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 

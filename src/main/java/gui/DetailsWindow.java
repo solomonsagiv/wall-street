@@ -56,7 +56,7 @@ public class DetailsWindow {
             }
         } );
     }
-
+    
     private void onStartUp() {
         optionsTypes = new String[ client.getOptionsHandler( ).getOptionsList( ).size( ) ];
         int i = 0;

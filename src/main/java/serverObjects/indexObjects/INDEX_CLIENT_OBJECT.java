@@ -42,18 +42,11 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         IndexOptions optionsQuarter = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER );
         IndexOptions optionsQuarterFar = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR );
 
-        OptionsHandler optionsHandler = new OptionsHandler( this ) {
-            @Override
-            public void initOptions() {
-                addOptions( optionsQuarter );
-                addOptions( optionsQuarterFar );
-            }
+        OptionsHandler optionsHandler = new OptionsHandler( this );
+        optionsHandler.addOptions( optionsQuarter );
+        optionsHandler.addOptions( optionsQuarterFar );
+        optionsHandler.setMainOptions( optionsQuarter );
 
-            @Override
-            public void initMainOptions() {
-                setMainOptions( optionsQuarter );
-            }
-        };
         setOptionsHandler( optionsHandler );
     }
 
