@@ -10,16 +10,17 @@ import java.util.ArrayList;
 
 public class AppleRequester implements ITwsRequester {
 
-    Apple apple = Apple.getInstance( );
     ArrayList< Options > optionsList;
+    Apple apple;
 
-    public AppleRequester() {
-        optionsList = apple.getOptionsHandler( ).getOptionsList( );
-    }
 
     @Override
     public void request( Downloader downloader ) {
         try {
+
+            apple = Apple.getInstance();
+            optionsList = apple.getOptionsHandler( ).getOptionsList( );
+
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 

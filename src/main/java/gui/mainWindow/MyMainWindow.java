@@ -81,6 +81,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
             client.getTablesHandler().getTable( TablesEnum.STATUS).load();
             client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
+            client
 
             client.setLoadStatusFromHB( true );
             client.setLoadArraysFromHB( true );

@@ -480,6 +480,23 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                         return new JSONArray( ).toString( );
                     }
                 } );
+
+                addColumn( new MyLoadAbleColumn< String >( this, "tradingHours", MyColumnSql.STRING ) {
+                    @Override
+                    public String getObject() {
+                        return client.getIndexList( ).toString( );
+                    }
+
+                    @Override
+                    public void setLoadedObject( String object ) {
+                        client.getIndexList( ).setData( new JSONArray( object ) );
+                    }
+
+                    @Override
+                    public String getResetObject() {
+                        return new JSONArray( ).toString( );
+                    }
+                } );
             }
         };
 
