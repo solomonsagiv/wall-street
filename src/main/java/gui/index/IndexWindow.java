@@ -1,6 +1,6 @@
 package gui.index;
 
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;

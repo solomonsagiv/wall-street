@@ -1,6 +1,5 @@
 package tws;
 
-import charts.myChart.MyProps;
 import com.ib.client.Contract;
 import locals.IJsonDataBase;
 import myJson.MyJson;
@@ -11,11 +10,19 @@ public class MyContract extends Contract implements IJsonDataBase {
     private int myId;
     private boolean requested;
     private TwsContractsEnum type;
-    private MyProps props;
 
     public MyContract(int myId, TwsContractsEnum type) {
         this.myId = myId;
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " \n" +
+                "myId=" + myId +
+                ", requested=" + requested +
+                ", type=" + type +
+                '}';
     }
 
     @Override
@@ -44,6 +51,32 @@ public class MyContract extends Contract implements IJsonDataBase {
         symbol(object.getString(JsonEnum.SYMBOL.toString()));
         includeExpired(object.getBoolean(JsonEnum.INCLUDE_EXPIRED.toString()));
         lastTradeDateOrContractMonth(object.getString(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString()));
+    }
+
+
+    public void setType( String string ) {
+        switch ( string ) {
+            case "INDEX":
+                setType(TwsContractsEnum.INDEX);
+                break;
+            case "FUTURE":
+                setType(TwsContractsEnum.FUTURE);
+                break;
+            case "OPT_WEEK":
+                setType(TwsContractsEnum.OPT_WEEK);
+                break;
+            case "OPT_MONTH":
+                setType(TwsContractsEnum.OPT_MONTH);
+                break;
+            case "OPT_QUARTER":
+                setType(TwsContractsEnum.OPT_QUARTER);
+                break;
+            case "OPT_QUARTER_FAR":
+                setType(TwsContractsEnum.OPT_QUARTER_FAR);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -76,6 +109,10 @@ public class MyContract extends Contract implements IJsonDataBase {
 
     public TwsContractsEnum getType() {
         return type;
+    }
+
+    public void setType(TwsContractsEnum type) {
+        this.type = type;
     }
 }
 

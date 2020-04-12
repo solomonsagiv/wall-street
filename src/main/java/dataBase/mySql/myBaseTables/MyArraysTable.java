@@ -1,25 +1,22 @@
-package dataBase.mySql.myTables;
+package dataBase.mySql.myBaseTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
-import dataBase.mySql.mySqlComps.MyTableSql;
+import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import dataBase.mySql.mySqlComps.MySqlTable;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
-public abstract class MyArraysTable extends MyTableSql {
+public abstract class MyArraysTable extends MySqlTable {
 
-    public MyArraysTable( BASE_CLIENT_OBJECT client, String tableName ) {
-        super( client, tableName );
-    }
-
-    @Override
-    public void initColumns() {
-
+    public MyArraysTable( BASE_CLIENT_OBJECT client, String name ) {
+        super( client, name );
     }
 
     @Override
@@ -29,13 +26,14 @@ public abstract class MyArraysTable extends MyTableSql {
     @Override
     public void load() {
         try {
-            String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", tableName, client.getDbId( ) );
+            String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", name, client.getDbId( ) );
 
             System.out.println( query );
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {
-                for ( MyLoadAbleColumn column : loadAbleColumns ) {
+                for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
+                    MyLoadAbleColumn column = entry.getValue();
                     String list = rs.getString( column.name );
                     column.setLoadedObject( list );
                 }
@@ -49,16 +47,17 @@ public abstract class MyArraysTable extends MyTableSql {
 
     @Override
     public void update() {
-        super.updateFromSuper( );
+        super.update();
     }
 
     @Override
     public void reset() {
-        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", tableName ) );
+        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", name ) );
 
         int i = 0;
 
-        for ( MyLoadAbleColumn column : loadAbleColumns ) {
+        for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
+            MyLoadAbleColumn column = entry.getValue();
             if ( i < loadAbleColumns.size( ) - 1 ) {
                 query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'," );
             } else {
@@ -72,11 +71,6 @@ public abstract class MyArraysTable extends MyTableSql {
         query.append( endQuery );
 
         MySql.update( query.toString( ) );
-    }
-
-    @Override
-    public MyTableSql getObject() {
-        return null;
     }
 
 

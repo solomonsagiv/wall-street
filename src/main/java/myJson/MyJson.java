@@ -63,6 +63,15 @@ public class MyJson extends JSONObject {
     }
 
     @Override
+    public boolean getBoolean(String key) throws JSONException {
+        try {
+            return super.getBoolean( key );
+        } catch ( JSONException | NullPointerException e ) {
+            return false;
+        }
+    }
+
+    @Override
     public JSONObject getJSONObject( String key ) throws JSONException {
         try {
             return super.getJSONObject( key );

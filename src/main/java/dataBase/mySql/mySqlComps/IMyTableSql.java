@@ -7,6 +7,5 @@ public interface IMyTableSql {
     void load();
     void update();
     void reset();
-    MyTableSql getObject();
 
 }

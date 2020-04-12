@@ -1,8 +1,6 @@
 package lists;
 
 import options.Options;
-import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.Second;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -61,6 +59,8 @@ public class ListsService extends MyBaseService {
             options.getConList( ).add( options.getContract( ) );
             options.getConBidList( ).add( options.getContractBid( ) );
             options.getConAskList( ).add( options.getContractAsk( ) );
+            options.getFutBidAskCounterList().add( new MyChartPoint(now, options.getContractBidAskCounter()) );
+
         }
 
         // Roll lists

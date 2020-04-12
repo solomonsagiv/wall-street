@@ -1,6 +1,6 @@
 package gui.stock;
 
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.stockObjects.STOCK_OBJECT;

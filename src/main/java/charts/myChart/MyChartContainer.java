@@ -1,9 +1,8 @@
 package charts.myChart;
 
-import arik.Arik;
 import charts.MyChartPanel;
-import dataBase.mySql.myTables.MyBoundsTable;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.myBaseTables.MyBoundsTable;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import java.awt.*;

@@ -9,19 +9,20 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import lists.ListsService;
 import lists.MyChartList;
 import locals.L;
 import locals.LocalHandler;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
-import props.ClientProps;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,7 +33,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Table
     DefaultTableModel model = new DefaultTableModel( );
-    protected ClientProps props;
     // Options
     protected OptionsHandler optionsHandler;
     private double startStrike;
@@ -43,6 +43,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected ITwsRequester iTwsRequester;
     protected DDECells ddeCells;
 
+    private LocalTime indexStartTime;
+    private LocalTime indexEndTime;
+    private LocalTime futureEndTime;
     // Base id
     private int baseId;
 
@@ -117,19 +120,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public BASE_CLIENT_OBJECT() {
         try {
 
-            props = new ClientProps( this );
-
-            initTwsHandler( );
             LocalHandler.clients.add( this );
 
             // Call subClasses abstract functions
-            initTablesHandlers( );
+            initBaseId();
             initOptionsHandler( );
             initDDECells( );
 
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
+
+            twsHandler = new TwsHandler();
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -572,6 +574,30 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return optionsHandler;
     }
 
+    public LocalTime getIndexStartTime() {
+        return indexStartTime;
+    }
+
+    public void setIndexStartTime(LocalTime indexStartTime) {
+        this.indexStartTime = indexStartTime;
+    }
+
+    public LocalTime getIndexEndTime() {
+        return indexEndTime;
+    }
+
+    public void setIndexEndTime(LocalTime indexEndTime) {
+        this.indexEndTime = indexEndTime;
+    }
+
+    public LocalTime getFutureEndTime() {
+        return futureEndTime;
+    }
+
+    public void setFutureEndTime(LocalTime futureEndTime) {
+        this.futureEndTime = futureEndTime;
+    }
+
     public boolean isConUpChanged() {
         return conUpChanged;
     }
@@ -645,14 +671,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return rollHandler;
     }
 
-    public ClientProps getProps() {
-        return props;
-    }
-
-    public void setProps( ClientProps props ) {
-        this.props = props;
-    }
-
     public ITwsRequester getiTwsRequester() {
         if ( iTwsRequester == null ) throw new NullPointerException( "Tws requester not set " );
         return iTwsRequester;
@@ -666,9 +684,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
                 ", optionsHandler=" + optionsHandler.toString( ) +
-                ", startOfIndexTrading=" + props.getTradingHours( ).getIndexStartTime() +
-                ", endOfIndexTrading=" + props.getTradingHours().getIndexEndTime() +
-                ", endFutureTrading=" + props.getTradingHours().getFutureEndTime() +
+                ", startOfIndexTrading=" + getIndexStartTime() +
+                ", endOfIndexTrading=" + getIndexEndTime() +
+                ", endFutureTrading=" + getFutureEndTime() +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +

@@ -1,12 +1,12 @@
-package dataBase.mySql.myTables;
+package dataBase.mySql.myBaseTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
-import dataBase.mySql.mySqlComps.MyTableSql;
+import dataBase.mySql.mySqlComps.MySqlTable;
 import serverObjects.BASE_CLIENT_OBJECT;
 import java.sql.ResultSet;
 
-public class MyBoundsTable extends MyTableSql {
+public class MyBoundsTable extends MySqlTable {
 
     // Constructor
     public MyBoundsTable( BASE_CLIENT_OBJECT client, String tableName ) {
@@ -94,10 +94,5 @@ public class MyBoundsTable extends MyTableSql {
     @Override
     public void reset() {
 
-    }
-
-    @Override
-    public MyTableSql getObject() {
-        return null;
     }
 }

@@ -1,7 +1,7 @@
 package dataBase.mySql;
 
 import api.Manifest;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;

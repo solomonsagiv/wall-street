@@ -9,22 +9,25 @@ public abstract class MyColumnSql< T > {
     public static final int INT = 2;
 
     // Variables
-    protected MyTableSql myTableSql;
+    protected MySqlTable myTableSql;
     public String name;
-    public int type;
+    protected MySqlColumnEnum type;
     BASE_CLIENT_OBJECT client;
     
     // Constructor
-    public MyColumnSql( MyTableSql myTableSql, String name, int type ) {
+    public MyColumnSql(MySqlTable myTableSql, String name, MySqlColumnEnum type) {
         this.myTableSql = myTableSql;
         this.name = name;
-        this.client = myTableSql.client;
+        this.client = myTableSql.getClient();
         this.type = type;
-        myTableSql.addColumn( this );
     }
 
     // Abstracts functions
     public abstract T getObject();
 
+    // Getters and setters
+    public MySqlColumnEnum getType() {
+        return type;
+    }
 }
 

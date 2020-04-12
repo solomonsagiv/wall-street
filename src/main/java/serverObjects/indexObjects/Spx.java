@@ -2,8 +2,7 @@ package serverObjects.indexObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsEnum;
-import api.tws.TwsHandler;
-import api.tws.requesters.AppleRequester;
+import api.tws.requesters.SpxRequester;
 import options.IndexOptions;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
@@ -12,8 +11,6 @@ import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import serverObjects.ApiEnum;
-import tws.MyContract;
-import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 
@@ -30,8 +27,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDbId( 2 );
         setStrikeMargin( 5 );
         setBaseId( 10000 );
-        initTablesHandlers();
         initDDECells();
+        setIndexStartTime(LocalTime.of(16, 30, 0));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
+        setFutureEndTime(LocalTime.of(23, 15, 0));
+        setiTwsRequester(new SpxRequester());
         roll( );
     }
 
@@ -49,75 +49,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             client = new Spx( );
         }
         return client;
-    }
-
-    @Override
-    public void initTwsHandler() {
-
-        TwsHandler twsHandler = new TwsHandler( );
-
-        // Index
-        MyContract indexContract = new MyContract( getBaseId( ) + 1, TwsContractsEnum.INDEX );
-        indexContract.symbol( "SPX" );
-        indexContract.secType( "IND" );
-        indexContract.currency( "USD" );
-        indexContract.exchange( "CBOE" );
-        indexContract.multiplier( "50" );
-        twsHandler.addContract( indexContract );
-
-        MyContract futureContract = new MyContract( getBaseId( ) + 2, TwsContractsEnum.FUTURE );
-        futureContract.symbol( "ES" );
-        futureContract.secType( "FUT" );
-        futureContract.currency( "USD" );
-        //  futureContract.lastTradeDateOrContractMonth( Manifest.EXPIRY );
-        futureContract.lastTradeDateOrContractMonth( "20200918" );
-        futureContract.exchange( "GLOBEX" );
-        futureContract.multiplier( "50" );
-        twsHandler.addContract( futureContract );
-
-        // Week options
-        MyContract optWeekContract = new MyContract( getBaseId( ) + 1000, TwsContractsEnum.OPT_WEEK );
-        optWeekContract.secType( "OPT" );
-        optWeekContract.currency( "USD" );
-        optWeekContract.exchange( "SMART" );
-        optWeekContract.tradingClass( "SPXW" );
-        optWeekContract.multiplier( "100" );
-        optWeekContract.symbol( "SPXW" );
-        optWeekContract.includeExpired( true );
-        twsHandler.addContract( optWeekContract );
-
-        // Month options
-        MyContract optionsMonthContract = new MyContract( getBaseId( ) + 2000, TwsContractsEnum.OPT_MONTH );
-        optionsMonthContract.secType( "OPT" );
-        optionsMonthContract.currency( "USD" );
-        optionsMonthContract.exchange( "SMART" );
-        optionsMonthContract.tradingClass( "SPX" );
-        optionsMonthContract.multiplier( "100" );
-        optionsMonthContract.symbol( "SPX" );
-        optionsMonthContract.includeExpired( true );
-        twsHandler.addContract( optionsMonthContract );
-
-        // Quarter options
-        MyContract optionsQuarterContract = new MyContract( getBaseId( ) + 3000, TwsContractsEnum.OPT_QUARTER );
-        optionsQuarterContract.secType( "OPT" );
-        optionsQuarterContract.currency( "USD" );
-        optionsQuarterContract.exchange( "SMART" );
-        optionsQuarterContract.tradingClass( "SPX" );
-        optionsQuarterContract.multiplier( "100" );
-        optionsQuarterContract.symbol( "SPX" );
-        optionsQuarterContract.includeExpired( true );
-        twsHandler.addContract( optionsQuarterContract );
-
-        MyContract optionsQuarterFarContract = new MyContract( getBaseId( ) + 4000, TwsContractsEnum.OPT_QUARTER_FAR );
-        optionsQuarterFarContract.secType( "OPT" );
-        optionsQuarterFarContract.currency( "USD" );
-        optionsQuarterFarContract.exchange( "SMART" );
-        optionsQuarterFarContract.tradingClass( "SPX" );
-        optionsQuarterFarContract.multiplier( "100" );
-        optionsQuarterFarContract.symbol( "SPX" );
-        optionsQuarterFarContract.includeExpired( true );
-        twsHandler.addContract( optionsQuarterFarContract );
-        setTwsHandler( twsHandler );
     }
 
     @Override
@@ -170,7 +101,12 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         }
 
-        @Override
+    @Override
+    public void initBaseId() {
+        setBaseId(10000);
+    }
+
+    @Override
         public double getTheoAvgMargin ( ) {
             return 0.05;
         }

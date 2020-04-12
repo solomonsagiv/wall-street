@@ -1,9 +1,6 @@
 package options;
 
-import com.ib.client.Contract;
-import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import tws.MyContract;
 
 public class IndexOptions extends Options {
 
@@ -58,6 +55,21 @@ public class IndexOptions extends Options {
         return targetStrike;
     }
 
+    @Override
+    public double getCalcDevidend() {
+
+        if ( getProps().getDevidend() <= 0 ) {
+            return 0;
+        }
+
+        double calcDev = getProps().getDevidend() * 360.0 / getProps().getDays() / client.getFuture( );
+
+        if ( Double.isInfinite( calcDev ) ) {
+            return 0;
+        }
+
+        return calcDev;
+    }
 
 
 }

@@ -1,0 +1,5 @@
+package dataBase.mySql.mySqlComps;
+
+public enum TablesEnum {
+    ARRAYS, DAY, SUM, STATUS, BOUNDS, SETTING
+}

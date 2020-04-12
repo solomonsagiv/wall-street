@@ -1,8 +1,8 @@
 package charts;
 
 import arik.Arik;
-import dataBase.mySql.myTables.MyBoundsTable;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.myBaseTables.MyBoundsTable;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import locals.Themes;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;

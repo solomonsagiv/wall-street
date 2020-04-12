@@ -4,7 +4,7 @@ import charts.myCharts.IndexBidAskCounterChart;
 import charts.myCharts.IndexBidAskCounterIndexChart;
 import charts.myCharts.IndexVsQuarterLiveChart;
 import charts.myCharts.IndexVsQuarterQuarterFarLiveChart;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;

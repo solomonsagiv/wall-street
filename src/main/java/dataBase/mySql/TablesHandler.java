@@ -1,20 +1,20 @@
 package dataBase.mySql;
 
-import dataBase.mySql.mySqlComps.MyTableSql;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.MySqlTable;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.util.*;
 
 public class TablesHandler {
 
-    Map tables = new HashMap< TablesEnum, MyTableSql>();
+    Map tables = new HashMap< TablesEnum, MySqlTable>();
 
-    public MyTableSql getTable( TablesEnum tablesEnum ) {
-        return ( MyTableSql ) tables.get( tablesEnum );
+    public MySqlTable getTable( TablesEnum tablesEnum ) {
+        return ( MySqlTable ) tables.get( tablesEnum );
     }
 
-    public void addTable( TablesEnum tablesEnum, MyTableSql myTableSql ) {
+    public void addTable( TablesEnum tablesEnum, MySqlTable myTableSql ) {
         tables.put( tablesEnum,  myTableSql );
     }
 
@@ -31,7 +31,7 @@ public class TablesHandler {
     }
 
     public String getSettingName() {
-        return "setting";
+        return "settings";
     }
 
     public String getArraysName() {

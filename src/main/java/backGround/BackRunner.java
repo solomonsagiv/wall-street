@@ -3,7 +3,6 @@ package backGround;
 import api.Manifest;
 import arik.Arik;
 import options.Options;
-import props.TradingHours;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
@@ -13,11 +12,9 @@ public class BackRunner {
     LocalTime now;
     private BASE_CLIENT_OBJECT client;
     private Runner runner;
-    private TradingHours tradingHours;
 
     public BackRunner( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.tradingHours = client.getProps().getTradingHours();
     }
 
     public void startRunner() {
@@ -69,7 +66,7 @@ public class BackRunner {
                     double last = client.getIndex( );
 
                     // Start
-                    if ( now.isAfter( tradingHours.getIndexStartTime() ) && !client.isStarted( ) && last_0 != last ) {
+                    if ( now.isAfter( client.getIndexStartTime() ) && !client.isStarted( ) && last_0 != last ) {
 
                         if ( client.getOpen( ) == 0 ) {
                             client.setOpen( last );
@@ -79,7 +76,7 @@ public class BackRunner {
                     }
 
                     // Close runners
-                    if ( now.isAfter( tradingHours.getIndexEndTime() ) && client.isDbRunning() ) {
+                    if ( now.isAfter( client.getIndexEndTime() ) && client.isDbRunning() ) {
 
                         if ( Manifest.DB ) {
                             // Arik
@@ -91,7 +88,7 @@ public class BackRunner {
                     }
 
                     // Export
-                    if ( now.isAfter( tradingHours.getFutureEndTime() ) ) {
+                    if ( now.isAfter( client.getFutureEndTime() ) ) {
                         client.fullExport( );
                         client.closeAll( );
                         break;

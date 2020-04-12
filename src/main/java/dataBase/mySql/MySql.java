@@ -66,7 +66,7 @@ public class MySql {
 
 
     // Get connection pool
-    private static ConnectionPool getPool() {
+    public static ConnectionPool getPool() {
         if ( pool == null ) {
             pool = ConnectionPool.getConnectionsPoolInstance( );
         }

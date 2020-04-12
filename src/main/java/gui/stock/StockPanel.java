@@ -2,7 +2,7 @@ package gui.stock;
 
 import charts.myCharts.IndexBidAskCounterIndexChart;
 import charts.myCharts.IndexVsQuarterLiveChart;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;

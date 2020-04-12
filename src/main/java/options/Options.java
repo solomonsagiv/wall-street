@@ -1,6 +1,7 @@
 package options;
 
 import com.ib.client.Types;
+import lists.MyChartList;
 import locals.IJsonDataBase;
 import locals.L;
 import myJson.MyJson;
@@ -8,23 +9,13 @@ import options.fullOptions.PositionCalculator;
 import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 import tws.MyContract;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public abstract class Options implements IJsonDataBase {
-
-    public static void main(String[] args) {
-
-        MyJson json = new MyJson("{\"TWS_CONTRACT\":{\"ID\":0,\"SEC_TYPE\":\"None\",\"INCLUDE_EXPIRED\":true},\"DATA\":{\"DATA\":{},\"OP_AVG\":54,\"CONTRACT\":33,\"BID_ASK_COUNTER\":767676},\"PROPS\":{\"DEVIDEND\":445,\"DAYS\":67,\"INTEREST\":4,\"DATE\":\"2020-09-08\"}}");
-
-        IndexOptions options = new IndexOptions(33, Spx.getInstance(), OptionsEnum.QUARTER);
-        options.loadFromJson(json);
-        System.out.println(options.getAsJson());
-    }
+public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     OptionsDDeCells optionsDDeCells;
     List< Strike > strikes;
@@ -48,7 +39,6 @@ public abstract class Options implements IJsonDataBase {
     protected double contractBid = 0;
     protected double contractAsk = 0;
     public double currStrike = 0;
-    IOptionsCalcs optionsCalcs;
 
     Set<Integer> dates = new HashSet<>();
 
@@ -59,6 +49,7 @@ public abstract class Options implements IJsonDataBase {
     List< Double > conList = new ArrayList<>( );
     List< Double > conBidList = new ArrayList<>( );
     List< Double > conAskList = new ArrayList<>( );
+    MyChartList futBidAskCounterList = new MyChartList();
 
     public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type ) {
         this.baseID = baseID;
@@ -75,19 +66,6 @@ public abstract class Options implements IJsonDataBase {
     public Options ( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
         this( baseID,  client,  type );
         this.optionsDDeCells = dDeCells;
-    }
-
-    // Inherith functions
-    public double getStrikeInMoney() {
-        return optionsCalcs.getStrikeInMoney();
-    }
-
-    public Strike getStrikeInMoneyIfZero() {
-        return optionsCalcs.getStrikeInMoneyIfZero();
-    }
-
-    public double getCalcDevidend() {
-        return optionsCalcs.getCalcDevidend();
     }
 
     public Call getCall( double targetStrike ) {
@@ -914,6 +892,14 @@ public abstract class Options implements IJsonDataBase {
         return dates;
     }
 
+    public MyChartList getFutBidAskCounterList() {
+        return futBidAskCounterList;
+    }
+
+    public void setFutBidAskCounterList(MyChartList futBidAskCounterList) {
+        this.futBidAskCounterList = futBidAskCounterList;
+    }
+
     public void setDates(Set<Integer> dates) {
         this.dates = dates;
     }
@@ -942,12 +928,4 @@ public abstract class Options implements IJsonDataBase {
         this.props = props;
     }
 
-    public IOptionsCalcs getOptionsCalcs() {
-        if ( optionsCalcs == null ) throw new NullPointerException( client.getName() + " " + getType() + " Options calc not set" );
-        return optionsCalcs;
-    }
-
-    public void setOptionsCalcs( IOptionsCalcs optionsCalcs ) {
-        this.optionsCalcs = optionsCalcs;
-    }
 }

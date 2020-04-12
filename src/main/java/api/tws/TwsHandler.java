@@ -46,6 +46,15 @@ public class TwsHandler implements IJsonDataBase {
         }
     }
 
+    public boolean isExist( MyContract contract ) {
+        return myContracts.containsValue(contract);
+    }
+
+    public boolean isExist( TwsContractsEnum twsContractsEnum )  {
+        return myContracts.containsKey(twsContractsEnum);
+    }
+
+
     public boolean isRequested( MyContract myContract ) throws Exception {
         return isRequested( myContract.getType() );
     }
@@ -92,6 +101,10 @@ public class TwsHandler implements IJsonDataBase {
             }
         }
         options.setRequested( true );
+    }
+
+    public Map<TwsContractsEnum, MyContract> getMyContracts() {
+        return myContracts;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package setting;
 
-import arik.Arik;
-import arik.locals.Emojis;
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;

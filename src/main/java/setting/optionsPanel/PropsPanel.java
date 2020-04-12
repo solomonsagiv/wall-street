@@ -1,10 +1,9 @@
 package setting.optionsPanel;
 
-import dataBase.mySql.myTables.TablesEnum;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
-import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

@@ -2,11 +2,11 @@ package dataBase.mySql.mySqlComps;
 
 public abstract class MyLoadAbleColumn<T> extends MyColumnSql {
 
-    public MyLoadAbleColumn( MyTableSql myTableSql, String name, int type ) {
-        super( myTableSql, name, type );
+    public MyLoadAbleColumn(MySqlTable myTableSql, String name, MySqlColumnEnum columnType) {
+        super(myTableSql, name, columnType);
     }
 
-    public abstract void setLoadedObject( T object );
+    public abstract void setLoadedObject(T object);
 
     public abstract T getResetObject();
 }
