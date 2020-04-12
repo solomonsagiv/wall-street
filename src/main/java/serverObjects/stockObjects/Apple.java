@@ -10,7 +10,7 @@ public class Apple extends STOCK_OBJECT {
 
     static Apple client = null;
 
-    // Constructor
+    // Constrtor
     public Apple() {
         super( );
         setName( "apple" );
