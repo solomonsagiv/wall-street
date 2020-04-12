@@ -1,9 +1,6 @@
 package gui.index;
 
-import charts.myCharts.IndexBidAskCounterChart;
-import charts.myCharts.IndexBidAskCounterIndexChart;
-import charts.myCharts.IndexVsQuarterLiveChart;
-import charts.myCharts.IndexVsQuarterQuarterFarLiveChart;
+import charts.myCharts.*;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -415,6 +412,15 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
+        JMenuItem e2BACounter_index = new JMenuItem( "E2 B/A counter - Index" );
+        e2BACounter_index.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                FutureFarBidAskCounterIndexChart chart = new FutureFarBidAskCounterIndexChart( client );
+                chart.createChart();
+            }
+        } );
+
         JMenuItem quarter_index_item = new JMenuItem( "Quarter / index" );
         quarter_index_item.addActionListener( new ActionListener( ) {
             @Override
@@ -481,7 +487,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         export.add( exportSumLine );
 
-        charts.add( quarter_quarterFar_index_item );
+        charts.add( e2BACounter_index );
         charts.add( quarter_quarterFar_index_item );
         charts.add( indexBidAskCounter_indexItem );
         charts.add( indexBidAskCounterItem );

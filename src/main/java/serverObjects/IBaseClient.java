@@ -2,7 +2,7 @@ package serverObjects;
 
 public interface IBaseClient {
 
-    void initOptionsHandler() throws Exception;
+    void initOptionsHandler();
     void initDDECells();
     ApiEnum getApi();
     void requestApi();

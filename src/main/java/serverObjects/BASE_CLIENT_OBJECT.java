@@ -1,6 +1,7 @@
 package serverObjects;
 
 import DDE.DDECells;
+import api.Downloader;
 import api.Manifest;
 import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
@@ -9,7 +10,9 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
+import dataBase.mySql.myBaseTables.MyTwsContractsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.myTables.*;
 import lists.ListsService;
 import lists.MyChartList;
 import locals.L;
@@ -80,20 +83,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected double index = 0;
     private double indexBid = 0;
     private double indexAsk = 0;
-    private double futureBid = 0;
-    private double futureAsk = 0;
     private double open = 0;
     private double high = 0;
     private double low = 0;
     private double base = 0;
-    private int futureBidAskCounter = 0;
     private double indexBidAskMargin = 0;
     private double indexBidAskCounter = 0;
-
-    private double[] indexBidState = new double[ 2 ];
-    private double[] indexAskState = new double[ 2 ];
-    private double[] futureBidState = new double[ 2 ];
-    private double[] futureAskState = new double[ 2 ];
 
     // Services
     ListsService listsService;
@@ -123,19 +118,28 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             LocalHandler.clients.add( this );
 
             // Call subClasses abstract functions
-            initBaseId();
-            initOptionsHandler( );
+            initBaseId( );
             initDDECells( );
 
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
 
-            twsHandler = new TwsHandler();
+            twsHandler = new TwsHandler( );
 
+            initTablesHandler( );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
+    }
+
+    public void initTablesHandler() {
+        tablesHandler = new TablesHandler( );
+        tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayTable( this ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusTable( this ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumTable( this ) );
+        tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );
     }
 
     // Start all
@@ -171,7 +175,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
             // Notify
             Arik.getInstance( ).sendMessage( Arik.sagivID, getName( ) + " Export success " + Emojis.check_mark, null );
-
         } catch ( Exception e ) {
             // Notify
             Arik.getInstance( ).sendMessage( Arik.sagivID,
@@ -312,37 +315,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.loadFromDb = loadFromDb;
     }
 
-
-    private double futureAskForCheck = 0;
-
-    public void setFutureBid( double futureBid ) {
-
-        // If increment state
-        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk ) {
-            futureBidAskCounter++;
-        }
-        this.futureBid = futureBid;
-
-        // Ask for bid change state
-        futureAskForCheck = this.futureAsk;
-
-    }
-
-    private double futureBidForCheck = 0;
-
-    public void setFutureAsk( double futureAsk ) {
-
-        // If increment state
-        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid ) {
-            futureBidAskCounter--;
-        }
-        this.futureAsk = futureAsk;
-
-        // Ask for bid change state
-        futureBidForCheck = this.futureBid;
-
-    }
-
     public int getConUp() {
         return conUp;
     }
@@ -453,14 +425,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexAsk;
     }
 
-    public double getFutureBid() {
-        return futureBid;
-    }
-
-    public double getFutureAsk() {
-        return futureAsk;
-    }
-
     public double getOpen() {
         return open;
     }
@@ -475,10 +439,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public double getBase() {
         return base;
-    }
-
-    public int getFutureBidAskCounter() {
-        return futureBidAskCounter;
     }
 
     public int getIndexSumRaces() {
@@ -570,7 +530,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public OptionsHandler getOptionsHandler() {
-        if ( optionsHandler == null ) throw new NullPointerException( );
+        if ( optionsHandler == null ) {
+            initOptionsHandler( );
+        }
         return optionsHandler;
     }
 
@@ -578,7 +540,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexStartTime;
     }
 
-    public void setIndexStartTime(LocalTime indexStartTime) {
+    public void setIndexStartTime( LocalTime indexStartTime ) {
         this.indexStartTime = indexStartTime;
     }
 
@@ -586,7 +548,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexEndTime;
     }
 
-    public void setIndexEndTime(LocalTime indexEndTime) {
+    public void setIndexEndTime( LocalTime indexEndTime ) {
         this.indexEndTime = indexEndTime;
     }
 
@@ -594,7 +556,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return futureEndTime;
     }
 
-    public void setFutureEndTime(LocalTime futureEndTime) {
+    public void setFutureEndTime( LocalTime futureEndTime ) {
         this.futureEndTime = futureEndTime;
     }
 
@@ -678,15 +640,16 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setiTwsRequester( ITwsRequester iTwsRequester ) {
         this.iTwsRequester = iTwsRequester;
+        Downloader.getInstance().addRequester( iTwsRequester );
     }
 
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
                 ", optionsHandler=" + optionsHandler.toString( ) +
-                ", startOfIndexTrading=" + getIndexStartTime() +
-                ", endOfIndexTrading=" + getIndexEndTime() +
-                ", endFutureTrading=" + getFutureEndTime() +
+                ", startOfIndexTrading=" + getIndexStartTime( ) +
+                ", endOfIndexTrading=" + getIndexEndTime( ) +
+                ", endFutureTrading=" + getFutureEndTime( ) +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +
@@ -696,13 +659,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexBidAskCounter=" + indexBidAskCounter +
                 ", indexBid=" + indexBid +
                 ", indexAsk=" + indexAsk +
-                ", futureBid=" + futureBid +
-                ", futureAsk=" + futureAsk +
                 ", open=" + open +
                 ", high=" + high +
                 ", low=" + low +
                 ", base=" + base +
-                ", futureBidAskCounter=" + futureBidAskCounter +
                 ", indexBidAskMargin=" + indexBidAskMargin +
                 ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +

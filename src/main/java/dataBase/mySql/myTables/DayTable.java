@@ -13,8 +13,8 @@ import java.time.LocalTime;
 public class DayTable extends MyDayTable {
 
     // Constructor
-    public DayTable(BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, tableName);
+    public DayTable(BASE_CLIENT_OBJECT client ) {
+        super(client, client.getName() );
     }
 
     @Override

@@ -7,6 +7,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class MySqlTable implements IMyTableSql {
@@ -15,13 +16,14 @@ public abstract class MySqlTable implements IMyTableSql {
     protected BASE_CLIENT_OBJECT client;
     protected String name;
 
-    protected Map<MySqlColumnEnum, MyColumnSql> columns;
-    protected Map<MySqlColumnEnum, MyLoadAbleColumn> loadAbleColumns;
+    protected Map<MySqlColumnEnum, MyColumnSql> columns = new HashMap<>();
+    protected Map<MySqlColumnEnum, MyLoadAbleColumn> loadAbleColumns = new HashMap<>();
 
     // Constructor
     public MySqlTable(BASE_CLIENT_OBJECT client, String name) {
         this.client = client;
         this.name = name;
+        initColumns();
     }
 
     protected void addColumn(MyColumnSql column) {
@@ -31,7 +33,7 @@ public abstract class MySqlTable implements IMyTableSql {
             loadAbleColumns.put(column.getType(), (MyLoadAbleColumn) column);
         }
 
-        loadAbleColumns.put(column.getType(), (MyLoadAbleColumn) column);
+        columns.put(column.getType(), column);
 
     }
 

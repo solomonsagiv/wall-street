@@ -77,8 +77,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void loadOnStartUp() {
 
-        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-
+        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+            client.getTablesHandler().getTable( TablesEnum.TWS_CONTRACTS ).load();
             client.getTablesHandler().getTable(TablesEnum.STATUS).load();
             client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
 

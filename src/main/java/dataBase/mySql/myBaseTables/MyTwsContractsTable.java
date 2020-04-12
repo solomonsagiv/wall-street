@@ -18,7 +18,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
 
 
     public static void main(String[] args) throws SQLException {
-        MyTwsContractsTable table = new MyTwsContractsTable(Ndx.getInstance(), "twsContracts") {
+        MyTwsContractsTable table = new MyTwsContractsTable(Ndx.getInstance()) {
             @Override
             public void initColumns() {
 
@@ -35,8 +35,8 @@ public abstract class MyTwsContractsTable extends MySqlTable {
     }
 
     // Constructor
-    public MyTwsContractsTable(BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, tableName);
+    public MyTwsContractsTable(BASE_CLIENT_OBJECT client ) {
+        super(client, "twsContracts");
     }
 
     @Override
@@ -113,7 +113,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
     }
 
 
-    private void update(MyContract contract) throws SQLException {
+    private void update( MyContract contract ) throws SQLException {
 
         String query = "UPDATE stocks.twsContracts SET stockName = ?, contractName = ?, secType = ?, currency = ?, exchange = ?, tradingClass = ?, multiplier = ?, primaryExchange = ?, symbol = ?, includExpired = ?, lastTradingDayOrContractMonth = ? WHERE id = ?";
 
@@ -152,7 +152,6 @@ public abstract class MyTwsContractsTable extends MySqlTable {
     @Override
     public void load() {
         try {
-
             TwsHandler twsHandler = client.getTwsHandler();
 
             String query = String.format("SELECT * FROM stocks.%s WHERE stockName ='%s'", name, client.getName());

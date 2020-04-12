@@ -36,6 +36,12 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     protected MyContract twsContract;
     protected boolean gotData = false;
     private double contract = 0;
+
+    protected double future = 0;
+    protected double futureBid = 0;
+    protected double futureAsk = 0;
+    protected int futureBidAskCounter = 0;
+
     protected double contractBid = 0;
     protected double contractAsk = 0;
     public double currStrike = 0;
@@ -664,6 +670,53 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         }
     }
 
+
+    public double getFuture() {
+        return future;
+    }
+
+    public void setFuture( double future ) {
+        this.future = future;
+    }
+
+    private double futureAskForCheck = 0;
+
+    public void setFutureBid( double futureBid ) {
+
+        // If increment state
+        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk ) {
+            futureBidAskCounter++;
+        }
+        this.futureBid = futureBid;
+
+        // Ask for bid change state
+        futureAskForCheck = this.futureAsk;
+
+    }
+
+    private double futureBidForCheck = 0;
+
+    public void setFutureAsk( double futureAsk ) {
+
+        // If increment state
+        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid ) {
+            futureBidAskCounter--;
+        }
+        this.futureAsk = futureAsk;
+
+        // Ask for bid change state
+        futureBidForCheck = this.futureBid;
+
+    }
+
+    public int getFutureBidAskCounter() {
+        return futureBidAskCounter;
+    }
+
+    public void setFutureBidAskCounter( int futureBidAskCounter ) {
+        this.futureBidAskCounter = futureBidAskCounter;
+    }
+
     public OptionsEnum getType() {
         return type;
     }
@@ -789,7 +842,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public MyContract getCopyTwsContract() {
 
         // Base contract
-        MyContract contract = ( MyContract ) getTwsContract();
+        MyContract contract = getTwsContract();
 
         // Copy
         MyContract copy = new MyContract();
@@ -865,8 +918,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         conBidForCheck = this.contractBid;
 
     }
-
-
 
     public List< Double > getOpList() {
         return opList;

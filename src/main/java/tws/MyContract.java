@@ -53,7 +53,6 @@ public class MyContract extends Contract implements IJsonDataBase {
         lastTradeDateOrContractMonth(object.getString(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString()));
     }
 
-
     public void setType( String string ) {
         switch ( string ) {
             case "INDEX":
@@ -61,6 +60,9 @@ public class MyContract extends Contract implements IJsonDataBase {
                 break;
             case "FUTURE":
                 setType(TwsContractsEnum.FUTURE);
+                break;
+            case "FUTURE_FAR":
+                setType(TwsContractsEnum.FUTURE_FAR);
                 break;
             case "OPT_WEEK":
                 setType(TwsContractsEnum.OPT_WEEK);

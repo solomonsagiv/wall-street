@@ -18,7 +18,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setDbId( 3 );
         setStrikeMargin( 40 );
         setBaseId( 20000 );
-        initTablesHandlers();
         initDDECells();
         setIndexStartTime(LocalTime.of(16, 30, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));

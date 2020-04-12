@@ -13,14 +13,13 @@ import java.time.LocalTime;
 public class StatusTable extends MyStatusTable {
 
     // Constructor
-    public StatusTable(BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, tableName);
+    public StatusTable(BASE_CLIENT_OBJECT client ) {
+        super(client, "status");
     }
 
     @Override
     public void initColumns() {
         addColumn(new MyColumnSql<>(this, "name", MySqlColumnEnum.NAME) {
-
             @Override
             public String getObject() {
                 return client.getName();

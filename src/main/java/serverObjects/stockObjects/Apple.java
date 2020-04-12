@@ -19,7 +19,6 @@ public class Apple extends STOCK_OBJECT {
 
         setDbId( 4 );
         initDDECells();
-        setiTwsRequester( new AppleRequester() );
         setIndexStartTime(LocalTime.of(16, 30, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));

@@ -13,11 +13,9 @@ public class AppleRequester implements ITwsRequester {
     ArrayList< Options > optionsList;
     Apple apple;
 
-
     @Override
     public void request( Downloader downloader ) {
         try {
-
             apple = Apple.getInstance();
             optionsList = apple.getOptionsHandler( ).getOptionsList( );
 
@@ -26,7 +24,6 @@ public class AppleRequester implements ITwsRequester {
 
             // Options
             apple.getTwsHandler( ).requestOptions( apple.getOptionsHandler( ).getOptionsList( ) );
-
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

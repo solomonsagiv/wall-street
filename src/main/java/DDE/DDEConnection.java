@@ -5,7 +5,6 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
-
 import javax.swing.*;
 /**
  * Excel Example.
@@ -15,13 +14,13 @@ import javax.swing.*;
 public class DDEConnection {
 
 	// Get conversation instance
-	public DDEClientConversation createNewConversation(String excelPath) {
+	public DDEClientConversation createNewConversation( String excelPath) {
 		DDEClientConversation conversation = new DDEClientConversation();
 		conversation.setTimeout(3000);
 		// Connect to the excel
 		try {
 			conversation.connect("Excel", excelPath);
-		} catch (DDEException e) {
+		} catch ( DDEException e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage() + "\n" + e.getCause());
 			e.printStackTrace();
 		} catch (Exception e) {

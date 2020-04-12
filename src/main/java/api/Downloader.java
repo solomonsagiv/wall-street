@@ -15,11 +15,8 @@ import serverObjects.stockObjects.Apple;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class Downloader extends Thread implements EWrapper {
 
@@ -36,7 +33,7 @@ public class Downloader extends Thread implements EWrapper {
     MyLogger logger;
     int NextOrderId = -1;
 
-    ArrayList< ITwsRequester > iTwsRequesters = new ArrayList<>();
+    Set< ITwsRequester > iTwsRequesters = new HashSet<>();
 
     // Constructor
     private Downloader() {
@@ -44,7 +41,7 @@ public class Downloader extends Thread implements EWrapper {
         m_signal = new EJavaSignal();
         client = new EClientSocket(this, m_signal);
     }
-
+    
     // Get instance
     public static Downloader getInstance() {
         if (downloader == null) {
@@ -98,10 +95,9 @@ public class Downloader extends Thread implements EWrapper {
         for ( ITwsRequester requester: iTwsRequesters ) {
             requester.request( this );
         }
-
-        client.reqAutoOpenOrders( true );
-        client.reqPositions();
-        client.reqAccountUpdates( true, Manifest.ACCOUNT );
+//        client.reqAutoOpenOrders( true );
+//        client.reqPositions();
+//        client.reqAccountUpdates( true, Manifest.ACCOUNT );
     }
 
     public void addRequester( ITwsRequester requester) {

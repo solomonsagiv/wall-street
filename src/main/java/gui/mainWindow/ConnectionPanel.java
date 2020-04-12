@@ -103,6 +103,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     public void connectTws() {
         try {
             Manifest.CLIENT_ID = L.INT( portField.getText( ) );
+
             downloader = Downloader.getInstance( );
             downloader.start( );
 
