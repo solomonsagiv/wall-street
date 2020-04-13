@@ -5,7 +5,6 @@ import com.pretty_tools.dde.client.DDEClientConversation;
 import locals.L;
 import locals.LocalHandler;
 import options.Options;
-import options.OptionsEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -65,9 +64,9 @@ public class DDEReader extends MyThread implements Runnable {
 
         // Options
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
-            options.setContract( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
-            options.setContractBid( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutBid( ) ) ) );
-            options.setContractAsk( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutAsk( ) ) ) );
+            options.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+            options.setFutureBid( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutBid( ) ) ) );
+            options.setFutureAsk( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutAsk( ) ) ) );
         }
 
         // Index
