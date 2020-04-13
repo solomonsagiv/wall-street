@@ -91,7 +91,7 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         MyTimeSeries quarter = new MyTimeSeries( "Quarter", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getContract();
+                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
             }
         };
 
@@ -99,7 +99,7 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         MyTimeSeries quarterFar = new MyTimeSeries( "QuarterFar", Themes.VERY_LIGHT_BLUE, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getContract();
+                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).getFuture();
             }
         };
 

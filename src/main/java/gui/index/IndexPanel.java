@@ -286,7 +286,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         highField.setText( L.format100( client.getHigh( ) ) );
         lowField.setText( L.format100( client.getLow( ) ) );
         indexField.setText( L.format100( client.getIndex( ) ) );
-        futureField.setText( L.format100( mainOptions.getContract( ) ) );
+        futureField.setText( L.format100( mainOptions.getFuture( ) ) );
 
         // Ticker present
         openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
@@ -295,13 +295,13 @@ public class IndexPanel extends JPanel implements IMyPanel {
         indexPresentField.colorBack( L.present( client.getIndex( ), client.getBase( ) ), L.format100( ), "%" );
 
         // OP
-        opAvgField.colorForge( mainOptions.getOpAvg( ), L.format100( ) );
-        opField.colorBack( mainOptions.getOp( ), L.format100( ) );
+        opAvgField.colorForge( mainOptions.getOpAvgFuture( ), L.format100( ) );
+        opField.colorBack( mainOptions.getOpFuture( ), L.format100( ) );
 
         // Quarter
-        opQuarterField.colorBack( optionsQuarterFar.getOp( ), L.format100( ) );
-        opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvg( ), L.format100( ) );
-        contractQuarterField.setText( L.format100( optionsQuarterFar.getContract( ) ) );
+        opQuarterField.colorBack( optionsQuarterFar.getOpFuture( ), L.format100( ) );
+        opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvgFuture( ), L.format100( ) );
+        contractQuarterField.setText( L.format100( optionsQuarterFar.getFuture( ) ) );
 
         // Races and roll
         // Races
@@ -394,7 +394,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         });
 
-        JMenuItem indexBidAskCounter_indexItem = new JMenuItem( "Index - B/A" );
+        JMenuItem indexBidAskCounter_indexItem = new JMenuItem( "Index B/A" );
         indexBidAskCounter_indexItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -403,16 +403,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
-        JMenuItem indexBidAskCounterItem = new JMenuItem( "B / A" );
-        indexBidAskCounterItem.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                IndexBidAskCounterChart chart = new IndexBidAskCounterChart( client );
-                chart.createChart();
-            }
-        } );
-
-        JMenuItem e2BACounter_index = new JMenuItem( "E2 B/A counter - Index" );
+        JMenuItem e2BACounter_index = new JMenuItem( "E2 B/A" );
         e2BACounter_index.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -421,7 +412,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
-        JMenuItem quarter_index_item = new JMenuItem( "Quarter / index" );
+        JMenuItem quarter_index_item = new JMenuItem( "E1" );
         quarter_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -430,7 +421,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
-        JMenuItem quarter_quarterFar_index_item = new JMenuItem( "Quarter / Quarter far / index" );
+        JMenuItem quarter_quarterFar_index_item = new JMenuItem( "E1 / E2" );
         quarter_quarterFar_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -488,9 +479,9 @@ public class IndexPanel extends JPanel implements IMyPanel {
         export.add( exportSumLine );
 
         charts.add( e2BACounter_index );
+        charts.add( quarter_index_item );
         charts.add( quarter_quarterFar_index_item );
         charts.add( indexBidAskCounter_indexItem );
-        charts.add( indexBidAskCounterItem );
 
         menu.add( details );
         menu.add( settingWindow );

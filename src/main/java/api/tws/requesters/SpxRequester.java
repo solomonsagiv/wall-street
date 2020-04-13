@@ -49,41 +49,13 @@ public class SpxRequester implements ITwsRequester {
 
     @Override
     public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
-        // ---------- Index ---------- //
-
-        if ( tickerId == indexId && price > 0 ) {
-            // Last
-            if ( field == 4 ) {
-                spx.setIndex( price );
-            }
-            // Bid
-            if ( field == 1 ) {
-                spx.setIndexBid( price );
-            }
-            // Ask
-            if ( field == 2 ) {
-                spx.setIndexAsk( price );
-            }
-            // Bid
-            if ( field == 6 ) {
-                spx.setHigh( price );
-            }
-            // Ask
-            if ( field == 7 ) {
-                spx.setLow( price );
-            }
-            // Base
-            if ( field == 9 ) {
-                spx.setBase( price );
-            }
-        }
-
         // ---------- Future ---------- //
         if ( tickerId == futureId && price > 0 ) {
-            // Last
-            if ( field == 4 ) {
-                optionsQuarter.setFuture( price );
-            }
+//            // Last
+//            if ( field == 4 ) {
+//                optionsQuarter.setFuture( price );
+//
+//            }
             // Bid
             if ( field == 1 ) {
                 optionsQuarter.setFutureBid( price );
@@ -96,10 +68,10 @@ public class SpxRequester implements ITwsRequester {
 
         // ---------- Future far ---------- //
         if ( tickerId == futureFarId && price > 0 ) {
-            // Last
-            if ( field == 4 ) {
-                optionsQuarterFar.setFuture( price );
-            }
+//            // Last
+//            if ( field == 4 ) {
+//                optionsQuarterFar.setFuture( price );
+//            }
             // Bid
             if ( field == 1 ) {
                 optionsQuarterFar.setFutureBid( price );

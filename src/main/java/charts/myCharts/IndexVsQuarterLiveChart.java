@@ -63,7 +63,7 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getContract();
+                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
             }
         };
 

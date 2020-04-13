@@ -1,27 +1,30 @@
 package lists;
 
-import java.time.LocalTime;
+import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.Second;
+
+import java.util.Date;
 
 public class MyChartPoint {
 
-    private LocalTime x;
+    private Second x;
     private double y;
 
-    public MyChartPoint(String x, double y) {
-        this.x = LocalTime.parse( x );
-        this.y = y;
-    }
-
-    public MyChartPoint(LocalTime x, double y) {
+    public MyChartPoint(Second x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public LocalTime getX() {
+    public MyChartPoint(Long x, double y) {
+        this.x = new Second( new Date( x ) );
+        this.y = y;
+    }
+
+    public Second getX() {
         return x;
     }
 
-    public void setX(LocalTime x) {
+    public void setX(Second x) {
         this.x = x;
     }
 

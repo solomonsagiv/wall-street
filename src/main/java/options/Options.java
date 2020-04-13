@@ -46,31 +46,34 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     protected double contractAsk = 0;
     public double currStrike = 0;
 
-    Set<Integer> dates = new HashSet<>();
+    Set< Integer > dates = new HashSet<>( );
 
     protected PositionCalculator positionCalculator;
 
+    List< Double > opFutureList = new ArrayList<>( );
+    List< Double > futureList = new ArrayList<>( );
     List< Double > opList = new ArrayList<>( );
+    List< Double > opAvgFutureList = new ArrayList<>( );
     List< Double > opAvgList = new ArrayList<>( );
     List< Double > conList = new ArrayList<>( );
     List< Double > conBidList = new ArrayList<>( );
     List< Double > conAskList = new ArrayList<>( );
-    MyChartList futBidAskCounterList = new MyChartList();
+    MyChartList futBidAskCounterList = new MyChartList( );
 
     public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type ) {
         this.baseID = baseID;
         this.type = type;
         this.client = client;
 
-        strikes = new ArrayList<>();
-        optionsMap = new HashMap<>();
-        twsContract = new MyContract();
+        strikes = new ArrayList<>( );
+        optionsMap = new HashMap<>( );
+        twsContract = new MyContract( );
         positionCalculator = new PositionCalculator( client );
-        props = new OptionsProps();
+        props = new OptionsProps( );
     }
 
-    public Options ( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
-        this( baseID,  client,  type );
+    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
+        this( baseID, client, type );
         this.optionsDDeCells = dDeCells;
     }
 
@@ -97,20 +100,20 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         double startStrike = client.getStartStrike( );
         double endStrike = client.getEndStrike( );
 
-        int id = getBaseID();
+        int id = getBaseID( );
 
         for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
 
             // ----- Call ------ //
             Call call = new Call( strike, id );
 
-            MyContract contractCall = getCopyTwsContract();
+            MyContract contractCall = getCopyTwsContract( );
 
             // MyTwsContract
             contractCall.setMyId( id );
             contractCall.strike( strike );
             contractCall.right( Types.Right.Call );
-            client.getTwsHandler().addContract( contractCall );
+            client.getTwsHandler( ).addContract( contractCall );
 
             call.setMyContract( contractCall );
 
@@ -120,13 +123,13 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             // ----- Put ------ //
             Put put = new Put( strike, id );
 
-            MyContract contractPut = getCopyTwsContract();
+            MyContract contractPut = getCopyTwsContract( );
 
             // MyTwsContract
             contractPut.setMyId( id );
             contractPut.strike( strike );
             contractPut.right( Types.Right.Put );
-            client.getTwsHandler().addContract( contractPut );
+            client.getTwsHandler( ).addContract( contractPut );
 
             put.setMyContract( contractPut );
 
@@ -138,15 +141,15 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     public void removeStrike( double strikeToRemove ) {
 
-        for ( Strike strike: getStrikes()) {
-            if ( strikeToRemove == strike.getStrike() ) {
-                getStrikes().remove( strike );
+        for ( Strike strike : getStrikes( ) ) {
+            if ( strikeToRemove == strike.getStrike( ) ) {
+                getStrikes( ).remove( strike );
             }
         }
 
-        for ( Map.Entry< Integer, Option > entry : optionsMap.entrySet()) {
-            Option option = entry.getValue();
-            if ( strikeToRemove == option.getStrike() ) {
+        for ( Map.Entry< Integer, Option > entry : optionsMap.entrySet( ) ) {
+            Option option = entry.getValue( );
+            if ( strikeToRemove == option.getStrike( ) ) {
                 optionsMap.remove( option );
             }
         }
@@ -167,6 +170,10 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             }
         }
         return null;
+    }
+
+    public double getFutureOp() {
+        return future - client.getIndex( );
     }
 
     public void checkOptionData() {
@@ -244,7 +251,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero() - 0.002 + getCalcDevidend( ) ) * ( getDays( ) / 360.0 ) ) );
+                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + getCalcDevidend( ) ) * ( getDays( ) / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
 
@@ -317,7 +324,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                         put_ask = 99999999;
                     }
 
-                    double v = ( strikePrice / ( Math.pow( props.getInterest(), ( getAbsolutDays( ) / 360.0 ) ) ) );
+                    double v = ( strikePrice / ( Math.pow( props.getInterest( ), ( getAbsolutDays( ) / 360.0 ) ) ) );
 
                     double buy = ( call_ask - put_bid ) + v;
                     double sell = ( call_bid - put_ask ) + v;
@@ -459,22 +466,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         }
     }
 
-    // Op avg
-    public double getOpAvg15() {
-
-        double sum = 0;
-        int seconds = 900;
-        if ( opList.size( ) > seconds ) {
-            for ( int i = opList.size( ) - seconds; i < opList.size( ); i++ ) {
-                sum += ( double ) opList.get( i );
-            }
-            return floor( sum / seconds, 100 );
-        } else {
-            return getOpAvg( );
-        }
-
-    }
-
     public void setOpValues( double val ) {
         if ( !opList.isEmpty( ) ) {
             double size = getOpList( ).size( );
@@ -483,6 +474,26 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                 opList.add( val );
             }
         }
+    }
+
+    public double getOpAvgFuture() {
+        double sum = 0;
+        if ( !opFutureList.isEmpty( ) ) {
+            try {
+                for ( int i = 0; i < opFutureList.size( ); i++ ) {
+                    sum += opFutureList.get( i );
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+            return L.floor( sum / opFutureList.size( ), 100 );
+        } else {
+            return 0;
+        }
+    }
+
+    public double getOpFuture() {
+        return future - client.getIndex( );
     }
 
     public double getOpAvg() {
@@ -508,9 +519,9 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     public void setOpAvg( double opAvg ) {
-        int size = opList.size();
+        int size = opList.size( );
 
-        opList.clear();
+        opList.clear( );
 
         for ( int i = 0; i < size; i++ ) {
             opList.add( opAvg );
@@ -520,24 +531,24 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     @Override
     public MyJson getAsJson() {
         MyJson object = new MyJson( );
-        object.put( JsonEnum.PROPS.toString(), getProps().getAsJson() );
-        object.put( JsonEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
-        object.put( JsonEnum.DATA.toString(), getDataAsJson());
+        object.put( JsonEnum.PROPS.toString( ), getProps( ).getAsJson( ) );
+        object.put( JsonEnum.TWS_CONTRACT.toString( ), getTwsContract( ).getAsJson( ) );
+        object.put( JsonEnum.DATA.toString( ), getDataAsJson( ) );
         return object;
     }
 
     @Override
     public MyJson getResetObject() {
         MyJson object = new MyJson( );
-        object.put( JsonEnum.DATA.toString(), getResetDataAsJson());
-        object.put( JsonEnum.TWS_CONTRACT.toString(), getTwsContract( ).getAsJson() );
+        object.put( JsonEnum.DATA.toString( ), getResetDataAsJson( ) );
+        object.put( JsonEnum.TWS_CONTRACT.toString( ), getTwsContract( ).getAsJson( ) );
         return object;
     }
 
     @Override
     public void loadFromJson( MyJson object ) {
-        getProps().loadFromJson( object.getMyJson(JsonEnum.PROPS.toString()) );
-        getTwsContract().loadFromJson( object.getMyJson( JsonEnum.TWS_CONTRACT.toString() ) );
+        getProps( ).loadFromJson( object.getMyJson( JsonEnum.PROPS.toString( ) ) );
+        getTwsContract( ).loadFromJson( object.getMyJson( JsonEnum.TWS_CONTRACT.toString( ) ) );
     }
 
     public List< Strike > getStrikes() {
@@ -551,7 +562,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public String toStringVertical() {
         String string = "";
 
-        string += getType().toString() + "\n\n";
+        string += getType( ).toString( ) + "\n\n";
 
         for ( Strike strike : strikes ) {
             string += strike.toString( ) + "\n\n";
@@ -576,25 +587,25 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             strikeJson = new JSONObject( );
 
             Call call = strike.getCall( );
-            callJson.put( JsonEnum.BID.toString(), call.getBid( ) );
-            callJson.put( JsonEnum.ASK.toString(), call.getAsk( ) );
-            callJson.put( JsonEnum.BID_ASK_COUNTER.toString(), call.getBidAskCounter( ) );
+            callJson.put( JsonEnum.BID.toString( ), call.getBid( ) );
+            callJson.put( JsonEnum.ASK.toString( ), call.getAsk( ) );
+            callJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), call.getBidAskCounter( ) );
 
             Put put = strike.getPut( );
-            putJson.put( JsonEnum.BID.toString(), put.getBid( ) );
-            putJson.put( JsonEnum.ASK.toString(), put.getAsk( ) );
-            putJson.put( JsonEnum.BID_ASK_COUNTER.toString(), put.getBidAskCounter( ) );
+            putJson.put( JsonEnum.BID.toString( ), put.getBid( ) );
+            putJson.put( JsonEnum.ASK.toString( ), put.getAsk( ) );
+            putJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), put.getBidAskCounter( ) );
 
-            strikeJson.put( JsonEnum.CALL.toString(), callJson );
-            strikeJson.put( JsonEnum.PUT.toString(), putJson );
+            strikeJson.put( JsonEnum.CALL.toString( ), callJson );
+            strikeJson.put( JsonEnum.PUT.toString( ), putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonEnum.BID_ASK_COUNTER.toString(), getContractBidAskCounter( ) );
-        mainJson.put( JsonEnum.CONTRACT.toString(), getContract( ) );
-        mainJson.put( JsonEnum.OP_AVG.toString(), L.floor( getOpAvg( ), 100 ) );
-        mainJson.put( JsonEnum.DATA.toString(), optionsData );
+        mainJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), getContractBidAskCounter( ) );
+        mainJson.put( JsonEnum.CONTRACT.toString( ), getContract( ) );
+        mainJson.put( JsonEnum.OP_AVG.toString( ), L.floor( getOpAvg( ), 100 ) );
+        mainJson.put( JsonEnum.DATA.toString( ), optionsData );
 
         return mainJson;
     }
@@ -614,23 +625,23 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             putJson = new JSONObject( );
             strikeJson = new JSONObject( );
 
-            callJson.put( JsonEnum.BID.toString(), 0 );
-            callJson.put( JsonEnum.ASK.toString(), 0 );
-            callJson.put( JsonEnum.BID_ASK_COUNTER.toString(), 0 );
+            callJson.put( JsonEnum.BID.toString( ), 0 );
+            callJson.put( JsonEnum.ASK.toString( ), 0 );
+            callJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), 0 );
 
-            putJson.put( JsonEnum.BID.toString(), 0 );
-            putJson.put( JsonEnum.ASK.toString(), 0 );
-            putJson.put( JsonEnum.BID_ASK_COUNTER.toString(), 0 );
+            putJson.put( JsonEnum.BID.toString( ), 0 );
+            putJson.put( JsonEnum.ASK.toString( ), 0 );
+            putJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), 0 );
 
-            strikeJson.put( JsonEnum.CALL.toString(), callJson );
-            strikeJson.put( JsonEnum.PUT.toString(), putJson );
+            strikeJson.put( JsonEnum.CALL.toString( ), callJson );
+            strikeJson.put( JsonEnum.PUT.toString( ), putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonEnum.CONTRACT.toString(), 0 );
-        mainJson.put( JsonEnum.OP_AVG.toString(), 0 );
-        mainJson.put( JsonEnum.DATA.toString(), optionsData );
+        mainJson.put( JsonEnum.CONTRACT.toString( ), 0 );
+        mainJson.put( JsonEnum.OP_AVG.toString( ), 0 );
+        mainJson.put( JsonEnum.DATA.toString( ), optionsData );
 
         return mainJson;
     }
@@ -648,7 +659,8 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                 strike.getCall( ).setBidAskCounter( callJson.getInt( "bid_ask_counter" ) );
                 strike.getPut( ).setBidAskCounter( putJson.getInt( "bid_ask_counter" ) );
 
-            } catch ( Exception e ) {}
+            } catch ( Exception e ) {
+            }
         }
     }
 
@@ -666,7 +678,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                 put.getBidAskCounterList( ).clear( );
             }
         } catch ( Exception e ) {
-            e.printStackTrace();
+            e.printStackTrace( );
         }
     }
 
@@ -792,6 +804,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     }
 
+
+    public List< Double > getOpFutureList() {
+        return opFutureList;
+    }
+
     public int getBaseID() {
         return baseID;
     }
@@ -842,27 +859,28 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public MyContract getCopyTwsContract() {
 
         // Base contract
-        MyContract contract = getTwsContract();
+        MyContract contract = getTwsContract( );
 
         // Copy
-        MyContract copy = new MyContract();
-        copy.setMyId( contract.getMyId() );
-        copy.symbol( contract.symbol() );
-        copy.secType( contract.secType() );
-        copy.primaryExch( contract.primaryExch() );
-        copy.currency(contract.currency());
-        copy.tradingClass( contract.tradingClass() );
-        copy.multiplier(contract.multiplier());
-        copy.includeExpired( contract.includeExpired() );
-        copy.exchange( contract.exchange() );
-        copy.localSymbol( contract.localSymbol() );
-        copy.lastTradeDateOrContractMonth( contract.lastTradeDateOrContractMonth() );
+        MyContract copy = new MyContract( );
+        copy.setMyId( contract.getMyId( ) );
+        copy.symbol( contract.symbol( ) );
+        copy.secType( contract.secType( ) );
+        copy.primaryExch( contract.primaryExch( ) );
+        copy.currency( contract.currency( ) );
+        copy.tradingClass( contract.tradingClass( ) );
+        copy.multiplier( contract.multiplier( ) );
+        copy.includeExpired( contract.includeExpired( ) );
+        copy.exchange( contract.exchange( ) );
+        copy.localSymbol( contract.localSymbol( ) );
+        copy.lastTradeDateOrContractMonth( contract.lastTradeDateOrContractMonth( ) );
 
         return copy;
     }
 
-    public void setTwsContract( MyContract twsContract ) {
-        this.twsContract = twsContract;
+
+    public List< Double > getOpAvgFutureList() {
+        return opAvgFutureList;
     }
 
     public boolean isGotData() {
@@ -886,6 +904,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     private double conAskForCheck = 0;
+
     public void setContractBid( double contractBid ) {
 
         // If increment state
@@ -905,6 +924,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     private double conBidForCheck = 0;
+
     public void setContractAsk( double contractAsk ) {
 
         // If increment state
@@ -917,6 +937,9 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         conAskForCheck = contractAsk;
         conBidForCheck = this.contractBid;
 
+    }
+    public List< Double > getFutureList() {
+        return futureList;
     }
 
     public List< Double > getOpList() {
@@ -939,7 +962,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return conAskList;
     }
 
-    public Set<Integer> getDates() {
+    public Set< Integer > getDates() {
         return dates;
     }
 
@@ -947,11 +970,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return futBidAskCounterList;
     }
 
-    public void setFutBidAskCounterList(MyChartList futBidAskCounterList) {
+    public void setFutBidAskCounterList( MyChartList futBidAskCounterList ) {
         this.futBidAskCounterList = futBidAskCounterList;
     }
 
-    public void setDates(Set<Integer> dates) {
+    public void setDates( Set< Integer > dates ) {
         this.dates = dates;
     }
 

@@ -57,7 +57,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         // Fut Quarter
         OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
         IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, quarterDDeCells );
-
+        
         // Fut Quarter far
         OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
         IndexOptions quarterFarOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, quarterFarDDeCells );

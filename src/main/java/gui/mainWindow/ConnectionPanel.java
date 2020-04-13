@@ -91,7 +91,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             ddeReader = new DDEReader( );
             ddeReader.getHandler( ).start( );
 
-            ddeWriter = new DDEWriter(  );
+            ddeWriter = new DDEWriter( );
             ddeWriter.getHandler( ).start( );
 
             ddeStatusLbl.setForeground( Themes.GREEN );
@@ -103,24 +103,23 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     public void connectTws() {
         try {
             Manifest.CLIENT_ID = L.INT( portField.getText( ) );
-
             downloader = Downloader.getInstance( );
-            downloader.start( );
-
-            new Thread( () -> {
-                for ( int i = 0; i < 5; i++ ) {
-                    try {
-                        Thread.sleep( 1000 );
-                        if ( downloader.isConnected() ) {
-                            twsStatusLbl.setForeground( Themes.GREEN );
-                            break;
+            if ( !downloader.isAlive( ) && !downloader.getClient( ).isConnected( ) ) {
+                downloader.start( );
+                new Thread( () -> {
+                    for ( int i = 0; i < 5; i++ ) {
+                        try {
+                            Thread.sleep( 1000 );
+                            if ( downloader.isConnected( ) ) {
+                                twsStatusLbl.setForeground( Themes.GREEN );
+                                break;
+                            }
+                        } catch ( InterruptedException e ) {
+                            e.printStackTrace( );
                         }
-                    } catch ( InterruptedException e ) {
-                        e.printStackTrace( );
                     }
-                }
-            } ).start();
-
+                } ).start( );
+            }
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

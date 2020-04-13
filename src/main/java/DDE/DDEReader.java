@@ -64,9 +64,9 @@ public class DDEReader extends MyThread implements Runnable {
 
         // Options
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
-            options.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
-            options.setFutureBid( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutBid( ) ) ) );
-            options.setFutureAsk( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFutAsk( ) ) ) );
+            if ( options.getOptionsDDeCells( ) != null ) {
+                options.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+            }
         }
 
         // Index

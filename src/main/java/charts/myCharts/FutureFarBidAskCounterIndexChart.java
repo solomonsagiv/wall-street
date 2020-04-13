@@ -48,12 +48,11 @@ public class FutureFarBidAskCounterIndexChart extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart( client, series, props );
 
-
         // ---------- Chart 2 ---------- //
         Options options = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR );
 
         // Index
-        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", Themes.BLUE, 1.5f, props, options.getFutBidAskCounterList() ) {
+        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", Themes.BINANCE_RED, 1.5f, props, options.getFutBidAskCounterList() ) {
             @Override
             public double getData() {
                 return options.getFutureBidAskCounter();

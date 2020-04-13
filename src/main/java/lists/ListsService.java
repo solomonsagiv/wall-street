@@ -1,6 +1,7 @@
 package lists;
 
 import options.Options;
+import org.jfree.data.time.Second;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -8,6 +9,7 @@ import service.MyBaseService;
 import service.ServiceEnum;
 
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.Map;
 
 // Regular list updater
@@ -44,7 +46,7 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        LocalTime now = LocalTime.now();
+        Second now = new Second(  );
 
         // List for charts
         client.getIndexList( ).add( new MyChartPoint( now, client.getIndex( ) ) );
@@ -54,6 +56,9 @@ public class ListsService extends MyBaseService {
 
         // Options lists
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+            options.getOpFutureList().add( options.getOpFuture() );
+            options.getOpAvgFutureList().add( options.getOpAvgFuture() );
+            options.getFutureList().add( options.getFuture() );
             options.getOpList( ).add( options.getOp( ) );
             options.getOpAvgList( ).add( options.getOpAvg( ) );
             options.getConList( ).add( options.getContract( ) );

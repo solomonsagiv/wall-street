@@ -286,15 +286,12 @@ public class OptionsWindow {
 
                     colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getContractBidAskCounter( ) );
                     colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), null );
-                    colorForf( opAvg15Field, client.getOptionsHandler( ).getMainOptions( ).getOpAvg15( ), null );
-                    colorForf( move15Field, move15Min, "%" );
 
                 } catch ( InterruptedException e ) {
                     close( );
                 }
             }
         }
-
 
         // Present
         public void colorForf( JTextField field, double val, String stringToAdd ) {

@@ -4,9 +4,12 @@ import lists.MyChartList;
 import lists.MyChartPoint;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
@@ -18,6 +21,8 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private float stokeSize;
     private MyChartList myChartList;
     MyProps props;
+    String name;
+    Second lastSeconde;
 
     public MyTimeSeries( Comparable name, Color color, float strokeSize, MyProps props, MyChartList myChartList ) {
         super( name );
@@ -25,19 +30,33 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         this.stokeSize = strokeSize;
         this.props = props;
         this.myChartList = myChartList;
+        this.name = name.toString();
     }
 
-    public double add( RegularTimePeriod timePeriod ) {
+    public void loadData( ArrayList<Double> dots ) {
+        lastSeconde = myChartList.get( 0 ).getX();
+        for ( int i = 0; i < myChartList.size(); i++ ) {
+            add( lastSeconde.next(), myChartList.get( i ).getY() );
+            dots.add( myChartList.get( i ).getY() );
+
+            lastSeconde = ( Second ) lastSeconde.next();
+        }
+    }
+
+    public double add() {
         double data;
         // live data
         if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
             data = getData();
-            addOrUpdate( timePeriod, data );
+            addOrUpdate( getLastSeconde(), data );
         } else {
             MyChartPoint point = myChartList.getLast();
             data = point.getY();
-            addOrUpdate( new Millisecond( new Date(point.getX().getNano())), data );
+            addOrUpdate( getLastSeconde(), data );
         }
+
+        lastSeconde = ( Second ) lastSeconde.next();
+
         return data;
     }
 
@@ -63,6 +82,22 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void setMyChartList( MyChartList myChartList ) {
         this.myChartList = myChartList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName( String name ) {
+        this.name = name;
+    }
+
+
+    public Second getLastSeconde() {
+        if ( lastSeconde == null ) {
+            lastSeconde = new Second(  );
+        }
+        return lastSeconde;
     }
 }
 

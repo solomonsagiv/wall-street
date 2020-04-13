@@ -50,7 +50,7 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke( opAvgCell, str( spx.getOptionsHandler( ).getMainOptions().getOpAvg( ) ) );
+            conversation.poke( opAvgCell, str( spx.getOptionsHandler( ).getMainOptions().getOpAvgFuture( ) ) );
             conversation.poke( rollCell, str( spx.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getAvg( ) ) );
             conversation.poke( indexBidAskCounterCell, str( spx.getIndexBidAskCounter()) );
         } catch ( DDEException e ) {

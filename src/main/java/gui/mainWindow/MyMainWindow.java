@@ -32,7 +32,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
         LocalHandler.clients.add(Spx.getInstance());
-        LocalHandler.clients.add(Apple.getInstance());
+//        LocalHandler.clients.add(Apple.getInstance());
     }
 
     @Override

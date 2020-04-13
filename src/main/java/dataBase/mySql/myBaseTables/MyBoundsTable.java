@@ -65,7 +65,6 @@ public class MyBoundsTable extends MySqlTable {
             }
         } catch ( Exception e ) {
             e.printStackTrace();
-            Arik.getInstance().sendErrorMessage( e );
         }
 
     }

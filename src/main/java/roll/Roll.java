@@ -19,7 +19,7 @@ public class Roll {
     }
 
     public void addRoll() {
-        double roll = farOptions.getContract() - closeOptions.getContract();
+        double roll = farOptions.getFuture() - closeOptions.getFuture();
         rollList.add( roll );
         rollSum += roll;
     }
@@ -33,7 +33,7 @@ public class Roll {
     }
 
     public double getRoll() {
-        return farOptions.getContract() - closeOptions.getContract();
+        return farOptions.getFuture() - closeOptions.getFuture();
     }
 
 }

@@ -11,6 +11,7 @@ import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
@@ -20,11 +21,9 @@ import threads.MyThread;
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.NoSuchElementException;
 
 public class MyChart {
@@ -75,7 +74,7 @@ public class MyChart {
         axis.setDateFormatOverride( new SimpleDateFormat( "HH:mm" ) );
 
         NumberAxis numberAxis = ( NumberAxis ) plot.getRangeAxis( );
-        DecimalFormat df = new DecimalFormat("#0000.##");
+        DecimalFormat df = new DecimalFormat( "#0000.##" );
         numberAxis.setNumberFormatOverride( df );
 
         // Marker
@@ -140,19 +139,13 @@ public class MyChart {
                     // Sleep
                     Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
 
-                    if ( isDataChanged( ) ) {
-
-                        // Append data
-                        appendDataToSeries( );
-
-                        // Change range getting bigger
-                        chartRangeGettingBigFilter( );
-
-                        // Ticker
-                        setTickerData( );
-
+                    if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
+                        if ( isDataChanged( ) ) {
+                            append( );
+                        }
+                    } else {
+                        append( );
                     }
-
                 } catch ( InterruptedException e ) {
                     e.printStackTrace( );
                     break;
@@ -160,15 +153,38 @@ public class MyChart {
             }
         }
 
+        private void append() {
+            // Append data
+            appendDataToSeries( );
+            // Change range getting bigger
+            chartRangeGettingBigFilter( );
+            // Ticker
+            setTickerData( );
+        }
+
         private void loadChartData() {
             if ( props.getBool( ChartPropsEnum.IS_LOAD_DB ) ) {
                 for ( MyTimeSeries serie : series ) {
-                    for ( int i = 0; i < serie.getMyChartList( ).size( ); i++ ) {
-                        MyChartPoint point = serie.getMyChartList( ).get( i );
-                        serie.addOrUpdate( new Millisecond( new Date( point.getX( ).getNano() ) ), point.getY( ) );
-                        dots.add( point.getY( ) );
-                    }
+                    serie.loadData( dots );
                 }
+            }
+        }
+
+        // Append data to series
+        private void appendDataToSeries() {
+            try {
+
+                for ( MyTimeSeries serie : series ) {
+
+                    // If bigger then target Seconds
+                    if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
+                        serie.delete( 0, 0 );
+                        dots.remove( 0 );
+                    }
+                    // Append data
+                    dots.add( serie.add() );
+                }
+            } catch ( IndexOutOfBoundsException e ) {
             }
         }
 
@@ -188,26 +204,6 @@ public class MyChart {
             }
         }
 
-        // Append data to series
-        private void appendDataToSeries() {
-            try {
-
-                Millisecond millisecond = new Millisecond( );
-
-                for ( MyTimeSeries serie : series ) {
-
-                    // If bigger then target Seconds
-                    if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
-                        serie.delete( 0, 0 );
-                        dots.remove( 0 );
-                    }
-
-                    // Append data
-                    dots.add( serie.add( millisecond ) );
-                }
-            } catch ( IndexOutOfBoundsException e ) {
-            }
-        }
 
         private void updateChartRange( double min, double max ) {
             try {

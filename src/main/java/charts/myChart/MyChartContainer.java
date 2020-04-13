@@ -4,6 +4,7 @@ import charts.MyChartPanel;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -52,7 +53,7 @@ public class MyChartContainer extends JFrame {
     }
 
     public void create() {
-        pack();
+        pack( );
         setVisible( true );
     }
 
@@ -67,7 +68,7 @@ public class MyChartContainer extends JFrame {
     private void loadBounds() {
         new Thread( () -> {
             try {
-                ResultSet rs = (( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS )).getBound( client.getName( ), getName( ) );
+                ResultSet rs = ( ( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS ) ).getBound( client.getName( ), getName( ) );
 
                 int width = 100, height = 100, x = 100, y = 100;
 
@@ -81,7 +82,7 @@ public class MyChartContainer extends JFrame {
                 setPreferredSize( new Dimension( width, height ) );
                 setBounds( x, y, width, height );
             } catch ( Exception e ) {
-                e.printStackTrace();
+                e.printStackTrace( );
             }
         } ).start( );
     }
@@ -89,11 +90,11 @@ public class MyChartContainer extends JFrame {
     public void onClose( WindowEvent e ) {
 
         new Thread( () -> {
-            (( MyBoundsTable )client.getTablesHandler( ).getTable( TablesEnum.BOUNDS )).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
+            ( ( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS ) ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
         } ).start( );
 
         for ( MyChart myChart : charts ) {
-            myChart.getUpdater().getHandler().close();
+            myChart.getUpdater( ).getHandler( ).close( );
         }
 
         dispose( );
