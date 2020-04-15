@@ -10,7 +10,6 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
-import dataBase.mySql.myBaseTables.MyTwsContractsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.*;
 import lists.ListsService;
@@ -114,7 +113,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public BASE_CLIENT_OBJECT() {
         try {
-
             LocalHandler.clients.add( this );
 
             // Call subClasses abstract functions
@@ -132,6 +130,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             e.printStackTrace( );
         }
     }
+
 
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
@@ -672,13 +671,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
-                ", conUpChanged=" + conUpChanged +
-                ", conDownChanged=" + conDownChanged +
-                ", indUpChanged=" + indUpChanged +
-                ", indDownChanged=" + indDownChanged +
                 ", indexList=" + indexList.size( ) +
-                ", indexBidList=" + indexBidList.size( ) +
-                ", indexAskList=" + indexAskList.size( ) +
                 '}';
     }
 }

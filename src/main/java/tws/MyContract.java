@@ -16,6 +16,21 @@ public class MyContract extends Contract implements IJsonDataBase {
         this.type = type;
     }
 
+
+    public MyContract(MyContract contract) {
+        setMyId(contract.getMyId());
+        symbol(contract.symbol());
+        secType(contract.secType());
+        primaryExch(contract.primaryExch());
+        currency(contract.currency());
+        tradingClass(contract.tradingClass());
+        multiplier(contract.multiplier());
+        includeExpired(contract.includeExpired());
+        exchange(contract.exchange());
+        localSymbol(contract.localSymbol());
+        lastTradeDateOrContractMonth(contract.lastTradeDateOrContractMonth());
+    }
+
     @Override
     public String toString() {
         return super.toString() + " \n" +
@@ -53,8 +68,8 @@ public class MyContract extends Contract implements IJsonDataBase {
         lastTradeDateOrContractMonth(object.getString(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString()));
     }
 
-    public void setType( String string ) {
-        switch ( string ) {
+    public void setType(String string) {
+        switch (string) {
             case "INDEX":
                 setType(TwsContractsEnum.INDEX);
                 break;

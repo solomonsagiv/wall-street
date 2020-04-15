@@ -33,8 +33,6 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
             spx.setIndex( d );
             spx.setIndexBid( d - 2 );
             spx.setIndexAsk( d + 1 );
-            spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).setContract( d - 1 );
-            spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ).setContract( d + 2 );
 
             Thread.sleep(200);
         }

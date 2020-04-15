@@ -1,10 +1,8 @@
 package logic;
 
-import gui.index.IndexPanel;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
-import service.ServiceEnum;
 
 public class LogicService extends MyBaseService {
 
@@ -29,17 +27,13 @@ public class LogicService extends MyBaseService {
     boolean bool = true;
     boolean run = true;
     double margin;
-    IndexPanel panel;
 
     // Constructor
-    public LogicService( BASE_CLIENT_OBJECT client, Options options, IndexPanel panel ) {
+    public LogicService( BASE_CLIENT_OBJECT client, Options options ) {
         super( client );
         this.options = options;
         this.margin = client.getRacesMargin( );
-        this.panel = panel;
-
     }
-
 
     @Override
     public String getName() {

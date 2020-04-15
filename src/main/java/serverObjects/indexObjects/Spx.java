@@ -7,10 +7,8 @@ import options.IndexOptions;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
 import options.OptionsHandler;
-import roll.Roll;
-import roll.RollEnum;
-import roll.RollHandler;
 import serverObjects.ApiEnum;
+import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 
@@ -20,7 +18,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     // Constructor
     public Spx() {
-        super( );
         setName( "spx" );
         setRacesMargin( 0.3 );
         setIndexBidAskMargin( .5 );
@@ -36,10 +33,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
     private void roll() {
-        rollHandler = new RollHandler( this );
-
-        Roll quarter_quarterFar = new Roll( getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ), getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ) );
-        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
+//        rollHandler = new RollHandler( this );
+//
+//        Roll quarter_quarterFar = new Roll( getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ), getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ) );
+//        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
 
     }
 
@@ -56,11 +53,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         // Fut Quarter
         OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
-        IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, quarterDDeCells );
+        IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, TwsContractsEnum.OPT_QUARTER, quarterDDeCells );
         
         // Fut Quarter far
         OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
-        IndexOptions quarterFarOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, quarterFarDDeCells );
+        IndexOptions quarterFarOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, TwsContractsEnum.OPT_QUARTER_FAR, quarterFarDDeCells );
 
         OptionsHandler optionsHandler = new OptionsHandler( this );
         optionsHandler.addOptions( quarterOptions );

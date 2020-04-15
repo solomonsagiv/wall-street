@@ -1,11 +1,7 @@
 package setting;
 
-import api.tws.TwsHandler;
-import com.ib.client.Contract;
 import gui.MyGuiComps;
 import locals.Themes;
-import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import setting.optionsPanel.OptionsPanel;
 
@@ -43,7 +39,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
 
                         String s = dateField.getText();
 
-                        OptionsPanel.options.getCopyTwsContract().lastTradeDateOrContractMonth( s );
+                        OptionsPanel.options.getTwsContract().lastTradeDateOrContractMonth( s );
 
                         String year = s.substring( 0,4 );
                         String month = s.substring( 4,6 );
@@ -52,7 +48,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
 
                         OptionsPanel.options.setExpDate( LocalDate.parse( date ) );
                         System.out.println(OptionsPanel.options.getType() );
-                        System.out.println(OptionsPanel.options.getCopyTwsContract() );
+                        System.out.println(OptionsPanel.options.getTwsContract() );
                         System.out.println(date );
                     } catch ( Exception e ) {
                         e.printStackTrace();
@@ -60,7 +56,6 @@ public class TwsPanel extends MyGuiComps.MyPanel {
                 }
             }
         } );
-
 
         // Request btn
         requestDataBtn.addActionListener(new ActionListener() {

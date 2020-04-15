@@ -1,13 +1,14 @@
 package options;
 
 import serverObjects.stockObjects.STOCK_OBJECT;
+import tws.TwsContractsEnum;
 
 public class StockOptions extends Options {
 
     STOCK_OBJECT client;
 
-    public StockOptions(int baseID, STOCK_OBJECT client, OptionsEnum type) {
-        super(baseID, client, type);
+    public StockOptions(int baseID, STOCK_OBJECT client, OptionsEnum type, TwsContractsEnum contractType) {
+        super(baseID, client, type, contractType);
         this.client = client;
     }
 

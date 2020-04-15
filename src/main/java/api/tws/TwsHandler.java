@@ -76,15 +76,12 @@ public class TwsHandler implements IJsonDataBase {
     }
 
     public void requestOptions( List<Options> optionsList ) {
-        System.out.println("Request options" );
-        System.out.println(optionsList);
         for ( Options options: optionsList ) {
             requestOptions( options );
         }
     }
 
     public void requestOptions( Options options ) {
-        System.out.println("&&&&&&&&&&&&&&& " + options.getStrikes().size() );
         for ( Strike strike : options.getStrikes( ) ) {
             try {
 

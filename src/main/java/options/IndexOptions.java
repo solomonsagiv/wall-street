@@ -1,18 +1,19 @@
 package options;
 
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 
 public class IndexOptions extends Options {
 
     protected INDEX_CLIENT_OBJECT client;
 
     // Constructor
-    public IndexOptions( int baseID, INDEX_CLIENT_OBJECT client, OptionsEnum type ) {
-        super( baseID, client, type );
+    public IndexOptions(int baseID, INDEX_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType) {
+        super( baseID, client, type, contractType );
     }
 
-    public IndexOptions( int baseID, INDEX_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
-        super( baseID, client, type, dDeCells );
+    public IndexOptions( int baseID, INDEX_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType, OptionsDDeCells dDeCells ) {
+        super( baseID, client, type, contractType, dDeCells );
     }
 
     @Override

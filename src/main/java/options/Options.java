@@ -10,6 +10,7 @@ import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
+import tws.TwsContractsEnum;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -33,7 +34,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     protected int baseID = 0;
     protected int minId = 0;
     protected int maxId = 0;
-    protected MyContract twsContract;
+    protected MyContract twsContract = new MyContract();
     protected boolean gotData = false;
     private double contract = 0;
 
@@ -60,20 +61,20 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     List< Double > conAskList = new ArrayList<>( );
     MyChartList futBidAskCounterList = new MyChartList( );
 
-    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type ) {
+    public Options(int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType ) {
         this.baseID = baseID;
         this.type = type;
         this.client = client;
+        this.twsContract = client.getTwsHandler().getMyContract(contractType);
 
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
-        twsContract = new MyContract( );
         positionCalculator = new PositionCalculator( client );
         props = new OptionsProps( );
     }
 
-    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, OptionsDDeCells dDeCells ) {
-        this( baseID, client, type );
+    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType,  OptionsDDeCells dDeCells ) {
+        this( baseID, client, type, contractType );
         this.optionsDDeCells = dDeCells;
     }
 
@@ -107,12 +108,15 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             // ----- Call ------ //
             Call call = new Call( strike, id );
 
-            MyContract contractCall = getCopyTwsContract( );
+            MyContract contractCall = new MyContract(getTwsContract());
 
             // MyTwsContract
             contractCall.setMyId( id );
             contractCall.strike( strike );
             contractCall.right( Types.Right.Call );
+
+            System.out.println(contractCall);
+
             client.getTwsHandler( ).addContract( contractCall );
 
             call.setMyContract( contractCall );
@@ -123,7 +127,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             // ----- Put ------ //
             Put put = new Put( strike, id );
 
-            MyContract contractPut = getCopyTwsContract( );
+            MyContract contractPut = new MyContract(getTwsContract());
 
             // MyTwsContract
             contractPut.setMyId( id );
@@ -267,8 +271,8 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             double currentAskMax = Collections.max( sells );
 
             // Update contract bid, ask
-            setContractBid( currentBidMin );
-            setContractAsk( currentAskMax );
+            setContractBid( floor(currentBidMin, 100) );
+            setContractAsk( floor(currentAskMax, 100) );
 
 
             if ( currentBidMin > bidMin && bidMin != 0 ) {
@@ -532,6 +536,13 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public MyJson getAsJson() {
         MyJson object = new MyJson( );
         object.put( JsonEnum.PROPS.toString( ), getProps( ).getAsJson( ) );
+        object.put( JsonEnum.DATA.toString( ), getDataAsJson( ) );
+        return object;
+    }
+
+    public MyJson getasJsonWithTwsContract() {
+        MyJson object = new MyJson( );
+        object.put( JsonEnum.PROPS.toString( ), getProps( ).getAsJson( ) );
         object.put( JsonEnum.TWS_CONTRACT.toString( ), getTwsContract( ).getAsJson( ) );
         object.put( JsonEnum.DATA.toString( ), getDataAsJson( ) );
         return object;
@@ -541,14 +552,12 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public MyJson getResetObject() {
         MyJson object = new MyJson( );
         object.put( JsonEnum.DATA.toString( ), getResetDataAsJson( ) );
-        object.put( JsonEnum.TWS_CONTRACT.toString( ), getTwsContract( ).getAsJson( ) );
         return object;
     }
 
     @Override
     public void loadFromJson( MyJson object ) {
         getProps( ).loadFromJson( object.getMyJson( JsonEnum.PROPS.toString( ) ) );
-        getTwsContract( ).loadFromJson( object.getMyJson( JsonEnum.TWS_CONTRACT.toString( ) ) );
     }
 
     public List< Strike > getStrikes() {
@@ -852,32 +861,9 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         this.requested = requested;
     }
 
-    private MyContract getTwsContract() {
+    public MyContract getTwsContract() {
         return twsContract;
     }
-
-    public MyContract getCopyTwsContract() {
-
-        // Base contract
-        MyContract contract = getTwsContract( );
-
-        // Copy
-        MyContract copy = new MyContract( );
-        copy.setMyId( contract.getMyId( ) );
-        copy.symbol( contract.symbol( ) );
-        copy.secType( contract.secType( ) );
-        copy.primaryExch( contract.primaryExch( ) );
-        copy.currency( contract.currency( ) );
-        copy.tradingClass( contract.tradingClass( ) );
-        copy.multiplier( contract.multiplier( ) );
-        copy.includeExpired( contract.includeExpired( ) );
-        copy.exchange( contract.exchange( ) );
-        copy.localSymbol( contract.localSymbol( ) );
-        copy.lastTradeDateOrContractMonth( contract.lastTradeDateOrContractMonth( ) );
-
-        return copy;
-    }
-
 
     public List< Double > getOpAvgFutureList() {
         return opAvgFutureList;
@@ -976,10 +962,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     public void setDates( Set< Integer > dates ) {
         this.dates = dates;
-    }
-
-    public void setContract( double contract ) {
-        this.contract = contract;
     }
 
     public OptionsDDeCells getOptionsDDeCells() {

@@ -241,7 +241,7 @@ public class DetailsWindow {
             list.add( "Calc Devidend: " + options.getCalcDevidend( ) );
             list.add("");
             list.add("Tws Contract");
-            list.add(options.getCopyTwsContract().toString());
+            list.add(options.getTwsContract().toString());
             list.add("");
             list.add("All details");
             list.add(client.toStringPretty());

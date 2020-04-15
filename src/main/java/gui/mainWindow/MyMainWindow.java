@@ -25,14 +25,23 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
+
+    static Apple apple;
+    static Spx spx;
+    static  {
+        spx = Spx.getInstance();
+        apple = Apple.getInstance();
+    }
+
+
     // Constructor
     public MyMainWindow(String title) throws HeadlessException {
         super(title);
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(Spx.getInstance());
-//        LocalHandler.clients.add(Apple.getInstance());
+        LocalHandler.clients.add(spx);
+        LocalHandler.clients.add(apple);
     }
 
     @Override

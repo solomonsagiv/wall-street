@@ -31,7 +31,6 @@ public abstract class MyTwsContractsTable extends MySqlTable {
             table.insertOrUpdate(contract);
 
         }
-
     }
 
     // Constructor
@@ -93,7 +92,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         // the mysql insert statement
         String query = " INSERT INTO stocks.twsContracts (id, stockName, contractName, secType, currency, exchange, tradingClass, multiplier, primaryExchange, symbol, includExpired, lastTradingDayOrContractMonth)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        
         // create the mysql insert preparedstatement
         PreparedStatement stmt = MySql.getPool().getConnection().prepareStatement(query);
         stmt.setInt (1, id);
@@ -154,7 +153,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         try {
             TwsHandler twsHandler = client.getTwsHandler();
 
-            String query = String.format("SELECT * FROM stocks.%s WHERE stockName ='%s'", name, client.getName());
+            String query = String.format("SELECT * FROM stocks.%s WHERE stockName ='%s'", getName(), client.getName());
 
             System.out.println(query);
             ResultSet rs = MySql.select(query);
@@ -179,6 +178,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
                 }
 
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
             Arik.getInstance().sendErrorMessage(e);

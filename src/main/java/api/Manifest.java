@@ -16,11 +16,11 @@ public class Manifest {
     public static int TEST_PORT = 3333;
 
     // SELECTED ACCOUNT
-    public static boolean DB = false;
-    public static boolean DB_RUNNER = false;
-    public static boolean DB_UPDATER = false;
-    public static String ACCOUNT = REAL_ACCOUNT;
-    public static int PORT = REAL_PORT;
+    public static boolean DB = true;
+    public static boolean DB_RUNNER = true;
+    public static boolean DB_UPDATER = true;
+    public static String ACCOUNT = SNUPPI_ACCOUNT;
+    public static int PORT = SNUPPI_PORT;
     public static int SCREEN = 1;
 
     // FUTURES

@@ -1,5 +1,6 @@
 package serverObjects.stockObjects;
 
+import logic.LogicService;
 import options.OptionsEnum;
 import options.OptionsHandler;
 import options.StockOptions;
@@ -11,17 +12,19 @@ import tws.TwsContractsEnum;
 public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     public STOCK_OBJECT() {
+        super();
     }
-
+    
     @Override
     public void initOptionsHandler() {
+
         // Month
         MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER );
-        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.QUARTER );
+        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.QUARTER, TwsContractsEnum.OPT_QUARTER );
 
         // Quarter
         MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_QUARTER_FAR );
-        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER_FAR );
+        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.QUARTER_FAR, TwsContractsEnum.OPT_QUARTER_FAR );
 
         OptionsHandler optionsHandler = new OptionsHandler( this );
         optionsHandler.addOptions( monthOptions );
@@ -29,6 +32,8 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         optionsHandler.setMainOptions( monthOptions );
 
         setOptionsHandler( optionsHandler );
+
+        LogicService logicService = new LogicService(this, quarterOptions );
     }
 
     @Override

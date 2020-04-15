@@ -2,15 +2,12 @@ package charts.myChart;
 
 import lists.MyChartList;
 import lists.MyChartPoint;
-import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 
 import java.awt.*;
-import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
@@ -34,7 +31,10 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public void loadData( ArrayList<Double> dots ) {
-        lastSeconde = myChartList.get( 0 ).getX();
+
+        LocalDateTime time = myChartList.get( 0 ).getX();
+
+        lastSeconde = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonth().getValue(), time.getYear());
         for ( int i = 0; i < myChartList.size(); i++ ) {
             add( lastSeconde.next(), myChartList.get( i ).getY() );
             dots.add( myChartList.get( i ).getY() );

@@ -12,7 +12,6 @@ public class Apple extends STOCK_OBJECT {
 
     // Constrtor
     public Apple() {
-        super( );
         setName( "apple" );
         setRacesMargin( 0.1 );
         setStrikeMargin( 5 );
@@ -23,11 +22,6 @@ public class Apple extends STOCK_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setiTwsRequester(new AppleRequester());
-
-//        rollHandler = new RollHandler( this );
-//        Roll quarter_quarterFar = new Roll( getOptionsHandler().getOptions( OptionsEnum.QUARTER ), getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR ) );
-//        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
-
     }
 
     // Get instance

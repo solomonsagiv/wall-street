@@ -26,7 +26,7 @@ public abstract class MyArraysTable extends MySqlTable {
     @Override
     public void load() {
         try {
-            String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", name, client.getDbId( ) );
+            String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", getName(), client.getDbId( ) );
 
             System.out.println( query );
             ResultSet rs = MySql.select( query );
@@ -52,7 +52,7 @@ public abstract class MyArraysTable extends MySqlTable {
 
     @Override
     public void reset() {
-        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", name ) );
+        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", getName() ) );
 
         int i = 0;
 

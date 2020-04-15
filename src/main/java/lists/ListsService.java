@@ -1,15 +1,13 @@
 package lists;
 
 import options.Options;
-import org.jfree.data.time.Second;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 // Regular list updater
@@ -46,7 +44,7 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        Second now = new Second(  );
+        LocalDateTime now = LocalDateTime.now();
 
         // List for charts
         client.getIndexList( ).add( new MyChartPoint( now, client.getIndex( ) ) );
@@ -68,10 +66,12 @@ public class ListsService extends MyBaseService {
         }
 
         // Roll lists
-        for ( Map.Entry< RollEnum, Roll > entry : getClient( ).getRollHandler( ).getRollMap( ).entrySet( ) ) {
-            Roll roll = entry.getValue( );
-            roll.addRoll( );
-        }
+        try {
+            for (Map.Entry<RollEnum, Roll> entry : getClient().getRollHandler().getRollMap().entrySet()) {
+                Roll roll = entry.getValue();
+                roll.addRoll();
+            }
 
+        } catch (NullPointerException e) { }
     }
 }

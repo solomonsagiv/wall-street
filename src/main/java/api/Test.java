@@ -1,26 +1,22 @@
 package api;
 
-import dataBase.mySql.mySqlComps.TablesEnum;
-import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.Second;
-import serverObjects.stockObjects.Apple;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Test {
 
     public static void main( String[] args ) throws InterruptedException, ParseException {
 
-        Second second = new Second(  );
-        System.out.println(second );
+        String d = "Tue Apr 14 15:02:18 IDT 2020";
 
-        Thread.sleep( 2000 );
+        LocalDateTime time = LocalDateTime.parse(d);
 
-        System.out.println(new Second(  ) );
+        Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonth().getValue(), time.getYear());
+
+
+        System.out.println("Seconde: " + second);
     }
 
 }
