@@ -9,8 +9,6 @@ import options.OptionsEnum;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
 
-import java.util.ArrayList;
-
 public class SpxRequester implements ITwsRequester {
 
     Spx spx;
@@ -20,17 +18,17 @@ public class SpxRequester implements ITwsRequester {
     @Override
     public void request( Downloader downloader ) {
         try {
-            init();
+            init( );
 
-            TwsHandler twsHandler = spx.getTwsHandler();
+            TwsHandler twsHandler = spx.getTwsHandler( );
 
             // Index
             downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.INDEX ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.INDEX ) );
 
             // Futures
             // Quarter
-            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE ).getMyId(), twsHandler.getMyContract( TwsContractsEnum.FUTURE ) );
-            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId(), twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ) );
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE ) );
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ) );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -38,9 +36,9 @@ public class SpxRequester implements ITwsRequester {
     }
 
     private void init() {
-        spx = Spx.getInstance();
-        optionsQuarter = spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
-        optionsQuarterFar = spx.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR );
+        spx = Spx.getInstance( );
+        optionsQuarter = spx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+        optionsQuarterFar = spx.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
 
         indexId = spx.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
         futureId = spx.getTwsHandler( ).getMyContract( TwsContractsEnum.FUTURE ).getMyId( );
@@ -49,36 +47,31 @@ public class SpxRequester implements ITwsRequester {
 
     @Override
     public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
-        // ---------- Future ---------- //
-        if ( tickerId == futureId && price > 0 ) {
-//            // Last
-//            if ( field == 4 ) {
-//                optionsQuarter.setFuture( price );
-//
-//            }
-            // Bid
-            if ( field == 1 ) {
-                optionsQuarter.setFutureBid( price );
-            }
-            // Ask
-            if ( field == 2 ) {
-                optionsQuarter.setFutureAsk( price );
-            }
-        }
 
-        // ---------- Future far ---------- //
-        if ( tickerId == futureFarId && price > 0 ) {
-//            // Last
-//            if ( field == 4 ) {
-//                optionsQuarterFar.setFuture( price );
-//            }
-            // Bid
-            if ( field == 1 ) {
-                optionsQuarterFar.setFutureBid( price );
+        if ( spx.isStarted( ) ) {
+
+            // ---------- Future ---------- //
+            if ( tickerId == futureId && price > 0 ) {
+                // Bid
+                if ( field == 1 ) {
+                    optionsQuarter.setFutureBid( price );
+                }
+                // Ask
+                if ( field == 2 ) {
+                    optionsQuarter.setFutureAsk( price );
+                }
             }
-            // Ask
-            if ( field == 2 ) {
-                optionsQuarterFar.setFutureAsk( price );
+
+            // ---------- Future far ---------- //
+            if ( tickerId == futureFarId && price > 0 ) {
+                // Bid
+                if ( field == 1 ) {
+                    optionsQuarterFar.setFutureBid( price );
+                }
+                // Ask
+                if ( field == 2 ) {
+                    optionsQuarterFar.setFutureAsk( price );
+                }
             }
         }
 

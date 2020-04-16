@@ -67,8 +67,8 @@ public class MyChart {
         plot.setDomainGridlinesVisible( false );
         plot.setRangeGridlinePaint( Color.BLACK );
         plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
-        plot.getDomainAxis( ).setVisible( true );
-        plot.setAxisOffset( new RectangleInsets( 50.0, 5.0, 5.0, 5.0 ) );
+        plot.getDomainAxis( ).setVisible( props.getBool( ChartPropsEnum.INCLUDE_DOMAIN_AXIS ) );
+        plot.setAxisOffset( new RectangleInsets( 5.0, 5.0, 5.0, 5.0 ) );
         DateAxis axis = ( DateAxis ) plot.getDomainAxis( );
         axis.setAutoRange( true );
         axis.setDateFormatOverride( new SimpleDateFormat( "HH:mm" ) );

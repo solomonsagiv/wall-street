@@ -10,6 +10,7 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
+import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.*;
 import lists.ListsService;
@@ -139,6 +140,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         tablesHandler.addTable( TablesEnum.STATUS, new StatusTable( this ) );
         tablesHandler.addTable( TablesEnum.SUM, new SumTable( this ) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );
+        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
     }
 
     // Start all

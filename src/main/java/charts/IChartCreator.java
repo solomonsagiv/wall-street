@@ -2,6 +2,6 @@ package charts;
 
 public interface IChartCreator {
 
-    void createChart();
+    void createChart() throws CloneNotSupportedException;
 
 }

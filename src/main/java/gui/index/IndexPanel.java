@@ -403,6 +403,19 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         } );
 
+        JMenuItem e2_indexCounter_index_item = new JMenuItem( "E2 / Ind counuter/ Ind" );
+        e2_indexCounter_index_item.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                E2_IndexCounter_Index_Chart chart = new E2_IndexCounter_Index_Chart( client );
+                try {
+                    chart.createChart();
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
         JMenuItem e2BACounter_index = new JMenuItem( "E2 B/A" );
         e2BACounter_index.addActionListener( new ActionListener( ) {
             @Override
@@ -478,6 +491,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         export.add( exportSumLine );
 
+        charts.add( e2_indexCounter_index_item );
         charts.add( e2BACounter_index );
         charts.add( quarter_index_item );
         charts.add( quarter_quarterFar_index_item );

@@ -3,7 +3,7 @@ package charts.myChart;
 import org.jfree.chart.plot.Marker;
 import java.util.Properties;
 
-public class MyProps {
+public class MyProps implements Cloneable {
 
     private Properties properties = new Properties( );
 
@@ -35,6 +35,24 @@ public class MyProps {
         return ( float ) properties.get( e );
     }
 
+
+    private void setProperties( Properties properties ) {
+        this.properties = properties;
+    }
+
+    @Override
+    public String toString() {
+        return "MyProps{" +
+                "properties=" + properties +
+                '}';
+    }
+
+    @Override
+    public Object clone() {
+        MyProps props = new MyProps();
+        props.setProperties( ( Properties ) this.properties.clone() );
+        return props;
+    }
 }
 
 interface IChartProps {

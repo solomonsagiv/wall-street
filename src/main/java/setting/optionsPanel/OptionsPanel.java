@@ -84,7 +84,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         add( propsPanel );
 
         // Executors
-        executorsPanel = new ExecutorsPanel( client, options );
+        executorsPanel = new ExecutorsPanel( client );
         executorsPanel.setXY( propsPanel.getX( ) + propsPanel.getWidth( ) + 1, propsPanel.getY( ) );
         add( executorsPanel );
 
