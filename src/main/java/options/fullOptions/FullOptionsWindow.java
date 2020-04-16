@@ -146,8 +146,13 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     }
 
     private JTable createTable( MyGuiComps.MyFrame frame ) {
+        int rows = 10;
 
-        int rows = options.getStrikes( ).size( );
+        try {
+            rows = options.getStrikes( ).size( );
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
 
         // int rows = 10;
         tableData = new Object[ rows ][ 12 ];

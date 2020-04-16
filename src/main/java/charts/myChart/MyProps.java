@@ -28,7 +28,11 @@ public class MyProps implements Cloneable {
     }
 
     public boolean getBool( Enum e ) {
-        return ( boolean ) properties.get( e );
+        try {
+            return ( boolean ) properties.get( e );
+        } catch ( NullPointerException exception ) {
+            return false;
+        }
     }
 
     public float getFloat( Enum e ) {

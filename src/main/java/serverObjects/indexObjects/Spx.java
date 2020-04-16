@@ -7,6 +7,10 @@ import options.IndexOptions;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
 import options.OptionsHandler;
+import roll.Roll;
+import roll.RollEnum;
+import roll.RollHandler;
+import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
@@ -33,10 +37,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
     private void roll() {
-//        rollHandler = new RollHandler( this );
-//
-//        Roll quarter_quarterFar = new Roll( getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ), getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ) );
-//        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
+        rollHandler = new RollHandler( this );
+
+        Roll quarter_quarterFar = new Roll( this, OptionsEnum.QUARTER , OptionsEnum.QUARTER_FAR , RollPriceEnum.FUTURE );
+        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
 
     }
 

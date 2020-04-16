@@ -40,6 +40,7 @@ public enum JsonEnum {
     FUTURE_END_TIME,
     START_STRIKE,
     END_STRIKE,
-    STRIKES
+    STRIKES,
+    FUTURE_BID_ASK_COUNTER
 
 }

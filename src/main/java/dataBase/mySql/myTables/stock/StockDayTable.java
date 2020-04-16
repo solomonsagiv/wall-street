@@ -1,4 +1,4 @@
-package dataBase.mySql.myTables;
+package dataBase.mySql.myTables.stock;
 
 import api.Manifest;
 import dataBase.mySql.myBaseTables.MyDayTable;
@@ -10,10 +10,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class DayTable extends MyDayTable {
+public class StockDayTable extends MyDayTable {
 
     // Constructor
-    public DayTable(BASE_CLIENT_OBJECT client ) {
+    public StockDayTable( BASE_CLIENT_OBJECT client ) {
         super(client, client.getName() );
     }
 

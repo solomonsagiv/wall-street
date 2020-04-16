@@ -558,6 +558,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     @Override
     public void loadFromJson( MyJson object ) {
         getProps( ).loadFromJson( object.getMyJson( JsonEnum.PROPS.toString( ) ) );
+        setFutureBidAskCounter( object.getInt( JsonEnum.FUTURE_BID_ASK_COUNTER.toString() ) );
     }
 
     public List< Strike > getStrikes() {
@@ -615,6 +616,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         mainJson.put( JsonEnum.CONTRACT.toString( ), getContract( ) );
         mainJson.put( JsonEnum.OP_AVG.toString( ), L.floor( getOpAvg( ), 100 ) );
         mainJson.put( JsonEnum.DATA.toString( ), optionsData );
+        mainJson.put( JsonEnum.FUTURE_BID_ASK_COUNTER.toString(), getFutureBidAskCounter() );
 
         return mainJson;
     }
@@ -651,6 +653,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         mainJson.put( JsonEnum.CONTRACT.toString( ), 0 );
         mainJson.put( JsonEnum.OP_AVG.toString( ), 0 );
         mainJson.put( JsonEnum.DATA.toString( ), optionsData );
+        mainJson.put( JsonEnum.FUTURE_BID_ASK_COUNTER.toString(), 0 );
 
         return mainJson;
     }
@@ -705,7 +708,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public void setFutureBid( double futureBid ) {
 
         // If increment state
-        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk ) {
+        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk && client.isStarted() ) {
             futureBidAskCounter++;
         }
         this.futureBid = futureBid;
@@ -720,7 +723,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public void setFutureAsk( double futureAsk ) {
 
         // If increment state
-        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid ) {
+        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid && client.isStarted() ) {
             futureBidAskCounter--;
         }
         this.futureAsk = futureAsk;

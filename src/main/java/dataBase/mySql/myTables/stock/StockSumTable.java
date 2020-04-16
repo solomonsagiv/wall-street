@@ -1,4 +1,4 @@
-package dataBase.mySql.myTables;
+package dataBase.mySql.myTables.stock;
 
 import api.Manifest;
 import dataBase.mySql.myBaseTables.MySumTable;
@@ -8,16 +8,15 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalDate;
 
-public class SumTable extends MySumTable {
+public class StockSumTable extends MySumTable {
 
     // Constructor
-    public SumTable(BASE_CLIENT_OBJECT client) {
+    public StockSumTable( BASE_CLIENT_OBJECT client) {
         super(client, client.getName() + "_sum");
     }
 
     @Override
     public void initColumns() {
-
         addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.DATE) {
             @Override
             public String getObject() {

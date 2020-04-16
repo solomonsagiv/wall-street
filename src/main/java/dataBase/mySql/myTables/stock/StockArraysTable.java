@@ -1,4 +1,4 @@
-package dataBase.mySql.myTables;
+package dataBase.mySql.myTables.stock;
 
 import dataBase.mySql.myBaseTables.MyArraysTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
@@ -11,10 +11,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class ArraysTable extends MyArraysTable {
+public class StockArraysTable extends MyArraysTable {
 
     // Constructor
-    public ArraysTable( BASE_CLIENT_OBJECT client ) {
+    public StockArraysTable( BASE_CLIENT_OBJECT client ) {
         super( client, "arrays" );
     }
 

@@ -36,11 +36,15 @@ public class DDEWriter extends MyThread implements Runnable {
 
         while ( run ) {
             try {
-                // Write the data to the excel
-                writeData( );
 
                 // Sleep
                 Thread.sleep( 4000 );
+
+                if ( spx.isStarted() ) {
+                    // Write the data to the excel
+                    writeData( );
+                }
+
             } catch ( InterruptedException e ) {
                 close( );
             }

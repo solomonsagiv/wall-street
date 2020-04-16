@@ -34,6 +34,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         setOptionsHandler( optionsHandler );
 
         LogicService logicService = new LogicService(this, quarterOptions );
+
     }
 
     @Override
@@ -46,7 +47,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                 getTwsHandler( ).requestOptions( getOptionsHandler( ).getOptionsList( ) );
             }
         }
-
         this.index = index;
     }
 
