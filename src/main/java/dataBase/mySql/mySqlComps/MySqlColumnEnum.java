@@ -44,7 +44,13 @@ public enum MySqlColumnEnum {
     IND_BID_ASK_COUNTER_LIST("indexBidAskCounterList", MySqlDataTypeEnum.STRING),
     QUARTER_FUT_BID_ASK_COUNTER_LIST("quarterFutBidAskCounterList", MySqlDataTypeEnum.STRING),
     QUARTER_FAR_FUT_BID_ASK_COUNTER_LIST("quarterFarFutBidAskCounterList", MySqlDataTypeEnum.STRING),
-    LAST_TRADING_DATE_OR_CONTRACT_MONTH("lastTradingDayOrContractMonth", MySqlDataTypeEnum.STRING);
+    LAST_TRADING_DATE_OR_CONTRACT_MONTH("lastTradingDayOrContractMonth", MySqlDataTypeEnum.STRING),
+    E1("e1", MySqlDataTypeEnum.DOUBLE),
+    E1_BID("e1_bid", MySqlDataTypeEnum.DOUBLE),
+    E1_ASK("e1_ask", MySqlDataTypeEnum.DOUBLE),
+    E2("e2", MySqlDataTypeEnum.DOUBLE),
+    E2_BID("e2_bid", MySqlDataTypeEnum.DOUBLE),
+    E2_ASK("e2_ask", MySqlDataTypeEnum.DOUBLE);
 
     private final String name;
     private final MySqlDataTypeEnum dataType;

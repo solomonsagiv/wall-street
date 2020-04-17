@@ -21,11 +21,11 @@ public class IndexOptions extends Options {
 
         if ( currStrike != 0 ) {
 
-            if ( client.getFuture( ) - currStrike > client.getStrikeMargin( ) ) {
+            if ( getFuture( ) - currStrike > client.getStrikeMargin( ) ) {
 
                 currStrike += client.getStrikeMargin( );
 
-            } else if ( client.getFuture( ) - currStrike < -client.getStrikeMargin( ) ) {
+            } else if ( getFuture( ) - currStrike < -client.getStrikeMargin( ) ) {
 
                 currStrike -= client.getStrikeMargin( );
 
@@ -42,7 +42,7 @@ public class IndexOptions extends Options {
         Strike targetStrike = new Strike( );
 
         for ( Strike strike : getStrikes( ) ) {
-            double newMargin = absolute( strike.getStrike( ) - client.getFuture( ) );
+            double newMargin = absolute( strike.getStrike( ) - getFuture( ) );
 
             if ( newMargin < margin ) {
 
@@ -63,7 +63,7 @@ public class IndexOptions extends Options {
             return 0;
         }
 
-        double calcDev = getProps().getDevidend() * 360.0 / getProps().getDays() / client.getFuture( );
+        double calcDev = getProps().getDevidend() * 360.0 / getProps().getDays() / getFuture( );
 
         if ( Double.isInfinite( calcDev ) ) {
             return 0;

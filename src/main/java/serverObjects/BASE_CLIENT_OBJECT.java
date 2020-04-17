@@ -10,13 +10,7 @@ import arik.locals.Emojis;
 import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
-import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
-import dataBase.mySql.myTables.*;
-import dataBase.mySql.myTables.index.ArraysTable;
-import dataBase.mySql.myTables.index.DayTable;
-import dataBase.mySql.myTables.index.StatusTable;
-import dataBase.mySql.myTables.index.SumTable;
 import lists.ListsService;
 import lists.MyChartList;
 import locals.L;
@@ -78,7 +72,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected OptionsDataHandler optionsDataHandler;
 
     // TablesHandler
-    TablesHandler tablesHandler;
+    protected TablesHandler tablesHandler;
 
     // MyService
     private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
@@ -130,21 +124,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
             twsHandler = new TwsHandler( );
 
-            initTablesHandler( );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
-    }
-
-
-    public void initTablesHandler() {
-        tablesHandler = new TablesHandler( );
-        tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new DayTable( this ) );
-        tablesHandler.addTable( TablesEnum.STATUS, new StatusTable( this ) );
-        tablesHandler.addTable( TablesEnum.SUM, new SumTable( this ) );
-        tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );
-        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
     }
 
     // Start all
@@ -614,6 +596,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public TablesHandler getTablesHandler() {
+        if (tablesHandler == null) throw new NullPointerException(getName() + " Table handler didn't set");
         return tablesHandler;
     }
 

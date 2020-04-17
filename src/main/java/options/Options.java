@@ -694,7 +694,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         }
     }
 
-
     public double getFuture() {
         return future;
     }
@@ -927,6 +926,15 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         conBidForCheck = this.contractBid;
 
     }
+
+    public double getFutureBid() {
+        return futureBid;
+    }
+
+    public double getFutureAsk() {
+        return futureAsk;
+    }
+
     public List< Double > getFutureList() {
         return futureList;
     }

@@ -1,5 +1,13 @@
 package serverObjects.stockObjects;
 
+import dataBase.mySql.TablesHandler;
+import dataBase.mySql.myBaseTables.MyBoundsTable;
+import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.myTables.TwsContractsTable;
+import dataBase.mySql.myTables.index.ArraysTable;
+import dataBase.mySql.myTables.stock.StockDayTable;
+import dataBase.mySql.myTables.stock.StockStatusTable;
+import dataBase.mySql.myTables.stock.StockSumTable;
 import logic.LogicService;
 import options.OptionsEnum;
 import options.OptionsHandler;
@@ -13,8 +21,19 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     public STOCK_OBJECT() {
         super();
+        initTablesHandler();
     }
-    
+
+    public void initTablesHandler() {
+        tablesHandler = new TablesHandler();
+        tablesHandler.addTable(TablesEnum.TWS_CONTRACTS, new TwsContractsTable(this));
+        tablesHandler.addTable(TablesEnum.DAY, new StockDayTable(this));
+        tablesHandler.addTable(TablesEnum.STATUS, new StockStatusTable(this));
+        tablesHandler.addTable(TablesEnum.SUM, new StockSumTable(this));
+        tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
+        tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this, "bounds"));
+    }
+
     @Override
     public void initOptionsHandler() {
 

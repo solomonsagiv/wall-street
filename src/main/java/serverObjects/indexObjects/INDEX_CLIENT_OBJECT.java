@@ -1,5 +1,13 @@
 package serverObjects.indexObjects;
 
+import dataBase.mySql.TablesHandler;
+import dataBase.mySql.myBaseTables.MyBoundsTable;
+import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.myTables.TwsContractsTable;
+import dataBase.mySql.myTables.index.ArraysTable;
+import dataBase.mySql.myTables.index.DayTable;
+import dataBase.mySql.myTables.index.StatusTable;
+import dataBase.mySql.myTables.index.SumTable;
 import options.IndexOptions;
 import options.OptionsEnum;
 import options.OptionsHandler;
@@ -8,21 +16,19 @@ import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
-    private double future = 0;
-
     public INDEX_CLIENT_OBJECT() {
         super();
+        initTablesHandler();
     }
 
-    public void setFuture(double future) {
-        if (this.future == 0) {
-            this.future = future;
-            getOptionsHandler().initOptions(future);
-        }
-    }
-
-    public double getFuture() {
-        return future;
+    public void initTablesHandler() {
+        tablesHandler = new TablesHandler();
+        tablesHandler.addTable(TablesEnum.TWS_CONTRACTS, new TwsContractsTable(this));
+        tablesHandler.addTable(TablesEnum.DAY, new DayTable(this));
+        tablesHandler.addTable(TablesEnum.STATUS, new StatusTable(this));
+        tablesHandler.addTable(TablesEnum.SUM, new SumTable(this));
+        tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
+        tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this, "bounds"));
     }
 
     @Override

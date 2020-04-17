@@ -6,6 +6,7 @@ import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import myJson.MyJson;
 import options.Options;
+import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
@@ -127,6 +128,42 @@ public class StatusTable extends MyStatusTable {
             @Override
             public Double getObject() {
                 return client.getLow();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "e1", MySqlColumnEnum.E1) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFuture();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "e1_bid", MySqlColumnEnum.E1_BID) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutureBid();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "e1_ask", MySqlColumnEnum.E1_ASK) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutureAsk();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "e2", MySqlColumnEnum.E2) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFuture();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "e2_bid", MySqlColumnEnum.E2_BID) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutureBid();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "e2_ask", MySqlColumnEnum.E2_ASK) {
+            @Override
+            public Double getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutureAsk();
             }
         });
         addColumn(new MyLoadAbleColumn<Integer>(this, "indexBidAskCounter", MySqlColumnEnum.IND_BID_ASK_COUNTER) {
