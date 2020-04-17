@@ -4,7 +4,7 @@ public class Manifest {
 
     // REAL ACCOUNT
     public static int REAL_PORT = 7777;
-    public static int CLIENT_ID = 997;
+    public static int CLIENT_ID = 797;
     public static String REAL_ACCOUNT = "U2177653";
 
     // SNUPPI ACCOUNT
@@ -19,8 +19,8 @@ public class Manifest {
     public static boolean DB = true;
     public static boolean DB_RUNNER = true;
     public static boolean DB_UPDATER = true;
-    public static String ACCOUNT = SNUPPI_ACCOUNT;
-    public static int PORT = SNUPPI_PORT;
+    public static String ACCOUNT = REAL_ACCOUNT;
+    public static int PORT = REAL_PORT;
     public static int SCREEN = 1;
 
     // FUTURES
