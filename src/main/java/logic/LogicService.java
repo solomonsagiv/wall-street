@@ -1,6 +1,7 @@
 package logic;
 
 import options.Options;
+import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
@@ -8,6 +9,7 @@ public class LogicService extends MyBaseService {
 
     // Variables
     Options options;
+    OptionsEnum optionsEnum;
 
     // regular count
     int conRunnerUpCount = 0;
@@ -29,9 +31,9 @@ public class LogicService extends MyBaseService {
     double margin;
 
     // Constructor
-    public LogicService( BASE_CLIENT_OBJECT client, Options options ) {
+    public LogicService( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
         super( client );
-        this.options = options;
+        this.optionsEnum = optionsEnum;
         this.margin = client.getRacesMargin( );
     }
 
@@ -46,12 +48,16 @@ public class LogicService extends MyBaseService {
     }
 
     @Override
-    public void go()  {
+    public void go() {
 
         double future = 0;
         double index = 0;
 
-        future = options.getContract();
+        if ( options == null ) {
+            options = getClient( ).getOptionsHandler( ).getOptions( optionsEnum );
+        }
+
+        future = options.getContract( );
         index = getClient( ).getIndex( );
 
         // set for the first time the hoze and stock 0
@@ -155,7 +161,7 @@ public class LogicService extends MyBaseService {
                         conUpDown = 0;
 
 //                        noisy( panel.conRacesField, Themes.GREEN );
-                        getClient().conUpPlus();
+                        getClient( ).conUpPlus( );
 //                        conRunnerUpCount = 1;
 
                         conRunner = future;
@@ -187,7 +193,7 @@ public class LogicService extends MyBaseService {
                         conCompetion = false;
                         conUpDown = 0;
 
-                        getClient().conDownPlus();
+                        getClient( ).conDownPlus( );
 //                        conRunnerDownCount = 1;
 //                        noisy( panel.conRacesField, Themes.RED );
                         conRunner = future;
@@ -221,7 +227,7 @@ public class LogicService extends MyBaseService {
                         indCompetition = false;
                         indUpDown = 0;
 
-                        getClient().indUpPlus();
+                        getClient( ).indUpPlus( );
 //                        indRunnerUpCount = 1;
 //                        noisy( panel.indRacesField, Themes.GREEN );
 
@@ -253,7 +259,7 @@ public class LogicService extends MyBaseService {
                         indCompetition = false;
                         indUpDown = 0;
 
-                        getClient().indDownPlus();
+                        getClient( ).indDownPlus( );
 //                        indRunnerDownCount = 1;
 //                        noisy( panel.indRacesField, Themes.RED );
 

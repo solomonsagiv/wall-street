@@ -284,7 +284,7 @@ public class OptionsWindow {
                         row++;
                     }
 
-                    colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getContractBidAskCounter( ) );
+                    colorForfInt( contractCounterField, client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounter( ) );
                     colorForf( opAvgField, client.getOptionsHandler( ).getMainOptions( ).getOpAvg( ), null );
 
                 } catch ( InterruptedException e ) {

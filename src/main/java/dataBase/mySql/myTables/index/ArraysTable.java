@@ -88,6 +88,7 @@ public class ArraysTable extends MyArraysTable {
 
             @Override
             public void setLoadedObject( String object ) {
+                System.out.println(client.getName() );
                 client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getFutBidAskCounterList( ).setData( new JSONArray( object ) );
             }
 
@@ -105,6 +106,7 @@ public class ArraysTable extends MyArraysTable {
             @Override
             public void setLoadedObject( String object ) {
                 if ( !object.isEmpty( ) ) {
+                    System.out.println(client.getName() );
                     client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR ).getFutBidAskCounterList( ).setData( new JSONArray( object ) );
                 }
             }

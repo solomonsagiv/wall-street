@@ -60,6 +60,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     List< Double > conBidList = new ArrayList<>( );
     List< Double > conAskList = new ArrayList<>( );
     MyChartList futBidAskCounterList = new MyChartList( );
+    MyChartList conBidAskCounterList = new MyChartList( );
 
     public Options(int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType ) {
         this.baseID = baseID;
@@ -276,11 +277,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
 
             if ( currentBidMin > bidMin && bidMin != 0 ) {
-                setContractBidAskCounter( getContractBidAskCounter( ) + 1 );
+                setContractBidAskCounter( getConBidAskCounter( ) + 1 );
             }
 
             if ( currentAskMax < askMax && askMax != 0 ) {
-                setContractBidAskCounter( getContractBidAskCounter( ) - 1 );
+                setContractBidAskCounter( getConBidAskCounter( ) - 1 );
             }
 
             bidMin = currentBidMin;
@@ -612,7 +613,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), getContractBidAskCounter( ) );
+        mainJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), getConBidAskCounter( ) );
         mainJson.put( JsonEnum.CONTRACT.toString( ), getContract( ) );
         mainJson.put( JsonEnum.OP_AVG.toString( ), L.floor( getOpAvg( ), 100 ) );
         mainJson.put( JsonEnum.OP_AVG_FUTURE.toString( ), L.floor( getOpAvgFuture( ), 100 ) );
@@ -769,7 +770,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         this.expDate = expDate;
     }
 
-    public int getContractBidAskCounter() {
+    public int getConBidAskCounter() {
         return contractBidAskCounter;
     }
 
@@ -958,6 +959,14 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     public List< Double > getConAskList() {
         return conAskList;
+    }
+
+    public MyChartList getConBidAskCounterList() {
+        return conBidAskCounterList;
+    }
+
+    public void setConBidAskCounterList( MyChartList conBidAskCounterList ) {
+        this.conBidAskCounterList = conBidAskCounterList;
     }
 
     public Set< Integer > getDates() {

@@ -43,40 +43,40 @@ public class StockDayTable extends MyDayTable {
                 return client.getOptionsHandler().getMainOptions().getContract();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conQuarterFar", MySqlColumnEnum.CON_QUARTER_FAR) {
+        addColumn(new MyColumnSql<>(this, "conWeek", MySqlColumnEnum.CON_WEEK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getContract();
+                return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContract();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conQuarterFarBid", MySqlColumnEnum.CON_QUARTER_FAR_BID) {
+        addColumn(new MyColumnSql<>(this, "conWeekBid", MySqlColumnEnum.CON_WEEK_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getContractBid();
+                return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContractBid();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conQuarterFarAsk", MySqlColumnEnum.CON_QUARTER_FAR_ASK) {
+        addColumn(new MyColumnSql<>(this, "conWeekAsk", MySqlColumnEnum.CON_WEEK_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getContractAsk();
+                return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContractAsk();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conQuarter", MySqlColumnEnum.CON_QUARTER) {
+        addColumn(new MyColumnSql<>(this, "conMoth", MySqlColumnEnum.CON_MONTH) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getContract();
+                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContract();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conQuarterBid", MySqlColumnEnum.CON_QUARTER_BID) {
+        addColumn(new MyColumnSql<>(this, "conMothBid", MySqlColumnEnum.CON_MONTH_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getContractBid();
+                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContractBid();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conQuarterAsk", MySqlColumnEnum.CON_QUARTER_ASK) {
+        addColumn(new MyColumnSql<>(this, "conMothAsk", MySqlColumnEnum.CON_MONTH_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getContractAsk();
+                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContractAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "ind", MySqlColumnEnum.IND) {

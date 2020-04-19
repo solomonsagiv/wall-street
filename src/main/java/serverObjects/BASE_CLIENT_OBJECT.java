@@ -15,6 +15,7 @@ import lists.ListsService;
 import lists.MyChartList;
 import locals.L;
 import locals.LocalHandler;
+import logic.LogicService;
 import options.OptionsDataHandler;
 import options.OptionsHandler;
 import roll.RollHandler;
@@ -76,6 +77,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // MyService
     private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
+    protected LogicService logicService;
 
     // Basic
     protected double index = 0;
@@ -121,7 +123,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
-
             twsHandler = new TwsHandler( );
 
         } catch ( Exception e ) {
@@ -289,7 +290,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "Close: " + index + "\n";
         text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvg( ) ) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
-        text += "Contract counter: " + getOptionsHandler( ).getMainOptions( ).getContractBidAskCounter( ) + "\n";
+        text += "Contract counter: " + getOptionsHandler( ).getMainOptions( ).getConBidAskCounter( ) + "\n";
 
         return text;
     }
@@ -629,6 +630,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public void setiTwsRequester( ITwsRequester iTwsRequester ) {
         this.iTwsRequester = iTwsRequester;
         Downloader.getInstance().addRequester( iTwsRequester );
+    }
+
+    public LogicService getLogicService() {
+        if ( logicService == null ) throw new NullPointerException( getName() + " Logic not set" );
+        return logicService;
+    }
+
+    public void setLogicService( LogicService logicService ) {
+        this.logicService = logicService;
     }
 
     @Override

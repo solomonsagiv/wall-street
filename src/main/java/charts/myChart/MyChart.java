@@ -43,8 +43,6 @@ public class MyChart {
         this.props = props;
         oldVals = new double[ series.length ];
 
-
-
         // Init
         init( series, props );
 
@@ -69,8 +67,8 @@ public class MyChart {
         plot.getDomainAxis( ).setVisible( props.getBool( ChartPropsEnum.INCLUDE_DOMAIN_AXIS ) );
         plot.setAxisOffset( new RectangleInsets( 5.0, 5.0, 5.0, 5.0 ) );
 
-        plot.getRangeAxis().setLabelPaint(Themes.BLUE_DARK);
-        plot.getRangeAxis().setLabelFont(Themes.ARIEL_15);
+        plot.getRangeAxis( ).setLabelPaint( Themes.BLUE_DARK );
+        plot.getRangeAxis( ).setLabelFont( Themes.ARIEL_15 );
 
         DateAxis axis = ( DateAxis ) plot.getDomainAxis( );
         axis.setAutoRange( true );
@@ -139,16 +137,17 @@ public class MyChart {
             // While loop
             while ( isRun( ) ) {
                 try {
+                    if ( client.isStarted( ) ) {
+                        // Sleep
+                        Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
 
-                    // Sleep
-                    Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
-
-                    if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
-                        if ( isDataChanged( ) ) {
+                        if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
+                            if ( isDataChanged( ) ) {
+                                append( );
+                            }
+                        } else {
                             append( );
                         }
-                    } else {
-                        append( );
                     }
                 } catch ( InterruptedException e ) {
                     e.printStackTrace( );
@@ -186,7 +185,7 @@ public class MyChart {
                         dots.remove( 0 );
                     }
                     // Append data
-                    dots.add( serie.add() );
+                    dots.add( serie.add( ) );
                 }
             } catch ( IndexOutOfBoundsException e ) {
             }

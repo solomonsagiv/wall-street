@@ -100,7 +100,7 @@ public class SumTable extends MySumTable {
         addColumn(new MyColumnSql<>(this, "con_bid_ask_counter", MySqlColumnEnum.CON_BID_ASK_COUNTER) {
             @Override
             public Integer getObject() {
-                return client.getOptionsHandler().getMainOptions().getContractBidAskCounter();
+                return client.getOptionsHandler().getMainOptions().getConBidAskCounter();
             }
         });
         addColumn(new MyColumnSql<>(this, "indBidAskCounter", MySqlColumnEnum.IND_BID_ASK_COUNTER) {

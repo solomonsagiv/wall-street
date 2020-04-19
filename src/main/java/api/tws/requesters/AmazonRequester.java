@@ -4,28 +4,28 @@ import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
+import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
 import tws.TwsContractsEnum;
+
 import java.util.ArrayList;
 
-public class AppleRequester implements ITwsRequester {
+public class AmazonRequester implements ITwsRequester {
 
     ArrayList< Options > optionsList;
-    Apple apple;
+    Amazon amazon;
 
     @Override
     public void request( Downloader downloader ) {
         try {
-            apple = Apple.getInstance();
-            optionsList = apple.getOptionsHandler( ).getOptionsList( );
+            amazon = Amazon.getInstance();
+            optionsList = amazon.getOptionsHandler( ).getOptionsList( );
 
             // Index
-            downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
-
-            apple.setIndex( 282 );
+            downloader.reqMktData( amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            apple.getTwsHandler( ).requestOptions( apple.getOptionsHandler( ).getOptionsList( ) );
+            amazon.getTwsHandler( ).requestOptions( amazon.getOptionsHandler( ).getOptionsList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -37,34 +37,34 @@ public class AppleRequester implements ITwsRequester {
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
         if ( tickerId == index && price > 0 ) {
             // Last
             if ( field == 4 ) {
-                apple.setIndex( price );
+                amazon.setIndex( price );
             }
             // Bid
             if ( field == 1 ) {
-                apple.setIndexBid( price );
+                amazon.setIndexBid( price );
             }
             // Ask
             if ( field == 2 ) {
-                apple.setIndexAsk( price );
+                amazon.setIndexAsk( price );
             }
 
             // Bid
             if ( field == 6 ) {
-                apple.setHigh( price );
+                amazon.setHigh( price );
             }
             // Ask
             if ( field == 7 ) {
-                apple.setLow( price );
+                amazon.setLow( price );
             }
 
             // Base
             if ( field == 9 ) {
-                apple.setBase( price );
+                amazon.setBase( price );
             }
         }
 

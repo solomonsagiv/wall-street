@@ -7,6 +7,7 @@ import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
 
 import javax.swing.*;
@@ -27,12 +28,13 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
 
     static Apple apple;
+    static Amazon amazon;
     static Spx spx;
     static  {
-//        spx = Spx.getInstance();
+        spx = Spx.getInstance();
         apple = Apple.getInstance();
+        amazon = Amazon.getInstance();
     }
-
 
     // Constructor
     public MyMainWindow(String title) throws HeadlessException {
@@ -40,8 +42,9 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-//        LocalHandler.clients.add(spx);
+        LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
+        LocalHandler.clients.add( amazon );
     }
 
     @Override

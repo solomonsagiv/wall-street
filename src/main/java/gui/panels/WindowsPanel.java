@@ -8,6 +8,7 @@ import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
 
 import javax.swing.*;
@@ -47,6 +48,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "APPLE":
                         new StockWindow( "Apple", Apple.getInstance( ) );
+                        break;
+                    case "AMAZON":
+                        new StockWindow( "Amazon", Amazon.getInstance( ) );
                         break;
                     default:
                         break;

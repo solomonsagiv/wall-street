@@ -2,6 +2,8 @@ package gui.stock;
 
 import charts.myCharts.IndexBidAskCounterIndexChart;
 import charts.myCharts.IndexVsQuarterLiveChart;
+import charts.myCharts.stockCharts.MonthCounter_IndexCounter_Index_Chart;
+import charts.myCharts.stockCharts.Month_Index_Live_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
 import gui.MyGuiComps;
@@ -75,16 +77,16 @@ public class StockPanel extends JPanel implements IMyPanel {
     Color backGround = Themes.GREY_LIGHT;
 
     STOCK_OBJECT client;
-    Options optionsQuarter;
-    Options optionsQuarterFar;
+    Options optWeek;
+    Options optMonth;
     Options mainOptions;
 
     private Updater updater;
 
     public StockPanel( STOCK_OBJECT client ) {
         this.client = client;
-        optionsQuarter = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
-        optionsQuarterFar = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
+        optWeek = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
+        optMonth = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
         mainOptions = client.getOptionsHandler( ).getMainOptions( );
 
         init( );
@@ -291,9 +293,9 @@ public class StockPanel extends JPanel implements IMyPanel {
             opField.colorBack( mainOptions.getOp( ), L.format100( ) );
 
             // Quarter
-            opQuarterField.colorBack( optionsQuarterFar.getOp( ), L.format100( ) );
-            opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvg( ), L.format100( ) );
-            contractQuarterField.setText( L.format100( optionsQuarterFar.getContract( ) ) );
+            opQuarterField.colorBack( optMonth.getOp( ), L.format100( ) );
+            opAvgQuarterField.colorForge( optMonth.getOpAvg( ), L.format100( ) );
+            contractQuarterField.setText( L.format100( optMonth.getContract( ) ) );
 
             // Races and roll
             // Races
@@ -301,8 +303,8 @@ public class StockPanel extends JPanel implements IMyPanel {
             indRacesField.colorForge( client.getIndexSum( ) );
 
             // Roll
-            double month = optionsQuarter.getContract( );
-            double quarter = optionsQuarterFar.getContract( );
+            double month = optWeek.getContract( );
+            double quarter = optMonth.getContract( );
             rollField.colorForge( quarter - month, L.format100( ) );
         } catch ( NullPointerException e ) {
             e.printStackTrace( );
@@ -388,29 +390,25 @@ public class StockPanel extends JPanel implements IMyPanel {
             }
         } );
 
-
-        JMenuItem contractIndexRealTime = new JMenuItem( "Quarter vs Ind real time" );
+        JMenuItem contractIndexRealTime = new JMenuItem( "Month - Index live" );
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterLiveChart chart = new IndexVsQuarterLiveChart(client);
+                Month_Index_Live_Chart chart = new Month_Index_Live_Chart(client);
                 chart.createChart();
             }
         } );
 
-        JMenuItem indexBidAskCounterItem = new JMenuItem( "Index - B / A" );
+        JMenuItem indexBidAskCounterItem = new JMenuItem( "Counters - Index" );
         indexBidAskCounterItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                IndexBidAskCounterIndexChart chart = new IndexBidAskCounterIndexChart(client);
-                chart.createChart();
-            }
-        } );
-
-        JMenuItem quarterContractIndexRealTime = new JMenuItem( "Quarter far vs Ind real time" );
-        quarterContractIndexRealTime.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
+                MonthCounter_IndexCounter_Index_Chart chart = new MonthCounter_IndexCounter_Index_Chart(client);
+                try {
+                    chart.createChart();
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
             }
         } );
 
@@ -462,7 +460,6 @@ public class StockPanel extends JPanel implements IMyPanel {
 
         export.add( exportSumLine );
 
-        charts.add( quarterContractIndexRealTime );
         charts.add( contractIndexRealTime );
         charts.add(indexBidAskCounterItem);
 
