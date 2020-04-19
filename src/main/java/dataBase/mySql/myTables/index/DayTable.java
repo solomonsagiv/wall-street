@@ -178,7 +178,7 @@ public class DayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "op_avg", MySqlColumnEnum.OP_AVG) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getOpAvg();
+                return client.getOptionsHandler().getMainOptions().getOpAvgFuture();
             }
         });
     }

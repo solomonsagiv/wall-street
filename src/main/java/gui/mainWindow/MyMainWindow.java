@@ -29,7 +29,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Apple apple;
     static Spx spx;
     static  {
-        spx = Spx.getInstance();
+//        spx = Spx.getInstance();
         apple = Apple.getInstance();
     }
 
@@ -40,7 +40,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(spx);
+//        LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
     }
 

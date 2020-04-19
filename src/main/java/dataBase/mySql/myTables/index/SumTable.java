@@ -12,7 +12,7 @@ public class SumTable extends MySumTable {
 
     // Constructor
     public SumTable(BASE_CLIENT_OBJECT client) {
-        super(client, client.getName() + "_sum");
+        super(client);
     }
 
     @Override

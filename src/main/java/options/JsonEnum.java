@@ -41,6 +41,7 @@ public enum JsonEnum {
     START_STRIKE,
     END_STRIKE,
     STRIKES,
-    FUTURE_BID_ASK_COUNTER
+    FUTURE_BID_ASK_COUNTER,
+    OP_AVG_FUTURE
 
 }
