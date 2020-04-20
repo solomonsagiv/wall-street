@@ -9,6 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Ulta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,10 +31,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Apple apple;
     static Amazon amazon;
     static Spx spx;
+    static Ulta ulta;
     static  {
         spx = Spx.getInstance();
         apple = Apple.getInstance();
         amazon = Amazon.getInstance();
+        ulta = Ulta.getInstance();
     }
 
     // Constructor
@@ -45,6 +48,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
         LocalHandler.clients.add( amazon );
+        LocalHandler.clients.add(ulta);
     }
 
     @Override
