@@ -10,6 +10,7 @@ import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Ulta;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +52,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "AMAZON":
                         new StockWindow( "Amazon", Amazon.getInstance( ) );
+                        break;
+                    case "ULTA":
+                        new StockWindow( "Ulta", Ulta.getInstance( ) );
                         break;
                     default:
                         break;

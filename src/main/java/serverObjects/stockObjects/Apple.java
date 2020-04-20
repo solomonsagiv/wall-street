@@ -13,7 +13,6 @@ public class Apple extends STOCK_OBJECT {
     // Constrtor
     public Apple() {
         setName( "apple" );
-        setRacesMargin( 0.1 );
         setStrikeMargin( 5 );
 
         setDbId( 4 );

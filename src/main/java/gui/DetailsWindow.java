@@ -100,7 +100,7 @@ public class DetailsWindow {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 switch ( optionsCombo.getSelectedItem( ).toString( ).toLowerCase( ) ) {
-                    case "day":
+                    case "week":
                         options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
                         break;
                     case "month":

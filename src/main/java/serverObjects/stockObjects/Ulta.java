@@ -2,20 +2,26 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.requesters.AmazonRequester;
+import api.tws.requesters.UltaRequester;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.ApiEnum;
 
 public class Ulta extends STOCK_OBJECT {
+
+    public static void main( String[] args ) {
+        Ulta ulta = Ulta.getInstance();
+        ulta.getTablesHandler().getTable( TablesEnum.DAY ).insert();
+    }
 
     static Ulta client = null;
 
     // Constrtor
     public Ulta() {
         setName( "ulta" );
-        setRacesMargin( 0.1 );
-        setStrikeMargin( 10 );
+        setStrikeMargin( 2.5 );
         setDbId( 6 );
         initDDECells();
-        setiTwsRequester(new AmazonRequester());
+        setiTwsRequester(new UltaRequester());
     }
 
     // Get instance

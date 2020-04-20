@@ -22,8 +22,6 @@ public class AppleRequester implements ITwsRequester {
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
-            apple.setIndex( 282 );
-
             // Options
             apple.getTwsHandler( ).requestOptions( apple.getOptionsHandler( ).getOptionsList( ) );
         } catch ( Exception e ) {

@@ -4,6 +4,7 @@ import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.stockObjects.STOCK_OBJECT;
+import threads.MyThread;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -34,8 +35,11 @@ public class StockWindow extends MyGuiComps.MyFrame {
         addWindowListener( new WindowAdapter( ) {
             @Override
             public void windowClosed( WindowEvent e ) {
-                stockPanel.getUpdater( ).getHandler( ).close( );
-                client.getBackRunner().closeRunner();
+                client.getBackRunner( ).closeRunner( );
+
+                for ( MyThread thread : client.getThreads( ) ) {
+                    thread.getHandler( ).close( );
+                }
             }
         } );
     }

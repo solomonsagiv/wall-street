@@ -40,7 +40,6 @@ public class MyServiceHandler extends MyThread implements Runnable {
                 initSleepCount( );
 
             } catch ( InterruptedException e ) {
-                e.printStackTrace( );
                 executor.shutdownNow();
                 break;
             } catch ( Exception e ) {

@@ -61,22 +61,28 @@ public class StockDayTable extends MyDayTable {
                 return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContractAsk();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conMoth", MySqlColumnEnum.CON_MONTH) {
+        addColumn(new MyColumnSql<>(this, "conMonth", MySqlColumnEnum.CON_MONTH) {
             @Override
             public Double getObject() {
                 return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContract();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conMothBid", MySqlColumnEnum.CON_MONTH_BID) {
+        addColumn(new MyColumnSql<>(this, "conMonthBid", MySqlColumnEnum.CON_MONTH_BID) {
             @Override
             public Double getObject() {
                 return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContractBid();
             }
         });
-        addColumn(new MyColumnSql<>(this, "conMothAsk", MySqlColumnEnum.CON_MONTH_ASK) {
+        addColumn(new MyColumnSql<>(this, "conMonthAsk", MySqlColumnEnum.CON_MONTH_ASK) {
             @Override
             public Double getObject() {
                 return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContractAsk();
+            }
+        });
+        addColumn(new MyColumnSql<>(this, "con_bid_ask_counter", MySqlColumnEnum.CON_BID_ASK_COUNTER) {
+            @Override
+            public Integer getObject() {
+                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getConBidAskCounter();
             }
         });
         addColumn(new MyColumnSql<>(this, "ind", MySqlColumnEnum.IND) {

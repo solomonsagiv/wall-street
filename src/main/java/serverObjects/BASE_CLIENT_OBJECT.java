@@ -95,7 +95,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     MySqlService mySqlService;
 
     // Races
-    private double racesMargin = 0;
+//    private double racesMargin = 0;
     private double optimiPesimiMargin = 0;
     private int conUp = 0;
     private int conDown = 0;
@@ -236,11 +236,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public double getRacesMargin() {
-        return racesMargin;
-    }
-
-    public void setRacesMargin( double racesMargin ) {
-        this.racesMargin = racesMargin;
+        return index * .001;
     }
 
     public DefaultTableModel getModel() {
@@ -664,7 +660,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexBidAskMargin=" + indexBidAskMargin +
                 ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +
-                ", racesMargin=" + racesMargin +
+                ", racesMargin=" + getRacesMargin() +
                 ", optimiPesimiMargin=" + optimiPesimiMargin +
                 ", conUp=" + conUp +
                 ", conDown=" + conDown +

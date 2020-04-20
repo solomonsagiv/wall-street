@@ -32,15 +32,21 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void loadData( ArrayList<Double> dots ) {
 
-        LocalDateTime time = myChartList.get( 0 ).getX();
+        try {
+            LocalDateTime time = myChartList.get( 0 ).getX( );
 
-        lastSeconde = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonth().getValue(), time.getYear());
-        for ( int i = 0; i < myChartList.size(); i++ ) {
-            add( lastSeconde.next(), myChartList.get( i ).getY() );
-            dots.add( myChartList.get( i ).getY() );
+            lastSeconde = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonth( ).getValue( ), time.getYear( ) );
+            for ( int i = 0; i < myChartList.size( ); i++ ) {
+                add( lastSeconde.next( ), myChartList.get( i ).getY( ) );
+                dots.add( myChartList.get( i ).getY( ) );
 
-            lastSeconde = ( Second ) lastSeconde.next();
+                lastSeconde = ( Second ) lastSeconde.next( );
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace();
         }
+
+        lastSeconde = new Second(  );
     }
 
     public double add() {

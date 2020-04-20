@@ -5,6 +5,7 @@ import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
 import serverObjects.stockObjects.Amazon;
+import serverObjects.stockObjects.Ulta;
 import tws.TwsContractsEnum;
 
 import java.util.ArrayList;
@@ -12,19 +13,19 @@ import java.util.ArrayList;
 public class UltaRequester implements ITwsRequester {
 
     ArrayList< Options > optionsList;
-    Amazon amazon;
+    Ulta ulta;
 
     @Override
     public void request( Downloader downloader ) {
         try {
-            amazon = Amazon.getInstance();
-            optionsList = amazon.getOptionsHandler( ).getOptionsList( );
+            ulta = Ulta.getInstance();
+            optionsList = ulta.getOptionsHandler( ).getOptionsList( );
 
             // Index
-            downloader.reqMktData( amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
+            downloader.reqMktData( ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            amazon.getTwsHandler( ).requestOptions( amazon.getOptionsHandler( ).getOptionsList( ) );
+            ulta.getTwsHandler( ).requestOptions( ulta.getOptionsHandler( ).getOptionsList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -36,34 +37,34 @@ public class UltaRequester implements ITwsRequester {
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
         if ( tickerId == index && price > 0 ) {
             // Last
             if ( field == 4 ) {
-                amazon.setIndex( price );
+                ulta.setIndex( price );
             }
             // Bid
             if ( field == 1 ) {
-                amazon.setIndexBid( price );
+                ulta.setIndexBid( price );
             }
             // Ask
             if ( field == 2 ) {
-                amazon.setIndexAsk( price );
+                ulta.setIndexAsk( price );
             }
 
             // Bid
             if ( field == 6 ) {
-                amazon.setHigh( price );
+                ulta.setHigh( price );
             }
             // Ask
             if ( field == 7 ) {
-                amazon.setLow( price );
+                ulta.setLow( price );
             }
 
             // Base
             if ( field == 9 ) {
-                amazon.setBase( price );
+                ulta.setBase( price );
             }
         }
 

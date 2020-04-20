@@ -28,13 +28,12 @@ public class LogicService extends MyBaseService {
     boolean first = false;
     boolean bool = true;
     boolean run = true;
-    double margin;
+    double margin = 0;
 
     // Constructor
     public LogicService( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
         super( client );
         this.optionsEnum = optionsEnum;
-        this.margin = client.getRacesMargin( );
     }
 
     @Override
@@ -53,9 +52,21 @@ public class LogicService extends MyBaseService {
         double future = 0;
         double index = 0;
 
+        // Options
         if ( options == null ) {
             options = getClient( ).getOptionsHandler( ).getOptions( optionsEnum );
         }
+
+        // Margin
+        if ( margin == 0 ) {
+            if ( getClient().getRacesMargin() != 0 ) {
+                margin = getClient().getRacesMargin();
+            } else {
+                return;
+            }
+        }
+
+        System.out.println(getClient().getName() + "  Logic " + " Margon: " + margin + " Opt: " + options.getType() );
 
         future = options.getContract( );
         index = getClient( ).getIndex( );

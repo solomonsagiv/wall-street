@@ -13,7 +13,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public Ndx() {
         super( );
         setName( "ndx" );
-        setRacesMargin( 0.7 );
         setIndexBidAskMargin( 1.25 );
         setDbId( 3 );
         setStrikeMargin( 40 );

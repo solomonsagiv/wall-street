@@ -4,6 +4,7 @@ import api.Manifest;
 import arik.Arik;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
+import threads.MyThread;
 
 import java.time.LocalTime;
 
@@ -18,23 +19,16 @@ public class BackRunner {
     }
 
     public void startRunner() {
-        try {
-            if ( !getRunner( ).isAlive( ) ) {
-                getRunner( ).start( );
-            }
-        } catch ( IllegalThreadStateException e ) {
-            setRunner( null );
-            getRunner( ).start( );
-        }
+        getRunner( ).getHandler( ).start( );
     }
 
     public void closeRunner() {
-        getRunner( ).close( );
+        getRunner( ).getHandler().close();
     }
 
     public Runner getRunner() {
         if ( runner == null ) {
-            runner = new Runner( );
+            runner = new Runner( client );
         }
         return runner;
     }
@@ -43,7 +37,11 @@ public class BackRunner {
         this.runner = runner;
     }
 
-    public class Runner extends Thread {
+    public class Runner extends MyThread implements Runnable {
+
+        public Runner( BASE_CLIENT_OBJECT client ) {
+            super( client );
+        }
 
         boolean run = true;
         double last_0 = client.getIndex( );
@@ -56,17 +54,15 @@ public class BackRunner {
             while ( isRun( ) ) {
                 try {
 
-                    System.out.println(client.getName() + " backRunner " );
-
                     // Sleep
-                    sleep( 2000 );
+                    Thread.sleep( 2000 );
 
                     now = LocalTime.now( );
 
                     double last = client.getIndex( );
 
                     // Start
-                    if ( now.isAfter( client.getIndexStartTime() ) && !client.isStarted( ) && last_0 != last ) {
+                    if ( now.isAfter( client.getIndexStartTime( ) ) && !client.isStarted( ) && last_0 != last ) {
 
                         if ( client.getOpen( ) == 0 ) {
                             client.setOpen( last );
@@ -76,19 +72,19 @@ public class BackRunner {
                     }
 
                     // Close runners
-                    if ( now.isAfter( client.getIndexEndTime() ) && client.isDbRunning() ) {
+                    if ( now.isAfter( client.getIndexEndTime( ) ) && client.isDbRunning( ) ) {
 
                         if ( Manifest.DB ) {
                             // Arik
-                            Arik.getInstance().sendMessageToEveryOne( client.getArikSumLine() );
+                            Arik.getInstance( ).sendMessageToEveryOne( client.getArikSumLine( ) );
                         }
 
-                        client.getMyServiceHandler().removeService( client.getMySqlService() );
-                        client.getMyServiceHandler().removeService( client.getListsService() );
+                        client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
+                        client.getMyServiceHandler( ).removeService( client.getListsService( ) );
                     }
 
                     // Export
-                    if ( now.isAfter( client.getFutureEndTime() ) ) {
+                    if ( now.isAfter( client.getFutureEndTime( ) ) ) {
                         client.fullExport( );
                         client.closeAll( );
                         break;
@@ -96,9 +92,9 @@ public class BackRunner {
 
 
                 } catch ( InterruptedException e ) {
-                    close( );
+                    e.printStackTrace();
                 } catch ( Exception e ) {
-                    Arik.getInstance().sendMessage( e.getMessage()  + "\n" + e.getCause() );
+                    Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
                 }
             }
         }
@@ -109,6 +105,11 @@ public class BackRunner {
             }
         }
 
+        @Override
+        public void initRunnable() {
+            setRunnable( this );
+        }
+
         public boolean isRun() {
             return run;
         }
@@ -117,8 +118,5 @@ public class BackRunner {
             this.run = run;
         }
 
-        public void close() {
-            run = false;
-        }
     }
 }

@@ -5,6 +5,7 @@ import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+import threads.MyThread;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -39,8 +40,9 @@ public class IndexWindow extends MyGuiComps.MyFrame {
         addWindowListener( new WindowAdapter( ) {
             @Override
             public void windowClosed( WindowEvent e ) {
-                indexPanel.getUpdater( ).getHandler( ).close( );
-                client.getBackRunner().closeRunner();
+                for ( MyThread thread : client.getThreads( ) ) {
+                    thread.getHandler( ).close( );
+                }
             }
         } );
     }

@@ -111,6 +111,8 @@ public class MyChart {
 
     }
 
+    boolean load = false;
+
     public ChartUpdater getUpdater() {
         return updater;
     }
@@ -131,13 +133,17 @@ public class MyChart {
         @Override
         public void run() {
 
-            // Load data
-            loadChartData( );
+//            // Load data
+//            loadChartData( );
 
             // While loop
             while ( isRun( ) ) {
                 try {
                     if ( client.isStarted( ) ) {
+                        if ( !load ) {
+                            loadChartData();
+                            load = true;
+                        }
                         // Sleep
                         Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
 

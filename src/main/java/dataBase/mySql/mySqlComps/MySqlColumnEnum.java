@@ -29,7 +29,7 @@ public enum MySqlColumnEnum {
     CON_WEEK_BID("conWeekBid", MySqlDataTypeEnum.DOUBLE),
     CON_WEEK_ASK("conWeekAsk", MySqlDataTypeEnum.DOUBLE),
     CON_WEEK_BID_ASK_COUNTER_LIST("conWeekBidAskCounterList",MySqlDataTypeEnum.STRING ),
-    CON_MONTH("conMoth", MySqlDataTypeEnum.DOUBLE),
+    CON_MONTH("conMonth", MySqlDataTypeEnum.DOUBLE),
     CON_MONTH_BID_ASK_COUNTER_LIST("conMonthBidAskCounterList",MySqlDataTypeEnum.STRING ),
     CON_MONTH_BID("conMonthBid", MySqlDataTypeEnum.DOUBLE),
     CON_MONTH_ASK("conMonthAsk", MySqlDataTypeEnum.DOUBLE),

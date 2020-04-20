@@ -26,12 +26,6 @@ public class MyThreadHandler {
             thread = new Thread( myThread.getRunnable( ) );
             thread.start( );
         }
-
-        try {
-            Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Started" );
-        } catch ( Exception e ) {
-            Arik.getInstance( ).sendMessage( myThread.getName( ) + " Started" );
-        }
     }
 
     // Close
@@ -42,11 +36,6 @@ public class MyThreadHandler {
             myThread.setRun( false );
             thread = null;
         }
-        try {
-            Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Closed" );
-        } catch ( Exception e ) {
-            Arik.getInstance( ).sendMessage( myThread.getName( ) + " Closed" );
-        }
     }
 
     // Restart
@@ -55,10 +44,5 @@ public class MyThreadHandler {
         close( );
         start( );
 
-        try {
-            Arik.getInstance( ).sendMessage( myThread.getClient( ).getName( ) + " " + myThread.getName( ) + " Restarted" );
-        } catch ( Exception e ) {
-            Arik.getInstance( ).sendMessage( myThread.getName( ) + " Restarted" );
-        }
     }
 }

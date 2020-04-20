@@ -23,7 +23,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     // Constructor
     public Spx() {
         setName( "spx" );
-        setRacesMargin( 0.3 );
         setIndexBidAskMargin( .5 );
         setDbId( 2 );
         setStrikeMargin( 5 );
@@ -41,7 +40,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         Roll quarter_quarterFar = new Roll( this, OptionsEnum.QUARTER , OptionsEnum.QUARTER_FAR , RollPriceEnum.FUTURE );
         rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
-
     }
 
     // Get instance

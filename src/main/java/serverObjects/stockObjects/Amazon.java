@@ -14,7 +14,6 @@ public class Amazon extends STOCK_OBJECT {
     // Constrtor
     public Amazon() {
         setName( "amazon" );
-        setRacesMargin( 0.1 );
         setStrikeMargin( 10 );
         setDbId( 5 );
         initDDECells();
