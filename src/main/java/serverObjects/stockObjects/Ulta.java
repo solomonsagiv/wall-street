@@ -1,7 +1,6 @@
 package serverObjects.stockObjects;
 
 import DDE.DDECells;
-import api.tws.requesters.AmazonRequester;
 import api.tws.requesters.UltaRequester;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.ApiEnum;

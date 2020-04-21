@@ -256,7 +256,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + getCalcDevidend( ) ) * ( getDays( ) / 360.0 ) ) );
+                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + getCalcDevidend( ) ) * ( getProps().getDays() / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
 
@@ -560,6 +560,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public void loadFromJson( MyJson object ) {
         getProps( ).loadFromJson( object.getMyJson( JsonEnum.PROPS.toString( ) ) );
         setFutureBidAskCounter( object.getInt( JsonEnum.FUTURE_BID_ASK_COUNTER.toString() ) );
+        setContractBidAskCounter( object.getInt( JsonEnum.CON_BID_ASK_COUNTER.toString() ) );
     }
 
     public List< Strike > getStrikes() {
@@ -600,12 +601,12 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             Call call = strike.getCall( );
             callJson.put( JsonEnum.BID.toString( ), call.getBid( ) );
             callJson.put( JsonEnum.ASK.toString( ), call.getAsk( ) );
-            callJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), call.getBidAskCounter( ) );
+            callJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), call.getBidAskCounter( ) );
 
             Put put = strike.getPut( );
             putJson.put( JsonEnum.BID.toString( ), put.getBid( ) );
             putJson.put( JsonEnum.ASK.toString( ), put.getAsk( ) );
-            putJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), put.getBidAskCounter( ) );
+            putJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), put.getBidAskCounter( ) );
 
             strikeJson.put( JsonEnum.CALL.toString( ), callJson );
             strikeJson.put( JsonEnum.PUT.toString( ), putJson );
@@ -613,12 +614,13 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), getConBidAskCounter( ) );
+        mainJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), getConBidAskCounter( ) );
         mainJson.put( JsonEnum.CONTRACT.toString( ), getContract( ) );
         mainJson.put( JsonEnum.OP_AVG.toString( ), L.floor( getOpAvg( ), 100 ) );
         mainJson.put( JsonEnum.OP_AVG_FUTURE.toString( ), L.floor( getOpAvgFuture( ), 100 ) );
         mainJson.put( JsonEnum.DATA.toString( ), optionsData );
         mainJson.put( JsonEnum.FUTURE_BID_ASK_COUNTER.toString(), getFutureBidAskCounter() );
+        mainJson.put( JsonEnum.CON_BID_ASK_COUNTER.toString(), getConBidAskCounter() );
 
         return mainJson;
     }
@@ -640,11 +642,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
             callJson.put( JsonEnum.BID.toString( ), 0 );
             callJson.put( JsonEnum.ASK.toString( ), 0 );
-            callJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), 0 );
+            callJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), 0 );
 
             putJson.put( JsonEnum.BID.toString( ), 0 );
             putJson.put( JsonEnum.ASK.toString( ), 0 );
-            putJson.put( JsonEnum.BID_ASK_COUNTER.toString( ), 0 );
+            putJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), 0 );
 
             strikeJson.put( JsonEnum.CALL.toString( ), callJson );
             strikeJson.put( JsonEnum.PUT.toString( ), putJson );

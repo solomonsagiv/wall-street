@@ -60,7 +60,8 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                 if ( !daysField.getText().isEmpty() ) {
                     try {
                         double d = L.dbl( daysField.getText() );
-                        OptionsPanel.options.setDaysToExp( d );
+//                        OptionsPanel.options.setDaysToExp( d );
+                        OptionsPanel.options.getProps().setDays(d);
                     } catch ( Exception e ) {
                         JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();
