@@ -66,6 +66,11 @@ public class UltaRequester implements ITwsRequester {
             if ( field == 9 ) {
                 ulta.setBase( price );
             }
+
+            // Open
+            if ( field == 14 ) {
+                ulta.setOpen( price );
+            }
         }
 
         for ( Options options : optionsList ) {

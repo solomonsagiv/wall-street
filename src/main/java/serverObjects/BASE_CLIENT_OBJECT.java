@@ -168,7 +168,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             Arik.getInstance( ).sendMessage( Arik.sagivID,
                     getName( ) + " Export faild " + Emojis.stop + "\n" + e.getStackTrace( ).toString( ), null );
         }
-
     }
 
     // ---------- basic functions ---------- //

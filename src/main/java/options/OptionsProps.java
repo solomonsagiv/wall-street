@@ -4,6 +4,7 @@ import charts.myChart.MyProps;
 import locals.IJsonDataBase;
 import myJson.MyJson;
 
+import javax.swing.*;
 import java.time.LocalDate;
 
 public class OptionsProps extends MyProps implements IJsonDataBase {
@@ -25,7 +26,8 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
 
     @Override
     public void loadFromJson( MyJson object ) {
-        setInterestWithCalc( object.getDouble( JsonEnum.INTEREST.toString() ) );
+        setInterest( object.getDouble( JsonEnum.INTEREST.toString() ) );
+        setInterestZero( object.getDouble( JsonEnum.INTEREST.toString() ) - 1 );
         setDevidend( object.getDouble( JsonEnum.DEVIDEND.toString() ) );
         setDate( object.getDate( JsonEnum.DATE.toString() ) );
         setDays( object.getDouble( JsonEnum.DAYS.toString() ) );
@@ -41,44 +43,40 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
         return object;
     }
 
-
     public void setInterestWithCalc( double interest ) {
-        this.interestZero = interest * 0.01;
-        this.interest = 1 + ( interest * 0.01 );
+        setInterest( 1 + ( interest * 0.01 ) );
+        setInterestZero( interest * 0.01 );
+
+    }
+
+    private void setInterestZero( double interestZero ) {
+        this.interestZero = interestZero;
     }
 
     public double getInterestZero() {
         return interestZero;
     }
-
     public double getInterest() {
         return interest;
     }
-
     public void setInterest( double interest ) {
         this.interest = interest;
     }
-
     public double getDevidend() {
         return devidend;
     }
-
     public void setDevidend( double devidend ) {
         this.devidend = devidend;
     }
-
     public double getDays() {
         return days;
     }
-
     public void setDays( double days ) {
         this.days = days;
     }
-
     public LocalDate getDate() {
         return date;
     }
-
     public void setDate( LocalDate date ) {
         this.date = date;
     }

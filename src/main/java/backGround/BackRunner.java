@@ -61,6 +61,9 @@ public class BackRunner {
 
                     double last = client.getIndex( );
 
+
+                    System.out.println( client.getName() + " Backgound " );
+
                     // Start
                     if ( now.isAfter( client.getIndexStartTime( ) ) && !client.isStarted( ) && last_0 != last ) {
 
@@ -90,9 +93,7 @@ public class BackRunner {
                         break;
                     }
 
-
                 } catch ( InterruptedException e ) {
-                    e.printStackTrace();
                 } catch ( Exception e ) {
                     Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
                 }

@@ -66,6 +66,11 @@ public class AmazonRequester implements ITwsRequester {
             if ( field == 9 ) {
                 amazon.setBase( price );
             }
+
+            // Open
+            if ( field == 14 ) {
+                amazon.setOpen( price );
+            }
         }
 
         for ( Options options : optionsList ) {

@@ -19,12 +19,6 @@ public class StockWindow extends MyGuiComps.MyFrame {
     public StockWindow( String title, STOCK_OBJECT client ) throws HeadlessException {
         super( title, client );
 
-        // Load data
-        client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
-
-        // Tws request
-        client.requestApi( );
-
         // Start client background runner
         client.getBackRunner( ).startRunner( );
 
@@ -35,11 +29,7 @@ public class StockWindow extends MyGuiComps.MyFrame {
         addWindowListener( new WindowAdapter( ) {
             @Override
             public void windowClosed( WindowEvent e ) {
-                client.getBackRunner( ).closeRunner( );
-
-                for ( MyThread thread : client.getThreads( ) ) {
-                    thread.getHandler( ).close( );
-                }
+                client.closeAll();
             }
         } );
     }

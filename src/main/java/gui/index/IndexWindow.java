@@ -27,12 +27,8 @@ public class IndexWindow extends MyGuiComps.MyFrame {
     public IndexWindow( String title, INDEX_CLIENT_OBJECT client ) throws HeadlessException {
         super( title, client );
 
-        // Load data
-        client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
-
-        client.requestApi();
-
         client.getBackRunner().startRunner();
+
     }
 
     @Override
@@ -40,9 +36,7 @@ public class IndexWindow extends MyGuiComps.MyFrame {
         addWindowListener( new WindowAdapter( ) {
             @Override
             public void windowClosed( WindowEvent e ) {
-                for ( MyThread thread : client.getThreads( ) ) {
-                    thread.getHandler( ).close( );
-                }
+                client.closeAll();
             }
         } );
     }

@@ -62,7 +62,8 @@ public class ListsService extends MyBaseService {
             options.getConList( ).add( options.getContract( ) );
             options.getConBidList( ).add( options.getContractBid( ) );
             options.getConAskList( ).add( options.getContractAsk( ) );
-            options.getFutBidAskCounterList().add( new MyChartPoint(now, options.getFutureBidAskCounter()) );
+            options.getFutBidAskCounterList().add( new MyChartPoint( now, options.getFutureBidAskCounter()) );
+            options.getConBidAskCounterList().add( new MyChartPoint( now, options.getConBidAskCounter() ) );
         }
 
         // Roll lists

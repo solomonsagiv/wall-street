@@ -232,7 +232,7 @@ public class DetailsWindow {
             list.add( "MySql: " + client.getMyServiceHandler().isExist( client.getMySqlService() ) );
             list.add( "\n" );
             list.add( "Exp date: " + options.getExpDate( ) );
-            list.add( "Days: " + options.getDays( ) );
+            list.add( "Days: " + options.getProps().getDays() );
             list.add( "Start strike: " + client.getStartStrike( ) );
             list.add( "End strike: " + client.getEndStrike( ) );
             list.add( "Got options: " + options.isGotData( ) );

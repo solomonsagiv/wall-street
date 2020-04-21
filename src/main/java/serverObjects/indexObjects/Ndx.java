@@ -53,11 +53,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void requestApi() {
-
-    }
-
-    @Override
     public void initBaseId() {
         setBaseId(20000);
     }

@@ -53,11 +53,6 @@ public class Apple extends STOCK_OBJECT {
     }
 
     @Override
-    public void requestApi() {
-
-    }
-
-    @Override
     public void initBaseId() {
         setBaseId(30000);
     }

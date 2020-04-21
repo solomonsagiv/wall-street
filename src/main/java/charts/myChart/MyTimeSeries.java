@@ -31,21 +31,27 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public void loadData( ArrayList<Double> dots ) {
-
         try {
+            System.out.println(name + " " + myChartList );
+
             LocalDateTime time = myChartList.get( 0 ).getX( );
 
             lastSeconde = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonth( ).getValue( ), time.getYear( ) );
+
             for ( int i = 0; i < myChartList.size( ); i++ ) {
+
                 add( lastSeconde.next( ), myChartList.get( i ).getY( ) );
                 dots.add( myChartList.get( i ).getY( ) );
 
                 lastSeconde = ( Second ) lastSeconde.next( );
+
             }
+            return;
+        } catch ( IndexOutOfBoundsException e ) {
+            e.printStackTrace();
         } catch ( Exception e ) {
             e.printStackTrace();
         }
-
         lastSeconde = new Second(  );
     }
 
@@ -60,9 +66,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             data = point.getY();
             addOrUpdate( getLastSeconde(), data );
         }
-
         lastSeconde = ( Second ) lastSeconde.next();
-
         return data;
     }
 

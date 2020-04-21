@@ -363,7 +363,6 @@ public class StockPanel extends JPanel implements IMyPanel {
                     updateText( );
 
                 } catch ( InterruptedException e ) {
-                    e.printStackTrace( );
                 }
             }
         }

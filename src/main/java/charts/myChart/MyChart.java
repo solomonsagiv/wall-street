@@ -133,9 +133,6 @@ public class MyChart {
         @Override
         public void run() {
 
-//            // Load data
-//            loadChartData( );
-
             // While loop
             while ( isRun( ) ) {
                 try {
@@ -156,7 +153,6 @@ public class MyChart {
                         }
                     }
                 } catch ( InterruptedException e ) {
-                    e.printStackTrace( );
                     break;
                 }
             }
@@ -194,6 +190,7 @@ public class MyChart {
                     dots.add( serie.add( ) );
                 }
             } catch ( IndexOutOfBoundsException e ) {
+                e.printStackTrace();
             }
         }
 

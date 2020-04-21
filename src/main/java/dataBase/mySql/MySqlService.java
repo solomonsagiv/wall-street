@@ -22,7 +22,7 @@ public class MySqlService extends MyBaseService {
         // Updater
         if (Manifest.DB_UPDATER) {
             // Status
-            if (sleepCount % 1000 == 0) {
+            if (sleepCount % 2000 == 0) {
                 client.getTablesHandler().getTable( TablesEnum.STATUS ).update();
             }
         }
@@ -52,7 +52,7 @@ public class MySqlService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 500;
+        return 1000;
     }
 
     @Override

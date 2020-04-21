@@ -28,7 +28,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     protected OptionsEnum type;
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
-    protected double daysToExp = -1;
     protected OptionsProps props;
     protected int contractBidAskCounter = 0;
     protected int baseID = 0;
@@ -259,7 +258,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                     final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + getCalcDevidend( ) ) * ( getProps().getDays() / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
-
                     buys.add( buy );
                     sells.add( sell );
 
@@ -275,21 +273,10 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             setContractBid( floor(currentBidMin, 100) );
             setContractAsk( floor(currentAskMax, 100) );
 
-
-            if ( currentBidMin > bidMin && bidMin != 0 ) {
-                setContractBidAskCounter( getConBidAskCounter( ) + 1 );
-            }
-
-            if ( currentAskMax < askMax && askMax != 0 ) {
-                setContractBidAskCounter( getConBidAskCounter( ) - 1 );
-            }
-
             bidMin = currentBidMin;
             askMax = currentAskMax;
 
-            double future = floor( ( ( bidMin + askMax ) / 2 ), 100 );
-
-            return future;
+            return floor( ( ( bidMin + askMax ) / 2 ), 100 );
         } catch ( Exception e ) {
             return 0;
         }
@@ -340,7 +327,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                 } catch ( Exception e ) {
                     // TODO: handle exception
                 }
-
             }
 
             double currentBidMin = Collections.min( buys );
@@ -736,6 +722,9 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     }
 
+
+
+
     public int getFutureBidAskCounter() {
         return futureBidAskCounter;
     }
@@ -833,24 +822,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     // ---------- Basic Functions ---------- //
-    public double getDays() {
-
-        if ( daysToExp == -1 ) {
-
-            if ( expDate != null ) {
-
-                double d = ( int ) ChronoUnit.DAYS.between( getToDay( ), expDate );
-                daysToExp = d + 2;
-
-            }
-        }
-        return daysToExp;
-    }
-
-    public void setDaysToExp( double daysToExp ) {
-        this.daysToExp = daysToExp;
-    }
-
     private double dbl( String s ) {
         return Double.parseDouble( s );
     }

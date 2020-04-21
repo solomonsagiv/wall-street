@@ -27,7 +27,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
-
     static Apple apple;
     static Amazon amazon;
     static Spx spx;

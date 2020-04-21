@@ -27,18 +27,18 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDbId( 2 );
         setStrikeMargin( 5 );
         setBaseId( 10000 );
-        initDDECells();
-        setIndexStartTime(LocalTime.of(16, 30, 0));
-        setIndexEndTime(LocalTime.of(23, 0, 0));
-        setFutureEndTime(LocalTime.of(23, 15, 0));
-        setiTwsRequester(new SpxRequester());
+        initDDECells( );
+        setIndexStartTime( LocalTime.of( 16, 30, 0 ) );
+        setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
+        setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
+        setiTwsRequester( new SpxRequester( ) );
         roll( );
     }
 
     private void roll() {
         rollHandler = new RollHandler( this );
 
-        Roll quarter_quarterFar = new Roll( this, OptionsEnum.QUARTER , OptionsEnum.QUARTER_FAR , RollPriceEnum.FUTURE );
+        Roll quarter_quarterFar = new Roll( this, OptionsEnum.QUARTER, OptionsEnum.QUARTER_FAR, RollPriceEnum.FUTURE );
         rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
     }
 
@@ -56,7 +56,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         // Fut Quarter
         OptionsDDeCells quarterDDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
         IndexOptions quarterOptions = new IndexOptions( getBaseId( ) + 3000, this, OptionsEnum.QUARTER, TwsContractsEnum.OPT_QUARTER, quarterDDeCells );
-        
+
         // Fut Quarter far
         OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
         IndexOptions quarterFarOptions = new IndexOptions( getBaseId( ) + 4000, this, OptionsEnum.QUARTER_FAR, TwsContractsEnum.OPT_QUARTER_FAR, quarterFarDDeCells );
@@ -68,47 +68,42 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setOptionsHandler( optionsHandler );
     }
 
-        @Override
-        public void initDDECells ( ) {
-            DDECells ddeCells = new DDECells( ) {
-                @Override
-                public boolean isWorkWithDDE() {
-                    return true;
-                }
-            };
+    @Override
+    public void initDDECells() {
+        DDECells ddeCells = new DDECells( ) {
+            @Override
+            public boolean isWorkWithDDE() {
+                return true;
+            }
+        };
 
-            // Ind
-            ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
-            ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
-            ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
+        // Ind
+        ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
+        ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
+        ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
 
-            ddeCells.addCell( DDECellsEnum.OPEN, "R10C4" );
-            ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
-            ddeCells.addCell( DDECellsEnum.LOW, "R10C2" );
-            ddeCells.addCell( DDECellsEnum.BASE, "R8C5" );
+        ddeCells.addCell( DDECellsEnum.OPEN, "R10C4" );
+        ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
+        ddeCells.addCell( DDECellsEnum.LOW, "R10C2" );
+        ddeCells.addCell( DDECellsEnum.BASE, "R8C5" );
 
-            setDdeCells( ddeCells );
-        }
+        setDdeCells( ddeCells );
+    }
 
-        @Override
-        public ApiEnum getApi ( ) {
-            return ApiEnum.DDE;
-        }
-
-        @Override
-        public void requestApi ( ) {
-
-        }
+    @Override
+    public ApiEnum getApi() {
+        return ApiEnum.DDE;
+    }
 
     @Override
     public void initBaseId() {
-        setBaseId(10000);
+        setBaseId( 10000 );
     }
 
     @Override
-        public double getTheoAvgMargin ( ) {
-            return 0.05;
-        }
-
-
+    public double getTheoAvgMargin() {
+        return 0.05;
     }
+
+
+}

@@ -62,7 +62,9 @@ public class TwsPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    client.requestApi();
+
+//                    client.requestApi();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     // todo

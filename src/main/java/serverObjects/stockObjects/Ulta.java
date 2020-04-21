@@ -53,11 +53,6 @@ public class Ulta extends STOCK_OBJECT {
     }
 
     @Override
-    public void requestApi() {
-
-    }
-
-    @Override
     public void initBaseId() {
         setBaseId(60000);
     }

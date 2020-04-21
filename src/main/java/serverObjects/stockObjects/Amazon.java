@@ -50,11 +50,6 @@ public class Amazon extends STOCK_OBJECT {
     }
 
     @Override
-    public void requestApi() {
-
-    }
-
-    @Override
     public void initBaseId() {
         setBaseId(50000);
     }

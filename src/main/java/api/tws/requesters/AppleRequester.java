@@ -64,6 +64,11 @@ public class AppleRequester implements ITwsRequester {
             if ( field == 9 ) {
                 apple.setBase( price );
             }
+
+            // Open
+            if ( field == 14 ) {
+                apple.setOpen( price );
+            }
         }
 
         for ( Options options : optionsList ) {

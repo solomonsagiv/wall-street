@@ -95,9 +95,9 @@ public class Downloader extends Thread implements EWrapper {
         for ( ITwsRequester requester: iTwsRequesters ) {
             requester.request( this );
         }
-//        client.reqAutoOpenOrders( true );
-//        client.reqPositions();
-//        client.reqAccountUpdates( true, Manifest.ACCOUNT );
+        client.reqAutoOpenOrders( true );
+        client.reqPositions();
+        client.reqAccountUpdates( true, Manifest.ACCOUNT );
     }
 
     public void addRequester( ITwsRequester requester) {
