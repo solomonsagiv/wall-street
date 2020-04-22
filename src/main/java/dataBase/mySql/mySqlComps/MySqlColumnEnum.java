@@ -48,7 +48,7 @@ public enum MySqlColumnEnum {
     SYMBOL("symbol", MySqlDataTypeEnum.STRING),
     INCLUD_EXPIRED("includExpired", MySqlDataTypeEnum.STRING),
     INDEX_LIST("indexList", MySqlDataTypeEnum.STRING),
-    OP_LIST("opList", MySqlDataTypeEnum.STRING),
+    OP_LIST("opList", MySqlDataTypeEnum.DOUBLE),
     IND_BID_ASK_COUNTER_LIST("indexBidAskCounterList", MySqlDataTypeEnum.STRING),
     QUARTER_FUT_BID_ASK_COUNTER_LIST("quarterFutBidAskCounterList", MySqlDataTypeEnum.STRING),
     QUARTER_FAR_FUT_BID_ASK_COUNTER_LIST("quarterFarFutBidAskCounterList", MySqlDataTypeEnum.STRING),

@@ -30,7 +30,7 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "indexlist", MySqlColumnEnum.INDEX_LIST ) {
             @Override
             public String getObject() {
-                return client.getIndexList( ).getLast().toString( );
+                return client.getIndexList( ).getLast().getAsJson().toString( );
             }
 
             @Override
@@ -43,6 +43,7 @@ public class StockArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
+
         addColumn( new MyLoadAbleColumn< Double >( this, "opList", MySqlColumnEnum.OP_LIST ) {
             @Override
             public Double getObject() {
@@ -63,7 +64,7 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "indexBidAskCounterList", MySqlColumnEnum.IND_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() {
-                return client.getIndexBidAskCounterList( ).getLast().toString( );
+                return client.getIndexBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
             @Override
@@ -79,7 +80,7 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "conWeekBidAskCounterList", MySqlColumnEnum.CON_WEEK_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).getLast().toString( );
+                return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
             @Override
@@ -95,7 +96,7 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "conMonthBidAskCounterList", MySqlColumnEnum.CON_MONTH_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).getLast().toString( );
+                return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
             @Override

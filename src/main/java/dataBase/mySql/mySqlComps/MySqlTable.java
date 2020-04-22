@@ -134,8 +134,6 @@ public abstract class MySqlTable implements IMyTableSql {
 
         MySql.update( query.toString( ) );
 
-        System.out.println( query );
-
     }
 
     @Override
@@ -151,22 +149,30 @@ public abstract class MySqlTable implements IMyTableSql {
                 for ( Map.Entry< MySqlColumnEnum, MyLoadAbleColumn > entry : loadAbleColumns.entrySet( ) ) {
                     MyLoadAbleColumn column = entry.getValue( );
 
+
+                    System.out.println(loadAbleColumns.keySet() );
+
+                    System.out.println("Col ddd " + column.name );
+
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
                         double d = rs.getDouble( column.name );
                         column.setLoadedObject( d );
-                        break;
+                        continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.INT ) {
                         int i = rs.getInt( column.name );
+
+                        System.out.println("Col " + column.name + " " + i);
+
                         column.setLoadedObject( i );
-                        break;
+                        continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
                         String s = rs.getString( column.name );
                         column.setLoadedObject( s );
-                        break;
+                        continue;
                     }
                 }
             }
@@ -195,8 +201,6 @@ public abstract class MySqlTable implements IMyTableSql {
         String endQuery = String.format( " WHERE `id`='%s';", client.getDbId( ) );
 
         query.append( endQuery );
-
-        System.out.println( query );
 
         MySql.update( query.toString( ) );
     }

@@ -11,7 +11,7 @@ public class MySqlService extends MyBaseService {
 
     BASE_CLIENT_OBJECT client;
 
-    public MySqlService(BASE_CLIENT_OBJECT client) {
+    public MySqlService( BASE_CLIENT_OBJECT client ) {
         super( client );
         this.client = client;
     }
@@ -20,26 +20,22 @@ public class MySqlService extends MyBaseService {
     public void go() {
 
         // Updater
-        if (Manifest.DB_UPDATER) {
+        if ( Manifest.DB_UPDATER ) {
             // Status
-            if (sleepCount % 2000 == 0) {
-                client.getTablesHandler().getTable( TablesEnum.STATUS ).update();
-            }
+            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
         }
 
         // DB runner
-        if (Manifest.DB_RUNNER) {
-            
+        if ( Manifest.DB_RUNNER ) {
+
             // Insert line
-            client.getTablesHandler().getTable(TablesEnum.DAY).insert();
+            client.getTablesHandler( ).getTable( TablesEnum.DAY ).insert( );
 
             // Arrays
-            if (sleepCount % 30000 == 0) {
-                client.getTablesHandler().getTable(TablesEnum.ARRAYS).update();
-            }
+            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).insert( );
 
             // Reset sleep count
-            if (sleepCount == 3000000) {
+            if ( sleepCount == 3000000 ) {
                 sleepCount = 0;
             }
         }
@@ -52,7 +48,7 @@ public class MySqlService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 1000;
+        return 2000;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class StockStatusTable extends MyStatusTable {
     public StockStatusTable( BASE_CLIENT_OBJECT client ) {
         super(client, "status");
     }
-
+    
     @Override
     public void initColumns() {
         addColumn(new MyColumnSql<>(this, "name", MySqlColumnEnum.NAME) {

@@ -1,5 +1,6 @@
 package lists;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
@@ -9,13 +10,13 @@ public class MyChartPoint {
     private LocalDateTime x;
     private double y;
 
-    public MyChartPoint(LocalDateTime x, double y) {
+    public MyChartPoint( LocalDateTime x, double y ) {
         this.x = x;
         this.y = y;
     }
 
-    public MyChartPoint(String x, double y) {
-        this.x = LocalDateTime.parse(x);
+    public MyChartPoint( String x, double y ) {
+        this.x = LocalDateTime.parse( x );
         this.y = y;
     }
 
@@ -24,11 +25,16 @@ public class MyChartPoint {
         this.y = jsonObject.getDouble("y");
     }
 
+//    public MyChartPoint( JSONArray jsonArray ) {
+//        this.x = LocalDateTime.parse( jsonArray.getString( 0 ) );
+//        this.y = jsonArray.getDouble( 1 );
+//    }
+
     public LocalDateTime getX() {
         return x;
     }
 
-    public void setX(LocalDateTime x) {
+    public void setX( LocalDateTime x ) {
         this.x = x;
     }
 
@@ -36,12 +42,19 @@ public class MyChartPoint {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY( double y ) {
         this.y = y;
+    }
+
+    public JSONObject getAsJson() {
+        JSONObject object = new JSONObject( );
+        object.put( "x", getX( ) );
+        object.put( "y", getY( ) );
+        return object;
     }
 
     @Override
     public String toString() {
-        return  "[" + x + ", " + y + "]";
+        return "[" + x + ", " + y + "]";
     }
 }

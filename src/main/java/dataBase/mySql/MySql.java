@@ -96,7 +96,6 @@ public class MySql {
 
     }
 
-
     // Get connection pool
     public static ConnectionPool getPool() {
         if ( pool == null ) {

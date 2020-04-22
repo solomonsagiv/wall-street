@@ -30,7 +30,7 @@ public class ArraysTable extends MyArraysTable {
         addColumn(new MyLoadAbleColumn<String>(this, "indexlist", MySqlColumnEnum.INDEX_LIST) {
             @Override
             public String getObject() {
-                return client.getIndexList().getLast().toString();
+                return client.getIndexList().getLast().getAsJson().toString();
             }
 
             @Override
@@ -63,7 +63,7 @@ public class ArraysTable extends MyArraysTable {
         addColumn(new MyLoadAbleColumn<String>(this, "indexBidAskCounterList", MySqlColumnEnum.IND_BID_ASK_COUNTER_LIST) {
             @Override
             public String getObject() {
-                return client.getIndexBidAskCounterList().getLast().toString();
+                return client.getIndexBidAskCounterList().getLast().getAsJson().toString();
             }
 
             @Override
@@ -79,7 +79,7 @@ public class ArraysTable extends MyArraysTable {
         addColumn(new MyLoadAbleColumn<String>(this, "quarterFutBidAskCounterList", MySqlColumnEnum.QUARTER_FUT_BID_ASK_COUNTER_LIST) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutBidAskCounterList().getLast().toString();
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutBidAskCounterList().getLast().getAsJson().toString();
             }
 
             @Override
@@ -96,7 +96,7 @@ public class ArraysTable extends MyArraysTable {
         addColumn(new MyLoadAbleColumn<String>(this, "quarterFarFutBidAskCounterList", MySqlColumnEnum.QUARTER_FAR_FUT_BID_ASK_COUNTER_LIST) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutBidAskCounterList().getLast().toString();
+                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutBidAskCounterList().getLast().getAsJson().toString();
             }
 
             @Override
@@ -112,6 +112,5 @@ public class ArraysTable extends MyArraysTable {
                 return new JSONArray().toString();
             }
         });
-
     }
 }

@@ -235,7 +235,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public double getRacesMargin() {
-        return index * .0007;
+        return index * .0001;
     }
 
     public DefaultTableModel getModel() {

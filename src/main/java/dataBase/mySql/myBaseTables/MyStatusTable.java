@@ -25,4 +25,5 @@ public abstract class MyStatusTable extends MySqlTable {
 
     @Override
     public void reset() {super.reset();}
+
 }
