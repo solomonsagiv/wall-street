@@ -15,12 +15,18 @@ import java.util.Map;
 
 public abstract class MyArraysTable extends MySqlTable {
 
-    public MyArraysTable( BASE_CLIENT_OBJECT client, String name ) {
-        super( client, name );
+    public MyArraysTable( BASE_CLIENT_OBJECT client ) {
+        super( client );
+    }
+
+    @Override
+    public String getName() {
+        return client.getName() + "_arrays";
     }
 
     @Override
     public void insert() {
+        super.insert();
     }
 
     @Override
@@ -47,32 +53,42 @@ public abstract class MyArraysTable extends MySqlTable {
 
     @Override
     public void update() {
-        super.update();
+//        super.update();
     }
+
+
+
+//    @Override
+//    public void reset() {
+//        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", getName() ) );
+//
+//        int i = 0;
+//
+//        for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
+//            MyLoadAbleColumn column = entry.getValue();
+//            if ( i < loadAbleColumns.size( ) - 1 ) {
+//                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'," );
+//            } else {
+//                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'" );
+//            }
+//            i++;
+//        }
+//
+//        String endQuery = String.format( "WHERE `id`='%s';", client.getDbId( ) );
+//
+//        query.append( endQuery );
+//
+//        MySql.update( query.toString( ) );
+//    }
+
 
     @Override
     public void reset() {
-        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", getName() ) );
-
-        int i = 0;
-
-        for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
-            MyLoadAbleColumn column = entry.getValue();
-            if ( i < loadAbleColumns.size( ) - 1 ) {
-                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'," );
-            } else {
-                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'" );
-            }
-            i++;
-        }
-
-        String endQuery = String.format( "WHERE `id`='%s';", client.getDbId( ) );
-
-        query.append( endQuery );
-
-        MySql.update( query.toString( ) );
+//
+//        MySql.
+//
+//        super.reset();
     }
-
 
     // Convert json array to arrayList<Double>
     public void convertJsonArrayToDoubleArray( JSONArray jsonArray, ArrayList< Double > list ) {

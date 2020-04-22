@@ -1,5 +1,7 @@
 package lists;
 
+import org.json.JSONObject;
+
 import java.time.LocalDateTime;
 
 public class MyChartPoint {
@@ -15,6 +17,11 @@ public class MyChartPoint {
     public MyChartPoint(String x, double y) {
         this.x = LocalDateTime.parse(x);
         this.y = y;
+    }
+
+    public MyChartPoint(JSONObject jsonObject) {
+        this.x = LocalDateTime.parse(jsonObject.getString("x"));
+        this.y = jsonObject.getDouble("y");
     }
 
     public LocalDateTime getX() {

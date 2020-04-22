@@ -57,11 +57,43 @@ public class MySql {
 
             // execute the query, and get a java resultset
             rs = st.executeQuery( query );
+
+            // Release connection
+            getPool().releaseConnection( conn );
+
         } catch ( Exception e ) {
             System.err.println( e.getMessage( ) );
             Arik.getInstance( ).sendErrorMessage( e );
         }
         return rs;
+    }
+
+
+    public static void main(String[] args) {
+        MySql.trunticate("amazon_arrays");
+    }
+
+    public static void trunticate( String tableName ) {
+
+        String query = "TRUNCATE TABLE " + "stocks." + tableName;
+        Statement st = null;
+        try {
+
+            Connection conn = ConnectionPool.getConnectionsPoolInstance( ).getConnection( );
+            // create the java statement
+            st = conn.createStatement( );
+
+            // execute the query, and get a java resultset
+            st.executeUpdate( query );
+
+            // Release connection
+            getPool().releaseConnection( conn );
+
+        } catch ( Exception e ) {
+            System.err.println( e.getMessage( ) );
+            Arik.getInstance( ).sendErrorMessage( e );
+        }
+
     }
 
 

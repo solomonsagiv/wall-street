@@ -4,28 +4,23 @@ import dataBase.mySql.myBaseTables.MyArraysTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import lists.MyChartPoint;
 import options.OptionsEnum;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 public class StockArraysTable extends MyArraysTable {
 
     // Constructor
     public StockArraysTable( BASE_CLIENT_OBJECT client ) {
-        super( client, "arrays" );
+        super( client );
     }
 
     @Override
     public void initColumns() {
-        addColumn( new MyColumnSql< String >( this, "name", MySqlColumnEnum.NAME ) {
-            @Override
-            public String getObject() {
-                return client.getName( );
-            }
-        } );
         addColumn( new MyColumnSql< String >( this, "time", MySqlColumnEnum.TIME ) {
             @Override
             public String getObject() {
@@ -35,12 +30,12 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "indexlist", MySqlColumnEnum.INDEX_LIST ) {
             @Override
             public String getObject() {
-                return client.getIndexList( ).toString( );
+                return client.getIndexList( ).getLast().toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getIndexList( ).setData( new JSONArray( object ) );
+                client.getIndexList( ).add(new MyChartPoint(new JSONObject(object)));
             }
 
             @Override
@@ -48,31 +43,32 @@ public class StockArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< String >( this, "opList", MySqlColumnEnum.OP_LIST ) {
+        addColumn( new MyLoadAbleColumn< Double >( this, "opList", MySqlColumnEnum.OP_LIST ) {
             @Override
-            public String getObject() {
-                return client.getOptionsHandler( ).getMainOptions( ).getOpList( ).toString( );
+            public Double getObject() {
+                int last = client.getOptionsHandler( ).getMainOptions( ).getOpList( ).size() - 1;
+                return client.getOptionsHandler( ).getMainOptions( ).getOpList( ).get(last);
             }
 
             @Override
-            public void setLoadedObject( String object ) {
-                convertJsonArrayToDoubleArray( new JSONArray( object ), ( ArrayList< Double > ) client.getOptionsHandler( ).getMainOptions( ).getOpList( ) );
+            public void setLoadedObject( Double object ) {
+                client.getOptionsHandler( ).getMainOptions( ).getOpList( ).add(object);
             }
 
             @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
+            public Double getResetObject() {
+                return null;
             }
         } );
         addColumn( new MyLoadAbleColumn< String >( this, "indexBidAskCounterList", MySqlColumnEnum.IND_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() {
-                return client.getIndexBidAskCounterList( ).toString( );
+                return client.getIndexBidAskCounterList( ).getLast().toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getIndexBidAskCounterList( ).setData( new JSONArray( object ) );
+                client.getIndexBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
             }
 
             @Override
@@ -83,12 +79,12 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "conWeekBidAskCounterList", MySqlColumnEnum.CON_WEEK_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).toString( );
+                return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).getLast().toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).setData( new JSONArray( object ) );
+                client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
             }
 
             @Override
@@ -99,12 +95,12 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "conMonthBidAskCounterList", MySqlColumnEnum.CON_MONTH_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).toString( );
+                return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).getLast().toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).setData( new JSONArray( object ) );
+                client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
             }
 
             @Override

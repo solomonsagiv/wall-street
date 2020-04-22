@@ -4,7 +4,6 @@ import charts.myChart.MyProps;
 import locals.IJsonDataBase;
 import myJson.MyJson;
 
-import javax.swing.*;
 import java.time.LocalDate;
 
 public class OptionsProps extends MyProps implements IJsonDataBase {
