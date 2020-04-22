@@ -1,28 +1,21 @@
 package setting.fullSettingWindow;
 
-import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
-import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
-import setting.DataBasePanel;
-import setting.TickerPanel;
-import setting.optionsPanel.OptionsPanel;
 
 import java.awt.*;
 
 public class FullSettingWindow extends MyGuiComps.MyFrame {
 
     public static void main( String[] args ) {
-        Spx.getInstance().getTablesHandler().getTable( TablesEnum.TWS_CONTRACTS ).load();
-        FullSettingWindow settingWindow = new FullSettingWindow( "Setting", Spx.getInstance() );
+        FullSettingWindow settingWindow = new FullSettingWindow( "Setting" );
     }
 
     // Races panel
     FullSettingOptionsPanel optionsPanel;
     FullSettingDataBasePanel dataBasePanel;
 
-    public FullSettingWindow( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
-        super( title, client );
+    public FullSettingWindow( String title ) throws HeadlessException {
+        super( title );
     }
 
     @Override
@@ -45,7 +38,7 @@ public class FullSettingWindow extends MyGuiComps.MyFrame {
         setResizable( false );
 
         // Options
-        optionsPanel = new FullSettingOptionsPanel( client );
+        optionsPanel = new FullSettingOptionsPanel( );
         optionsPanel.setXY( 0, 0 );
         optionsPanel.setSize( ( int ) getPreferredSize().getWidth(), optionsPanel.getHeight() );
         add( optionsPanel );

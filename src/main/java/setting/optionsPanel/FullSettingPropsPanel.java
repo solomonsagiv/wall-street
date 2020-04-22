@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PropsPanel extends MyGuiComps.MyPanel {
+public class FullSettingPropsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
@@ -24,7 +24,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton submitBtn;
 
     // Constructor
-    public PropsPanel( BASE_CLIENT_OBJECT client ) {
+    public FullSettingPropsPanel(BASE_CLIENT_OBJECT client ) {
         this.client = client;
         initialize( );
         initListeners( );
@@ -41,6 +41,10 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                     try {
                         double d = L.dbl( interestField.getText() );
                         OptionsPanel.options.getProps().setInterestWithCalc( d );
+
+
+
+
                     } catch ( Exception e ) {
                         JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();

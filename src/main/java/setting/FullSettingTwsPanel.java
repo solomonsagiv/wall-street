@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-public class TwsPanel extends MyGuiComps.MyPanel {
+public class FullSettingTwsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
@@ -21,7 +21,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton requestDataBtn;
 
     // Constructor
-    public TwsPanel(BASE_CLIENT_OBJECT client ) {
+    public FullSettingTwsPanel(BASE_CLIENT_OBJECT client ) {
         this.client = client;
         initialize();
         initListeners();

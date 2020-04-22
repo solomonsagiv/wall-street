@@ -2,32 +2,28 @@ package setting.fullSettingWindow;
 
 import gui.MyGuiComps;
 import locals.Themes;
-import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import setting.TwsPanel;
-import setting.optionsPanel.PropsPanel;
+import setting.FullSettingTwsPanel;
+import setting.optionsPanel.FullSettingPropsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
 
     static String INDEXS = "INDEXS", STOCKS = "STOCKS";
+    static String WEEK = "WEEK", MONTH = "MONTH", QUARTER = "QUARTER", QUARTER_FAR = "QUARTER_FAR";
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    public static Options options;
 
-    JComboBox comboBox;
-    PropsPanel propsPanel;
-    TwsPanel twsPanel;
+    JComboBox clientsCombo;
+    JComboBox optionsCombo;
+    FullSettingPropsPanel fullSettingPropsPanel;
+    FullSettingTwsPanel fullSettingTwsPanel;
 
     // Constructor
-    public FullSettingOptionsPanel( BASE_CLIENT_OBJECT client ) {
-        this.client = client;
+    public FullSettingOptionsPanel( ) {
         initialize( );
         initListeners( );
     }
@@ -46,21 +42,28 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
         setBorder( titledBorder );
 
         // Props
-        propsPanel = new PropsPanel( client );
-        propsPanel.setXY( 0, 20 );
-        add( propsPanel );
+        fullSettingPropsPanel = new FullSettingPropsPanel( client );
+        fullSettingPropsPanel.setXY( 0, 20 );
+        add(fullSettingPropsPanel);
 
         // Tws
-        twsPanel = new TwsPanel( client );
-        twsPanel.setXY( propsPanel.getX( ) + propsPanel.getWidth( ) + 1, propsPanel.getY( ) );
-        add( twsPanel );
+        fullSettingTwsPanel = new FullSettingTwsPanel( client );
+        fullSettingTwsPanel.setXY( fullSettingPropsPanel.getX( ) + fullSettingPropsPanel.getWidth( ) + 1, fullSettingPropsPanel.getY( ) );
+        add(fullSettingTwsPanel);
 
         // Combo
-        comboBox = new JComboBox( getOptionsArrayString( ) );
-        comboBox.setBackground( Themes.BLUE );
-        comboBox.setForeground( Themes.GREY_VERY_LIGHT );
-        comboBox.setBounds( twsPanel.getX( ) + twsPanel.getWidth( ) + 5, twsPanel.getY( ), 120, 25 );
-        add( comboBox );
+        clientsCombo = new JComboBox( getOptionsArrayString( ) );
+        clientsCombo.setBackground( Themes.BLUE );
+        clientsCombo.setForeground( Themes.GREY_VERY_LIGHT );
+        clientsCombo.setBounds( fullSettingTwsPanel.getX( ) + fullSettingTwsPanel.getWidth( ) + 5, fullSettingTwsPanel.getY( ), 120, 25 );
+        add(clientsCombo);
+
+        // Options combo
+        optionsCombo = new JComboBox( new String[]{"WEEK", "MONTH", "QUARTER", "QUARTER_FAR"});
+        optionsCombo.setBackground( Themes.BLUE );
+        optionsCombo.setForeground( Themes.GREY_VERY_LIGHT );
+        optionsCombo.setBounds( clientsCombo.getX( ) + clientsCombo.getWidth( ) + 5, clientsCombo.getY( ), 120, 25 );
+        add( optionsCombo );
     }
 
     public String[] getOptionsArrayString() {
