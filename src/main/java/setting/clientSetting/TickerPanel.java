@@ -1,4 +1,4 @@
-package setting;
+package setting.clientSetting;
 
 import gui.MyGuiComps;
 import locals.L;

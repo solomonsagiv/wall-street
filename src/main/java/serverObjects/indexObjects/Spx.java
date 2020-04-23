@@ -3,6 +3,7 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.tws.requesters.SpxRequester;
+import logic.LogicService;
 import options.IndexOptions;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
@@ -32,6 +33,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setiTwsRequester( new SpxRequester( ) );
+        setLogicService( new LogicService( this, OptionsEnum.QUARTER ) );
         roll( );
     }
 

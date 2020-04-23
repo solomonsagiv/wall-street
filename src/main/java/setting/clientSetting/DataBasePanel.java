@@ -1,4 +1,4 @@
-package setting;
+package setting.clientSetting;
 
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;

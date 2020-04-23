@@ -60,6 +60,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     List< Double > conAskList = new ArrayList<>( );
     MyChartList futBidAskCounterList = new MyChartList( );
     MyChartList conBidAskCounterList = new MyChartList( );
+    MyChartList opAvgChartList = new MyChartList( );
 
     public Options(int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType ) {
         this.baseID = baseID;
@@ -931,6 +932,14 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     public List< Double > getConAskList() {
         return conAskList;
+    }
+
+    public MyChartList getOpAvgChartList() {
+        return opAvgChartList;
+    }
+
+    public void setOpAvgChartList( MyChartList opAvgChartList ) {
+        this.opAvgChartList = opAvgChartList;
     }
 
     public MyChartList getConBidAskCounterList() {

@@ -1,7 +1,5 @@
 package gui.stock;
 
-import charts.myCharts.IndexBidAskCounterIndexChart;
-import charts.myCharts.IndexVsQuarterLiveChart;
 import charts.myCharts.stockCharts.MonthCounter_IndexCounter_Index_Chart;
 import charts.myCharts.stockCharts.Month_Index_Live_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
@@ -17,7 +15,7 @@ import options.fullOptions.FullOptionsWindow;
 import options.fullOptions.PositionsWindow;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
-import setting.SettingWindow;
+import setting.clientSetting.SettingWindow;
 import threads.MyThread;
 
 import javax.swing.*;

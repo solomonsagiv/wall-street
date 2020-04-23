@@ -32,12 +32,10 @@ public class ArraysTable extends MyArraysTable {
             public String getObject() {
                 return client.getIndexList().getLast().getAsJson().toString();
             }
-
             @Override
             public void setLoadedObject(String object) {
                 client.getIndexList().add(new MyChartPoint(new JSONObject(object)));
             }
-
             @Override
             public String getResetObject() {
                 return new JSONArray().toString();
@@ -47,14 +45,12 @@ public class ArraysTable extends MyArraysTable {
             @Override
             public Double getObject() {
                 int last = client.getOptionsHandler().getMainOptions().getOpList().size() - 1;
-                return client.getOptionsHandler().getMainOptions().getOpList().get(last);
+                return client.getOptionsHandler().getMainOptions().getOpFutureList().get(last);
             }
-
             @Override
             public void setLoadedObject(Double object) {
                 client.getOptionsHandler().getMainOptions().getOpList().add(object);
             }
-
             @Override
             public Double getResetObject() {
                 return null;
@@ -84,7 +80,6 @@ public class ArraysTable extends MyArraysTable {
 
             @Override
             public void setLoadedObject(String object) {
-                System.out.println(client.getName());
                 client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutBidAskCounterList().add(new MyChartPoint(new JSONObject(object)));
             }
 
@@ -102,7 +97,6 @@ public class ArraysTable extends MyArraysTable {
             @Override
             public void setLoadedObject(String object) {
                 if (!object.isEmpty()) {
-                    System.out.println(client.getName());
                     client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutBidAskCounterList().add(new MyChartPoint(new JSONObject(object)));
                 }
             }

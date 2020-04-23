@@ -1,9 +1,8 @@
-package setting.optionsPanel;
+package setting.clientSetting.optionsPanel;
 
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
-import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;

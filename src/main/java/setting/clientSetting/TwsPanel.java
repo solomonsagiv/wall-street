@@ -1,9 +1,9 @@
-package setting;
+package setting.clientSetting;
 
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import setting.optionsPanel.OptionsPanel;
+import setting.clientSetting.optionsPanel.OptionsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-public class FullSettingTwsPanel extends MyGuiComps.MyPanel {
+public class TwsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
@@ -21,7 +21,7 @@ public class FullSettingTwsPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton requestDataBtn;
 
     // Constructor
-    public FullSettingTwsPanel(BASE_CLIENT_OBJECT client ) {
+    public TwsPanel( BASE_CLIENT_OBJECT client ) {
         this.client = client;
         initialize();
         initListeners();
@@ -62,7 +62,7 @@ public class FullSettingTwsPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-
+                // TODO
 //                    client.requestApi();
 
                 } catch (Exception e) {
@@ -71,7 +71,6 @@ public class FullSettingTwsPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
-
     }
 
     private void initialize() {

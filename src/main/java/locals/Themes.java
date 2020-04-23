@@ -26,7 +26,7 @@ public class Themes {
 
 
     public static Color BLUE_2 = new Color( 0, 65, 171 );
-    public static Color BLUE_LIGHT_2 = new Color( 79, 146, 255 );
+    public static Color BLUE_LIGHT_2 = new Color( 79, 229, 255, 255 );
 
     public static Color BLUE = new Color( 0, 51, 102 );
     public static Color LIGHT_BLUE = new Color( 176, 196, 222 );

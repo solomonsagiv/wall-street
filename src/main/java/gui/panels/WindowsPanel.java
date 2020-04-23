@@ -10,7 +10,9 @@ import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Netflix;
 import serverObjects.stockObjects.Ulta;
+import setting.fullSettingWindow.FullSettingWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +24,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     JComboBox clientsCombo;
+    MyGuiComps.MyButton fullSettingBtn;
 
     MyGuiComps.MyLabel windowsLbl = new MyGuiComps.MyLabel( "Windows" );
 
@@ -56,9 +59,21 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "ULTA":
                         new StockWindow( "Ulta", Ulta.getInstance( ) );
                         break;
+                    case "NETFLIX":
+                        new StockWindow( "Netflix", Netflix.getInstance( ) );
+                        break;
                     default:
                         break;
                 }
+            }
+        } );
+
+
+        // Full setting
+        fullSettingBtn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                 new FullSettingWindow( "Full setting" );
             }
         } );
     }
@@ -85,6 +100,11 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
         clientsCombo.setForeground( Color.WHITE );
         add( clientsCombo );
 
+        // Full setting
+        fullSettingBtn = new MyGuiComps.MyButton( "Full setting" );
+        fullSettingBtn.setXY( clientsCombo.getX(), clientsCombo.getY() + clientsCombo.getHeight() + 5 );
+        fullSettingBtn.setWidth( 80 );
+        add( fullSettingBtn );
     }
 
     private void initCombo() {

@@ -15,7 +15,7 @@ import options.fullOptions.PositionsWindow;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import setting.SettingWindow;
+import setting.clientSetting.SettingWindow;
 import threads.MyThread;
 
 import javax.swing.*;
@@ -88,7 +88,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         initListeners( );
 
         // Updater
-        getUpdater().getHandler().start();
+        getUpdater( ).getHandler( ).start( );
 
     }
 
@@ -309,7 +309,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         indRacesField.colorForge( client.getIndexSum( ) );
 
         // Roll
-        rollField.colorForge( client.getRollHandler().getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll(), L.format100( ) );
+        rollField.colorForge( client.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll( ), L.format100( ) );
     }
 
     @Override
@@ -386,22 +386,32 @@ public class IndexPanel extends JPanel implements IMyPanel {
         JMenu charts = new JMenu( "Charts" );
 
         // Setting
-        JMenuItem settingWindow = new JMenuItem("Setting");
-        settingWindow.addActionListener(new ActionListener() {
+        JMenuItem settingWindow = new JMenuItem( "Setting" );
+        settingWindow.addActionListener( new ActionListener( ) {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                new SettingWindow( client.getName(), client );
+            public void actionPerformed( ActionEvent e ) {
+                new SettingWindow( client.getName( ), client );
             }
-        });
+        } );
 
         JMenuItem indexBidAskCounter_indexItem = new JMenuItem( "Index B/A" );
         indexBidAskCounter_indexItem.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 IndexBidAskCounterIndexChart chart = new IndexBidAskCounterIndexChart( client );
-                chart.createChart();
+                chart.createChart( );
             }
         } );
+
+        JMenuItem indQuarterOpAvgFuture = new JMenuItem( "indQuarterOpAvgFuture" );
+        indQuarterOpAvgFuture.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                IndexVsQuarterVSOpAvgLiveChart chart = new IndexVsQuarterVSOpAvgLiveChart( client );
+                chart.createChart( );
+            }
+        } );
+
 
         JMenuItem e2_indexCounter_index_item = new JMenuItem( "E2 / Ind counuter/ Ind" );
         e2_indexCounter_index_item.addActionListener( new ActionListener( ) {
@@ -409,7 +419,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             public void actionPerformed( ActionEvent e ) {
                 E2_IndexCounter_Index_Chart chart = new E2_IndexCounter_Index_Chart( client );
                 try {
-                    chart.createChart();
+                    chart.createChart( );
                 } catch ( CloneNotSupportedException cloneNotSupportedException ) {
                     cloneNotSupportedException.printStackTrace( );
                 }
@@ -421,7 +431,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 FutureFarBidAskCounterIndexChart chart = new FutureFarBidAskCounterIndexChart( client );
-                chart.createChart();
+                chart.createChart( );
             }
         } );
 
@@ -430,7 +440,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 IndexVsQuarterLiveChart chart = new IndexVsQuarterLiveChart( client );
-                chart.createChart();
+                chart.createChart( );
             }
         } );
 
@@ -439,7 +449,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 IndexVsQuarterQuarterFarLiveChart chart = new IndexVsQuarterQuarterFarLiveChart( client );
-                chart.createChart();
+                chart.createChart( );
             }
         } );
 
@@ -491,6 +501,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         export.add( exportSumLine );
 
+        charts.add( indQuarterOpAvgFuture );
         charts.add( e2_indexCounter_index_item );
         charts.add( e2BACounter_index );
         charts.add( quarter_index_item );

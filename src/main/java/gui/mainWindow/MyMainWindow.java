@@ -9,6 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Netflix;
 import serverObjects.stockObjects.Ulta;
 
 import javax.swing.*;
@@ -17,9 +18,9 @@ import java.awt.*;
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
     // Main
-    public static void main(String[] args) {
-        MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println(mainWindow.getWidth());
+    public static void main( String[] args ) {
+        MyMainWindow mainWindow = new MyMainWindow( "My main window" );
+        System.out.println( mainWindow.getWidth( ) );
     }
 
     // Variables
@@ -31,28 +32,32 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Amazon amazon;
     static Spx spx;
     static Ulta ulta;
-    static  {
-        spx = Spx.getInstance();
-        apple = Apple.getInstance();
-        amazon = Amazon.getInstance();
-        ulta = Ulta.getInstance();
+    static Netflix netflix;
+
+    static {
+        spx = Spx.getInstance( );
+        apple = Apple.getInstance( );
+        amazon = Amazon.getInstance( );
+        ulta = Ulta.getInstance( );
+        netflix = Netflix.getInstance( );
     }
 
     // Constructor
-    public MyMainWindow(String title) throws HeadlessException {
-        super(title);
+    public MyMainWindow( String title ) throws HeadlessException {
+        super( title );
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(spx);
-        LocalHandler.clients.add(apple);
+        LocalHandler.clients.add( spx );
+        LocalHandler.clients.add( apple );
         LocalHandler.clients.add( amazon );
-        LocalHandler.clients.add(ulta);
+        LocalHandler.clients.add( ulta );
+        LocalHandler.clients.add( netflix );
     }
 
     @Override
     public void onClose() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     }
 
     @Override
@@ -63,43 +68,43 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // Append clients
-        appendClients();
+        appendClients( );
 
         // Load data from DB
-        loadOnStartUp();
+        loadOnStartUp( );
 
         // This
-        setXY(100, 100);
-        setSize(500, 500);
-        setLayout(null);
+        setXY( 100, 100 );
+        setSize( 500, 500 );
+        setLayout( null );
 
         // Head
-        headPanel = new HeadPanel();
-        headPanel.setXY(0, 0);
-        add(headPanel);
+        headPanel = new HeadPanel( );
+        headPanel.setXY( 0, 0 );
+        add( headPanel );
 
         // Connection
-        connectionPanel = new ConnectionPanel();
-        connectionPanel.setXY(0, headPanel.getHeight());
-        getContentPane().add(connectionPanel);
+        connectionPanel = new ConnectionPanel( );
+        connectionPanel.setXY( 0, headPanel.getHeight( ) );
+        getContentPane( ).add( connectionPanel );
 
         // Windows
-        windowsPanel = new WindowsPanel();
-        windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
-        add(windowsPanel);
+        windowsPanel = new WindowsPanel( );
+        windowsPanel.setXY( 0, connectionPanel.getY( ) + connectionPanel.getHeight( ) + 1 );
+        add( windowsPanel );
 
     }
 
     private void loadOnStartUp() {
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            client.getTablesHandler().getTable( TablesEnum.TWS_CONTRACTS ).load();
-            client.getTablesHandler().getTable(TablesEnum.STATUS).load();
-            client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
+            client.getTablesHandler( ).getTable( TablesEnum.TWS_CONTRACTS ).load( );
+            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
+            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
 
-            client.setLoadStatusFromHB(true);
-            client.setLoadArraysFromHB(true);
-            client.setLoadFromDb(true);
+            client.setLoadStatusFromHB( true );
+            client.setLoadArraysFromHB( true );
+            client.setLoadFromDb( true );
         }
 
     }

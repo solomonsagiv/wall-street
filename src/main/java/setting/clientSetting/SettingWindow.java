@@ -1,9 +1,9 @@
-package setting;
+package setting.clientSetting;
 
 import gui.MyGuiComps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-import setting.optionsPanel.OptionsPanel;
+import setting.clientSetting.optionsPanel.OptionsPanel;
 
 import java.awt.*;
 

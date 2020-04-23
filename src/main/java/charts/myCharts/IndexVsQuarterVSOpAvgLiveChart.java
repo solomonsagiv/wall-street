@@ -1,20 +1,18 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import locals.L;
 import locals.Themes;
+import options.Option;
+import options.Options;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.Scanner;
 
-public class IndexVsQuarterLiveChart extends MyChartCreator {
+public class IndexVsQuarterVSOpAvgLiveChart extends MyChartCreator {
 
     // Constructor
-    public IndexVsQuarterLiveChart( BASE_CLIENT_OBJECT client ) {
+    public IndexVsQuarterVSOpAvgLiveChart( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
     
@@ -43,7 +41,7 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
             }
         };
 
-        // Bid
+        // Index
         MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
             @Override
             public double getData() {
@@ -51,7 +49,7 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
             }
         };
 
-        // Ask
+        // Index
         MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
             @Override
             public double getData() {
@@ -59,15 +57,24 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
             }
         };
 
+        // OpAvg
+        MyTimeSeries opAvg = new MyTimeSeries( "OpAvgFuture", Themes.BLUE_LIGHT_2, 2.25f, props, null ) {
+            @Override
+            public double getData() {
+                Options options = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
+                return options.getFuture() - options.getOpAvgFuture();
+            }
+        };
+
         // Future
-        MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
+        MyTimeSeries future = new MyTimeSeries( "Future", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
                 return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
             }
         };
 
-        MyTimeSeries[] series = {index, bid, ask, future };
+        MyTimeSeries[] series = { index, bid, ask, future, opAvg };
 
         // Chart
         MyChart chart = new MyChart( client, series, props );

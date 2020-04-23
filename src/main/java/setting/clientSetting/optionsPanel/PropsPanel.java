@@ -1,16 +1,17 @@
-package setting.optionsPanel;
+package setting.clientSetting.optionsPanel;
 
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FullSettingPropsPanel extends MyGuiComps.MyPanel {
+public class PropsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
@@ -24,7 +25,7 @@ public class FullSettingPropsPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton submitBtn;
 
     // Constructor
-    public FullSettingPropsPanel(BASE_CLIENT_OBJECT client ) {
+    public PropsPanel( BASE_CLIENT_OBJECT client ) {
         this.client = client;
         initialize( );
         initListeners( );
@@ -36,15 +37,12 @@ public class FullSettingPropsPanel extends MyGuiComps.MyPanel {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
+
                 // Interest
                 if ( !interestField.getText().isEmpty() ) {
                     try {
                         double d = L.dbl( interestField.getText() );
                         OptionsPanel.options.getProps().setInterestWithCalc( d );
-
-
-
-
                     } catch ( Exception e ) {
                         JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();

@@ -25,11 +25,6 @@ public class MyChartPoint {
         this.y = jsonObject.getDouble("y");
     }
 
-//    public MyChartPoint( JSONArray jsonArray ) {
-//        this.x = LocalDateTime.parse( jsonArray.getString( 0 ) );
-//        this.y = jsonArray.getDouble( 1 );
-//    }
-
     public LocalDateTime getX() {
         return x;
     }

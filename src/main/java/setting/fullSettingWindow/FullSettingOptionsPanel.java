@@ -3,8 +3,8 @@ package setting.fullSettingWindow;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import setting.FullSettingTwsPanel;
-import setting.optionsPanel.FullSettingPropsPanel;
+import setting.clientSetting.TwsPanel;
+import setting.clientSetting.optionsPanel.PropsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -17,10 +17,9 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
     // Variables
     BASE_CLIENT_OBJECT client;
 
-    JComboBox clientsCombo;
-    JComboBox optionsCombo;
-    FullSettingPropsPanel fullSettingPropsPanel;
-    FullSettingTwsPanel fullSettingTwsPanel;
+    public static JComboBox clientsCombo;
+    public static JComboBox optionsCombo;
+    FullSettingOptionsProps propsPanel;
 
     // Constructor
     public FullSettingOptionsPanel( ) {
@@ -42,20 +41,21 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
         setBorder( titledBorder );
 
         // Props
-        fullSettingPropsPanel = new FullSettingPropsPanel( client );
-        fullSettingPropsPanel.setXY( 0, 20 );
-        add(fullSettingPropsPanel);
+        propsPanel = new FullSettingOptionsProps( client );
+        propsPanel.setXY( 0, 20 );
+        add( propsPanel );
 
-        // Tws
-        fullSettingTwsPanel = new FullSettingTwsPanel( client );
-        fullSettingTwsPanel.setXY( fullSettingPropsPanel.getX( ) + fullSettingPropsPanel.getWidth( ) + 1, fullSettingPropsPanel.getY( ) );
-        add(fullSettingTwsPanel);
+//        // Tws
+//        twsPanel = new TwsPanel( client );
+//        twsPanel.setXY( propsPanel.getX( ) + propsPanel.getWidth( ) + 1, propsPanel.getY( ) );
+//        add( twsPanel );
 
         // Combo
         clientsCombo = new JComboBox( getOptionsArrayString( ) );
         clientsCombo.setBackground( Themes.BLUE );
         clientsCombo.setForeground( Themes.GREY_VERY_LIGHT );
-        clientsCombo.setBounds( fullSettingTwsPanel.getX( ) + fullSettingTwsPanel.getWidth( ) + 5, fullSettingTwsPanel.getY( ), 120, 25 );
+        clientsCombo.setBounds( propsPanel.getX( ) + propsPanel.getWidth( ) + 5, propsPanel.getY( ), 120, 25 );
+        clientsCombo.setSelectedItem( STOCKS );
         add(clientsCombo);
 
         // Options combo

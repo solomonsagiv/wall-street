@@ -1,12 +1,12 @@
-package setting.optionsPanel;
+package setting.clientSetting.optionsPanel;
 
 import gui.MyGuiComps;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import setting.RacesPanel;
-import setting.FullSettingTwsPanel;
+import setting.clientSetting.RacesPanel;
+import setting.clientSetting.TwsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -21,9 +21,9 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
 
     JComboBox comboBox;
     RacesPanel racesPanel;
-    FullSettingPropsPanel fullSettingPropsPanel;
+    PropsPanel propsPanel;
     ExecutorsPanel executorsPanel;
-    FullSettingTwsPanel fullSettingTwsPanel;
+    TwsPanel twsPanel;
 
     // Constructor
     public OptionsPanel( BASE_CLIENT_OBJECT client ) {
@@ -79,25 +79,25 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         add( racesPanel );
 
         // Props
-        fullSettingPropsPanel = new FullSettingPropsPanel( client );
-        fullSettingPropsPanel.setXY( racesPanel.getX( ) + racesPanel.getWidth( ) + 1, 20 );
-        add(fullSettingPropsPanel);
+        propsPanel = new PropsPanel( client );
+        propsPanel.setXY( racesPanel.getX( ) + racesPanel.getWidth( ) + 1, 20 );
+        add( propsPanel );
 
         // Executors
         executorsPanel = new ExecutorsPanel( client );
-        executorsPanel.setXY( fullSettingPropsPanel.getX( ) + fullSettingPropsPanel.getWidth( ) + 1, fullSettingPropsPanel.getY( ) );
+        executorsPanel.setXY( propsPanel.getX( ) + propsPanel.getWidth( ) + 1, propsPanel.getY( ) );
         add( executorsPanel );
 
         // Tws
-        fullSettingTwsPanel = new FullSettingTwsPanel( client );
-        fullSettingTwsPanel.setXY( executorsPanel.getX( ) + executorsPanel.getWidth( ) + 1, executorsPanel.getY( ) );
-        add(fullSettingTwsPanel);
+        twsPanel = new TwsPanel( client );
+        twsPanel.setXY( executorsPanel.getX( ) + executorsPanel.getWidth( ) + 1, executorsPanel.getY( ) );
+        add( twsPanel );
 
         // Combo
         comboBox = new JComboBox( getOptionsArrayString( ) );
         comboBox.setBackground( Themes.BLUE );
         comboBox.setForeground( Themes.GREY_VERY_LIGHT );
-        comboBox.setBounds( fullSettingTwsPanel.getX( ) + fullSettingTwsPanel.getWidth( ) + 5, fullSettingTwsPanel.getY( ), 120, 25 );
+        comboBox.setBounds( twsPanel.getX( ) + twsPanel.getWidth( ) + 5, twsPanel.getY( ), 120, 25 );
         add( comboBox );
     }
 

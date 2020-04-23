@@ -2,12 +2,10 @@ package dataBase.mySql.myBaseTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
-import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
-import dataBase.mySql.mySqlComps.MySqlColumnEnum;
-import dataBase.mySql.mySqlComps.MySqlDataTypeEnum;
-import dataBase.mySql.mySqlComps.MySqlTable;
+import dataBase.mySql.mySqlComps.*;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +13,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class MyArraysTable extends MySqlTable {
+
+    public static void main( String[] args ) {
+        Spx spx = Spx.getInstance();
+        spx.getTablesHandler().getTable( TablesEnum.TWS_CONTRACTS ).load();
+        spx.getTablesHandler().getTable( TablesEnum.ARRAYS ).load();
+
+        System.out.println(spx.getIndexList() );
+
+
+    }
 
     public MyArraysTable( BASE_CLIENT_OBJECT client ) {
         super( client );
@@ -39,20 +47,19 @@ public abstract class MyArraysTable extends MySqlTable {
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {
-
                 for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
                     MyLoadAbleColumn column = entry.getValue();
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
                         double d = rs.getDouble( column.name );
                         column.setLoadedObject( d );
-                        break;
+                        continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
                         String s = rs.getString( column.name );
                         column.setLoadedObject( s );
-                        break;
+                        continue;
                     }
 
                 }

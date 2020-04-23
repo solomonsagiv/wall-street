@@ -2,9 +2,10 @@ package setting.fullSettingWindow;
 
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
+import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
+import serverObjects.stockObjects.STOCK_OBJECT;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,8 +25,8 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
     // Constructor
     public FullSettingDataBasePanel( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        initialize();
-        initListeners();
+        initialize( );
+        initListeners( );
     }
 
     private void initListeners() {
@@ -34,8 +35,15 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         startBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getMyServiceHandler( ).addService( client.getMySqlService( ) );
-                startBtn.complete();
+
+                if ( FullSettingOptionsPanel.clientsCombo.getSelectedItem( ) == "STOCKS" ) {
+                    for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+                        if ( client instanceof STOCK_OBJECT ) {
+                            client.getMyServiceHandler( ).addService( client.getMySqlService( ) );
+                        }
+                    }
+                }
+                startBtn.complete( );
             }
         } );
 
@@ -43,8 +51,14 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         stopBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
-                stopBtn.complete();
+                if ( FullSettingOptionsPanel.clientsCombo.getSelectedItem( ) == "STOCKS" ) {
+                    for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+                        if ( client instanceof STOCK_OBJECT ) {
+                            client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
+                        }
+                    }
+                }
+                stopBtn.complete( );
             }
         } );
 
@@ -52,9 +66,17 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         resetBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).reset( );
-                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).reset( );
-                resetBtn.complete();
+
+                if ( FullSettingOptionsPanel.clientsCombo.getSelectedItem( ) == "STOCKS" ) {
+                    for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+                        if ( client instanceof STOCK_OBJECT ) {
+                            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).reset( );
+                            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).reset( );
+
+                        }
+                    }
+                }
+                resetBtn.complete( );
             }
         } );
 
@@ -62,9 +84,15 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         updateBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
-                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).update( );
-                updateBtn.complete();
+                if ( FullSettingOptionsPanel.clientsCombo.getSelectedItem( ) == "STOCKS" ) {
+                    for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+                        if ( client instanceof STOCK_OBJECT ) {
+                            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
+                            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).update( );
+                        }
+                    }
+                }
+                updateBtn.complete( );
             }
         } );
 
@@ -72,9 +100,16 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         updateBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
-                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
-                updateBtn.complete();
+
+                if ( FullSettingOptionsPanel.clientsCombo.getSelectedItem( ) == "STOCKS" ) {
+                    for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+                        if ( client instanceof STOCK_OBJECT ) {
+                            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
+                            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
+                        }
+                    }
+                }
+                updateBtn.complete( );
             }
         } );
 
@@ -82,8 +117,15 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         sumBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.getTablesHandler().getTable(TablesEnum.SUM).insert();
-                sumBtn.complete();
+
+                if ( FullSettingOptionsPanel.clientsCombo.getSelectedItem( ) == "STOCKS" ) {
+                    for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+                        if ( client instanceof STOCK_OBJECT ) {
+                            client.getTablesHandler( ).getTable( TablesEnum.SUM ).insert( );
+                        }
+                    }
+                }
+                sumBtn.complete( );
             }
         } );
 
@@ -98,58 +140,58 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         setBorder( titledBorder );
 
         // Start
-        startBtn = new MyGuiComps.MyButton("Start mysql");
+        startBtn = new MyGuiComps.MyButton( "Start mysql" );
         startBtn.setXY( 10, 30 );
-        startBtn.setBackground(Themes.BLUE);
-        startBtn.setWidth(70);
+        startBtn.setBackground( Themes.BLUE );
+        startBtn.setWidth( 70 );
         startBtn.setFont( startBtn.getFont( ).deriveFont( 9f ) );
-        startBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(startBtn);
+        startBtn.setForeground( Themes.GREY_VERY_LIGHT );
+        add( startBtn );
 
         // Stop
-        stopBtn = new MyGuiComps.MyButton("Stop mysql");
+        stopBtn = new MyGuiComps.MyButton( "Stop mysql" );
         stopBtn.setXY( 90, 30 );
-        stopBtn.setWidth(70);
+        stopBtn.setWidth( 70 );
         stopBtn.setFont( stopBtn.getFont( ).deriveFont( 9f ) );
-        stopBtn.setBackground(Themes.BLUE);
-        stopBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(stopBtn);
+        stopBtn.setBackground( Themes.BLUE );
+        stopBtn.setForeground( Themes.GREY_VERY_LIGHT );
+        add( stopBtn );
 
         // Reset
-        resetBtn = new MyGuiComps.MyButton("Reset");
+        resetBtn = new MyGuiComps.MyButton( "Reset" );
         resetBtn.setXY( 10, 60 );
-        resetBtn.setWidth(70);
+        resetBtn.setWidth( 70 );
         resetBtn.setFont( resetBtn.getFont( ).deriveFont( 9f ) );
-        resetBtn.setBackground(Themes.BLUE);
-        resetBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(resetBtn);
+        resetBtn.setBackground( Themes.BLUE );
+        resetBtn.setForeground( Themes.GREY_VERY_LIGHT );
+        add( resetBtn );
 
         // Update
-        updateBtn = new MyGuiComps.MyButton("Update");
+        updateBtn = new MyGuiComps.MyButton( "Update" );
         updateBtn.setXY( 90, 60 );
-        updateBtn.setWidth(70);
+        updateBtn.setWidth( 70 );
         updateBtn.setFont( updateBtn.getFont( ).deriveFont( 9f ) );
-        updateBtn.setBackground(Themes.BLUE);
-        updateBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(updateBtn);
+        updateBtn.setBackground( Themes.BLUE );
+        updateBtn.setForeground( Themes.GREY_VERY_LIGHT );
+        add( updateBtn );
 
         // Load
-        loadBtn = new MyGuiComps.MyButton("Load");
+        loadBtn = new MyGuiComps.MyButton( "Load" );
         loadBtn.setXY( 170, 60 );
-        loadBtn.setWidth(70);
+        loadBtn.setWidth( 70 );
         loadBtn.setFont( loadBtn.getFont( ).deriveFont( 9f ) );
-        loadBtn.setBackground(Themes.BLUE);
-        loadBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(loadBtn);
+        loadBtn.setBackground( Themes.BLUE );
+        loadBtn.setForeground( Themes.GREY_VERY_LIGHT );
+        add( loadBtn );
 
         // Sum line
-        sumBtn = new MyGuiComps.MyButton("Sum");
+        sumBtn = new MyGuiComps.MyButton( "Sum" );
         sumBtn.setXY( 10, 90 );
-        sumBtn.setWidth(70);
+        sumBtn.setWidth( 70 );
         sumBtn.setFont( sumBtn.getFont( ).deriveFont( 9f ) );
-        sumBtn.setBackground(Themes.BLUE);
-        sumBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(sumBtn);
+        sumBtn.setBackground( Themes.BLUE );
+        sumBtn.setForeground( Themes.GREY_VERY_LIGHT );
+        add( sumBtn );
 
     }
 }
