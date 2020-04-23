@@ -19,8 +19,8 @@ public class Manifest {
     public static boolean DB = true;
     public static boolean DB_RUNNER = true;
     public static boolean DB_UPDATER = true;
-    public static String ACCOUNT = TEST_ACCOUNT;
-    public static int PORT = TEST_PORT;
+    public static String ACCOUNT = REAL_ACCOUNT;
+    public static int PORT = REAL_PORT;
     public static int SCREEN = 1;
 
     // FUTURES
