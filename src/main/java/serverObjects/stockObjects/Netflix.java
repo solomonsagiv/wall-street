@@ -1,13 +1,24 @@
 package serverObjects.stockObjects;
 
 import DDE.DDECells;
-import api.tws.requesters.AppleRequester;
 import api.tws.requesters.NetflixRequester;
+import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.ApiEnum;
 
 import java.time.LocalTime;
 
 public class Netflix extends STOCK_OBJECT {
+
+
+    public static void main(String[] args) {
+        Apple netflix = Apple.getInstance();
+        netflix.getTablesHandler().getTable(TablesEnum.TWS_CONTRACTS).load();
+        netflix.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
+        netflix.getTablesHandler().getTable(TablesEnum.STATUS).load();
+
+        netflix.getTablesHandler().getTable(TablesEnum.SUM).insert();
+
+    }
 
     static Netflix client = null;
 
