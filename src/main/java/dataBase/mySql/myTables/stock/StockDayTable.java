@@ -16,7 +16,7 @@ public class StockDayTable extends MyDayTable {
     public StockDayTable( BASE_CLIENT_OBJECT client ) {
         super(client, client.getName() );
     }
-
+    
     @Override
     public void initColumns() {
         addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.DATE) {

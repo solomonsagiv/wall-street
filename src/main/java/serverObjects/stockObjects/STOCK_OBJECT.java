@@ -4,7 +4,6 @@ import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.TwsContractsTable;
-import dataBase.mySql.myTables.index.ArraysTable;
 import dataBase.mySql.myTables.stock.StockArraysTable;
 import dataBase.mySql.myTables.stock.StockDayTable;
 import dataBase.mySql.myTables.stock.StockStatusTable;
@@ -44,17 +43,17 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initOptionsHandler() {
 
-        // Month
-        MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_WEEK );
-        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK );
+        // Week
+        MyContract weekContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_WEEK );
+        StockOptions weekOptions = new StockOptions( weekContract.getMyId( ), this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK );
 
-        // Quarter
-        MyContract quarterContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
-        StockOptions quarterOptions = new StockOptions( quarterContract.getMyId( ), this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH );
+        // Month
+        MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
+        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH );
 
         OptionsHandler optionsHandler = new OptionsHandler( this );
+        optionsHandler.addOptions( weekOptions );
         optionsHandler.addOptions( monthOptions );
-        optionsHandler.addOptions( quarterOptions );
         optionsHandler.setMainOptions( monthOptions );
 
         setOptionsHandler( optionsHandler );
