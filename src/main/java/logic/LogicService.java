@@ -66,8 +66,6 @@ public class LogicService extends MyBaseService {
             }
         }
 
-        System.out.println(getClient().getName() + "  Logic " + " Margin: " + margin + " Opt: " + options.getType() );
-
         future = options.getContract( );
         index = getClient( ).getIndex( );
 

@@ -2,28 +2,29 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.requesters.AppleRequester;
+import api.tws.requesters.MicrosoftRequester;
 import serverObjects.ApiEnum;
 
 import java.time.LocalTime;
 
-public class Apple extends STOCK_OBJECT {
+public class Microsoft extends STOCK_OBJECT {
 
-    static Apple client = null;
+    static Microsoft client = null;
 
     // Constrtor
-    public Apple() {
-        setName( "apple" );
-        setStrikeMargin( 5 );
+    public Microsoft() {
+        setName( "microsoft" );
+        setStrikeMargin( 2.5 );
 
-        setDbId( 4 );
+        setDbId( 9 );
         initDDECells();
-        setiTwsRequester(new AppleRequester());
+        setiTwsRequester(new MicrosoftRequester());
     }
 
     // Get instance
-    public static Apple getInstance() {
+    public static Microsoft getInstance() {
         if ( client == null ) {
-            client = new Apple( );
+            client = new Microsoft( );
         }
         return client;
     }
@@ -51,6 +52,6 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initBaseId() {
-        setBaseId(30000);
+        setBaseId(90000);
     }
 }

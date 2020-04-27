@@ -87,4 +87,9 @@ public class AppleRequester implements ITwsRequester {
             }
         }
     }
+
+    @Override
+    public void sizeReciever( int tickerId, int field, int size ) {
+
+    }
 }

@@ -7,13 +7,11 @@ import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.Amazon;
-import serverObjects.stockObjects.Apple;
-import serverObjects.stockObjects.Netflix;
-import serverObjects.stockObjects.Ulta;
+import serverObjects.stockObjects.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
@@ -33,13 +31,17 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Spx spx;
     static Ulta ulta;
     static Netflix netflix;
+    static Amd amd;
+    static Microsoft microsoft;
 
     static {
         spx = Spx.getInstance( );
-        apple = Apple.getInstance( );
-        amazon = Amazon.getInstance( );
-        ulta = Ulta.getInstance( );
-        netflix = Netflix.getInstance( );
+//        apple = Apple.getInstance( );
+//        amazon = Amazon.getInstance( );
+//        ulta = Ulta.getInstance( );
+//        netflix = Netflix.getInstance( );
+//        amd = Amd.getInstance();
+//        microsoft = Microsoft.getInstance();
     }
 
     // Constructor
@@ -49,10 +51,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
         LocalHandler.clients.add( spx );
-        LocalHandler.clients.add( apple );
-        LocalHandler.clients.add( amazon );
-        LocalHandler.clients.add( ulta );
-        LocalHandler.clients.add( netflix );
+//        LocalHandler.clients.add( apple );
+//        LocalHandler.clients.add( amazon );
+//        LocalHandler.clients.add( ulta );
+//        LocalHandler.clients.add( netflix );
+//        LocalHandler.clients.add( amd );
+//        LocalHandler.clients.add( microsoft );
     }
 
     @Override

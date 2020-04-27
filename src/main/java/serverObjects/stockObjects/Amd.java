@@ -1,29 +1,28 @@
 package serverObjects.stockObjects;
 
 import DDE.DDECells;
+import api.tws.requesters.AmdRequester;
 import api.tws.requesters.AppleRequester;
 import serverObjects.ApiEnum;
 
-import java.time.LocalTime;
+public class Amd extends STOCK_OBJECT {
 
-public class Apple extends STOCK_OBJECT {
-
-    static Apple client = null;
+    static Amd client = null;
 
     // Constrtor
-    public Apple() {
-        setName( "apple" );
-        setStrikeMargin( 5 );
+    public Amd() {
+        setName( "amd" );
+        setStrikeMargin( 1 );
 
-        setDbId( 4 );
+        setDbId( 8 );
         initDDECells();
-        setiTwsRequester(new AppleRequester());
+        setiTwsRequester(new AmdRequester());
     }
 
     // Get instance
-    public static Apple getInstance() {
+    public static Amd getInstance() {
         if ( client == null ) {
-            client = new Apple( );
+            client = new Amd( );
         }
         return client;
     }
@@ -51,6 +50,6 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initBaseId() {
-        setBaseId(30000);
+        setBaseId(80000);
     }
 }

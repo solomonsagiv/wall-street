@@ -5,13 +5,11 @@ import gui.index.IndexWindow;
 import gui.stock.StockWindow;
 import locals.LocalHandler;
 import locals.Themes;
+import org.hibernate.persister.walking.spi.AnyMappingDefinition;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.Amazon;
-import serverObjects.stockObjects.Apple;
-import serverObjects.stockObjects.Netflix;
-import serverObjects.stockObjects.Ulta;
+import serverObjects.stockObjects.*;
 import setting.fullSettingWindow.FullSettingWindow;
 
 import javax.swing.*;
@@ -61,6 +59,12 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "NETFLIX":
                         new StockWindow( "Netflix", Netflix.getInstance( ) );
+                        break;
+                    case "MICROSOFT":
+                        new StockWindow( "Microsoft", Microsoft.getInstance( ) );
+                        break;
+                    case "AMD":
+                        new StockWindow( "Amd", Amd.getInstance( ) );
                         break;
                     default:
                         break;

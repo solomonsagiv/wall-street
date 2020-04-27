@@ -4,28 +4,27 @@ import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
-import serverObjects.stockObjects.Apple;
-import serverObjects.stockObjects.Netflix;
+import serverObjects.stockObjects.Amd;
 import tws.TwsContractsEnum;
 
 import java.util.ArrayList;
 
-public class NetflixRequester implements ITwsRequester {
+public class AmdRequester implements ITwsRequester {
 
     ArrayList< Options > optionsList;
-    Netflix netflix;
+    Amd amd;
 
     @Override
     public void request( Downloader downloader ) {
         try {
-            netflix = Netflix.getInstance();
-            optionsList = netflix.getOptionsHandler( ).getOptionsList( );
+            amd = Amd.getInstance();
+            optionsList = amd.getOptionsHandler( ).getOptionsList( );
 
             // Index
-            downloader.reqMktData( netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
+            downloader.reqMktData( amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            netflix.getTwsHandler( ).requestOptions( netflix.getOptionsHandler( ).getOptionsList( ) );
+            amd.getTwsHandler( ).requestOptions( amd.getOptionsHandler( ).getOptionsList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -37,39 +36,39 @@ public class NetflixRequester implements ITwsRequester {
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
         if ( tickerId == index && price > 0 ) {
             // Last
             if ( field == 4 ) {
-                netflix.setIndex( price );
+                amd.setIndex( price );
             }
             // Bid
             if ( field == 1 ) {
-                netflix.setIndexBid( price );
+                amd.setIndexBid( price );
             }
             // Ask
             if ( field == 2 ) {
-                netflix.setIndexAsk( price );
+                amd.setIndexAsk( price );
             }
 
             // Bid
             if ( field == 6 ) {
-                netflix.setHigh( price );
+                amd.setHigh( price );
             }
             // Ask
             if ( field == 7 ) {
-                netflix.setLow( price );
+                amd.setLow( price );
             }
 
             // Base
             if ( field == 9 ) {
-                netflix.setBase( price );
+                amd.setBase( price );
             }
 
             // Open
             if ( field == 14 ) {
-                netflix.setOpen( price );
+                amd.setOpen( price );
             }
         }
 

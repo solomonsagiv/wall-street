@@ -5,6 +5,7 @@ import dataBase.mySql.myBaseTables.MyDayTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import options.OptionsEnum;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalDate;
@@ -136,7 +137,7 @@ public class StockDayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getMainOptions().getAsJson().toString();
+                return client.getOptionsHandler().getAllOptionsAsJson().toString();
             }
         });
         addColumn(new MyColumnSql<>(this, "base", MySqlColumnEnum.BASE) {
@@ -149,6 +150,26 @@ public class StockDayTable extends MyDayTable {
             @Override
             public Double getObject() {
                 return client.getOptionsHandler().getMainOptions().getOpAvg();
+            }
+        });
+        addColumn(new MyColumnSql<Double>(this, "roll", MySqlColumnEnum.ROLL) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll( RollEnum.WEEK_MONTH).getRoll();
+                } catch (Exception e) {
+                    return 0.0;
+                }
+            }
+        });
+        addColumn(new MyColumnSql<Double>(this, "rollAvg", MySqlColumnEnum.ROLL_AVG) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll(RollEnum.WEEK_MONTH).getAvg();
+                } catch (Exception e) {
+                    return 0.0;
+                }
             }
         });
     }

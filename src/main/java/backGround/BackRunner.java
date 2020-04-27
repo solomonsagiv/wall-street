@@ -52,9 +52,11 @@ public class BackRunner {
             checkAllOptionsData( );
 
             while ( isRun( ) ) {
+
+
                 try {
 
-                    // Sleep
+                    // sleep
                     Thread.sleep( 2000 );
 
                     now = LocalTime.now( );

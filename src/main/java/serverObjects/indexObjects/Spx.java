@@ -3,6 +3,7 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.tws.requesters.SpxRequester;
+import basketFinder.BasketFinder;
 import logic.LogicService;
 import options.IndexOptions;
 import options.OptionsDDeCells;
@@ -13,13 +14,18 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
+import spx100.Spx100;
 import tws.TwsContractsEnum;
 
+import javax.swing.*;
 import java.time.LocalTime;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
+
+    private Spx100 spx100;
+    private BasketFinder basketFinder;
 
     // Constructor
     public Spx() {
@@ -35,6 +41,13 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setiTwsRequester( new SpxRequester( ) );
         setLogicService( new LogicService( this, OptionsEnum.QUARTER ) );
         roll( );
+
+        spx100 = new Spx100( );
+        basketFinder = new BasketFinder( this, spx100.getMiniStockMap( ) );
+
+
+
+
     }
 
     private void roll() {
@@ -108,4 +121,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
 
+    public Spx100 getSpx100() {
+        return spx100;
+    }
+
+    public BasketFinder getBasketFinder() {
+        return basketFinder;
+    }
 }

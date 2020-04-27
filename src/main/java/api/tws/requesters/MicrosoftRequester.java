@@ -5,27 +5,27 @@ import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
 import serverObjects.stockObjects.Apple;
-import serverObjects.stockObjects.Netflix;
+import serverObjects.stockObjects.Microsoft;
 import tws.TwsContractsEnum;
 
 import java.util.ArrayList;
 
-public class NetflixRequester implements ITwsRequester {
+public class MicrosoftRequester implements ITwsRequester {
 
     ArrayList< Options > optionsList;
-    Netflix netflix;
+    Microsoft microsoft;
 
     @Override
     public void request( Downloader downloader ) {
         try {
-            netflix = Netflix.getInstance();
-            optionsList = netflix.getOptionsHandler( ).getOptionsList( );
+            microsoft = Microsoft.getInstance();
+            optionsList = microsoft.getOptionsHandler( ).getOptionsList( );
 
             // Index
-            downloader.reqMktData( netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
+            downloader.reqMktData( microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            netflix.getTwsHandler( ).requestOptions( netflix.getOptionsHandler( ).getOptionsList( ) );
+            microsoft.getTwsHandler( ).requestOptions( microsoft.getOptionsHandler( ).getOptionsList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -37,39 +37,39 @@ public class NetflixRequester implements ITwsRequester {
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
         if ( tickerId == index && price > 0 ) {
             // Last
             if ( field == 4 ) {
-                netflix.setIndex( price );
+                microsoft.setIndex( price );
             }
             // Bid
             if ( field == 1 ) {
-                netflix.setIndexBid( price );
+                microsoft.setIndexBid( price );
             }
             // Ask
             if ( field == 2 ) {
-                netflix.setIndexAsk( price );
+                microsoft.setIndexAsk( price );
             }
 
             // Bid
             if ( field == 6 ) {
-                netflix.setHigh( price );
+                microsoft.setHigh( price );
             }
             // Ask
             if ( field == 7 ) {
-                netflix.setLow( price );
+                microsoft.setLow( price );
             }
 
             // Base
             if ( field == 9 ) {
-                netflix.setBase( price );
+                microsoft.setBase( price );
             }
 
             // Open
             if ( field == 14 ) {
-                netflix.setOpen( price );
+                microsoft.setOpen( price );
             }
         }
 

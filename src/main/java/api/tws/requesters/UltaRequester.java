@@ -89,4 +89,9 @@ public class UltaRequester implements ITwsRequester {
             }
         }
     }
+
+    @Override
+    public void sizeReciever( int tickerId, int field, int size ) {
+
+    }
 }

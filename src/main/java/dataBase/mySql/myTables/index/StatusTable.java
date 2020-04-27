@@ -200,13 +200,11 @@ public class StatusTable extends MyStatusTable {
                     }
                 }
             }
-
             @Override
             public String getResetObject() {
                 return client.getOptionsHandler().getAllOptionsEmptyJson().toString();
             }
         });
-
         addColumn(new MyColumnSql<Double>(this, "roll", MySqlColumnEnum.ROLL) {
             @Override
             public Double getObject() {
