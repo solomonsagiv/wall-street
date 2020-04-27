@@ -7,6 +7,7 @@ import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import myJson.MyJson;
 import options.Options;
 import options.OptionsEnum;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
@@ -203,6 +204,27 @@ public class StatusTable extends MyStatusTable {
             @Override
             public String getResetObject() {
                 return client.getOptionsHandler().getAllOptionsEmptyJson().toString();
+            }
+        });
+
+        addColumn(new MyColumnSql<Double>(this, "roll", MySqlColumnEnum.ROLL) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getRoll();
+                } catch (Exception e) {
+                    return 0.0;
+                }
+            }
+        });
+        addColumn(new MyColumnSql<Double>(this, "rollAvg", MySqlColumnEnum.ROLL_AVG) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg();
+                } catch (Exception e) {
+                    return 0.0;
+                }
             }
         });
     }

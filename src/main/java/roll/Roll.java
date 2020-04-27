@@ -26,7 +26,6 @@ public class Roll {
     }
 
     public void addRoll() {
-        System.out.println("Add" );
         try {
             // If options not set
             if ( o1 == null || o2 == null ) {

@@ -6,6 +6,7 @@ import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import myJson.MyJson;
 import options.Options;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
@@ -162,10 +163,30 @@ public class StockStatusTable extends MyStatusTable {
                     }
                 }
             }
-
             @Override
             public String getResetObject() {
                 return client.getOptionsHandler().getAllOptionsEmptyJson().toString();
+            }
+        });
+
+        addColumn(new MyColumnSql<Double>(this, "roll", MySqlColumnEnum.ROLL) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll(RollEnum.WEEK_MONTH).getRoll();
+                } catch (Exception e) {
+                    return 0.0;
+                }
+            }
+        });
+        addColumn(new MyColumnSql<Double>(this, "rollAvg", MySqlColumnEnum.ROLL_AVG) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll(RollEnum.WEEK_MONTH).getAvg();
+                } catch (Exception e) {
+                    return 0.0;
+                }
             }
         });
     }

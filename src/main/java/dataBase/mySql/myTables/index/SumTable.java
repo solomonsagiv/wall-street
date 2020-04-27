@@ -4,6 +4,7 @@ import api.Manifest;
 import dataBase.mySql.myBaseTables.MySumTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalDate;
@@ -107,6 +108,16 @@ public class SumTable extends MySumTable {
             @Override
             public Integer getObject() {
                 return (int) client.getIndexBidAskCounter();
+            }
+        });
+        addColumn(new MyColumnSql<Double>(this, "rollAvg", MySqlColumnEnum.ROLL_AVG) {
+            @Override
+            public Double getObject() {
+                try {
+                    return client.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg();
+                } catch (Exception e) {
+                    return 0.0;
+                }
             }
         });
     }

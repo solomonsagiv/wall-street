@@ -58,7 +58,9 @@ public enum MySqlColumnEnum {
     E1_ASK("e1_ask", MySqlDataTypeEnum.DOUBLE),
     E2("e2", MySqlDataTypeEnum.DOUBLE),
     E2_BID("e2_bid", MySqlDataTypeEnum.DOUBLE),
-    E2_ASK("e2_ask", MySqlDataTypeEnum.DOUBLE);
+    E2_ASK("e2_ask", MySqlDataTypeEnum.DOUBLE),
+    ROLL("roll", MySqlDataTypeEnum.DOUBLE),
+    ROLL_AVG("rollAvg", MySqlDataTypeEnum.DOUBLE);
 
     private final String name;
     private final MySqlDataTypeEnum dataType;

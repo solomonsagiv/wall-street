@@ -12,6 +12,10 @@ import logic.LogicService;
 import options.OptionsEnum;
 import options.OptionsHandler;
 import options.StockOptions;
+import roll.Roll;
+import roll.RollEnum;
+import roll.RollHandler;
+import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
@@ -23,11 +27,20 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     public STOCK_OBJECT() {
         super();
-        setIndexStartTime( LocalTime.of(16, 30, 0));
+        setIndexStartTime(LocalTime.of(16, 30, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         initTablesHandler();
-        setLogicService( new LogicService( this, OptionsEnum.MONTH ) );
+        setLogicService(new LogicService(this, OptionsEnum.MONTH));
+
+        roll();
+    }
+
+    protected void roll() {
+        rollHandler = new RollHandler(this);
+
+        Roll weekMonth = new Roll(this, OptionsEnum.WEEK, OptionsEnum.MONTH, RollPriceEnum.CONTRACT);
+        rollHandler.addRoll(RollEnum.WEEK_MONTH, weekMonth);
     }
 
     public void initTablesHandler() {
@@ -44,30 +57,30 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     public void initOptionsHandler() {
 
         // Week
-        MyContract weekContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_WEEK );
-        StockOptions weekOptions = new StockOptions( weekContract.getMyId( ), this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK );
+        MyContract weekContract = getTwsHandler().getMyContract(TwsContractsEnum.OPT_WEEK);
+        StockOptions weekOptions = new StockOptions(weekContract.getMyId(), this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK);
 
         // Month
-        MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
-        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH );
+        MyContract monthContract = getTwsHandler().getMyContract(TwsContractsEnum.OPT_MONTH);
+        StockOptions monthOptions = new StockOptions(monthContract.getMyId(), this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH);
 
-        OptionsHandler optionsHandler = new OptionsHandler( this );
-        optionsHandler.addOptions( weekOptions );
-        optionsHandler.addOptions( monthOptions );
-        optionsHandler.setMainOptions( monthOptions );
+        OptionsHandler optionsHandler = new OptionsHandler(this);
+        optionsHandler.addOptions(weekOptions);
+        optionsHandler.addOptions(monthOptions);
+        optionsHandler.setMainOptions(monthOptions);
 
-        setOptionsHandler( optionsHandler );
+        setOptionsHandler(optionsHandler);
 
     }
 
     @Override
-    public void setIndex( double index ) {
-        if ( this.index == 0 ) {
-            getOptionsHandler( ).initOptions( index );
+    public void setIndex(double index) {
+        if (this.index == 0) {
+            getOptionsHandler().initOptions(index);
 
             // Request options tws
-            if ( getApi( ) == ApiEnum.TWS ) {
-                getTwsHandler( ).requestOptions( getOptionsHandler( ).getOptionsList( ) );
+            if (getApi() == ApiEnum.TWS) {
+                getTwsHandler().requestOptions(getOptionsHandler().getOptionsList());
             }
         }
         this.index = index;
