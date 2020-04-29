@@ -290,6 +290,26 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return text;
     }
 
+    public double getMove( int seconds ) {
+        try {
+            int startIndex = 0;
+            double start, end;
+
+            // Seconds > indexList size
+            if (seconds > indexList.size() - 1) {
+                start = indexList.get(0).getY();
+                end = indexList.getLast().getY();
+            } else {
+                start = indexList.get(indexList.size() - seconds).getY();
+                end = indexList.getLast().getY();
+            }
+            return L.floor((end - start) / start * 100, 100);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public boolean isLoadFromDb() {
         return loadStatusFromHB && loadArraysFromHB;
     }
