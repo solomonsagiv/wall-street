@@ -2,7 +2,6 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
-import options.OptionsEnum;
 import roll.RollEnum;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
@@ -11,42 +10,43 @@ public class DDEWriter extends MyThread implements Runnable {
 
     private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
     private boolean run = true;
-    private DDEConnection ddeConnection = new DDEConnection( );
+    private DDEConnection ddeConnection = new DDEConnection();
     private DDEClientConversation conversation;
 
-    Spx spx = Spx.getInstance( );
+    Spx spx = Spx.getInstance();
 
     String opAvgCell = "R2C10";
     String rollCell = "R2C11";
     String indexBidAskCounterCell = "R2C12";
+    String indexMove15Cell = "R3C1";
 
     // Constructor
     public DDEWriter() {
-        this.conversation = ddeConnection.createNewConversation( excelPath );
+        this.conversation = ddeConnection.createNewConversation(excelPath);
     }
 
     @Override
     public void initRunnable() {
-        setName( "DDE Writer" );
-        setRunnable( this );
+        setName("DDE Writer");
+        setRunnable(this);
     }
 
     @Override
     public void run() {
 
-        while ( run ) {
+        while (run) {
             try {
 
                 // Sleep
-                Thread.sleep( 4000 );
+                Thread.sleep(4000);
 
-                if ( spx.isStarted() ) {
+                if (spx.isStarted()) {
                     // Write the data to the excel
-                    writeData( );
+                    writeData();
                 }
 
-            } catch ( InterruptedException e ) {
-                close( );
+            } catch (InterruptedException e) {
+                close();
             }
         }
     }
@@ -54,26 +54,27 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke( opAvgCell, str( spx.getOptionsHandler( ).getMainOptions().getOpAvgFuture( ) ) );
-            conversation.poke( rollCell, str( spx.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getAvg( ) ) );
-            conversation.poke( indexBidAskCounterCell, str( spx.getIndexBidAskCounter()) );
-        } catch ( DDEException e ) {
-            System.out.println( "DDE request error on updateData()" );
-            e.printStackTrace( );
+            conversation.poke(opAvgCell, str(spx.getOptionsHandler().getMainOptions().getOpAvgFuture()));
+            conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg()));
+            conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
+            conversation.poke(indexMove15Cell, str(spx.getMove(900)));
+        } catch (DDEException e) {
+            System.out.println("DDE request error on updateData()");
+            e.printStackTrace();
         }
     }
 
-    public String str( Object o ) {
-        return String.valueOf( o );
+    public String str(Object o) {
+        return String.valueOf(o);
     }
 
     // Close
     public void close() {
         try {
-            conversation.disconnect( );
-        } catch ( DDEException e ) {
+            conversation.disconnect();
+        } catch (DDEException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace( );
+            e.printStackTrace();
         }
         run = false;
     }

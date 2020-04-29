@@ -17,7 +17,6 @@ import serverObjects.ApiEnum;
 import spx100.Spx100;
 import tws.TwsContractsEnum;
 
-import javax.swing.*;
 import java.time.LocalTime;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
@@ -44,10 +43,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         spx100 = new Spx100( );
         basketFinder = new BasketFinder( this, spx100.getMiniStockMap( ) );
-
-
-
-
     }
 
     private void roll() {
@@ -96,6 +91,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
         ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
         ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
+        ddeCells.addCell( DDECellsEnum.INDEX_MOVE_15, "R3C1" );
+
 
         ddeCells.addCell( DDECellsEnum.OPEN, "R10C4" );
         ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
