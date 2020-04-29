@@ -1,4 +1,4 @@
-package spx100;
+package basketFinder;
 
 public class MiniStock {
 

@@ -3,6 +3,9 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.tws.requesters.SpxRequester;
+import basketFinder.BasketService;
+import basketFinder.handlers.StocksHandler;
+import basketFinder.handlers.SpxStocksHandler;
 import logic.LogicService;
 import options.IndexOptions;
 import options.OptionsDDeCells;
@@ -21,8 +24,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
-//    private Spx100 spx100;
-//    private BasketFinder basketFinder;
+    private BasketService basketService;
+    private StocksHandler stocksHandler;
 
     // Constructor
     public Spx() {
@@ -38,9 +41,13 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setiTwsRequester( new SpxRequester( ) );
         setLogicService( new LogicService( this, OptionsEnum.QUARTER ) );
         roll( );
+        baskets();
 
-//        spx100 = new Spx100( );
-//        basketFinder = new BasketFinder( this, spx100.getMiniStockMap( ) );
+    }
+
+    private void baskets() {
+        stocksHandler = new SpxStocksHandler( 10800);
+        basketService = new BasketService(this, stocksHandler, 80);
     }
 
     private void roll() {
@@ -115,12 +122,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         return 0.05;
     }
 
+    public BasketService getBasketService() {
+        return basketService;
+    }
 
-//    public Spx100 getSpx100() {
-//        return spx100;
-//    }
-//
-//    public BasketFinder getBasketFinder() {
-//        return basketFinder;
-//    }
+    public StocksHandler getStocksHandler() {
+        return stocksHandler;
+    }
 }

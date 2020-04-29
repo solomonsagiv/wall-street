@@ -2,7 +2,6 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.requesters.AmdRequester;
-import api.tws.requesters.AppleRequester;
 import serverObjects.ApiEnum;
 
 public class Amd extends STOCK_OBJECT {

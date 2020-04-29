@@ -1,42 +1,17 @@
-package spx100;
+package basketFinder.handlers;
 
-import api.Downloader;
-import com.ib.client.Contract;
-import java.util.HashMap;
-import java.util.Map;
+import basketFinder.MiniStock;
 
-public class Spx100 {
+public class SpxStocksHandler extends StocksHandler {
 
-    // Variables
-    private Map< Integer, MiniStock > miniStockMap = new HashMap<>( );
-
-    // Constructor
-    public Spx100() {
-        init( );
+    public SpxStocksHandler(int id) {
+        super(id);
     }
 
-    public void request( Downloader downloader ) throws Exception {
+    @Override
+    public void initStocks( int id ) {
 
-        Spx100 spx100 = new Spx100( );
-
-        Contract contract = new Contract( );
-        contract.secType( "STK" );
-        contract.exchange( "SMART" );
-        contract.currency( "USD" );
-        contract.primaryExch( "ISLAND" );
-
-        for ( Map.Entry< Integer, MiniStock > entry : spx100.getMiniStockMap().entrySet()) {
-            MiniStock stock = entry.getValue();
-            contract.symbol( stock.getName() );
-            downloader.reqMktData( stock.getId(), contract );
-
-            System.out.println( "Stock: " + stock.getName() + " Id: " + stock.getId());
-        }
-    }
-
-    private void init() {
-
-        int id = 5000;
+        setMinId( id );
 
         miniStockMap.put( id, new MiniStock( "MSFT", id++ ) );
         miniStockMap.put( id, new MiniStock( "AAPL", id++ ) );
@@ -141,10 +116,6 @@ public class Spx100 {
         miniStockMap.put( id, new MiniStock( "UAL", id++ ) );
         miniStockMap.put( id, new MiniStock( "LBTYA", id++ ) );
 
-    }
-
-
-    public Map< Integer, MiniStock > getMiniStockMap() {
-        return miniStockMap;
+        setMaxId( id );
     }
 }

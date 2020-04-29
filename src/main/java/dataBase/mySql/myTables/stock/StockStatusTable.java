@@ -14,10 +14,10 @@ import java.time.LocalTime;
 public class StockStatusTable extends MyStatusTable {
 
     // Constructor
-    public StockStatusTable( BASE_CLIENT_OBJECT client ) {
+    public StockStatusTable(BASE_CLIENT_OBJECT client) {
         super(client, "status");
     }
-    
+
     @Override
     public void initColumns() {
         addColumn(new MyColumnSql<>(this, "name", MySqlColumnEnum.NAME) {
@@ -163,6 +163,7 @@ public class StockStatusTable extends MyStatusTable {
                     }
                 }
             }
+
             @Override
             public String getResetObject() {
                 return client.getOptionsHandler().getAllOptionsEmptyJson().toString();

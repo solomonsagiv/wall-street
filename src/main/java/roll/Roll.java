@@ -62,6 +62,9 @@ public class Roll {
     }
 
     public double getAvg() {
+        if (rollSum == 0) {
+            return 0;
+        }
         return rollSum / rollList.size();
     }
 

@@ -1,22 +1,27 @@
 package basketFinder;
 
+import basketFinder.handlers.StocksHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
-import spx100.MiniStock;
 
 import java.util.Map;
 
-public class BasketFinder extends MyBaseService {
+public class BasketService extends MyBaseService {
 
     // Variables
     private BASE_CLIENT_OBJECT client;
     private Map< Integer, MiniStock > miniStockMap;
+    private int basketUp = 0;
+    private int basketDown = 0;
+    private double ind = 0;
+    private int plagForBasket = 0;
 
     // Constructor
-    public BasketFinder( BASE_CLIENT_OBJECT client, Map< Integer, MiniStock > miniStockMap ) {
+    public BasketService(BASE_CLIENT_OBJECT client, StocksHandler stocksHandler, int plagForBasket ) {
         super(client);
         this.client = client;
-        this.miniStockMap = miniStockMap;
+        this.miniStockMap = stocksHandler.getMiniStockMap();
+        this.plagForBasket = plagForBasket;
     }
 
     public boolean searchBasket() {
@@ -24,39 +29,41 @@ public class BasketFinder extends MyBaseService {
         if ( client.isStarted( ) ) {
             boolean changed = true;
             int changeCounter = 0;
-            int notChangeCounter = 0;
 
             StringBuilder stringBuilder = new StringBuilder();
-
 
             for ( MiniStock stock : miniStockMap.values( ) ) {
 
                 // Volume != lastCheckVolume
                 if ( stock.getVolume( ) == stock.getLastCheckVolume( ) ) {
                     changed = false;
-                    notChangeCounter++;
                 } else {
                     changeCounter++;
                     stringBuilder.append( stock.getName() ).append( ", " );
                 }
-
                 stock.updateLastCheckVolume( );
+            }
+            if ( changeCounter > plagForBasket ) {
+
+                // Up
+                if ( client.getIndex() > ind ) {
+                    basketUp++;
+                    System.out.println( "Basket up" );
+                }
+
+                // Down
+                if ( client.getIndex() < ind ) {
+                    basketDown++;
+                    System.out.println( "Basket down" );
+                }
 
             }
-
-            if ( changeCounter > 40 ) {
-                System.out.println( "Changed : " + changeCounter );
-                System.out.println( stringBuilder );
-
-            }
-
-            System.out.println( );
-
             return changed;
         }
 
-        return false;
+        ind = client.getIndex();
 
+        return false;
     }
 
     @Override
@@ -72,5 +79,9 @@ public class BasketFinder extends MyBaseService {
     @Override
     public int getSleep() {
         return 1000;
+    }
+
+    public int getBaskets() {
+        return basketUp - basketDown;
     }
 }

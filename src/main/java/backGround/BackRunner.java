@@ -63,8 +63,6 @@ public class BackRunner {
 
                     double last = client.getIndex( );
 
-                    System.out.println( client.getName() + " Running" );
-
                     // Start
                     if ( now.isAfter( client.getIndexStartTime( ) ) && !client.isStarted( ) && last_0 != last ) {
 

@@ -8,8 +8,6 @@ import logger.MyLogger;
 import options.Option;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
-import spx100.MiniStock;
-import spx100.Spx100;
 
 import javax.swing.*;
 import java.io.IOException;
