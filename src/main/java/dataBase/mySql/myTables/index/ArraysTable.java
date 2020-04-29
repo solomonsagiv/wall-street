@@ -44,7 +44,7 @@ public class ArraysTable extends MyArraysTable {
         addColumn(new MyLoadAbleColumn<Double>(this, "opList", MySqlColumnEnum.OP_LIST) {
             @Override
             public Double getObject() {
-                int last = client.getOptionsHandler().getMainOptions().getOpList().size() - 1;
+                int last = client.getOptionsHandler().getMainOptions().getOpFutureList().size() - 1;
                 return client.getOptionsHandler().getMainOptions().getOpFutureList().get(last);
             }
             @Override

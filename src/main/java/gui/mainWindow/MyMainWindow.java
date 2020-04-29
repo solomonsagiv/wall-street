@@ -11,7 +11,6 @@ import serverObjects.stockObjects.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
@@ -36,7 +35,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static {
         spx = Spx.getInstance( );
-//        apple = Apple.getInstance( );
+        apple = Apple.getInstance( );
 //        amazon = Amazon.getInstance( );
 //        ulta = Ulta.getInstance( );
 //        netflix = Netflix.getInstance( );
@@ -51,7 +50,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
         LocalHandler.clients.add( spx );
-//        LocalHandler.clients.add( apple );
+        LocalHandler.clients.add( apple );
 //        LocalHandler.clients.add( amazon );
 //        LocalHandler.clients.add( ulta );
 //        LocalHandler.clients.add( netflix );

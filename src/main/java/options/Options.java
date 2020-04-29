@@ -806,7 +806,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     }
 
-
     public List< Double > getOpFutureList() {
         return opFutureList;
     }
