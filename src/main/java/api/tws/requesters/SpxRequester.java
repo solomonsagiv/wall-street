@@ -7,7 +7,6 @@ import com.ib.client.TickAttr;
 import options.Options;
 import options.OptionsEnum;
 import serverObjects.indexObjects.Spx;
-import spx100.MiniStock;
 import tws.TwsContractsEnum;
 
 public class SpxRequester implements ITwsRequester {
@@ -32,7 +31,7 @@ public class SpxRequester implements ITwsRequester {
             downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ) );
 
             // Spx 100
-            spx.getSpx100( ).request( downloader );
+//            spx.getSpx100( ).request( downloader );
 
 
         } catch ( Exception e ) {
@@ -80,13 +79,13 @@ public class SpxRequester implements ITwsRequester {
             }
 
             // Spx miniStocks
-            if ( tickerId >= 5000 && tickerId < 6000 ) {
-                MiniStock stock = spx.getSpx100( ).getMiniStockMap( ).get( tickerId );
-
-                if ( field == 4 ) {
-                    stock.setInd( price );
-                }
-            }
+//            if ( tickerId >= 5000 && tickerId < 6000 ) {
+//                MiniStock stock = spx.getSpx100( ).getMiniStockMap( ).get( tickerId );
+//
+//                if ( field == 4 ) {
+//                    stock.setInd( price );
+//                }
+//            }
         }
 
     }
@@ -95,14 +94,14 @@ public class SpxRequester implements ITwsRequester {
     public void sizeReciever( int tickerId, int field, int size ) {
 
         // Spx miniStocks
-        if ( tickerId >= 5000 && tickerId < 6000 ) {
-
-            MiniStock stock = spx.getSpx100( ).getMiniStockMap( ).get( tickerId );
-
-            if ( field == 8 ) {
-                stock.setVolume( size );
-            }
-        }
+//        if ( tickerId >= 5000 && tickerId < 6000 ) {
+//
+//            MiniStock stock = spx.getSpx100( ).getMiniStockMap( ).get( tickerId );
+//
+//            if ( field == 8 ) {
+//                stock.setVolume( size );
+//            }
+//        }
 
     }
 }
