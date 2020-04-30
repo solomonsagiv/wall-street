@@ -149,10 +149,43 @@ public abstract class MySqlTable implements IMyTableSql {
                 for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
                     MyLoadAbleColumn column = entry.getValue();
 
+                    if (column.getType().getDataType() == MySqlDataTypeEnum.DOUBLE) {
+                        double d = rs.getDouble(column.name);
+                        column.setLoadedObject(d);
+                        continue;
+                    }
 
-                    System.out.println(loadAbleColumns.keySet());
+                    if (column.getType().getDataType() == MySqlDataTypeEnum.INT) {
+                        int i = rs.getInt(column.name);
+                        column.setLoadedObject(i);
+                        continue;
+                    }
 
-                    System.out.println("Col ddd " + column.name);
+                    if (column.getType().getDataType() == MySqlDataTypeEnum.STRING) {
+                        String s = rs.getString(column.name);
+                        column.setLoadedObject(s);
+                        continue;
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Arik.getInstance().sendErrorMessage(e);
+        }
+    }
+
+    public void loadAll() {
+        try {
+
+            String query = String.format("SELECT * FROM stocks.%s", getName(), client.getDbId());
+
+            ResultSet rs = MySql.select(query);
+
+            while (rs.next()) {
+
+                for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
+                    MyLoadAbleColumn column = entry.getValue();
 
                     if (column.getType().getDataType() == MySqlDataTypeEnum.DOUBLE) {
                         double d = rs.getDouble(column.name);
@@ -162,9 +195,6 @@ public abstract class MySqlTable implements IMyTableSql {
 
                     if (column.getType().getDataType() == MySqlDataTypeEnum.INT) {
                         int i = rs.getInt(column.name);
-
-                        System.out.println("Col " + column.name + " " + i);
-
                         column.setLoadedObject(i);
                         continue;
                     }

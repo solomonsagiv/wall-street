@@ -48,6 +48,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime indexStartTime;
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
+
     // Base id
     private int baseId;
 
@@ -95,7 +96,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     MySqlService mySqlService;
 
     // Races
-//    private double racesMargin = 0;
     private double optimiPesimiMargin = 0;
     private int conUp = 0;
     private int conDown = 0;

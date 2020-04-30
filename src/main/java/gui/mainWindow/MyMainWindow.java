@@ -35,12 +35,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static {
         spx = Spx.getInstance( );
-        apple = Apple.getInstance( );
-        amazon = Amazon.getInstance( );
-        ulta = Ulta.getInstance( );
-        netflix = Netflix.getInstance( );
-        amd = Amd.getInstance();
-        microsoft = Microsoft.getInstance();
+//        apple = Apple.getInstance( );
+//        amazon = Amazon.getInstance( );
+//        ulta = Ulta.getInstance( );
+//        netflix = Netflix.getInstance( );
+//        amd = Amd.getInstance();
+//        microsoft = Microsoft.getInstance();
     }
 
     // Constructor
@@ -50,12 +50,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
         LocalHandler.clients.add( spx );
-        LocalHandler.clients.add( apple );
-        LocalHandler.clients.add( amazon );
-        LocalHandler.clients.add( ulta );
-        LocalHandler.clients.add( netflix );
-        LocalHandler.clients.add( amd );
-        LocalHandler.clients.add( microsoft );
+//        LocalHandler.clients.add( apple );
+//        LocalHandler.clients.add( amazon );
+//        LocalHandler.clients.add( ulta );
+//        LocalHandler.clients.add( netflix );
+//        LocalHandler.clients.add( amd );
+//        LocalHandler.clients.add( microsoft );
     }
 
     @Override
@@ -101,9 +101,14 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void loadOnStartUp() {
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+
             client.getTablesHandler( ).getTable( TablesEnum.TWS_CONTRACTS ).load( );
             client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
             client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
+
+            if ( client instanceof Spx ) {
+                client.getTablesHandler().getTable( TablesEnum.INDEX_STOCKS ).loadAll();
+            }
 
             client.setLoadStatusFromHB( true );
             client.setLoadArraysFromHB( true );

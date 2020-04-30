@@ -19,6 +19,7 @@ public enum MySqlColumnEnum {
     OPTIONS("options", MySqlDataTypeEnum.STRING),
     CON_BID_ASK_COUNTER("con_bid_ask_counter", MySqlDataTypeEnum.INT),
     EXP_NAME("exp_name", MySqlDataTypeEnum.STRING),
+    SPX_STOCKS("spx", MySqlDataTypeEnum.STRING),
     TIME("time", MySqlDataTypeEnum.STRING),
     CON("con", MySqlDataTypeEnum.DOUBLE),
     IND("ind", MySqlDataTypeEnum.DOUBLE),

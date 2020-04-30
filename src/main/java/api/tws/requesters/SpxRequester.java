@@ -57,7 +57,7 @@ public class SpxRequester implements ITwsRequester {
             contract.symbol(stock.getName());
             downloader.reqMktData(stock.getId(), contract);
 
-            System.out.println("Stock: " + stock.getName() + " Id: " + stock.getId());
+            System.out.println("Stock: " + stock.getName() + " Id: " + stock.getId() + " contract: " + contract);
         }
     }
 
@@ -76,7 +76,7 @@ public class SpxRequester implements ITwsRequester {
     @Override
     public void reciever(int tickerId, int field, double price, TickAttr attribs) {
 
-        if (spx.isStarted()) {
+        if ( spx.isStarted() ) {
 
             // ---------- Future ---------- //
             if (tickerId == futureId && price > 0) {

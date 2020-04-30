@@ -1,6 +1,7 @@
 package gui.panels;
 
 import gui.MyGuiComps;
+import gui.fullStocksWindow.FullStocksWindow;
 import gui.index.IndexWindow;
 import gui.stock.StockWindow;
 import locals.LocalHandler;
@@ -66,6 +67,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "AMD":
                         new StockWindow( "Amd", Amd.getInstance( ) );
                         break;
+                    case "STOCKS":
+                        new FullStocksWindow( "Stocks" );
+                        break;
                     default:
                         break;
                 }
@@ -113,12 +117,13 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
 
     private void initCombo() {
         Set<BASE_CLIENT_OBJECT>clients = LocalHandler.clients;
-        String[] clientNames = new String[ LocalHandler.clients.size( ) ];
+        String[] clientNames = new String[ LocalHandler.clients.size( ) + 1 ];
         int i = 0;
         for ( BASE_CLIENT_OBJECT client : clients ) {
             clientNames[ i ] = client.getName( ).toUpperCase( );
             i++;
         }
+        clientNames[i] = "STOCKS";
         clientsCombo = new JComboBox( clientNames );
     }
 

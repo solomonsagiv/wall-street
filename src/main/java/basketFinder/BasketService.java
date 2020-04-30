@@ -43,6 +43,8 @@ public class BasketService extends MyBaseService {
                 }
                 stock.updateLastCheckVolume( );
             }
+
+            System.out.println( "Changed: " + changeCounter );
             if ( changeCounter > plagForBasket ) {
 
                 // Up

@@ -10,13 +10,12 @@ public abstract class StocksHandler {
     // Variables
     protected Map< Integer, MiniStock> miniStockMap = new HashMap<>( );
 
-    protected int minId, maxId;
+    protected int minId = 99999999, maxId = 0;
+    protected int id;
 
     public StocksHandler( int id ) {
-        initStocks( id );
+        this.id = id;
     }
-
-    public abstract void initStocks(int id );
 
     public Map<Integer, MiniStock> getMiniStockMap() {
         return miniStockMap;
@@ -30,11 +29,23 @@ public abstract class StocksHandler {
         return maxId;
     }
 
-    protected void setMinId( int id ) {
-        this.minId = id;
+    private void setMinId( int id ) {
+        if ( id < minId ) {
+            minId = id;
+        }
     }
 
-    protected void setMaxId( int id ) {
-        this.minId = id;
+    private void setMaxId( int id ) {
+        if ( id > maxId ) {
+            maxId = id;
+        }
+    }
+
+    public void addStock( String stock ) {
+
+        setMinId( id );
+        setMaxId( id );
+
+        miniStockMap.put( id, new MiniStock( stock, id++ ) );
     }
 }
