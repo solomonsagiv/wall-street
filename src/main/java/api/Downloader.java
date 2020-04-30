@@ -502,13 +502,22 @@ public class Downloader extends Thread implements EWrapper {
         NextOrderId = nextOrderId;
     }
 
+
+    int requestCount = 0;
+
     public void reqMktData( int tickerID, Contract contract ) throws Exception {
         if ( client.isConnected( ) ) {
             client.reqMktData( tickerID, contract,
                     "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null );
+
+            requestCount++;
+
         } else {
             throw new Exception( "Tws client in not connected" );
         }
+
+
+
     }
 
 }

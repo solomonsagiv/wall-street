@@ -44,7 +44,7 @@ public class SpxRequester implements ITwsRequester {
         }
     }
 
-    private void requestStocks(Downloader downloader) throws Exception {
+    private void requestStocks( Downloader downloader ) throws Exception {
 
         Contract contract = new Contract();
         contract.secType("STK");
