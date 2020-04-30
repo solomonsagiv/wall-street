@@ -44,7 +44,7 @@ public class SpxRequester implements ITwsRequester {
         }
     }
 
-    private void requestStocks( Downloader downloader ) throws Exception {
+    private void requestStocks(Downloader downloader) throws Exception {
 
         Contract contract = new Contract();
         contract.secType("STK");
@@ -76,7 +76,7 @@ public class SpxRequester implements ITwsRequester {
     @Override
     public void reciever(int tickerId, int field, double price, TickAttr attribs) {
 
-        if ( spx.isStarted() ) {
+        if (spx.isStarted()) {
 
             // ---------- Future ---------- //
             if (tickerId == futureId && price > 0) {
@@ -112,7 +112,6 @@ public class SpxRequester implements ITwsRequester {
                 }
             }
         }
-
     }
 
     @Override
@@ -126,6 +125,7 @@ public class SpxRequester implements ITwsRequester {
             if (field == 8) {
                 stock.setVolume(size);
             }
+
         }
 
     }

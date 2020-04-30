@@ -58,9 +58,10 @@ public class BasketService extends MyBaseService {
                     basketDown++;
                     System.out.println( "Basket down" );
                 }
+                return changed;
 
             }
-            return changed;
+
         }
 
         ind = client.getIndex();

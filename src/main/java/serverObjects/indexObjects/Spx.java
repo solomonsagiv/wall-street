@@ -4,10 +4,9 @@ import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.tws.requesters.SpxRequester;
 import basketFinder.BasketService;
-import basketFinder.handlers.StocksHandler;
 import basketFinder.handlers.SpxStocksHandler;
+import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
-import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import logic.LogicService;
 import options.IndexOptions;
@@ -54,7 +53,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     private void baskets() {
         stocksHandler = new SpxStocksHandler( 10200);
-        basketService = new BasketService(this, stocksHandler, 80);
+        basketService = new BasketService(this, stocksHandler, 300);
     }
 
     private void roll() {
