@@ -19,6 +19,7 @@ public class DDEWriter extends MyThread implements Runnable {
     String rollCell = "R2C11";
     String indexBidAskCounterCell = "R2C12";
     String indexMove15Cell = "R3C1";
+    String basketsCell = "R3C5";
 
     // Constructor
     public DDEWriter() {
@@ -58,6 +59,7 @@ public class DDEWriter extends MyThread implements Runnable {
             conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg()));
             conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
             conversation.poke(indexMove15Cell, str(spx.getMove(900)));
+            conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));
         } catch (DDEException e) {
             System.out.println("DDE request error on updateData()");
             e.printStackTrace();

@@ -56,8 +56,6 @@ public class SpxRequester implements ITwsRequester {
             MiniStock stock = entry.getValue();
             contract.symbol(stock.getName());
             downloader.reqMktData(stock.getId(), contract);
-
-            System.out.println("Stock: " + stock.getName() + " Id: " + stock.getId() + " contract: " + contract);
         }
     }
 

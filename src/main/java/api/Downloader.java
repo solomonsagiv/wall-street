@@ -503,11 +503,19 @@ public class Downloader extends Thread implements EWrapper {
     }
 
     int requestCount = 0;
+    int countForSleep = 0;
     public void reqMktData( int tickerID, Contract contract ) throws Exception {
         if ( client.isConnected( ) ) {
+
+            if (countForSleep > 40) {
+                Thread.sleep(1500);
+                countForSleep = 0;
+            }
+
             client.reqMktData( tickerID, contract,
                     "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null );
             requestCount++;
+            countForSleep++;
             System.out.println(requestCount );
         } else {
             throw new Exception( "Tws client in not connected" );

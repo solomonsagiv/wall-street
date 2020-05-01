@@ -85,10 +85,8 @@ public class TwsHandler implements IJsonDataBase {
         for ( Strike strike : options.getStrikes( ) ) {
             try {
 
-                System.out.println(strike );
-
                 // Sleep
-                Thread.sleep( 100 );
+//                Thread.sleep( 120 );
 
                 // ----- Call ----- //
                 Call call = strike.getCall( );
