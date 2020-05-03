@@ -52,8 +52,6 @@ public class BackRunner {
             checkAllOptionsData( );
 
             while ( isRun( ) ) {
-
-
                 try {
 
                     // sleep

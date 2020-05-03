@@ -8,6 +8,9 @@ public class MiniStock {
     private double ind;
     private double volume = 0;
     private double lastCheckVolume = 0;
+    private int indexBidAskCounter = 0;
+    private double indexBid = 0;
+    private double indexAsk = 0;
 
     // Constructor
     public MiniStock( String name, int id ) {
@@ -15,6 +18,33 @@ public class MiniStock {
         this.id = id;
     }
 
+    private double indexAskForCheck = 0;
+    public void setIndexBid( double indexBid ) {
+
+        // If increment state
+        if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
+            indexBidAskCounter++;
+        }
+        this.indexBid = indexBid;
+
+        // Ask for bid change state
+        indexBidForCheck = indexBid;
+        indexAskForCheck = this.indexAsk;
+
+    }
+    private double indexBidForCheck = 0;
+    public void setIndexAsk( double indexAsk ) {
+        // If increment state
+        if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
+            indexBidAskCounter--;
+        }
+        this.indexAsk = indexAsk;
+
+        // Handle state
+        indexAskForCheck = indexAsk;
+        indexBidForCheck = indexBid;
+
+    }
     public void updateLastCheckVolume() {
         lastCheckVolume = volume;
     }

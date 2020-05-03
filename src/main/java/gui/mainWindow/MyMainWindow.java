@@ -1,6 +1,5 @@
 package gui.mainWindow;
 
-import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
@@ -102,17 +101,21 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
 
-            client.getTablesHandler( ).getTable( TablesEnum.TWS_CONTRACTS ).load( );
-            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
-            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
-
-            if ( client instanceof Spx ) {
-                client.getTablesHandler().getTable( TablesEnum.INDEX_STOCKS ).loadAll();
-            }
-
-            client.setLoadStatusFromHB( true );
-            client.setLoadArraysFromHB( true );
-            client.setLoadFromDb( true );
+//            // Load data
+//            client.getTablesHandler( ).getTable( TablesEnum.TWS_CONTRACTS ).load( );
+//            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
+//            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
+//
+//            if ( client instanceof Spx ) {
+//                client.getTablesHandler().getTable( TablesEnum.INDEX_STOCKS ).loadAll();
+//            }
+//
+//            client.setLoadStatusFromHB( true );
+//            client.setLoadArraysFromHB( true );
+//            client.setLoadFromDb( true );
+//
+//            // Start client background runner
+//            client.getBackRunner( ).startRunner( );
         }
 
     }

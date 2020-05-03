@@ -1,4 +1,4 @@
-package basketFinder;
+package basketFinder.window;
 
 import gui.MyGuiComps;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -27,6 +27,11 @@ public class BasketWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initialize() {
+        // This
+        setBounds(200, 200, 300, 300);
+
+
+
 
     }
 }

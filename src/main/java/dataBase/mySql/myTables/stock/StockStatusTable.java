@@ -53,7 +53,6 @@ public class StockStatusTable extends MyStatusTable {
             public Integer getResetObject() {
                 return 0;
             }
-
         });
         addColumn(new MyLoadAbleColumn<Integer>(this, "conDown", MySqlColumnEnum.CON_DOWN) {
             @Override
@@ -163,7 +162,6 @@ public class StockStatusTable extends MyStatusTable {
                     }
                 }
             }
-
             @Override
             public String getResetObject() {
                 return client.getOptionsHandler().getAllOptionsEmptyJson().toString();

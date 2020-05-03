@@ -105,6 +105,17 @@ public class SpxRequester implements ITwsRequester {
 
                 MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
 
+                // Bid
+                if (field == 1) {
+                    stock.setIndexBid(price);
+                }
+
+                // Ask
+                if (field == 2) {
+                    stock.setIndexAsk(price);
+                }
+
+                // Last
                 if (field == 4) {
                     stock.setInd(price);
                 }

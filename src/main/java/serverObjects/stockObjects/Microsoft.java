@@ -1,11 +1,8 @@
 package serverObjects.stockObjects;
 
 import DDE.DDECells;
-import api.tws.requesters.AppleRequester;
 import api.tws.requesters.MicrosoftRequester;
 import serverObjects.ApiEnum;
-
-import java.time.LocalTime;
 
 public class Microsoft extends STOCK_OBJECT {
 

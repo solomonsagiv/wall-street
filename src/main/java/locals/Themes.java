@@ -12,7 +12,7 @@ public class Themes {
 //    public static Color BINANCE_GREEN = new Color( 7, 153, 98 );
     //	public static Color BINANCE_GREEN = new Color( 111 , 207 , 31 );
     public static Color BINANCE_RED = new Color( 255, 53, 157 );
-    public static Color ORANGE = new Color( 187, 133, 25 );
+    public static Color ORANGE = new Color(219, 158, 47);
     public static Color LIGHT_BLUE_2 = new Color( 0, 237, 255 );
     public static Color BLUE_STRIKE = new Color( 48, 82, 181 );
     public static Color BLUE_DARK = new Color( 0, 24, 49 );
@@ -40,7 +40,10 @@ public class Themes {
 
     // Fonts
     public static Font ARIEL_15 = new Font( "Ariel", Font.PLAIN, 15 );
+
     public static Font ARIEL_BOLD_15 = new Font( "Ariel", Font.BOLD, 15 );
+    public static Font ARIEL_BOLD_14 = new Font( "Ariel", Font.BOLD, 14 );
+    public static Font ARIEL_BOLD_12 = new Font( "Ariel", Font.BOLD, 12 );
     public static Font VEDANA_12 = new Font( "Verdana", Font.PLAIN, 12 );
 
 

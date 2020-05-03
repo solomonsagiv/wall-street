@@ -2,9 +2,12 @@ package gui.fullStocksWindow.miniStockPanel;
 
 import gui.MyGuiComps;
 import gui.fullStocksWindow.FullHeadersPanel;
+import locals.L;
+import options.Options;
+import roll.RollEnum;
 import serverObjects.stockObjects.STOCK_OBJECT;
 
-public class MiniTickerPanel extends MyGuiComps.MyPanel {
+public class MiniTickerPanel extends MyGuiComps.MyPanel implements IMiniPanel {
 
     // Variables
     STOCK_OBJECT client;
@@ -82,7 +85,21 @@ public class MiniTickerPanel extends MyGuiComps.MyPanel {
     }
 
 
+    @Override
     public void updateText() {
 
+        Options mainOptions = client.getOptionsHandler().getMainOptions();
+
+        openField.colorForge(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
+        highField.colorForge(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
+        lowField.colorForge(L.present(client.getLow(), client.getBase()), L.format100(), "%");
+        indField.colorForge(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
+
+        // OP
+        opAvgField.colorForge(mainOptions.getOpAvgFuture(), L.format100());
+        opField.colorForge(mainOptions.getOpFuture(), L.format100());
+
+        // Roll
+        rollField.colorForge(client.getRollHandler().getRoll(RollEnum.WEEK_MONTH).getRoll(), L.format100());
     }
 }

@@ -154,6 +154,16 @@ public class MyGuiComps {
             setText( format.format( val ) );
         }
 
+        public void colorForge( double val, DecimalFormat format, String sign ) {
+            if ( val >= 0 ) {
+                setForeground( Themes.GREEN );
+            } else {
+                setForeground( Themes.RED );
+            }
+
+            setText( format.format( val ) + sign );
+        }
+
         public void colorForge( int val ) {
             if ( val >= 0 ) {
                 setForeground( Themes.GREEN );
