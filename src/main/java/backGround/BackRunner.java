@@ -89,7 +89,6 @@ public class BackRunner {
                         client.closeAll( );
                         break;
                     }
-
                 } catch ( InterruptedException e ) {
                 } catch ( Exception e ) {
                     Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );

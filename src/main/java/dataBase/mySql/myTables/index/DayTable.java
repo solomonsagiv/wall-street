@@ -7,7 +7,6 @@ import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import options.OptionsEnum;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 

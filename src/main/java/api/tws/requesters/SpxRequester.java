@@ -12,6 +12,7 @@ import options.OptionsEnum;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
 
+import javax.swing.*;
 import java.util.Map;
 
 public class SpxRequester implements ITwsRequester {
@@ -132,6 +133,7 @@ public class SpxRequester implements ITwsRequester {
             MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
 
             if (field == 8) {
+                System.out.println(stock.getName() + " " + size );
                 stock.setVolume(size);
             }
 

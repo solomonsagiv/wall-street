@@ -49,12 +49,10 @@ public class StatusTable extends MyStatusTable {
             public void setLoadedObject(Integer object) {
                 client.setConUp(object);
             }
-
             @Override
             public Integer getResetObject() {
                 return 0;
             }
-
         });
         addColumn(new MyLoadAbleColumn<Integer>(this, "conDown", MySqlColumnEnum.CON_DOWN) {
             @Override

@@ -35,7 +35,8 @@ public class FullHeadersPanel extends MyGuiComps.MyPanel {
     private void inititalize() {
         // This
         Color backGround = Themes.BLUE_DARK;
-        Color forgGround = Themes.ORANGE;
+        Color forgGround = Color.WHITE;
+        Font font = Themes.ARIEL_BOLD_12;
 
         // ---------- Name ---------- //
         namePanel = new MyGuiComps.MyPanel();
@@ -46,6 +47,7 @@ public class FullHeadersPanel extends MyGuiComps.MyPanel {
         nameLbl.setXY(0, 0);
         nameLbl.setSize(namePanel.getSize());
         nameLbl.setForeground(forgGround);
+        nameLbl.setFont( font );
         namePanel.add(nameLbl);
 
         add(namePanel);
@@ -53,12 +55,13 @@ public class FullHeadersPanel extends MyGuiComps.MyPanel {
         // ---------- Ticker ---------- //
         tickerPanel = new MyGuiComps.MyPanel();
         tickerPanel.setBackground(backGround);
-        tickerPanel.setBounds( namePanel.getX() + namePanel.getWidth(), 0, 380, 25);
+        tickerPanel.setBounds( namePanel.getX() + namePanel.getWidth() + 1, 0, 380, 25);
 
         // Open
         openLbl = new MyGuiComps.MyLabel( "Open" );
         openLbl.setXY( 5, 0 );
         openLbl.setForeground(forgGround);
+        openLbl.setFont( font );
 
         tickerPanel.add( openLbl );
 
@@ -66,30 +69,35 @@ public class FullHeadersPanel extends MyGuiComps.MyPanel {
         indLbl = new MyGuiComps.MyLabel( "Ind" );
         indLbl.setXY( openLbl.getX() + openLbl.getWidth() + 1, 0 );
         indLbl.setForeground(forgGround);
+        indLbl.setFont( font );
         tickerPanel.add( indLbl );
 
         // High
         highLbl = new MyGuiComps.MyLabel( "High" );
         highLbl.setXY( indLbl.getX() + indLbl.getWidth() + 1, 0 );
         highLbl.setForeground(forgGround);
+        highLbl.setFont( font );
         tickerPanel.add( highLbl );
 
         // Low
         lowLbl = new MyGuiComps.MyLabel( "Low" );
         lowLbl.setXY( highLbl.getX() + highLbl.getWidth() + 1, 0 );
         lowLbl.setForeground(forgGround);
+        lowLbl.setFont( font );
         tickerPanel.add( lowLbl );
 
         // Op
         opLbl = new MyGuiComps.MyLabel( "O/P" );
         opLbl.setXY( lowLbl.getX() + lowLbl.getWidth() + 1, 0 );
         opLbl.setForeground(forgGround);
+        opLbl.setFont( font );
         tickerPanel.add( opLbl );
 
         // Roll
         rollLbl = new MyGuiComps.MyLabel( "Roll" );
         rollLbl.setXY( opLbl.getX() + opLbl.getWidth() + 1, 0 );
         rollLbl.setForeground(forgGround);
+        rollLbl.setFont( font );
         tickerPanel.add( rollLbl );
 
         add( tickerPanel );
@@ -102,11 +110,13 @@ public class FullHeadersPanel extends MyGuiComps.MyPanel {
         // Con races
         conRacesLbl = new MyGuiComps.MyLabel( "Con" );
         conRacesLbl.setXY( 5, 0 );
+        conRacesLbl.setFont( font );
         conRacesLbl.setForeground(forgGround);
         racesPanel.add( conRacesLbl );
 
         // Ind races
         indRacesLbl = new MyGuiComps.MyLabel( "Ind" );
+        indRacesLbl.setFont( font );
         indRacesLbl.setForeground(forgGround);
         indRacesLbl.setXY( conRacesLbl.getX() + conRacesLbl.getWidth() + 1, 0 );
         racesPanel.add( indRacesLbl );

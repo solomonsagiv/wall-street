@@ -38,8 +38,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         amazon = Amazon.getInstance( );
         ulta = Ulta.getInstance( );
         netflix = Netflix.getInstance( );
-        amd = Amd.getInstance();
-        microsoft = Microsoft.getInstance();
+        amd = Amd.getInstance( );
+        microsoft = Microsoft.getInstance( );
     }
 
     // Constructor
@@ -77,7 +77,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
         // This
         setXY( 100, 100 );
-        setSize( 500, 500 );
+        setSize( 500, 420 );
         setLayout( null );
 
         // Head

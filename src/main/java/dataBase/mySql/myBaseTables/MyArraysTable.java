@@ -20,8 +20,6 @@ public abstract class MyArraysTable extends MySqlTable {
         spx.getTablesHandler().getTable( TablesEnum.ARRAYS ).load();
 
         System.out.println(spx.getIndexList() );
-
-
     }
 
     public MyArraysTable( BASE_CLIENT_OBJECT client ) {

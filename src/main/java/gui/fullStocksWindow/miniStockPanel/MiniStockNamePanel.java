@@ -26,13 +26,12 @@ public class MiniStockNamePanel extends MyGuiComps.MyPanel {
         // Name
         nameLbl = new MyGuiComps.MyLabel(StringUtils.capitalize(client.getName()));
         nameLbl.setFont(Themes.ARIEL_BOLD_12);
-        nameLbl.setForeground(Themes.ORANGE);
+        nameLbl.setForeground(Themes.BLUE_DARK);
         nameLbl.setHorizontalAlignment(JLabel.LEFT);
         nameLbl.setXY(5, 0);
         nameLbl.setSize(65, 55);
         add(nameLbl);
 
     }
-
 
 }

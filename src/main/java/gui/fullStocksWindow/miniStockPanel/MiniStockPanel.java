@@ -4,7 +4,6 @@ import gui.MyGuiComps;
 import gui.fullStocksWindow.FullHeadersPanel;
 import gui.popupsFactory.PopupsMenuFactory;
 import serverObjects.stockObjects.STOCK_OBJECT;
-
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

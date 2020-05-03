@@ -26,8 +26,10 @@ public class BasketService extends MyBaseService {
 
     public boolean searchBasket() {
 
+        boolean basket = false;
+
         if ( client.isStarted( ) ) {
-            boolean changed = true;
+
             int changeCounter = 0;
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -36,7 +38,6 @@ public class BasketService extends MyBaseService {
 
                 // Volume != lastCheckVolume
                 if ( stock.getVolume( ) == stock.getLastCheckVolume( ) ) {
-                    changed = false;
                 } else {
                     changeCounter++;
                     stringBuilder.append( stock.getName() ).append( ", " );
@@ -58,15 +59,13 @@ public class BasketService extends MyBaseService {
                     basketDown++;
                     System.out.println( "Basket down" );
                 }
-                return changed;
+               basket = true;
 
             }
 
         }
-
         ind = client.getIndex();
-
-        return false;
+        return basket;
     }
 
     @Override

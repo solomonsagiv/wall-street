@@ -32,7 +32,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         setFutureEndTime(LocalTime.of(23, 15, 0));
         initTablesHandler();
         setLogicService(new LogicService(this, OptionsEnum.MONTH));
-
         roll();
     }
 
@@ -70,7 +69,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         optionsHandler.setMainOptions(monthOptions);
 
         setOptionsHandler(optionsHandler);
-
     }
 
     @Override

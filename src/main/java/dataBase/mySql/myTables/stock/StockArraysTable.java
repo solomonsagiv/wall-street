@@ -87,7 +87,6 @@ public class StockArraysTable extends MyArraysTable {
             public void setLoadedObject( String object ) {
                 client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
             }
-
             @Override
             public String getResetObject() {
                 return new JSONArray( ).toString( );
