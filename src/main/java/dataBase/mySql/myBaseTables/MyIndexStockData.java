@@ -1,9 +1,11 @@
 package dataBase.mySql.myBaseTables;
 
 import dataBase.mySql.mySqlComps.MyColumnSql;
+import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import dataBase.mySql.mySqlComps.MySqlTable;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,6 +13,7 @@ import java.time.LocalTime;
 public class MyIndexStockData extends MySqlTable {
 
     // Variables
+    Spx spx;
 
     // Constructor
     public MyIndexStockData( BASE_CLIENT_OBJECT client ) {
@@ -37,5 +40,18 @@ public class MyIndexStockData extends MySqlTable {
                 return LocalTime.now().toString();
             }
         });
+        addColumn( new MyLoadAbleColumn<String>( this, client.getName(), MySqlColumnEnum.SPX_STOCKS ) {
+            @Override
+            public Object getObject() {
+                return null;
+            }
+            @Override
+            public void setLoadedObject( String object ) {.getStocksHandler().addStock( object );
+            }
+            @Override
+            public String getResetObject() {
+                return null;
+            }
+        } );
     }
 }
