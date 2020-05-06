@@ -68,7 +68,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         new StockWindow( "Amd", Amd.getInstance( ) );
                         break;
                     case "STOCKS":
-                        new FullStocksWindow( "Stocks" );
+                            new FullStocksWindow( "Stocks" );
                         break;
                     default:
                         break;

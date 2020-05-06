@@ -142,6 +142,20 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem opAvgIndexFutCounterIndex = new JMenuItem("OpAvg Index B/A FutFarCounter Index");
+        opAvgIndexFutCounterIndex.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OpAvgFuture_E2_IndexCounter_Index_Chart chart = new OpAvgFuture_E2_IndexCounter_Index_Chart(client);
+                try {
+                    chart.createChart();
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        });
+
+
         JMenuItem indQuarterOpAvgFuture = new JMenuItem("indQuarterOpAvgFuture");
         indQuarterOpAvgFuture.addActionListener(new ActionListener() {
             @Override
@@ -249,6 +263,7 @@ public class PopupsMenuFactory {
 
         export.add(exportSumLine);
 
+        charts.add( opAvgIndexFutCounterIndex );
         charts.add(indQuarterOpAvg15Future);
         charts.add(indQuarterOpAvgFuture);
         charts.add(e2_indexCounter_index_item);

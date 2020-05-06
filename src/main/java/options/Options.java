@@ -53,7 +53,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     List<Double> opFutureList = new ArrayList<>();
     List<Double> futureList = new ArrayList<>();
     List<Double> opList = new ArrayList<>();
-    List<Double> opAvgFutureList = new ArrayList<>();
+    MyChartList opAvgFutureList = new MyChartList();
     List<Double> opAvgList = new ArrayList<>();
     List<Double> conList = new ArrayList<>();
     List<Double> conBidList = new ArrayList<>();
@@ -485,7 +485,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         }
     }
 
-
     public double getOpAvgFuture( int secondes ) {
         try {
             // If op future list < seconds
@@ -535,13 +534,24 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     public void setOpAvg(double opAvg) {
         int size = opList.size();
-
         opList.clear();
 
         for (int i = 0; i < size; i++) {
             opList.add(opAvg);
+            System.out.println( i +  " " + opAvg );
         }
     }
+
+    public void setOpAvgFuture(double opAvg) {
+        int size = opFutureList.size();
+        opFutureList.clear();
+
+        for (int i = 0; i < size; i++) {
+            opFutureList.add(opAvg);
+            System.out.println( i +  " " + opAvg );
+        }
+    }
+
 
     @Override
     public MyJson getAsJson() {
@@ -862,7 +872,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return twsContract;
     }
 
-    public List<Double> getOpAvgFutureList() {
+    public MyChartList getOpAvgFutureList() {
         return opAvgFutureList;
     }
 

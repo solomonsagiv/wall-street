@@ -16,7 +16,6 @@ public class StockWindow extends MyGuiComps.MyFrame {
     // Constructor
     public StockWindow( String title, STOCK_OBJECT client ) throws HeadlessException {
         super( title, client );
-
         // Start client background runner
         client.getBackRunner( ).startRunner( );
 

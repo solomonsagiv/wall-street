@@ -55,7 +55,7 @@ public class ListsService extends MyBaseService {
         // Options lists
         for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
             options.getOpFutureList().add( options.getOpFuture() );
-            options.getOpAvgFutureList().add( options.getOpAvgFuture() );
+            options.getOpAvgFutureList().add( new MyChartPoint( now, options.getOpAvgFuture() ) );
             options.getFutureList().add( options.getFuture() );
             options.getOpList( ).add( options.getOp( ) );
             options.getOpAvgList( ).add( options.getOpAvg( ) );

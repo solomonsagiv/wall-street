@@ -6,7 +6,6 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
-
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -20,7 +19,7 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
     TextUpdater textUpdater;
 
     // Constructor
-    public FullStocksWindow( String title ) throws HeadlessException {
+    public FullStocksWindow( String title ) {
         super( title );
         textUpdater = new TextUpdater();
         textUpdater.getHandler().start();
@@ -97,9 +96,8 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
         @Override
         public void run() {
 
-            while (isRun()) {
+            while ( isRun() ) {
                 try {
-
                     // Sleep
                     Thread.sleep(1000);
 

@@ -1,4 +1,4 @@
-package charts;
+package charts.myChart;
 
 public interface IChartCreator {
 

@@ -3,6 +3,7 @@ package setting.clientSetting.optionsPanel;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
+import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
@@ -35,7 +36,9 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 try {
                     double opAvg = L.dbl( opAvgField.getText( ) );
-                    OptionsPanel.options.setOpAvg( opAvg );
+                    OptionsPanel.options.setOpAvgFuture( opAvg );
+                    System.out.println(OptionsPanel.options.getType() );
+                    System.out.println( opAvg );
                 } catch ( Exception e ) {
                     JOptionPane.showMessageDialog( null, e.getMessage( ) );
                 }

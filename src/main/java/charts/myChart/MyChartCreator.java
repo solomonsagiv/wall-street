@@ -1,6 +1,5 @@
 package charts.myChart;
 
-import charts.IChartCreator;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class MyChartCreator implements IChartCreator {
