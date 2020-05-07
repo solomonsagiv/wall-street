@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import javax.swing.*;
 import java.time.LocalTime;
 
 public class ArraysTable extends MyArraysTable {
@@ -52,7 +53,7 @@ public class ArraysTable extends MyArraysTable {
 
             @Override
             public void setLoadedObject( Double object ) {
-                client.getOptionsHandler( ).getMainOptions( ).getOpList( ).add( object );
+                client.getOptionsHandler( ).getMainOptions( ).getOpFutureList( ).add( object );
             }
 
             @Override
@@ -87,6 +88,8 @@ public class ArraysTable extends MyArraysTable {
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
+                    MyChartPoint myChartPoint = new MyChartPoint( new JSONObject( object ) );
+
                     client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER ).getOpAvgFutureList( ).add( new MyChartPoint( new JSONObject( object ) ) );
                 }
             }

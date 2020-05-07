@@ -17,6 +17,7 @@ import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
 import options.OptionsDataHandler;
+import options.OptionsEnum;
 import options.OptionsHandler;
 import roll.RollHandler;
 import service.MyServiceHandler;
@@ -296,16 +297,16 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             double start, end;
 
             // Seconds > indexList size
-            if (seconds > indexList.size() - 1) {
-                start = indexList.get(0).getY();
-                end = indexList.getLast().getY();
+            if ( seconds > indexList.size( ) - 1 ) {
+                start = indexList.get( 0 ).getY( );
+                end = indexList.getLast( ).getY( );
             } else {
-                start = indexList.get(indexList.size() - seconds).getY();
-                end = indexList.getLast().getY();
+                start = indexList.get( indexList.size( ) - seconds ).getY( );
+                end = indexList.getLast( ).getY( );
             }
-            return L.floor((end - start) / start * 100, 100);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return L.floor( ( end - start ) / start * 100, 100 );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
             return 0;
         }
     }
@@ -612,7 +613,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public TablesHandler getTablesHandler() {
-        if (tablesHandler == null) throw new NullPointerException(getName() + " Table handler didn't set");
+        if ( tablesHandler == null ) throw new NullPointerException( getName( ) + " Table handler didn't set" );
         return tablesHandler;
     }
 
@@ -644,11 +645,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setiTwsRequester( ITwsRequester iTwsRequester ) {
         this.iTwsRequester = iTwsRequester;
-        Downloader.getInstance().addRequester( iTwsRequester );
+        Downloader.getInstance( ).addRequester( iTwsRequester );
     }
 
     public LogicService getLogicService() {
-        if ( logicService == null ) throw new NullPointerException( getName() + " Logic not set" );
+        if ( logicService == null ) throw new NullPointerException( getName( ) + " Logic not set" );
         return logicService;
     }
 
@@ -679,13 +680,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexBidAskMargin=" + indexBidAskMargin +
                 ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +
-                ", racesMargin=" + getRacesMargin() +
+                ", racesMargin=" + getRacesMargin( ) +
                 ", optimiPesimiMargin=" + optimiPesimiMargin +
                 ", conUp=" + conUp +
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
                 ", indexList=" + indexList.size( ) +
+                ", opFutureListQuarter=" + optionsHandler.getOptions( OptionsEnum.QUARTER ).getOpAvgFutureList().size() +
+                ", opFutureListQuarterFar=" + optionsHandler.getOptions( OptionsEnum.QUARTER_FAR ).getOpAvgFutureList().size() +
                 '}';
     }
 }

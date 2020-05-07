@@ -54,6 +54,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     List<Double> futureList = new ArrayList<>();
     List<Double> opList = new ArrayList<>();
     MyChartList opAvgFutureList = new MyChartList();
+    MyChartList opAvg15FutureList = new MyChartList();
     List<Double> opAvgList = new ArrayList<>();
     List<Double> conList = new ArrayList<>();
     List<Double> conBidList = new ArrayList<>();
@@ -469,7 +470,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         }
     }
 
-    public double getOpAvgFuture() {
+    public double getOpAvgFuture() throws NullPointerException {
         double sum = 0;
         if (!opFutureList.isEmpty()) {
             try {
@@ -481,13 +482,16 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             }
             return L.floor(sum / opFutureList.size(), 100);
         } else {
-            return 0;
+            throw new NullPointerException( client.getName() + " op future list empty" );
         }
     }
 
     public double getOpAvgFuture( int secondes ) {
         try {
             // If op future list < seconds
+
+            System.out.println(opFutureList.size() );
+
             if (secondes > opFutureList.size() - 1) {
                 return getOpAvgFuture();
             }
@@ -1016,4 +1020,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         this.props = props;
     }
 
+    public MyChartList getOpAvg15FutureList() {
+        return opAvg15FutureList;
+    }
+
+    public void setOpAvg15FutureList( MyChartList opAvg15FutureList ) {
+        this.opAvg15FutureList = opAvg15FutureList;
+    }
 }

@@ -84,4 +84,36 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         this.index = index;
     }
 
+    @Override
+    public String toString() {
+        return "BASE_CLIENT_OBJECT{" +
+                ", optionsHandler=" + optionsHandler.toString( ) +
+                ", startOfIndexTrading=" + getIndexStartTime( ) +
+                ", endOfIndexTrading=" + getIndexEndTime( ) +
+                ", endFutureTrading=" + getFutureEndTime( ) +
+                ", loadFromDb=" + isLoadFromDb() +
+                ", dbRunning=" + isDbRunning() +
+                ", ids=" + getIds() +
+                ", started=" + isStarted() +
+                ", dbId=" + getDbId() +
+                ", index=" + index +
+                ", indexBidAskCounter=" + getIndexBidAskCounter() +
+                ", indexBid=" + getIndexBid() +
+                ", indexAsk=" + getIndexAsk() +
+                ", open=" + getOpen() +
+                ", high=" + getHigh() +
+                ", low=" + getLow() +
+                ", base=" + getBase() +
+                ", indexBidAskMargin=" + getIndexBidAskMargin() +
+                ", listsService=" + getListsService() +
+                ", mySqlService=" + getMySqlService() +
+                ", racesMargin=" + getRacesMargin( ) +
+                ", conUp=" + getConUp() +
+                ", conDown=" + getConDown() +
+                ", indexUp=" + getIndexUp() +
+                ", indexDown=" + getIndexDown() +
+                ", indexList=" + getIndexList().size( ) +
+                '}';
+    }
+
 }

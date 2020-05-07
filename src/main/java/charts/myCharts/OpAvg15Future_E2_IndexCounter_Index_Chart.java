@@ -9,10 +9,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
+public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
-    public OpAvgFuture_E2_IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client ) {
+    public OpAvg15Future_E2_IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
 
@@ -25,7 +25,7 @@ public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props = new MyProps();
         props.setProp( ChartPropsEnum.SECONDS, INFINITE );
         props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
-        props.setProp( ChartPropsEnum.MARGIN, 0.005 );
+        props.setProp( ChartPropsEnum.MARGIN, 0.0001 );
         props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
         props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, true );
         props.setProp( ChartPropsEnum.IS_LOAD_DB, true );
@@ -47,10 +47,10 @@ public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         opAvgFutureProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.BLUE_STRIKE, 1.5f, opAvgFutureProps, quarter.getOpAvgFutureList() ) {
+        MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.PURPLE, 1.5f, opAvgFutureProps, quarter.getOpAvg15FutureList() ) {
             @Override
             public double getData() {
-                return quarter.getOpAvgFuture();
+                return quarter.getOpAvgFuture(900);
             }
         };
 
@@ -89,7 +89,6 @@ public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );
         chartContainer.create();
-
 
     }
 

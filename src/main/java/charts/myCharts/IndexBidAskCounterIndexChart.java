@@ -75,7 +75,6 @@ public class IndexBidAskCounterIndexChart extends MyChartCreator {
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );
         chartContainer.create();
 
-
     }
 
 }

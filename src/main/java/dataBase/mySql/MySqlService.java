@@ -18,7 +18,6 @@ public class MySqlService extends MyBaseService {
 
     @Override
     public void go() {
-
         // Updater
         if ( Manifest.DB_UPDATER ) {
             // Status
