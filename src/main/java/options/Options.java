@@ -641,7 +641,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         mainJson.put(JsonEnum.CONTRACT.toString(), getContract());
         mainJson.put(JsonEnum.FUTURE.toString(), getFuture());
         mainJson.put(JsonEnum.OP_AVG.toString(), L.floor(getOpAvg(), 100));
-        mainJson.put(JsonEnum.OP_AVG_FUTURE.toString(), L.floor(getOpAvgFuture(), 100));
+        try {
+            mainJson.put( JsonEnum.OP_AVG_FUTURE.toString( ), L.floor( getOpAvgFuture( ), 100 ) );
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
         mainJson.put(JsonEnum.DATA.toString(), optionsData);
         mainJson.put(JsonEnum.FUTURE_BID_ASK_COUNTER.toString(), getFutureBidAskCounter());
         mainJson.put(JsonEnum.CON_BID_ASK_COUNTER.toString(), getConBidAskCounter());

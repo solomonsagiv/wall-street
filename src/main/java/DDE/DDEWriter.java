@@ -55,11 +55,12 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke(opAvgCell, str(spx.getOptionsHandler().getMainOptions().getOpAvgFuture()));
+
             conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg()));
             conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
             conversation.poke(indexMove15Cell, str(spx.getMove(900)));
             conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));
+            conversation.poke(opAvgCell, str(spx.getOptionsHandler().getMainOptions().getOpAvgFuture()));
         } catch (DDEException e) {
             System.out.println("DDE request error on updateData()");
             e.printStackTrace();

@@ -278,105 +278,111 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+            // ---------- Ticker ---------- //
+            openField.setText( L.format100( client.getOpen( ) ) );
+            highField.setText( L.format100( client.getHigh( ) ) );
+            lowField.setText( L.format100( client.getLow( ) ) );
+            indexField.setText( L.format100( client.getIndex( ) ) );
+            futureField.setText( L.format100( mainOptions.getFuture( ) ) );
 
-        // ---------- Ticker ---------- //
-        openField.setText( L.format100( client.getOpen( ) ) );
-        highField.setText( L.format100( client.getHigh( ) ) );
-        lowField.setText( L.format100( client.getLow( ) ) );
-        indexField.setText( L.format100( client.getIndex( ) ) );
-        futureField.setText( L.format100( mainOptions.getFuture( ) ) );
+            // Ticker present
+            openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
+            highPresentField.colorBack( L.present( client.getHigh( ), client.getBase( ) ), L.format100( ), "%" );
+            lowPresentField.colorBack( L.present( client.getLow( ), client.getBase( ) ), L.format100( ), "%" );
+            indexPresentField.colorBack( L.present( client.getIndex( ), client.getBase( ) ), L.format100( ), "%" );
 
-        // Ticker present
-        openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
-        highPresentField.colorBack( L.present( client.getHigh( ), client.getBase( ) ), L.format100( ), "%" );
-        lowPresentField.colorBack( L.present( client.getLow( ), client.getBase( ) ), L.format100( ), "%" );
-        indexPresentField.colorBack( L.present( client.getIndex( ), client.getBase( ) ), L.format100( ), "%" );
+            // OP
+            try {
+                opAvgField.colorForge( mainOptions.getOpAvgFuture( ), L.format100( ) );
+                opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvgFuture( ), L.format100( ) );
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
+            opField.colorBack( mainOptions.getOpFuture( ), L.format100( ) );
 
-        // OP
-        opAvgField.colorForge( mainOptions.getOpAvgFuture( ), L.format100( ) );
-        opField.colorBack( mainOptions.getOpFuture( ), L.format100( ) );
-
-        // Quarter
-        opQuarterField.colorBack( optionsQuarterFar.getOpFuture( ), L.format100( ) );
-        opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvgFuture( ), L.format100( ) );
-        contractQuarterField.setText( L.format100( optionsQuarterFar.getFuture( ) ) );
-
-        // Races and roll
-        // Races
-        conRacesField.colorForge( client.getFutSum( ) );
-        indRacesField.colorForge( client.getIndexSum( ) );
-
-        // Roll
-        rollField.colorForge( client.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll( ), L.format100( ) );
-    }
+            // Quarter
+            opQuarterField.colorBack( optionsQuarterFar.getOpFuture( ), L.format100( ) );
 
 
-    public void close() {
-        getUpdater( ).close( );
-    }
+            contractQuarterField.setText( L.format100( optionsQuarterFar.getFuture( ) ) );
 
+            // Races and roll
+            // Races
+            conRacesField.colorForge( client.getFutSum( ) );
+            indRacesField.colorForge( client.getIndexSum( ) );
 
-    @Override
-    public void updateRaces() {
-        updateIfChanged( );
-    }
+            // Roll
+            rollField.colorForge( client.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll( ), L.format100( ) );
 
-    void updateIfChanged() {
-        // Con up
-        if ( client.isConUpChanged( ) ) {
-            L.noisy( conRacesField, Themes.GREEN );
         }
 
-        // Con down
-        if ( client.isConDownChanged( ) ) {
-            L.noisy( conRacesField, Themes.RED );
+
+        public void close ( ) {
+            getUpdater( ).close( );
         }
 
-        // Ind up
-        if ( client.isIndUpChanged( ) ) {
-            L.noisy( indRacesField, Themes.GREEN );
-        }
-
-        // Ind down
-        if ( client.isIndDownChanged( ) ) {
-            L.noisy( indRacesField, Themes.RED );
-        }
-    }
-
-    public class Updater extends MyThread implements Runnable {
-
-        public Updater( BASE_CLIENT_OBJECT client ) {
-            super( client );
-            setName( "UPDATER" );
-        }
 
         @Override
-        public void initRunnable() {
-            setRunnable( this );
+        public void updateRaces ( ) {
+            updateIfChanged( );
         }
 
-        @Override
-        public void run() {
+        void updateIfChanged ( ) {
+            // Con up
+            if ( client.isConUpChanged( ) ) {
+                L.noisy( conRacesField, Themes.GREEN );
+            }
 
-            setRun( true );
+            // Con down
+            if ( client.isConDownChanged( ) ) {
+                L.noisy( conRacesField, Themes.RED );
+            }
 
-            while ( isRun( ) ) {
-                try {
-                    // Sleep
-                    Thread.sleep( 500 );
+            // Ind up
+            if ( client.isIndUpChanged( ) ) {
+                L.noisy( indRacesField, Themes.GREEN );
+            }
 
-                    updateText( );
-
-                } catch ( InterruptedException e ) {
-                    break;
-                }
+            // Ind down
+            if ( client.isIndDownChanged( ) ) {
+                L.noisy( indRacesField, Themes.RED );
             }
         }
 
-        public void close() {
-            setRun( false );
+        public class Updater extends MyThread implements Runnable {
+
+            public Updater( BASE_CLIENT_OBJECT client ) {
+                super( client );
+                setName( "UPDATER" );
+            }
+
+            @Override
+            public void initRunnable() {
+                setRunnable( this );
+            }
+
+            @Override
+            public void run() {
+
+                setRun( true );
+
+                while ( isRun( ) ) {
+                    try {
+                        // Sleep
+                        Thread.sleep( 500 );
+
+                        updateText( );
+
+                    } catch ( InterruptedException e ) {
+                        break;
+                    }
+                }
+            }
+
+            public void close() {
+                setRun( false );
+            }
+
         }
 
     }
-
-}
