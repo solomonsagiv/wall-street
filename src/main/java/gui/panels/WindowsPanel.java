@@ -68,6 +68,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "STOCKS":
                         new FullStocksWindow("Stocks");
+                        JOptionPane.showConfirmDialog(null, selected);
                         break;
                     default:
                         break;
