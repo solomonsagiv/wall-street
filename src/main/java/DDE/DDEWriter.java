@@ -60,7 +60,11 @@ public class DDEWriter extends MyThread implements Runnable {
             conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
             conversation.poke(indexMove15Cell, str(spx.getMove(900)));
             conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));
-            conversation.poke(opAvgCell, str(spx.getOptionsHandler().getMainOptions().getOpAvgFuture()));
+            try {
+                conversation.poke(opAvgCell, str(spx.getOptionsHandler().getMainOptions().getOpAvgFuture()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (DDEException e) {
             System.out.println("DDE request error on updateData()");
             e.printStackTrace();

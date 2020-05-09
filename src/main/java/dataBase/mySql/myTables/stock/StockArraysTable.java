@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import java.rmi.UnknownHostException;
 import java.time.LocalTime;
 
 public class StockArraysTable extends MyArraysTable {
@@ -29,7 +30,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, "indexlist", MySqlColumnEnum.INDEX_LIST ) {
             @Override
-            public String getObject() {
+            public String getObject() throws UnknownHostException {
                 return client.getIndexList( ).getLast().getAsJson().toString( );
             }
 
@@ -63,7 +64,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, "indexBidAskCounterList", MySqlColumnEnum.IND_BID_ASK_COUNTER_LIST ) {
             @Override
-            public String getObject() {
+            public String getObject() throws UnknownHostException {
                 return client.getIndexBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
@@ -79,7 +80,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, "conWeekBidAskCounterList", MySqlColumnEnum.CON_WEEK_BID_ASK_COUNTER_LIST ) {
             @Override
-            public String getObject() {
+            public String getObject() throws UnknownHostException {
                 return client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
@@ -94,7 +95,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, "conMonthBidAskCounterList", MySqlColumnEnum.CON_MONTH_BID_ASK_COUNTER_LIST ) {
             @Override
-            public String getObject() {
+            public String getObject() throws UnknownHostException {
                 return client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 

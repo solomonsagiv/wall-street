@@ -50,7 +50,6 @@ public class SumTable extends MySumTable {
             }
         });
         addColumn(new MyColumnSql<>(this, "close", MySqlColumnEnum.CLOSE) {
-
             @Override
             public Double getObject() {
                 return client.getIndex();
@@ -83,7 +82,11 @@ public class SumTable extends MySumTable {
         addColumn(new MyColumnSql<>(this, "op_avg", MySqlColumnEnum.OP_AVG) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getOpAvg();
+                try {
+                    return client.getOptionsHandler().getMainOptions().getOpAvgFuture();
+                } catch ( Exception e) {
+                    return 0.0;
+                }
             }
         });
         addColumn(new MyColumnSql<>(this, "options", MySqlColumnEnum.OPTIONS) {

@@ -95,8 +95,14 @@ public class MiniTickerPanel extends MyGuiComps.MyPanel implements IMiniPanel {
         lowField.colorForge(L.present(client.getLow(), client.getBase()), L.format100(), "%");
         indField.colorForge(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
 
+        double opAvgFuture = 0;
         // OP
-        opAvgField.colorForge(mainOptions.getOpAvgFuture(), L.format100());
+        try {
+            opAvgFuture = mainOptions.getOpAvgFuture();
+        } catch ( Exception e) {
+        }
+        opAvgField.colorForge(opAvgFuture, L.format100());
+
         opField.colorForge(mainOptions.getOpFuture(), L.format100());
 
         // Roll

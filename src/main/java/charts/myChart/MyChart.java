@@ -178,7 +178,6 @@ public class MyChart {
         // Append data to series
         private void appendDataToSeries() {
             try {
-
                 for ( MyTimeSeries serie : series ) {
 
                     // If bigger then target Seconds

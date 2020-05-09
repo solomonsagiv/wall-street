@@ -3,6 +3,7 @@ package lists;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.rmi.UnknownHostException;
 import java.util.ArrayList;
 
 public class MyChartList extends ArrayList<MyChartPoint> {
@@ -21,7 +22,10 @@ public class MyChartList extends ArrayList<MyChartPoint> {
         return values;
     }
 
-    public MyChartPoint getLast() {
+    public MyChartPoint getLast() throws UnknownHostException {
+        if (size() < 1 ) {
+            throw new IndexOutOfBoundsException();
+        }
         return get(size() - 1);
     }
 

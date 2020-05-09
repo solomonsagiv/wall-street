@@ -56,12 +56,16 @@ public abstract class MySqlTable implements IMyTableSql {
         int i = 0;
 
         for (MyColumnSql column : columns) {
-            if (i < columns.size() - 1) {
-                query.append("`" + column.name + "`='" + column.getObject() + "',");
-            } else {
-                query.append("`" + column.name + "`='" + column.getObject() + "'");
+            try {
+                if (i < columns.size() - 1) {
+                    query.append("`" + column.name + "`='" + column.getObject() + "',");
+                } else {
+                    query.append("`" + column.name + "`='" + column.getObject() + "'");
+                }
+                i++;
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
-            i++;
         }
 
         String endQuery = String.format("WHERE `id`='%s';", client.getDbId());
@@ -84,20 +88,24 @@ public abstract class MySqlTable implements IMyTableSql {
         int i = 0;
 
         for (Map.Entry<MySqlColumnEnum, MyColumnSql> entry : columns.entrySet()) {
-            MyColumnSql column = entry.getValue();
+            try {
+                MyColumnSql column = entry.getValue();
 
-            if (i < columns.size() - 1) {
-                // Columns
-                insertColumns.append("`" + column.name + "`,");
-                // Values
-                valuesColumns.append("'" + column.getObject() + "',");
-            } else {
-                // Columns
-                insertColumns.append("`" + column.name + "`");
-                // Values
-                valuesColumns.append("'" + column.getObject() + "'");
+                if (i < columns.size() - 1) {
+                    // Columns
+                    insertColumns.append("`" + column.name + "`,");
+                    // Values
+                    valuesColumns.append("'" + column.getObject() + "',");
+                } else {
+                    // Columns
+                    insertColumns.append("`" + column.name + "`");
+                    // Values
+                    valuesColumns.append("'" + column.getObject() + "'");
+                }
+                i++;
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
-            i++;
         }
 
         String columns = "(" + insertColumns + ")";
@@ -118,14 +126,18 @@ public abstract class MySqlTable implements IMyTableSql {
         int i = 0;
 
         for (Map.Entry<MySqlColumnEnum, MyColumnSql> entry : columns.entrySet()) {
-            MyColumnSql column = entry.getValue();
+            try {
+                MyColumnSql column = entry.getValue();
 
-            if (i < columns.size() - 1) {
-                query.append("`" + column.name + "`='" + column.getObject() + "',");
-            } else {
-                query.append("`" + column.name + "`='" + column.getObject() + "'");
+                if (i < columns.size() - 1) {
+                    query.append("`" + column.name + "`='" + column.getObject() + "',");
+                } else {
+                    query.append("`" + column.name + "`='" + column.getObject() + "'");
+                }
+                i++;
+            } catch ( Exception e ) {
+                e.printStackTrace();
             }
-            i++;
         }
 
         String endQuery = String.format("WHERE `id`='%s';", client.getDbId());

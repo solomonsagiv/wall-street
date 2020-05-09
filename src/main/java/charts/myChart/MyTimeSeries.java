@@ -56,15 +56,19 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public double add() {
-        double data;
+        double data = 0;
         // live data
         if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
             data = getData();
             addOrUpdate( getLastSeconde(), data );
         } else {
-            MyChartPoint point = myChartList.getLast();
-            data = point.getY();
-            addOrUpdate( getLastSeconde(), data );
+            try {
+                MyChartPoint point = myChartList.getLast();
+                data = point.getY();
+                addOrUpdate(getLastSeconde(), data);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         lastSeconde = ( Second ) lastSeconde.next();
         return data;

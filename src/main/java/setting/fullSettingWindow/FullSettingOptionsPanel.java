@@ -3,8 +3,6 @@ package setting.fullSettingWindow;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import setting.clientSetting.TwsPanel;
-import setting.clientSetting.optionsPanel.PropsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

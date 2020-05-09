@@ -2,7 +2,6 @@ package charts.myCharts;
 
 import charts.myChart.*;
 import locals.Themes;
-import options.Option;
 import options.Options;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -61,8 +60,13 @@ public class IndexVsQuarterVSOpAvgLiveChart extends MyChartCreator {
         MyTimeSeries opAvg = new MyTimeSeries( "OpAvgFuture", Themes.BLUE_LIGHT_2, 2.25f, props, null ) {
             @Override
             public double getData() {
-                Options options = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
-                return options.getFuture() - options.getOpAvgFuture();
+                try {
+                    Options options = client.getOptionsHandler().getOptions(OptionsEnum.QUARTER);
+                    return options.getFuture() - options.getOpAvgFuture();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
             }
         };
 

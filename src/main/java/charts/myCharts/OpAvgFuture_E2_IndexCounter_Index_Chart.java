@@ -50,7 +50,12 @@ public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.BLUE_STRIKE, 1.5f, opAvgFutureProps, quarter.getOpAvgFutureList() ) {
             @Override
             public double getData() {
-                return quarter.getOpAvgFuture();
+                try {
+                    return quarter.getOpAvgFuture();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return 0;
             }
         };
 

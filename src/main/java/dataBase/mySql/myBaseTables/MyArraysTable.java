@@ -41,7 +41,6 @@ public abstract class MyArraysTable extends MySqlTable {
         try {
             String query = String.format( "SELECT * FROM stocks.%s;", getName() );
 
-            System.out.println( query );
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {

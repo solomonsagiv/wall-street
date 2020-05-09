@@ -6,6 +6,8 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -23,6 +25,7 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
         super( title );
         textUpdater = new TextUpdater();
         textUpdater.getHandler().start();
+        JOptionPane.showConfirmDialog(null, "Text updater");
     }
 
     @Override

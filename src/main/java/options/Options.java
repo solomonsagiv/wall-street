@@ -12,6 +12,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
 import tws.TwsContractsEnum;
 
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -470,7 +471,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         }
     }
 
-    public double getOpAvgFuture() throws NullPointerException {
+    public double getOpAvgFuture() throws UnknownHostException {
         double sum = 0;
         if (!opFutureList.isEmpty()) {
             try {

@@ -2,6 +2,8 @@ package dataBase.mySql.mySqlComps;
 
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import java.rmi.UnknownHostException;
+
 public abstract class MyColumnSql< T > {
 
     public static final int STRING = 0;
@@ -23,7 +25,7 @@ public abstract class MyColumnSql< T > {
     }
 
     // Abstracts functions
-    public abstract T getObject();
+    public abstract T getObject() throws UnknownHostException;
 
     // Getters and setters
     public MySqlColumnEnum getType() {
