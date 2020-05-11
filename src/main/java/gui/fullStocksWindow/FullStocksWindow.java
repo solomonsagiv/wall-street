@@ -25,7 +25,6 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
         super( title );
         textUpdater = new TextUpdater();
         textUpdater.getHandler().start();
-        JOptionPane.showConfirmDialog(null, "Text updater");
     }
 
     @Override

@@ -39,7 +39,10 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
         clientsCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String selected = clientsCombo.getSelectedItem().toString();
+
+                JOptionPane.showConfirmDialog(null, "1");
 
                 switch (selected) {
                     case "SPX":
@@ -68,7 +71,6 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "STOCKS":
                         new FullStocksWindow("Stocks");
-                        JOptionPane.showConfirmDialog(null, selected);
                         break;
                     default:
                         break;
