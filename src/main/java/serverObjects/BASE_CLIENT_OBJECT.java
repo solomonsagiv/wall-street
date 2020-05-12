@@ -17,7 +17,6 @@ import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
 import options.OptionsDataHandler;
-import options.OptionsEnum;
 import options.OptionsHandler;
 import roll.RollHandler;
 import service.MyServiceHandler;
@@ -687,8 +686,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
                 ", indexList=" + indexList.size( ) +
-                ", opFutureListQuarter=" + optionsHandler.getOptions( OptionsEnum.QUARTER ).getOpAvgFutureList().size() +
-                ", opFutureListQuarterFar=" + optionsHandler.getOptions( OptionsEnum.QUARTER_FAR ).getOpAvgFutureList().size() +
+//                ", opFutureListQuarter=" + optionsHandler.getOptions( OptionsEnum.QUARTER ).getOpAvgFutureList().size() +
+//                ", opFutureListQuarterFar=" + optionsHandler.getOptions( OptionsEnum.QUARTER_FAR ).getOpAvgFutureList().size() +
                 '}';
     }
 }

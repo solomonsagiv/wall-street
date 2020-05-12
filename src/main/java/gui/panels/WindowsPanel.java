@@ -7,6 +7,7 @@ import gui.stock.StockWindow;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.*;
@@ -39,10 +40,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
         clientsCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String selected = clientsCombo.getSelectedItem().toString();
-
-                JOptionPane.showConfirmDialog(null, "1");
 
                 switch (selected) {
                     case "SPX":
@@ -50,6 +48,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "NDX":
                         new IndexWindow("Ndx", Ndx.getInstance());
+                        break;
+                    case "DAX":
+                        new IndexWindow("Dax", Dax.getInstance());
                         break;
                     case "APPLE":
                         new StockWindow("Apple", Apple.getInstance());
@@ -71,6 +72,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "STOCKS":
                         new FullStocksWindow("Stocks");
+                        JOptionPane.showConfirmDialog(null, selected);
                         break;
                     default:
                         break;

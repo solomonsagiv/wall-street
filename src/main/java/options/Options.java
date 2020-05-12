@@ -119,8 +119,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             contractCall.strike(strike);
             contractCall.right(Types.Right.Call);
 
-            System.out.println(contractCall);
-
             client.getTwsHandler().addContract(contractCall);
 
             call.setMyContract(contractCall);
@@ -266,7 +264,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                     sells.add(sell);
 
                 } catch (Exception e) {
-                    System.out.println("Exeption");
+                    System.out.println(client.getName() + " getContract() Exception ");
                 }
             }
 
@@ -483,15 +481,13 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
             }
             return L.floor(sum / opFutureList.size(), 100);
         } else {
-            throw new NullPointerException( client.getName() + " op future list empty" );
+            throw new NullPointerException(client.getName() + " op future list empty");
         }
     }
 
-    public double getOpAvgFuture( int secondes ) {
+    public double getOpAvgFuture(int secondes) {
         try {
             // If op future list < seconds
-
-            System.out.println(opFutureList.size() );
 
             if (secondes > opFutureList.size() - 1) {
                 return getOpAvgFuture();
@@ -543,7 +539,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
         for (int i = 0; i < size; i++) {
             opList.add(opAvg);
-            System.out.println( i +  " " + opAvg );
         }
     }
 
@@ -553,7 +548,6 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
         for (int i = 0; i < size; i++) {
             opFutureList.add(opAvg);
-            System.out.println( i +  " " + opAvg );
         }
     }
 
@@ -643,8 +637,8 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         mainJson.put(JsonEnum.FUTURE.toString(), getFuture());
         mainJson.put(JsonEnum.OP_AVG.toString(), L.floor(getOpAvg(), 100));
         try {
-            mainJson.put( JsonEnum.OP_AVG_FUTURE.toString( ), L.floor( getOpAvgFuture( ), 100 ) );
-        } catch ( Exception e ) {
+            mainJson.put(JsonEnum.OP_AVG_FUTURE.toString(), L.floor(getOpAvgFuture(), 100));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         mainJson.put(JsonEnum.DATA.toString(), optionsData);
@@ -1029,7 +1023,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return opAvg15FutureList;
     }
 
-    public void setOpAvg15FutureList( MyChartList opAvg15FutureList ) {
+    public void setOpAvg15FutureList(MyChartList opAvg15FutureList) {
         this.opAvg15FutureList = opAvg15FutureList;
     }
 }

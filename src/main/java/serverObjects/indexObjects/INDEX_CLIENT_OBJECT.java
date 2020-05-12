@@ -1,5 +1,7 @@
 package serverObjects.indexObjects;
 
+import basketFinder.BasketService;
+import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
@@ -15,6 +17,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
+
+
+    protected BasketService basketService;
+    protected StocksHandler stocksHandler;
 
     public INDEX_CLIENT_OBJECT() {
         super();
@@ -45,4 +51,12 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         setOptionsHandler(optionsHandler);
     }
 
+
+    public StocksHandler getStocksHandler() {
+        return stocksHandler;
+    }
+
+    public BasketService getBasketService() {
+        return basketService;
+    }
 }

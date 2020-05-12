@@ -6,17 +6,19 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.*;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
     // Main
-    public static void main( String[] args ) {
-        MyMainWindow mainWindow = new MyMainWindow( "My main window" );
-        System.out.println( mainWindow.getWidth( ) );
+    public static void main(String[] args) {
+        MyMainWindow mainWindow = new MyMainWindow("My main window");
+        System.out.println(mainWindow.getWidth());
     }
 
     // Variables
@@ -24,6 +26,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
+    static Dax dax;
     static Apple apple;
     static Amazon amazon;
     static Spx spx;
@@ -33,33 +36,35 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Microsoft microsoft;
 
     static {
-        spx = Spx.getInstance( );
-        apple = Apple.getInstance( );
-        amazon = Amazon.getInstance( );
-        ulta = Ulta.getInstance( );
-        netflix = Netflix.getInstance( );
-        amd = Amd.getInstance( );
-        microsoft = Microsoft.getInstance( );
+        dax = Dax.getInstance();
+        spx = Spx.getInstance();
+        apple = Apple.getInstance();
+        amazon = Amazon.getInstance();
+        ulta = Ulta.getInstance();
+        netflix = Netflix.getInstance();
+        amd = Amd.getInstance();
+        microsoft = Microsoft.getInstance();
     }
 
     // Constructor
-    public MyMainWindow( String title ) throws HeadlessException {
-        super( title );
+    public MyMainWindow(String title) throws HeadlessException {
+        super(title);
     }
 
     private void appendClients() {
-        LocalHandler.clients.add( spx );
-        LocalHandler.clients.add( apple );
-        LocalHandler.clients.add( amazon );
-        LocalHandler.clients.add( ulta );
-        LocalHandler.clients.add( netflix );
-        LocalHandler.clients.add( amd );
-        LocalHandler.clients.add( microsoft );
+        LocalHandler.clients.add(dax);
+        LocalHandler.clients.add(spx);
+        LocalHandler.clients.add(apple);
+        LocalHandler.clients.add(amazon);
+        LocalHandler.clients.add(ulta);
+        LocalHandler.clients.add(netflix);
+        LocalHandler.clients.add(amd);
+        LocalHandler.clients.add(microsoft);
     }
 
     @Override
     public void onClose() {
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     @Override
@@ -70,52 +75,52 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // Append clients
-        appendClients( );
+        appendClients();
 
         // Load data from DB
-        loadOnStartUp( );
+        loadOnStartUp();
 
         // This
-        setXY( 100, 100 );
-        setSize( 500, 420 );
-        setLayout( null );
+        setXY(100, 100);
+        setSize(500, 420);
+        setLayout(null);
 
         // Head
-        headPanel = new HeadPanel( );
-        headPanel.setXY( 0, 0 );
-        add( headPanel );
+        headPanel = new HeadPanel();
+        headPanel.setXY(0, 0);
+        add(headPanel);
 
         // Connection
-        connectionPanel = new ConnectionPanel( );
-        connectionPanel.setXY( 0, headPanel.getHeight( ) );
-        getContentPane( ).add( connectionPanel );
+        connectionPanel = new ConnectionPanel();
+        connectionPanel.setXY(0, headPanel.getHeight());
+        getContentPane().add(connectionPanel);
 
         // Windows
-        windowsPanel = new WindowsPanel( );
-        windowsPanel.setXY( 0, connectionPanel.getY( ) + connectionPanel.getHeight( ) + 1 );
-        add( windowsPanel );
+        windowsPanel = new WindowsPanel();
+        windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
+        add(windowsPanel);
 
     }
 
     private void loadOnStartUp() {
 
-        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
 
             // Load data
-            client.getTablesHandler( ).getTable( TablesEnum.TWS_CONTRACTS ).load( );
-            client.getTablesHandler( ).getTable( TablesEnum.STATUS ).load( );
-            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).load( );
+            client.getTablesHandler().getTable(TablesEnum.TWS_CONTRACTS).load();
+            client.getTablesHandler().getTable(TablesEnum.STATUS).load();
+            client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
 
-            if ( client instanceof Spx ) {
-                client.getTablesHandler().getTable( TablesEnum.INDEX_STOCKS ).loadAll();
+            if ( client instanceof Dax) {
+                client.getTablesHandler().getTable(TablesEnum.INDEX_STOCKS).loadAll();
             }
 
-            client.setLoadStatusFromHB( true );
-            client.setLoadArraysFromHB( true );
-            client.setLoadFromDb( true );
+            client.setLoadStatusFromHB(true);
+            client.setLoadArraysFromHB(true);
+            client.setLoadFromDb(true);
 
             // Start client background runner
-            client.getBackRunner( ).startRunner( );
+            client.getBackRunner().startRunner();
         }
 
     }
