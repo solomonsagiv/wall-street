@@ -20,21 +20,21 @@ import java.util.*;
 public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     OptionsDDeCells optionsDDeCells;
-    List<Strike> strikes;
-    HashMap<Integer, Option> optionsMap;
+    List< Strike > strikes;
+    HashMap< Integer, Option > optionsMap;
     BASE_CLIENT_OBJECT client;
     double bidMin = 0;
     double askMax = 0;
     private boolean requested = false;
     protected OptionsEnum type;
-    protected LocalDate toDay = LocalDate.now();
+    protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
     protected OptionsProps props;
     protected int contractBidAskCounter = 0;
     protected int baseID = 0;
     protected int minId = 0;
     protected int maxId = 0;
-    protected MyContract twsContract = new MyContract();
+    protected MyContract twsContract = new MyContract( );
     protected boolean gotData = false;
     private double contract = 0;
 
@@ -43,58 +43,61 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     protected double futureAsk = 0;
     protected int futureBidAskCounter = 0;
 
+    protected double futureDelta = 0;
+
     protected double contractBid = 0;
     protected double contractAsk = 0;
     public double currStrike = 0;
+    private int futureVolume = 0;
 
-    Set<Integer> dates = new HashSet<>();
+    Set< Integer > dates = new HashSet<>( );
 
     protected PositionCalculator positionCalculator;
 
-    List<Double> opFutureList = new ArrayList<>();
-    List<Double> futureList = new ArrayList<>();
-    List<Double> opList = new ArrayList<>();
-    MyChartList opAvgFutureList = new MyChartList();
-    MyChartList opAvg15FutureList = new MyChartList();
-    List<Double> opAvgList = new ArrayList<>();
-    List<Double> conList = new ArrayList<>();
-    List<Double> conBidList = new ArrayList<>();
-    List<Double> conAskList = new ArrayList<>();
+    List< Double > opFutureList = new ArrayList<>( );
+    List< Double > futureList = new ArrayList<>( );
+    List< Double > opList = new ArrayList<>( );
+    MyChartList opAvgFutureList = new MyChartList( );
+    MyChartList opAvg15FutureList = new MyChartList( );
+    List< Double > opAvgList = new ArrayList<>( );
+    List< Double > conList = new ArrayList<>( );
+    List< Double > conBidList = new ArrayList<>( );
+    List< Double > conAskList = new ArrayList<>( );
 
-    MyChartList futBidAskCounterList = new MyChartList();
-    MyChartList conBidAskCounterList = new MyChartList();
-    MyChartList opAvgChartList = new MyChartList();
+    MyChartList futBidAskCounterList = new MyChartList( );
+    MyChartList conBidAskCounterList = new MyChartList( );
+    MyChartList opAvgChartList = new MyChartList( );
 
-    public Options(int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType) {
+    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType ) {
         this.baseID = baseID;
         this.type = type;
         this.client = client;
-        this.twsContract = client.getTwsHandler().getMyContract(contractType);
+        this.twsContract = client.getTwsHandler( ).getMyContract( contractType );
 
-        strikes = new ArrayList<>();
-        optionsMap = new HashMap<>();
-        positionCalculator = new PositionCalculator(client);
-        props = new OptionsProps();
+        strikes = new ArrayList<>( );
+        optionsMap = new HashMap<>( );
+        positionCalculator = new PositionCalculator( client );
+        props = new OptionsProps( );
     }
 
-    public Options(int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType, OptionsDDeCells dDeCells) {
-        this(baseID, client, type, contractType);
+    public Options( int baseID, BASE_CLIENT_OBJECT client, OptionsEnum type, TwsContractsEnum contractType, OptionsDDeCells dDeCells ) {
+        this( baseID, client, type, contractType );
         this.optionsDDeCells = dDeCells;
     }
 
-    public Call getCall(double targetStrike) {
-        for (Strike strike : strikes) {
-            if (targetStrike == strike.getStrike()) {
-                return strike.getCall();
+    public Call getCall( double targetStrike ) {
+        for ( Strike strike : strikes ) {
+            if ( targetStrike == strike.getStrike( ) ) {
+                return strike.getCall( );
             }
         }
         return null;
     }
 
-    public Put getPut(double targetStrike) {
-        for (Strike strike : strikes) {
-            if (targetStrike == strike.getStrike()) {
-                return strike.getPut();
+    public Put getPut( double targetStrike ) {
+        for ( Strike strike : strikes ) {
+            if ( targetStrike == strike.getStrike( ) ) {
+                return strike.getPut( );
             }
         }
         return null;
@@ -102,76 +105,76 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     public void initOptions() {
 
-        double startStrike = client.getStartStrike();
-        double endStrike = client.getEndStrike();
+        double startStrike = client.getStartStrike( );
+        double endStrike = client.getEndStrike( );
 
-        int id = getBaseID();
+        int id = getBaseID( );
 
-        for (double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin()) {
+        for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
 
             // ----- Call ------ //
-            Call call = new Call(strike, id);
+            Call call = new Call( strike, id );
 
-            MyContract contractCall = new MyContract(getTwsContract());
+            MyContract contractCall = new MyContract( getTwsContract( ) );
 
             // MyTwsContract
-            contractCall.setMyId(id);
-            contractCall.strike(strike);
-            contractCall.right(Types.Right.Call);
+            contractCall.setMyId( id );
+            contractCall.strike( strike );
+            contractCall.right( Types.Right.Call );
 
-            client.getTwsHandler().addContract(contractCall);
+            client.getTwsHandler( ).addContract( contractCall );
 
-            call.setMyContract(contractCall);
+            call.setMyContract( contractCall );
 
-            setOption(call);
+            setOption( call );
             id++;
 
             // ----- Put ------ //
-            Put put = new Put(strike, id);
+            Put put = new Put( strike, id );
 
-            MyContract contractPut = new MyContract(getTwsContract());
+            MyContract contractPut = new MyContract( getTwsContract( ) );
 
             // MyTwsContract
-            contractPut.setMyId(id);
-            contractPut.strike(strike);
-            contractPut.right(Types.Right.Put);
-            client.getTwsHandler().addContract(contractPut);
+            contractPut.setMyId( id );
+            contractPut.strike( strike );
+            contractPut.right( Types.Right.Put );
+            client.getTwsHandler( ).addContract( contractPut );
 
-            put.setMyContract(contractPut);
+            put.setMyContract( contractPut );
 
-            setOption(put);
+            setOption( put );
             id++;
 
         }
     }
 
-    public void removeStrike(double strikeToRemove) {
+    public void removeStrike( double strikeToRemove ) {
 
-        for (Strike strike : getStrikes()) {
-            if (strikeToRemove == strike.getStrike()) {
-                getStrikes().remove(strike);
+        for ( Strike strike : getStrikes( ) ) {
+            if ( strikeToRemove == strike.getStrike( ) ) {
+                getStrikes( ).remove( strike );
             }
         }
 
-        for (Map.Entry<Integer, Option> entry : optionsMap.entrySet()) {
-            Option option = entry.getValue();
-            if (strikeToRemove == option.getStrike()) {
-                optionsMap.remove(option);
+        for ( Map.Entry< Integer, Option > entry : optionsMap.entrySet( ) ) {
+            Option option = entry.getValue( );
+            if ( strikeToRemove == option.getStrike( ) ) {
+                optionsMap.remove( option );
             }
         }
 
     }
 
-    public Option getOption(String name) {
+    public Option getOption( String name ) {
 
-        double targetStrike = Double.parseDouble(name.substring(1));
+        double targetStrike = Double.parseDouble( name.substring( 1 ) );
 
-        for (Strike strike : strikes) {
-            if (strike.getStrike() == targetStrike) {
-                if (name.toLowerCase().contains("c")) {
-                    return strike.getCall();
+        for ( Strike strike : strikes ) {
+            if ( strike.getStrike( ) == targetStrike ) {
+                if ( name.toLowerCase( ).contains( "c" ) ) {
+                    return strike.getCall( );
                 } else {
-                    return strike.getPut();
+                    return strike.getPut( );
                 }
             }
         }
@@ -179,107 +182,107 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     public double getFutureOp() {
-        return future - client.getIndex();
+        return future - client.getIndex( );
     }
 
     public void checkOptionData() {
-        new Thread(() -> {
+        new Thread( () -> {
 
-            while (!isGotData()) {
+            while ( !isGotData( ) ) {
                 try {
 
                     // Sleep
-                    Thread.sleep(1000);
+                    Thread.sleep( 1000 );
                     boolean bool = true;
 
-                    double increment = client.getStrikeMargin();
+                    double increment = client.getStrikeMargin( );
 
                     // For each strike
-                    double strikInMoney = getStrikeInMoney();
+                    double strikInMoney = getStrikeInMoney( );
                     double startStrike = strikInMoney - increment * 2;
                     double endStrike = strikInMoney + increment * 2;
 
-                    for (double strikePrice = startStrike; strikePrice < endStrike; strikePrice += client.getStrikeMargin()) {
+                    for ( double strikePrice = startStrike; strikePrice < endStrike; strikePrice += client.getStrikeMargin( ) ) {
 
-                        Strike strike = getStrike(strikePrice);
+                        Strike strike = getStrike( strikePrice );
 
-                        Option call = strike.getCall();
-                        Option put = strike.getPut();
+                        Option call = strike.getCall( );
+                        Option put = strike.getPut( );
 
-                        if (call.getBid() == 0 || call.getAsk() == 0 || put.getBid() == 0 || put.getAsk() == 0) {
+                        if ( call.getBid( ) == 0 || call.getAsk( ) == 0 || put.getBid( ) == 0 || put.getAsk( ) == 0 ) {
                             bool = false;
                             break;
                         }
                     }
 
                     // Exit the function
-                    if (bool) {
-                        setGotData(bool);
-                        Thread.currentThread().interrupt();
+                    if ( bool ) {
+                        setGotData( bool );
+                        Thread.currentThread( ).interrupt( );
                     }
 
-                } catch (InterruptedException e) {
+                } catch ( InterruptedException e ) {
                     break;
-                } catch (Exception e) {
+                } catch ( Exception e ) {
 
                 }
             }
-        }).start();
+        } ).start( );
     }
 
     // Claculate the index from options
     public double getContract() {
 
-        if (contract != 0) {
+        if ( contract != 0 ) {
             return contract;
         }
 
         try {
-            ArrayList<Double> buys = new ArrayList<>();
-            ArrayList<Double> sells = new ArrayList<>();
+            ArrayList< Double > buys = new ArrayList<>( );
+            ArrayList< Double > sells = new ArrayList<>( );
 
             double callAsk = 0;
             double callBid = 0;
             double putAsk = 0;
             double putBid = 0;
 
-            for (Strike strike : getStrikes()) {
+            for ( Strike strike : getStrikes( ) ) {
                 try {
-                    callAsk = strike.getCall().getAsk();
-                    callBid = strike.getCall().getBid();
-                    putAsk = strike.getPut().getAsk();
-                    putBid = strike.getPut().getBid();
+                    callAsk = strike.getCall( ).getAsk( );
+                    callBid = strike.getCall( ).getBid( );
+                    putAsk = strike.getPut( ).getAsk( );
+                    putBid = strike.getPut( ).getBid( );
 
-                    if (callAsk <= 0) {
+                    if ( callAsk <= 0 ) {
                         callAsk = 99999999;
                     }
-                    if (putAsk <= 0) {
+                    if ( putAsk <= 0 ) {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike() * (Math.exp((-props.getInterestZero() - 0.002 + getCalcDevidend()) * (getProps().getDays() / 360.0)));
+                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + getCalcDevidend( ) ) * ( getProps( ).getDays( ) / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
-                    buys.add(buy);
-                    sells.add(sell);
+                    buys.add( buy );
+                    sells.add( sell );
 
-                } catch (Exception e) {
-                    System.out.println(client.getName() + " getContract() Exception ");
+                } catch ( Exception e ) {
+                    System.out.println( client.getName( ) + " getContract() Exception " );
                 }
             }
 
-            double currentBidMin = Collections.min(buys);
-            double currentAskMax = Collections.max(sells);
+            double currentBidMin = Collections.min( buys );
+            double currentAskMax = Collections.max( sells );
 
             // Update contract bid, ask
-            setContractBid(floor(currentBidMin, 100));
-            setContractAsk(floor(currentAskMax, 100));
+            setContractBid( floor( currentBidMin, 100 ) );
+            setContractAsk( floor( currentAskMax, 100 ) );
 
             bidMin = currentBidMin;
             askMax = currentAskMax;
 
-            return floor(((bidMin + askMax) / 2), 100);
-        } catch (Exception e) {
+            return floor( ( ( bidMin + askMax ) / 2 ), 100 );
+        } catch ( Exception e ) {
             return 0;
         }
     }
@@ -288,14 +291,14 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     public double calcContractAbsolute() {
 
         try {
-            ArrayList<Double> buys = new ArrayList<>();
-            ArrayList<Double> sells = new ArrayList<>();
+            ArrayList< Double > buys = new ArrayList<>( );
+            ArrayList< Double > sells = new ArrayList<>( );
 
-            double strikeInMoney = getStrikeInMoney();
-            double startStrike = strikeInMoney - (client.getStrikeMargin() * 5);
-            double endStrike = strikeInMoney + (client.getStrikeMargin() * 5);
+            double strikeInMoney = getStrikeInMoney( );
+            double startStrike = strikeInMoney - ( client.getStrikeMargin( ) * 5 );
+            double endStrike = strikeInMoney + ( client.getStrikeMargin( ) * 5 );
 
-            for (double strikePrice = startStrike; strikePrice <= endStrike; strikePrice += client.getStrikeMargin()) {
+            for ( double strikePrice = startStrike; strikePrice <= endStrike; strikePrice += client.getStrikeMargin( ) ) {
 
                 Strike strike;
                 double call_ask = 0;
@@ -304,75 +307,75 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                 double put_bid = 0;
 
                 try {
-                    strike = getStrike(strikePrice);
+                    strike = getStrike( strikePrice );
 
-                    call_ask = strike.getCall().getAsk();
-                    call_bid = strike.getCall().getBid();
-                    put_ask = strike.getPut().getAsk();
-                    put_bid = strike.getPut().getBid();
+                    call_ask = strike.getCall( ).getAsk( );
+                    call_bid = strike.getCall( ).getBid( );
+                    put_ask = strike.getPut( ).getAsk( );
+                    put_bid = strike.getPut( ).getBid( );
 
-                    if (call_ask <= 0) {
+                    if ( call_ask <= 0 ) {
                         call_ask = 99999999;
                     }
-                    if (put_ask <= 0) {
+                    if ( put_ask <= 0 ) {
                         put_ask = 99999999;
                     }
 
-                    double v = (strikePrice / (Math.pow(props.getInterest(), (getAbsolutDays() / 360.0))));
+                    double v = ( strikePrice / ( Math.pow( props.getInterest( ), ( getAbsolutDays( ) / 360.0 ) ) ) );
 
-                    double buy = (call_ask - put_bid) + v;
-                    double sell = (call_bid - put_ask) + v;
+                    double buy = ( call_ask - put_bid ) + v;
+                    double sell = ( call_bid - put_ask ) + v;
 
-                    buys.add(buy);
-                    sells.add(sell);
+                    buys.add( buy );
+                    sells.add( sell );
 
-                } catch (Exception e) {
+                } catch ( Exception e ) {
                     // TODO: handle exception
                 }
             }
 
-            double currentBidMin = Collections.min(buys);
-            double currentAskMax = Collections.max(sells);
+            double currentBidMin = Collections.min( buys );
+            double currentAskMax = Collections.max( sells );
 
-            double future = floor((currentBidMin + currentAskMax) / 2, 100);
+            double future = floor( ( currentBidMin + currentAskMax ) / 2, 100 );
 
             return future;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace( );
             return 0;
         }
     }
 
     public double getAbsolutDays() {
-        double d = (int) ChronoUnit.DAYS.between(LocalDate.now(), getExpDate());
+        double d = ( int ) ChronoUnit.DAYS.between( LocalDate.now( ), getExpDate( ) );
         return d + 1;
     }
 
 
     public double getOp() {
-        return L.floor(getContract() - client.getIndex(), 100);
+        return L.floor( getContract( ) - client.getIndex( ), 100 );
     }
 
-    public Option getOption(String side, double targetStrike) {
-        for (Strike strike : strikes) {
-            if (strike.getStrike() == targetStrike) {
-                if (side.toLowerCase().contains("c")) {
-                    return strike.getCall();
+    public Option getOption( String side, double targetStrike ) {
+        for ( Strike strike : strikes ) {
+            if ( strike.getStrike( ) == targetStrike ) {
+                if ( side.toLowerCase( ).contains( "c" ) ) {
+                    return strike.getCall( );
                 } else {
-                    return strike.getPut();
+                    return strike.getPut( );
                 }
             }
         }
         return null;
     }
 
-    public Option getOption(Class c, double targetStrike) {
-        for (Strike strike : strikes) {
-            if (strike.getStrike() == targetStrike) {
-                if (c == Call.class) {
-                    return strike.getCall();
+    public Option getOption( Class c, double targetStrike ) {
+        for ( Strike strike : strikes ) {
+            if ( strike.getStrike( ) == targetStrike ) {
+                if ( c == Call.class ) {
+                    return strike.getCall( );
                 } else {
-                    return strike.getPut();
+                    return strike.getPut( );
                 }
             }
         }
@@ -380,9 +383,9 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     // Return single strike by strike price (double)
-    public Strike getStrike(double strikePrice) {
-        for (Strike strike : strikes) {
-            if (strikePrice == strike.getStrike()) {
+    public Strike getStrike( double strikePrice ) {
+        for ( Strike strike : strikes ) {
+            if ( strikePrice == strike.getStrike( ) ) {
                 return strike;
             }
         }
@@ -390,334 +393,334 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     // Return list of strikes prices
-    public ArrayList<Double> getStrikePricesList() {
-        ArrayList<Double> list = new ArrayList<>();
-        strikes.forEach(strike -> list.add(strike.getStrike()));
+    public ArrayList< Double > getStrikePricesList() {
+        ArrayList< Double > list = new ArrayList<>( );
+        strikes.forEach( strike -> list.add( strike.getStrike( ) ) );
         return list;
     }
 
     // Remove strike from strikes arr by strike class
-    public void removeStrike(Strike strike) {
-        strikes.remove(strike);
+    public void removeStrike( Strike strike ) {
+        strikes.remove( strike );
     }
 
     // Add strike to strikes arr
-    public void addStrike(Strike strike) {
+    public void addStrike( Strike strike ) {
 
-        boolean contains = getStrikePricesList().contains(strike.getStrike());
+        boolean contains = getStrikePricesList( ).contains( strike.getStrike( ) );
 
         // Not inside
-        if (!contains) {
-            strikes.add(strike);
+        if ( !contains ) {
+            strikes.add( strike );
         }
     }
 
-    public Option getOptionById(int id) {
-        return optionsMap.get(id);
+    public Option getOptionById( int id ) {
+        return optionsMap.get( id );
     }
 
     // Set option in strikes arr
-    public void setOption(Option option) {
+    public void setOption( Option option ) {
 
         // Set min || max ID
-        setMinId(option.getId());
-        setMaxId(option.getId());
+        setMinId( option.getId( ) );
+        setMaxId( option.getId( ) );
 
         // HashMap
-        optionsMap.put(option.getId(), option);
+        optionsMap.put( option.getId( ), option );
 
         // Strikes list
         boolean callPut = option instanceof Call;
 
-        Strike strike = getStrike(option.getStrike());
+        Strike strike = getStrike( option.getStrike( ) );
 
-        if (strike != null) {
+        if ( strike != null ) {
 
-            if (callPut) {
-                if (strike.getCall() == null) {
-                    strike.setCall((Call) option);
+            if ( callPut ) {
+                if ( strike.getCall( ) == null ) {
+                    strike.setCall( ( Call ) option );
                 }
             } else {
-                if (strike.getPut() == null) {
-                    strike.setPut((Put) option);
+                if ( strike.getPut( ) == null ) {
+                    strike.setPut( ( Put ) option );
                 }
             }
         } else {
 
             // Create new if doesn't exist
-            strike = new Strike();
-            strike.setStrike(option.getStrike());
+            strike = new Strike( );
+            strike.setStrike( option.getStrike( ) );
 
-            if (callPut) {
-                strike.setCall((Call) option);
+            if ( callPut ) {
+                strike.setCall( ( Call ) option );
             } else {
-                strike.setPut((Put) option);
+                strike.setPut( ( Put ) option );
             }
 
             // Add strike
-            addStrike(strike);
+            addStrike( strike );
         }
     }
 
-    public void setOpValues(double val) {
-        if (!opList.isEmpty()) {
-            double size = getOpList().size();
-            opList.clear();
-            for (int i = 0; i < size; i++) {
-                opList.add(val);
+    public void setOpValues( double val ) {
+        if ( !opList.isEmpty( ) ) {
+            double size = getOpList( ).size( );
+            opList.clear( );
+            for ( int i = 0; i < size; i++ ) {
+                opList.add( val );
             }
         }
     }
 
     public double getOpAvgFuture() throws UnknownHostException {
         double sum = 0;
-        if (!opFutureList.isEmpty()) {
+        if ( !opFutureList.isEmpty( ) ) {
             try {
-                for (int i = 0; i < opFutureList.size(); i++) {
-                    sum += opFutureList.get(i);
+                for ( int i = 0; i < opFutureList.size( ); i++ ) {
+                    sum += opFutureList.get( i );
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch ( Exception e ) {
+                e.printStackTrace( );
             }
-            return L.floor(sum / opFutureList.size(), 100);
+            return L.floor( sum / opFutureList.size( ), 100 );
         } else {
-            throw new NullPointerException(client.getName() + " op future list empty");
+            throw new NullPointerException( client.getName( ) + " op future list empty" );
         }
     }
 
-    public double getOpAvgFuture(int secondes) {
+    public double getOpAvgFuture( int secondes ) {
         try {
             // If op future list < seconds
 
-            if (secondes > opFutureList.size() - 1) {
-                return getOpAvgFuture();
+            if ( secondes > opFutureList.size( ) - 1 ) {
+                return getOpAvgFuture( );
             }
 
             double sum = 0;
 
-            for (int i = opFutureList.size() - secondes; i < opFutureList.size(); i++) {
-                sum += opFutureList.get(i);
+            for ( int i = opFutureList.size( ) - secondes; i < opFutureList.size( ); i++ ) {
+                sum += opFutureList.get( i );
             }
 
-            return L.floor(sum / opFutureList.size(), 100);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return L.floor( sum / opFutureList.size( ), 100 );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
             return 0;
         }
 
     }
 
     public double getOpFuture() {
-        return future - client.getIndex();
+        return future - client.getIndex( );
     }
 
     public double getOpAvg() {
 
         double sum = 0;
 
-        if (!opList.isEmpty()) {
+        if ( !opList.isEmpty( ) ) {
 
             try {
 
-                for (int i = 0; i < opList.size(); i++) {
-                    sum += opList.get(i);
+                for ( int i = 0; i < opList.size( ); i++ ) {
+                    sum += opList.get( i );
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch ( Exception e ) {
+                e.printStackTrace( );
             }
 
-            return L.floor(sum / opList.size(), 100);
+            return L.floor( sum / opList.size( ), 100 );
         } else {
             return 0;
         }
     }
 
-    public void setOpAvg(double opAvg) {
-        int size = opList.size();
-        opList.clear();
+    public void setOpAvg( double opAvg ) {
+        int size = opList.size( );
+        opList.clear( );
 
-        for (int i = 0; i < size; i++) {
-            opList.add(opAvg);
+        for ( int i = 0; i < size; i++ ) {
+            opList.add( opAvg );
         }
     }
 
-    public void setOpAvgFuture(double opAvg) {
-        int size = opFutureList.size();
-        opFutureList.clear();
+    public void setOpAvgFuture( double opAvg ) {
+        int size = opFutureList.size( );
+        opFutureList.clear( );
 
-        for (int i = 0; i < size; i++) {
-            opFutureList.add(opAvg);
+        for ( int i = 0; i < size; i++ ) {
+            opFutureList.add( opAvg );
         }
     }
 
 
     @Override
     public MyJson getAsJson() {
-        MyJson object = new MyJson();
-        object.put(JsonEnum.PROPS.toString(), getProps().getAsJson());
-        object.put(JsonEnum.DATA.toString(), getDataAsJson());
+        MyJson object = new MyJson( );
+        object.put( JsonEnum.PROPS.toString( ), getProps( ).getAsJson( ) );
+        object.put( JsonEnum.DATA.toString( ), getDataAsJson( ) );
         return object;
     }
 
     public MyJson getasJsonWithTwsContract() {
-        MyJson object = new MyJson();
-        object.put(JsonEnum.PROPS.toString(), getProps().getAsJson());
-        object.put(JsonEnum.TWS_CONTRACT.toString(), getTwsContract().getAsJson());
-        object.put(JsonEnum.DATA.toString(), getDataAsJson());
+        MyJson object = new MyJson( );
+        object.put( JsonEnum.PROPS.toString( ), getProps( ).getAsJson( ) );
+        object.put( JsonEnum.TWS_CONTRACT.toString( ), getTwsContract( ).getAsJson( ) );
+        object.put( JsonEnum.DATA.toString( ), getDataAsJson( ) );
         return object;
     }
 
     @Override
     public MyJson getResetObject() {
-        MyJson object = new MyJson();
-        object.put(JsonEnum.DATA.toString(), getResetDataAsJson());
+        MyJson object = new MyJson( );
+        object.put( JsonEnum.DATA.toString( ), getResetDataAsJson( ) );
         return object;
     }
 
     @Override
-    public void loadFromJson(MyJson object) {
-        getProps().loadFromJson(object.getMyJson(JsonEnum.PROPS.toString()));
-        setFutureBidAskCounter(object.getInt(JsonEnum.FUTURE_BID_ASK_COUNTER.toString()));
-        setContractBidAskCounter(object.getInt(JsonEnum.CON_BID_ASK_COUNTER.toString()));
+    public void loadFromJson( MyJson object ) {
+        getProps( ).loadFromJson( object.getMyJson( JsonEnum.PROPS.toString( ) ) );
+        setFutureBidAskCounter( object.getInt( JsonEnum.FUTURE_BID_ASK_COUNTER.toString( ) ) );
+        setContractBidAskCounter( object.getInt( JsonEnum.CON_BID_ASK_COUNTER.toString( ) ) );
     }
 
-    public List<Strike> getStrikes() {
+    public List< Strike > getStrikes() {
         return strikes;
     }
 
-    public void setStrikes(List<Strike> strikes) {
+    public void setStrikes( List< Strike > strikes ) {
         this.strikes = strikes;
     }
 
     public String toStringVertical() {
         String string = "";
 
-        string += getType().toString() + "\n\n";
+        string += getType( ).toString( ) + "\n\n";
 
-        for (Strike strike : strikes) {
-            string += strike.toString() + "\n\n";
+        for ( Strike strike : strikes ) {
+            string += strike.toString( ) + "\n\n";
         }
         return string;
     }
 
     private JSONObject getDataAsJson() {
 
-        JSONObject mainJson = new JSONObject();
+        JSONObject mainJson = new JSONObject( );
 
-        JSONObject optionsData = new JSONObject();
+        JSONObject optionsData = new JSONObject( );
 
         JSONObject callJson;
         JSONObject putJson;
         JSONObject strikeJson;
 
-        for (Strike strike : strikes) {
+        for ( Strike strike : strikes ) {
 
-            callJson = new JSONObject();
-            putJson = new JSONObject();
-            strikeJson = new JSONObject();
+            callJson = new JSONObject( );
+            putJson = new JSONObject( );
+            strikeJson = new JSONObject( );
 
-            Call call = strike.getCall();
-            callJson.put(JsonEnum.BID.toString(), call.getBid());
-            callJson.put(JsonEnum.ASK.toString(), call.getAsk());
-            callJson.put(JsonEnum.OPT_BID_ASK_COUNTER.toString(), call.getBidAskCounter());
+            Call call = strike.getCall( );
+            callJson.put( JsonEnum.BID.toString( ), call.getBid( ) );
+            callJson.put( JsonEnum.ASK.toString( ), call.getAsk( ) );
+            callJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), call.getBidAskCounter( ) );
 
-            Put put = strike.getPut();
-            putJson.put(JsonEnum.BID.toString(), put.getBid());
-            putJson.put(JsonEnum.ASK.toString(), put.getAsk());
-            putJson.put(JsonEnum.OPT_BID_ASK_COUNTER.toString(), put.getBidAskCounter());
+            Put put = strike.getPut( );
+            putJson.put( JsonEnum.BID.toString( ), put.getBid( ) );
+            putJson.put( JsonEnum.ASK.toString( ), put.getAsk( ) );
+            putJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), put.getBidAskCounter( ) );
 
-            strikeJson.put(JsonEnum.CALL.toString(), callJson);
-            strikeJson.put(JsonEnum.PUT.toString(), putJson);
+            strikeJson.put( JsonEnum.CALL.toString( ), callJson );
+            strikeJson.put( JsonEnum.PUT.toString( ), putJson );
 
-            optionsData.put(str(strike.getStrike()), strikeJson);
+            optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put(JsonEnum.CONTRACT.toString(), getContract());
-        mainJson.put(JsonEnum.FUTURE.toString(), getFuture());
-        mainJson.put(JsonEnum.OP_AVG.toString(), L.floor(getOpAvg(), 100));
+        mainJson.put( JsonEnum.CONTRACT.toString( ), getContract( ) );
+        mainJson.put( JsonEnum.FUTURE.toString( ), getFuture( ) );
+        mainJson.put( JsonEnum.OP_AVG.toString( ), L.floor( getOpAvg( ), 100 ) );
         try {
-            mainJson.put(JsonEnum.OP_AVG_FUTURE.toString(), L.floor(getOpAvgFuture(), 100));
-        } catch (Exception e) {
-            e.printStackTrace();
+            mainJson.put( JsonEnum.OP_AVG_FUTURE.toString( ), L.floor( getOpAvgFuture( ), 100 ) );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
-        mainJson.put(JsonEnum.DATA.toString(), optionsData);
-        mainJson.put(JsonEnum.FUTURE_BID_ASK_COUNTER.toString(), getFutureBidAskCounter());
-        mainJson.put(JsonEnum.CON_BID_ASK_COUNTER.toString(), getConBidAskCounter());
+        mainJson.put( JsonEnum.DATA.toString( ), optionsData );
+        mainJson.put( JsonEnum.FUTURE_BID_ASK_COUNTER.toString( ), getFutureBidAskCounter( ) );
+        mainJson.put( JsonEnum.CON_BID_ASK_COUNTER.toString( ), getConBidAskCounter( ) );
 
         return mainJson;
     }
 
     public JSONObject getResetDataAsJson() {
-        JSONObject mainJson = new JSONObject();
+        JSONObject mainJson = new JSONObject( );
 
-        JSONObject optionsData = new JSONObject();
+        JSONObject optionsData = new JSONObject( );
 
         JSONObject callJson;
         JSONObject putJson;
         JSONObject strikeJson;
 
-        for (Strike strike : strikes) {
+        for ( Strike strike : strikes ) {
 
-            callJson = new JSONObject();
-            putJson = new JSONObject();
-            strikeJson = new JSONObject();
+            callJson = new JSONObject( );
+            putJson = new JSONObject( );
+            strikeJson = new JSONObject( );
 
-            callJson.put(JsonEnum.BID.toString(), 0);
-            callJson.put(JsonEnum.ASK.toString(), 0);
-            callJson.put(JsonEnum.OPT_BID_ASK_COUNTER.toString(), 0);
+            callJson.put( JsonEnum.BID.toString( ), 0 );
+            callJson.put( JsonEnum.ASK.toString( ), 0 );
+            callJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), 0 );
 
-            putJson.put(JsonEnum.BID.toString(), 0);
-            putJson.put(JsonEnum.ASK.toString(), 0);
-            putJson.put(JsonEnum.OPT_BID_ASK_COUNTER.toString(), 0);
+            putJson.put( JsonEnum.BID.toString( ), 0 );
+            putJson.put( JsonEnum.ASK.toString( ), 0 );
+            putJson.put( JsonEnum.OPT_BID_ASK_COUNTER.toString( ), 0 );
 
-            strikeJson.put(JsonEnum.CALL.toString(), callJson);
-            strikeJson.put(JsonEnum.PUT.toString(), putJson);
+            strikeJson.put( JsonEnum.CALL.toString( ), callJson );
+            strikeJson.put( JsonEnum.PUT.toString( ), putJson );
 
-            optionsData.put(str(strike.getStrike()), strikeJson);
+            optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put(JsonEnum.CONTRACT.toString(), 0);
-        mainJson.put(JsonEnum.OP_AVG.toString(), 0);
-        mainJson.put(JsonEnum.DATA.toString(), optionsData);
-        mainJson.put(JsonEnum.FUTURE_BID_ASK_COUNTER.toString(), 0);
+        mainJson.put( JsonEnum.CONTRACT.toString( ), 0 );
+        mainJson.put( JsonEnum.OP_AVG.toString( ), 0 );
+        mainJson.put( JsonEnum.DATA.toString( ), optionsData );
+        mainJson.put( JsonEnum.FUTURE_BID_ASK_COUNTER.toString( ), 0 );
 
         return mainJson;
     }
 
-    public void setOptionsData(JSONObject json) {
-        for (Strike strike : getStrikes()) {
+    public void setOptionsData( JSONObject json ) {
+        for ( Strike strike : getStrikes( ) ) {
             try {
-                double strikePrice = strike.getStrike();
+                double strikePrice = strike.getStrike( );
 
                 // Get data from json
-                JSONObject callJson = json.getJSONObject(str(strikePrice)).getJSONObject("call");
-                JSONObject putJson = json.getJSONObject(str(strikePrice)).getJSONObject("put");
+                JSONObject callJson = json.getJSONObject( str( strikePrice ) ).getJSONObject( "call" );
+                JSONObject putJson = json.getJSONObject( str( strikePrice ) ).getJSONObject( "put" );
 
                 // Set data to options
-                strike.getCall().setBidAskCounter(callJson.getInt("bid_ask_counter"));
-                strike.getPut().setBidAskCounter(putJson.getInt("bid_ask_counter"));
+                strike.getCall( ).setBidAskCounter( callJson.getInt( "bid_ask_counter" ) );
+                strike.getPut( ).setBidAskCounter( putJson.getInt( "bid_ask_counter" ) );
 
-            } catch (Exception e) {
+            } catch ( Exception e ) {
             }
         }
     }
 
     public void resetOptionsBidAskCounter() {
         try {
-            for (Strike strike : getStrikes()) {
+            for ( Strike strike : getStrikes( ) ) {
 
-                Call call = strike.getCall();
-                Put put = strike.getPut();
+                Call call = strike.getCall( );
+                Put put = strike.getPut( );
 
-                call.setBidAskCounter(0);
-                call.getBidAskCounterList().clear();
+                call.setBidAskCounter( 0 );
+                call.getBidAskCounterList( ).clear( );
 
-                put.setBidAskCounter(0);
-                put.getBidAskCounterList().clear();
+                put.setBidAskCounter( 0 );
+                put.getBidAskCounterList( ).clear( );
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
     }
 
@@ -725,16 +728,16 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return future;
     }
 
-    public void setFuture(double future) {
+    public void setFuture( double future ) {
         this.future = future;
     }
 
     private double futureAskForCheck = 0;
 
-    public void setFutureBid(double futureBid) {
+    public void setFutureBid( double futureBid ) {
 
         // If increment state
-        if (futureBid > this.futureBid && futureAskForCheck == this.futureAsk && client.isStarted()) {
+        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk && client.isStarted( ) ) {
             futureBidAskCounter++;
         }
         this.futureBid = futureBid;
@@ -746,10 +749,10 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     private double futureBidForCheck = 0;
 
-    public void setFutureAsk(double futureAsk) {
+    public void setFutureAsk( double futureAsk ) {
 
         // If increment state
-        if (futureAsk < this.futureAsk && futureBidForCheck == this.futureBid && client.isStarted()) {
+        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid && client.isStarted( ) ) {
             futureBidAskCounter--;
         }
         this.futureAsk = futureAsk;
@@ -763,7 +766,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return futureBidAskCounter;
     }
 
-    public void setFutureBidAskCounter(int futureBidAskCounter) {
+    public void setFutureBidAskCounter( int futureBidAskCounter ) {
         this.futureBidAskCounter = futureBidAskCounter;
     }
 
@@ -771,27 +774,27 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return type;
     }
 
-    public void setType(OptionsEnum type) {
+    public void setType( OptionsEnum type ) {
         this.type = type;
     }
 
-    public double floor(double d, int zeros) {
-        return Math.floor(d * zeros) / zeros;
+    public double floor( double d, int zeros ) {
+        return Math.floor( d * zeros ) / zeros;
     }
 
-    public String str(Object o) {
-        return String.valueOf(o);
+    public String str( Object o ) {
+        return String.valueOf( o );
     }
 
-    public double absolute(double d) {
-        return Math.abs(d);
+    public double absolute( double d ) {
+        return Math.abs( d );
     }
 
     public LocalDate getExpDate() {
         return expDate;
     }
 
-    public void setExpDate(LocalDate expDate) {
+    public void setExpDate( LocalDate expDate ) {
         this.expDate = expDate;
     }
 
@@ -799,7 +802,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return contractBidAskCounter;
     }
 
-    public void setContractBidAskCounter(int contractBidAskCounter) {
+    public void setContractBidAskCounter( int contractBidAskCounter ) {
         this.contractBidAskCounter = contractBidAskCounter;
     }
 
@@ -811,11 +814,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return minId;
     }
 
-    public void setMinId(int minId) {
+    public void setMinId( int minId ) {
 
-        if (this.minId != 0) {
+        if ( this.minId != 0 ) {
 
-            if (minId < this.minId) {
+            if ( minId < this.minId ) {
                 this.minId = minId;
             }
 
@@ -828,11 +831,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return maxId;
     }
 
-    public void setMaxId(int maxId) {
+    public void setMaxId( int maxId ) {
 
-        if (this.maxId != 0) {
+        if ( this.maxId != 0 ) {
 
-            if (maxId > this.maxId) {
+            if ( maxId > this.maxId ) {
                 this.maxId = maxId;
             }
 
@@ -842,7 +845,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     }
 
-    public List<Double> getOpFutureList() {
+    public List< Double > getOpFutureList() {
         return opFutureList;
     }
 
@@ -850,24 +853,24 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return baseID;
     }
 
-    public void setBaseID(int baseID) {
+    public void setBaseID( int baseID ) {
         this.baseID = baseID;
     }
 
     // ---------- Basic Functions ---------- //
-    private double dbl(String s) {
-        return Double.parseDouble(s);
+    private double dbl( String s ) {
+        return Double.parseDouble( s );
     }
 
-    private int INT(String s) {
-        return Integer.parseInt(s);
+    private int INT( String s ) {
+        return Integer.parseInt( s );
     }
 
     public boolean isRequested() {
         return requested;
     }
 
-    public void setRequested(boolean requested) {
+    public void setRequested( boolean requested ) {
         this.requested = requested;
     }
 
@@ -883,7 +886,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return gotData;
     }
 
-    public void setGotData(boolean gotData) {
+    public void setGotData( boolean gotData ) {
         this.gotData = gotData;
     }
 
@@ -891,7 +894,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return positionCalculator;
     }
 
-    public void setPositionCalculator(PositionCalculator positionCalculator) {
+    public void setPositionCalculator( PositionCalculator positionCalculator ) {
         this.positionCalculator = positionCalculator;
     }
 
@@ -901,10 +904,10 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     private double conAskForCheck = 0;
 
-    public void setContractBid(double contractBid) {
+    public void setContractBid( double contractBid ) {
 
         // If increment state
-        if (contractBid > this.contractBid && conAskForCheck == this.contractAsk) {
+        if ( contractBid > this.contractBid && conAskForCheck == this.contractAsk ) {
             contractBidAskCounter++;
         }
         this.contractBid = contractBid;
@@ -921,10 +924,10 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
 
     private double conBidForCheck = 0;
 
-    public void setContractAsk(double contractAsk) {
+    public void setContractAsk( double contractAsk ) {
 
         // If increment state
-        if (contractAsk > this.contractAsk && conBidForCheck == this.contractBid) {
+        if ( contractAsk > this.contractAsk && conBidForCheck == this.contractBid ) {
             contractBidAskCounter--;
         }
         this.contractAsk = contractAsk;
@@ -943,27 +946,27 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return futureAsk;
     }
 
-    public List<Double> getFutureList() {
+    public List< Double > getFutureList() {
         return futureList;
     }
 
-    public List<Double> getOpList() {
+    public List< Double > getOpList() {
         return opList;
     }
 
-    public List<Double> getOpAvgList() {
+    public List< Double > getOpAvgList() {
         return opAvgList;
     }
 
-    public List<Double> getConList() {
+    public List< Double > getConList() {
         return conList;
     }
 
-    public List<Double> getConBidList() {
+    public List< Double > getConBidList() {
         return conBidList;
     }
 
-    public List<Double> getConAskList() {
+    public List< Double > getConAskList() {
         return conAskList;
     }
 
@@ -971,7 +974,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return opAvgChartList;
     }
 
-    public void setOpAvgChartList(MyChartList opAvgChartList) {
+    public void setOpAvgChartList( MyChartList opAvgChartList ) {
         this.opAvgChartList = opAvgChartList;
     }
 
@@ -979,11 +982,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return conBidAskCounterList;
     }
 
-    public void setConBidAskCounterList(MyChartList conBidAskCounterList) {
+    public void setConBidAskCounterList( MyChartList conBidAskCounterList ) {
         this.conBidAskCounterList = conBidAskCounterList;
     }
 
-    public Set<Integer> getDates() {
+    public Set< Integer > getDates() {
         return dates;
     }
 
@@ -991,11 +994,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return futBidAskCounterList;
     }
 
-    public void setFutBidAskCounterList(MyChartList futBidAskCounterList) {
+    public void setFutBidAskCounterList( MyChartList futBidAskCounterList ) {
         this.futBidAskCounterList = futBidAskCounterList;
     }
 
-    public void setDates(Set<Integer> dates) {
+    public void setDates( Set< Integer > dates ) {
         this.dates = dates;
     }
 
@@ -1003,11 +1006,11 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return optionsDDeCells;
     }
 
-    public void setOptionsDDeCells(OptionsDDeCells optionsDDeCells) {
+    public void setOptionsDDeCells( OptionsDDeCells optionsDDeCells ) {
         this.optionsDDeCells = optionsDDeCells;
     }
 
-    public HashMap<Integer, Option> getOptionsMap() {
+    public HashMap< Integer, Option > getOptionsMap() {
         return optionsMap;
     }
 
@@ -1015,7 +1018,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return props;
     }
 
-    public void setProps(OptionsProps props) {
+    public void setProps( OptionsProps props ) {
         this.props = props;
     }
 
@@ -1023,7 +1026,23 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
         return opAvg15FutureList;
     }
 
-    public void setOpAvg15FutureList(MyChartList opAvg15FutureList) {
+    public void setOpAvg15FutureList( MyChartList opAvg15FutureList ) {
         this.opAvg15FutureList = opAvg15FutureList;
+    }
+
+    public int getFutureVolume() {
+        return futureVolume;
+    }
+
+    public void setFutureVolume( int futureVolume ) {
+        this.futureVolume = futureVolume;
+    }
+
+    public double getFutureDelta() {
+        return futureDelta;
+    }
+
+    public void appendFutureDelta( double delta ) {
+        futureDelta += delta;
     }
 }

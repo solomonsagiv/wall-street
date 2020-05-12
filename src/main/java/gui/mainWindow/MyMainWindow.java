@@ -26,7 +26,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
-    static Dax dax;
+//    static Dax dax;
     static Apple apple;
     static Amazon amazon;
     static Spx spx;
@@ -36,7 +36,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Microsoft microsoft;
 
     static {
-        dax = Dax.getInstance();
+//        dax = Dax.getInstance();
         spx = Spx.getInstance();
         apple = Apple.getInstance();
         amazon = Amazon.getInstance();
@@ -52,7 +52,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(dax);
+//        LocalHandler.clients.add(dax);
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
         LocalHandler.clients.add(amazon);
@@ -63,7 +63,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {
+    public void initOnClose() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -111,7 +111,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
             client.getTablesHandler().getTable(TablesEnum.STATUS).load();
             client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
 
-            if ( client instanceof Dax) {
+            if ( client instanceof Spx) {
                 client.getTablesHandler().getTable(TablesEnum.INDEX_STOCKS).loadAll();
             }
 

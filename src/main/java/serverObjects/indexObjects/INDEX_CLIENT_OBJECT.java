@@ -59,4 +59,5 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     public BasketService getBasketService() {
         return basketService;
     }
+
 }

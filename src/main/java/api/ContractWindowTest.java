@@ -37,7 +37,7 @@ public class ContractWindowTest extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {
+    public void initOnClose() {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

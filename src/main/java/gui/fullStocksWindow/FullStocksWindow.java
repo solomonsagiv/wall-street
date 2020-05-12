@@ -28,7 +28,7 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {
+    public void initOnClose() {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

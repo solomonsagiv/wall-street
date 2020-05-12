@@ -20,7 +20,7 @@ public class MyGuiComps {
             init( );
             initialize( );
             packAndFinish( );
-            onClose( );
+            initOnClose( );
         }
 
         public MyFrame( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
@@ -29,7 +29,7 @@ public class MyGuiComps {
             init( );
             initialize( );
             packAndFinish( );
-            onClose( );
+            initOnClose( );
         }
 
         private void packAndFinish() {
@@ -60,7 +60,7 @@ public class MyGuiComps {
             setPreferredSize( new Dimension( width, height ) );
         }
 
-        public abstract void onClose();
+        public abstract void initOnClose();
 
         public abstract void initListeners();
 

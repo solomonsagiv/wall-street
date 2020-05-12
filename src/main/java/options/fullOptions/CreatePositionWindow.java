@@ -140,6 +140,6 @@ public class CreatePositionWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() { }
+    public void initOnClose() { }
 
 }

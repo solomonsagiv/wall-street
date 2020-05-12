@@ -1,5 +1,6 @@
 package gui.popupsFactory;
 
+import basketFinder.window.BasketWindow;
 import charts.myCharts.*;
 import charts.myCharts.stockCharts.MonthCounter_IndexCounter_Index_Chart;
 import charts.myCharts.stockCharts.Month_Index_Live_Chart;
@@ -131,6 +132,14 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 new SettingWindow( client.getName( ), client );
+            }
+        } );
+
+        JMenuItem baskets = new JMenuItem( "Baskets" );
+        baskets.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                new BasketWindow( "Baskets " + client.getName(), client );
             }
         } );
 
@@ -288,6 +297,7 @@ public class PopupsMenuFactory {
 
         menu.add( details );
         menu.add( settingWindow );
+        menu.add( baskets );
         menu.add( export );
         menu.add( charts );
         menu.add( optionsCounter );

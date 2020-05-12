@@ -23,7 +23,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {
+    public void initOnClose() {
 
     }
 

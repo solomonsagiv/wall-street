@@ -119,7 +119,7 @@ public class EditPositionWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {}
+    public void initOnClose() {}
 
 
 

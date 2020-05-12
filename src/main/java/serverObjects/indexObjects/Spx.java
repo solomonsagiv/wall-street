@@ -37,7 +37,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setStrikeMargin( 5 );
         setBaseId( 10000 );
         initDDECells( );
-        setIndexStartTime( LocalTime.of( 16, 30, 0 ) );
+        setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setiTwsRequester( new SpxRequester( ) );

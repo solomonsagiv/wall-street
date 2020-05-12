@@ -33,7 +33,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
         setiTwsRequester( new DaxRequester( ) );
         setLogicService( new LogicService( this, OptionsEnum.MONTH ) );
-//        roll( );
         baskets();
         myTableHandler();
     }
@@ -46,13 +45,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         stocksHandler = new DaxStocksHandler( 103000);
         basketService = new BasketService(this, stocksHandler, 20);
     }
-
-//    private void roll() {
-//        rollHandler = new RollHandler( this );
-//
-//        Roll quarter_quarterFar = new Roll( this, OptionsEnum.WEEK, OptionsEnum.MONTH, RollPriceEnum.FUTURE );
-//        rollHandler.addRoll( RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar );
-//    }
 
     // Get instance
     public static Dax getInstance() {

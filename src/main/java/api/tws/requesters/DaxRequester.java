@@ -7,6 +7,7 @@ import basketFinder.MiniStock;
 import basketFinder.handlers.StocksHandler;
 import com.ib.client.Contract;
 import com.ib.client.TickAttr;
+import delta.DeltaCalc;
 import options.Options;
 import options.OptionsEnum;
 import serverObjects.indexObjects.Dax;
@@ -20,117 +21,129 @@ public class DaxRequester implements ITwsRequester {
     int indexId, futureId, futureFarId;
     Options optionsWeek, optionsMonth;
     StocksHandler stocksHandler;
+    DeltaCalc deltaCalc;
 
     @Override
-    public void request(Downloader downloader) {
+    public void request( Downloader downloader ) {
         try {
-            init();
+            init( );
 
-            TwsHandler twsHandler = dax.getTwsHandler();
+            TwsHandler twsHandler = dax.getTwsHandler( );
 
             // Index
-            downloader.reqMktData(twsHandler.getMyContract(TwsContractsEnum.INDEX).getMyId(), twsHandler.getMyContract(TwsContractsEnum.INDEX));
-
-            // Futures
-
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.INDEX ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.INDEX ) );
+            // Future
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE ) );
             // Stocks
-            requestStocks(downloader);
+            requestStocks( downloader );
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
     }
 
-    private void requestStocks(Downloader downloader) throws Exception {
+    private void requestStocks( Downloader downloader ) throws Exception {
 
-        Contract contract = new Contract();
-        contract.secType("STK");
-        contract.exchange("SMART");
-        contract.currency("EUR");
-        contract.primaryExch("IBIS");
+        Contract contract = new Contract( );
+        contract.secType( "STK" );
+        contract.exchange( "SMART" );
+        contract.currency( "EUR" );
+        contract.primaryExch( "IBIS" );
 
-        for (Map.Entry<Integer, MiniStock> entry : dax.getStocksHandler().getMiniStockMap().entrySet()) {
-            MiniStock stock = entry.getValue();
-            contract.symbol(stock.getName());
+        for ( Map.Entry< Integer, MiniStock > entry : dax.getStocksHandler( ).getMiniStockMap( ).entrySet( ) ) {
+            MiniStock stock = entry.getValue( );
+            contract.symbol( stock.getName( ) );
 
-            System.out.println(stock.getName() + " ID: " + stock.getId());
+            System.out.println( stock.getName( ) + " ID: " + stock.getId( ) );
 
-            downloader.reqMktData(stock.getId(), contract);
+            downloader.reqMktData( stock.getId( ), contract );
         }
     }
 
     private void init() {
-        dax = Dax.getInstance();
-        optionsWeek = dax.getOptionsHandler().getOptions(OptionsEnum.WEEK);
-        optionsMonth = dax.getOptionsHandler().getOptions(OptionsEnum.MONTH);
+        dax = Dax.getInstance( );
+        optionsWeek = dax.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
+        optionsMonth = dax.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
 
-        indexId = dax.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
-        stocksHandler = dax.getStocksHandler();
+        indexId = dax.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        futureId = dax.getTwsHandler().getMyContract( TwsContractsEnum.FUTURE ).getMyId();
+        stocksHandler = dax.getStocksHandler( );
+        deltaCalc = new DeltaCalc( dax );
     }
 
     @Override
-    public void reciever(int tickerId, int field, double price, TickAttr attribs) {
+    public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
 
-        if (dax.isStarted()) {
-
-            // ---------- Future ---------- //
-            if (tickerId == futureId && price > 0) {
-                // Bid
-                if (field == 1) {
-                    optionsWeek.setFutureBid(price);
-                }
-                // Ask
-                if (field == 2) {
-                    optionsWeek.setFutureAsk(price);
-                }
+        if ( tickerId == indexId && price > 0 ) {
+            if ( field == 4 ) {
+                dax.setIndex( price );
             }
 
-            // ---------- Future far ---------- //
-            if (tickerId == futureFarId && price > 0) {
-                // Bid
-                if (field == 1) {
-                    optionsMonth.setFutureBid(price);
-                }
-                // Ask
-                if (field == 2) {
-                    optionsMonth.setFutureAsk(price);
-                }
+            if ( field == 9 ) {
+                dax.setBase( price );
             }
+        }
+
+        if ( tickerId == futureId && price > 0 ) {
+            if ( field == 4 ) {
+                optionsMonth.setFuture( price );
+            }
+
+            if ( field == 1 ) {
+                optionsMonth.setFutureBid( price );
+            }
+
+            if ( field == 2 ) {
+                optionsMonth.setFutureAsk( price );
+            }
+            
+        }
+
+        if ( dax.isStarted( ) ) {
 
             // Spx miniStocks
-            if (tickerId >= stocksHandler.getMinId() && tickerId < stocksHandler.getMaxId()) {
+            if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
 
-                MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
+                MiniStock stock = stocksHandler.getMiniStockMap( ).get( tickerId );
 
                 // Bid
-                if (field == 1) {
-                    stock.setIndexBid(price);
+                if ( field == 1 ) {
+                    stock.setIndexBid( price );
                 }
 
                 // Ask
-                if (field == 2) {
-                    stock.setIndexAsk(price);
+                if ( field == 2 ) {
+                    stock.setIndexAsk( price );
                 }
 
                 // Last
-                if (field == 4) {
-                    stock.setInd(price);
+                if ( field == 4 ) {
+                    stock.setInd( price );
                 }
             }
         }
     }
 
     @Override
-    public void sizeReciever(int tickerId, int field, int size) {
+    public void sizeReciever( int tickerId, int field, int size ) {
+
+        if ( tickerId == futureId ) {
+            if ( field == 8 ) {
+                optionsMonth.setFutureVolume( size );
+
+                deltaCalc.calc( optionsMonth, size, optionsMonth.getFuture() );
+
+                System.out.println("size " + size );
+            }
+        }
 
         // Spx miniStocks
-        if (tickerId >= stocksHandler.getMinId() && tickerId < stocksHandler.getMaxId()) {
+        if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
 
-            MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
+            MiniStock stock = stocksHandler.getMiniStockMap( ).get( tickerId );
 
-            if (field == 8) {
-                System.out.println(stock.getName() + " " + size );
-                stock.setVolume(size);
+            if ( field == 8 ) {
+                stock.setVolume( size );
             }
 
         }

@@ -7,8 +7,8 @@ import locals.L;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
-import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import threads.MyThread;
 
@@ -73,8 +73,15 @@ public class IndexPanel extends JPanel implements IMyPanel {
     public IndexPanel( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
         client.getOptionsHandler( );
+
         optionsQuarter = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
         optionsQuarterFar = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
+
+        if ( client instanceof Dax ) {
+            optionsQuarter = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
+            optionsQuarterFar = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
+        }
+
         mainOptions = client.getOptionsHandler( ).getMainOptions( );
         init( );
         initListeners( );
@@ -278,6 +285,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        try {
             // ---------- Ticker ---------- //
             openField.setText( L.format100( client.getOpen( ) ) );
             highField.setText( L.format100( client.getHigh( ) ) );
@@ -303,7 +311,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
             // Quarter
             opQuarterField.colorBack( optionsQuarterFar.getOpFuture( ), L.format100( ) );
 
-
             contractQuarterField.setText( L.format100( optionsQuarterFar.getFuture( ) ) );
 
             // Races and roll
@@ -312,77 +319,80 @@ public class IndexPanel extends JPanel implements IMyPanel {
             indRacesField.colorForge( client.getIndexSum( ) );
 
             // Roll
-            rollField.colorForge( client.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll( ), L.format100( ) );
+//            rollField.colorForge( client.getRollHandler( ).getRoll( RollEnum.QUARTER_QUARTER_FAR ).getRoll( ), L.format100( ) );
 
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+        }
+    }
+
+
+    public void close() {
+        getUpdater( ).close( );
+    }
+
+
+    @Override
+    public void updateRaces() {
+        updateIfChanged( );
+    }
+
+    void updateIfChanged() {
+        // Con up
+        if ( client.isConUpChanged( ) ) {
+            L.noisy( conRacesField, Themes.GREEN );
         }
 
-
-        public void close ( ) {
-            getUpdater( ).close( );
+        // Con down
+        if ( client.isConDownChanged( ) ) {
+            L.noisy( conRacesField, Themes.RED );
         }
 
+        // Ind up
+        if ( client.isIndUpChanged( ) ) {
+            L.noisy( indRacesField, Themes.GREEN );
+        }
+
+        // Ind down
+        if ( client.isIndDownChanged( ) ) {
+            L.noisy( indRacesField, Themes.RED );
+        }
+    }
+
+    public class Updater extends MyThread implements Runnable {
+
+        public Updater( BASE_CLIENT_OBJECT client ) {
+            super( client );
+            setName( "UPDATER" );
+        }
 
         @Override
-        public void updateRaces ( ) {
-            updateIfChanged( );
+        public void initRunnable() {
+            setRunnable( this );
         }
 
-        void updateIfChanged ( ) {
-            // Con up
-            if ( client.isConUpChanged( ) ) {
-                L.noisy( conRacesField, Themes.GREEN );
-            }
+        @Override
+        public void run() {
 
-            // Con down
-            if ( client.isConDownChanged( ) ) {
-                L.noisy( conRacesField, Themes.RED );
-            }
+            setRun( true );
 
-            // Ind up
-            if ( client.isIndUpChanged( ) ) {
-                L.noisy( indRacesField, Themes.GREEN );
-            }
+            while ( isRun( ) ) {
+                try {
+                    // Sleep
+                    Thread.sleep( 500 );
 
-            // Ind down
-            if ( client.isIndDownChanged( ) ) {
-                L.noisy( indRacesField, Themes.RED );
-            }
-        }
+                    updateText( );
 
-        public class Updater extends MyThread implements Runnable {
-
-            public Updater( BASE_CLIENT_OBJECT client ) {
-                super( client );
-                setName( "UPDATER" );
-            }
-
-            @Override
-            public void initRunnable() {
-                setRunnable( this );
-            }
-
-            @Override
-            public void run() {
-
-                setRun( true );
-
-                while ( isRun( ) ) {
-                    try {
-                        // Sleep
-                        Thread.sleep( 500 );
-
-                        updateText( );
-
-                    } catch ( InterruptedException e ) {
-                        break;
-                    }
+                } catch ( InterruptedException e ) {
+                    break;
                 }
             }
+        }
 
-            public void close() {
-                setRun( false );
-            }
-
+        public void close() {
+            setRun( false );
         }
 
     }
+
+}

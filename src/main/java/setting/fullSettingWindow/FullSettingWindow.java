@@ -19,7 +19,7 @@ public class FullSettingWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {
+    public void initOnClose() {
 
     }
 

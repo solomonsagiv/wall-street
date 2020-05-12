@@ -56,7 +56,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void onClose() {
+    public void initOnClose() {
         // This
         addWindowListener( new WindowAdapter( ) {
             @Override
