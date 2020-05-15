@@ -90,6 +90,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double base = 0;
     private double indexBidAskMargin = 0;
     private double indexBidAskCounter = 0;
+    private int indexBidAskCounter2 = 0;
 
     // Services
     ListsService listsService;
@@ -111,6 +112,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     MyChartList indexBidList = new MyChartList( );
     MyChartList indexAskList = new MyChartList( );
     MyChartList indexBidAskCounterList = new MyChartList( );
+    MyChartList indexBidAskCounter2List = new MyChartList();
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -452,6 +454,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setIndexBid( double indexBid ) {
 
+        if ( indexBid > this.indexBid ) {
+            indexBidAskCounter2++;
+        }
+
         // If increment state
         if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
             indexBidAskCounter++;
@@ -467,6 +473,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double indexBidForCheck = 0;
 
     public void setIndexAsk( double indexAsk ) {
+
+        if ( indexAsk < this.indexAsk ) {
+            indexBidAskCounter2--;
+        }
+
         // If increment state
         if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
             indexBidAskCounter--;
@@ -528,7 +539,19 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return mySqlService;
     }
 
-    public void setOptionsHandler( OptionsHandler optionsHandler ) {
+    public MyChartList getIndexBidAskCounter2List() {
+        return indexBidAskCounter2List;
+    }
+
+    public void setIndexBidAskCounter2(int indexBidAskCounter2) {
+        this.indexBidAskCounter2 = indexBidAskCounter2;
+    }
+
+    public int getIndexBidAskCounter2() {
+        return indexBidAskCounter2;
+    }
+
+    public void setOptionsHandler(OptionsHandler optionsHandler ) {
         this.optionsHandler = optionsHandler;
     }
 

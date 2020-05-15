@@ -8,10 +8,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class E2_IndexCounter_Index_Chart extends MyChartCreator {
+public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
 
     // Constructor
-    public E2_IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client ) {
+    public E2_IndexCounter_Index_Chart2(BASE_CLIENT_OBJECT client ) {
         super( client );
     }
 
@@ -83,10 +83,23 @@ public class E2_IndexCounter_Index_Chart extends MyChartCreator {
 
         MyChart indexCounterChart = new MyChart( client, series, props );
 
+        // ---------- Chart 4 ---------- //
+        // Index
+        MyTimeSeries indexBidAskCounter2 = new MyTimeSeries( "Counter2", Themes.PURPLE, 1.5f, newProps, client.getIndexBidAskCounter2List() ) {
+            @Override
+            public double getData() {
+                return client.getIndexBidAskCounter2();
+            }
+        };
+
+        series = new MyTimeSeries[1];
+        series[0] = indexBidAskCounter2;
+
+        MyChart indexCounterChart2 = new MyChart( client, series, newProps );
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = { indexChart, futureFarBidAskCounterChart, indexCounterChart };
+        MyChart[] charts = { indexChart, futureFarBidAskCounterChart, indexCounterChart2, indexCounterChart };
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );

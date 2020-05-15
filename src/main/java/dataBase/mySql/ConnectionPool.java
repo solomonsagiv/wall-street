@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-    private static final int MAX_POOL_SIZE = 50;
+    private static final int MAX_POOL_SIZE = 100;
 
     // Instance
     private static ConnectionPool connectionPool;

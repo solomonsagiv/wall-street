@@ -13,6 +13,7 @@ public class BackRunner {
     LocalTime now;
     private BASE_CLIENT_OBJECT client;
     private Runner runner;
+    private boolean runnersClosed = true;
 
     public BackRunner( BASE_CLIENT_OBJECT client ) {
         this.client = client;
@@ -61,7 +62,7 @@ public class BackRunner {
 
                     double last = client.getIndex( );
 
-                    // Start
+                    // Index start time
                     if ( now.isAfter( client.getIndexStartTime( ) ) && !client.isStarted( ) && last_0 != last ) {
 
                         if ( client.getOpen( ) == 0 ) {
@@ -71,8 +72,8 @@ public class BackRunner {
                         client.startAll( );
                     }
 
-                    // Close runners
-                    if ( now.isAfter( client.getIndexEndTime( ) ) && client.isDbRunning( ) ) {
+                    //  Index end time ( Close runners )
+                    if ( now.isAfter( client.getIndexEndTime( ) ) && !runnersClosed ) {
 
                         if ( Manifest.DB ) {
                             // Arik
@@ -81,9 +82,11 @@ public class BackRunner {
 
                         client.getMyServiceHandler( ).removeService( client.getMySqlService( ) );
                         client.getMyServiceHandler( ).removeService( client.getListsService( ) );
+
+                        runnersClosed = true;
                     }
 
-                    // Export
+                    // Future end time ( Export )
                     if ( now.isAfter( client.getFutureEndTime( ) ) ) {
                         client.fullExport( );
                         client.closeAll( );
