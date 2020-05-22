@@ -52,7 +52,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-//        LocalHandler.clients.add(dax);
+//        localhandler.clients.add(dax);
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
         LocalHandler.clients.add(amazon);

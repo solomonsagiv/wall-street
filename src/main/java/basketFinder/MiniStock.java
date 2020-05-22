@@ -11,6 +11,8 @@ public class MiniStock {
     private int indexBidAskCounter = 0;
     private double indexBid = 0;
     private double indexAsk = 0;
+    private boolean down = false;
+    private boolean up = false;
 
     // Constructor
     public MiniStock( String name, int id ) {
@@ -45,8 +47,10 @@ public class MiniStock {
         indexBidForCheck = indexBid;
 
     }
-    public void updateLastCheckVolume() {
+    public void updateLastData() {
         lastCheckVolume = volume;
+        up = false;
+        down = false;
     }
     public String getName() {
         return name;
@@ -64,6 +68,12 @@ public class MiniStock {
         return ind;
     }
     public void setInd( double ind ) {
+        if ( ind == indexAsk ) {
+            up = true;
+        }
+        if ( ind == indexBid ) {
+            down = true;
+        }
         this.ind = ind;
     }
     public double getVolume() {
@@ -74,5 +84,17 @@ public class MiniStock {
     }
     public double getLastCheckVolume() {
         return lastCheckVolume;
+    }
+    public boolean isDown() {
+        return down;
+    }
+    public void setDown( boolean down ) {
+        this.down = down;
+    }
+    public boolean isUp() {
+        return up;
+    }
+    public void setUp( boolean up ) {
+        this.up = up;
     }
 }

@@ -502,7 +502,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
                 sum += opFutureList.get( i );
             }
 
-            return L.floor( sum / opFutureList.size( ), 100 );
+            return L.floor( sum / secondes, 100 );
         } catch ( Exception e ) {
             e.printStackTrace( );
             return 0;

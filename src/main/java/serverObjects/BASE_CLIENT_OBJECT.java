@@ -457,7 +457,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         if ( indexBid > this.indexBid ) {
             indexBidAskCounter2++;
         }
-
+        
         // If increment state
         if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
             indexBidAskCounter++;

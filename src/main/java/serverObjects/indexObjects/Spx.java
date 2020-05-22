@@ -4,6 +4,7 @@ import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.tws.requesters.SpxRequester;
 import basketFinder.BasketService;
+import basketFinder.BasketService2;
 import basketFinder.handlers.SpxStocksHandler;
 import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
@@ -27,6 +28,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     static Spx client = null;
 
     private BasketService basketService;
+    private BasketService2 basketService2;
     private StocksHandler stocksHandler;
 
     // Constructor
@@ -53,7 +55,9 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     private void baskets() {
         stocksHandler = new SpxStocksHandler( 10200);
-        basketService = new BasketService(this, stocksHandler, 300);
+        basketService = new BasketService(this, stocksHandler, 350);
+
+        basketService2 = new BasketService2( this, stocksHandler, 350 );
     }
 
     private void roll() {
@@ -134,5 +138,9 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     public StocksHandler getStocksHandler() {
         return stocksHandler;
+    }
+
+    public BasketService2 getBasketService2() {
+        return basketService2;
     }
 }

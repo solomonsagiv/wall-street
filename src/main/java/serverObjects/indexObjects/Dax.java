@@ -44,6 +44,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     private void baskets() {
         stocksHandler = new DaxStocksHandler( 103000);
         basketService = new BasketService(this, stocksHandler, 20);
+
     }
 
     // Get instance

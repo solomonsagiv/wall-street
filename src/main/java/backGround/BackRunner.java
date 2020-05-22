@@ -68,7 +68,6 @@ public class BackRunner {
                         if ( client.getOpen( ) == 0 ) {
                             client.setOpen( last );
                         }
-
                         client.startAll( );
                     }
 
