@@ -13,6 +13,7 @@ import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import lists.ListsService;
 import lists.MyChartList;
+import locals.IJsonDataBase;
 import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
@@ -28,7 +29,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
+public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJsonDataBase {
 
     public static final int PRE = 0;
     public static final int CURRENT = 1;

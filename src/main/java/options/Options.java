@@ -572,7 +572,7 @@ public abstract class Options implements IJsonDataBase, IOptionsCalcs {
     }
 
     @Override
-    public MyJson getResetObject() {
+    public MyJson getResetJson() {
         MyJson object = new MyJson( );
         object.put( JsonEnum.DATA.toString( ), getResetDataAsJson( ) );
         return object;

@@ -13,7 +13,7 @@ public class BackRunner {
     LocalTime now;
     private BASE_CLIENT_OBJECT client;
     private Runner runner;
-    private boolean runnersClosed = true;
+    private boolean runnersClosed = false;
 
     public BackRunner( BASE_CLIENT_OBJECT client ) {
         this.client = client;
@@ -87,8 +87,8 @@ public class BackRunner {
 
                     // Future end time ( Export )
                     if ( now.isAfter( client.getFutureEndTime( ) ) ) {
-                        client.fullExport( );
                         client.closeAll( );
+                        client.fullExport( );
                         break;
                     }
                 } catch ( InterruptedException e ) {

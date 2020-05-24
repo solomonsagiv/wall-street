@@ -4,8 +4,8 @@ import myJson.MyJson;
 
 public interface IJsonDataBase {
 
-    MyJson getAsJson();
-    void loadFromJson(MyJson object );
-    MyJson getResetObject();
+    public MyJson getAsJson();
+    public void loadFromJson(MyJson object );
+    public MyJson getResetJson();
 
 }

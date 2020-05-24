@@ -55,7 +55,7 @@ public class OptionsHandler {
     public JSONObject getAllOptionsEmptyJson() {
         JSONObject object = new JSONObject( );
         for ( Options options : getOptionsList( ) ) {
-            object.put( options.getType( ).toString( ), options.getResetObject( ) );
+            object.put( options.getType( ).toString( ), options.getResetJson( ) );
         }
         return object;
     }
@@ -101,7 +101,7 @@ public class OptionsHandler {
         JSONObject json = new JSONObject( );
 
         for ( Options options : getOptionsList( ) ) {
-            json.put( options.getType( ).toString( ), options.getResetObject( ) );
+            json.put( options.getType( ).toString( ), options.getResetJson( ) );
         }
 
         return json;
