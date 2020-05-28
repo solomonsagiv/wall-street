@@ -18,7 +18,6 @@ import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
-
     protected BasketService basketService;
     protected StocksHandler stocksHandler;
 
@@ -50,7 +49,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
         setOptionsHandler(optionsHandler);
     }
-
 
     public StocksHandler getStocksHandler() {
         return stocksHandler;

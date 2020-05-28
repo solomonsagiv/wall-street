@@ -8,11 +8,11 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-    private static final int MAX_POOL_SIZE = 100;
+    private static final int MAX_POOL_SIZE = 200;
 
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = 50;
+    private static int INITIAL_POOL_SIZE = 100;
     private String url;
     private String user;
     private String password;
@@ -42,7 +42,6 @@ public class ConnectionPool implements IConnectionPool {
     }
 
     public static ConnectionPool create( String url, String user, String password ) throws SQLException {
-
         List< Connection > pool = new ArrayList<>( INITIAL_POOL_SIZE );
         try {
             for ( int i = 0; i < INITIAL_POOL_SIZE; i++ ) {
@@ -53,16 +52,13 @@ public class ConnectionPool implements IConnectionPool {
                         throwables.printStackTrace( );
                     }
                 } ).start( );
-
             }
         } finally {
             return new ConnectionPool( url, user, password, pool );
         }
-
     }
 
     // standard constructors
-
     private static Connection createConnection(
             String url, String user, String password )
             throws SQLException {
@@ -117,7 +113,4 @@ public class ConnectionPool implements IConnectionPool {
     public int getSize() {
         return connections.size( ) + usedConnections.size( );
     }
-
-
-    // standard getters
 }

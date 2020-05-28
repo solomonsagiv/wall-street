@@ -24,6 +24,7 @@ import service.MyServiceHandler;
 import threads.MyThread;
 
 import javax.swing.table.DefaultTableModel;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -277,7 +278,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJsonDataBase {
         return newTostring;
     }
 
-    public String getArikSumLine() {
+    public String getArikSumLine() throws UnknownHostException {
 
         String text = "";
         text += "***** " + getName( ).toUpperCase( ) + " *****" + "\n";
@@ -286,7 +287,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJsonDataBase {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvg( ) ) + "\n";
+        text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvgFuture() ) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
         text += "Contract counter: " + getOptionsHandler( ).getMainOptions( ).getConBidAskCounter( ) + "\n";
 

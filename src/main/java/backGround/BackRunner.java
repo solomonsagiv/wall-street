@@ -24,7 +24,7 @@ public class BackRunner {
     }
 
     public void closeRunner() {
-        getRunner( ).getHandler().close();
+        getRunner( ).getHandler( ).close( );
     }
 
     public Runner getRunner() {
@@ -55,7 +55,7 @@ public class BackRunner {
             while ( isRun( ) ) {
                 try {
 
-                    // sleep
+                    // Sleep
                     Thread.sleep( 2000 );
 
                     now = LocalTime.now( );

@@ -31,11 +31,8 @@ public class MySqlService extends MyBaseService {
             client.getTablesHandler( ).getTable( TablesEnum.DAY ).insert( );
 
             // Arrays
-            client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).insert( );
-
-            // Reset sleep count
-            if ( sleepCount == 3000000 ) {
-                sleepCount = 0;
+            if ( sleepCount % 4000 == 0 ) {
+                client.getTablesHandler( ).getTable( TablesEnum.ARRAYS ).insert( );
             }
         }
     }
