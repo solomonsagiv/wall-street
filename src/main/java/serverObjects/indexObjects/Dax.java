@@ -8,7 +8,6 @@ import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import logic.LogicService;
-import myJson.MyJson;
 import options.IndexOptions;
 import options.OptionsEnum;
 import options.OptionsHandler;
@@ -106,18 +105,4 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         return stocksHandler;
     }
 
-    @Override
-    public MyJson getAsJson() {
-        return null;
-    }
-
-    @Override
-    public void loadFromJson(MyJson object) {
-
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        return null;
-    }
 }

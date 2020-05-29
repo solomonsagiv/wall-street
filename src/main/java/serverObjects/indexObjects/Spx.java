@@ -12,7 +12,6 @@ import charts.myCharts.OpAvgFuture_E2_IndexCounter_Index_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import logic.LogicService;
-import myJson.MyJson;
 import options.IndexOptions;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
@@ -168,18 +167,4 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         return basketService2;
     }
 
-    @Override
-    public MyJson getAsJson() {
-        return null;
-    }
-
-    @Override
-    public void loadFromJson(MyJson object) {
-
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        return null;
-    }
 }

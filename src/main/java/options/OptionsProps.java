@@ -33,7 +33,7 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
     }
 
     @Override
-    public MyJson getResetObject() {
+    public MyJson getResetJson() {
         MyJson object = new MyJson();
         object.put( JsonEnum.INTEREST.toString(), 1 );
         object.put( JsonEnum.DEVIDEND.toString(), 0 );

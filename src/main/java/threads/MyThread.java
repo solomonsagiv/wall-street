@@ -11,7 +11,7 @@ public abstract class MyThread {
     private MyThreadHandler handler;
     private Runnable runnable;
 
-    private BASE_CLIENT_OBJECT client;
+    protected BASE_CLIENT_OBJECT client;
 
     public MyThread( BASE_CLIENT_OBJECT client ) {
 

@@ -97,7 +97,7 @@ public class MyContract extends Contract implements IJsonDataBase {
     }
 
     @Override
-    public MyJson getResetObject() {
+    public MyJson getResetJson() {
         return getAsJson();
     }
 

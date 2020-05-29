@@ -126,7 +126,7 @@ public class TwsHandler implements IJsonDataBase {
     }
 
     @Override
-    public MyJson getResetObject() {
+    public MyJson getResetJson() {
         return getAsJson();
     }
 }

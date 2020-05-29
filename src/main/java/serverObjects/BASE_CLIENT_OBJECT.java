@@ -7,13 +7,11 @@ import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
 import arik.Arik;
 import arik.locals.Emojis;
-import backGround.BackRunner;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import lists.ListsService;
 import lists.MyChartList;
-import locals.IJsonDataBase;
 import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
@@ -30,7 +28,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJsonDataBase {
+public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public static final int PRE = 0;
     public static final int CURRENT = 1;
@@ -64,7 +62,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJsonDataBase {
 
     // Lists map
     private String name = null;
-    private BackRunner backRunner;
 
     // Roll
     protected RollHandler rollHandler;
@@ -248,13 +245,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJsonDataBase {
 
     public void setModel( DefaultTableModel model ) {
         this.model = model;
-    }
-
-    public BackRunner getBackRunner() {
-        if ( backRunner == null ) {
-            backRunner = new BackRunner( this );
-        }
-        return backRunner;
     }
 
     public OptionsDataHandler getOptionsDataHandler() {

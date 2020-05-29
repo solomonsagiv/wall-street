@@ -1,12 +1,12 @@
 package gui.mainWindow;
 
+import backGround.BackGroundHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.*;
 
@@ -119,9 +119,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
             client.setLoadArraysFromHB(true);
             client.setLoadFromDb(true);
 
-            // Start client background runner
-            client.getBackRunner().startRunner();
+            BackGroundHandler.getInstance().createNewRunner(client);
         }
-
     }
 }

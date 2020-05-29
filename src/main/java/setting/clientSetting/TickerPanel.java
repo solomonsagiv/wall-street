@@ -1,5 +1,6 @@
 package setting.clientSetting;
 
+import backGround.BackGroundHandler;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
@@ -79,7 +80,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         startBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                client.startAll();
+                BackGroundHandler.getInstance().createNewRunner(client);
             }
         } );
 
@@ -87,6 +88,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         stopBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
+                BackGroundHandler.getInstance().removeRunner(client);
                 client.closeAll();
             }
         } );
@@ -169,6 +171,5 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         add(stopBtn);
 
     }
-
 
 }
