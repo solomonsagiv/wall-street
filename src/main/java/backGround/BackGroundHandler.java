@@ -71,6 +71,11 @@ public class BackGroundHandler {
 
                     double last = client.getIndex();
 
+                    // Load from DB
+                    if (!client.isLoadFromDb()) {
+                        client.getDataBaseHandler().load();
+                    }
+
                     // Index start time
                     if (now.isAfter(client.getIndexStartTime()) && !client.isStarted() && last_0 != last) {
 
@@ -108,7 +113,7 @@ public class BackGroundHandler {
         }
 
         public void checkAllOptionsData() {
-            for (Options options : client.getOptionsHandler().getOptionsList()) {
+            for (Options options : client.getExpHandler().getExpList()) {
                 options.checkOptionData();
             }
         }

@@ -18,13 +18,13 @@ public class AmdRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
             amd = Amd.getInstance();
-            optionsList = amd.getOptionsHandler( ).getOptionsList( );
+            optionsList = amd.getExpHandler( ).getExpList( );
 
             // Index
             downloader.reqMktData( amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            amd.getTwsHandler( ).requestOptions( amd.getOptionsHandler( ).getOptionsList( ) );
+            amd.getTwsHandler( ).requestOptions( amd.getExpHandler( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

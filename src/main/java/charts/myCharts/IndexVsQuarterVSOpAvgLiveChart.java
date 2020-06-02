@@ -61,7 +61,7 @@ public class IndexVsQuarterVSOpAvgLiveChart extends MyChartCreator {
             @Override
             public double getData() {
                 try {
-                    Options options = client.getOptionsHandler().getOptions(OptionsEnum.QUARTER);
+                    Options options = client.getExpHandler().getExp(OptionsEnum.QUARTER);
                     return options.getFuture() - options.getOpAvgFuture();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -74,7 +74,7 @@ public class IndexVsQuarterVSOpAvgLiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Future", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
+                return client.getExpHandler().getExp( OptionsEnum.QUARTER ).getFuture();
             }
         };
 

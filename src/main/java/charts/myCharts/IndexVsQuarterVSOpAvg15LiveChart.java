@@ -60,7 +60,7 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
         MyTimeSeries opAvg = new MyTimeSeries( "OpAvg15Future", Themes.BLUE_LIGHT_2, 2.25f, props, null ) {
             @Override
             public double getData() {
-                Options options = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
+                Options options = client.getExpHandler().getExp( OptionsEnum.QUARTER );
                 return options.getFuture() - options.getOpAvgFuture(900);
             }
         };
@@ -69,7 +69,7 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Future", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
+                return client.getExpHandler().getExp( OptionsEnum.QUARTER ).getFuture();
             }
         };
 

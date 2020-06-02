@@ -1,11 +1,11 @@
 package tws;
 
 import com.ib.client.Contract;
-import locals.IJsonDataBase;
+import locals.IJson;
 import myJson.MyJson;
 import options.JsonEnum;
 
-public class MyContract extends Contract implements IJsonDataBase {
+public class MyContract extends Contract implements IJson {
 
     private int myId;
     private boolean requested;
@@ -43,29 +43,29 @@ public class MyContract extends Contract implements IJsonDataBase {
     @Override
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put(JsonEnum.ID.toString(), getMyId());
-        object.put(JsonEnum.SEC_TYPE.toString(), secType());
-        object.put(JsonEnum.CURRENCY.toString(), currency());
-        object.put(JsonEnum.EXCHANGE.toString(), exchange());
-        object.put(JsonEnum.TRADING_CLASS.toString(), tradingClass());
-        object.put(JsonEnum.MULTIPLIER.toString(), multiplier());
-        object.put(JsonEnum.SYMBOL.toString(), symbol());
-        object.put(JsonEnum.INCLUDE_EXPIRED.toString(), includeExpired());
-        object.put(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString(), lastTradeDateOrContractMonth());
+        object.put(JsonEnum.id.toString(), getMyId());
+        object.put(JsonEnum.secType.toString(), secType());
+        object.put(JsonEnum.currency.toString(), currency());
+        object.put(JsonEnum.exchange.toString(), exchange());
+        object.put(JsonEnum.tradingClass.toString(), tradingClass());
+        object.put(JsonEnum.multiplier.toString(), multiplier());
+        object.put(JsonEnum.symbol.toString(), symbol());
+        object.put(JsonEnum.includeExpired.toString(), includeExpired());
+        object.put(JsonEnum.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
         return object;
     }
 
     @Override
     public void loadFromJson(MyJson object) {
-        setMyId(object.getInt(JsonEnum.ID.toString()));
-        secType(object.getString(JsonEnum.SEC_TYPE.toString()));
-        currency(object.getString(JsonEnum.CURRENCY.toString()));
-        exchange(object.getString(JsonEnum.EXCHANGE.toString()));
-        tradingClass(object.getString(JsonEnum.TRADING_CLASS.toString()));
-        multiplier(object.getString(JsonEnum.MULTIPLIER.toString()));
-        symbol(object.getString(JsonEnum.SYMBOL.toString()));
-        includeExpired(object.getBoolean(JsonEnum.INCLUDE_EXPIRED.toString()));
-        lastTradeDateOrContractMonth(object.getString(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString()));
+        setMyId(object.getInt(JsonEnum.id.toString()));
+        secType(object.getString(JsonEnum.secType.toString()));
+        currency(object.getString(JsonEnum.currency.toString()));
+        exchange(object.getString(JsonEnum.exchange.toString()));
+        tradingClass(object.getString(JsonEnum.tradingClass.toString()));
+        multiplier(object.getString(JsonEnum.multiplier.toString()));
+        symbol(object.getString(JsonEnum.symbol.toString()));
+        includeExpired(object.getBoolean(JsonEnum.includeExpired.toString()));
+        lastTradeDateOrContractMonth(object.getString(JsonEnum.lastTradingDateOrContractMonth.toString()));
     }
 
     public void setType(String string) {
@@ -86,10 +86,10 @@ public class MyContract extends Contract implements IJsonDataBase {
                 setType(TwsContractsEnum.OPT_MONTH);
                 break;
             case "OPT_QUARTER":
-                setType(TwsContractsEnum.OPT_QUARTER);
+                setType(TwsContractsEnum.OPT_E1);
                 break;
             case "OPT_QUARTER_FAR":
-                setType(TwsContractsEnum.OPT_QUARTER_FAR);
+                setType(TwsContractsEnum.OPT_E2);
                 break;
             default:
                 break;

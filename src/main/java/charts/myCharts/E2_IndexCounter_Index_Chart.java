@@ -54,7 +54,7 @@ public class E2_IndexCounter_Index_Chart extends MyChartCreator {
 
         // ---------- Chart 2 ---------- //
 
-        Options options = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER_FAR );
+        Options options = client.getExpHandler().getExp( OptionsEnum.QUARTER_FAR );
 
         // Index
         MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", Themes.BINANCE_RED, 1.5f, newProps, options.getFutBidAskCounterList() ) {

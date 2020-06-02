@@ -35,7 +35,7 @@ public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
         props.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true );
 
-        Options quarter = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
+        Options quarter = client.getExpHandler().getExp( OptionsEnum.QUARTER );
 
         // --------- OpAvgFuture 1 ---------- //
 

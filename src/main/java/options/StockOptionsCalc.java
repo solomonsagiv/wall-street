@@ -1,19 +1,30 @@
 package options;
 
+import exp.Exp;
+import locals.L;
+import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.stockObjects.STOCK_OBJECT;
-import tws.TwsContractsEnum;
 
-public class StockOptions extends Options {
 
+public class StockOptionsCalc implements IOptionsCalcs {
+
+    // Variables
+    Exp exp;
     STOCK_OBJECT client;
+    Options options;
 
-    public StockOptions(int baseID, STOCK_OBJECT client, OptionsEnum type, TwsContractsEnum contractType) {
-        super(baseID, client, type, contractType);
+    // Constructor
+    public StockOptionsCalc(STOCK_OBJECT client, Exp exp ) {
         this.client = client;
+        this.exp = exp;
+        this.options = exp.getOptions();
     }
 
     @Override
-    public double getStrikeInMoney() {
+    public double getStrikeInMoney(  ) {
+
+        double currStrike = options.getCurrStrike();
+
         if (currStrike != 0) {
             if (client.getIndex() - currStrike > client.getStrikeMargin()) {
                 currStrike += client.getStrikeMargin();
@@ -23,6 +34,9 @@ public class StockOptions extends Options {
         } else {
             currStrike = getStrikeInMoneyIfZero().getStrike();
         }
+
+        // Update curr strike
+        options.setCurrStrike(currStrike);
         return currStrike;
     }
 
@@ -31,8 +45,8 @@ public class StockOptions extends Options {
         double margin = 1000000;
         Strike targetStrike = new Strike();
 
-        for (Strike strike : getStrikes()) {
-            double newMargin = absolute(strike.getStrike() - client.getIndex());
+        for (Strike strike : options.getStrikes()) {
+            double newMargin = L.abs(strike.getStrike() - client.getIndex());
 
             if (newMargin < margin) {
 
@@ -49,11 +63,11 @@ public class StockOptions extends Options {
     @Override
     public double getCalcDevidend() {
 
-        if (getProps().getDevidend() <= 0) {
+        if (options.getProps().getDevidend() <= 0) {
             return 0;
         }
 
-        double calcDev = getProps().getDevidend() * 360.0 / getProps().getDays() / client.getIndex();
+        double calcDev = options.getProps().getDevidend() * 360.0 / options.getProps().getDays() / client.getIndex();
 
         if (Double.isInfinite(calcDev)) {
             return 0;

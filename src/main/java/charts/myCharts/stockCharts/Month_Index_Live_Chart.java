@@ -59,7 +59,7 @@ public class Month_Index_Live_Chart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Contract", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.MONTH ).getContract();
+                return client.getExpHandler().getExp( OptionsEnum.MONTH ).getContract();
             }
         };
 

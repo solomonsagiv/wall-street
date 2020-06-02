@@ -62,8 +62,8 @@ public class DaxRequester implements ITwsRequester {
 
     private void init() {
         dax = Dax.getInstance( );
-        optionsWeek = dax.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
-        optionsMonth = dax.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
+        optionsWeek = dax.getExpHandler( ).getExp( OptionsEnum.WEEK );
+        optionsMonth = dax.getExpHandler( ).getExp( OptionsEnum.MONTH );
 
         indexId = dax.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
         futureId = dax.getTwsHandler().getMyContract( TwsContractsEnum.FUTURE ).getMyId();

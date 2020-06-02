@@ -16,6 +16,7 @@ public abstract class MyStatusTable extends MySqlTable {
     @Override
     public void load() {
         super.load();
+        setLoad(true);
     }
 
     @Override

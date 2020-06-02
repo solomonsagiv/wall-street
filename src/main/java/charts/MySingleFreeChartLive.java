@@ -50,8 +50,8 @@ public class MySingleFreeChartLive {
                                   ArrayList< String > list, int seconds, boolean includeTickerData, double rangeTickUnit,
                                   float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
 
-        this.mainOptions = client.getOptionsHandler().getMainOptions();
-        this.quarterOptions = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
+        this.mainOptions = client.getExpHandler().getMainExp();
+        this.quarterOptions = client.getExpHandler().getExp( OptionsEnum.QUARTER );
         this.client = client;
         this.series = series;
         this.colors = colors;

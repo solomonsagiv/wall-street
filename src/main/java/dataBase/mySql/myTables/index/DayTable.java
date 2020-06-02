@@ -19,19 +19,19 @@ public class DayTable extends MyDayTable {
 
     @Override
     public void initColumns() {
-        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.DATE) {
+        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.date) {
             @Override
             public String getObject() {
                 return LocalDate.now().toString();
             }
         });
-        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.DATE.EXP_NAME) {
+        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.date.exp_name) {
             @Override
             public String getObject() {
                 return Manifest.EXP;
             }
         });
-        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.TIME) {
+        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.time) {
             @Override
             public String getObject() {
                 return LocalTime.now().toString();
@@ -40,79 +40,79 @@ public class DayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "con", MySqlColumnEnum.CON) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getContract();
+                return client.getExpHandler().getMainExp().getContract();
             }
         });
         addColumn(new MyColumnSql<>(this, "conQuarterFar", MySqlColumnEnum.CON_QUARTER_FAR) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getContract();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getContract();
             }
         });
         addColumn(new MyColumnSql<>(this, "conQuarterFarBid", MySqlColumnEnum.CON_QUARTER_FAR_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getContractBid();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getContractBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "conQuarterFarAsk", MySqlColumnEnum.CON_QUARTER_FAR_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getContractAsk();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getContractAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "conQuarter", MySqlColumnEnum.CON_QUARTER) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getContract();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getContract();
             }
         });
         addColumn(new MyColumnSql<>(this, "conQuarterBid", MySqlColumnEnum.CON_QUARTER_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getContractBid();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getContractBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "conQuarterAsk", MySqlColumnEnum.CON_QUARTER_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getContractAsk();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getContractAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "e1", MySqlColumnEnum.E1) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFuture();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getFuture();
             }
         });
         addColumn(new MyColumnSql<>(this, "e1_bid", MySqlColumnEnum.E1_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutureBid();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getFutureBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "e1_ask", MySqlColumnEnum.E1_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER).getFutureAsk();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getFutureAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "e2", MySqlColumnEnum.E2) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFuture();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getFuture();
             }
         });
         addColumn(new MyColumnSql<>(this, "e2_bid", MySqlColumnEnum.E2_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutureBid();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getFutureBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "e2_ask", MySqlColumnEnum.E2_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR).getFutureAsk();
+                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getFutureAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "ind", MySqlColumnEnum.IND) {
@@ -166,7 +166,7 @@ public class DayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getAllOptionsAsJson().toString();
+                return client.getExpHandler().getAllOptionsAsJson().toString();
             }
         });
         addColumn(new MyColumnSql<>(this, "base", MySqlColumnEnum.BASE) {
@@ -179,7 +179,7 @@ public class DayTable extends MyDayTable {
             @Override
             public Double getObject() {
                 try {
-                    return client.getOptionsHandler().getMainOptions().getOpAvgFuture();
+                    return client.getExpHandler().getMainExp().getOpAvgFuture();
                 } catch ( Exception e ) {
                     return 0.0;
                 }

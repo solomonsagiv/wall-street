@@ -63,7 +63,7 @@ public class DDEReader extends MyThread implements Runnable {
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
 
         // Options
-        for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+        for ( Options options : client.getExpHandler( ).getExpList( ) ) {
             if ( options.getOptionsDDeCells( ) != null ) {
                 options.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
             }

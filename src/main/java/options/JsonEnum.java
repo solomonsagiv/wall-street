@@ -1,48 +1,67 @@
 package options;
 
-public enum JsonEnum {
-    INTEREST,
-    DEVIDEND,
-    DATE,
-    DAYS,
-    TWS_CONTRACT,
-    BID,
-    ASK,
-    LOW,
-    HIGH,
-    OPEN,
-    INDEX_BID_ASK_COUNTER,
-    DATA,
-    PROPS,
-    CONTRACT,
-    CALL, PUT,
-    STRIKE,
-    OPTIONS,
-    OP_AVG,
-    OP,
-    FUTURE,
-    INDEX,
-    OPT_BID_ASK_COUNTER,
-    CON_BID_ASK_COUNTER,
-    ID,
-    SEC_TYPE,
-    CURRENCY,
-    EXCHANGE,
-    TRADING_CLASS,
-    MULTIPLIER,
-    SYMBOL,
-    INCLUDE_EXPIRED,
-    LAST_TRADIND_DATE_OR_CONTRACT_MONTH,
-    TRADING_HOURS,
-    TWS_CONTRACTS,
-    INDEX_START_TIME,
-    PRIMARY_EXCH,
-    INDEX_END_TIME,
-    FUTURE_END_TIME,
-    START_STRIKE,
-    END_STRIKE,
-    STRIKES,
-    FUTURE_BID_ASK_COUNTER,
-    OP_AVG_FUTURE
+public class JsonEnum {
+    public static final String interest = "interest";
+    public static final String devidend = "devidend";
+    public static final String date = "date";
+    public static final String days = "days";
+    public static final String twsContract = "twsContract";
+    public static final String bid = "bid";
+    public static final String ask = "ask";
+    public static final String low = "low";
+    public static final String high = "high";
+    public static final String open = "open";
+    public static final String indBidAskCounter = "indBidAskCounter";
+    public static final String data = "data";
+    public static final String props = "props";
+    public static final String contract = "contract";
+    public static final String call = "call";
+    public static final String put = "put";
+    public static final String strike = "strike";
+    public static final String options = "options";
+    public static final String opAvg = "opAvg";
+    public static final String op = "op";
+    public static final String future = "future";
+    public static final String ind = "ind";
+    public static final String optBidAskCounter = "optBidAskCounter";
+    public static final String conBidAskCounter = "conBidAskCounter";
+    public static final String id = "id";
+    public static final String secType = "secType";
+    public static final String currency = "currency";
+    public static final String exchange = "exchange";
+    public static final String tradingClass = "tradingClass";
+    public static final String multiplier = "multiplier";
+    public static final String symbol = "symbol";
+    public static final String includeExpired = "includeExpired";
+    public static final String lastTradingDateOrContractMonth = "lastTradingDateOrContractMonth";
+    public static final String tradingHours = "tradingHours";
+    public static final String twsContracts = "twsContracts";
+    public static final String indStartTime = "indStartTime";
+    public static final String primaryExchange = "primaryExchange";
+    public static final String indEndTime = "indEndTime";
+    public static final String futureEndTime = "futureEndTime";
+    public static final String startStrike = "startStrike";
+    public static final String endStrike = "endStrike";
+    public static final String strikes = "strikes";
+    public static final String futureBidAskCounter = "futureBidAskCounter";
+    public static final String opAvgFuture = "opAvgFuture";
+    public static final String indBid = "indBid";
+    public static final String indAsk = "indAsk";
+    public static final String conBid = "conBid";
+    public static final String conAsk = "conAsk";
+    public static final String conUp = "conUp";
+    public static final String conDown = "conDown";
+    public static final String indUp = "indUp";
+    public static final String indDown = "indDown";
+    public static final String futUp = "futUp";
+    public static final String futDown = "futDown";
+    public static final String base = "base";
+    public static final String e1 = "e1";
+    public static final String e2 = "e2";
+    public static final String  week = "week";
+    public static final String month = "month";
+    public static final String futureBid = "futureBid";
+    public static final String futureAsk = "futureAsk";
+
 
 }

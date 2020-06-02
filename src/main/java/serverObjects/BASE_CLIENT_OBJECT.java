@@ -7,16 +7,18 @@ import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
 import arik.Arik;
 import arik.locals.Emojis;
+import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import exp.ExpHandler;
 import lists.ListsService;
 import lists.MyChartList;
+import locals.IJson;
 import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
 import options.OptionsDataHandler;
-import options.OptionsHandler;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
@@ -28,7 +30,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
+public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public static final int PRE = 0;
     public static final int CURRENT = 1;
@@ -36,7 +38,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Table
     DefaultTableModel model = new DefaultTableModel( );
     // Options
-    protected OptionsHandler optionsHandler;
+    protected ExpHandler expHandler;
     private double startStrike;
     private double endStrike;
     private boolean loadFromDb = false;
@@ -56,8 +58,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private ArrayList< MyThread > threads = new ArrayList<>( );
     private HashMap< String, Integer > ids = new HashMap<>( );
     private boolean started = false;
-    private boolean loadStatusFromHB = false;
-    private boolean loadArraysFromHB = false;
     protected double strikeMargin = 0;
 
     // Lists map
@@ -68,6 +68,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // DB
     private int dbId = 0;
+    DataBaseHandler dataBaseHandler;
 
     // Options handler
     protected OptionsDataHandler optionsDataHandler;
@@ -125,6 +126,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
             twsHandler = new TwsHandler( );
+            dataBaseHandler = new DataBaseHandler(this);
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -133,12 +135,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Start all
     public void startAll() {
-
-        if ( !Manifest.DB ) {
-            setLoadStatusFromHB( true );
-            setLoadArraysFromHB( true );
-            setLoadFromDb( true );
-        }
 
         // To start
         if ( isLoadFromDb( ) ) {
@@ -277,9 +273,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100( getOptionsHandler( ).getMainOptions( ).getOpAvgFuture() ) + "\n";
+        text += "OP avg: " + L.format100( getExpHandler( ).getMainExp( ).getOpAvgFuture() ) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
-        text += "Contract counter: " + getOptionsHandler( ).getMainOptions( ).getConBidAskCounter( ) + "\n";
+        text += "Contract counter: " + getExpHandler( ).getMainExp( ).getOptions().getConBidAskCounter( ) + "\n";
 
         return text;
     }
@@ -305,11 +301,19 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public boolean isLoadFromDb() {
-        return loadStatusFromHB && loadArraysFromHB;
+
+        if ( !Manifest.DB ) {
+            setLoadFromDb(true);
+        }
+
+        TablesHandler th = getTablesHandler();
+        return th.getTable(TablesEnum.STATUS).isLoad() && th.getTable(TablesEnum.ARRAYS).isLoad() && th.getTable(TablesEnum.TWS_CONTRACTS).isLoad();
     }
 
-    public void setLoadFromDb( boolean loadFromDb ) {
-        this.loadFromDb = loadFromDb;
+    public void setLoadFromDb(boolean loadFromDb) {
+        TablesHandler th = getTablesHandler();
+        th.getTable(TablesEnum.STATUS).setLoad(loadFromDb);
+        th.getTable(TablesEnum.ARRAYS).setLoad(loadFromDb);
     }
 
     public int getConUp() {
@@ -362,14 +366,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setDbId( int dbId ) {
         this.dbId = dbId;
-    }
-
-    public void setLoadStatusFromHB( boolean loadStatusFromHB ) {
-        this.loadStatusFromHB = loadStatusFromHB;
-    }
-
-    public void setLoadArraysFromHB( boolean loadArraysFromHB ) {
-        this.loadArraysFromHB = loadArraysFromHB;
     }
 
     public int getIndexSum() {
@@ -543,15 +539,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexBidAskCounter2;
     }
 
-    public void setOptionsHandler(OptionsHandler optionsHandler ) {
-        this.optionsHandler = optionsHandler;
+    public void setExpHandler(ExpHandler expHandler) {
+        this.expHandler = expHandler;
     }
 
-    public OptionsHandler getOptionsHandler() {
-        if ( optionsHandler == null ) {
-            initOptionsHandler( );
+    public ExpHandler getExpHandler() {
+        if ( expHandler == null ) {
+            initExpHandler( );
         }
-        return optionsHandler;
+        return expHandler;
     }
 
     public LocalTime getIndexStartTime() {
@@ -671,10 +667,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.logicService = logicService;
     }
 
+    public DataBaseHandler getDataBaseHandler() {
+        return dataBaseHandler;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", optionsHandler=" + optionsHandler.toString( ) +
+                ", optionsHandler=" + expHandler.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +
                 ", endFutureTrading=" + getFutureEndTime( ) +
@@ -701,8 +701,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
                 ", indexList=" + indexList.size( ) +
-//                ", opFutureListQuarter=" + optionsHandler.getOptions( OptionsEnum.QUARTER ).getOpAvgFutureList().size() +
-//                ", opFutureListQuarterFar=" + optionsHandler.getOptions( OptionsEnum.QUARTER_FAR ).getOpAvgFutureList().size() +
                 '}';
     }
+
 }

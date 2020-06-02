@@ -4,7 +4,6 @@ import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
-import serverObjects.stockObjects.Amazon;
 import serverObjects.stockObjects.Ulta;
 import tws.TwsContractsEnum;
 
@@ -19,13 +18,13 @@ public class UltaRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
             ulta = Ulta.getInstance();
-            optionsList = ulta.getOptionsHandler( ).getOptionsList( );
+            optionsList = ulta.getExpHandler( ).getExpList( );
 
             // Index
             downloader.reqMktData( ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            ulta.getTwsHandler( ).requestOptions( ulta.getOptionsHandler( ).getOptionsList( ) );
+            ulta.getTwsHandler( ).requestOptions( ulta.getExpHandler( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

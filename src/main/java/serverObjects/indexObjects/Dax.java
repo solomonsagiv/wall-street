@@ -8,9 +8,9 @@ import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import logic.LogicService;
-import options.IndexOptions;
+import options.IndexOptionsCalc;
 import options.OptionsEnum;
-import options.OptionsHandler;
+import exp.ExpHandler;
 import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
@@ -56,19 +56,19 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initOptionsHandler() throws NullPointerException {
+    public void initExpHandler() throws NullPointerException {
 
         // Fut Quarter
-        IndexOptions weekOptions = new IndexOptions( getBaseId( ) + 1000, this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK, null );
+        IndexOptionsCalc weekOptions = new IndexOptionsCalc( getBaseId( ) + 1000, this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK, null );
 
         // Fut Quarter far
-        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 2000, this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
+        IndexOptionsCalc monthOptions = new IndexOptionsCalc( getBaseId( ) + 2000, this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
 
-        OptionsHandler optionsHandler = new OptionsHandler( this );
-        optionsHandler.addOptions( weekOptions );
-        optionsHandler.addOptions( monthOptions );
-        optionsHandler.setMainOptions( weekOptions );
-        setOptionsHandler( optionsHandler );
+        ExpHandler expHandler = new ExpHandler( this );
+        expHandler.appExp( weekOptions );
+        expHandler.appExp( monthOptions );
+        expHandler.setMainExp( weekOptions );
+        setExpHandler(expHandler);
     }
 
     @Override

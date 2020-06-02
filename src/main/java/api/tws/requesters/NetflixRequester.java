@@ -4,7 +4,6 @@ import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
-import serverObjects.stockObjects.Apple;
 import serverObjects.stockObjects.Netflix;
 import tws.TwsContractsEnum;
 
@@ -19,13 +18,13 @@ public class NetflixRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
             netflix = Netflix.getInstance();
-            optionsList = netflix.getOptionsHandler( ).getOptionsList( );
+            optionsList = netflix.getExpHandler( ).getExpList( );
 
             // Index
             downloader.reqMktData( netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            netflix.getTwsHandler( ).requestOptions( netflix.getOptionsHandler( ).getOptionsList( ) );
+            netflix.getTwsHandler( ).requestOptions( netflix.getExpHandler( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

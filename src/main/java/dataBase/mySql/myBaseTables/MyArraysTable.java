@@ -2,10 +2,12 @@ package dataBase.mySql.myBaseTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
-import dataBase.mySql.mySqlComps.*;
+import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
+import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import dataBase.mySql.mySqlComps.MySqlDataTypeEnum;
+import dataBase.mySql.mySqlComps.MySqlTable;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,13 +16,6 @@ import java.util.Map;
 
 public abstract class MyArraysTable extends MySqlTable {
 
-    public static void main( String[] args ) throws InterruptedException {
-        Spx spx = Spx.getInstance();
-        spx.getTablesHandler().getTable( TablesEnum.TWS_CONTRACTS ).load();
-        spx.getTablesHandler().getTable( TablesEnum.ARRAYS ).load();
-
-        System.out.println(spx.getIndexList() );
-    }
 
     public MyArraysTable( BASE_CLIENT_OBJECT client ) {
         super( client );
@@ -61,6 +56,8 @@ public abstract class MyArraysTable extends MySqlTable {
 
                 }
             }
+
+            setLoad(true);
 
         } catch ( SQLException e ) {
             e.printStackTrace( );

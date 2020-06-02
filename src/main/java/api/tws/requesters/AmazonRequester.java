@@ -5,7 +5,6 @@ import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
 import serverObjects.stockObjects.Amazon;
-import serverObjects.stockObjects.Apple;
 import tws.TwsContractsEnum;
 
 import java.util.ArrayList;
@@ -19,13 +18,13 @@ public class AmazonRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
             amazon = Amazon.getInstance();
-            optionsList = amazon.getOptionsHandler( ).getOptionsList( );
+            optionsList = amazon.getExpHandler( ).getExpList( );
 
             // Index
             downloader.reqMktData( amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            amazon.getTwsHandler( ).requestOptions( amazon.getOptionsHandler( ).getOptionsList( ) );
+            amazon.getTwsHandler( ).requestOptions( amazon.getExpHandler( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

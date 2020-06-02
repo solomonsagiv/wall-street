@@ -53,7 +53,7 @@ public class ListsService extends MyBaseService {
         client.getIndexBidAskCounter2List().add(new MyChartPoint(now, client.getIndexBidAskCounter2()));
 
         // Options lists
-        for (Options options : client.getOptionsHandler().getOptionsList()) {
+        for (Options options : client.getExpHandler().getExpList()) {
             try {
                 options.getFutureList().add(options.getFuture());
                 client.getIndexList().add(new MyChartPoint(now, client.getIndex()));

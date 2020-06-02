@@ -20,19 +20,19 @@ public class StockDayTable extends MyDayTable {
     
     @Override
     public void initColumns() {
-        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.DATE) {
+        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.date) {
             @Override
             public String getObject() {
                 return LocalDate.now().toString();
             }
         });
-        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.DATE.EXP_NAME) {
+        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.date.exp_name) {
             @Override
             public String getObject() {
                 return Manifest.EXP;
             }
         });
-        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.TIME) {
+        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.time) {
             @Override
             public String getObject() {
                 return LocalTime.now().toString();
@@ -41,49 +41,49 @@ public class StockDayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "con", MySqlColumnEnum.CON) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getContract();
+                return client.getExpHandler().getMainExp().getContract();
             }
         });
         addColumn(new MyColumnSql<>(this, "conWeek", MySqlColumnEnum.CON_WEEK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContract();
+                return client.getExpHandler().getExp(OptionsEnum.WEEK).getContract();
             }
         });
         addColumn(new MyColumnSql<>(this, "conWeekBid", MySqlColumnEnum.CON_WEEK_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContractBid();
+                return client.getExpHandler().getExp(OptionsEnum.WEEK).getContractBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "conWeekAsk", MySqlColumnEnum.CON_WEEK_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.WEEK).getContractAsk();
+                return client.getExpHandler().getExp(OptionsEnum.WEEK).getContractAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "conMonth", MySqlColumnEnum.CON_MONTH) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContract();
+                return client.getExpHandler().getExp(OptionsEnum.MONTH).getContract();
             }
         });
         addColumn(new MyColumnSql<>(this, "conMonthBid", MySqlColumnEnum.CON_MONTH_BID) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContractBid();
+                return client.getExpHandler().getExp(OptionsEnum.MONTH).getContractBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "conMonthAsk", MySqlColumnEnum.CON_MONTH_ASK) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getContractAsk();
+                return client.getExpHandler().getExp(OptionsEnum.MONTH).getContractAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "con_bid_ask_counter", MySqlColumnEnum.CON_BID_ASK_COUNTER) {
             @Override
             public Integer getObject() {
-                return client.getOptionsHandler().getOptions(OptionsEnum.MONTH).getConBidAskCounter();
+                return client.getExpHandler().getExp(OptionsEnum.MONTH).getConBidAskCounter();
             }
         });
         addColumn(new MyColumnSql<>(this, "ind", MySqlColumnEnum.IND) {
@@ -137,7 +137,7 @@ public class StockDayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getAllOptionsAsJson().toString();
+                return client.getExpHandler().getAllOptionsAsJson().toString();
             }
         });
         addColumn(new MyColumnSql<>(this, "base", MySqlColumnEnum.BASE) {
@@ -149,7 +149,7 @@ public class StockDayTable extends MyDayTable {
         addColumn(new MyColumnSql<>(this, "op_avg", MySqlColumnEnum.OP_AVG) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getOpAvg();
+                return client.getExpHandler().getMainExp().getOpAvg();
             }
         });
         addColumn(new MyColumnSql<Double>(this, "roll", MySqlColumnEnum.ROLL) {

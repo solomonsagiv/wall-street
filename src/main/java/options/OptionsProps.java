@@ -1,12 +1,12 @@
 package options;
 
 import charts.myChart.MyProps;
-import locals.IJsonDataBase;
+import locals.IJson;
 import myJson.MyJson;
 
 import java.time.LocalDate;
 
-public class OptionsProps extends MyProps implements IJsonDataBase {
+public class OptionsProps extends MyProps implements IJson {
 
     private double interestZero = 0;
     private double interest = 1;
@@ -16,29 +16,29 @@ public class OptionsProps extends MyProps implements IJsonDataBase {
 
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put( JsonEnum.INTEREST.toString(), getInterest() );
-        object.put( JsonEnum.DEVIDEND.toString(), getDevidend() );
-        object.put( JsonEnum.DATE.toString(), getDate() );
-        object.put( JsonEnum.DAYS.toString(), getDays() );
+        object.put( JsonEnum.interest.toString(), getInterest() );
+        object.put( JsonEnum.devidend.toString(), getDevidend() );
+        object.put( JsonEnum.date.toString(), getDate() );
+        object.put( JsonEnum.days.toString(), getDays() );
         return object;
     }
 
     @Override
     public void loadFromJson( MyJson object ) {
-        setInterest( object.getDouble( JsonEnum.INTEREST.toString() ) );
-        setInterestZero( object.getDouble( JsonEnum.INTEREST.toString() ) - 1 );
-        setDevidend( object.getDouble( JsonEnum.DEVIDEND.toString() ) );
-        setDate( object.getDate( JsonEnum.DATE.toString() ) );
-        setDays( object.getDouble( JsonEnum.DAYS.toString() ) );
+        setInterest( object.getDouble( JsonEnum.interest.toString() ) );
+        setInterestZero( object.getDouble( JsonEnum.interest.toString() ) - 1 );
+        setDevidend( object.getDouble( JsonEnum.devidend.toString() ) );
+        setDate( object.getDate( JsonEnum.date.toString() ) );
+        setDays( object.getDouble( JsonEnum.days.toString() ) );
     }
 
     @Override
     public MyJson getResetJson() {
         MyJson object = new MyJson();
-        object.put( JsonEnum.INTEREST.toString(), 1 );
-        object.put( JsonEnum.DEVIDEND.toString(), 0 );
-        object.put( JsonEnum.DATE.toString(), getDate() );
-        object.put( JsonEnum.DAYS.toString(), 0 );
+        object.put( JsonEnum.interest.toString(), 1 );
+        object.put( JsonEnum.devidend.toString(), 0 );
+        object.put( JsonEnum.date.toString(), getDate() );
+        object.put( JsonEnum.days.toString(), 0 );
         return object;
     }
 

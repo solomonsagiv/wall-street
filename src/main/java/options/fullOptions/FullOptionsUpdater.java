@@ -91,15 +91,15 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
         colorBackPresent( FullOptionsWindow.indexPresentLabel, indexPre );
 
         // Delta
-        int delta = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.DELTA );
+        int delta = ( int ) getClient().getExpHandler().getPositionCalculator().getTotalData( PositionCalculator.DELTA );
         FullOptionsWindow.deltaLbl.colorForge( delta );
 
         // Vega
-        int vega = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.VEGA );
+        int vega = ( int ) getClient().getExpHandler().getPositionCalculator().getTotalData( PositionCalculator.VEGA );
         FullOptionsWindow.vegaLbl.colorForge( vega );
 
         // Pnl
-        int pnl = ( int ) getClient().getOptionsHandler().getPositionCalculator().getTotalData( PositionCalculator.PNL );
+        int pnl = ( int ) getClient().getExpHandler().getPositionCalculator().getTotalData( PositionCalculator.PNL );
         FullOptionsWindow.pnlLbl.colorForge( pnl, Color.BLACK );
 
     }

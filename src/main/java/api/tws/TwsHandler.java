@@ -1,7 +1,7 @@
 package api.tws;
 
 import api.Downloader;
-import locals.IJsonDataBase;
+import locals.IJson;
 import myJson.MyJson;
 import options.Call;
 import options.Options;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TwsHandler implements IJsonDataBase {
+public class TwsHandler implements IJson {
 
     // Variables
     Map< TwsContractsEnum, MyContract > myContracts = new HashMap<>();

@@ -19,6 +19,8 @@ public abstract class MySqlTable implements IMyTableSql {
     protected Map< MySqlColumnEnum, MyColumnSql > columns = new HashMap<>( );
     protected Map< MySqlColumnEnum, MyLoadAbleColumn > loadAbleColumns = new HashMap<>( );
 
+    protected boolean isLoad = false;
+
     // Constructor
     public MySqlTable( BASE_CLIENT_OBJECT client ) {
         this.client = client;
@@ -259,7 +261,15 @@ public abstract class MySqlTable implements IMyTableSql {
         return name;
     }
 
-    public void setName( String name ) {
+    public boolean isLoad() {
+        return isLoad;
+    }
+
+    public void setLoad(boolean load) {
+        isLoad = load;
+    }
+
+    public void setName(String name ) {
         this.name = name;
     }
 }

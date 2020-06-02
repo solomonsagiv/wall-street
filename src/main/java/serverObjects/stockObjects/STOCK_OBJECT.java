@@ -10,7 +10,7 @@ import dataBase.mySql.myTables.stock.StockStatusTable;
 import dataBase.mySql.myTables.stock.StockSumTable;
 import logic.LogicService;
 import options.OptionsEnum;
-import options.OptionsHandler;
+import exp.ExpHandler;
 import options.StockOptions;
 import roll.Roll;
 import roll.RollEnum;
@@ -53,7 +53,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void initOptionsHandler() {
+    public void initExpHandler() {
 
         // Week
         MyContract weekContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_WEEK );
@@ -63,22 +63,22 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
         StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH );
 
-        OptionsHandler optionsHandler = new OptionsHandler( this );
-        optionsHandler.addOptions( weekOptions );
-        optionsHandler.addOptions( monthOptions );
-        optionsHandler.setMainOptions( monthOptions );
+        ExpHandler expHandler = new ExpHandler( this );
+        expHandler.appExp( weekOptions );
+        expHandler.appExp( monthOptions );
+        expHandler.setMainExp( monthOptions );
 
-        setOptionsHandler( optionsHandler );
+        setExpHandler(expHandler);
     }
 
     @Override
     public void setIndex( double index ) {
         if ( this.index == 0 ) {
-            getOptionsHandler( ).initOptions( index );
+            getExpHandler( ).initOptions( index );
 
             // Request options tws
             if ( getApi( ) == ApiEnum.TWS ) {
-                getTwsHandler( ).requestOptions( getOptionsHandler( ).getOptionsList( ) );
+                getTwsHandler( ).requestOptions( getExpHandler( ).getExpList( ) );
             }
         }
         this.index = index;
@@ -87,7 +87,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", optionsHandler=" + optionsHandler.toString( ) +
+                ", optionsHandler=" + expHandler.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +
                 ", endFutureTrading=" + getFutureEndTime( ) +

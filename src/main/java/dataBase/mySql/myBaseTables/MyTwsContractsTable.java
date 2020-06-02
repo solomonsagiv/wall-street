@@ -179,6 +179,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
 
             }
 
+            setLoad(true);
         } catch (SQLException e) {
             e.printStackTrace();
             Arik.getInstance().sendErrorMessage(e);

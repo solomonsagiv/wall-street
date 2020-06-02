@@ -40,19 +40,19 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                 try {
                     switch ( comboBox.getSelectedItem( ).toString( ) ) {
                         case "WEEK":
-                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
+                            options = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
                             break;
                         case "MONTH":
-                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
+                            options = client.getExpHandler( ).getExp( OptionsEnum.MONTH );
                             break;
                         case "QUARTER":
-                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+                            options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER );
                             break;
                         case "QUARTER_FAR":
-                            options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
+                            options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR );
                             break;
                         case "MAIN":
-                            options = client.getOptionsHandler( ).getMainOptions( );
+                            options = client.getExpHandler( ).getMainExp( );
                             break;
                         default:
                             break;
@@ -102,9 +102,9 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
     }
 
     public String[] getOptionsArrayString() {
-        String[] optionsTypes = new String[ client.getOptionsHandler( ).getOptionsList( ).size( ) ];
+        String[] optionsTypes = new String[ client.getExpHandler( ).getExpList( ).size( ) ];
         int i = 0;
-        for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+        for ( Options options : client.getExpHandler( ).getExpList( ) ) {
             optionsTypes[ i ] = options.getType( ).toString( );
             i++;
         }

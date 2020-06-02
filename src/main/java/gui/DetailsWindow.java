@@ -32,7 +32,7 @@ public class DetailsWindow {
      */
     public DetailsWindow( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.options = client.getOptionsHandler().getMainOptions();
+        this.options = client.getExpHandler().getMainExp();
 
         onStartUp();
 
@@ -58,9 +58,9 @@ public class DetailsWindow {
     }
     
     private void onStartUp() {
-        optionsTypes = new String[ client.getOptionsHandler( ).getOptionsList( ).size( ) ];
+        optionsTypes = new String[ client.getExpHandler( ).getExpList( ).size( ) ];
         int i = 0;
-        for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+        for ( Options options : client.getExpHandler( ).getExpList( ) ) {
             optionsTypes[ i ] = options.getType( ).toString();
             i++;
         }
@@ -101,19 +101,19 @@ public class DetailsWindow {
             public void actionPerformed( ActionEvent actionEvent ) {
                 switch ( optionsCombo.getSelectedItem( ).toString( ).toLowerCase( ) ) {
                     case "week":
-                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
+                        options = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
                         break;
                     case "month":
-                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
+                        options = client.getExpHandler( ).getExp( OptionsEnum.MONTH );
                         break;
                     case "quarter":
-                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER );
+                        options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER );
                         break;
                     case "quarter_far":
-                        options = client.getOptionsHandler( ).getOptions( OptionsEnum.QUARTER_FAR );
+                        options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR );
                         break;
                     case "main":
-                        options = client.getOptionsHandler( ).getMainOptions( );
+                        options = client.getExpHandler( ).getMainExp( );
                         break;
                     default:
                         break;

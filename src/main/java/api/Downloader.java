@@ -135,7 +135,7 @@ public class Downloader extends Thread implements EWrapper {
         logger.getLogger( ).info( EWrapperMsgGenerator.error( id, errorCode, errorMsg ) );
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+            for ( Options options : client.getExpHandler( ).getExpList( ) ) {
                 try {
                     Option option = options.getOptionsMap( ).get( id );
                     options.removeStrike( option.getStrike( ) );

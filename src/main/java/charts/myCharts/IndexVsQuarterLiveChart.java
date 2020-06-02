@@ -1,15 +1,11 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import locals.L;
 import locals.Themes;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.Scanner;
 
 public class IndexVsQuarterLiveChart extends MyChartCreator {
 
@@ -63,7 +59,7 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
+                return client.getExpHandler().getExp( OptionsEnum.QUARTER ).getFuture();
             }
         };
 

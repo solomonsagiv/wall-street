@@ -12,7 +12,6 @@ import options.OptionsEnum;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
 
-import javax.swing.*;
 import java.util.Map;
 
 public class SpxRequester implements ITwsRequester {
@@ -62,8 +61,8 @@ public class SpxRequester implements ITwsRequester {
 
     private void init() {
         spx = Spx.getInstance();
-        optionsQuarter = spx.getOptionsHandler().getOptions(OptionsEnum.QUARTER);
-        optionsQuarterFar = spx.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR);
+        optionsQuarter = spx.getExpHandler().getExp(OptionsEnum.QUARTER);
+        optionsQuarterFar = spx.getExpHandler().getExp(OptionsEnum.QUARTER_FAR);
 
         indexId = spx.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
         futureId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();

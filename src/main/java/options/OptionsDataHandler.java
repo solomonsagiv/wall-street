@@ -18,7 +18,7 @@ public class OptionsDataHandler {
     // Constructor
     public OptionsDataHandler( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.options = client.getOptionsHandler( ).getMainOptions( );
+        this.options = client.getExpHandler( ).getMainExp( );
     }
 
     public Runner getRunner() {

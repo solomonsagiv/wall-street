@@ -4,7 +4,6 @@ import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
 import options.Options;
-import serverObjects.stockObjects.Apple;
 import serverObjects.stockObjects.Microsoft;
 import tws.TwsContractsEnum;
 
@@ -19,13 +18,13 @@ public class MicrosoftRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
             microsoft = Microsoft.getInstance();
-            optionsList = microsoft.getOptionsHandler( ).getOptionsList( );
+            optionsList = microsoft.getExpHandler( ).getExpList( );
 
             // Index
             downloader.reqMktData( microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            microsoft.getTwsHandler( ).requestOptions( microsoft.getOptionsHandler( ).getOptionsList( ) );
+            microsoft.getTwsHandler( ).requestOptions( microsoft.getExpHandler( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

@@ -17,13 +17,13 @@ public class AppleRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
             apple = Apple.getInstance();
-            optionsList = apple.getOptionsHandler( ).getOptionsList( );
+            optionsList = apple.getExpHandler( ).getExpList( );
 
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            apple.getTwsHandler( ).requestOptions( apple.getOptionsHandler( ).getOptionsList( ) );
+            apple.getTwsHandler( ).requestOptions( apple.getExpHandler( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }

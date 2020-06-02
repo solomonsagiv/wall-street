@@ -2,7 +2,7 @@ package locals;
 
 import myJson.MyJson;
 
-public interface IJsonDataBase {
+public interface IJson {
 
     public MyJson getAsJson();
     public void loadFromJson(MyJson object );

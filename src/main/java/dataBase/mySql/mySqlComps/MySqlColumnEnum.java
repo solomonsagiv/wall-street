@@ -4,7 +4,7 @@ public enum MySqlColumnEnum {
 
     ID("id", MySqlDataTypeEnum.INT),
     NAME("id", MySqlDataTypeEnum.STRING),
-    DATE("date", MySqlDataTypeEnum.STRING),
+    date("date", MySqlDataTypeEnum.STRING),
     OPEN("open", MySqlDataTypeEnum.DOUBLE),
     HIGH("high", MySqlDataTypeEnum.DOUBLE),
     LOW("low", MySqlDataTypeEnum.DOUBLE),
@@ -18,10 +18,10 @@ public enum MySqlColumnEnum {
     BASE("base", MySqlDataTypeEnum.DOUBLE),
     OPTIONS("options", MySqlDataTypeEnum.STRING),
     CON_BID_ASK_COUNTER("con_bid_ask_counter", MySqlDataTypeEnum.INT),
-    EXP_NAME("exp_name", MySqlDataTypeEnum.STRING),
+    exp_name("exp_name", MySqlDataTypeEnum.STRING),
     SPX_STOCKS("spx", MySqlDataTypeEnum.STRING),
     DAX_STOCKS("dax", MySqlDataTypeEnum.STRING),
-    TIME("time", MySqlDataTypeEnum.STRING),
+    time("time", MySqlDataTypeEnum.STRING),
     CON("con", MySqlDataTypeEnum.DOUBLE),
     IND("ind", MySqlDataTypeEnum.DOUBLE),
     IND_BID("indBid", MySqlDataTypeEnum.DOUBLE),
@@ -63,7 +63,8 @@ public enum MySqlColumnEnum {
     E2_ASK("e2_ask", MySqlDataTypeEnum.DOUBLE),
     ROLL("roll", MySqlDataTypeEnum.DOUBLE),
     ROLL_AVG("rollAvg", MySqlDataTypeEnum.DOUBLE),
-    OP_AVG_FUTURE_LIST("opAvgFutureList", MySqlDataTypeEnum.STRING);
+    OP_AVG_FUTURE_LIST("opAvgFutureList", MySqlDataTypeEnum.STRING),
+    data("data", MySqlDataTypeEnum.STRING);
 
     private final String name;
     private final MySqlDataTypeEnum dataType;

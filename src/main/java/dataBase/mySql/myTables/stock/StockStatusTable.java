@@ -26,7 +26,7 @@ public class StockStatusTable extends MyStatusTable {
                 return client.getName();
             }
         });
-        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.TIME) {
+        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.time) {
             @Override
             public String getObject() {
                 return LocalTime.now().toString();
@@ -148,13 +148,13 @@ public class StockStatusTable extends MyStatusTable {
         addColumn(new MyLoadAbleColumn<String>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getAllOptionsAsJson().toString();
+                return client.getExpHandler().getAllOptionsAsJson().toString();
             }
 
             @Override
             public void setLoadedObject(String object) {
                 MyJson optionsData = new MyJson(object);
-                for (Options options : client.getOptionsHandler().getOptionsList()) {
+                for (Options options : client.getExpHandler().getExpList()) {
                     try {
                         options.loadFromJson(optionsData.getMyJson(options.getType().toString()));
                     } catch (Exception e) {
@@ -164,7 +164,7 @@ public class StockStatusTable extends MyStatusTable {
             }
             @Override
             public String getResetObject() {
-                return client.getOptionsHandler().getAllOptionsEmptyJson().toString();
+                return client.getExpHandler().getAllOptionsEmptyJson().toString();
             }
         });
 

@@ -11,11 +11,15 @@ import charts.myCharts.IndexVsQuarterVSOpAvgLiveChart;
 import charts.myCharts.OpAvgFuture_E2_IndexCounter_Index_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
+import exp.E1;
+import exp.E2;
+import exp.ExpEnum;
+import exp.ExpHandler;
 import logic.LogicService;
-import options.IndexOptions;
+import options.IndexOptionsCalc;
+import options.Options;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
-import options.OptionsHandler;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -99,21 +103,24 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
 
     @Override
-    public void initOptionsHandler() throws NullPointerException {
+    public void initExpHandler() throws NullPointerException {
 
-        // Fut Quarter
-        OptionsDDeCells quarterDDeCells = new OptionsDDeCells("R19C2", "R19C1", "R19C3");
-        IndexOptions quarterOptions = new IndexOptions(getBaseId() + 3000, this, OptionsEnum.QUARTER, TwsContractsEnum.OPT_QUARTER, quarterDDeCells);
+        // E1
+        OptionsDDeCells e1DDeCells = new OptionsDDeCells("R19C2", "R19C1", "R19C3");
+        Options e1_options = new Options(getBaseId() + 3000, this, TwsContractsEnum.OPT_E1, e1DDeCells);
+        E1 e1 = new E1( this, e1_options );
 
-        // Fut Quarter far
-        OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells("R21C2", "R21C1", "R21C3");
-        IndexOptions quarterFarOptions = new IndexOptions(getBaseId() + 4000, this, OptionsEnum.QUARTER_FAR, TwsContractsEnum.OPT_QUARTER_FAR, quarterFarDDeCells);
+        // E2
+        OptionsDDeCells e2DDeCells = new OptionsDDeCells("R21C2", "R21C1", "R21C3");
+        Options e2_options = new Options(getBaseId() + 4000, this, TwsContractsEnum.OPT_E2, e2DDeCells);
+        E2 e2 = new E2( this, e2_options );
 
-        OptionsHandler optionsHandler = new OptionsHandler(this);
-        optionsHandler.addOptions(quarterOptions);
-        optionsHandler.addOptions(quarterFarOptions);
-        optionsHandler.setMainOptions(quarterOptions);
-        setOptionsHandler(optionsHandler);
+        // Add to
+        ExpHandler expHandler = new ExpHandler(this);
+        expHandler.addExp(e1, ExpEnum.E1);
+        expHandler.addExp(e2, ExpEnum.E2);
+        expHandler.setMainExp(e1);
+        setExpHandler(expHandler);
     }
 
     @Override

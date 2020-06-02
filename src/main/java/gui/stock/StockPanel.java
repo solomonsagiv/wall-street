@@ -74,9 +74,9 @@ public class StockPanel extends JPanel implements IMyPanel {
 
     public StockPanel( STOCK_OBJECT client ) {
         this.client = client;
-        optWeek = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
-        optMonth = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
-        mainOptions = client.getOptionsHandler( ).getMainOptions( );
+        optWeek = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
+        optMonth = client.getExpHandler( ).getExp( OptionsEnum.MONTH );
+        mainOptions = client.getExpHandler( ).getMainExp( );
 
         init( );
         initListeners( );

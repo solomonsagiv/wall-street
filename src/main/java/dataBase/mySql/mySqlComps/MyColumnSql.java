@@ -12,14 +12,12 @@ public abstract class MyColumnSql< T > {
 
     // Variables
     protected MySqlTable myTableSql;
-    public String name;
     protected MySqlColumnEnum type;
     BASE_CLIENT_OBJECT client;
     
     // Constructor
-    public MyColumnSql(MySqlTable myTableSql, String name, MySqlColumnEnum type) {
+    public MyColumnSql(MySqlTable myTableSql, MySqlColumnEnum type) {
         this.myTableSql = myTableSql;
-        this.name = name;
         this.client = myTableSql.getClient();
         this.type = type;
     }

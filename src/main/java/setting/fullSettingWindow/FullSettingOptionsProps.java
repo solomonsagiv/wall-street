@@ -9,7 +9,6 @@ import options.Options;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
-import setting.clientSetting.optionsPanel.OptionsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -80,7 +79,7 @@ public class FullSettingOptionsProps extends MyGuiComps.MyPanel {
 
     private void updateOptionsData( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
         try {
-            Options options = client.getOptionsHandler().getOptions( optionsEnum );
+            Options options = client.getExpHandler().getExp( optionsEnum );
             // Interest
             if ( !interestField.getText().isEmpty() ) {
                 try {

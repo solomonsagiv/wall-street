@@ -10,9 +10,13 @@ import dataBase.mySql.myTables.index.ArraysTable;
 import dataBase.mySql.myTables.index.DayTable;
 import dataBase.mySql.myTables.index.StatusTable;
 import dataBase.mySql.myTables.index.SumTable;
-import options.IndexOptions;
-import options.OptionsEnum;
-import options.OptionsHandler;
+import exp.E1;
+import exp.E2;
+import exp.ExpEnum;
+import exp.ExpHandler;
+import myJson.MyJson;
+import options.JsonEnum;
+import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
@@ -37,17 +41,23 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void initOptionsHandler() throws NullPointerException {
+    public void initExpHandler() throws NullPointerException {
 
-        IndexOptions optionsQuarter = new IndexOptions(getBaseId() + 3000, this, OptionsEnum.QUARTER, TwsContractsEnum.OPT_QUARTER);
-        IndexOptions optionsQuarterFar = new IndexOptions(getBaseId() + 4000, this, OptionsEnum.QUARTER_FAR, TwsContractsEnum.OPT_QUARTER_FAR);
+        // E1
+        Options e1_options = new Options(getBaseId() + 3000, this, TwsContractsEnum.OPT_E1);
+        E1 e1 = new E1(this, e1_options);
 
-        OptionsHandler optionsHandler = new OptionsHandler(this);
-        optionsHandler.addOptions(optionsQuarter);
-        optionsHandler.addOptions(optionsQuarterFar);
-        optionsHandler.setMainOptions(optionsQuarter);
+        // E2
+        Options e2_options = new Options(getBaseId() + 4000, this, TwsContractsEnum.OPT_E2);
+        E2 e2 = new E2(this, e2_options);
 
-        setOptionsHandler(optionsHandler);
+        // Append to handler
+        ExpHandler expHandler = new ExpHandler(this);
+        expHandler.addExp(e1, ExpEnum.E1);
+        expHandler.addExp(e2, ExpEnum.E2);
+        expHandler.setMainExp(e1);
+
+        setExpHandler(expHandler);
     }
 
     public StocksHandler getStocksHandler() {
@@ -58,4 +68,26 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         return basketService;
     }
 
+
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = new MyJson();
+        json.put(JsonEnum.ind, getIndex());
+        json.put(JsonEnum.indBid, getIndexBid());
+        json.put(JsonEnum.indAsk, getIndexAsk());
+        json.put(JsonEnum.indBidAskCounter, getIndexBidAskCounter());
+        json.put(JsonEnum.open, getOpen());
+        json.put(JsonEnum.high, getHigh());
+        json.put(JsonEnum.low, getLow());
+        json.put(JsonEnum.base, getBase());
+        json.put(JsonEnum.e1, getExpHandler().getExp(ExpEnum.E1).getAsJson());
+        json.put(JsonEnum.e2, getExpHandler().getExp(ExpEnum.E2).getAsJson());
+        return json;
+    }
+
+    @Override
+    public void loadFromJson(MyJson object) {
+        getExpHandler().getExp(ExpEnum.E1).loadFromJson(new MyJson(object.getJSONObject(JsonEnum.e1).toString()));
+        getExpHandler().getExp(ExpEnum.E2).loadFromJson(new MyJson(object.getJSONObject(JsonEnum.e2).toString()));
+    }
 }

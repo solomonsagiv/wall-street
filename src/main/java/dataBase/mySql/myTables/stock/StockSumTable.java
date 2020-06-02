@@ -18,13 +18,13 @@ public class StockSumTable extends MySumTable {
 
     @Override
     public void initColumns() {
-        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.DATE) {
+        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.date) {
             @Override
             public String getObject() {
                 return LocalDate.now().toString();
             }
         });
-        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.EXP_NAME) {
+        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.exp_name) {
             @Override
             public String getObject() {
                 return Manifest.EXP;
@@ -82,13 +82,13 @@ public class StockSumTable extends MySumTable {
         addColumn(new MyColumnSql<>(this, "op_avg", MySqlColumnEnum.OP_AVG) {
             @Override
             public Double getObject() {
-                return client.getOptionsHandler().getMainOptions().getOpAvg();
+                return client.getExpHandler().getMainExp().getOpAvg();
             }
         });
         addColumn(new MyColumnSql<>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getOptionsHandler().getAllOptionsAsJson().toString();
+                return client.getExpHandler().getAllOptionsAsJson().toString();
             }
         });
         addColumn(new MyColumnSql<>(this, "base", MySqlColumnEnum.BASE) {
@@ -100,7 +100,7 @@ public class StockSumTable extends MySumTable {
         addColumn(new MyColumnSql<>(this, "con_bid_ask_counter", MySqlColumnEnum.CON_BID_ASK_COUNTER) {
             @Override
             public Integer getObject() {
-                return client.getOptionsHandler().getMainOptions().getConBidAskCounter();
+                return client.getExpHandler().getMainExp().getConBidAskCounter();
             }
         });
         addColumn(new MyColumnSql<>(this, "indBidAskCounter", MySqlColumnEnum.IND_BID_ASK_COUNTER) {

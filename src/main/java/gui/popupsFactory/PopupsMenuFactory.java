@@ -81,7 +81,7 @@ public class PopupsMenuFactory {
         optionsCounter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OptionsWindow window = new OptionsWindow(client, client.getOptionsHandler().getMainOptions());
+                OptionsWindow window = new OptionsWindow(client, client.getExpHandler().getMainExp());
                 window.frame.setVisible(true);
                 window.startWindowUpdater();
             }
@@ -99,7 +99,7 @@ public class PopupsMenuFactory {
         optionsPosition.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PositionsWindow(client, client.getOptionsHandler().getPositionCalculator().getPositions());
+                new PositionsWindow(client, client.getExpHandler().getPositionCalculator().getPositions());
             }
         });
 
@@ -275,7 +275,7 @@ public class PopupsMenuFactory {
         optionsCounter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OptionsWindow window = new OptionsWindow(client, client.getOptionsHandler().getMainOptions());
+                OptionsWindow window = new OptionsWindow(client, client.getExpHandler().getMainExp());
                 window.frame.setVisible(true);
                 window.startWindowUpdater();
             }
@@ -293,7 +293,7 @@ public class PopupsMenuFactory {
         optionsPosition.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PositionsWindow(client, client.getOptionsHandler().getPositionCalculator().getPositions());
+                new PositionsWindow(client, client.getExpHandler().getPositionCalculator().getPositions());
             }
         });
 
