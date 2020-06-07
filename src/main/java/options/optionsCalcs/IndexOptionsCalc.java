@@ -1,8 +1,9 @@
-package options;
+package options.optionsCalcs;
 
 import exp.Exp;
 import locals.L;
-import options.optionsCalcs.IOptionsCalcs;
+import options.Options;
+import options.Strike;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 public class IndexOptionsCalc implements IOptionsCalcs {
@@ -13,7 +14,7 @@ public class IndexOptionsCalc implements IOptionsCalcs {
     Options options;
 
     // Constructor
-    public IndexOptionsCalc(INDEX_CLIENT_OBJECT client, Exp exp ) {
+    public IndexOptionsCalc(INDEX_CLIENT_OBJECT client, Exp exp) {
         this.client = client;
         this.exp = exp;
         this.options = exp.getOptions();
@@ -24,19 +25,19 @@ public class IndexOptionsCalc implements IOptionsCalcs {
 
         double currStrike = options.getCurrStrike();
 
-        if ( currStrike != 0 ) {
+        if (currStrike != 0) {
 
-            if ( exp.getFuture() - currStrike > client.getStrikeMargin( ) ) {
+            if (exp.getFuture() - currStrike > client.getStrikeMargin()) {
 
-                currStrike += client.getStrikeMargin( );
+                currStrike += client.getStrikeMargin();
 
-            } else if ( exp.getFuture() - currStrike < -client.getStrikeMargin( ) ) {
+            } else if (exp.getFuture() - currStrike < -client.getStrikeMargin()) {
 
-                currStrike -= client.getStrikeMargin( );
+                currStrike -= client.getStrikeMargin();
 
             }
         } else {
-            currStrike = getStrikeInMoneyIfZero( ).getStrike( );
+            currStrike = getStrikeInMoneyIfZero().getStrike();
         }
 
         options.setCurrStrike(currStrike);
@@ -47,12 +48,12 @@ public class IndexOptionsCalc implements IOptionsCalcs {
     @Override
     public Strike getStrikeInMoneyIfZero() {
         double margin = 1000000;
-        Strike targetStrike = new Strike( );
+        Strike targetStrike = new Strike();
 
-        for ( Strike strike : options.getStrikes( ) ) {
-            double newMargin = L.abs( strike.getStrike( ) - exp.getFuture() );
+        for (Strike strike : options.getStrikes()) {
+            double newMargin = L.abs(strike.getStrike() - exp.getFuture());
 
-            if ( newMargin < margin ) {
+            if (newMargin < margin) {
 
                 margin = newMargin;
                 targetStrike = strike;
@@ -67,13 +68,13 @@ public class IndexOptionsCalc implements IOptionsCalcs {
     @Override
     public double getCalcDevidend() {
 
-        if ( options.getProps().getDevidend() <= 0 ) {
+        if (options.getProps().getDevidend() <= 0) {
             return 0;
         }
 
         double calcDev = options.getProps().getDevidend() * 360.0 / options.getProps().getDays() / exp.getFuture();
 
-        if ( Double.isInfinite( calcDev ) ) {
+        if (Double.isInfinite(calcDev)) {
             return 0;
         }
 

@@ -6,6 +6,8 @@ import locals.L;
 import myJson.MyJson;
 import options.JsonEnum;
 import options.Options;
+import options.optionsCalcs.IOptionsCalcs;
+import options.optionsCalcs.IndexOptionsCalc;
 import serverObjects.BASE_CLIENT_OBJECT;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -34,11 +36,13 @@ public abstract class Exp implements IJson {
     MyChartList futBidAskCounterList = new MyChartList( );
 
     Options options;
+    IOptionsCalcs optionsCalcs;
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, Options options ) {
+    public Exp(BASE_CLIENT_OBJECT client, Options options, IndexOptionsCalc indexOptionsCalc) {
         this.client = client;
         this.options = options;
+        this.optionsCalcs = indexOptionsCalc;
     }
 
     // Functions
@@ -170,13 +174,13 @@ public abstract class Exp implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson();
-        json.put(JsonEnum.future.toString(), getFuture());
-        json.put(JsonEnum.futureBid.toString(), getFutureBid());
-        json.put(JsonEnum.futureAsk.toString(), getFutureAsk());
-        json.put(JsonEnum.futureBidAskCounter.toString(), getFutureBidAskCounter());
-        json.put(JsonEnum.options.toString(), getOptions().getAsJson());
+        json.put(JsonEnum.future, getFuture());
+        json.put(JsonEnum.futureBid, getFutureBid());
+        json.put(JsonEnum.futureAsk, getFutureAsk());
+        json.put(JsonEnum.futureBidAskCounter, getFutureBidAskCounter());
+        json.put(JsonEnum.options, getOptions().getAsJson());
         try {
-            json.put(JsonEnum.opAvgFuture.toString(), getOpAvgFuture());
+            json.put(JsonEnum.opAvgFuture, getOpAvgFuture());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,9 +188,8 @@ public abstract class Exp implements IJson {
     }
 
     @Override
-    public void loadFromJson( MyJson object ) {
-
-        setFutureBidAskCounter(object.getInt(JsonEnum.futureBidAskCounter.toString()));
-
+    public void loadFromJson( MyJson json ) {
+        setFutureBidAskCounter(json.getInt(JsonEnum.futureBidAskCounter));
+        getOptions().loadFromJson(new MyJson(json.getJSONObject(JsonEnum.options)));
     }
 }

@@ -19,19 +19,19 @@ public class DayTable extends MyDayTable {
 
     @Override
     public void initColumns() {
-        addColumn(new MyColumnSql<>(this, "date", MySqlColumnEnum.date) {
+        addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.date) {
             @Override
             public String getObject() {
                 return LocalDate.now().toString();
             }
         });
-        addColumn(new MyColumnSql<>(this, "exp_name", MySqlColumnEnum.date.exp_name) {
+        addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.date.exp_name) {
             @Override
             public String getObject() {
                 return Manifest.EXP;
             }
         });
-        addColumn(new MyColumnSql<>(this, "time", MySqlColumnEnum.time) {
+        addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.time) {
             @Override
             public String getObject() {
                 return LocalTime.now().toString();

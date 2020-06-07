@@ -16,7 +16,6 @@ import exp.E2;
 import exp.ExpEnum;
 import exp.ExpHandler;
 import logic.LogicService;
-import options.IndexOptionsCalc;
 import options.Options;
 import options.OptionsDDeCells;
 import options.OptionsEnum;

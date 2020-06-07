@@ -4,6 +4,7 @@ import com.ib.client.Types;
 import lists.MyChartList;
 import locals.IJson;
 import locals.L;
+import myJson.MyJson;
 import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -34,7 +35,7 @@ public class Options implements IJson, IOptionsCalcs {
     protected int baseID = 0;
     protected int minId = 0;
     protected int maxId = 0;
-    protected MyContract twsContract = new MyContract( );
+    protected MyContract twsContract;
     protected boolean gotData = false;
 
     private double contract = 0;
@@ -773,6 +774,27 @@ public class Options implements IJson, IOptionsCalcs {
         // Ask for bid change state
         conAskForCheck = contractAsk;
         conBidForCheck = this.contractBid;
+    }
+
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = new MyJson();
+        json.put(JsonEnum.contract, contract);
+        json.put(JsonEnum.conBid, contractBid);
+        json.put(JsonEnum.conAsk, contractAsk);
+        json.put(JsonEnum.conBidAskCounter, contractBidAskCounter);
+        json.put(JsonEnum.opAvg, L.floor( getOpAvg( ), 100) );
+        return json;
+    }
+
+    @Override
+    public void loadFromJson(MyJson json) {
+        setContractBidAskCounter(json.getInt(JsonEnum.conBidAskCounter));
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        return null;
     }
 
 }

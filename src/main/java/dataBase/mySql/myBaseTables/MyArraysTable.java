@@ -43,13 +43,13 @@ public abstract class MyArraysTable extends MySqlTable {
                     MyLoadAbleColumn column = entry.getValue();
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.name );
+                        double d = rs.getDouble( column.getType().toString() );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.name );
+                        String s = rs.getString( column.getType().toString() );
                         column.setLoadedObject( s );
                         continue;
                     }

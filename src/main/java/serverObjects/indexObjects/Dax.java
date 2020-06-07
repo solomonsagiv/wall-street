@@ -8,7 +8,7 @@ import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import logic.LogicService;
-import options.IndexOptionsCalc;
+import options.optionsCalcs.IndexOptionsCalc;
 import options.OptionsEnum;
 import exp.ExpHandler;
 import serverObjects.ApiEnum;

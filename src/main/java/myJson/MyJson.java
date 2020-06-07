@@ -12,6 +12,11 @@ public class MyJson extends JSONObject {
     public MyJson( String s ) {
         super( s );
     }
+
+    public MyJson( JSONObject s ) {
+        super( s.toString() );
+    }
+
     /**
      * Construct an empty JSONObject.
      */

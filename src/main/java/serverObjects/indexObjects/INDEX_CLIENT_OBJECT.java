@@ -17,6 +17,7 @@ import exp.ExpHandler;
 import myJson.MyJson;
 import options.JsonEnum;
 import options.Options;
+import options.optionsCalcs.IndexOptionsCalc;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
@@ -45,11 +46,12 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
         // E1
         Options e1_options = new Options(getBaseId() + 3000, this, TwsContractsEnum.OPT_E1);
-        E1 e1 = new E1(this, e1_options);
+        E1 e1 = new E1(this, e1_options, );
+
 
         // E2
         Options e2_options = new Options(getBaseId() + 4000, this, TwsContractsEnum.OPT_E2);
-        E2 e2 = new E2(this, e2_options);
+        E2 e2 = new E2(this, e2_options, new IndexOptionsCalc());
 
         // Append to handler
         ExpHandler expHandler = new ExpHandler(this);
@@ -68,7 +70,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         return basketService;
     }
 
-
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson();
@@ -86,8 +87,9 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void loadFromJson(MyJson object) {
-        getExpHandler().getExp(ExpEnum.E1).loadFromJson(new MyJson(object.getJSONObject(JsonEnum.e1).toString()));
-        getExpHandler().getExp(ExpEnum.E2).loadFromJson(new MyJson(object.getJSONObject(JsonEnum.e2).toString()));
+    public void loadFromJson(MyJson json) {
+        setIndexBidAskCounter(json.getInt(JsonEnum.indBidAskCounter));
+        getExpHandler().getExp(ExpEnum.E1).loadFromJson(new MyJson(json.getJSONObject(JsonEnum.e1).toString()));
+        getExpHandler().getExp(ExpEnum.E2).loadFromJson(new MyJson(json.getJSONObject(JsonEnum.e2).toString()));
     }
 }
