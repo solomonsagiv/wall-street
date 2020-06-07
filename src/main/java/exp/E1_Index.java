@@ -1,23 +1,16 @@
-package options.optionsCalcs;
+package exp;
 
-import exp.Exp;
 import locals.L;
 import options.Options;
 import options.Strike;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import options.optionsCalcs.IOptionsCalcs;
+import serverObjects.BASE_CLIENT_OBJECT;
 
-public class IndexOptionsCalc implements IOptionsCalcs {
-
-    // Variables
-    Exp exp;
-    INDEX_CLIENT_OBJECT client;
-    Options options;
+public class E1_Index extends E1 implements IOptionsCalcs {
 
     // Constructor
-    public IndexOptionsCalc( INDEX_CLIENT_OBJECT client, Exp exp ) {
-        this.client = client;
-        this.exp = exp;
-        this.options = exp.getOptions( );
+    public E1_Index( BASE_CLIENT_OBJECT client, Options options ) {
+        super( client, options );
     }
 
     @Override
@@ -26,11 +19,11 @@ public class IndexOptionsCalc implements IOptionsCalcs {
 
         if ( currStrike != 0 ) {
 
-            if ( exp.getFuture( ) - currStrike > client.getStrikeMargin( ) ) {
+            if ( getFuture( ) - currStrike > client.getStrikeMargin( ) ) {
 
                 currStrike += client.getStrikeMargin( );
 
-            } else if ( exp.getFuture( ) - currStrike < -client.getStrikeMargin( ) ) {
+            } else if ( getFuture( ) - currStrike < -client.getStrikeMargin( ) ) {
 
                 currStrike -= client.getStrikeMargin( );
 
@@ -50,7 +43,7 @@ public class IndexOptionsCalc implements IOptionsCalcs {
         Strike targetStrike = new Strike( );
 
         for ( Strike strike : options.getStrikes( ) ) {
-            double newMargin = L.abs( strike.getStrike( ) - exp.getFuture( ) );
+            double newMargin = L.abs( strike.getStrike( ) - getFuture( ) );
 
             if ( newMargin < margin ) {
 
@@ -71,7 +64,7 @@ public class IndexOptionsCalc implements IOptionsCalcs {
             return 0;
         }
 
-        double calcDev = options.getProps( ).getDevidend( ) * 360.0 / options.getProps( ).getDays( ) / exp.getFuture( );
+        double calcDev = options.getProps( ).getDevidend( ) * 360.0 / options.getProps( ).getDays( ) / getFuture( );
 
         if ( Double.isInfinite( calcDev ) ) {
             return 0;

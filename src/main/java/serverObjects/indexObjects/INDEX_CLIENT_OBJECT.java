@@ -10,10 +10,7 @@ import dataBase.mySql.myTables.index.ArraysTable;
 import dataBase.mySql.myTables.index.DayTable;
 import dataBase.mySql.myTables.index.StatusTable;
 import dataBase.mySql.myTables.index.SumTable;
-import exp.E1;
-import exp.E2;
-import exp.ExpEnum;
-import exp.ExpHandler;
+import exp.*;
 import myJson.MyJson;
 import options.JsonEnum;
 import options.Options;
@@ -47,6 +44,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         // E1
         Options e1_options = new Options(getBaseId() + 3000, this, TwsContractsEnum.OPT_E1);
         E1 e1 = new E1(this, e1_options, );
+        E1_Index e1_index = new E1_Index( this, e1_options );
 
 
         // E2

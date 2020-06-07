@@ -36,13 +36,11 @@ public abstract class Exp implements IJson {
     MyChartList futBidAskCounterList = new MyChartList( );
 
     Options options;
-    IOptionsCalcs optionsCalcs;
 
     // Constructor
-    public Exp(BASE_CLIENT_OBJECT client, Options options, IndexOptionsCalc indexOptionsCalc) {
+    public Exp(BASE_CLIENT_OBJECT client, Options options) {
         this.client = client;
         this.options = options;
-        this.optionsCalcs = indexOptionsCalc;
     }
 
     // Functions
@@ -191,5 +189,14 @@ public abstract class Exp implements IJson {
     public void loadFromJson( MyJson json ) {
         setFutureBidAskCounter(json.getInt(JsonEnum.futureBidAskCounter));
         getOptions().loadFromJson(new MyJson(json.getJSONObject(JsonEnum.options)));
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        MyJson json = new MyJson(  );
+
+        json.put( JsonEnum. )
+
+
     }
 }
