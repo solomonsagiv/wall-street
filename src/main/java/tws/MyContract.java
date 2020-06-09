@@ -3,7 +3,7 @@ package tws;
 import com.ib.client.Contract;
 import locals.IJson;
 import myJson.MyJson;
-import options.JsonEnum;
+import options.JsonStrings;
 
 public class MyContract extends Contract implements IJson {
 
@@ -43,29 +43,29 @@ public class MyContract extends Contract implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put(JsonEnum.id.toString(), getMyId());
-        object.put(JsonEnum.secType.toString(), secType());
-        object.put(JsonEnum.currency.toString(), currency());
-        object.put(JsonEnum.exchange.toString(), exchange());
-        object.put(JsonEnum.tradingClass.toString(), tradingClass());
-        object.put(JsonEnum.multiplier.toString(), multiplier());
-        object.put(JsonEnum.symbol.toString(), symbol());
-        object.put(JsonEnum.includeExpired.toString(), includeExpired());
-        object.put(JsonEnum.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
+        object.put( JsonStrings.id.toString(), getMyId());
+        object.put( JsonStrings.secType.toString(), secType());
+        object.put( JsonStrings.currency.toString(), currency());
+        object.put( JsonStrings.exchange.toString(), exchange());
+        object.put( JsonStrings.tradingClass.toString(), tradingClass());
+        object.put( JsonStrings.multiplier.toString(), multiplier());
+        object.put( JsonStrings.symbol.toString(), symbol());
+        object.put( JsonStrings.includeExpired.toString(), includeExpired());
+        object.put( JsonStrings.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
         return object;
     }
 
     @Override
-    public void loadFromJson(MyJson object) {
-        setMyId(object.getInt(JsonEnum.id.toString()));
-        secType(object.getString(JsonEnum.secType.toString()));
-        currency(object.getString(JsonEnum.currency.toString()));
-        exchange(object.getString(JsonEnum.exchange.toString()));
-        tradingClass(object.getString(JsonEnum.tradingClass.toString()));
-        multiplier(object.getString(JsonEnum.multiplier.toString()));
-        symbol(object.getString(JsonEnum.symbol.toString()));
-        includeExpired(object.getBoolean(JsonEnum.includeExpired.toString()));
-        lastTradeDateOrContractMonth(object.getString(JsonEnum.lastTradingDateOrContractMonth.toString()));
+    public void loadFromJson(MyJson json ) {
+        setMyId( json.getInt( JsonStrings.id.toString()));
+        secType( json.getString( JsonStrings.secType.toString()));
+        currency( json.getString( JsonStrings.currency.toString()));
+        exchange( json.getString( JsonStrings.exchange.toString()));
+        tradingClass( json.getString( JsonStrings.tradingClass.toString()));
+        multiplier( json.getString( JsonStrings.multiplier.toString()));
+        symbol( json.getString( JsonStrings.symbol.toString()));
+        includeExpired( json.getBoolean( JsonStrings.includeExpired.toString()));
+        lastTradeDateOrContractMonth( json.getString( JsonStrings.lastTradingDateOrContractMonth.toString()));
     }
 
     public void setType(String string) {

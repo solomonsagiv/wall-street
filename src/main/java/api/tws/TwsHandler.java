@@ -1,6 +1,7 @@
 package api.tws;
 
 import api.Downloader;
+import exp.Exp;
 import locals.IJson;
 import myJson.MyJson;
 import options.Call;
@@ -75,9 +76,9 @@ public class TwsHandler implements IJson {
         request( contract );
     }
 
-    public void requestOptions( List<Options> optionsList ) {
-        for ( Options options: optionsList ) {
-            requestOptions( options );
+    public void requestOptions( List< Exp > optionsList ) {
+        for ( Exp exp: optionsList ) {
+            requestOptions( exp.getOptions() );
         }
     }
 

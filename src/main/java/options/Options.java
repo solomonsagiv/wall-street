@@ -1,6 +1,7 @@
 package options;
 
 import com.ib.client.Types;
+import exp.Exp;
 import lists.MyChartList;
 import locals.IJson;
 import locals.L;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class Options implements IJson, IOptionsCalcs {
+public class Options implements IJson {
 
     OptionsDDeCells optionsDDeCells;
     List< Strike > strikes;
@@ -27,7 +28,7 @@ public class Options implements IJson, IOptionsCalcs {
     protected OptionsEnum type;
     protected OptionsProps props;
 
-    IOptionsCalcs optionsCalcs;
+    protected Exp exp;
 
     // Exp date
     LocalDate expDate;
@@ -53,18 +54,17 @@ public class Options implements IJson, IOptionsCalcs {
     MyChartList conBidAskCounterList = new MyChartList( );
     MyChartList opAvgChartList = new MyChartList( );
 
-    public Options( int baseID, BASE_CLIENT_OBJECT client, TwsContractsEnum contractType ) {
-        this.baseID = baseID;
+    public Options( BASE_CLIENT_OBJECT client, Exp exp ) {
         this.client = client;
-        this.twsContract = client.getTwsHandler( ).getMyContract( contractType );
+        this.exp = exp;
 
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
         props = new OptionsProps();
     }
 
-    public Options( int baseID, BASE_CLIENT_OBJECT client, TwsContractsEnum contractType, OptionsDDeCells dDeCells ) {
-        this( baseID, client, contractType );
+    public Options( BASE_CLIENT_OBJECT client, Exp exp, OptionsDDeCells dDeCells ) {
+        this( client, exp );
         this.optionsDDeCells = dDeCells;
     }
 
@@ -156,6 +156,10 @@ public class Options implements IJson, IOptionsCalcs {
         }
     }
 
+    public HashMap< Integer, Option > getOptionsMap() {
+        return optionsMap;
+    }
+
     public Option getOption( String name ) {
 
         double targetStrike = Double.parseDouble( name.substring( 1 ) );
@@ -216,7 +220,7 @@ public class Options implements IJson, IOptionsCalcs {
                     double increment = client.getStrikeMargin( );
 
                     // For each strike
-                    double strikInMoney = getStrikeInMoney(  );
+                    double strikInMoney = exp.getStrikeInMoney(  );
                     double startStrike = strikInMoney - increment * 2;
                     double endStrike = strikInMoney + increment * 2;
 
@@ -278,7 +282,7 @@ public class Options implements IJson, IOptionsCalcs {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + getCalcDevidend(  ) ) * ( getProps( ).getDays( ) / 360.0 ) ) );
+                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + exp.getCalcDevidend(  ) ) * ( getProps( ).getDays( ) / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
                     buys.add( buy );
@@ -312,7 +316,7 @@ public class Options implements IJson, IOptionsCalcs {
             ArrayList< Double > buys = new ArrayList<>( );
             ArrayList< Double > sells = new ArrayList<>( );
 
-            double strikeInMoney = getStrikeInMoney( );
+            double strikeInMoney = exp.getStrikeInMoney( );
             double startStrike = strikeInMoney - ( client.getStrikeMargin( ) * 5 );
             double endStrike = strikeInMoney + ( client.getStrikeMargin( ) * 5 );
 
@@ -516,25 +520,25 @@ public class Options implements IJson, IOptionsCalcs {
             strikeJson = new JSONObject( );
 
             Call call = strike.getCall( );
-            callJson.put( JsonEnum.bid.toString( ), call.getBid( ) );
-            callJson.put( JsonEnum.ask.toString( ), call.getAsk( ) );
-            callJson.put( JsonEnum.optBidAskCounter.toString( ), call.getBidAskCounter( ) );
+            callJson.put( JsonStrings.bid.toString( ), call.getBid( ) );
+            callJson.put( JsonStrings.ask.toString( ), call.getAsk( ) );
+            callJson.put( JsonStrings.optBidAskCounter.toString( ), call.getBidAskCounter( ) );
 
             Put put = strike.getPut( );
-            putJson.put( JsonEnum.bid.toString( ), put.getBid( ) );
-            putJson.put( JsonEnum.ask.toString( ), put.getAsk( ) );
-            putJson.put( JsonEnum.optBidAskCounter.toString( ), put.getBidAskCounter( ) );
+            putJson.put( JsonStrings.bid.toString( ), put.getBid( ) );
+            putJson.put( JsonStrings.ask.toString( ), put.getAsk( ) );
+            putJson.put( JsonStrings.optBidAskCounter.toString( ), put.getBidAskCounter( ) );
 
-            strikeJson.put( JsonEnum.call.toString( ), callJson );
-            strikeJson.put( JsonEnum.put.toString( ), putJson );
+            strikeJson.put( JsonStrings.call.toString( ), callJson );
+            strikeJson.put( JsonStrings.put.toString( ), putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonEnum.contract.toString( ), getContract( ) );
-        mainJson.put( JsonEnum.opAvg.toString( ), L.floor( getOpAvg( ), 100 ) );
-        mainJson.put( JsonEnum.data.toString( ), optionsData );
-        mainJson.put( JsonEnum.conBidAskCounter.toString( ), getConBidAskCounter( ) );
+        mainJson.put( JsonStrings.contract.toString( ), getContract( ) );
+        mainJson.put( JsonStrings.opAvg.toString( ), L.floor( getOpAvg( ), 100 ) );
+        mainJson.put( JsonStrings.data.toString( ), optionsData );
+        mainJson.put( JsonStrings.conBidAskCounter.toString( ), getConBidAskCounter( ) );
 
         return mainJson;
     }
@@ -554,24 +558,24 @@ public class Options implements IJson, IOptionsCalcs {
             putJson = new JSONObject( );
             strikeJson = new JSONObject( );
 
-            callJson.put( JsonEnum.bid.toString( ), 0 );
-            callJson.put( JsonEnum.ask.toString( ), 0 );
-            callJson.put( JsonEnum.optBidAskCounter.toString( ), 0 );
+            callJson.put( JsonStrings.bid.toString( ), 0 );
+            callJson.put( JsonStrings.ask.toString( ), 0 );
+            callJson.put( JsonStrings.optBidAskCounter.toString( ), 0 );
 
-            putJson.put( JsonEnum.bid.toString( ), 0 );
-            putJson.put( JsonEnum.ask.toString( ), 0 );
-            putJson.put( JsonEnum.optBidAskCounter.toString( ), 0 );
+            putJson.put( JsonStrings.bid.toString( ), 0 );
+            putJson.put( JsonStrings.ask.toString( ), 0 );
+            putJson.put( JsonStrings.optBidAskCounter.toString( ), 0 );
 
-            strikeJson.put( JsonEnum.call.toString( ), callJson );
-            strikeJson.put( JsonEnum.put.toString( ), putJson );
+            strikeJson.put( JsonStrings.call.toString( ), callJson );
+            strikeJson.put( JsonStrings.put.toString( ), putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonEnum.contract.toString( ), 0 );
-        mainJson.put( JsonEnum.opAvg.toString( ), 0 );
-        mainJson.put( JsonEnum.data.toString( ), optionsData );
-        mainJson.put( JsonEnum.futureBidAskCounter.toString( ), 0 );
+        mainJson.put( JsonStrings.contract.toString( ), 0 );
+        mainJson.put( JsonStrings.opAvg.toString( ), 0 );
+        mainJson.put( JsonStrings.data.toString( ), optionsData );
+        mainJson.put( JsonStrings.futureBidAskCounter.toString( ), 0 );
 
         return mainJson;
     }
@@ -779,17 +783,17 @@ public class Options implements IJson, IOptionsCalcs {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson();
-        json.put(JsonEnum.contract, contract);
-        json.put(JsonEnum.conBid, contractBid);
-        json.put(JsonEnum.conAsk, contractAsk);
-        json.put(JsonEnum.conBidAskCounter, contractBidAskCounter);
-        json.put(JsonEnum.opAvg, L.floor( getOpAvg( ), 100) );
+        json.put( JsonStrings.contract, contract);
+        json.put( JsonStrings.conBid, contractBid);
+        json.put( JsonStrings.conAsk, contractAsk);
+        json.put( JsonStrings.conBidAskCounter, contractBidAskCounter);
+        json.put( JsonStrings.opAvg, L.floor( getOpAvg( ), 100) );
         return json;
     }
 
     @Override
     public void loadFromJson(MyJson json) {
-        setContractBidAskCounter(json.getInt(JsonEnum.conBidAskCounter));
+        setContractBidAskCounter(json.getInt( JsonStrings.conBidAskCounter));
     }
 
     @Override

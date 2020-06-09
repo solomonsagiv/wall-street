@@ -2,6 +2,7 @@ package backGround;
 
 import api.Manifest;
 import arik.Arik;
+import exp.Exp;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
@@ -113,7 +114,8 @@ public class BackGroundHandler {
         }
 
         public void checkAllOptionsData() {
-            for (Options options : client.getExpHandler().getExpList()) {
+            for ( Exp exp : client.getExpHandler().getExpList()) {
+                Options options = exp.getOptions();
                 options.checkOptionData();
             }
         }

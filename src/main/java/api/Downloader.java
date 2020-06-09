@@ -3,6 +3,7 @@ package api;
 import api.tws.ITwsRequester;
 import arik.Arik;
 import com.ib.client.*;
+import exp.Exp;
 import locals.LocalHandler;
 import logger.MyLogger;
 import options.Option;
@@ -135,8 +136,10 @@ public class Downloader extends Thread implements EWrapper {
         logger.getLogger( ).info( EWrapperMsgGenerator.error( id, errorCode, errorMsg ) );
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            for ( Options options : client.getExpHandler( ).getExpList( ) ) {
+            for ( Exp exp : client.getExpHandler( ).getExpList( ) ) {
                 try {
+                    Options options = exp.getOptions();
+
                     Option option = options.getOptionsMap( ).get( id );
                     options.removeStrike( option.getStrike( ) );
                     System.out.println( "Removed: " + client.getName( ) + " id: " + id + " Strike: " + option.getStrike( ) );

@@ -8,19 +8,18 @@ import dataBase.mySql.myTables.stock.StockArraysTable;
 import dataBase.mySql.myTables.stock.StockDayTable;
 import dataBase.mySql.myTables.stock.StockStatusTable;
 import dataBase.mySql.myTables.stock.StockSumTable;
+import exp.ExpEnum;
+import exp.ExpMonth;
+import exp.ExpWeek;
 import logic.LogicService;
 import options.OptionsEnum;
 import exp.ExpHandler;
-import options.StockOptions;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.MyContract;
-import tws.TwsContractsEnum;
-
 import java.time.LocalTime;
 
 public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
@@ -54,19 +53,17 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() {
-
         // Week
-        MyContract weekContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_WEEK );
-        StockOptions weekOptions = new StockOptions( weekContract.getMyId( ), this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK );
+        ExpWeek expWeek = new ExpWeek( this );
 
         // Month
-        MyContract monthContract = getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH );
-        StockOptions monthOptions = new StockOptions( monthContract.getMyId( ), this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH );
+        ExpMonth expMonth = new ExpMonth( this );
 
+        // Exp handler
         ExpHandler expHandler = new ExpHandler( this );
-        expHandler.appExp( weekOptions );
-        expHandler.appExp( monthOptions );
-        expHandler.setMainExp( monthOptions );
+        expHandler.addExp( expWeek, ExpEnum.WEEK );
+        expHandler.addExp( expMonth, ExpEnum.MONTH );
+        expHandler.setMainExp( expMonth );
 
         setExpHandler(expHandler);
     }

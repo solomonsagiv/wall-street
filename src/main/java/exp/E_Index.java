@@ -5,12 +5,14 @@ import options.Options;
 import options.Strike;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 
-public class E1_Index extends E1 implements IOptionsCalcs {
+public class E_Index extends E {
 
     // Constructor
-    public E1_Index( BASE_CLIENT_OBJECT client, Options options ) {
-        super( client, options );
+    public E_Index( BASE_CLIENT_OBJECT client ) {
+        super( client );
     }
 
     @Override

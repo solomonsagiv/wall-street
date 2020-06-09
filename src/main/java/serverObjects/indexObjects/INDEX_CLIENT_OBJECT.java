@@ -4,17 +4,19 @@ import basketFinder.BasketService;
 import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
+import dataBase.mySql.myJsonTables.index.DayJsonTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.index.ArraysTable;
 import dataBase.mySql.myTables.index.DayTable;
 import dataBase.mySql.myTables.index.StatusTable;
 import dataBase.mySql.myTables.index.SumTable;
-import exp.*;
+import exp.E_Index;
+import exp.ExpEnum;
+import exp.ExpHandler;
 import myJson.MyJson;
-import options.JsonEnum;
+import options.JsonStrings;
 import options.Options;
-import options.optionsCalcs.IndexOptionsCalc;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
@@ -24,40 +26,35 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     protected StocksHandler stocksHandler;
 
     public INDEX_CLIENT_OBJECT() {
-        super();
-        initTablesHandler();
+        super( );
+        initTablesHandler( );
     }
 
     public void initTablesHandler() {
-        tablesHandler = new TablesHandler();
-        tablesHandler.addTable(TablesEnum.TWS_CONTRACTS, new TwsContractsTable(this));
-        tablesHandler.addTable(TablesEnum.DAY, new DayTable(this));
-        tablesHandler.addTable(TablesEnum.STATUS, new StatusTable(this));
-        tablesHandler.addTable(TablesEnum.SUM, new SumTable(this));
-        tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
-        tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this, "bounds"));
+        tablesHandler = new TablesHandler( );
+        tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusTable( this ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumTable( this ) );
+        tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );
+        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
     }
 
     @Override
     public void initExpHandler() throws NullPointerException {
-
         // E1
-        Options e1_options = new Options(getBaseId() + 3000, this, TwsContractsEnum.OPT_E1);
-        E1 e1 = new E1(this, e1_options, );
-        E1_Index e1_index = new E1_Index( this, e1_options );
-
+        E_Index e1_index = new E_Index(this );
 
         // E2
-        Options e2_options = new Options(getBaseId() + 4000, this, TwsContractsEnum.OPT_E2);
-        E2 e2 = new E2(this, e2_options, new IndexOptionsCalc());
+        E_Index e2 = new E_Index( this );
 
         // Append to handler
-        ExpHandler expHandler = new ExpHandler(this);
-        expHandler.addExp(e1, ExpEnum.E1);
-        expHandler.addExp(e2, ExpEnum.E2);
-        expHandler.setMainExp(e1);
+        ExpHandler expHandler = new ExpHandler( this );
+        expHandler.addExp( e1_index, ExpEnum.E1 );
+        expHandler.addExp( e2, ExpEnum.E2 );
+        expHandler.setMainExp( e1_index );
 
-        setExpHandler(expHandler);
+        setExpHandler( expHandler );
     }
 
     public StocksHandler getStocksHandler() {
@@ -70,24 +67,32 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
     @Override
     public MyJson getAsJson() {
-        MyJson json = new MyJson();
-        json.put(JsonEnum.ind, getIndex());
-        json.put(JsonEnum.indBid, getIndexBid());
-        json.put(JsonEnum.indAsk, getIndexAsk());
-        json.put(JsonEnum.indBidAskCounter, getIndexBidAskCounter());
-        json.put(JsonEnum.open, getOpen());
-        json.put(JsonEnum.high, getHigh());
-        json.put(JsonEnum.low, getLow());
-        json.put(JsonEnum.base, getBase());
-        json.put(JsonEnum.e1, getExpHandler().getExp(ExpEnum.E1).getAsJson());
-        json.put(JsonEnum.e2, getExpHandler().getExp(ExpEnum.E2).getAsJson());
+        MyJson json = new MyJson( );
+        json.put( JsonStrings.ind, getIndex( ) );
+        json.put( JsonStrings.indBid, getIndexBid( ) );
+        json.put( JsonStrings.indAsk, getIndexAsk( ) );
+        json.put( JsonStrings.indBidAskCounter, getIndexBidAskCounter( ) );
+        json.put( JsonStrings.open, getOpen( ) );
+        json.put( JsonStrings.high, getHigh( ) );
+        json.put( JsonStrings.low, getLow( ) );
+        json.put( JsonStrings.base, getBase( ) );
+        json.put( JsonStrings.e1, getExpHandler( ).getExp( ExpEnum.E1 ).getAsJson( ) );
+        json.put( JsonStrings.e2, getExpHandler( ).getExp( ExpEnum.E2 ).getAsJson( ) );
         return json;
     }
 
     @Override
-    public void loadFromJson(MyJson json) {
-        setIndexBidAskCounter(json.getInt(JsonEnum.indBidAskCounter));
-        getExpHandler().getExp(ExpEnum.E1).loadFromJson(new MyJson(json.getJSONObject(JsonEnum.e1).toString()));
-        getExpHandler().getExp(ExpEnum.E2).loadFromJson(new MyJson(json.getJSONObject(JsonEnum.e2).toString()));
+    public void loadFromJson( MyJson json ) {
+        setIndexBidAskCounter( json.getInt( JsonStrings.indBidAskCounter ) );
+        getExpHandler( ).getExp( ExpEnum.E1 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e1 ).toString( ) ) );
+        getExpHandler( ).getExp( ExpEnum.E2 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e2 ).toString( ) ) );
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        MyJson json = new MyJson( );
+        json.put( JsonStrings.e1, getExpHandler().getExp( ExpEnum.E1 ).getResetJson() );
+        json.put( JsonStrings.e2, getExpHandler().getExp( ExpEnum.E2 ).getResetJson() );
+        return json;
     }
 }

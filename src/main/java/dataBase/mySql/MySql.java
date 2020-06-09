@@ -68,7 +68,6 @@ public class MySql {
         return rs;
     }
 
-
     public static void main(String[] args) {
         MySql.trunticate("amazon_arrays");
     }

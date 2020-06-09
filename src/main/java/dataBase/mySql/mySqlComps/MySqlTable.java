@@ -60,9 +60,9 @@ public abstract class MySqlTable implements IMyTableSql {
         for ( MyColumnSql column : columns ) {
             try {
                 if ( i < columns.size( ) - 1 ) {
-                    query.append( "`" + column.name + "`='" + column.getObject( ) + "'," );
+                    query.append( "`" + column.getType().toString() + "`='" + column.getObject( ) + "'," );
                 } else {
-                    query.append( "`" + column.name + "`='" + column.getObject( ) + "'" );
+                    query.append( "`" + column.getType().toString() + "`='" + column.getObject( ) + "'" );
                 }
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -95,12 +95,12 @@ public abstract class MySqlTable implements IMyTableSql {
 
                 if ( i < columns.size( ) - 1 ) {
                     // Columns
-                    insertColumns.append( "`" + column.name + "`," );
+                    insertColumns.append( "`" + column.getType().toString() + "`," );
                     // Values
                     valuesColumns.append( "'" + column.getObject( ) + "'," );
                 } else {
                     // Columns
-                    insertColumns.append( "`" + column.name + "`" );
+                    insertColumns.append( "`" + column.getType().toString() + "`" );
                     // Values
                     valuesColumns.append( "'" + column.getObject( ) + "'" );
                 }
@@ -132,9 +132,9 @@ public abstract class MySqlTable implements IMyTableSql {
                 MyColumnSql column = entry.getValue( );
 
                 if ( i < columns.size( ) - 1 ) {
-                    query.append( "`" + column.name + "`='" + column.getObject( ) + "'," );
+                    query.append( "`" + column.getType().toString() + "`='" + column.getObject( ) + "'," );
                 } else {
-                    query.append( "`" + column.name + "`='" + column.getObject( ) + "'" );
+                    query.append( "`" + column.getType().toString() + "`='" + column.getObject( ) + "'" );
                 }
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -164,19 +164,19 @@ public abstract class MySqlTable implements IMyTableSql {
                     MyLoadAbleColumn column = entry.getValue( );
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.name );
+                        double d = rs.getDouble( column.getType().toString() );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.INT ) {
-                        int i = rs.getInt( column.name );
+                        int i = rs.getInt( column.getType().toString() );
                         column.setLoadedObject( i );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.name );
+                        String s = rs.getString( column.getType().toString() );
                         column.setLoadedObject( s );
                         continue;
                     }
@@ -202,19 +202,19 @@ public abstract class MySqlTable implements IMyTableSql {
                     MyLoadAbleColumn column = entry.getValue( );
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.name );
+                        double d = rs.getDouble( column.getType().toString() );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.INT ) {
-                        int i = rs.getInt( column.name );
+                        int i = rs.getInt( column.getType().toString() );
                         column.setLoadedObject( i );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.name );
+                        String s = rs.getString( column.getType().toString() );
                         column.setLoadedObject( s );
                         continue;
                     }
@@ -235,9 +235,9 @@ public abstract class MySqlTable implements IMyTableSql {
         for ( Map.Entry< MySqlColumnEnum, MyLoadAbleColumn > entry : loadAbleColumns.entrySet( ) ) {
             MyLoadAbleColumn column = entry.getValue( );
             if ( i < loadAbleColumns.size( ) - 1 ) {
-                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'," );
+                query.append( "`" + column.getType().toString() + "`='" + column.getResetObject( ) + "'," );
             } else {
-                query.append( "`" + column.name + "`='" + column.getResetObject( ) + "'" );
+                query.append( "`" + column.getType().toString() + "`='" + column.getResetObject( ) + "'" );
             }
             i++;
         }

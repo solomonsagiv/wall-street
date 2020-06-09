@@ -20,6 +20,7 @@ import locals.LocalHandler;
 import logic.LogicService;
 import options.OptionsDataHandler;
 import roll.RollHandler;
+import serverObjects.indexObjects.Spx;
 import service.MyServiceHandler;
 import threads.MyThread;
 
@@ -31,6 +32,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
+
+
+    public static void main( String[] args ) {
+        Spx spx = Spx.getInstance();
+        spx.getTablesHandler().getTable( TablesEnum.DAY ).insert();
+        System.out.println("Done" );
+    }
 
     public static final int PRE = 0;
     public static final int CURRENT = 1;
@@ -89,7 +97,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     private double low = 0;
     private double base = 0;
     private double indexBidAskMargin = 0;
-    private double indexBidAskCounter = 0;
+    private int indexBidAskCounter = 0;
     private int indexBidAskCounter2 = 0;
 
     // Services
@@ -631,11 +639,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.tablesHandler = tablesHandler;
     }
 
-    public double getIndexBidAskCounter() {
+    public int getIndexBidAskCounter() {
         return indexBidAskCounter;
     }
 
-    public void setIndexBidAskCounter( double indexBidAskCounter ) {
+    public void setIndexBidAskCounter( int indexBidAskCounter ) {
         this.indexBidAskCounter = indexBidAskCounter;
     }
 

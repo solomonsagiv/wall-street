@@ -16,29 +16,29 @@ public class OptionsProps extends MyProps implements IJson {
 
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put( JsonEnum.interest.toString(), getInterest() );
-        object.put( JsonEnum.devidend.toString(), getDevidend() );
-        object.put( JsonEnum.date.toString(), getDate() );
-        object.put( JsonEnum.days.toString(), getDays() );
+        object.put( JsonStrings.interest.toString(), getInterest() );
+        object.put( JsonStrings.devidend.toString(), getDevidend() );
+        object.put( JsonStrings.date.toString(), getDate() );
+        object.put( JsonStrings.days.toString(), getDays() );
         return object;
     }
 
     @Override
-    public void loadFromJson( MyJson object ) {
-        setInterest( object.getDouble( JsonEnum.interest.toString() ) );
-        setInterestZero( object.getDouble( JsonEnum.interest.toString() ) - 1 );
-        setDevidend( object.getDouble( JsonEnum.devidend.toString() ) );
-        setDate( object.getDate( JsonEnum.date.toString() ) );
-        setDays( object.getDouble( JsonEnum.days.toString() ) );
+    public void loadFromJson( MyJson json ) {
+        setInterest( json.getDouble( JsonStrings.interest.toString() ) );
+        setInterestZero( json.getDouble( JsonStrings.interest.toString() ) - 1 );
+        setDevidend( json.getDouble( JsonStrings.devidend.toString() ) );
+        setDate( json.getDate( JsonStrings.date.toString() ) );
+        setDays( json.getDouble( JsonStrings.days.toString() ) );
     }
 
     @Override
     public MyJson getResetJson() {
         MyJson object = new MyJson();
-        object.put( JsonEnum.interest.toString(), 1 );
-        object.put( JsonEnum.devidend.toString(), 0 );
-        object.put( JsonEnum.date.toString(), getDate() );
-        object.put( JsonEnum.days.toString(), 0 );
+        object.put( JsonStrings.interest.toString(), 1 );
+        object.put( JsonStrings.devidend.toString(), 0 );
+        object.put( JsonStrings.date.toString(), getDate() );
+        object.put( JsonStrings.days.toString(), 0 );
         return object;
     }
 

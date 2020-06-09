@@ -1,6 +1,6 @@
 package options;
 
-public class JsonEnum {
+public class JsonStrings {
     public static final String interest = "interest";
     public static final String devidend = "devidend";
     public static final String date = "date";
@@ -62,6 +62,6 @@ public class JsonEnum {
     public static final String month = "month";
     public static final String futureBid = "futureBid";
     public static final String futureAsk = "futureAsk";
-
-
+    public static final String start = "start";
+    public static final String expData = "expData";
 }

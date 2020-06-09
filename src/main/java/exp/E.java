@@ -3,10 +3,11 @@ package exp;
 import options.Options;
 import options.optionsCalcs.IndexOptionsCalc;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 
-public class E1 extends Exp {
+public class E extends Exp {
 
-    public E1(BASE_CLIENT_OBJECT client, Options options) {
-        super(client, options);
+    public E( BASE_CLIENT_OBJECT client ) {
+        super( client );
     }
 }
