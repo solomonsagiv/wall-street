@@ -8,7 +8,6 @@ import dataBase.mySql.myJsonTables.index.DayJsonTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.index.ArraysTable;
-import dataBase.mySql.myTables.index.DayTable;
 import dataBase.mySql.myTables.index.StatusTable;
 import dataBase.mySql.myTables.index.SumTable;
 import exp.E_Index;
@@ -16,9 +15,7 @@ import exp.ExpEnum;
 import exp.ExpHandler;
 import myJson.MyJson;
 import options.JsonStrings;
-import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
