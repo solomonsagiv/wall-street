@@ -114,7 +114,7 @@ public class BackGroundHandler {
         }
 
         public void checkAllOptionsData() {
-            for ( Exp exp : client.getExpHandler().getExpList()) {
+            for ( Exp exp : client.getExps().getExpList()) {
                 Options options = exp.getOptions();
                 options.checkOptionData();
             }

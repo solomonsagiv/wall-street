@@ -3,6 +3,7 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
+import exp.Exp;
 import options.Options;
 import serverObjects.stockObjects.Amd;
 import tws.TwsContractsEnum;
@@ -11,20 +12,20 @@ import java.util.ArrayList;
 
 public class AmdRequester implements ITwsRequester {
 
-    ArrayList< Options > optionsList;
+    ArrayList< Exp > exps;
     Amd amd;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             amd = Amd.getInstance();
-            optionsList = amd.getExpHandler( ).getExpList( );
+            exps = amd.getExps( ).getExpList( );
 
             // Index
             downloader.reqMktData( amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amd.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            amd.getTwsHandler( ).requestOptions( amd.getExpHandler( ).getExpList( ) );
+            amd.getTwsHandler( ).requestOptions( amd.getExps( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -72,7 +73,9 @@ public class AmdRequester implements ITwsRequester {
             }
         }
 
-        for ( Options options : optionsList ) {
+        for ( Exp exp : exps ) {
+
+            Options options = exp.getOptions();
             minID = options.getMinId( );
             maxID = options.getMaxId( );
 

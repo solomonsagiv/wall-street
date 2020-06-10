@@ -1,6 +1,7 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import exp.ExpEnum;
 import locals.L;
 import locals.Themes;
 import options.OptionsEnum;
@@ -89,7 +90,7 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         MyTimeSeries quarter = new MyTimeSeries( "Quarter", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getExpHandler().getExp( OptionsEnum.QUARTER ).getFuture();
+                return client.getExps().getExp( ExpEnum.E1 ).getFuture();
             }
         };
 
@@ -97,7 +98,7 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         MyTimeSeries quarterFar = new MyTimeSeries( "QuarterFar", Themes.VERY_LIGHT_BLUE, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getExpHandler().getExp( OptionsEnum.QUARTER_FAR ).getFuture();
+                return client.getExps().getExp( ExpEnum.E2 ).getFuture();
             }
         };
 

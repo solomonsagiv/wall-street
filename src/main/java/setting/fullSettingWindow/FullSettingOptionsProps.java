@@ -79,7 +79,7 @@ public class FullSettingOptionsProps extends MyGuiComps.MyPanel {
 
     private void updateOptionsData( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
         try {
-            Options options = client.getExpHandler().getExp( optionsEnum );
+            Options options = client.getExps().getExp( optionsEnum );
             // Interest
             if ( !interestField.getText().isEmpty() ) {
                 try {

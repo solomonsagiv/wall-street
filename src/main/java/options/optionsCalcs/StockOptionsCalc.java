@@ -1,24 +1,25 @@
 package options.optionsCalcs;
 
 import exp.Exp;
+import exp.ExpEnum;
 import locals.L;
 import options.Options;
 import options.Strike;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
-
 
 public class StockOptionsCalc implements IOptionsCalcs {
 
     // Variables
     Exp exp;
-    STOCK_OBJECT client;
     Options options;
+    ExpEnum expEnum;
+    INDEX_CLIENT_OBJECT client;
 
     // Constructor
-    public StockOptionsCalc(STOCK_OBJECT client, Exp exp ) {
+    public StockOptionsCalc( INDEX_CLIENT_OBJECT client, ExpEnum expEnum ) {
         this.client = client;
-        this.exp = exp;
-        this.options = exp.getOptions();
+        this.expEnum = expEnum;
     }
 
     @Override
@@ -77,5 +78,22 @@ public class StockOptionsCalc implements IOptionsCalcs {
         return calcDev;
     }
 
+    public Exp getExp() {
+        if ( exp == null ) {
+            exp = client.getExps().getExp( expEnum );
+        }
+        return exp;
+    }
+
+    public Options getOptions() {
+        if ( options == null ) {
+            options = getExp().getOptions();
+        }
+        return options;
+    }
+
+    public double getPrice() {
+        return getExp().getFuture();
+    }
 
 }

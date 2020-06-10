@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Exp implements IJson, IOptionsCalcs {
+public abstract class Exp implements IJson {
 
     // Variables
     protected BASE_CLIENT_OBJECT client;
@@ -40,9 +40,9 @@ public abstract class Exp implements IJson, IOptionsCalcs {
     MyChartList futBidAskCounterList = new MyChartList( );
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client ) {
+    public Exp( BASE_CLIENT_OBJECT client, IOptionsCalcs iOptionsCalcs ) {
         this.client = client;
-        this.options = new Options( client, this );
+        this.options = new Options( client, this, iOptionsCalcs );
     }
 
     // Functions
@@ -133,6 +133,10 @@ public abstract class Exp implements IJson, IOptionsCalcs {
         // Ask for bid change state
         futureBidForCheck = this.futureBid;
 
+    }
+
+    public void setFuture( double future ) {
+        this.future = future;
     }
 
     public LocalDate getExpDate() {

@@ -13,7 +13,7 @@ import exp.ExpMonth;
 import exp.ExpWeek;
 import logic.LogicService;
 import options.OptionsEnum;
-import exp.ExpHandler;
+import exp.Exps;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -60,22 +60,22 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         ExpMonth expMonth = new ExpMonth( this );
 
         // Exp handler
-        ExpHandler expHandler = new ExpHandler( this );
-        expHandler.addExp( expWeek, ExpEnum.WEEK );
-        expHandler.addExp( expMonth, ExpEnum.MONTH );
-        expHandler.setMainExp( expMonth );
+        Exps exps = new Exps( this );
+        exps.addExp( expWeek, ExpEnum.WEEK );
+        exps.addExp( expMonth, ExpEnum.MONTH );
+        exps.setMainExp( expMonth );
 
-        setExpHandler(expHandler);
+        setExps( exps );
     }
 
     @Override
     public void setIndex( double index ) {
         if ( this.index == 0 ) {
-            getExpHandler( ).initOptions( index );
+            getExps( ).initOptions( index );
 
             // Request options tws
             if ( getApi( ) == ApiEnum.TWS ) {
-                getTwsHandler( ).requestOptions( getExpHandler( ).getExpList( ) );
+                getTwsHandler( ).requestOptions( getExps( ).getExpList( ) );
             }
         }
         this.index = index;
@@ -84,7 +84,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", optionsHandler=" + expHandler.toString( ) +
+                ", optionsHandler=" + exps.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +
                 ", endFutureTrading=" + getFutureEndTime( ) +

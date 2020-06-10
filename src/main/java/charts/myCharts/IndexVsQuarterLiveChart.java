@@ -1,6 +1,7 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import exp.ExpEnum;
 import locals.Themes;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -59,7 +60,7 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getExpHandler().getExp( OptionsEnum.QUARTER ).getFuture();
+                return client.getExps().getExp( ExpEnum.E1 ).getFuture();
             }
         };
 

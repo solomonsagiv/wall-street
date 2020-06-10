@@ -48,13 +48,13 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< Double >( this, "opList", MySqlColumnEnum.OP_LIST ) {
             @Override
             public Double getObject() {
-                int last = client.getExpHandler( ).getMainExp( ).getOpList( ).size() - 1;
-                return client.getExpHandler( ).getMainExp( ).getOpList( ).get(last);
+                int last = client.getExps( ).getMainExp( ).getOpList( ).size() - 1;
+                return client.getExps( ).getMainExp( ).getOpList( ).get(last);
             }
 
             @Override
             public void setLoadedObject( Double object ) {
-                client.getExpHandler( ).getMainExp( ).getOpList( ).add(object);
+                client.getExps( ).getMainExp( ).getOpList( ).add(object);
             }
 
             @Override
@@ -81,12 +81,12 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "conWeekBidAskCounterList", MySqlColumnEnum.CON_WEEK_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExpHandler( ).getExp( OptionsEnum.WEEK ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
+                return client.getExps( ).getExp( OptionsEnum.WEEK ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getExpHandler( ).getExp( OptionsEnum.WEEK ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
+                client.getExps( ).getExp( OptionsEnum.WEEK ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
             }
             @Override
             public String getResetObject() {
@@ -96,12 +96,12 @@ public class StockArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "conMonthBidAskCounterList", MySqlColumnEnum.CON_MONTH_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExpHandler( ).getExp( OptionsEnum.MONTH ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
+                return client.getExps( ).getExp( OptionsEnum.MONTH ).getConBidAskCounterList( ).getLast().getAsJson().toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getExpHandler( ).getExp( OptionsEnum.MONTH ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
+                client.getExps( ).getExp( OptionsEnum.MONTH ).getConBidAskCounterList( ).add(new MyChartPoint(new JSONObject(object)));
             }
 
             @Override

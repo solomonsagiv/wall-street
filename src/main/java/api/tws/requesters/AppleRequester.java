@@ -3,6 +3,7 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
+import exp.Exp;
 import options.Options;
 import serverObjects.stockObjects.Apple;
 import tws.TwsContractsEnum;
@@ -10,20 +11,20 @@ import java.util.ArrayList;
 
 public class AppleRequester implements ITwsRequester {
 
-    ArrayList< Options > optionsList;
+    ArrayList< Exp > exps;
     Apple apple;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             apple = Apple.getInstance();
-            optionsList = apple.getExpHandler( ).getExpList( );
+            exps = apple.getExps( ).getExpList( );
 
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            apple.getTwsHandler( ).requestOptions( apple.getExpHandler( ).getExpList( ) );
+            apple.getTwsHandler( ).requestOptions( apple.getExps( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -71,7 +72,9 @@ public class AppleRequester implements ITwsRequester {
             }
         }
 
-        for ( Options options : optionsList ) {
+        for ( Exp exp : exps ) {
+
+            Options options = exp.getOptions();
             minID = options.getMinId( );
             maxID = options.getMaxId( );
 

@@ -10,11 +10,13 @@ import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.index.ArraysTable;
 import dataBase.mySql.myTables.index.StatusTable;
 import dataBase.mySql.myTables.index.SumTable;
-import exp.E_Index;
+import exp.E;
+import exp.Exp;
 import exp.ExpEnum;
-import exp.ExpHandler;
+import exp.Exps;
 import myJson.MyJson;
 import options.JsonStrings;
+import options.optionsCalcs.IndexOptionsCalc;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
@@ -40,18 +42,18 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initExpHandler() throws NullPointerException {
         // E1
-        E_Index e1_index = new E_Index(this );
+        E e1 = new E(this, new IndexOptionsCalc( this, ExpEnum.E1 ) );
 
         // E2
-        E_Index e2 = new E_Index( this );
+        E e2 = new E(this, new IndexOptionsCalc( this, ExpEnum.E2 ) );
 
         // Append to handler
-        ExpHandler expHandler = new ExpHandler( this );
-        expHandler.addExp( e1_index, ExpEnum.E1 );
-        expHandler.addExp( e2, ExpEnum.E2 );
-        expHandler.setMainExp( e1_index );
+        Exps exps = new Exps( this );
+        exps.addExp( e1, ExpEnum.E1 );
+        exps.addExp( e2, ExpEnum.E2 );
+        exps.setMainExp( e1 );
 
-        setExpHandler( expHandler );
+        setExps( exps );
     }
 
     public StocksHandler getStocksHandler() {
@@ -73,23 +75,23 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         json.put( JsonStrings.high, getHigh( ) );
         json.put( JsonStrings.low, getLow( ) );
         json.put( JsonStrings.base, getBase( ) );
-        json.put( JsonStrings.e1, getExpHandler( ).getExp( ExpEnum.E1 ).getAsJson( ) );
-        json.put( JsonStrings.e2, getExpHandler( ).getExp( ExpEnum.E2 ).getAsJson( ) );
+        json.put( JsonStrings.e1, getExps( ).getExp( ExpEnum.E1 ).getAsJson( ) );
+        json.put( JsonStrings.e2, getExps( ).getExp( ExpEnum.E2 ).getAsJson( ) );
         return json;
     }
 
     @Override
     public void loadFromJson( MyJson json ) {
         setIndexBidAskCounter( json.getInt( JsonStrings.indBidAskCounter ) );
-        getExpHandler( ).getExp( ExpEnum.E1 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e1 ).toString( ) ) );
-        getExpHandler( ).getExp( ExpEnum.E2 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e2 ).toString( ) ) );
+        getExps( ).getExp( ExpEnum.E1 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e1 ).toString( ) ) );
+        getExps( ).getExp( ExpEnum.E2 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e2 ).toString( ) ) );
     }
 
     @Override
     public MyJson getResetJson() {
         MyJson json = new MyJson( );
-        json.put( JsonStrings.e1, getExpHandler().getExp( ExpEnum.E1 ).getResetJson() );
-        json.put( JsonStrings.e2, getExpHandler().getExp( ExpEnum.E2 ).getResetJson() );
+        json.put( JsonStrings.e1, getExps().getExp( ExpEnum.E1 ).getResetJson() );
+        json.put( JsonStrings.e2, getExps().getExp( ExpEnum.E2 ).getResetJson() );
         return json;
     }
 }

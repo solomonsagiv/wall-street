@@ -1,5 +1,6 @@
 package charts;
 
+import exp.ExpEnum;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
@@ -49,9 +50,8 @@ public class MySingleFreeChartLive {
     public MySingleFreeChartLive( BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
                                   ArrayList< String > list, int seconds, boolean includeTickerData, double rangeTickUnit,
                                   float strokeSize, boolean rangeGridLineVisible, Marker marker ) {
-
-        this.mainOptions = client.getExpHandler().getMainExp();
-        this.quarterOptions = client.getExpHandler().getExp( OptionsEnum.QUARTER );
+        this.mainOptions = client.getExps().getMainExp().getOptions();
+        this.quarterOptions = client.getExps().getExp( ExpEnum.E1 ).getOptions();
         this.client = client;
         this.series = series;
         this.colors = colors;

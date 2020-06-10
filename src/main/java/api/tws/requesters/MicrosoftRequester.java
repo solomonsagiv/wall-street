@@ -3,6 +3,7 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
+import exp.Exp;
 import options.Options;
 import serverObjects.stockObjects.Microsoft;
 import tws.TwsContractsEnum;
@@ -11,20 +12,20 @@ import java.util.ArrayList;
 
 public class MicrosoftRequester implements ITwsRequester {
 
-    ArrayList< Options > optionsList;
+    ArrayList< Exp > exps;
     Microsoft microsoft;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             microsoft = Microsoft.getInstance();
-            optionsList = microsoft.getExpHandler( ).getExpList( );
+            exps = microsoft.getExps( ).getExpList( );
 
             // Index
             downloader.reqMktData( microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            microsoft.getTwsHandler( ).requestOptions( microsoft.getExpHandler( ).getExpList( ) );
+            microsoft.getTwsHandler( ).requestOptions( microsoft.getExps( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -72,7 +73,9 @@ public class MicrosoftRequester implements ITwsRequester {
             }
         }
 
-        for ( Options options : optionsList ) {
+        for ( Exp exp : exps ) {
+
+            Options options = exp.getOptions();
             minID = options.getMinId( );
             maxID = options.getMaxId( );
 

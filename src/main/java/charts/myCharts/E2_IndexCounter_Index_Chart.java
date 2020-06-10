@@ -1,6 +1,8 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import exp.Exp;
+import exp.ExpEnum;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
@@ -54,13 +56,13 @@ public class E2_IndexCounter_Index_Chart extends MyChartCreator {
 
         // ---------- Chart 2 ---------- //
 
-        Options options = client.getExpHandler().getExp( OptionsEnum.QUARTER_FAR );
+        Exp exp = client.getExps().getExp( ExpEnum.E2 );
 
         // Index
-        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", Themes.BINANCE_RED, 1.5f, newProps, options.getFutBidAskCounterList() ) {
+        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", Themes.BINANCE_RED, 1.5f, newProps, exp.getFutBidAskCounterList() ) {
             @Override
             public double getData() {
-                return options.getFutureBidAskCounter();
+                return exp.getFutureBidAskCounter();
             }
         };
 

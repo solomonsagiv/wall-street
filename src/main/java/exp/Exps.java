@@ -8,7 +8,7 @@ import serverObjects.stockObjects.STOCK_OBJECT;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ExpHandler {
+public class Exps {
 
     // Variables
     public BASE_CLIENT_OBJECT client;
@@ -22,12 +22,12 @@ public class ExpHandler {
     }
 
     // Constructor
-    public ExpHandler(INDEX_CLIENT_OBJECT client ) {
+    public Exps( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
         positionCalculator = new PositionCalculator( client );
     }
 
-    public ExpHandler(STOCK_OBJECT client ) {
+    public Exps( STOCK_OBJECT client ) {
         this.client = client;
         positionCalculator = new PositionCalculator( client );
     }

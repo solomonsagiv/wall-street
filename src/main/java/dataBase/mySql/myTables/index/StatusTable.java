@@ -132,37 +132,37 @@ public class StatusTable extends MyStatusTable {
         addColumn(new MyColumnSql<>(this, "e1", MySqlColumnEnum.E1) {
             @Override
             public Double getObject() {
-                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getFuture();
+                return client.getExps().getExp(OptionsEnum.QUARTER).getFuture();
             }
         });
         addColumn(new MyColumnSql<>(this, "e1_bid", MySqlColumnEnum.E1_BID) {
             @Override
             public Double getObject() {
-                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getFutureBid();
+                return client.getExps().getExp(OptionsEnum.QUARTER).getFutureBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "e1_ask", MySqlColumnEnum.E1_ASK) {
             @Override
             public Double getObject() {
-                return client.getExpHandler().getExp(OptionsEnum.QUARTER).getFutureAsk();
+                return client.getExps().getExp(OptionsEnum.QUARTER).getFutureAsk();
             }
         });
         addColumn(new MyColumnSql<>(this, "e2", MySqlColumnEnum.E2) {
             @Override
             public Double getObject() {
-                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getFuture();
+                return client.getExps().getExp(OptionsEnum.QUARTER_FAR).getFuture();
             }
         });
         addColumn(new MyColumnSql<>(this, "e2_bid", MySqlColumnEnum.E2_BID) {
             @Override
             public Double getObject() {
-                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getFutureBid();
+                return client.getExps().getExp(OptionsEnum.QUARTER_FAR).getFutureBid();
             }
         });
         addColumn(new MyColumnSql<>(this, "e2_ask", MySqlColumnEnum.E2_ASK) {
             @Override
             public Double getObject() {
-                return client.getExpHandler().getExp(OptionsEnum.QUARTER_FAR).getFutureAsk();
+                return client.getExps().getExp(OptionsEnum.QUARTER_FAR).getFutureAsk();
             }
         });
         addColumn(new MyLoadAbleColumn<Integer>(this, "indexBidAskCounter", MySqlColumnEnum.IND_BID_ASK_COUNTER) {
@@ -184,13 +184,13 @@ public class StatusTable extends MyStatusTable {
         addColumn(new MyLoadAbleColumn<String>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getExpHandler().getAllOptionsAsJson().toString();
+                return client.getExps().getAllOptionsAsJson().toString();
             }
 
             @Override
             public void setLoadedObject(String object) {
                 MyJson optionsData = new MyJson(object);
-                for (Options options : client.getExpHandler().getExpList()) {
+                for (Options options : client.getExps().getExpList()) {
                     try {
                         options.loadFromJson(optionsData.getMyJson(options.getType().toString()));
                     } catch (Exception e) {
@@ -200,7 +200,7 @@ public class StatusTable extends MyStatusTable {
             }
             @Override
             public String getResetObject() {
-                return client.getExpHandler().getAllOptionsEmptyJson().toString();
+                return client.getExps().getAllOptionsEmptyJson().toString();
             }
         });
         addColumn(new MyColumnSql<Double>(this, "roll", MySqlColumnEnum.ROLL) {

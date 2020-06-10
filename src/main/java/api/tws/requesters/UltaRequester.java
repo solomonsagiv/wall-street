@@ -3,6 +3,7 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
+import exp.Exp;
 import options.Options;
 import serverObjects.stockObjects.Ulta;
 import tws.TwsContractsEnum;
@@ -11,20 +12,20 @@ import java.util.ArrayList;
 
 public class UltaRequester implements ITwsRequester {
 
-    ArrayList< Options > optionsList;
+    ArrayList< Exp > exps;
     Ulta ulta;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             ulta = Ulta.getInstance();
-            optionsList = ulta.getExpHandler( ).getExpList( );
+            exps = ulta.getExps( ).getExpList( );
 
             // Index
             downloader.reqMktData( ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            ulta.getTwsHandler( ).requestOptions( ulta.getExpHandler( ).getExpList( ) );
+            ulta.getTwsHandler( ).requestOptions( ulta.getExps( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -72,7 +73,9 @@ public class UltaRequester implements ITwsRequester {
             }
         }
 
-        for ( Options options : optionsList ) {
+        for ( Exp exp : exps ) {
+
+            Options options = exp.getOptions();
             minID = options.getMinId( );
             maxID = options.getMaxId( );
 

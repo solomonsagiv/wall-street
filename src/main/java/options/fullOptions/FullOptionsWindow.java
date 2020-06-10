@@ -42,7 +42,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     public FullOptionsWindow( BASE_CLIENT_OBJECT client ) {
         super( "Options" );
         this.client = client;
-        this.options = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
+        this.options = client.getExps( ).getExp( OptionsEnum.WEEK );
         initialize( );
         initListeners( );
 
@@ -280,9 +280,9 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
                         Call call = getOptions().getCall( strike );
                         // Buy or Sell
                         if ( col == callBid ) {
-                            new CreatePositionWindow( call.getName( ) + " Sell", call, client.getExpHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
+                            new CreatePositionWindow( call.getName( ) + " Sell", call, client.getExps( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == callAsk ) {
-                            new CreatePositionWindow( call.getName( ) + " Buy", call, client.getExpHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
+                            new CreatePositionWindow( call.getName( ) + " Buy", call, client.getExps( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }
@@ -294,9 +294,9 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
 
                         // Buy or Sell
                         if ( col == putBid ) {
-                            new CreatePositionWindow( put.getName( ) + " Sell", put, client.getExpHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
+                            new CreatePositionWindow( put.getName( ) + " Sell", put, client.getExps( ).getPositionCalculator( ), PositionCalculator.OptionPosition.SELL, frame );
                         } else if ( col == putAsk ) {
-                            new CreatePositionWindow( put.getName( ) + " Buy", put, client.getExpHandler( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
+                            new CreatePositionWindow( put.getName( ) + " Buy", put, client.getExps( ).getPositionCalculator( ), PositionCalculator.OptionPosition.BUY, frame );
                         }
 
                     }
@@ -353,8 +353,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
             optionsMonth.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    setOptions( client.getExpHandler( ).getExp( OptionsEnum.MONTH ) );
-                    client.getOptionsDataHandler( ).setOptions( client.getExpHandler( ).getExp( OptionsEnum.MONTH ) );
+                    setOptions( client.getExps( ).getExp( OptionsEnum.MONTH ) );
+                    client.getOptionsDataHandler( ).setOptions( client.getExps( ).getExp( OptionsEnum.MONTH ) );
                 }
             } );
 
@@ -363,8 +363,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
             optionsDay.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    setOptions( client.getExpHandler( ).getExp( OptionsEnum.WEEK ) );
-                    client.getOptionsDataHandler( ).setOptions( client.getExpHandler( ).getExp( OptionsEnum.WEEK ) );
+                    setOptions( client.getExps( ).getExp( OptionsEnum.WEEK ) );
+                    client.getOptionsDataHandler( ).setOptions( client.getExps( ).getExp( OptionsEnum.WEEK ) );
                 }
             } );
 

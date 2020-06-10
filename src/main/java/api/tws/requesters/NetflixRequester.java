@@ -3,6 +3,7 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
+import exp.Exp;
 import options.Options;
 import serverObjects.stockObjects.Netflix;
 import tws.TwsContractsEnum;
@@ -11,20 +12,20 @@ import java.util.ArrayList;
 
 public class NetflixRequester implements ITwsRequester {
 
-    ArrayList< Options > optionsList;
+    ArrayList< Exp > exps;
     Netflix netflix;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             netflix = Netflix.getInstance();
-            optionsList = netflix.getExpHandler( ).getExpList( );
+            exps = netflix.getExps( ).getExpList( );
 
             // Index
             downloader.reqMktData( netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            netflix.getTwsHandler( ).requestOptions( netflix.getExpHandler( ).getExpList( ) );
+            netflix.getTwsHandler( ).requestOptions( netflix.getExps( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -72,7 +73,9 @@ public class NetflixRequester implements ITwsRequester {
             }
         }
 
-        for ( Options options : optionsList ) {
+        for ( Exp exp : exps ) {
+
+            Options options = exp.getOptions();
             minID = options.getMinId( );
             maxID = options.getMaxId( );
 

@@ -54,7 +54,7 @@ public class LogicService extends MyBaseService {
 
         // Options
         if ( options == null ) {
-            options = getClient( ).getExpHandler( ).getExp( optionsEnum );
+            options = getClient( ).getExps( ).getExp( optionsEnum );
         }
 
         // Margin

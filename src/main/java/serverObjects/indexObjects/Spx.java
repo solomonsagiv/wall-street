@@ -13,7 +13,7 @@ import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.E;
 import exp.ExpEnum;
-import exp.ExpHandler;
+import exp.Exps;
 import logic.LogicService;
 import options.Options;
 import options.OptionsDDeCells;
@@ -114,11 +114,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         E e2 = new E( this, e2_options );
 
         // Add to
-        ExpHandler expHandler = new ExpHandler(this);
-        expHandler.addExp( e, ExpEnum.E1);
-        expHandler.addExp(e2, ExpEnum.E2);
-        expHandler.setMainExp( e );
-        setExpHandler(expHandler);
+        Exps exps = new Exps(this);
+        exps.addExp( e, ExpEnum.E1);
+        exps.addExp(e2, ExpEnum.E2);
+        exps.setMainExp( e );
+        setExps( exps );
     }
 
     @Override

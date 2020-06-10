@@ -40,19 +40,19 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                 try {
                     switch ( comboBox.getSelectedItem( ).toString( ) ) {
                         case "WEEK":
-                            options = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
+                            options = client.getExps( ).getExp( OptionsEnum.WEEK );
                             break;
                         case "MONTH":
-                            options = client.getExpHandler( ).getExp( OptionsEnum.MONTH );
+                            options = client.getExps( ).getExp( OptionsEnum.MONTH );
                             break;
                         case "QUARTER":
-                            options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER );
+                            options = client.getExps( ).getExp( OptionsEnum.QUARTER );
                             break;
                         case "QUARTER_FAR":
-                            options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR );
+                            options = client.getExps( ).getExp( OptionsEnum.QUARTER_FAR );
                             break;
                         case "MAIN":
-                            options = client.getExpHandler( ).getMainExp( );
+                            options = client.getExps( ).getMainExp( );
                             break;
                         default:
                             break;
@@ -102,9 +102,9 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
     }
 
     public String[] getOptionsArrayString() {
-        String[] optionsTypes = new String[ client.getExpHandler( ).getExpList( ).size( ) ];
+        String[] optionsTypes = new String[ client.getExps( ).getExpList( ).size( ) ];
         int i = 0;
-        for ( Options options : client.getExpHandler( ).getExpList( ) ) {
+        for ( Options options : client.getExps( ).getExpList( ) ) {
             optionsTypes[ i ] = options.getType( ).toString( );
             i++;
         }

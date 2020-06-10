@@ -47,13 +47,13 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< Double >( this, "opList", MySqlColumnEnum.OP_LIST ) {
             @Override
             public Double getObject() {
-                int last = client.getExpHandler( ).getMainExp( ).getOpFutureList( ).size( ) - 1;
-                return client.getExpHandler( ).getMainExp( ).getOpFutureList( ).get( last );
+                int last = client.getExps( ).getMainExp( ).getOpFutureList( ).size( ) - 1;
+                return client.getExps( ).getMainExp( ).getOpFutureList( ).get( last );
             }
 
             @Override
             public void setLoadedObject( Double object ) {
-                client.getExpHandler( ).getMainExp( ).getOpFutureList( ).add( object );
+                client.getExps( ).getMainExp( ).getOpFutureList( ).add( object );
             }
 
             @Override
@@ -82,15 +82,15 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "opAvgFutureList", MySqlColumnEnum.OP_AVG_FUTURE_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                System.out.println( "  " + client.getExpHandler( ).getExp( OptionsEnum.QUARTER ).getOpAvgFutureList( ).getLast( ).getAsJson( ).toString( ) );
-                return client.getExpHandler( ).getExp( OptionsEnum.QUARTER ).getOpAvgFutureList( ).getLast( ).getAsJson( ).toString( );
+                System.out.println( "  " + client.getExps( ).getExp( OptionsEnum.QUARTER ).getOpAvgFutureList( ).getLast( ).getAsJson( ).toString( ) );
+                return client.getExps( ).getExp( OptionsEnum.QUARTER ).getOpAvgFutureList( ).getLast( ).getAsJson( ).toString( );
             }
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
                     MyChartPoint myChartPoint = new MyChartPoint( new JSONObject( object ) );
 
-                    client.getExpHandler( ).getExp( OptionsEnum.QUARTER ).getOpAvgFutureList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                    client.getExps( ).getExp( OptionsEnum.QUARTER ).getOpAvgFutureList( ).add( new MyChartPoint( new JSONObject( object ) ) );
                 }
             }
             @Override
@@ -101,12 +101,12 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "quarterFutBidAskCounterList", MySqlColumnEnum.QUARTER_FUT_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExpHandler( ).getExp( OptionsEnum.QUARTER ).getFutBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
+                return client.getExps( ).getExp( OptionsEnum.QUARTER ).getFutBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getExpHandler( ).getExp( OptionsEnum.QUARTER ).getFutBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                client.getExps( ).getExp( OptionsEnum.QUARTER ).getFutBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
             }
 
             @Override
@@ -117,13 +117,13 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, "quarterFarFutBidAskCounterList", MySqlColumnEnum.QUARTER_FAR_FUT_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR ).getFutBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
+                return client.getExps( ).getExp( OptionsEnum.QUARTER_FAR ).getFutBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
             }
 
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
-                    client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR ).getFutBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                    client.getExps( ).getExp( OptionsEnum.QUARTER_FAR ).getFutBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
                 }
             }
 

@@ -88,7 +88,7 @@ public class MiniTickerPanel extends MyGuiComps.MyPanel implements IMiniPanel {
     @Override
     public void updateText() {
 
-        Exp exp = client.getExpHandler().getMainExp();
+        Exp exp = client.getExps().getMainExp();
 
         openField.colorForge(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
         highField.colorForge(L.present(client.getHigh(), client.getBase()), L.format100(), "%");

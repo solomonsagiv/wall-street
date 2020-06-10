@@ -29,8 +29,8 @@ public class Roll {
         try {
             // If options not set
             if ( o1 == null || o2 == null ) {
-                o1 = client.getExpHandler( ).getExp( oe1 );
-                o2 = client.getExpHandler( ).getExp( oe2 );
+                o1 = client.getExps( ).getExp( oe1 );
+                o2 = client.getExps( ).getExp( oe2 );
             }
 
             double roll = getRoll();

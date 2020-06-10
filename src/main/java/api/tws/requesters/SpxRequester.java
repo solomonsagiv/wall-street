@@ -7,8 +7,8 @@ import basketFinder.MiniStock;
 import basketFinder.handlers.StocksHandler;
 import com.ib.client.Contract;
 import com.ib.client.TickAttr;
-import options.Options;
-import options.OptionsEnum;
+import exp.Exp;
+import exp.ExpEnum;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
 
@@ -18,7 +18,7 @@ public class SpxRequester implements ITwsRequester {
 
     Spx spx;
     int indexId, futureId, futureFarId;
-    Options optionsQuarter, optionsQuarterFar;
+    Exp e1, e2;
     StocksHandler stocksHandler;
 
     @Override
@@ -61,8 +61,8 @@ public class SpxRequester implements ITwsRequester {
 
     private void init() {
         spx = Spx.getInstance();
-        optionsQuarter = spx.getExpHandler().getExp(OptionsEnum.QUARTER);
-        optionsQuarterFar = spx.getExpHandler().getExp(OptionsEnum.QUARTER_FAR);
+        e1 = spx.getExps().getExp( ExpEnum.E1).getOptions();
+        e2 = spx.getExps().getExp(ExpEnum.E2).getOptions();
 
         indexId = spx.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
         futureId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();
@@ -80,11 +80,11 @@ public class SpxRequester implements ITwsRequester {
             if (tickerId == futureId && price > 0) {
                 // Bid
                 if (field == 1) {
-                    optionsQuarter.setFutureBid(price);
+                    e1.setFutureBid(price);
                 }
                 // Ask
                 if (field == 2) {
-                    optionsQuarter.setFutureAsk(price);
+                    e1.setFutureAsk(price);
                 }
             }
 
@@ -92,11 +92,11 @@ public class SpxRequester implements ITwsRequester {
             if (tickerId == futureFarId && price > 0) {
                 // Bid
                 if (field == 1) {
-                    optionsQuarterFar.setFutureBid(price);
+                    e2.setFutureBid(price);
                 }
                 // Ask
                 if (field == 2) {
-                    optionsQuarterFar.setFutureAsk(price);
+                    e2.setFutureAsk(price);
                 }
             }
 

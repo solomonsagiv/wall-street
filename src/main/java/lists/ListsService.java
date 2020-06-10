@@ -1,5 +1,6 @@
 package lists;
 
+import exp.Exp;
 import options.Options;
 import roll.Roll;
 import roll.RollEnum;
@@ -53,14 +54,14 @@ public class ListsService extends MyBaseService {
         client.getIndexBidAskCounter2List().add(new MyChartPoint(now, client.getIndexBidAskCounter2()));
 
         // Options lists
-        for (Options options : client.getExpHandler().getExpList()) {
+        for ( Exp exp : client.getExps().getExpList()) {
             try {
-                options.getFutureList().add(options.getFuture());
+                exp.getFutureList().add(exp.getFuture());
                 client.getIndexList().add(new MyChartPoint(now, client.getIndex()));
-                options.getOpFutureList().add(options.getOpFuture());
+                exp.getOpFutureList().add(exp.getOpFuture());
                 try {
-                    options.getOpAvgFutureList().add(new MyChartPoint(now, options.getOpAvgFuture()));
-                    options.getOpAvg15FutureList().add(new MyChartPoint(now, options.getOpAvgFuture(900)));
+                    exp.getOpAvgFutureList().add(new MyChartPoint(now, exp.getOpAvgFuture()));
+                    exp.getOpAvg15FutureList().add(new MyChartPoint(now, exp.getOpAvgFuture(900)));
                 } catch (Exception e) {
                     System.out.println(getClient().getName() + " OpAvgFutureList is empty");
                 }
@@ -68,12 +69,14 @@ public class ListsService extends MyBaseService {
                 e.printStackTrace();
             }
 
+            Options options = exp.getOptions();
+
             options.getOpList().add(options.getOp());
             options.getOpAvgList().add(options.getOpAvg());
             options.getConList().add(options.getContract());
             options.getConBidList().add(options.getContractBid());
             options.getConAskList().add(options.getContractAsk());
-            options.getFutBidAskCounterList().add(new MyChartPoint(now, options.getFutureBidAskCounter()));
+            exp.getFutBidAskCounterList().add(new MyChartPoint(now, exp.getFutureBidAskCounter()));
             options.getConBidAskCounterList().add(new MyChartPoint(now, options.getConBidAskCounter()));
         }
 

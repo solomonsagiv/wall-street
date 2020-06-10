@@ -10,7 +10,7 @@ import dataBase.mySql.myTables.index.IndexStocksTable;
 import logic.LogicService;
 import options.optionsCalcs.IndexOptionsCalc;
 import options.OptionsEnum;
-import exp.ExpHandler;
+import exp.Exps;
 import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
@@ -64,11 +64,11 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         // Fut Quarter far
         IndexOptionsCalc monthOptions = new IndexOptionsCalc( getBaseId( ) + 2000, this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
 
-        ExpHandler expHandler = new ExpHandler( this );
-        expHandler.appExp( weekOptions );
-        expHandler.appExp( monthOptions );
-        expHandler.setMainExp( weekOptions );
-        setExpHandler(expHandler);
+        Exps exps = new Exps( this );
+        exps.appExp( weekOptions );
+        exps.appExp( monthOptions );
+        exps.setMainExp( weekOptions );
+        setExps( exps );
     }
 
     @Override

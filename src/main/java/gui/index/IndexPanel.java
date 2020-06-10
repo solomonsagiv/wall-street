@@ -72,17 +72,17 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     public IndexPanel( INDEX_CLIENT_OBJECT client ) {
         this.client = client;
-        client.getExpHandler( );
+        client.getExps( );
 
-        optionsQuarter = client.getExpHandler( ).getExp( OptionsEnum.QUARTER );
-        optionsQuarterFar = client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR );
+        optionsQuarter = client.getExps( ).getExp( OptionsEnum.QUARTER );
+        optionsQuarterFar = client.getExps( ).getExp( OptionsEnum.QUARTER_FAR );
 
         if ( client instanceof Dax ) {
-            optionsQuarter = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
-            optionsQuarterFar = client.getExpHandler( ).getExp( OptionsEnum.MONTH );
+            optionsQuarter = client.getExps( ).getExp( OptionsEnum.WEEK );
+            optionsQuarterFar = client.getExps( ).getExp( OptionsEnum.MONTH );
         }
 
-        mainOptions = client.getExpHandler( ).getMainExp( );
+        mainOptions = client.getExps( ).getMainExp( );
         init( );
         initListeners( );
 

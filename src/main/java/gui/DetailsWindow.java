@@ -32,7 +32,7 @@ public class DetailsWindow {
      */
     public DetailsWindow( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.options = client.getExpHandler().getMainExp();
+        this.options = client.getExps().getMainExp();
 
         onStartUp();
 
@@ -58,9 +58,9 @@ public class DetailsWindow {
     }
     
     private void onStartUp() {
-        optionsTypes = new String[ client.getExpHandler( ).getExpList( ).size( ) ];
+        optionsTypes = new String[ client.getExps( ).getExpList( ).size( ) ];
         int i = 0;
-        for ( Options options : client.getExpHandler( ).getExpList( ) ) {
+        for ( Options options : client.getExps( ).getExpList( ) ) {
             optionsTypes[ i ] = options.getType( ).toString();
             i++;
         }
@@ -101,19 +101,19 @@ public class DetailsWindow {
             public void actionPerformed( ActionEvent actionEvent ) {
                 switch ( optionsCombo.getSelectedItem( ).toString( ).toLowerCase( ) ) {
                     case "week":
-                        options = client.getExpHandler( ).getExp( OptionsEnum.WEEK );
+                        options = client.getExps( ).getExp( OptionsEnum.WEEK );
                         break;
                     case "month":
-                        options = client.getExpHandler( ).getExp( OptionsEnum.MONTH );
+                        options = client.getExps( ).getExp( OptionsEnum.MONTH );
                         break;
                     case "quarter":
-                        options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER );
+                        options = client.getExps( ).getExp( OptionsEnum.QUARTER );
                         break;
                     case "quarter_far":
-                        options = client.getExpHandler( ).getExp( OptionsEnum.QUARTER_FAR );
+                        options = client.getExps( ).getExp( OptionsEnum.QUARTER_FAR );
                         break;
                     case "main":
-                        options = client.getExpHandler( ).getMainExp( );
+                        options = client.getExps( ).getMainExp( );
                         break;
                     default:
                         break;

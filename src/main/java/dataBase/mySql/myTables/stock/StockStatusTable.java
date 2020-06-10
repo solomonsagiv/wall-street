@@ -148,13 +148,13 @@ public class StockStatusTable extends MyStatusTable {
         addColumn(new MyLoadAbleColumn<String>(this, "options", MySqlColumnEnum.OPTIONS) {
             @Override
             public String getObject() {
-                return client.getExpHandler().getAllOptionsAsJson().toString();
+                return client.getExps().getAllOptionsAsJson().toString();
             }
 
             @Override
             public void setLoadedObject(String object) {
                 MyJson optionsData = new MyJson(object);
-                for (Options options : client.getExpHandler().getExpList()) {
+                for (Options options : client.getExps().getExpList()) {
                     try {
                         options.loadFromJson(optionsData.getMyJson(options.getType().toString()));
                     } catch (Exception e) {
@@ -164,7 +164,7 @@ public class StockStatusTable extends MyStatusTable {
             }
             @Override
             public String getResetObject() {
-                return client.getExpHandler().getAllOptionsEmptyJson().toString();
+                return client.getExps().getAllOptionsEmptyJson().toString();
             }
         });
 

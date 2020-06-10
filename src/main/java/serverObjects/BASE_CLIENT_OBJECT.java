@@ -11,7 +11,7 @@ import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
-import exp.ExpHandler;
+import exp.Exps;
 import lists.ListsService;
 import lists.MyChartList;
 import locals.IJson;
@@ -46,7 +46,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     // Table
     DefaultTableModel model = new DefaultTableModel( );
     // Options
-    protected ExpHandler expHandler;
+    protected Exps exps;
     private double startStrike;
     private double endStrike;
     private boolean loadFromDb = false;
@@ -281,9 +281,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100( getExpHandler( ).getMainExp( ).getOpAvgFuture() ) + "\n";
+        text += "OP avg: " + L.format100( getExps( ).getMainExp( ).getOpAvgFuture() ) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
-        text += "Contract counter: " + getExpHandler( ).getMainExp( ).getOptions().getConBidAskCounter( ) + "\n";
+        text += "Contract counter: " + getExps( ).getMainExp( ).getOptions().getConBidAskCounter( ) + "\n";
 
         return text;
     }
@@ -547,15 +547,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return indexBidAskCounter2;
     }
 
-    public void setExpHandler(ExpHandler expHandler) {
-        this.expHandler = expHandler;
+    public void setExps( Exps exps ) {
+        this.exps = exps;
     }
 
-    public ExpHandler getExpHandler() {
-        if ( expHandler == null ) {
+    public Exps getExps() {
+        if ( exps == null ) {
             initExpHandler( );
         }
-        return expHandler;
+        return exps;
     }
 
     public LocalTime getIndexStartTime() {
@@ -682,7 +682,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", optionsHandler=" + expHandler.toString( ) +
+                ", optionsHandler=" + exps.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +
                 ", endFutureTrading=" + getFutureEndTime( ) +

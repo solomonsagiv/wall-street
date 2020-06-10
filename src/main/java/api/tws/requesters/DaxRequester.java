@@ -8,8 +8,8 @@ import basketFinder.handlers.StocksHandler;
 import com.ib.client.Contract;
 import com.ib.client.TickAttr;
 import delta.DeltaCalc;
-import options.Options;
-import options.OptionsEnum;
+import exp.Exp;
+import exp.ExpEnum;
 import serverObjects.indexObjects.Dax;
 import tws.TwsContractsEnum;
 
@@ -19,7 +19,7 @@ public class DaxRequester implements ITwsRequester {
 
     Dax dax;
     int indexId, futureId, futureFarId;
-    Options optionsWeek, optionsMonth;
+    Exp expWeek, expMonth;
     StocksHandler stocksHandler;
     DeltaCalc deltaCalc;
 
@@ -62,8 +62,8 @@ public class DaxRequester implements ITwsRequester {
 
     private void init() {
         dax = Dax.getInstance( );
-        optionsWeek = dax.getExpHandler( ).getExp( OptionsEnum.WEEK );
-        optionsMonth = dax.getExpHandler( ).getExp( OptionsEnum.MONTH );
+        expWeek = dax.getExps( ).getExp( ExpEnum.WEEK );
+        expMonth = dax.getExps( ).getExp( ExpEnum.MONTH );
 
         indexId = dax.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
         futureId = dax.getTwsHandler().getMyContract( TwsContractsEnum.FUTURE ).getMyId();
@@ -86,15 +86,15 @@ public class DaxRequester implements ITwsRequester {
 
         if ( tickerId == futureId && price > 0 ) {
             if ( field == 4 ) {
-                optionsMonth.setFuture( price );
+                expMonth.setFuture( price );
             }
 
             if ( field == 1 ) {
-                optionsMonth.setFutureBid( price );
+                expMonth.setFutureBid( price );
             }
 
             if ( field == 2 ) {
-                optionsMonth.setFutureAsk( price );
+                expMonth.setFutureAsk( price );
             }
             
         }
@@ -129,9 +129,9 @@ public class DaxRequester implements ITwsRequester {
 
         if ( tickerId == futureId ) {
             if ( field == 8 ) {
-                optionsMonth.setFutureVolume( size );
+                expMonth.setFutureVolume( size );
 
-                deltaCalc.calc( optionsMonth, size, optionsMonth.getFuture() );
+                deltaCalc.calc( expMonth.getOptions(), size, expMonth.getFuture() );
 
                 System.out.println("size " + size );
             }

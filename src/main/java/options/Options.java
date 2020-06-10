@@ -54,17 +54,20 @@ public class Options implements IJson {
     MyChartList conBidAskCounterList = new MyChartList( );
     MyChartList opAvgChartList = new MyChartList( );
 
-    public Options( BASE_CLIENT_OBJECT client, Exp exp ) {
+    IOptionsCalcs iOptionsCalcs;
+
+    public Options( BASE_CLIENT_OBJECT client, Exp exp, IOptionsCalcs iOptionsCalcs ) {
         this.client = client;
         this.exp = exp;
+        this.iOptionsCalcs = iOptionsCalcs;
 
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
         props = new OptionsProps();
     }
 
-    public Options( BASE_CLIENT_OBJECT client, Exp exp, OptionsDDeCells dDeCells ) {
-        this( client, exp );
+    public Options( BASE_CLIENT_OBJECT client, Exp exp, IOptionsCalcs iOptionsCalcs, OptionsDDeCells dDeCells ) {
+        this( client, exp, iOptionsCalcs );
         this.optionsDDeCells = dDeCells;
     }
 
@@ -220,7 +223,7 @@ public class Options implements IJson {
                     double increment = client.getStrikeMargin( );
 
                     // For each strike
-                    double strikInMoney = exp.getStrikeInMoney(  );
+                    double strikInMoney = iOptionsCalcs.getStrikeInMoney(  );
                     double startStrike = strikInMoney - increment * 2;
                     double endStrike = strikInMoney + increment * 2;
 
@@ -282,7 +285,7 @@ public class Options implements IJson {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + exp.getCalcDevidend(  ) ) * ( getProps( ).getDays( ) / 360.0 ) ) );
+                    final double v = strike.getStrike( ) * ( Math.exp( ( -props.getInterestZero( ) - 0.002 + iOptionsCalcs.getCalcDevidend(  ) ) * ( getProps( ).getDays( ) / 360.0 ) ) );
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
                     buys.add( buy );
@@ -316,7 +319,7 @@ public class Options implements IJson {
             ArrayList< Double > buys = new ArrayList<>( );
             ArrayList< Double > sells = new ArrayList<>( );
 
-            double strikeInMoney = exp.getStrikeInMoney( );
+            double strikeInMoney = iOptionsCalcs.getStrikeInMoney( );
             double startStrike = strikeInMoney - ( client.getStrikeMargin( ) * 5 );
             double endStrike = strikeInMoney + ( client.getStrikeMargin( ) * 5 );
 
@@ -734,6 +737,26 @@ public class Options implements IJson {
     }
 
     private double conAskForCheck = 0;
+
+    public List< Double > getConAskList() {
+        return conAskList;
+    }
+
+    public MyChartList getConBidAskCounterList() {
+        return conBidAskCounterList;
+    }
+
+    public List< Double > getConBidList() {
+        return conBidList;
+    }
+
+    public List< Double > getOpAvgList() {
+        return opAvgList;
+    }
+
+    public List< Double > getConList() {
+        return conList;
+    }
 
     public void setContractBid( double contractBid ) {
 

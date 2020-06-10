@@ -54,7 +54,7 @@ public class MonthCounter_IndexCounter_Index_Chart extends MyChartCreator {
 
         // ---------- Chart 2 ---------- //
 
-        Options options = client.getExpHandler().getExp( OptionsEnum.MONTH );
+        Options options = client.getExps().getExp( OptionsEnum.MONTH );
 
         // Index
         MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Month B/A counter", Themes.BINANCE_RED, 1.5f, newProps, options.getConBidAskCounterList() ) {

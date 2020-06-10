@@ -1,6 +1,8 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import exp.Exp;
+import exp.ExpEnum;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
@@ -35,7 +37,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
         props.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true );
 
-        Options quarter = client.getExpHandler().getExp( OptionsEnum.QUARTER );
+        Exp e1 = client.getExps().getExp( ExpEnum.E1 );
 
         // --------- OpAvgFuture 1 ---------- //
 
@@ -47,10 +49,10 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         opAvgFutureProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.PURPLE, 1.5f, opAvgFutureProps, quarter.getOpAvg15FutureList() ) {
+        MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.PURPLE, 1.5f, opAvgFutureProps, e1.getOpAvg15FutureList() ) {
             @Override
             public double getData() {
-                return quarter.getOpAvgFuture(900);
+                return e1.getOpAvgFuture(900);
             }
         };
 

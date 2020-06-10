@@ -3,6 +3,8 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import com.ib.client.TickAttr;
+import exp.Exp;
+import options.Option;
 import options.Options;
 import serverObjects.stockObjects.Amazon;
 import tws.TwsContractsEnum;
@@ -11,20 +13,20 @@ import java.util.ArrayList;
 
 public class AmazonRequester implements ITwsRequester {
 
-    ArrayList< Options > optionsList;
+    ArrayList< Exp > exps;
     Amazon amazon;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             amazon = Amazon.getInstance();
-            optionsList = amazon.getExpHandler( ).getExpList( );
+            exps = amazon.getExps( ).getExpList( );
 
             // Index
             downloader.reqMktData( amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), amazon.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
-            amazon.getTwsHandler( ).requestOptions( amazon.getExpHandler( ).getExpList( ) );
+            amazon.getTwsHandler( ).requestOptions( amazon.getExps( ).getExpList( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -72,7 +74,10 @@ public class AmazonRequester implements ITwsRequester {
             }
         }
 
-        for ( Options options : optionsList ) {
+        for ( Exp exp : exps ) {
+
+            Options options = exp.getOptions();
+
             minID = options.getMinId( );
             maxID = options.getMaxId( );
 

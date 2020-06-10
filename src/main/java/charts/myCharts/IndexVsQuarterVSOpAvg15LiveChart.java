@@ -1,6 +1,8 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import exp.Exp;
+import exp.ExpEnum;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
@@ -60,8 +62,8 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
         MyTimeSeries opAvg = new MyTimeSeries( "OpAvg15Future", Themes.BLUE_LIGHT_2, 2.25f, props, null ) {
             @Override
             public double getData() {
-                Options options = client.getExpHandler().getExp( OptionsEnum.QUARTER );
-                return options.getFuture() - options.getOpAvgFuture(900);
+                Exp exp = client.getExps().getExp( ExpEnum.E1 );
+                return exp.getFuture() - exp.getOpAvgFuture(900);
             }
         };
 
@@ -69,7 +71,7 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Future", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getExpHandler().getExp( OptionsEnum.QUARTER ).getFuture();
+                return client.getExps().getExp( ExpEnum.E1 ).getFuture();
             }
         };
 
