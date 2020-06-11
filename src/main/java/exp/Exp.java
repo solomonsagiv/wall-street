@@ -1,11 +1,13 @@
 package exp;
 
+import DDE.DDECells;
 import lists.MyChartList;
 import locals.IJson;
 import locals.L;
 import myJson.MyJson;
 import options.JsonStrings;
 import options.Options;
+import options.OptionsDDeCells;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
@@ -43,6 +45,12 @@ public abstract class Exp implements IJson {
     public Exp( BASE_CLIENT_OBJECT client, IOptionsCalcs iOptionsCalcs ) {
         this.client = client;
         this.options = new Options( client, this, iOptionsCalcs );
+    }
+
+    // Constructor
+    public Exp( BASE_CLIENT_OBJECT client, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
+        this.client = client;
+        this.options = new Options( client, this, iOptionsCalcs, optionsDDeCells );
     }
 
     // Functions
@@ -165,6 +173,10 @@ public abstract class Exp implements IJson {
 
     public double getFutureDelta() {
         return futureDelta;
+    }
+
+    public void setFutureVolume( int futureVolume ) {
+        this.futureVolume = futureVolume;
     }
 
     public int getFutureVolume() {

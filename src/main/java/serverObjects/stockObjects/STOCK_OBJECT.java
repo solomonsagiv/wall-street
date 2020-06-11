@@ -12,8 +12,11 @@ import exp.ExpEnum;
 import exp.ExpMonth;
 import exp.ExpWeek;
 import logic.LogicService;
+import myJson.MyJson;
+import options.JsonStrings;
 import options.OptionsEnum;
 import exp.Exps;
+import options.optionsCalcs.StockOptionsCalc;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -30,14 +33,14 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         initTablesHandler( );
-        setLogicService( new LogicService( this, OptionsEnum.MONTH ) );
+        setLogicService( new LogicService( this, ExpEnum.MONTH ) );
         roll( );
     }
 
     protected void roll() {
         rollHandler = new RollHandler( this );
 
-        Roll weekMonth = new Roll( this, OptionsEnum.WEEK, OptionsEnum.MONTH, RollPriceEnum.CONTRACT );
+        Roll weekMonth = new Roll( this, ExpEnum.WEEK, ExpEnum.MONTH, RollPriceEnum.CONTRACT );
         rollHandler.addRoll( RollEnum.WEEK_MONTH, weekMonth );
     }
 
@@ -53,11 +56,12 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() {
+
         // Week
-        ExpWeek expWeek = new ExpWeek( this );
+        ExpWeek expWeek = new ExpWeek( this, new StockOptionsCalc( this, ExpEnum.WEEK ) );
 
         // Month
-        ExpMonth expMonth = new ExpMonth( this );
+        ExpMonth expMonth = new ExpMonth( this, new StockOptionsCalc( this, ExpEnum.MONTH ) );
 
         // Exp handler
         Exps exps = new Exps( this );
@@ -79,6 +83,43 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
             }
         }
         this.index = index;
+    }
+
+
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = new MyJson( );
+        json.put( JsonStrings.ind, getIndex( ) );
+        json.put( JsonStrings.indBid, getIndexBid( ) );
+        json.put( JsonStrings.indAsk, getIndexAsk( ) );
+        json.put( JsonStrings.indBidAskCounter, getIndexBidAskCounter( ) );
+        json.put( JsonStrings.indUp, getIndexUp() );
+        json.put( JsonStrings.indDown, getIndexDown() );
+        json.put( JsonStrings.conUp, getConUp() );
+        json.put( JsonStrings.conDown, getConDown() );
+        json.put( JsonStrings.open, getOpen( ) );
+        json.put( JsonStrings.high, getHigh( ) );
+        json.put( JsonStrings.low, getLow( ) );
+        json.put( JsonStrings.base, getBase( ) );
+        json.put( JsonStrings.roll, getRollHandler().getRoll( RollEnum.WEEK_MONTH ).getAsJson());
+        json.put( JsonStrings.week, getExps( ).getExp( ExpEnum.WEEK ).getAsJson( ) );
+        json.put( JsonStrings.month, getExps( ).getExp( ExpEnum.MONTH ).getAsJson( ) );
+        return json;
+    }
+
+    @Override
+    public void loadFromJson( MyJson json ) {
+        setIndexBidAskCounter( json.getInt( JsonStrings.indBidAskCounter ) );
+        getExps( ).getExp( ExpEnum.E1 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e1 ).toString( ) ) );
+        getExps( ).getExp( ExpEnum.E2 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e2 ).toString( ) ) );
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        MyJson json = new MyJson( );
+        json.put( JsonStrings.e1, getExps().getExp( ExpEnum.E1 ).getResetJson() );
+        json.put( JsonStrings.e2, getExps().getExp( ExpEnum.E2 ).getResetJson() );
+        return json;
     }
 
     @Override

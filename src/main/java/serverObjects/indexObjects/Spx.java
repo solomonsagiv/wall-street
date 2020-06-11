@@ -18,6 +18,7 @@ import logic.LogicService;
 import options.Options;
 import options.OptionsDDeCells;
 import options.OptionsEnum;
+import options.optionsCalcs.IndexOptionsCalc;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -47,7 +48,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setiTwsRequester(new SpxRequester());
-        setLogicService(new LogicService(this, OptionsEnum.QUARTER));
+        setLogicService(new LogicService(this, ExpEnum.E1));
         roll();
         baskets();
         myTableHandler();
@@ -67,7 +68,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     private void roll() {
         rollHandler = new RollHandler(this);
 
-        Roll quarter_quarterFar = new Roll(this, OptionsEnum.QUARTER, OptionsEnum.QUARTER_FAR, RollPriceEnum.FUTURE);
+        Roll quarter_quarterFar = new Roll(this, ExpEnum.E1, ExpEnum.E2, RollPriceEnum.FUTURE);
         rollHandler.addRoll(RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar);
     }
 
@@ -105,13 +106,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         // E1
         OptionsDDeCells e1DDeCells = new OptionsDDeCells("R19C2", "R19C1", "R19C3");
-        Options e1_options = new Options(getBaseId() + 3000, this, TwsContractsEnum.OPT_E1, e1DDeCells);
-        E e = new E( this, e1_options );
+        E e = new E( this, new IndexOptionsCalc( this, ExpEnum.E1 ), e1DDeCells );
 
         // E2
         OptionsDDeCells e2DDeCells = new OptionsDDeCells("R21C2", "R21C1", "R21C3");
-        Options e2_options = new Options(getBaseId() + 4000, this, TwsContractsEnum.OPT_E2, e2DDeCells);
-        E e2 = new E( this, e2_options );
+        E e2 = new E( this, new IndexOptionsCalc( this, ExpEnum.E2 ), e2DDeCells );
 
         // Add to
         Exps exps = new Exps(this);

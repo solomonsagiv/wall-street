@@ -1,6 +1,7 @@
 package charts.myCharts.stockCharts;
 
 import charts.myChart.*;
+import exp.ExpEnum;
 import locals.Themes;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -59,7 +60,7 @@ public class Month_Index_Live_Chart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries( "Contract", Themes.GREEN, 2.25f, props, null ) {
             @Override
             public double getData() {
-                return client.getExps().getExp( OptionsEnum.MONTH ).getContract();
+                return client.getExps().getExp( ExpEnum.MONTH.MONTH ).getOptions().getContract();
             }
         };
 

@@ -14,10 +14,10 @@ public class StockOptionsCalc implements IOptionsCalcs {
     Exp exp;
     Options options;
     ExpEnum expEnum;
-    INDEX_CLIENT_OBJECT client;
+    STOCK_OBJECT client;
 
     // Constructor
-    public StockOptionsCalc( INDEX_CLIENT_OBJECT client, ExpEnum expEnum ) {
+    public StockOptionsCalc( STOCK_OBJECT client, ExpEnum expEnum ) {
         this.client = client;
         this.expEnum = expEnum;
     }

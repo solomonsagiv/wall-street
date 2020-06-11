@@ -207,7 +207,7 @@ class JFreeUpdater extends Thread {
 	// Update data
 	private void updateChart() {
 
-		double contract = client.getExps().getMainExp().getContract();
+		double contract = client.getExps().getMainExp().getOptions().getContract();
 
 		if ( contract != 0 && client.getIndex() != 0 && client.getIndexBid() != 0 && client.getIndexAsk() != 0) {
 

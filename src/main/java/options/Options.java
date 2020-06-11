@@ -790,6 +790,10 @@ public class Options implements IJson {
 
     private double conBidForCheck = 0;
 
+    public OptionsDDeCells getOptionsDDeCells() {
+        return optionsDDeCells;
+    }
+
     public void setContractAsk( double contractAsk ) {
 
         // If increment state

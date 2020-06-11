@@ -1,6 +1,7 @@
 package charts.myCharts.stockCharts;
 
 import charts.myChart.*;
+import exp.ExpEnum;
 import locals.Themes;
 import options.Options;
 import options.OptionsEnum;
@@ -54,7 +55,7 @@ public class MonthCounter_IndexCounter_Index_Chart extends MyChartCreator {
 
         // ---------- Chart 2 ---------- //
 
-        Options options = client.getExps().getExp( OptionsEnum.MONTH );
+        Options options = client.getExps().getExp( ExpEnum.MONTH ).getOptions();
 
         // Index
         MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Month B/A counter", Themes.BINANCE_RED, 1.5f, newProps, options.getConBidAskCounterList() ) {

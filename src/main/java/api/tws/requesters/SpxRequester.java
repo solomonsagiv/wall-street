@@ -61,8 +61,8 @@ public class SpxRequester implements ITwsRequester {
 
     private void init() {
         spx = Spx.getInstance();
-        e1 = spx.getExps().getExp( ExpEnum.E1).getOptions();
-        e2 = spx.getExps().getExp(ExpEnum.E2).getOptions();
+        e1 = spx.getExps().getExp( ExpEnum.E1);
+        e2 = spx.getExps().getExp(ExpEnum.E2);
 
         indexId = spx.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
         futureId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();

@@ -17,6 +17,7 @@ import exp.Exps;
 import myJson.MyJson;
 import options.JsonStrings;
 import options.optionsCalcs.IndexOptionsCalc;
+import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
@@ -75,6 +76,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         json.put( JsonStrings.high, getHigh( ) );
         json.put( JsonStrings.low, getLow( ) );
         json.put( JsonStrings.base, getBase( ) );
+        json.put( JsonStrings.roll, getRollHandler().getRoll( RollEnum.QUARTER_QUARTER_FAR ).getAsJson());
         json.put( JsonStrings.e1, getExps( ).getExp( ExpEnum.E1 ).getAsJson( ) );
         json.put( JsonStrings.e2, getExps( ).getExp( ExpEnum.E2 ).getAsJson( ) );
         return json;

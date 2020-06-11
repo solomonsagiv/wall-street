@@ -7,6 +7,7 @@ import basketFinder.handlers.DaxStocksHandler;
 import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
+import exp.ExpEnum;
 import logic.LogicService;
 import options.optionsCalcs.IndexOptionsCalc;
 import options.OptionsEnum;
@@ -32,7 +33,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
         setiTwsRequester( new DaxRequester( ) );
-        setLogicService( new LogicService( this, OptionsEnum.MONTH ) );
+        setLogicService( new LogicService( this, ExpEnum.MONTH ) );
         baskets();
         myTableHandler();
     }
@@ -57,18 +58,18 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() throws NullPointerException {
-
-        // Fut Quarter
-        IndexOptionsCalc weekOptions = new IndexOptionsCalc( getBaseId( ) + 1000, this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK, null );
-
-        // Fut Quarter far
-        IndexOptionsCalc monthOptions = new IndexOptionsCalc( getBaseId( ) + 2000, this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
-
-        Exps exps = new Exps( this );
-        exps.appExp( weekOptions );
-        exps.appExp( monthOptions );
-        exps.setMainExp( weekOptions );
-        setExps( exps );
+//
+//        // Fut Quarter
+//        IndexOptionsCalc weekOptions = new IndexOptionsCalc( getBaseId( ) + 1000, this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK, null );
+//
+//        // Fut Quarter far
+//        IndexOptionsCalc monthOptions = new IndexOptionsCalc( getBaseId( ) + 2000, this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
+//
+//        Exps exps = new Exps( this );
+//        exps.appExp( weekOptions );
+//        exps.appExp( monthOptions );
+//        exps.setMainExp( weekOptions );
+//        setExps( exps );
     }
 
     @Override

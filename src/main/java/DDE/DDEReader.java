@@ -2,6 +2,8 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import exp.Exp;
+import exp.Exps;
 import locals.L;
 import locals.LocalHandler;
 import options.Options;
@@ -63,9 +65,12 @@ public class DDEReader extends MyThread implements Runnable {
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
 
         // Options
-        for ( Options options : client.getExps( ).getExpList( ) ) {
+        for ( Exp exp : client.getExps( ).getExpList( ) ) {
+
+            Options options = exp.getOptions();
+
             if ( options.getOptionsDDeCells( ) != null ) {
-                options.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+                exp.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
             }
         }
 

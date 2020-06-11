@@ -1,5 +1,6 @@
 package options;
 
+import exp.ExpEnum;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -66,7 +67,7 @@ public class OptionsWindow {
 
         String[] header = { "Call", "Strike", "Put" };
 
-        int striksNum = client.getExps( ).getExp( OptionsEnum.MONTH ).getStrikes( ).size( );
+        int striksNum = client.getExps( ).getExp( ExpEnum.MONTH ).getOptions().getStrikes( ).size( );
 
         Object[][] data = new Object[ striksNum ][ 3 ];
 
@@ -284,8 +285,8 @@ public class OptionsWindow {
                         row++;
                     }
 
-                    colorForfInt( contractCounterField, client.getExps( ).getExp( OptionsEnum.MONTH ).getConBidAskCounter( ) );
-                    colorForf( opAvgField, client.getExps( ).getMainExp( ).getOpAvg( ), null );
+                    colorForfInt( contractCounterField, client.getExps( ).getExp( ExpEnum.MONTH ).getOptions().getConBidAskCounter( ) );
+                    colorForf( opAvgField, client.getExps( ).getMainExp( ).getOptions().getOpAvg( ), null );
 
                 } catch ( InterruptedException e ) {
                     close( );

@@ -1,5 +1,6 @@
 package logic;
 
+import exp.ExpEnum;
 import options.Options;
 import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -9,7 +10,7 @@ public class LogicService extends MyBaseService {
 
     // Variables
     Options options;
-    OptionsEnum optionsEnum;
+    ExpEnum expEnum;
 
     // regular count
     int conRunnerUpCount = 0;
@@ -31,9 +32,9 @@ public class LogicService extends MyBaseService {
     double margin = 0;
 
     // Constructor
-    public LogicService( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
+    public LogicService( BASE_CLIENT_OBJECT client, ExpEnum expEnum ) {
         super( client );
-        this.optionsEnum = optionsEnum;
+        this.expEnum = expEnum;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class LogicService extends MyBaseService {
 
         // Options
         if ( options == null ) {
-            options = getClient( ).getExps( ).getExp( optionsEnum );
+            options = getClient( ).getExps( ).getExp( expEnum ).getOptions();
         }
 
         // Margin
