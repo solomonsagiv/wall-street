@@ -1,7 +1,7 @@
 package gui;
 
-import options.Options;
-import options.OptionsEnum;
+import exp.Exp;
+import exp.ExpEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class DetailsWindow {
 
@@ -25,14 +26,14 @@ public class DetailsWindow {
     BASE_CLIENT_OBJECT client;
     Runner runner;
     String[] optionsTypes;
-    Options options;
+    Exp exp;
 
     /**
      * Create the application.
      */
     public DetailsWindow( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.options = client.getExps().getMainExp();
+        this.exp = client.getExps().getMainExp();
 
         onStartUp();
 
@@ -60,8 +61,8 @@ public class DetailsWindow {
     private void onStartUp() {
         optionsTypes = new String[ client.getExps( ).getExpList( ).size( ) ];
         int i = 0;
-        for ( Options options : client.getExps( ).getExpList( ) ) {
-            optionsTypes[ i ] = options.getType( ).toString();
+        for ( Map.Entry<ExpEnum, Exp> exp : client.getExps( ).getExpMap().entrySet() ) {
+            optionsTypes[ i ] = exp.getKey().toString();
             i++;
         }
     }
@@ -101,19 +102,19 @@ public class DetailsWindow {
             public void actionPerformed( ActionEvent actionEvent ) {
                 switch ( optionsCombo.getSelectedItem( ).toString( ).toLowerCase( ) ) {
                     case "week":
-                        options = client.getExps( ).getExp( OptionsEnum.WEEK );
+                        exp = client.getExps( ).getExp( ExpEnum.WEEK );
                         break;
                     case "month":
-                        options = client.getExps( ).getExp( OptionsEnum.MONTH );
+                        exp = client.getExps( ).getExp( ExpEnum.MONTH );
                         break;
                     case "quarter":
-                        options = client.getExps( ).getExp( OptionsEnum.QUARTER );
+                        exp = client.getExps( ).getExp( ExpEnum.E1 );
                         break;
                     case "quarter_far":
-                        options = client.getExps( ).getExp( OptionsEnum.QUARTER_FAR );
+                        exp = client.getExps( ).getExp( ExpEnum.E2 );
                         break;
                     case "main":
-                        options = client.getExps( ).getMainExp( );
+                        exp = client.getExps( ).getMainExp( );
                         break;
                     default:
                         break;
@@ -218,13 +219,13 @@ public class DetailsWindow {
             String text = convertListToString( );
 
             textArea.setText( text );
-            optionsArea.setText( options.toStringVertical( ) );
+            optionsArea.setText( exp.getOptions().toStringVertical( ) );
         }
 
         private ArrayList< String > getToStringList() {
             ArrayList< String > list = new ArrayList<>( );
             list.add( "Started: " + client.isStarted( ) );
-            list.add( "Contract: " + options.getContract() );
+            list.add( "Contract: " + exp.getOptions().getContract() );
             list.add( "Index: " + client.getIndex( ) );
             list.add( "IndexBidAskCounter: " + client.getIndexBidAskCounter( ) );
             list.add( "Base: " + client.getBase( ) );
@@ -232,17 +233,17 @@ public class DetailsWindow {
             list.add( "DB: " + client.isDbRunning( ) );
             list.add( "MySql: " + client.getMyServiceHandler().isExist( client.getMySqlService() ) );
             list.add( "\n" );
-            list.add( "Exp date: " + options.getExpDate( ) );
-            list.add( "Days: " + options.getProps().getDays() );
+            list.add( "Exp date: " + exp.getExpDate( ) );
+            list.add( "Days: " + exp.getOptions().getProps().getDays() );
             list.add( "Start strike: " + client.getStartStrike( ) );
             list.add( "End strike: " + client.getEndStrike( ) );
-            list.add( "Got options: " + options.isGotData( ) );
-            list.add( "Interest: " + options.getProps().getInterest( ) );
-            list.add( "Devidend: " + options.getProps().getDevidend( ) );
-            list.add( "Calc Devidend: " + options.getCalcDevidend( ) );
+            list.add( "Got options: " + exp.getOptions().isGotData( ) );
+            list.add( "Interest: " + exp.getOptions().getProps().getInterest( ) );
+            list.add( "Devidend: " + exp.getOptions().getProps().getDevidend( ) );
+            list.add( "Calc Devidend: " + exp.getOptions().getiOptionsCalcs().getCalcDevidend( ) );
             list.add("");
             list.add("Tws Contract");
-            list.add(options.getTwsContract().toString());
+            list.add(exp.getOptions().getTwsContract().toString());
             list.add("");
             list.add("All details");
             list.add(client.toStringPretty());

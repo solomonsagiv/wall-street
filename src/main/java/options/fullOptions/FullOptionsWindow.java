@@ -1,5 +1,6 @@
 package options.fullOptions;
 
+import exp.ExpEnum;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
@@ -42,7 +43,7 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
     public FullOptionsWindow( BASE_CLIENT_OBJECT client ) {
         super( "Options" );
         this.client = client;
-        this.options = client.getExps( ).getExp( OptionsEnum.WEEK );
+        this.options = client.getExps( ).getExp( ExpEnum.WEEK ).getOptions();
         initialize( );
         initListeners( );
 
@@ -353,8 +354,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
             optionsMonth.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    setOptions( client.getExps( ).getExp( OptionsEnum.MONTH ) );
-                    client.getOptionsDataHandler( ).setOptions( client.getExps( ).getExp( OptionsEnum.MONTH ) );
+                    setOptions( client.getExps( ).getExp( ExpEnum.MONTH ).getOptions() );
+                    client.getOptionsDataHandler( ).setOptions( client.getExps( ).getExp( ExpEnum.MONTH ).getOptions() );
                 }
             } );
 
@@ -363,8 +364,8 @@ public class FullOptionsWindow extends MyGuiComps.MyFrame {
             optionsDay.addActionListener( new ActionListener( ) {
                 @Override
                 public void actionPerformed( ActionEvent actionEvent ) {
-                    setOptions( client.getExps( ).getExp( OptionsEnum.WEEK ) );
-                    client.getOptionsDataHandler( ).setOptions( client.getExps( ).getExp( OptionsEnum.WEEK ) );
+                    setOptions( client.getExps( ).getExp( ExpEnum.WEEK ).getOptions() );
+                    client.getOptionsDataHandler( ).setOptions( client.getExps( ).getExp( ExpEnum.WEEK ).getOptions() );
                 }
             } );
 

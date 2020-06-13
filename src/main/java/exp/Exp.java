@@ -1,6 +1,5 @@
 package exp;
 
-import DDE.DDECells;
 import lists.MyChartList;
 import locals.IJson;
 import locals.L;
@@ -10,8 +9,6 @@ import options.Options;
 import options.OptionsDDeCells;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.MyContract;
-import tws.TwsContractsEnum;
 
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -41,15 +38,19 @@ public abstract class Exp implements IJson {
     MyChartList opAvg15FutureList = new MyChartList( );
     MyChartList futBidAskCounterList = new MyChartList( );
 
+    ExpEnum expEnum;
+
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, IOptionsCalcs iOptionsCalcs ) {
+    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, IOptionsCalcs iOptionsCalcs ) {
         this.client = client;
+        this.expEnum = expEnum;
         this.options = new Options( client, this, iOptionsCalcs );
     }
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
+    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
         this.client = client;
+        this.expEnum = expEnum;
         this.options = new Options( client, this, iOptionsCalcs, optionsDDeCells );
     }
 
@@ -201,6 +202,10 @@ public abstract class Exp implements IJson {
 
     public MyChartList getFutBidAskCounterList() {
         return futBidAskCounterList;
+    }
+
+    public ExpEnum getEnum() {
+        return expEnum;
     }
 
     @Override

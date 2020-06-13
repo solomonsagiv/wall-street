@@ -1,6 +1,7 @@
 package gui.mainWindow;
 
 import backGround.BackGroundHandler;
+import dataBase.mySql.ConnectionPool;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
@@ -8,6 +9,7 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import serverObjects.stockObjects.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -101,6 +103,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void loadOnStartUp() {
+
+        // Connect to db
+        ConnectionPool.getConnectionsPoolInstance();
+
+        // Start back runners
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             BackGroundHandler.getInstance().createNewRunner(client);
         }

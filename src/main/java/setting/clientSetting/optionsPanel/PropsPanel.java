@@ -42,7 +42,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                 if ( !interestField.getText().isEmpty() ) {
                     try {
                         double d = L.dbl( interestField.getText() );
-                        OptionsPanel.options.getProps().setInterestWithCalc( d );
+                        OptionsPanel.exp.getOptions().getProps().setInterestWithCalc( d );
                     } catch ( Exception e ) {
                         JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();
@@ -52,7 +52,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                 if ( !divField.getText().isEmpty() ) {
                     try {
                         double d = L.dbl( divField.getText() );
-                        OptionsPanel.options.getProps().setDevidend( d );
+                        OptionsPanel.exp.getOptions().getProps().setDevidend( d );
                     } catch ( Exception e ) {
                         JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();
@@ -62,7 +62,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
                 if ( !daysField.getText().isEmpty() ) {
                     try {
                         double d = L.dbl( daysField.getText() );
-                        OptionsPanel.options.getProps().setDays(d);
+                        OptionsPanel.exp.getOptions().getProps().setDays(d);
                     } catch ( Exception e ) {
                         JOptionPane.showMessageDialog( null, e.getMessage() );
                         e.printStackTrace();

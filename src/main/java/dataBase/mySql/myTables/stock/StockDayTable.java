@@ -1,15 +1,7 @@
 package dataBase.mySql.myTables.stock;
 
-import api.Manifest;
 import dataBase.mySql.myBaseTables.MyDayTable;
-import dataBase.mySql.mySqlComps.MyColumnSql;
-import dataBase.mySql.mySqlComps.MySqlColumnEnum;
-import options.OptionsEnum;
-import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class StockDayTable extends MyDayTable {
 

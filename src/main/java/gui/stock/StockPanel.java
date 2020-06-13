@@ -1,12 +1,12 @@
 package gui.stock;
 
+import exp.Exp;
+import exp.ExpEnum;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import gui.popupsFactory.PopupsMenuFactory;
 import locals.L;
 import locals.Themes;
-import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
@@ -66,17 +66,16 @@ public class StockPanel extends JPanel implements IMyPanel {
     Color backGround = Themes.GREY_LIGHT;
 
     STOCK_OBJECT client;
-    Options optWeek;
-    Options optMonth;
-    Options mainOptions;
+
+    Exp currExp, nextExp, mainExp;
 
     private Updater updater;
 
     public StockPanel( STOCK_OBJECT client ) {
         this.client = client;
-        optWeek = client.getExps( ).getExp( OptionsEnum.WEEK );
-        optMonth = client.getExps( ).getExp( OptionsEnum.MONTH );
-        mainOptions = client.getExps( ).getMainExp( );
+        currExp = client.getExps( ).getExp( ExpEnum.WEEK );
+        nextExp = client.getExps( ).getExp( ExpEnum.MONTH );
+        mainExp = client.getExps( ).getMainExp( );
 
         init( );
         initListeners( );
@@ -279,7 +278,7 @@ public class StockPanel extends JPanel implements IMyPanel {
             highField.setText( L.format100( client.getHigh( ) ) );
             lowField.setText( L.format100( client.getLow( ) ) );
             indexField.setText( L.format100( client.getIndex( ) ) );
-            futureField.setText( L.format100( mainOptions.getContract( ) ) );
+            futureField.setText( L.format100( mainExp.getOptions().getContract( ) ) );
 
             // Ticker present
             openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
@@ -287,13 +286,13 @@ public class StockPanel extends JPanel implements IMyPanel {
             lowPresentField.colorBack( L.present( client.getLow( ), client.getBase( ) ), L.format100( ), "%" );
             indexPresentField.colorBack( L.present( client.getIndex( ), client.getBase( ) ), L.format100( ), "%" );
             // OP
-            opAvgField.colorForge( mainOptions.getOpAvg( ), L.format100( ) );
-            opField.colorBack( mainOptions.getOp( ), L.format100( ) );
+            opAvgField.colorForge( mainExp.getOptions().getOpAvg( ), L.format100( ) );
+            opField.colorBack( mainExp.getOptions().getOp( ), L.format100( ) );
 
             // Quarter
-            opQuarterField.colorBack( optMonth.getOp( ), L.format100( ) );
-            opAvgQuarterField.colorForge( optMonth.getOpAvg( ), L.format100( ) );
-            contractQuarterField.setText( L.format100( optMonth.getContract( ) ) );
+            opQuarterField.colorBack( nextExp.getOptions().getOp( ), L.format100( ) );
+            opAvgQuarterField.colorForge( nextExp.getOptions().getOpAvg( ), L.format100( ) );
+            contractQuarterField.setText( L.format100( nextExp.getOptions().getContract( ) ) );
 
             // Races and roll
             // Races
@@ -301,8 +300,8 @@ public class StockPanel extends JPanel implements IMyPanel {
             indRacesField.colorForge( client.getIndexSum( ) );
 
             // Roll
-            double month = optWeek.getContract( );
-            double quarter = optMonth.getContract( );
+            double month = currExp.getOptions().getContract( );
+            double quarter = nextExp.getOptions().getContract( );
             rollField.colorForge( quarter - month, L.format100( ) );
         } catch ( NullPointerException e ) {
             e.printStackTrace( );

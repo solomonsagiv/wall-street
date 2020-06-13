@@ -1,9 +1,10 @@
 package setting.clientSetting.optionsPanel;
 
+import exp.Exp;
+import exp.ExpEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import setting.clientSetting.RacesPanel;
 import setting.clientSetting.TwsPanel;
@@ -17,7 +18,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    public static Options options;
+    public static Exp exp;
 
     JComboBox comboBox;
     RacesPanel racesPanel;
@@ -40,19 +41,19 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                 try {
                     switch ( comboBox.getSelectedItem( ).toString( ) ) {
                         case "WEEK":
-                            options = client.getExps( ).getExp( OptionsEnum.WEEK );
+                            exp = client.getExps( ).getExp( ExpEnum.WEEK );
                             break;
                         case "MONTH":
-                            options = client.getExps( ).getExp( OptionsEnum.MONTH );
+                            exp = client.getExps( ).getExp( ExpEnum.MONTH );
                             break;
                         case "QUARTER":
-                            options = client.getExps( ).getExp( OptionsEnum.QUARTER );
+                            exp = client.getExps( ).getExp( ExpEnum.E1 );
                             break;
                         case "QUARTER_FAR":
-                            options = client.getExps( ).getExp( OptionsEnum.QUARTER_FAR );
+                            exp = client.getExps( ).getExp( ExpEnum.E2 );
                             break;
                         case "MAIN":
-                            options = client.getExps( ).getMainExp( );
+                            exp = client.getExps( ).getMainExp( );
                             break;
                         default:
                             break;
@@ -104,8 +105,11 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
     public String[] getOptionsArrayString() {
         String[] optionsTypes = new String[ client.getExps( ).getExpList( ).size( ) ];
         int i = 0;
-        for ( Options options : client.getExps( ).getExpList( ) ) {
-            optionsTypes[ i ] = options.getType( ).toString( );
+        for ( Exp exp : client.getExps( ).getExpList( ) ) {
+
+            Options options  = exp.getOptions();
+
+            optionsTypes[ i ] = exp.toString( );
             i++;
         }
         return optionsTypes;

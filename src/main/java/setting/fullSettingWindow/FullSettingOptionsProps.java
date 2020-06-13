@@ -1,12 +1,12 @@
 package setting.fullSettingWindow;
 
 import dataBase.mySql.mySqlComps.TablesEnum;
+import exp.ExpEnum;
 import gui.MyGuiComps;
 import locals.L;
 import locals.LocalHandler;
 import locals.Themes;
 import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 
@@ -28,7 +28,7 @@ public class FullSettingOptionsProps extends MyGuiComps.MyPanel {
     MyGuiComps.MyTextField daysField;
     MyGuiComps.MyButton submitBtn;
 
-    OptionsEnum optionsEnum;
+    ExpEnum expEnum;
 
     // Constructor
     public FullSettingOptionsProps( BASE_CLIENT_OBJECT client ) {
@@ -45,19 +45,19 @@ public class FullSettingOptionsProps extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 switch ( FullSettingOptionsPanel.optionsCombo.getSelectedItem().toString() ) {
                     case "WEEK":
-                        optionsEnum =  OptionsEnum.WEEK ;
+                        expEnum =  ExpEnum.WEEK ;
                         break;
                     case "MONTH":
-                        optionsEnum =  OptionsEnum.MONTH ;
+                        expEnum =  ExpEnum.MONTH ;
                         break;
                     case "QUARTER":
-                        optionsEnum =  OptionsEnum.QUARTER ;
+                        expEnum =  ExpEnum.E1 ;
                         break;
                     case "QUARTER_FAR":
-                        optionsEnum =  OptionsEnum.QUARTER_FAR;
+                        expEnum =  ExpEnum.E2;
                         break;
                     default:
-                        optionsEnum =  OptionsEnum.WEEK;
+                        expEnum =  ExpEnum.WEEK;
                         break;
                 }
 
@@ -66,7 +66,7 @@ public class FullSettingOptionsProps extends MyGuiComps.MyPanel {
                         if ( client instanceof STOCK_OBJECT ) {
 
                             // Update client
-                            updateOptionsData( client, optionsEnum );
+                            updateOptionsData( client, expEnum);
 
                             // Update to DB
                             client.getTablesHandler( ).getTable( TablesEnum.STATUS ).update( );
@@ -77,9 +77,9 @@ public class FullSettingOptionsProps extends MyGuiComps.MyPanel {
         });
     }
 
-    private void updateOptionsData( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
+    private void updateOptionsData( BASE_CLIENT_OBJECT client, ExpEnum expEnum ) {
         try {
-            Options options = client.getExps().getExp( optionsEnum );
+            Options options = client.getExps().getExp( expEnum ).getOptions();
             // Interest
             if ( !interestField.getText().isEmpty() ) {
                 try {

@@ -23,7 +23,6 @@ import roll.RollHandler;
 import serverObjects.indexObjects.Spx;
 import service.MyServiceHandler;
 import threads.MyThread;
-
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
-
 
     public static void main( String[] args ) {
         Spx spx = Spx.getInstance();

@@ -56,7 +56,7 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg()));
+            conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.E1_E2).getAvg()));
             conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
             conversation.poke(indexMove15Cell, str(spx.getMove(900)));
             conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));

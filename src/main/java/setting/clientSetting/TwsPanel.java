@@ -39,16 +39,16 @@ public class TwsPanel extends MyGuiComps.MyPanel {
 
                         String s = dateField.getText();
 
-                        OptionsPanel.options.getTwsContract().lastTradeDateOrContractMonth( s );
+                        OptionsPanel.exp.getOptions().getTwsContract().lastTradeDateOrContractMonth( s );
 
                         String year = s.substring( 0,4 );
                         String month = s.substring( 4,6 );
                         String day = s.substring( 6,8 );
                         String date = year + "-" + month + "-" + day;
 
-                        OptionsPanel.options.setExpDate( LocalDate.parse( date ) );
-                        System.out.println(OptionsPanel.options.getType() );
-                        System.out.println(OptionsPanel.options.getTwsContract() );
+                        OptionsPanel.exp.getOptions().setExpDate( LocalDate.parse( date ) );
+                        System.out.println(OptionsPanel.exp.getEnum() );
+                        System.out.println(OptionsPanel.exp.getOptions().getTwsContract() );
                         System.out.println(date );
                     } catch ( Exception e ) {
                         e.printStackTrace();

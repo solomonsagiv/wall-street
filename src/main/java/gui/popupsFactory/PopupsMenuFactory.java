@@ -81,7 +81,7 @@ public class PopupsMenuFactory {
         optionsCounter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OptionsWindow window = new OptionsWindow(client, client.getExps().getMainExp());
+                OptionsWindow window = new OptionsWindow(client, client.getExps().getMainExp().getOptions());
                 window.frame.setVisible(true);
                 window.startWindowUpdater();
             }
@@ -275,7 +275,7 @@ public class PopupsMenuFactory {
         optionsCounter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OptionsWindow window = new OptionsWindow(client, client.getExps().getMainExp());
+                OptionsWindow window = new OptionsWindow(client, client.getExps().getMainExp().getOptions());
                 window.frame.setVisible(true);
                 window.startWindowUpdater();
             }

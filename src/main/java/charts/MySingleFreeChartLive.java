@@ -3,7 +3,6 @@ package charts;
 import exp.ExpEnum;
 import locals.Themes;
 import options.Options;
-import options.OptionsEnum;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.AxisLocation;

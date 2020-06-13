@@ -3,7 +3,6 @@ package gui;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;

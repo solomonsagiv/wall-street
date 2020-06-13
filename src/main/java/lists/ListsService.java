@@ -70,7 +70,6 @@ public class ListsService extends MyBaseService {
             }
 
             Options options = exp.getOptions();
-
             options.getOpList().add(options.getOp());
             options.getOpAvgList().add(options.getOpAvg());
             options.getConList().add(options.getContract());

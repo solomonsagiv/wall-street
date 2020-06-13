@@ -1,12 +1,12 @@
 package gui.index;
 
+import exp.Exp;
+import exp.ExpEnum;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import gui.popupsFactory.PopupsMenuFactory;
 import locals.L;
 import locals.Themes;
-import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -64,9 +64,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
     Color backGround = Themes.GREY_LIGHT;
 
     INDEX_CLIENT_OBJECT client;
-    Options optionsQuarter;
-    Options optionsQuarterFar;
-    Options mainOptions;
+    Exp mainExp, currExp, nextExp;
 
     private Updater updater;
 
@@ -74,15 +72,15 @@ public class IndexPanel extends JPanel implements IMyPanel {
         this.client = client;
         client.getExps( );
 
-        optionsQuarter = client.getExps( ).getExp( OptionsEnum.QUARTER );
-        optionsQuarterFar = client.getExps( ).getExp( OptionsEnum.QUARTER_FAR );
+        currExp = client.getExps( ).getExp( ExpEnum.E1 );
+        nextExp = client.getExps( ).getExp( ExpEnum.E2 );
 
         if ( client instanceof Dax ) {
-            optionsQuarter = client.getExps( ).getExp( OptionsEnum.WEEK );
-            optionsQuarterFar = client.getExps( ).getExp( OptionsEnum.MONTH );
+            currExp = client.getExps( ).getExp( ExpEnum.WEEK );
+            nextExp = client.getExps( ).getExp( ExpEnum.MONTH );
         }
 
-        mainOptions = client.getExps( ).getMainExp( );
+        mainExp = client.getExps( ).getMainExp( );
         init( );
         initListeners( );
 
@@ -291,7 +289,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             highField.setText( L.format100( client.getHigh( ) ) );
             lowField.setText( L.format100( client.getLow( ) ) );
             indexField.setText( L.format100( client.getIndex( ) ) );
-            futureField.setText( L.format100( mainOptions.getFuture( ) ) );
+            futureField.setText( L.format100( mainExp.getFuture( ) ) );
 
             // Ticker present
             openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
@@ -301,17 +299,17 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
             // OP
             try {
-                opAvgField.colorForge( mainOptions.getOpAvgFuture( ), L.format100( ) );
-                opAvgQuarterField.colorForge( optionsQuarterFar.getOpAvgFuture( ), L.format100( ) );
+                opAvgField.colorForge( mainExp.getOpAvgFuture( ), L.format100( ) );
+                opAvgQuarterField.colorForge( nextExp.getOpAvgFuture( ), L.format100( ) );
             } catch ( Exception e ) {
                 e.printStackTrace( );
             }
-            opField.colorBack( mainOptions.getOpFuture( ), L.format100( ) );
+            opField.colorBack( mainExp.getOpFuture( ), L.format100( ) );
 
             // Quarter
-            opQuarterField.colorBack( optionsQuarterFar.getOpFuture( ), L.format100( ) );
+            opQuarterField.colorBack( nextExp.getOpFuture( ), L.format100( ) );
 
-            contractQuarterField.setText( L.format100( optionsQuarterFar.getFuture( ) ) );
+            contractQuarterField.setText( L.format100( nextExp.getFuture( ) ) );
 
             // Races and roll
             // Races

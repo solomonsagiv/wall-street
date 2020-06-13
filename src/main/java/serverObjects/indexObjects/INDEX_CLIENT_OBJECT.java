@@ -11,7 +11,6 @@ import dataBase.mySql.myTables.index.ArraysTable;
 import dataBase.mySql.myTables.index.StatusTable;
 import dataBase.mySql.myTables.index.SumTable;
 import exp.E;
-import exp.Exp;
 import exp.ExpEnum;
 import exp.Exps;
 import myJson.MyJson;
@@ -43,10 +42,10 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initExpHandler() throws NullPointerException {
         // E1
-        E e1 = new E(this, new IndexOptionsCalc( this, ExpEnum.E1 ) );
+        E e1 = new E(this, ExpEnum.E1, new IndexOptionsCalc( this, ExpEnum.E1 ) );
 
         // E2
-        E e2 = new E(this, new IndexOptionsCalc( this, ExpEnum.E2 ) );
+        E e2 = new E(this, ExpEnum.E2, new IndexOptionsCalc( this, ExpEnum.E2 ) );
 
         // Append to handler
         Exps exps = new Exps( this );
@@ -76,7 +75,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         json.put( JsonStrings.high, getHigh( ) );
         json.put( JsonStrings.low, getLow( ) );
         json.put( JsonStrings.base, getBase( ) );
-        json.put( JsonStrings.roll, getRollHandler().getRoll( RollEnum.QUARTER_QUARTER_FAR ).getAsJson());
+        json.put( JsonStrings.roll, getRollHandler().getRoll( RollEnum.E1_E2).getAsJson());
         json.put( JsonStrings.e1, getExps( ).getExp( ExpEnum.E1 ).getAsJson( ) );
         json.put( JsonStrings.e2, getExps( ).getExp( ExpEnum.E2 ).getAsJson( ) );
         return json;

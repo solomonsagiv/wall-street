@@ -90,9 +90,6 @@ public class MyChartContainer extends JFrame {
     public void onClose( WindowEvent e ) {
 
         new Thread( () -> {
-
-
-
             ( ( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS ) ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
         } ).start( );
 

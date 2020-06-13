@@ -9,11 +9,7 @@ import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.ExpEnum;
 import logic.LogicService;
-import options.optionsCalcs.IndexOptionsCalc;
-import options.OptionsEnum;
-import exp.Exps;
 import serverObjects.ApiEnum;
-import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 

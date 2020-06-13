@@ -14,7 +14,6 @@ import exp.ExpWeek;
 import logic.LogicService;
 import myJson.MyJson;
 import options.JsonStrings;
-import options.OptionsEnum;
 import exp.Exps;
 import options.optionsCalcs.StockOptionsCalc;
 import roll.Roll;
@@ -58,10 +57,10 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     public void initExpHandler() {
 
         // Week
-        ExpWeek expWeek = new ExpWeek( this, new StockOptionsCalc( this, ExpEnum.WEEK ) );
+        ExpWeek expWeek = new ExpWeek( this, ExpEnum.WEEK, new StockOptionsCalc( this, ExpEnum.WEEK ) );
 
         // Month
-        ExpMonth expMonth = new ExpMonth( this, new StockOptionsCalc( this, ExpEnum.MONTH ) );
+        ExpMonth expMonth = new ExpMonth( this, ExpEnum.MONTH, new StockOptionsCalc( this, ExpEnum.MONTH ) );
 
         // Exp handler
         Exps exps = new Exps( this );

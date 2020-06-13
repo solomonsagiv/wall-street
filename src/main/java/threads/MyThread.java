@@ -3,7 +3,7 @@ package threads;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class MyThread {
-
+    
     // Variables
     private boolean run = true;
 

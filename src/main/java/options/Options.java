@@ -10,7 +10,6 @@ import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
-import tws.TwsContractsEnum;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -25,7 +24,6 @@ public class Options implements IJson {
     double bidMin = 0;
     double askMax = 0;
     private boolean requested = false;
-    protected OptionsEnum type;
     protected OptionsProps props;
 
     protected Exp exp;
@@ -498,8 +496,6 @@ public class Options implements IJson {
     public String toStringVertical() {
         String string = "";
 
-        string += getType( ).toString( ) + "\n\n";
-
         for ( Strike strike : strikes ) {
             string += strike.toString( ) + "\n\n";
         }
@@ -617,15 +613,6 @@ public class Options implements IJson {
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
-    }
-
-
-    public OptionsEnum getType() {
-        return type;
-    }
-
-    public void setType( OptionsEnum type ) {
-        this.type = type;
     }
 
     public double floor( double d, int zeros ) {
@@ -770,6 +757,10 @@ public class Options implements IJson {
         conBidForCheck = contractBid;
         conAskForCheck = this.contractAsk;
 
+    }
+
+    public IOptionsCalcs getiOptionsCalcs() {
+        return iOptionsCalcs;
     }
 
     public double getCurrStrike() {

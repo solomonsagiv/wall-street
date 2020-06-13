@@ -15,16 +15,13 @@ import exp.E;
 import exp.ExpEnum;
 import exp.Exps;
 import logic.LogicService;
-import options.Options;
 import options.OptionsDDeCells;
-import options.OptionsEnum;
 import options.optionsCalcs.IndexOptionsCalc;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 
@@ -69,7 +66,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         rollHandler = new RollHandler(this);
 
         Roll quarter_quarterFar = new Roll(this, ExpEnum.E1, ExpEnum.E2, RollPriceEnum.FUTURE);
-        rollHandler.addRoll(RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar);
+        rollHandler.addRoll(RollEnum.E1_E2, quarter_quarterFar);
     }
 
     // Get instance
@@ -106,11 +103,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         // E1
         OptionsDDeCells e1DDeCells = new OptionsDDeCells("R19C2", "R19C1", "R19C3");
-        E e = new E( this, new IndexOptionsCalc( this, ExpEnum.E1 ), e1DDeCells );
+        E e = new E( this, ExpEnum.E1, new IndexOptionsCalc( this, ExpEnum.E1 ), e1DDeCells );
 
         // E2
         OptionsDDeCells e2DDeCells = new OptionsDDeCells("R21C2", "R21C1", "R21C3");
-        E e2 = new E( this, new IndexOptionsCalc( this, ExpEnum.E2 ), e2DDeCells );
+        E e2 = new E( this, ExpEnum.E2, new IndexOptionsCalc( this, ExpEnum.E2 ), e2DDeCells );
 
         // Add to
         Exps exps = new Exps(this);
