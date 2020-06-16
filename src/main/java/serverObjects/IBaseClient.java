@@ -6,5 +6,5 @@ public interface IBaseClient {
     void initDDECells();
     ApiEnum getApi();
     void initBaseId();
-
+    void initSeries();
 }

@@ -7,6 +7,7 @@ import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
 import arik.Arik;
 import arik.locals.Emojis;
+import charts.myChart.MyTimeSeries;
 import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
@@ -120,6 +121,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyChartList indexBidAskCounterList = new MyChartList( );
     MyChartList indexBidAskCounter2List = new MyChartList();
 
+    MyTimeSeries indexSeries;
+    MyTimeSeries indexBidSeries;
+    MyTimeSeries indexAskSeries;
+    MyTimeSeries indexBidAskCounterSeries;
+    MyTimeSeries indexBidAskCounter2Series;
+
     public BASE_CLIENT_OBJECT() {
         try {
             LocalHandler.clients.add( this );
@@ -127,6 +134,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // Call subClasses abstract functions
             initBaseId( );
             initDDECells( );
+            initSeries();
 
             // MyServices
             listsService = new ListsService( this );
@@ -156,6 +164,35 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             myThread.getHandler( ).close( );
         }
         setStarted( false );
+    }
+
+
+    @Override
+    public void initSeries() {
+        indexSeries = new MyTimeSeries("Index", this) {
+            @Override
+            public double getData() {
+                return client.getIndex();
+            }
+        };
+        indexBidSeries = new MyTimeSeries("Index bid", this) {
+            @Override
+            public double getData() {
+                return client.getIndexBid();
+            }
+        };
+        indexAskSeries = new MyTimeSeries("Index ask", this) {
+            @Override
+            public double getData() {
+                return client.getIndexAsk();
+            }
+        };
+        indexBidAskCounterSeries = new MyTimeSeries("IndBidAskCounter", this) {
+            @Override
+            public double getData() {
+                return client.getIndexBidAskCounter();
+            }
+        };
     }
 
     public void fullExport() {
