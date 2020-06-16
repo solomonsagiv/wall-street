@@ -47,12 +47,9 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         opAvgFutureProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.PURPLE, 1.5f, opAvgFutureProps, e1.getOpAvg15FutureList() ) {
-            @Override
-            public double getData() {
-                return e1.getOpAvgFuture(900);
-            }
-        };
+        MyTimeSeries opAvgFuture = e1.getOpAvg15FutureSeries();
+        opAvgFuture.setColor( Themes.PURPLE );
+        opAvgFuture.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = opAvgFuture;
@@ -68,15 +65,12 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         newProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 1.5f, newProps, client.getIndexList() ) {
-            @Override
-            public double getData() {
-                return client.getIndex();
-            }
-        };
+        MyTimeSeries indexSeries = client.getIndexSeries();
+        indexSeries.setColor( Color.BLACK );
+        indexSeries.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
-        series[0] = index;
+        series[0] = indexSeries;
 
         // Chart
         MyChart indexChart = new MyChart( client, series, newProps );

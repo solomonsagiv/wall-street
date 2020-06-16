@@ -9,7 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
+public class AvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
     public OpAvgFuture_E2_IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client ) {

@@ -3,10 +3,18 @@ package dataBase.mySql;
 import dataBase.mySql.mySqlComps.MySqlTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.util.*;
 
 public class TablesHandler {
+
+    public static void main( String[] args ) {
+        Spx spx = Spx.getInstance();
+        spx.getTablesHandler().getTable( TablesEnum.SUM ).insert();
+        System.out.println( "Done" );
+    }
+
 
     Map tables = new HashMap< TablesEnum, MySqlTable>();
 
@@ -19,15 +27,15 @@ public class TablesHandler {
     }
 
     public String getDayName( BASE_CLIENT_OBJECT client ) {
-        return client.getName();
+        return client.getName() + "JsonDay";
     }
 
     public String getSumName( BASE_CLIENT_OBJECT client ) {
-        return client.getName() + "_sum";
+        return client.getName() + "JsonSum";
     }
 
     public String getStatusName() {
-        return "status";
+        return "jsonStatus";
     }
 
     public String getSettingName() {

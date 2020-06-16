@@ -8,7 +8,6 @@ import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 public class IndexStocksTable extends MySqlTable {
 
-
     public IndexStocksTable( INDEX_CLIENT_OBJECT client ) {
         super( client, "indexStocks" );
     }

@@ -3,11 +3,11 @@ package serverObjects.stockObjects;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.myTables.DayJsonTable;
+import dataBase.mySql.myTables.StatusJsonTable;
+import dataBase.mySql.myTables.SumJsonTable;
 import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.stock.StockArraysTable;
-import dataBase.mySql.myTables.stock.StockDayTable;
-import dataBase.mySql.myTables.stock.StockStatusTable;
-import dataBase.mySql.myTables.stock.StockSumTable;
 import exp.ExpEnum;
 import exp.ExpMonth;
 import exp.ExpWeek;
@@ -46,9 +46,9 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
         tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new StockDayTable( this ) );
-        tablesHandler.addTable( TablesEnum.STATUS, new StockStatusTable( this ) );
-        tablesHandler.addTable( TablesEnum.SUM, new StockSumTable( this ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this ) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new StockArraysTable( this ) );
         tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
     }

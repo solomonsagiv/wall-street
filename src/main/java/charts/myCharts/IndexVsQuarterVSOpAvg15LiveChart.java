@@ -33,31 +33,46 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 2.25f, props, client.getIndexList() ) {
+        MyTimeSeries index = new MyTimeSeries( "Index", client ) {
             @Override
             public double getData() {
                 return client.getIndex();
             }
         };
+        index.setColor( Color.BLACK );
+        index.setStokeSize( 2.25f );
 
-        // Index
-        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
+        // Bid
+        MyTimeSeries bid = new MyTimeSeries( "Bid", client ) {
             @Override
             public double getData() {
                 return client.getIndexBid();
             }
         };
+        bid.setColor( Themes.BLUE );
+        bid.setStokeSize( 2.25f );
 
-        // Index
-        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
+        // Ask
+        MyTimeSeries ask = new MyTimeSeries( "Ask", client ) {
             @Override
             public double getData() {
                 return client.getIndexAsk();
             }
         };
 
+        // Future
+        MyTimeSeries quarter = new MyTimeSeries( "Quarter", client ) {
+            @Override
+            public double getData() {
+                return client.getExps().getExp( ExpEnum.E1 ).getFuture();
+            }
+        };
+
+        quarter.setColor( Themes.GREEN );
+        quarter.setStokeSize( 2.25f );
+
         // OpAvg
-        MyTimeSeries opAvg = new MyTimeSeries( "OpAvg15Future", Themes.BLUE_LIGHT_2, 2.25f, props, null ) {
+        MyTimeSeries opAvg = new MyTimeSeries( "OpAvg15Future", client ) {
             @Override
             public double getData() {
                 Exp exp = client.getExps().getExp( ExpEnum.E1 );
@@ -65,15 +80,10 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
             }
         };
 
-        // Future
-        MyTimeSeries future = new MyTimeSeries( "Future", Themes.GREEN, 2.25f, props, null ) {
-            @Override
-            public double getData() {
-                return client.getExps().getExp( ExpEnum.E1 ).getFuture();
-            }
-        };
+        opAvg.setColor( Themes.BLUE_LIGHT_2 );
+        opAvg.setStokeSize( 2.25f );
 
-        MyTimeSeries[] series = { index, bid, ask, future, opAvg };
+        MyTimeSeries[] series = { index, bid, ask, quarter, opAvg };
 
         // Chart
         MyChart chart = new MyChart( client, series, props );

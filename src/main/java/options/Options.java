@@ -1,5 +1,6 @@
 package options;
 
+import charts.myChart.MyTimeSeries;
 import com.ib.client.Types;
 import exp.Exp;
 import lists.MyChartList;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.MyContract;
 
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -49,8 +51,8 @@ public class Options implements IJson {
     List< Double > opAvgList = new ArrayList<>( );
     List< Double > opList = new ArrayList<>( );
 
-    MyChartList conBidAskCounterList = new MyChartList( );
-    MyChartList opAvgChartList = new MyChartList( );
+    MyTimeSeries conBidAskCounterSeries;
+    MyTimeSeries opAvgSeries;
 
     IOptionsCalcs iOptionsCalcs;
 
@@ -62,11 +64,30 @@ public class Options implements IJson {
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
         props = new OptionsProps();
+
+        initSeries();
     }
 
     public Options( BASE_CLIENT_OBJECT client, Exp exp, IOptionsCalcs iOptionsCalcs, OptionsDDeCells dDeCells ) {
         this( client, exp, iOptionsCalcs );
         this.optionsDDeCells = dDeCells;
+    }
+
+
+    public void initSeries() {
+        conBidAskCounterSeries = new MyTimeSeries( "conBidAskCounter" ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getConBidAskCounter();
+            }
+        };
+
+        opAvgSeries = new MyTimeSeries( "opAvg" ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getOpAvg();
+            }
+        };
     }
 
     public Call getCall( double targetStrike ) {
@@ -729,10 +750,6 @@ public class Options implements IJson {
         return conAskList;
     }
 
-    public MyChartList getConBidAskCounterList() {
-        return conBidAskCounterList;
-    }
-
     public List< Double > getConBidList() {
         return conBidList;
     }
@@ -757,6 +774,14 @@ public class Options implements IJson {
         conBidForCheck = contractBid;
         conAskForCheck = this.contractAsk;
 
+    }
+
+    public MyTimeSeries getConBidAskCounterSeries() {
+        return conBidAskCounterSeries;
+    }
+
+    public MyTimeSeries getOpAvgSeries() {
+        return opAvgSeries;
     }
 
     public IOptionsCalcs getiOptionsCalcs() {

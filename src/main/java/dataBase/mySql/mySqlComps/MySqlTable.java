@@ -18,7 +18,6 @@ public abstract class MySqlTable implements IMyTableSql {
 
     protected Map< MySqlColumnEnum, MyColumnSql > columns = new HashMap<>( );
     protected Map< MySqlColumnEnum, MyLoadAbleColumn > loadAbleColumns = new HashMap<>( );
-
     protected boolean isLoad = false;
 
     // Constructor

@@ -1,5 +1,6 @@
 package exp;
 
+import charts.myChart.MyTimeSeries;
 import lists.MyChartList;
 import locals.IJson;
 import locals.L;
@@ -34,16 +35,22 @@ public abstract class Exp implements IJson {
 
     List< Double > opFutureList = new ArrayList<>( );
     List< Double > futureList = new ArrayList<>( );
-    MyChartList opAvgFutureList = new MyChartList( );
-    MyChartList opAvg15FutureList = new MyChartList( );
-    MyChartList futBidAskCounterList = new MyChartList( );
+
+    MyTimeSeries opAvgFutureSeries;
+    MyTimeSeries opAvg15FutureSeries;
+    MyTimeSeries futBidAskCounterSeries;
 
     ExpEnum expEnum;
 
-    // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, IOptionsCalcs iOptionsCalcs ) {
+    private Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum ) {
         this.client = client;
         this.expEnum = expEnum;
+        initSeries( );
+    }
+
+    // Constructor
+    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, IOptionsCalcs iOptionsCalcs ) {
+        this( client, expEnum );
         this.options = new Options( client, this, iOptionsCalcs );
     }
 
@@ -52,6 +59,27 @@ public abstract class Exp implements IJson {
         this.client = client;
         this.expEnum = expEnum;
         this.options = new Options( client, this, iOptionsCalcs, optionsDDeCells );
+    }
+
+    public void initSeries() {
+        opAvgFutureSeries = new MyTimeSeries( "OpAvgFuture" ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getOpAvgFuture( );
+            }
+        };
+        opAvg15FutureSeries = new MyTimeSeries( "OpAvg15Future") {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getOpAvgFuture( 900 );
+            }
+        };
+        futBidAskCounterSeries = new MyTimeSeries( "futBidAskCounter" ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getFutureBidAskCounter();
+            }
+        };
     }
 
     // Functions
@@ -184,24 +212,24 @@ public abstract class Exp implements IJson {
         return futureVolume;
     }
 
+    public MyTimeSeries getFutBidAskCounterSeries() {
+        return futBidAskCounterSeries;
+    }
+
+    public MyTimeSeries getOpAvg15FutureSeries() {
+        return opAvg15FutureSeries;
+    }
+
+    public MyTimeSeries getOpAvgFutureSeries() {
+        return opAvgFutureSeries;
+    }
+
     public List< Double > getOpFutureList() {
         return opFutureList;
     }
 
     public List< Double > getFutureList() {
         return futureList;
-    }
-
-    public MyChartList getOpAvgFutureList() {
-        return opAvgFutureList;
-    }
-
-    public MyChartList getOpAvg15FutureList() {
-        return opAvg15FutureList;
-    }
-
-    public MyChartList getFutBidAskCounterList() {
-        return futBidAskCounterList;
     }
 
     public ExpEnum getEnum() {
@@ -216,7 +244,7 @@ public abstract class Exp implements IJson {
         json.put( JsonStrings.futureAsk, getFutureAsk( ) );
         json.put( JsonStrings.futureBidAskCounter, getFutureBidAskCounter( ) );
         json.put( JsonStrings.options, getOptions( ).getAsJson( ) );
-        json.put( JsonStrings.expData, expData.getAsJson() );
+        json.put( JsonStrings.expData, expData.getAsJson( ) );
         try {
             json.put( JsonStrings.opAvgFuture, getOpAvgFuture( ) );
         } catch ( Exception e ) {

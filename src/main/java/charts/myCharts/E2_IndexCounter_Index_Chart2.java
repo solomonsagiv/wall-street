@@ -39,7 +39,7 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
         newProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 1.5f, newProps, client.getIndexList() ) {
+        MyTimeSeries index = new MyTimeSeries( "Index", client ) {
             @Override
             public double getData() {
                 return client.getIndex();
@@ -57,7 +57,7 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
         Exp exp = client.getExps().getExp( ExpEnum.E1 );
 
         // Index
-        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", Themes.BINANCE_RED, 1.5f, newProps, exp.getFutBidAskCounterList() ) {
+        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", client ) {
             @Override
             public double getData() {
                 return exp.getFutureBidAskCounter();
@@ -71,7 +71,7 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
 
         // ---------- Chart 3 ---------- //
         // Index
-        MyTimeSeries indexBidAskCounter = new MyTimeSeries( "Counter", Themes.ORANGE, 1.5f, props, client.getIndexBidAskCounterList() ) {
+        MyTimeSeries indexBidAskCounter = new MyTimeSeries( "Counter", client ) {
             @Override
             public double getData() {
                 return client.getIndexBidAskCounter();
@@ -85,7 +85,7 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
 
         // ---------- Chart 4 ---------- //
         // Index
-        MyTimeSeries indexBidAskCounter2 = new MyTimeSeries( "Counter2", Themes.PURPLE, 1.5f, newProps, client.getIndexBidAskCounter2List() ) {
+        MyTimeSeries indexBidAskCounter2 = new MyTimeSeries( "Counter2", client ) {
             @Override
             public double getData() {
                 return client.getIndexBidAskCounter2();

@@ -66,4 +66,6 @@ public class JsonStrings {
     public static final String expData = "expData";
     public static final String roll = "roll";
     public static final String rollAvg = "rollAvg";
+    public static final String x = "x";
+    public static final String y = "y";
 }

@@ -32,38 +32,29 @@ public class Month_Index_Live_Chart extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 2.25f, props, client.getIndexList() ) {
+        MyTimeSeries indexSeries = client.getIndexSeries();
+        indexSeries.setColor( Color.BLACK );
+        indexSeries.setStokeSize( 2.25f );
+
+        // Index bid
+        MyTimeSeries indexBidSeries = client.getIndexBidSeries();
+        indexBidSeries.setColor( Themes.BLUE );
+        indexBidSeries.setStokeSize( 2.25f );
+
+        // Index ask
+        MyTimeSeries indexAskSeries = client.getIndexAskSeries();
+        indexAskSeries.setColor( Themes.RED );
+        indexAskSeries.setStokeSize( 2.25f );
+
+        // Contract
+        MyTimeSeries contractSeries = new MyTimeSeries( "Contract", client ) {
             @Override
             public double getData() {
-                return client.getIndex();
+                return client.getExps().getExp( ExpEnum.MONTH ).getOptions().getContract();
             }
         };
 
-        // Index
-        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
-            @Override
-            public double getData() {
-                return client.getIndexBid();
-            }
-        };
-
-        // Index
-        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
-            @Override
-            public double getData() {
-                return client.getIndexAsk();
-            }
-        };
-
-        // Future
-        MyTimeSeries future = new MyTimeSeries( "Contract", Themes.GREEN, 2.25f, props, null ) {
-            @Override
-            public double getData() {
-                return client.getExps().getExp( ExpEnum.MONTH.MONTH ).getOptions().getContract();
-            }
-        };
-
-        MyTimeSeries[] series = {index, bid, ask, future};
+        MyTimeSeries[] series = {indexSeries, indexBidSeries, indexAskSeries, contractSeries};
 
         // Chart
         MyChart chart = new MyChart( client, series, props );

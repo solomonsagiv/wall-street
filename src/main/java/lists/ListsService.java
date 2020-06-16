@@ -60,8 +60,8 @@ public class ListsService extends MyBaseService {
                 client.getIndexList().add(new MyChartPoint(now, client.getIndex()));
                 exp.getOpFutureList().add(exp.getOpFuture());
                 try {
-                    exp.getOpAvgFutureList().add(new MyChartPoint(now, exp.getOpAvgFuture()));
-                    exp.getOpAvg15FutureList().add(new MyChartPoint(now, exp.getOpAvgFuture(900)));
+                    exp.getOpAvgFutureSeries().add();
+                    exp.getOpAvg15FutureSeries().add();
                 } catch (Exception e) {
                     System.out.println(getClient().getName() + " OpAvgFutureList is empty");
                 }
@@ -75,8 +75,8 @@ public class ListsService extends MyBaseService {
             options.getConList().add(options.getContract());
             options.getConBidList().add(options.getContractBid());
             options.getConAskList().add(options.getContractAsk());
-            exp.getFutBidAskCounterList().add(new MyChartPoint(now, exp.getFutureBidAskCounter()));
-            options.getConBidAskCounterList().add(new MyChartPoint(now, options.getConBidAskCounter()));
+            exp.getFutBidAskCounterSeries().add();
+            options.getConBidAskCounterSeries().add();
         }
 
         // Roll lists

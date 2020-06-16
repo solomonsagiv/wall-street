@@ -1,4 +1,4 @@
-package dataBase.mySql.myTables.index;
+package dataBase.mySql.myTables;
 
 import dataBase.mySql.myBaseTables.MyArraysTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;

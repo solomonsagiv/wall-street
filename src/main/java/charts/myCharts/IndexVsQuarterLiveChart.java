@@ -32,36 +32,46 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 2.25f, props, client.getIndexList() ) {
+        MyTimeSeries index = new MyTimeSeries( "Index", client ) {
             @Override
             public double getData() {
                 return client.getIndex();
             }
         };
+        index.setColor( Color.BLACK );
+        index.setStokeSize( 2.25f );
 
         // Bid
-        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
+        MyTimeSeries bid = new MyTimeSeries( "Bid", client ) {
             @Override
             public double getData() {
                 return client.getIndexBid();
             }
         };
+        bid.setColor( Themes.BLUE );
+        bid.setStokeSize( 2.25f );
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
+        MyTimeSeries ask = new MyTimeSeries( "Ask", client ) {
             @Override
             public double getData() {
                 return client.getIndexAsk();
             }
         };
 
+        ask.setColor( Themes.RED );
+        ask.setStokeSize( 2.25f );
+
         // Future
-        MyTimeSeries future = new MyTimeSeries( "Index", Themes.GREEN, 2.25f, props, null ) {
+        MyTimeSeries future = new MyTimeSeries( "Index", client ) {
             @Override
             public double getData() {
                 return client.getExps().getExp( ExpEnum.E1 ).getFuture();
             }
         };
+
+        future.setColor( Themes.GREEN );
+        future.setStokeSize( 2.25f );
 
         MyTimeSeries[] series = {index, bid, ask, future };
 

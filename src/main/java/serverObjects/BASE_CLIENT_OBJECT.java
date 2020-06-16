@@ -115,17 +115,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     private boolean indUpChanged = false;
     private boolean indDownChanged = false;
 
-    MyChartList indexList = new MyChartList( );
-    MyChartList indexBidList = new MyChartList( );
-    MyChartList indexAskList = new MyChartList( );
-    MyChartList indexBidAskCounterList = new MyChartList( );
-    MyChartList indexBidAskCounter2List = new MyChartList();
-
     MyTimeSeries indexSeries;
     MyTimeSeries indexBidSeries;
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
-    MyTimeSeries indexBidAskCounter2Series;
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -134,7 +127,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // Call subClasses abstract functions
             initBaseId( );
             initDDECells( );
-            initSeries();
 
             // MyServices
             listsService = new ListsService( this );
@@ -165,7 +157,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         }
         setStarted( false );
     }
-
 
     @Override
     public void initSeries() {
@@ -321,26 +312,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         text += "Contract counter: " + getExps( ).getMainExp( ).getOptions().getConBidAskCounter( ) + "\n";
 
         return text;
-    }
-
-    public double getMove( int seconds ) {
-        try {
-            int startIndex = 0;
-            double start, end;
-
-            // Seconds > indexList size
-            if ( seconds > indexList.size( ) - 1 ) {
-                start = indexList.get( 0 ).getY( );
-                end = indexList.getLast( ).getY( );
-            } else {
-                start = indexList.get( indexList.size( ) - seconds ).getY( );
-                end = indexList.getLast( ).getY( );
-            }
-            return L.floor( ( end - start ) / start * 100, 100 );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-            return 0;
-        }
     }
 
     public boolean isLoadFromDb() {
@@ -546,32 +517,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.base = base;
     }
 
-    public MyChartList getIndexList() {
-        return indexList;
-    }
-
-    public MyChartList getIndexBidList() {
-        return indexBidList;
-    }
-
-    public MyChartList getIndexAskList() {
-        return indexAskList;
-    }
-
-    public MyChartList getIndexBidAskCounterList() {
-        return indexBidAskCounterList;
-    }
-
     public ListsService getListsService() {
         return listsService;
     }
 
     public MySqlService getMySqlService() {
         return mySqlService;
-    }
-
-    public MyChartList getIndexBidAskCounter2List() {
-        return indexBidAskCounter2List;
     }
 
     public void setIndexBidAskCounter2(int indexBidAskCounter2) {
@@ -701,6 +652,22 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         Downloader.getInstance( ).addRequester( iTwsRequester );
     }
 
+    public MyTimeSeries getIndexSeries() {
+        return indexSeries;
+    }
+
+    public MyTimeSeries getIndexBidAskCounterSeries() {
+        return indexBidAskCounterSeries;
+    }
+
+    public MyTimeSeries getIndexAskSeries() {
+        return indexAskSeries;
+    }
+
+    public MyTimeSeries getIndexBidSeries() {
+        return indexBidSeries;
+    }
+
     public LogicService getLogicService() {
         if ( logicService == null ) throw new NullPointerException( getName( ) + " Logic not set" );
         return logicService;
@@ -743,7 +710,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
-                ", indexList=" + indexList.size( ) +
+                ", indexList=" + indexSeries.getItemCount() +
                 '}';
     }
 

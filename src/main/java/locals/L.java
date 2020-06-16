@@ -2,8 +2,10 @@ package locals;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Locale;
 
@@ -11,6 +13,8 @@ public class L {
 
     private static DecimalFormat df100;
     private static DecimalFormat df10;
+
+    public static DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
     public static double modulu( double value ) {
 

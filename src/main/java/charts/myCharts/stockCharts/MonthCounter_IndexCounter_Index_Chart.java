@@ -39,12 +39,9 @@ public class MonthCounter_IndexCounter_Index_Chart extends MyChartCreator {
         newProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
         
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 1.5f, newProps, client.getIndexList() ) {
-            @Override
-            public double getData() {
-                return client.getIndex();
-            }
-        };
+        MyTimeSeries index = client.getIndexSeries();
+        index.setColor( Color.BLACK );
+        index.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = index;
@@ -57,12 +54,9 @@ public class MonthCounter_IndexCounter_Index_Chart extends MyChartCreator {
         Options options = client.getExps().getExp( ExpEnum.MONTH ).getOptions();
 
         // Index
-        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Month B/A counter", Themes.BINANCE_RED, 1.5f, newProps, options.getConBidAskCounterList() ) {
-            @Override
-            public double getData() {
-                return options.getConBidAskCounter();
-            }
-        };
+        MyTimeSeries futureFarBidAskCounter = options.getConBidAskCounterSeries();
+        futureFarBidAskCounter.setColor( Themes.BINANCE_RED );
+        futureFarBidAskCounter.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = futureFarBidAskCounter;
@@ -71,12 +65,9 @@ public class MonthCounter_IndexCounter_Index_Chart extends MyChartCreator {
 
         // ---------- Chart 3 ---------- //
         // Index
-        MyTimeSeries indexBidAskCounter = new MyTimeSeries( "Counter", Themes.ORANGE, 1.5f, props, client.getIndexBidAskCounterList() ) {
-            @Override
-            public double getData() {
-                return client.getIndexBidAskCounter();
-            }
-        };
+        MyTimeSeries indexBidAskCounter = client.getIndexBidAskCounterSeries();
+        indexBidAskCounter.setColor( Themes.ORANGE );
+        indexBidAskCounter.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = indexBidAskCounter;
