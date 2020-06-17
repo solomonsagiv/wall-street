@@ -18,7 +18,6 @@ public class DDEWriter extends MyThread implements Runnable {
     String opAvgCell = "R2C10";
     String rollCell = "R2C11";
     String indexBidAskCounterCell = "R2C12";
-    String indexMove15Cell = "R3C1";
     String basketsCell = "R3C5";
     String basketsCell2 = "R3C7";
 
@@ -58,7 +57,6 @@ public class DDEWriter extends MyThread implements Runnable {
         try {
             conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.E1_E2).getAvg()));
             conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
-            conversation.poke(indexMove15Cell, str(spx.getMove(900)));
             conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));
             conversation.poke(basketsCell2, str(spx.getBasketService2().getBaskets()));
             try {

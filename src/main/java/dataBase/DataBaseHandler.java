@@ -19,7 +19,7 @@ public class DataBaseHandler {
         th.getTable(TablesEnum.STATUS).load();
         th.getTable(TablesEnum.ARRAYS).load();
 
-        if ( client instanceof Spx) {
+        if ( client instanceof Spx ) {
             client.getTablesHandler().getTable(TablesEnum.INDEX_STOCKS).loadAll();
         }
     }

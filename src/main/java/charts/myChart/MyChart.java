@@ -1,6 +1,7 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
+import exp.E;
 import locals.L;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
@@ -292,7 +293,6 @@ public class MyChart {
 
         // Is data changed
         private boolean isDataChanged() {
-
             boolean change = false;
             double oldVal = 0;
             double newVal = 0;
@@ -301,7 +301,14 @@ public class MyChart {
             for (MyTimeSeries serie : series) {
 
                 oldVal = oldVals[i];
-                newVal = serie.getData();
+
+                try {
+                    newVal = serie.getData( );
+                } catch ( Exception e ) {
+                    e.printStackTrace();
+                    change = false;
+                    break;
+                }
 
                 // If 0
                 if (newVal == 0) {

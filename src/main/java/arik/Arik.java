@@ -78,11 +78,9 @@ public class Arik {
 
     // Send message
     public void sendMessageToEveryOne( String text ) {
-
         for ( int account: accounts) {
             sendMessage( account, text, null );
         }
-
     }
 
     // Send message

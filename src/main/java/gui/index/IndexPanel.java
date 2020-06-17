@@ -324,11 +324,9 @@ public class IndexPanel extends JPanel implements IMyPanel {
         }
     }
 
-
     public void close() {
         getUpdater( ).close( );
     }
-
 
     @Override
     public void updateRaces() {
@@ -390,7 +388,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
         public void close() {
             setRun( false );
         }
-
     }
 
 }

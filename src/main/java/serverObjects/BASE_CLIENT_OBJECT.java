@@ -127,6 +127,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // Call subClasses abstract functions
             initBaseId( );
             initDDECells( );
+            initSeries();
 
             // MyServices
             listsService = new ListsService( this );
@@ -318,13 +319,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
         if ( !Manifest.DB ) {
             setLoadFromDb(true);
+            return true;
         }
 
         TablesHandler th = getTablesHandler();
         return th.getTable(TablesEnum.STATUS).isLoad() && th.getTable(TablesEnum.ARRAYS).isLoad() && th.getTable(TablesEnum.TWS_CONTRACTS).isLoad();
     }
 
-    public void setLoadFromDb(boolean loadFromDb) {
+    public void setLoadFromDb( boolean loadFromDb ) {
         TablesHandler th = getTablesHandler();
         th.getTable(TablesEnum.STATUS).setLoad(loadFromDb);
         th.getTable(TablesEnum.ARRAYS).setLoad(loadFromDb);

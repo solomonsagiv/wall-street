@@ -149,7 +149,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                 ", conDown=" + getConDown( ) +
                 ", indexUp=" + getIndexUp( ) +
                 ", indexDown=" + getIndexDown( ) +
-                ", indexList=" + getIndexList( ).size( ) +
+                ", indexList=" + getIndexSeries().getItemCount() +
                 '}';
     }
 

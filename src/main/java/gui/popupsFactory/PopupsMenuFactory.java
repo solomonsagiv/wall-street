@@ -143,15 +143,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem indexBidAskCounter_indexItem = new JMenuItem("Index B/A");
-        indexBidAskCounter_indexItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                IndexBidAskCounterIndexChart chart = new IndexBidAskCounterIndexChart(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem opAvgIndexFutCounterIndex = new JMenuItem("OpAvg Index B/A FutFarCounter Index");
         opAvgIndexFutCounterIndex.addActionListener(new ActionListener() {
             @Override
@@ -197,20 +188,6 @@ public class PopupsMenuFactory {
         });
 
 
-        JMenuItem e2_indexCounter_index_item = new JMenuItem("E2 / Ind counuter/ Ind");
-        e2_indexCounter_index_item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                E2_IndexCounter_Index_Chart chart = new E2_IndexCounter_Index_Chart(client);
-                try {
-                    chart.createChart();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
-            }
-        });
-
-
         JMenuItem e2_indexCounter_index_item2 = new JMenuItem("E2 / Ind counuter/ Ind ( 2 )");
         e2_indexCounter_index_item2.addActionListener(new ActionListener() {
             @Override
@@ -224,14 +201,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem e2BACounter_index = new JMenuItem("E2 B/A");
-        e2BACounter_index.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FutureFarBidAskCounterIndexChart chart = new FutureFarBidAskCounterIndexChart(client);
-                chart.createChart();
-            }
-        });
 
         JMenuItem quarter_index_item = new JMenuItem("E1");
         quarter_index_item.addActionListener(new ActionListener() {
@@ -303,12 +272,9 @@ public class PopupsMenuFactory {
         charts.add(opAvgIndexFutCounterIndex);
         charts.add(indQuarterOpAvg15Future);
         charts.add(indQuarterOpAvgFuture);
-        charts.add(e2_indexCounter_index_item);
         charts.add(e2_indexCounter_index_item2);
-        charts.add(e2BACounter_index);
         charts.add(quarter_index_item);
         charts.add(quarter_quarterFar_index_item);
-        charts.add(indexBidAskCounter_indexItem);
 
         menu.add(details);
         menu.add(settingWindow);

@@ -48,16 +48,15 @@ public class ListsService extends MyBaseService {
         LocalDateTime now = LocalDateTime.now();
 
         // List for charts
-        client.getIndexBidList().add(new MyChartPoint(now, client.getIndexBid()));
-        client.getIndexAskList().add(new MyChartPoint(now, client.getIndexAsk()));
-        client.getIndexBidAskCounterList().add(new MyChartPoint(now, client.getIndexBidAskCounter()));
-        client.getIndexBidAskCounter2List().add(new MyChartPoint(now, client.getIndexBidAskCounter2()));
+        client.getIndexBidSeries().add();
+        client.getIndexAskSeries().add();
+        client.getIndexBidAskCounterSeries().add();
 
         // Options lists
         for ( Exp exp : client.getExps().getExpList()) {
             try {
                 exp.getFutureList().add(exp.getFuture());
-                client.getIndexList().add(new MyChartPoint(now, client.getIndex()));
+                client.getIndexSeries().add();
                 exp.getOpFutureList().add(exp.getOpFuture());
                 try {
                     exp.getOpAvgFutureSeries().add();

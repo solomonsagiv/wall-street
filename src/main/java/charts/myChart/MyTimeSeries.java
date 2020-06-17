@@ -2,7 +2,6 @@ package charts.myChart;
 
 import lists.MyChartList;
 import lists.MyChartPoint;
-import locals.L;
 import myJson.MyJson;
 import options.JsonStrings;
 import org.jfree.data.time.Second;
@@ -12,7 +11,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 import java.net.UnknownHostException;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -78,16 +76,20 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public void add( MyJson json ) {
-        addOrUpdate( getLastSeconde(), json.getDouble( JsonStrings.y ) );
+        addOrUpdate( getLastSeconde( ), json.getDouble( JsonStrings.y ) );
         lastSeconde = ( Second ) lastSeconde.next( );
     }
 
-    public double add() throws UnknownHostException {
+    public double add() {
         double data = 0;
         // live data
         if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
-            data = getData( );
-            addOrUpdate( getLastSeconde( ), data );
+            try {
+                data = getData( );
+                addOrUpdate( getLastSeconde( ), data );
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
         } else {
             try {
                 MyChartPoint point = myChartList.getLast( );

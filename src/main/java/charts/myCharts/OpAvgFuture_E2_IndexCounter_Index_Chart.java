@@ -9,7 +9,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class AvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
+public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
     public OpAvgFuture_E2_IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client ) {
@@ -46,18 +46,9 @@ public class AvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         opAvgFutureProps.setProp( ChartPropsEnum.MARKER, marker );
         opAvgFutureProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
-        // Index
-        MyTimeSeries opAvgFuture = new MyTimeSeries( "OpAvgFuture", Themes.BLUE_STRIKE, 1.5f, opAvgFutureProps, e1.getOpAvgFutureList() ) {
-            @Override
-            public double getData() {
-                try {
-                    return e1.getOpAvgFuture();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return 0;
-            }
-        };
+        MyTimeSeries opAvgFuture = e1.getOpAvgFutureSeries();
+        opAvgFuture.setColor( Themes.BLUE_STRIKE );
+        opAvgFuture.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = opAvgFuture;
@@ -73,12 +64,9 @@ public class AvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         newProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 1.5f, newProps, client.getIndexList() ) {
-            @Override
-            public double getData() {
-                return client.getIndex();
-            }
-        };
+        MyTimeSeries index = client.getIndexSeries();
+        index.setColor( Color.BLACK );
+        index.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = index;

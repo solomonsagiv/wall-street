@@ -9,6 +9,7 @@ import dataBase.mySql.mySqlComps.MySqlTable;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,26 +35,27 @@ public abstract class MyArraysTable extends MySqlTable {
     @Override
     public void load() {
         try {
+
             String query = String.format( "SELECT * FROM stocks.%s;", getName() );
 
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {
+
                 for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
                     MyLoadAbleColumn column = entry.getValue();
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.getType().toString() );
+                        double d = rs.getDouble( column.getType().getName() );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.getType().toString() );
+                        String s = rs.getString( column.getType().getName() );
                         column.setLoadedObject( s );
                         continue;
                     }
-
                 }
             }
 
@@ -61,7 +63,7 @@ public abstract class MyArraysTable extends MySqlTable {
 
         } catch ( SQLException e ) {
             e.printStackTrace( );
-            Arik.getInstance( ).sendErrorMessage( e );
+            Arik.getInstance( ).sendErrorMessage( e  );
         }
     }
 
@@ -77,16 +79,4 @@ public abstract class MyArraysTable extends MySqlTable {
             Arik.getInstance( ).sendErrorMessage( e );
         }
     }
-
-    // Convert json array to arrayList<Double>
-    public void convertJsonArrayToDoubleArray( JSONArray jsonArray, ArrayList< Double > list ) {
-
-        for ( int i = 0; i < jsonArray.length( ); i++ ) {
-
-            list.add( jsonArray.getDouble( i ) );
-
-        }
-
-    }
-
 }

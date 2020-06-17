@@ -17,22 +17,6 @@ import java.util.Map;
 public abstract class MyTwsContractsTable extends MySqlTable {
 
 
-    public static void main(String[] args) throws SQLException {
-        MyTwsContractsTable table = new MyTwsContractsTable(Ndx.getInstance()) {
-            @Override
-            public void initColumns() {
-
-            }
-        };
-
-        for (Map.Entry<TwsContractsEnum, MyContract> entry : Ndx.getInstance().getTwsHandler().getMyContracts().entrySet()) {
-            MyContract contract = entry.getValue();
-
-            table.insertOrUpdate(contract);
-
-        }
-    }
-
     // Constructor
     public MyTwsContractsTable(BASE_CLIENT_OBJECT client ) {
         super(client, "twsContracts");
@@ -61,14 +45,11 @@ public abstract class MyTwsContractsTable extends MySqlTable {
 
     }
 
-
     public void insertOrUpdate(MyContract contract) throws SQLException {
         if (isExist(contract.getMyId())) {
             update(contract);
-            System.out.println("Update");
         } else {
             insert(contract);
-            System.out.println("Insert");
         }
     }
 
@@ -87,7 +68,6 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         String symbol = contract.symbol();
         boolean includExpired = contract.includeExpired();
         String lastTradingDayOrContractMonth = contract.lastTradeDateOrContractMonth();
-
 
         // the mysql insert statement
         String query = " INSERT INTO stocks.twsContracts (id, stockName, contractName, secType, currency, exchange, tradingClass, multiplier, primaryExchange, symbol, includExpired, lastTradingDayOrContractMonth)"
@@ -176,13 +156,12 @@ public abstract class MyTwsContractsTable extends MySqlTable {
                 } else {
                     twsHandler.getMyContracts().put(contract.getType(), contract);
                 }
-
             }
-
-            setLoad(true);
         } catch (SQLException e) {
             e.printStackTrace();
             Arik.getInstance().sendErrorMessage(e);
+        } finally {
+            setLoad(true);
         }
     }
 

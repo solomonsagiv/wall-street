@@ -247,8 +247,8 @@ public class OptionsWindow {
         boolean run = true;
 
         int minsInSecondes = 900;
-        ArrayList<Double> indexList = client.getIndexList().getValues();
-        
+        ArrayList<Double> indexList = client.getIndexSeries().getMyChartList().getValues();
+
         @Override
         public void run() {
 

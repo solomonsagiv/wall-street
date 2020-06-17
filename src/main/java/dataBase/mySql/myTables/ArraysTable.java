@@ -6,6 +6,7 @@ import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import exp.ExpEnum;
 import lists.MyChartPoint;
+import myJson.MyJson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -31,12 +32,12 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.INDEX_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getIndexList( ).getLast( ).getAsJson( ).toString( );
+                return client.getIndexSeries().getLastJson().toString();
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getIndexList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                client.getIndexSeries().add( new MyJson( object ) );
             }
 
             @Override
@@ -65,13 +66,13 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.IND_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getIndexBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
+                return client.getIndexBidAskCounterSeries().getLastJson().toString();
             }
 
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
-                    client.getIndexBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                    client.getIndexBidAskCounterSeries().add( new MyJson( object ) );
                 }
             }
             @Override
@@ -82,13 +83,13 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.OP_AVG_FUTURE_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutureList( ).getLast( ).getAsJson( ).toString( );
+                return client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutureSeries().getLastJson().toString();
             }
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
                     MyChartPoint myChartPoint = new MyChartPoint( new JSONObject( object ) );
-                    client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutureList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                    client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutureSeries().add( new MyJson( object ) );
                 }
             }
             @Override
@@ -99,12 +100,12 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.QUARTER_FUT_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
+                return client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterSeries().getLastJson().toString();
             }
 
             @Override
             public void setLoadedObject( String object ) {
-                client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterSeries().add( new MyJson( object ) );
             }
 
             @Override
@@ -115,13 +116,13 @@ public class ArraysTable extends MyArraysTable {
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.QUARTER_FAR_FUT_BID_ASK_COUNTER_LIST ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterList( ).getLast( ).getAsJson( ).toString( );
+                return client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterSeries().getLastJson().toString();
             }
 
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
-                    client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterList( ).add( new MyChartPoint( new JSONObject( object ) ) );
+                    client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterSeries().add( new MyJson( object ) );
                 }
             }
 
