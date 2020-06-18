@@ -16,29 +16,29 @@ public class OptionsProps extends MyProps implements IJson {
 
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put( JsonStrings.interest.toString(), getInterest() );
-        object.put( JsonStrings.devidend.toString(), getDevidend() );
-        object.put( JsonStrings.date.toString(), getDate() );
-        object.put( JsonStrings.days.toString(), getDays() );
+        object.put( JsonStrings.interest, getInterest() );
+        object.put( JsonStrings.devidend, getDevidend() );
+        object.put( JsonStrings.date, getDate() );
+        object.put( JsonStrings.days, getDays() );
         return object;
     }
 
     @Override
     public void loadFromJson( MyJson json ) {
-        setInterest( json.getDouble( JsonStrings.interest.toString() ) );
-        setInterestZero( json.getDouble( JsonStrings.interest.toString() ) - 1 );
-        setDevidend( json.getDouble( JsonStrings.devidend.toString() ) );
-        setDate( json.getDate( JsonStrings.date.toString() ) );
-        setDays( json.getDouble( JsonStrings.days.toString() ) );
+        setInterest( json.getDouble( JsonStrings.interest ) );
+        setInterestZero( json.getDouble( JsonStrings.interest ) - 1 );
+        setDevidend( json.getDouble( JsonStrings.devidend ) );
+        setDate( json.getDate( JsonStrings.date ) );
+        setDays( json.getDouble( JsonStrings.days ) );
     }
 
     @Override
     public MyJson getResetJson() {
         MyJson object = new MyJson();
-        object.put( JsonStrings.interest.toString(), 1 );
-        object.put( JsonStrings.devidend.toString(), 0 );
-        object.put( JsonStrings.date.toString(), getDate() );
-        object.put( JsonStrings.days.toString(), 0 );
+        object.put( JsonStrings.interest, 1 );
+        object.put( JsonStrings.devidend, 0 );
+        object.put( JsonStrings.date, getDate() );
+        object.put( JsonStrings.days, 0 );
         return object;
     }
 

@@ -120,12 +120,16 @@ public class Options implements IJson {
             // ----- Call ------ //
             Call call = new Call( strike, id );
 
+            System.out.println(getTwsContract().getAsJson().toString( 4 ) );
+
             MyContract contractCall = new MyContract( getTwsContract( ) );
 
             // MyTwsContract
             contractCall.setMyId( id );
             contractCall.strike( strike );
             contractCall.right( Types.Right.Call );
+
+            System.out.println(contractCall );
 
             client.getTwsHandler( ).addContract( contractCall );
 

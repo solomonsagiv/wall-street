@@ -59,6 +59,11 @@ public class Downloader extends Thread implements EWrapper {
 
         client.eConnect( "localhost", Manifest.PORT, Manifest.CLIENT_ID );
 
+        System.out.println( );
+        System.out.println( "Connnnnnnn" );
+        System.out.println( Manifest.PORT );
+        System.out.println( Manifest.CLIENT_ID );
+
         final EReader reader = new EReader( client, m_signal );
         reader.start( );
 
@@ -68,7 +73,7 @@ public class Downloader extends Thread implements EWrapper {
                 try {
                     reader.processMsgs( );
                 } catch ( Exception e ) {
-                    System.out.println( "Exception: " + e.getMessage( ) );
+                    e.printStackTrace();
                 }
             }
         } ).start( );

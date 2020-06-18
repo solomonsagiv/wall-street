@@ -7,8 +7,7 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.*;
+import serverObjects.stockObjects.Apple;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +15,9 @@ import java.awt.*;
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
     // Main
-    public static void main(String[] args) {
-        MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println(mainWindow.getWidth());
+    public static void main( String[] args ) {
+        MyMainWindow mainWindow = new MyMainWindow( "My main window" );
+        System.out.println( mainWindow.getWidth( ) );
     }
 
     // Variables
@@ -26,45 +25,45 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
-//    static Dax dax;
+    //    static Dax dax;
     static Apple apple;
-    static Amazon amazon;
-    static Spx spx;
-    static Ulta ulta;
-    static Netflix netflix;
-    static Amd amd;
-    static Microsoft microsoft;
+//    static Amazon amazon;
+//    static Spx spx;
+//    static Ulta ulta;
+//    static Netflix netflix;
+//    static Amd amd;
+//    static Microsoft microsoft;
 
     static {
 //        dax = Dax.getInstance();
-        spx = Spx.getInstance();
-        apple = Apple.getInstance();
-        amazon = Amazon.getInstance();
-        ulta = Ulta.getInstance();
-        netflix = Netflix.getInstance();
-        amd = Amd.getInstance();
-        microsoft = Microsoft.getInstance();
+        apple = Apple.getInstance( );
+//        spx = Spx.getInstance();
+//        amazon = Amazon.getInstance();
+//        ulta = Ulta.getInstance();
+//        netflix = Netflix.getInstance();
+//        amd = Amd.getInstance();
+//        microsoft = Microsoft.getInstance();
     }
 
     // Constructor
-    public MyMainWindow(String title) throws HeadlessException {
-        super(title);
+    public MyMainWindow( String title ) throws HeadlessException {
+        super( title );
     }
 
     private void appendClients() {
 //        localhandler.clients.add(dax);
-        LocalHandler.clients.add(spx);
-        LocalHandler.clients.add(apple);
-        LocalHandler.clients.add(amazon);
-        LocalHandler.clients.add(ulta);
-        LocalHandler.clients.add(netflix);
-        LocalHandler.clients.add(amd);
-        LocalHandler.clients.add(microsoft);
+        LocalHandler.clients.add( apple );
+//        LocalHandler.clients.add(spx);
+//        LocalHandler.clients.add(amazon);
+//        LocalHandler.clients.add(ulta);
+//        LocalHandler.clients.add(netflix);
+//        LocalHandler.clients.add(amd);
+//        LocalHandler.clients.add(microsoft);
     }
 
     @Override
     public void initOnClose() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     }
 
     @Override
@@ -75,41 +74,41 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // Append clients
-        appendClients();
+        appendClients( );
 
         // Load data from DB
-        loadOnStartUp();
+        loadOnStartUp( );
 
         // This
-        setXY(100, 100);
-        setSize(500, 420);
-        setLayout(null);
+        setXY( 100, 100 );
+        setSize( 500, 420 );
+        setLayout( null );
 
         // Head
-        headPanel = new HeadPanel();
-        headPanel.setXY(0, 0);
-        add(headPanel);
+        headPanel = new HeadPanel( );
+        headPanel.setXY( 0, 0 );
+        add( headPanel );
 
         // Connection
-        connectionPanel = new ConnectionPanel();
-        connectionPanel.setXY(0, headPanel.getHeight());
-        getContentPane().add(connectionPanel);
+        connectionPanel = new ConnectionPanel( );
+        connectionPanel.setXY( 0, headPanel.getHeight( ) );
+        getContentPane( ).add( connectionPanel );
 
         // Windows
-        windowsPanel = new WindowsPanel();
-        windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
-        add(windowsPanel);
+        windowsPanel = new WindowsPanel( );
+        windowsPanel.setXY( 0, connectionPanel.getY( ) + connectionPanel.getHeight( ) + 1 );
+        add( windowsPanel );
 
     }
 
     private void loadOnStartUp() {
 
         // Connect to db
-        ConnectionPool.getConnectionsPoolInstance();
+        ConnectionPool.getConnectionsPoolInstance( );
 
         // Start back runners
-        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-            BackGroundHandler.getInstance().createNewRunner(client);
+        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+            BackGroundHandler.getInstance( ).createNewRunner( client );
         }
     }
 }

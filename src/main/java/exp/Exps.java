@@ -55,9 +55,8 @@ public class Exps {
         initStartEndStrikes( future );
 
         for ( Exp exp : getExpList( ) ) {
-            System.out.println( "Init options: " +exp.getOptions().toString( ) );
+            System.out.println( "Init options: " + exp );
             exp.getOptions().initOptions( );
-            System.out.println( exp.getOptions().toStringVertical( ) );
         }
 
     }

@@ -104,6 +104,12 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         try {
             Manifest.CLIENT_ID = L.INT( portField.getText( ) );
             downloader = Downloader.getInstance( );
+
+            System.out.println( );
+            System.out.println( " Connection props " );
+            System.out.println(downloader.isAlive() );
+            System.out.println(downloader.getClient().isConnected() );
+
             if ( !downloader.isAlive( ) && !downloader.getClient( ).isConnected( ) ) {
                 downloader.start( );
                 new Thread( () -> {

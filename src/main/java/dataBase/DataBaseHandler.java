@@ -22,6 +22,7 @@ public class DataBaseHandler {
         if ( client instanceof Spx ) {
             client.getTablesHandler().getTable(TablesEnum.INDEX_STOCKS).loadAll();
         }
+
     }
 
 }

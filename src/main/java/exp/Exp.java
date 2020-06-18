@@ -10,6 +10,7 @@ import options.Options;
 import options.OptionsDDeCells;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -41,16 +42,18 @@ public abstract class Exp implements IJson {
     MyTimeSeries futBidAskCounterSeries;
 
     ExpEnum expEnum;
+    TwsContractsEnum contractsEnum;
 
-    private Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum ) {
+    private Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum ) {
         this.client = client;
         this.expEnum = expEnum;
+        this.contractsEnum = contractsEnum;
         initSeries( );
     }
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, IOptionsCalcs iOptionsCalcs ) {
-        this( client, expEnum );
+    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
+        this( client, expEnum, contractsEnum );
         this.options = new Options( client, this, iOptionsCalcs );
     }
 
