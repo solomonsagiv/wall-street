@@ -18,6 +18,7 @@ import options.JsonStrings;
 import options.optionsCalcs.IndexOptionsCalc;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
@@ -32,9 +33,9 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
         tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this ) );
-        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this ) );
-        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this, getName() + "JsonDay" ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this, "jsonStatus" ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this, "JsonSum" ) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );
         tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
     }
@@ -42,10 +43,10 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void initExpHandler() throws NullPointerException {
         // E1
-        E e1 = new E(this, ExpEnum.E1, new IndexOptionsCalc( this, ExpEnum.E1 ) );
+        E e1 = new E(this, ExpEnum.E1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpEnum.E1 ) );
 
         // E2
-        E e2 = new E(this, ExpEnum.E2, new IndexOptionsCalc( this, ExpEnum.E2 ) );
+        E e2 = new E(this, ExpEnum.E2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpEnum.E2 ) );
 
         // Append to handler
         Exps exps = new Exps( this );

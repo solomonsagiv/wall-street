@@ -22,6 +22,8 @@ import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+import tws.TwsContractsEnum;
+
 import java.time.LocalTime;
 
 public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
@@ -46,9 +48,9 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
         tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this ) );
-        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this ) );
-        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this, getName() + "JsonDay" ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this, "jsonStatus" ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this, getName() + "JsonSum" ) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new StockArraysTable( this ) );
         tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
     }
@@ -57,10 +59,10 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     public void initExpHandler() {
 
         // Week
-        ExpWeek expWeek = new ExpWeek( this, ExpEnum.WEEK, new StockOptionsCalc( this, ExpEnum.WEEK ) );
+        ExpWeek expWeek = new ExpWeek( this, ExpEnum.WEEK, TwsContractsEnum.OPT_WEEK, new StockOptionsCalc( this, ExpEnum.WEEK ) );
 
         // Month
-        ExpMonth expMonth = new ExpMonth( this, ExpEnum.MONTH, new StockOptionsCalc( this, ExpEnum.MONTH ) );
+        ExpMonth expMonth = new ExpMonth( this, ExpEnum.MONTH, TwsContractsEnum.OPT_MONTH, new StockOptionsCalc( this, ExpEnum.MONTH ) );
 
         // Exp handler
         Exps exps = new Exps( this );

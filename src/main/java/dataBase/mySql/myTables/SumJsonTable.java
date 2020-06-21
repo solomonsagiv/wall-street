@@ -12,8 +12,8 @@ import java.time.LocalDate;
 public class SumJsonTable extends MySumTable {
 
     // Constructor
-    public SumJsonTable( BASE_CLIENT_OBJECT client) {
-        super(client);
+    public SumJsonTable( BASE_CLIENT_OBJECT client, String tableName) {
+        super(client, tableName);
     }
 
     @Override

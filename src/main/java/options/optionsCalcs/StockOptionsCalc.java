@@ -47,7 +47,7 @@ public class StockOptionsCalc implements IOptionsCalcs {
         double margin = 1000000;
         Strike targetStrike = new Strike();
 
-        for (Strike strike : options.getStrikes()) {
+        for (Strike strike : getOptions().getStrikes()) {
             double newMargin = L.abs(strike.getStrike() - client.getIndex());
 
             if (newMargin < margin) {
@@ -65,11 +65,11 @@ public class StockOptionsCalc implements IOptionsCalcs {
     @Override
     public double getCalcDevidend() {
 
-        if (options.getProps().getDevidend() <= 0) {
+        if (getOptions().getProps().getDevidend() <= 0) {
             return 0;
         }
 
-        double calcDev = options.getProps().getDevidend() * 360.0 / options.getProps().getDays() / client.getIndex();
+        double calcDev = getOptions().getProps().getDevidend() * 360.0 / options.getProps().getDays() / client.getIndex();
 
         if (Double.isInfinite(calcDev)) {
             return 0;

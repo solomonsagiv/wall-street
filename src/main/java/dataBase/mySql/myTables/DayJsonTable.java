@@ -21,7 +21,7 @@ public class DayJsonTable extends MyStatusTable {
 
     @Override
     public void initColumns() {
-        addColumn(new MyColumnSql<>(this, MySqlColumnEnum.DATE) {
+        addColumn(new MyColumnSql<>(this, MySqlColumnEnum.date) {
             @Override
             public String getObject() {
                 return LocalDate.now().toString();

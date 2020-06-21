@@ -6,14 +6,13 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public abstract class MySumTable extends MySqlTable {
 
     // Constructor
-    public MySumTable( BASE_CLIENT_OBJECT client ) {
-
-        super( client );
+    public MySumTable( BASE_CLIENT_OBJECT client, String tableName ) {
+        super( client, tableName );
     }
 
     @Override
     public String getName() {
-        return client.getName() + "_sum";
+        return client.getName() + "JsonSum";
     }
 
     @Override

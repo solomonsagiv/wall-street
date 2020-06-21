@@ -6,8 +6,8 @@ import tws.TwsContractsEnum;
 
 public class ExpWeek extends Exp {
 
-    public ExpWeek(BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum) {
-        super(client, expEnum, contractsEnum);
+    public ExpWeek(BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs optionsCalcs ) {
+        super(client, expEnum, contractsEnum, optionsCalcs);
     }
 }
 

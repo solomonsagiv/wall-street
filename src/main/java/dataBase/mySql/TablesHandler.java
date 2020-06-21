@@ -26,26 +26,6 @@ public class TablesHandler {
         tables.put( tablesEnum,  myTableSql );
     }
 
-    public String getDayName( BASE_CLIENT_OBJECT client ) {
-        return client.getName() + "JsonDay";
-    }
-
-    public String getSumName( BASE_CLIENT_OBJECT client ) {
-        return client.getName() + "JsonSum";
-    }
-
-    public String getStatusName() {
-        return "jsonStatus";
-    }
-
-    public String getSettingName() {
-        return "settings";
-    }
-
-    public String getArraysName() {
-        return "arrays";
-    }
-
     public Map getTables() {
         return tables;
     }

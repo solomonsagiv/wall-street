@@ -20,6 +20,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
+import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 
@@ -84,11 +85,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         // E1
         OptionsDDeCells e1DDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
-        E e = new E( this, ExpEnum.E1, new IndexOptionsCalc( this, ExpEnum.E1 ), e1DDeCells );
+        E e = new E( this, ExpEnum.E1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpEnum.E1 ), e1DDeCells );
 
         // E2
         OptionsDDeCells e2DDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
-        E e2 = new E( this, ExpEnum.E2, new IndexOptionsCalc( this, ExpEnum.E2 ), e2DDeCells );
+        E e2 = new E( this, ExpEnum.E2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpEnum.E2 ), e2DDeCells );
 
         // Add to
         Exps exps = new Exps( this );

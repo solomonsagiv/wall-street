@@ -39,7 +39,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
 
                         String s = dateField.getText();
 
-                        OptionsPanel.exp.getOptions().getTwsContract().lastTradeDateOrContractMonth( s );
+                        OptionsPanel.exp.getTwsContract().lastTradeDateOrContractMonth( s );
 
                         String year = s.substring( 0,4 );
                         String month = s.substring( 4,6 );
@@ -48,7 +48,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
 
                         OptionsPanel.exp.getOptions().setExpDate( LocalDate.parse( date ) );
                         System.out.println(OptionsPanel.exp.getEnum() );
-                        System.out.println(OptionsPanel.exp.getOptions().getTwsContract() );
+                        System.out.println(OptionsPanel.exp.getTwsContract() );
                         System.out.println(date );
                     } catch ( Exception e ) {
                         e.printStackTrace();

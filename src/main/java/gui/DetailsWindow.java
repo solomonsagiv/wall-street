@@ -243,7 +243,7 @@ public class DetailsWindow {
             list.add( "Calc Devidend: " + exp.getOptions().getiOptionsCalcs().getCalcDevidend( ) );
             list.add("");
             list.add("Tws Contract");
-            list.add(exp.getOptions().getTwsContract().toString());
+            list.add(client.getTwsHandler().getMyContract( exp.getTwsContractsEnum() ).getAsJson().toString(4));
             list.add("");
             list.add("All details");
             list.add(client.toStringPretty());

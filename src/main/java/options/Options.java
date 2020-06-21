@@ -36,7 +36,6 @@ public class Options implements IJson {
     protected int baseID = 0;
     protected int minId = 0;
     protected int maxId = 0;
-    protected MyContract twsContract;
     protected boolean gotData = false;
 
     private double contract = 0;
@@ -72,7 +71,6 @@ public class Options implements IJson {
         this( client, exp, iOptionsCalcs );
         this.optionsDDeCells = dDeCells;
     }
-
 
     public void initSeries() {
         conBidAskCounterSeries = new MyTimeSeries( "conBidAskCounter" ) {
@@ -120,16 +118,12 @@ public class Options implements IJson {
             // ----- Call ------ //
             Call call = new Call( strike, id );
 
-            System.out.println(getTwsContract().getAsJson().toString( 4 ) );
-
-            MyContract contractCall = new MyContract( getTwsContract( ) );
+            MyContract contractCall = new MyContract( exp.getTwsContract());
 
             // MyTwsContract
             contractCall.setMyId( id );
             contractCall.strike( strike );
             contractCall.right( Types.Right.Call );
-
-            System.out.println(contractCall );
 
             client.getTwsHandler( ).addContract( contractCall );
 
@@ -141,7 +135,7 @@ public class Options implements IJson {
             // ----- Put ------ //
             Put put = new Put( strike, id );
 
-            MyContract contractPut = new MyContract( getTwsContract( ) );
+            MyContract contractPut = new MyContract( exp.getTwsContract() );
 
             // MyTwsContract
             contractPut.setMyId( id );
@@ -730,10 +724,6 @@ public class Options implements IJson {
 
     public void setRequested( boolean requested ) {
         this.requested = requested;
-    }
-
-    public MyContract getTwsContract() {
-        return twsContract;
     }
 
     public boolean isGotData() {

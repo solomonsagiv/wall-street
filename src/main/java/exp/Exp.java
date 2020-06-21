@@ -1,7 +1,6 @@
 package exp;
 
 import charts.myChart.MyTimeSeries;
-import lists.MyChartList;
 import locals.IJson;
 import locals.L;
 import myJson.MyJson;
@@ -11,7 +10,6 @@ import options.OptionsDDeCells;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
-
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,25 +40,24 @@ public abstract class Exp implements IJson {
     MyTimeSeries futBidAskCounterSeries;
 
     ExpEnum expEnum;
-    TwsContractsEnum contractsEnum;
+    TwsContractsEnum twsContractsEnum;
 
-    private Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum ) {
+    private Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum twsContractsEnum ) {
         this.client = client;
         this.expEnum = expEnum;
-        this.contractsEnum = contractsEnum;
+        this.twsContractsEnum = twsContractsEnum;
         initSeries( );
     }
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
-        this( client, expEnum, contractsEnum );
+    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs ) {
+        this( client, expEnum, twsContractsEnum );
         this.options = new Options( client, this, iOptionsCalcs );
     }
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
-        this.client = client;
-        this.expEnum = expEnum;
+    public Exp( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
+        this(client, expEnum, twsContractsEnum);
         this.options = new Options( client, this, iOptionsCalcs, optionsDDeCells );
     }
 
@@ -233,6 +230,14 @@ public abstract class Exp implements IJson {
 
     public List< Double > getFutureList() {
         return futureList;
+    }
+
+    public TwsContractsEnum getTwsContractsEnum() {
+        return twsContractsEnum;
+    }
+
+    public tws.MyContract getTwsContract() {
+        return client.getTwsHandler().getMyContract( getTwsContractsEnum() );
     }
 
     public ExpEnum getEnum() {
