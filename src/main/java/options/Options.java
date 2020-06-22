@@ -3,7 +3,6 @@ package options;
 import charts.myChart.MyTimeSeries;
 import com.ib.client.Types;
 import exp.Exp;
-import lists.MyChartList;
 import locals.IJson;
 import locals.L;
 import myJson.MyJson;
@@ -553,7 +552,7 @@ public class Options implements IJson {
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonStrings.contract.toString( ), getContract( ) );
+        mainJson.put( JsonStrings.con.toString( ), getContract( ) );
         mainJson.put( JsonStrings.opAvg.toString( ), L.floor( getOpAvg( ), 100 ) );
         mainJson.put( JsonStrings.data.toString( ), optionsData );
         mainJson.put( JsonStrings.conBidAskCounter.toString( ), getConBidAskCounter( ) );
@@ -590,7 +589,7 @@ public class Options implements IJson {
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonStrings.contract.toString( ), 0 );
+        mainJson.put( JsonStrings.con.toString( ), 0 );
         mainJson.put( JsonStrings.opAvg.toString( ), 0 );
         mainJson.put( JsonStrings.data.toString( ), optionsData );
         mainJson.put( JsonStrings.futureBidAskCounter.toString( ), 0 );
@@ -820,7 +819,7 @@ public class Options implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson();
-        json.put( JsonStrings.contract, contract);
+        json.put( JsonStrings.con, contract);
         json.put( JsonStrings.conBid, contractBid);
         json.put( JsonStrings.conAsk, contractAsk);
         json.put( JsonStrings.conBidAskCounter, contractBidAskCounter);

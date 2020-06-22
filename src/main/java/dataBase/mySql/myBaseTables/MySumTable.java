@@ -11,11 +11,6 @@ public abstract class MySumTable extends MySqlTable {
     }
 
     @Override
-    public String getName() {
-        return client.getName() + "JsonSum";
-    }
-
-    @Override
     public void insert() {
         super.insert();
     }

@@ -13,7 +13,7 @@ public class SumJsonTable extends MySumTable {
 
     // Constructor
     public SumJsonTable( BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, tableName);
+        super(client, client.getName() + tableName);
     }
 
     @Override
@@ -27,6 +27,7 @@ public class SumJsonTable extends MySumTable {
         addColumn(new MyColumnSql<>(this, MySqlColumnEnum.data) {
             @Override
             public String getObject() {
+                System.out.println( client.getAsJson().toString() );
                 return client.getAsJson().toString();
             }
         });

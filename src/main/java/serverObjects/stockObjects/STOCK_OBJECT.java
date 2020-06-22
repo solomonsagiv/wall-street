@@ -2,8 +2,8 @@ package serverObjects.stockObjects;
 
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
+import dataBase.mySql.myJsonTables.index.DayJsonTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
-import dataBase.mySql.myTables.DayJsonTable;
 import dataBase.mySql.myTables.StatusJsonTable;
 import dataBase.mySql.myTables.SumJsonTable;
 import dataBase.mySql.myTables.TwsContractsTable;

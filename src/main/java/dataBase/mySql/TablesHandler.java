@@ -11,10 +11,9 @@ public class TablesHandler {
 
     public static void main( String[] args ) {
         Spx spx = Spx.getInstance();
-        spx.getTablesHandler().getTable( TablesEnum.SUM ).insert();
+        spx.getTablesHandler().getTable( TablesEnum.DAY ).insert();
         System.out.println( "Done" );
     }
-
 
     Map tables = new HashMap< TablesEnum, MySqlTable>();
 

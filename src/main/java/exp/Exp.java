@@ -46,6 +46,7 @@ public abstract class Exp implements IJson {
         this.client = client;
         this.expEnum = expEnum;
         this.twsContractsEnum = twsContractsEnum;
+        this.expData = new ExpData( this, client );
         initSeries( );
     }
 

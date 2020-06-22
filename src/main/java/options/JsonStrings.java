@@ -14,7 +14,7 @@ public class JsonStrings {
     public static final String indBidAskCounter = "indBidAskCounter";
     public static final String data = "data";
     public static final String props = "props";
-    public static final String contract = "contract";
+    public static final String con = "con";
     public static final String call = "call";
     public static final String put = "put";
     public static final String strike = "strike";

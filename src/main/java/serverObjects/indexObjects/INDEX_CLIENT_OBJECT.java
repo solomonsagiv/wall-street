@@ -33,7 +33,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
         tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this, getName() + "JsonDay" ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this, "JsonDay" ) );
         tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this, "jsonStatus" ) );
         tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this, "JsonSum" ) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );

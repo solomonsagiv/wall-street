@@ -19,6 +19,7 @@ import locals.IJson;
 import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
+import myJson.MyJson;
 import options.OptionsDataHandler;
 import roll.RollHandler;
 import serverObjects.indexObjects.Spx;
@@ -35,7 +36,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public static void main( String[] args ) {
         Spx spx = Spx.getInstance();
-        spx.getTablesHandler().getTable( TablesEnum.DAY ).insert();
+        System.out.println(spx.getAsJson());
+//        spx.getTablesHandler().getTable( TablesEnum.DAY ).insert();
+
         System.out.println("Done" );
     }
 
@@ -677,6 +680,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public void setLogicService( LogicService logicService ) {
         this.logicService = logicService;
+    }
+
+    @Override
+    public MyJson getAsJson() {
+        return null;
     }
 
     public DataBaseHandler getDataBaseHandler() {

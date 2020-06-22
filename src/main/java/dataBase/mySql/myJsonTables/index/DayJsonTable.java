@@ -13,7 +13,7 @@ public class DayJsonTable extends MyDayTable {
 
     // Constructor
     public DayJsonTable(BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, tableName );
+        super(client, client.getName() + tableName);
     }
 
     @Override
