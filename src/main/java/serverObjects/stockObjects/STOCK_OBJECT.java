@@ -85,7 +85,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         }
         this.index = index;
     }
-
+    
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson( );
