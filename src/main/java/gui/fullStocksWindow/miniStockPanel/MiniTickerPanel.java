@@ -98,7 +98,7 @@ public class MiniTickerPanel extends MyGuiComps.MyPanel implements IMiniPanel {
         double opAvgFuture = 0;
         // OP
         try {
-            opAvgFuture = exp.getOpAvgFuture();
+            opAvgFuture = exp.getOpAvgFut();
         } catch ( Exception e) {
         }
         opAvgField.colorForge(opAvgFuture, L.format100());

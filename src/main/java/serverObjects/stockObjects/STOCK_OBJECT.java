@@ -48,11 +48,11 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
         tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this, getName() + "JsonDay" ) );
-        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this, "jsonStatus" ) );
-        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this, getName() + "JsonSum" ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new StockArraysTable( this ) );
-        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
+        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this ) );
     }
 
     @Override
@@ -85,7 +85,6 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         }
         this.index = index;
     }
-
 
     @Override
     public MyJson getAsJson() {

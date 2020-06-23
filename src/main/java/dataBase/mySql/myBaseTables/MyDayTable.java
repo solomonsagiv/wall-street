@@ -6,8 +6,13 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public abstract class MyDayTable extends MySqlTable {
 
     // Constructor
-    public MyDayTable(BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, tableName);
+    public MyDayTable(BASE_CLIENT_OBJECT client) {
+        super(client);
+    }
+
+    @Override
+    public String getName() {
+        return getName() + "JsonDay";
     }
 
     @Override

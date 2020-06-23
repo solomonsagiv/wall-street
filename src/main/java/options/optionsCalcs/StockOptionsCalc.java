@@ -5,7 +5,6 @@ import exp.ExpEnum;
 import locals.L;
 import options.Options;
 import options.Strike;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 
 public class StockOptionsCalc implements IOptionsCalcs {
@@ -93,7 +92,7 @@ public class StockOptionsCalc implements IOptionsCalcs {
     }
 
     public double getPrice() {
-        return getExp().getFuture();
+        return getExp().getFut();
     }
 
 }

@@ -62,7 +62,6 @@ public class Options implements IJson {
         strikes = new ArrayList<>( );
         optionsMap = new HashMap<>( );
         props = new OptionsProps();
-
         initSeries();
     }
 
@@ -110,9 +109,12 @@ public class Options implements IJson {
         double startStrike = client.getStartStrike( );
         double endStrike = client.getEndStrike( );
 
-        int id = getBaseID( );
+        int id = exp.getTwsContract().getMyId();
 
         for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
+
+            System.out.println( exp.getEnum() + " " + strike );
+
 
             // ----- Call ------ //
             Call call = new Call( strike, id );
@@ -575,24 +577,24 @@ public class Options implements IJson {
             putJson = new JSONObject( );
             strikeJson = new JSONObject( );
 
-            callJson.put( JsonStrings.bid.toString( ), 0 );
-            callJson.put( JsonStrings.ask.toString( ), 0 );
-            callJson.put( JsonStrings.optBidAskCounter.toString( ), 0 );
+            callJson.put( JsonStrings.bid, 0 );
+            callJson.put( JsonStrings.ask, 0 );
+            callJson.put( JsonStrings.optBidAskCounter, 0 );
 
-            putJson.put( JsonStrings.bid.toString( ), 0 );
-            putJson.put( JsonStrings.ask.toString( ), 0 );
-            putJson.put( JsonStrings.optBidAskCounter.toString( ), 0 );
+            putJson.put( JsonStrings.bid, 0 );
+            putJson.put( JsonStrings.ask, 0 );
+            putJson.put( JsonStrings.optBidAskCounter, 0 );
 
-            strikeJson.put( JsonStrings.call.toString( ), callJson );
-            strikeJson.put( JsonStrings.put.toString( ), putJson );
+            strikeJson.put( JsonStrings.call, callJson );
+            strikeJson.put( JsonStrings.put, putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonStrings.con.toString( ), 0 );
-        mainJson.put( JsonStrings.opAvg.toString( ), 0 );
-        mainJson.put( JsonStrings.data.toString( ), optionsData );
-        mainJson.put( JsonStrings.futureBidAskCounter.toString( ), 0 );
+        mainJson.put( JsonStrings.con, 0 );
+        mainJson.put( JsonStrings.opAvg, 0 );
+        mainJson.put( JsonStrings.data, optionsData );
+        mainJson.put( JsonStrings.futBidAskCounter, 0 );
 
         return mainJson;
     }

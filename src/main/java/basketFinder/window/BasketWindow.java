@@ -120,13 +120,6 @@ public class BasketWindow extends MyGuiComps.MyFrame {
             try {
 
                 INDEX_CLIENT_OBJECT myClient = ( INDEX_CLIENT_OBJECT ) client;
-                BasketService basketService = myClient.getBasketService( );
-
-                basketUpField.colorForge( basketService.getBasketUp( ) );
-                basketDownField.colorForge( basketService.getBasketDown( ) );
-                sumBasketsField.colorForge( basketService.getBaskets( ) );
-
-                stocksChangedField.colorForge( basketService.getChangeCounter( ) );
             } catch ( Exception e ) {
                 e.printStackTrace();
             }

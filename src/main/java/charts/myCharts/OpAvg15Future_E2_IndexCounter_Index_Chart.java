@@ -47,7 +47,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         opAvgFutureProps.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
         // Index
-        MyTimeSeries opAvgFuture = e1.getOpAvg15FutureSeries();
+        MyTimeSeries opAvgFuture = e1.getOpAvg15FutSeries();
         opAvgFuture.setColor( Themes.PURPLE );
         opAvgFuture.setStokeSize( 1.5f );
 

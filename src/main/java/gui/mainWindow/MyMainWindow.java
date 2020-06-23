@@ -7,7 +7,8 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.stockObjects.Apple;
+import serverObjects.indexObjects.Spx;
+import serverObjects.stockObjects.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,23 +27,23 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     WindowsPanel windowsPanel;
 
     //    static Dax dax;
+    static Spx spx;
     static Apple apple;
-//    static Amazon amazon;
-//    static Spx spx;
-//    static Ulta ulta;
-//    static Netflix netflix;
-//    static Amd amd;
-//    static Microsoft microsoft;
+    static Amazon amazon;
+    static Ulta ulta;
+    static Netflix netflix;
+    static Amd amd;
+    static Microsoft microsoft;
 
     static {
 //        dax = Dax.getInstance();
-        apple = Apple.getInstance( );
-//        spx = Spx.getInstance();
-//        amazon = Amazon.getInstance();
-//        ulta = Ulta.getInstance();
-//        netflix = Netflix.getInstance();
-//        amd = Amd.getInstance();
-//        microsoft = Microsoft.getInstance();
+        spx = Spx.getInstance( );
+//        apple = Apple.getInstance( );
+//        amazon = Amazon.getInstance( );
+//        ulta = Ulta.getInstance( );
+//        netflix = Netflix.getInstance( );
+//        amd = Amd.getInstance( );
+//        microsoft = Microsoft.getInstance( );
     }
 
     // Constructor
@@ -52,8 +53,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
 //        localhandler.clients.add(dax);
-        LocalHandler.clients.add( apple );
-//        LocalHandler.clients.add(spx);
+        LocalHandler.clients.add( spx );
+//        LocalHandler.clients.add( apple );
 //        LocalHandler.clients.add(amazon);
 //        LocalHandler.clients.add(ulta);
 //        LocalHandler.clients.add(netflix);

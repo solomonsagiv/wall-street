@@ -50,7 +50,7 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
             public void actionPerformed( ActionEvent actionEvent ) {
                 try {
                     int counter = L.INT( futBidAskCounterField.getText( ) );
-                    OptionsPanel.exp.setFutureBidAskCounter( counter );
+                    OptionsPanel.exp.setFutBidAskCounter( counter );
                 } catch ( Exception e ) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog( null, e.getCause() );

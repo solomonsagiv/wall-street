@@ -9,8 +9,13 @@ import java.sql.ResultSet;
 public class MyBoundsTable extends MySqlTable {
 
     // Constructor
-    public MyBoundsTable( BASE_CLIENT_OBJECT client, String tableName ) {
-        super( client, tableName );
+    public MyBoundsTable( BASE_CLIENT_OBJECT client ) {
+        super( client );
+    }
+
+    @Override
+    public String getName() {
+        return "bounds";
     }
 
     public ResultSet getBound( String stockName, String name ) {

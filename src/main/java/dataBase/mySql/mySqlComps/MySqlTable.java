@@ -59,9 +59,9 @@ public abstract class MySqlTable implements IMyTableSql {
         for ( MyColumnSql column : columns ) {
             try {
                 if ( i < columns.size( ) - 1 ) {
-                    query.append( "`" +  column.getType().name() + "`='" + column.getObject( ) + "'," );
+                    query.append( "`" + column.getType( ).name( ) + "`='" + column.getObject( ) + "'," );
                 } else {
-                    query.append( "`" +  column.getType().name() + "`='" + column.getObject( ) + "'" );
+                    query.append( "`" + column.getType( ).name( ) + "`='" + column.getObject( ) + "'" );
                 }
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -94,12 +94,12 @@ public abstract class MySqlTable implements IMyTableSql {
 
                 if ( i < columns.size( ) - 1 ) {
                     // Columns
-                    insertColumns.append( "`" +  column.getType().name() + "`," );
+                    insertColumns.append( "`" + column.getType( ).name( ) + "`," );
                     // Values
                     valuesColumns.append( "'" + column.getObject( ) + "'," );
                 } else {
                     // Columns
-                    insertColumns.append( "`" +  column.getType().name() + "`" );
+                    insertColumns.append( "`" + column.getType( ).name( ) + "`" );
                     // Values
                     valuesColumns.append( "'" + column.getObject( ) + "'" );
                 }
@@ -114,7 +114,7 @@ public abstract class MySqlTable implements IMyTableSql {
 
         insertQuery.append( columns ).append( values ).append( vColumns );
 
-        System.out.println( insertQuery.toString() );
+        System.out.println( insertQuery.toString( ) );
 
         // Insert
         MySql.insert( insertQuery.toString( ) );
@@ -133,9 +133,9 @@ public abstract class MySqlTable implements IMyTableSql {
                 MyColumnSql column = entry.getValue( );
 
                 if ( i < columns.size( ) - 1 ) {
-                    query.append( "`" +  column.getType().name() + "`='" + column.getObject( ) + "'," );
+                    query.append( "`" + column.getType( ).name( ) + "`='" + column.getObject( ) + "'," );
                 } else {
-                    query.append( "`" +  column.getType().name() + "`='" + column.getObject( ) + "'" );
+                    query.append( "`" + column.getType( ).name( ) + "`='" + column.getObject( ) + "'" );
                 }
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -165,19 +165,19 @@ public abstract class MySqlTable implements IMyTableSql {
                     MyLoadAbleColumn column = entry.getValue( );
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.getType().getName() );
+                        double d = rs.getDouble( column.getType( ).getName( ) );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.INT ) {
-                        int i = rs.getInt( column.getType().name() );
+                        int i = rs.getInt( column.getType( ).name( ) );
                         column.setLoadedObject( i );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.getType().name());
+                        String s = rs.getString( column.getType( ).name( ) );
                         column.setLoadedObject( s );
                         continue;
                     }
@@ -206,19 +206,19 @@ public abstract class MySqlTable implements IMyTableSql {
                     MyLoadAbleColumn column = entry.getValue( );
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble(  column.getType().name() );
+                        double d = rs.getDouble( column.getType( ).name( ) );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.INT ) {
-                        int i = rs.getInt(  column.getType().name() );
+                        int i = rs.getInt( column.getType( ).name( ) );
                         column.setLoadedObject( i );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString(  column.getType().name() );
+                        String s = rs.getString( column.getType( ).name( ) );
                         column.setLoadedObject( s );
                         continue;
                     }
@@ -239,9 +239,9 @@ public abstract class MySqlTable implements IMyTableSql {
         for ( Map.Entry< MySqlColumnEnum, MyLoadAbleColumn > entry : loadAbleColumns.entrySet( ) ) {
             MyLoadAbleColumn column = entry.getValue( );
             if ( i < loadAbleColumns.size( ) - 1 ) {
-                query.append( "`" +  column.getType().name() + "`='" + column.getResetObject( ) + "'," );
+                query.append( "`" + column.getType( ).name( ) + "`='" + column.getResetObject( ) + "'," );
             } else {
-                query.append( "`" +  column.getType().name() + "`='" + column.getResetObject( ) + "'" );
+                query.append( "`" + column.getType( ).name( ) + "`='" + column.getResetObject( ) + "'" );
             }
             i++;
         }
@@ -269,11 +269,11 @@ public abstract class MySqlTable implements IMyTableSql {
         return isLoad;
     }
 
-    public void setLoad(boolean load) {
+    public void setLoad( boolean load ) {
         isLoad = load;
     }
 
-    public void setName(String name ) {
+    public void setName( String name ) {
         this.name = name;
     }
 }

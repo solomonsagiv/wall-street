@@ -6,10 +6,10 @@ import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.myJsonTables.index.DayJsonTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
-import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.ArraysTable;
 import dataBase.mySql.myTables.StatusJsonTable;
 import dataBase.mySql.myTables.SumJsonTable;
+import dataBase.mySql.myTables.TwsContractsTable;
 import exp.E;
 import exp.ExpEnum;
 import exp.Exps;
@@ -33,20 +33,20 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     public void initTablesHandler() {
         tablesHandler = new TablesHandler( );
         tablesHandler.addTable( TablesEnum.TWS_CONTRACTS, new TwsContractsTable( this ) );
-        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this, "JsonDay" ) );
-        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this, "jsonStatus" ) );
-        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this, "JsonSum" ) );
+        tablesHandler.addTable( TablesEnum.DAY, new DayJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.STATUS, new StatusJsonTable( this ) );
+        tablesHandler.addTable( TablesEnum.SUM, new SumJsonTable( this ) );
         tablesHandler.addTable( TablesEnum.ARRAYS, new ArraysTable( this ) );
-        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this, "bounds" ) );
+        tablesHandler.addTable( TablesEnum.BOUNDS, new MyBoundsTable( this ) );
     }
 
     @Override
     public void initExpHandler() throws NullPointerException {
         // E1
-        E e1 = new E(this, ExpEnum.E1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpEnum.E1 ) );
+        E e1 = new E( this, ExpEnum.E1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpEnum.E1 ) );
 
         // E2
-        E e2 = new E(this, ExpEnum.E2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpEnum.E2 ) );
+        E e2 = new E( this, ExpEnum.E2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpEnum.E2 ) );
 
         // Append to handler
         Exps exps = new Exps( this );
@@ -55,14 +55,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         exps.setMainExp( e1 );
 
         setExps( exps );
-    }
-
-    public StocksHandler getStocksHandler() {
-        return stocksHandler;
-    }
-
-    public BasketService getBasketService() {
-        return basketService;
     }
 
     @Override
@@ -76,7 +68,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         json.put( JsonStrings.high, getHigh( ) );
         json.put( JsonStrings.low, getLow( ) );
         json.put( JsonStrings.base, getBase( ) );
-        json.put( JsonStrings.roll, getRollHandler().getRoll( RollEnum.E1_E2).getAsJson());
+        json.put( JsonStrings.roll, getRollHandler( ).getRoll( RollEnum.E1_E2 ).getAsJson( ) );
         json.put( JsonStrings.e1, getExps( ).getExp( ExpEnum.E1 ).getAsJson( ) );
         json.put( JsonStrings.e2, getExps( ).getExp( ExpEnum.E2 ).getAsJson( ) );
         return json;
@@ -92,8 +84,8 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public MyJson getResetJson() {
         MyJson json = new MyJson( );
-        json.put( JsonStrings.e1, getExps().getExp( ExpEnum.E1 ).getResetJson() );
-        json.put( JsonStrings.e2, getExps().getExp( ExpEnum.E2 ).getResetJson() );
+        json.put( JsonStrings.e1, getExps( ).getExp( ExpEnum.E1 ).getResetJson( ) );
+        json.put( JsonStrings.e2, getExps( ).getExp( ExpEnum.E2 ).getResetJson( ) );
         return json;
     }
 }

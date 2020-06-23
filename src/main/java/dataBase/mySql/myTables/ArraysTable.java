@@ -29,7 +29,7 @@ public class ArraysTable extends MyArraysTable {
                 return LocalTime.now( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.INDEX_LIST ) {
+        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexList ) {
             @Override
             public String getObject() throws UnknownHostException {
                 return client.getIndexSeries().getLastJson().toString();
@@ -45,16 +45,16 @@ public class ArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< Double >( this, MySqlColumnEnum.OP_LIST ) {
+        addColumn( new MyLoadAbleColumn< Double >( this, MySqlColumnEnum.opList ) {
             @Override
             public Double getObject() {
-                int last = client.getExps( ).getMainExp( ).getOpFutureList( ).size( ) - 1;
-                return client.getExps( ).getMainExp( ).getOpFutureList( ).get( last );
+                int last = client.getExps( ).getMainExp( ).getOpFutList( ).size( ) - 1;
+                return client.getExps( ).getMainExp( ).getOpFutList( ).get( last );
             }
 
             @Override
             public void setLoadedObject( Double object ) {
-                client.getExps( ).getMainExp( ).getOpFutureList( ).add( object );
+                client.getExps( ).getMainExp( ).getOpFutList( ).add( object );
             }
 
             @Override
@@ -63,7 +63,7 @@ public class ArraysTable extends MyArraysTable {
             }
         } );
 
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.IND_BID_ASK_COUNTER_LIST ) {
+        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexBidAskCounterList ) {
             @Override
             public String getObject() throws UnknownHostException {
                 return client.getIndexBidAskCounterSeries().getLastJson().toString();
@@ -80,16 +80,16 @@ public class ArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.OP_AVG_FUTURE_LIST ) {
+        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.opAvgFutureList ) {
             @Override
             public String getObject() throws UnknownHostException {
-                return client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutureSeries().getLastJson().toString();
+                return client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutSeries().getLastJson().toString();
             }
             @Override
             public void setLoadedObject( String object ) {
                 if ( object != null ) {
                     MyChartPoint myChartPoint = new MyChartPoint( new JSONObject( object ) );
-                    client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutureSeries().add( new MyJson( object ) );
+                    client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutSeries().add( new MyJson( object ) );
                 }
             }
             @Override

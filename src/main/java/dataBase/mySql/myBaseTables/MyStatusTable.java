@@ -6,8 +6,8 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public abstract class MyStatusTable extends MySqlTable {
 
     // Constructor
-    public MyStatusTable( BASE_CLIENT_OBJECT client, String tableName ) {
-        super( client, tableName );
+    public MyStatusTable( BASE_CLIENT_OBJECT client ) {
+        super( client );
     }
 
     @Override

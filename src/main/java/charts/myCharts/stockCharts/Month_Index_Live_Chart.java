@@ -6,6 +6,7 @@ import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
+import java.net.UnknownHostException;
 
 public class Month_Index_Live_Chart extends MyChartCreator {
 
@@ -32,17 +33,33 @@ public class Month_Index_Live_Chart extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries indexSeries = client.getIndexSeries();
+        MyTimeSeries indexSeries = new MyTimeSeries( "Index", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return client.getIndex();
+            }
+        };
+
         indexSeries.setColor( Color.BLACK );
         indexSeries.setStokeSize( 2.25f );
 
         // Index bid
-        MyTimeSeries indexBidSeries = client.getIndexBidSeries();
+        MyTimeSeries indexBidSeries = new MyTimeSeries( "Index bid", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return client.getIndexBid();
+            }
+        };
         indexBidSeries.setColor( Themes.BLUE );
         indexBidSeries.setStokeSize( 2.25f );
 
         // Index ask
-        MyTimeSeries indexAskSeries = client.getIndexAskSeries();
+        MyTimeSeries indexAskSeries = new MyTimeSeries( "Index ask", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return client.getIndexAsk();
+            }
+        };
         indexAskSeries.setColor( Themes.RED );
         indexAskSeries.setStokeSize( 2.25f );
 
@@ -53,6 +70,8 @@ public class Month_Index_Live_Chart extends MyChartCreator {
                 return client.getExps().getExp( ExpEnum.MONTH ).getOptions().getContract();
             }
         };
+        contractSeries.setColor( Themes.GREEN );
+        contractSeries.setStokeSize( 2.25f );
 
         MyTimeSeries[] series = {indexSeries, indexBidSeries, indexAskSeries, contractSeries};
 

@@ -1,7 +1,6 @@
 package charts.myChart;
 
 import lists.MyChartList;
-import lists.MyChartPoint;
 import myJson.MyJson;
 import options.JsonStrings;
 import org.jfree.data.time.Second;
@@ -49,11 +48,8 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return json;
     }
 
-
     public void loadData( ArrayList< Double > dots ) {
         try {
-            System.out.println( name + " " + myChartList );
-
             LocalDateTime time = myChartList.get( 0 ).getX( );
 
             lastSeconde = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonth( ).getValue( ), time.getYear( ) );
@@ -80,28 +76,42 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         lastSeconde = ( Second ) lastSeconde.next( );
     }
 
+//    public double add() {
+//        double data = 0;
+//        // live data
+//        if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
+//            try {
+//                data = getData( );
+//                addOrUpdate( getLastSeconde( ), data );
+//            } catch ( Exception e ) {
+//                e.printStackTrace( );
+//            }
+//        } else {
+//            try {
+//                MyChartPoint point = myChartList.getLast( );
+//                data = point.getY( );
+//                addOrUpdate( getLastSeconde( ), data );
+//            } catch ( Exception e ) {
+//                e.printStackTrace( );
+//            }
+//        }
+//        lastSeconde = ( Second ) lastSeconde.next( );
+//        return data;
+//    }
+
     public double add() {
         double data = 0;
         // live data
-        if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
-            try {
-                data = getData( );
-                addOrUpdate( getLastSeconde( ), data );
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-        } else {
-            try {
-                MyChartPoint point = myChartList.getLast( );
-                data = point.getY( );
-                addOrUpdate( getLastSeconde( ), data );
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
+        try {
+            data = getData( );
+            addOrUpdate( getLastSeconde( ), data );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
         lastSeconde = ( Second ) lastSeconde.next( );
         return data;
     }
+
 
     public Color getColor() {
         return color;

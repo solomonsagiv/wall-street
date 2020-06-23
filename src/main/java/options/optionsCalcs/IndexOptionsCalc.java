@@ -96,7 +96,7 @@ public class IndexOptionsCalc implements IOptionsCalcs {
     }
 
     public double getPrice() {
-         return getExp().getFuture();
+         return getExp().getFut();
     }
 
 }

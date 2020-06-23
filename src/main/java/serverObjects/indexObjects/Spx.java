@@ -28,10 +28,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
-    private BasketService basketService;
-    private BasketService2 basketService2;
-    private StocksHandler stocksHandler;
-
     // Constructor
     public Spx() {
         setName( "spx" );
@@ -135,18 +131,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
-    }
-
-    public BasketService getBasketService() {
-        return basketService;
-    }
-
-    public StocksHandler getStocksHandler() {
-        return stocksHandler;
-    }
-
-    public BasketService2 getBasketService2() {
-        return basketService2;
     }
 
 }

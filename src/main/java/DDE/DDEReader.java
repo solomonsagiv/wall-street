@@ -3,7 +3,6 @@ package DDE;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import exp.Exp;
-import exp.Exps;
 import locals.L;
 import locals.LocalHandler;
 import options.Options;
@@ -70,7 +69,7 @@ public class DDEReader extends MyThread implements Runnable {
             Options options = exp.getOptions();
 
             if ( options.getOptionsDDeCells( ) != null ) {
-                exp.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+                exp.setFut( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
             }
         }
 

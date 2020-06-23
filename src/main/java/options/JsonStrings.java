@@ -21,7 +21,7 @@ public class JsonStrings {
     public static final String options = "options";
     public static final String opAvg = "opAvg";
     public static final String op = "op";
-    public static final String future = "future";
+    public static final String fut = "fut";
     public static final String ind = "ind";
     public static final String optBidAskCounter = "optBidAskCounter";
     public static final String conBidAskCounter = "conBidAskCounter";
@@ -39,12 +39,12 @@ public class JsonStrings {
     public static final String indStartTime = "indStartTime";
     public static final String primaryExchange = "primaryExchange";
     public static final String indEndTime = "indEndTime";
-    public static final String futureEndTime = "futureEndTime";
+    public static final String futEndTime = "futEndTime";
     public static final String startStrike = "startStrike";
     public static final String endStrike = "endStrike";
     public static final String strikes = "strikes";
-    public static final String futureBidAskCounter = "futureBidAskCounter";
-    public static final String opAvgFuture = "opAvgFuture";
+    public static final String futBidAskCounter = "futBidAskCounter";
+    public static final String opAvgFut = "opAvgFut";
     public static final String indBid = "indBid";
     public static final String indAsk = "indAsk";
     public static final String conBid = "conBid";
@@ -58,14 +58,15 @@ public class JsonStrings {
     public static final String base = "base";
     public static final String e1 = "e1";
     public static final String e2 = "e2";
-    public static final String  week = "week";
+    public static final String week = "week";
     public static final String month = "month";
-    public static final String futureBid = "futureBid";
-    public static final String futureAsk = "futureAsk";
+    public static final String futBid = "futBid";
+    public static final String futAsk = "futAsk";
     public static final String start = "start";
     public static final String expData = "expData";
     public static final String roll = "roll";
     public static final String rollAvg = "rollAvg";
     public static final String x = "x";
     public static final String y = "y";
+    public static final String tomorrowFut = "tomorrowFut";
 }

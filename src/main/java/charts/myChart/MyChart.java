@@ -40,31 +40,6 @@ public class MyChart {
     MyTimeSeries[] series;
     MyProps props;
 
-
-    public static void main(String[] args) {
-
-        TimeSeriesCollection data = new TimeSeriesCollection();
-
-        TimeSeries series = new TimeSeries("Test");
-
-        Second second = new Second();
-
-        for (int i = 0; i < 10000; i++) {
-
-            second = (Second) second.next();
-
-            series.add(second.next(), new Random(100).nextDouble());
-
-        }
-
-        // Create the chart
-        JFreeChart chart = ChartFactory.createTimeSeriesChart(null, "Time", "Values", data, true, true, false);
-
-
-
-    }
-
-
     // Constructor
     public MyChart(BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props) {
         this.client = client;
@@ -76,7 +51,7 @@ public class MyChart {
         init(series, props);
 
         // Start updater
-        updater = new ChartUpdater(series);
+        updater = new ChartUpdater( client, series);
         updater.getHandler().start();
     }
 
@@ -155,7 +130,8 @@ public class MyChart {
         NumberAxis range;
 
         // Constructor
-        public ChartUpdater(MyTimeSeries[] series) {
+        public ChartUpdater( BASE_CLIENT_OBJECT client, MyTimeSeries[] series ) {
+            super( client );
             this.series = series;
         }
 

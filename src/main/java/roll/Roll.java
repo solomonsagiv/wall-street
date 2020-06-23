@@ -52,7 +52,7 @@ public class Roll implements IJson {
             }
 
             if ( priceEnum == RollPriceEnum.FUTURE ) {
-                price = exp.getFuture( );
+                price = exp.getFut( );
             }
             return price;
         } catch ( Exception e ) {

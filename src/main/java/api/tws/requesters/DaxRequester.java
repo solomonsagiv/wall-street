@@ -86,15 +86,15 @@ public class DaxRequester implements ITwsRequester {
 
         if ( tickerId == futureId && price > 0 ) {
             if ( field == 4 ) {
-                expMonth.setFuture( price );
+                expMonth.setFut( price );
             }
 
             if ( field == 1 ) {
-                expMonth.setFutureBid( price );
+                expMonth.setFutBid( price );
             }
 
             if ( field == 2 ) {
-                expMonth.setFutureAsk( price );
+                expMonth.setFutAsk( price );
             }
             
         }
@@ -129,9 +129,9 @@ public class DaxRequester implements ITwsRequester {
 
         if ( tickerId == futureId ) {
             if ( field == 8 ) {
-                expMonth.setFutureVolume( size );
+                expMonth.setFutVolume( size );
 
-                deltaCalc.calc( expMonth.getOptions(), size, expMonth.getFuture() );
+                deltaCalc.calc( expMonth.getOptions(), size, expMonth.getFut() );
 
                 System.out.println("size " + size );
             }

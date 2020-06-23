@@ -17,7 +17,6 @@ import java.util.Map;
 
 public abstract class MyArraysTable extends MySqlTable {
 
-
     public MyArraysTable( BASE_CLIENT_OBJECT client ) {
         super( client );
     }

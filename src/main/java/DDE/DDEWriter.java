@@ -57,10 +57,8 @@ public class DDEWriter extends MyThread implements Runnable {
         try {
             conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.E1_E2).getAvg()));
             conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
-            conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));
-            conversation.poke(basketsCell2, str(spx.getBasketService2().getBaskets()));
             try {
-                conversation.poke(opAvgCell, str(spx.getExps().getMainExp().getOpAvgFuture()));
+                conversation.poke(opAvgCell, str(spx.getExps().getMainExp().getOpAvgFut()));
             } catch (Exception e) {
                 e.printStackTrace();
             }

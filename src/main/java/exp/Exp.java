@@ -25,18 +25,18 @@ public abstract class Exp implements IJson {
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
 
-    protected double future = 0;
-    protected double futureBid = 0;
-    protected double futureAsk = 0;
-    protected int futureBidAskCounter = 0;
-    protected double futureDelta = 0;
-    private int futureVolume = 0;
+    protected double fut = 0;
+    protected double futBid = 0;
+    protected double futAsk = 0;
+    protected int futBidAskCounter = 0;
+    protected double futDelta = 0;
+    private int futVolume = 0;
 
-    List< Double > opFutureList = new ArrayList<>( );
-    List< Double > futureList = new ArrayList<>( );
+    List< Double > opFutList = new ArrayList<>( );
+    List< Double > futList = new ArrayList<>( );
 
-    MyTimeSeries opAvgFutureSeries;
-    MyTimeSeries opAvg15FutureSeries;
+    MyTimeSeries opAvgFutSeries;
+    MyTimeSeries opAvg15FutSeries;
     MyTimeSeries futBidAskCounterSeries;
 
     ExpEnum expEnum;
@@ -63,59 +63,59 @@ public abstract class Exp implements IJson {
     }
 
     public void initSeries() {
-        opAvgFutureSeries = new MyTimeSeries( "OpAvgFuture" ) {
+        opAvgFutSeries = new MyTimeSeries( "OpAvgFuture" ) {
             @Override
             public double getData() throws UnknownHostException {
-                return getOpAvgFuture( );
+                return getOpAvgFut( );
             }
         };
-        opAvg15FutureSeries = new MyTimeSeries( "OpAvg15Future") {
+        opAvg15FutSeries = new MyTimeSeries( "OpAvg15Future") {
             @Override
             public double getData() throws UnknownHostException {
-                return getOpAvgFuture( 900 );
+                return getOpAvgFut( 900 );
             }
         };
         futBidAskCounterSeries = new MyTimeSeries( "futBidAskCounter" ) {
             @Override
             public double getData() throws UnknownHostException {
-                return getFutureBidAskCounter();
+                return getFutBidAskCounter();
             }
         };
     }
 
     // Functions
     public double getFutureOp() {
-        return future - client.getIndex( );
+        return fut - client.getIndex( );
     }
 
-    public double getOpAvgFuture() throws UnknownHostException {
+    public double getOpAvgFut() throws UnknownHostException {
         double sum = 0;
-        if ( !opFutureList.isEmpty( ) ) {
+        if ( !opFutList.isEmpty( ) ) {
             try {
-                for ( int i = 0; i < opFutureList.size( ); i++ ) {
-                    sum += opFutureList.get( i );
+                for ( int i = 0; i < opFutList.size( ); i++ ) {
+                    sum += opFutList.get( i );
                 }
             } catch ( Exception e ) {
                 e.printStackTrace( );
             }
-            return L.floor( sum / opFutureList.size( ), 100 );
+            return L.floor( sum / opFutList.size( ), 100 );
         } else {
             throw new NullPointerException( client.getName( ) + " op future list empty" );
         }
     }
 
-    public double getOpAvgFuture( int secondes ) {
+    public double getOpAvgFut( int secondes ) {
         try {
 
             // If op future list < seconds
-            if ( secondes > opFutureList.size( ) - 1 ) {
-                return getOpAvgFuture( );
+            if ( secondes > opFutList.size( ) - 1 ) {
+                return getOpAvgFut( );
             }
 
             double sum = 0;
 
-            for ( int i = opFutureList.size( ) - secondes; i < opFutureList.size( ); i++ ) {
-                sum += opFutureList.get( i );
+            for ( int i = opFutList.size( ) - secondes; i < opFutList.size( ); i++ ) {
+                sum += opFutList.get( i );
             }
 
             return L.floor( sum / secondes, 100 );
@@ -126,15 +126,15 @@ public abstract class Exp implements IJson {
     }
 
     public double getOpFuture() {
-        return future - client.getIndex( );
+        return fut - client.getIndex( );
     }
 
     public void setOpAvgFuture( double opAvg ) {
-        int size = opFutureList.size( );
-        opFutureList.clear( );
+        int size = opFutList.size( );
+        opFutList.clear( );
 
         for ( int i = 0; i < size; i++ ) {
-            opFutureList.add( opAvg );
+            opFutList.add( opAvg );
         }
     }
 
@@ -145,92 +145,92 @@ public abstract class Exp implements IJson {
 
     private double futureAskForCheck = 0;
 
-    public void setFutureBid( double futureBid ) {
+    public void setFutBid( double futBid ) {
 
         // If increment state
-        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk && client.isStarted( ) ) {
-            futureBidAskCounter++;
+        if ( futBid > this.futBid && futureAskForCheck == this.futAsk && client.isStarted( ) ) {
+            futBidAskCounter++;
         }
-        this.futureBid = futureBid;
+        this.futBid = futBid;
 
         // Ask for bid change state
-        futureAskForCheck = this.futureAsk;
+        futureAskForCheck = this.futAsk;
 
     }
 
     private double futureBidForCheck = 0;
 
-    public void setFutureAsk( double futureAsk ) {
+    public void setFutAsk( double futAsk ) {
 
         // If increment state
-        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid && client.isStarted( ) ) {
-            futureBidAskCounter--;
+        if ( futAsk < this.futAsk && futureBidForCheck == this.futBid && client.isStarted( ) ) {
+            futBidAskCounter--;
         }
-        this.futureAsk = futureAsk;
+        this.futAsk = futAsk;
 
         // Ask for bid change state
-        futureBidForCheck = this.futureBid;
+        futureBidForCheck = this.futBid;
 
     }
 
-    public void setFuture( double future ) {
-        this.future = future;
+    public void setFut( double fut ) {
+        this.fut = fut;
     }
 
     public LocalDate getExpDate() {
         return expDate;
     }
 
-    public double getFuture() {
-        return future;
+    public double getFut() {
+        return fut;
     }
 
-    public double getFutureBid() {
-        return futureBid;
+    public double getFutBid() {
+        return futBid;
     }
 
-    public double getFutureAsk() {
-        return futureAsk;
+    public double getFutAsk() {
+        return futAsk;
     }
 
-    public int getFutureBidAskCounter() {
-        return futureBidAskCounter;
+    public int getFutBidAskCounter() {
+        return futBidAskCounter;
     }
 
-    public void setFutureBidAskCounter( int futureBidAskCounter ) {
-        this.futureBidAskCounter = futureBidAskCounter;
+    public void setFutBidAskCounter( int futBidAskCounter ) {
+        this.futBidAskCounter = futBidAskCounter;
     }
 
-    public double getFutureDelta() {
-        return futureDelta;
+    public double getFutDelta() {
+        return futDelta;
     }
 
-    public void setFutureVolume( int futureVolume ) {
-        this.futureVolume = futureVolume;
+    public void setFutVolume( int futVolume ) {
+        this.futVolume = futVolume;
     }
 
-    public int getFutureVolume() {
-        return futureVolume;
+    public int getFutVolume() {
+        return futVolume;
     }
 
     public MyTimeSeries getFutBidAskCounterSeries() {
         return futBidAskCounterSeries;
     }
 
-    public MyTimeSeries getOpAvg15FutureSeries() {
-        return opAvg15FutureSeries;
+    public MyTimeSeries getOpAvg15FutSeries() {
+        return opAvg15FutSeries;
     }
 
-    public MyTimeSeries getOpAvgFutureSeries() {
-        return opAvgFutureSeries;
+    public MyTimeSeries getOpAvgFutSeries() {
+        return opAvgFutSeries;
     }
 
-    public List< Double > getOpFutureList() {
-        return opFutureList;
+    public List< Double > getOpFutList() {
+        return opFutList;
     }
 
-    public List< Double > getFutureList() {
-        return futureList;
+    public List< Double > getFutList() {
+        return futList;
     }
 
     public TwsContractsEnum getTwsContractsEnum() {
@@ -248,14 +248,14 @@ public abstract class Exp implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson( );
-        json.put( JsonStrings.future, getFuture( ) );
-        json.put( JsonStrings.futureBid, getFutureBid( ) );
-        json.put( JsonStrings.futureAsk, getFutureAsk( ) );
-        json.put( JsonStrings.futureBidAskCounter, getFutureBidAskCounter( ) );
+        json.put( JsonStrings.fut, getFut( ) );
+        json.put( JsonStrings.futBid, getFutBid( ) );
+        json.put( JsonStrings.futAsk, getFutAsk( ) );
+        json.put( JsonStrings.futBidAskCounter, getFutBidAskCounter( ) );
         json.put( JsonStrings.options, getOptions( ).getAsJson( ) );
         json.put( JsonStrings.expData, expData.getAsJson( ) );
         try {
-            json.put( JsonStrings.opAvgFuture, getOpAvgFuture( ) );
+            json.put( JsonStrings.opAvgFut, getOpAvgFut( ) );
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -264,7 +264,7 @@ public abstract class Exp implements IJson {
 
     @Override
     public void loadFromJson( MyJson json ) {
-        setFutureBidAskCounter( json.getInt( JsonStrings.futureBidAskCounter ) );
+        setFutBidAskCounter( json.getInt( JsonStrings.futBidAskCounter ) );
         options.loadFromJson( new MyJson( json.getJSONObject( JsonStrings.options ) ) );
         expData.loadFromJson( new MyJson( json.getJSONObject( JsonStrings.expData ) ) );
     }

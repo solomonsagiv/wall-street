@@ -12,8 +12,13 @@ import java.time.LocalTime;
 public class DayJsonTable extends MyDayTable {
 
     // Constructor
-    public DayJsonTable(BASE_CLIENT_OBJECT client, String tableName) {
-        super(client, client.getName() + tableName);
+    public DayJsonTable(BASE_CLIENT_OBJECT client) {
+        super(client);
+    }
+
+    @Override
+    public String getName() {
+        return client.getName() + "JsonDay";
     }
 
     @Override
@@ -22,12 +27,6 @@ public class DayJsonTable extends MyDayTable {
             @Override
             public String getObject() {
                 return LocalDate.now().toString();
-            }
-        });
-        addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.exp_name) {
-            @Override
-            public String getObject() {
-                return Manifest.EXP;
             }
         });
         addColumn(new MyColumnSql<>(this, MySqlColumnEnum.time) {
@@ -39,7 +38,7 @@ public class DayJsonTable extends MyDayTable {
         addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.data) {
             @Override
             public String getObject() {
-                return LocalTime.now().toString();
+                return client.getAsJson().toString();
             }
         });
 

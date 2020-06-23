@@ -45,8 +45,6 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        LocalDateTime now = LocalDateTime.now();
-
         // List for charts
         client.getIndexBidSeries().add();
         client.getIndexAskSeries().add();
@@ -55,12 +53,12 @@ public class ListsService extends MyBaseService {
         // Options lists
         for ( Exp exp : client.getExps().getExpList()) {
             try {
-                exp.getFutureList().add(exp.getFuture());
+                exp.getFutList().add(exp.getFut());
                 client.getIndexSeries().add();
-                exp.getOpFutureList().add(exp.getOpFuture());
+                exp.getOpFutList().add(exp.getOpFuture());
                 try {
-                    exp.getOpAvgFutureSeries().add();
-                    exp.getOpAvg15FutureSeries().add();
+                    exp.getOpAvgFutSeries().add();
+                    exp.getOpAvg15FutSeries().add();
                 } catch (Exception e) {
                     System.out.println(getClient().getName() + " OpAvgFutureList is empty");
                 }

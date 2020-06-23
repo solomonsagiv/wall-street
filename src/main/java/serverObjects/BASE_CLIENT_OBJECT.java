@@ -14,7 +14,6 @@ import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import exp.Exps;
 import lists.ListsService;
-import lists.MyChartList;
 import locals.IJson;
 import locals.L;
 import locals.LocalHandler;
@@ -303,7 +302,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public String getArikSumLine() throws UnknownHostException {
-
         String text = "";
         text += "***** " + getName( ).toUpperCase( ) + " *****" + "\n";
         text += "Date: " + LocalDate.now( ).minusDays( 1 ) + "\n";
@@ -311,10 +309,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100( getExps( ).getMainExp( ).getOpAvgFuture() ) + "\n";
+        text += "OP avg: " + L.format100( getExps( ).getMainExp( ).getOpAvgFut() ) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
         text += "Contract counter: " + getExps( ).getMainExp( ).getOptions().getConBidAskCounter( ) + "\n";
-
         return text;
     }
 

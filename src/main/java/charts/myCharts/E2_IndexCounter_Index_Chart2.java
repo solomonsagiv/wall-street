@@ -3,10 +3,7 @@ package charts.myCharts;
 import charts.myChart.*;
 import exp.Exp;
 import exp.ExpEnum;
-import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
-import java.awt.*;
 
 public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
 
@@ -60,7 +57,7 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
         MyTimeSeries futureFarBidAskCounter = new MyTimeSeries( "Future far B/A counter", client ) {
             @Override
             public double getData() {
-                return exp.getFutureBidAskCounter();
+                return exp.getFutBidAskCounter();
             }
         };
 
