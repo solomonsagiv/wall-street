@@ -76,6 +76,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void setIndex( double index ) {
         if ( this.index == 0 ) {
+            this.index = index;
             getExps( ).initOptions( index );
 
             // Request options tws

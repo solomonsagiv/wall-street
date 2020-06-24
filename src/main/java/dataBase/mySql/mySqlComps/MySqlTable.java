@@ -183,10 +183,11 @@ public abstract class MySqlTable implements IMyTableSql {
                     }
                 }
             }
-
         } catch ( SQLException e ) {
             e.printStackTrace( );
             Arik.getInstance( ).sendErrorMessage( e );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         } finally {
             setLoad( true );
         }

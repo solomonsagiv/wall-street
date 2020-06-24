@@ -11,6 +11,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
@@ -72,7 +73,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void add(MyJson json) {
 
-        LocalDateTime time = myChartList.get(0).getX();
+        LocalDateTime time = LocalDateTime.parse( json.getString( JsonStrings.x ));
 
         lastSeconde = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonth().getValue(), time.getYear());
 

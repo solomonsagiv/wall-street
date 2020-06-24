@@ -77,8 +77,8 @@ public class BackGroundHandler {
                     double last = client.getIndex( );
 
                     if ( !load ) {
-                        client.getDataBaseHandler( ).load( );
                         load = true;
+                        client.getDataBaseHandler( ).load( );
                     }
 
                     // Index start time

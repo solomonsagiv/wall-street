@@ -38,12 +38,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static {
 //        dax = Dax.getInstance();
         spx = Spx.getInstance( );
-//        apple = Apple.getInstance( );
-//        amazon = Amazon.getInstance( );
-//        ulta = Ulta.getInstance( );
-//        netflix = Netflix.getInstance( );
-//        amd = Amd.getInstance( );
-//        microsoft = Microsoft.getInstance( );
+        apple = Apple.getInstance( );
+        amazon = Amazon.getInstance( );
+        ulta = Ulta.getInstance( );
+        netflix = Netflix.getInstance( );
+        amd = Amd.getInstance( );
+        microsoft = Microsoft.getInstance( );
     }
 
     // Constructor
@@ -54,12 +54,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void appendClients() {
 //        localhandler.clients.add(dax);
         LocalHandler.clients.add( spx );
-//        LocalHandler.clients.add( apple );
-//        LocalHandler.clients.add(amazon);
-//        LocalHandler.clients.add(ulta);
-//        LocalHandler.clients.add(netflix);
-//        LocalHandler.clients.add(amd);
-//        LocalHandler.clients.add(microsoft);
+        LocalHandler.clients.add( apple );
+        LocalHandler.clients.add(amazon);
+        LocalHandler.clients.add(ulta);
+        LocalHandler.clients.add(netflix);
+        LocalHandler.clients.add(amd);
+        LocalHandler.clients.add(microsoft);
     }
 
     @Override

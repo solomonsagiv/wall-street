@@ -3,6 +3,7 @@ package options;
 import charts.myChart.MyTimeSeries;
 import com.ib.client.Types;
 import exp.Exp;
+import lists.MyDoubleList;
 import locals.IJson;
 import locals.L;
 import myJson.MyJson;
@@ -43,11 +44,11 @@ public class Options implements IJson {
     protected double currStrike = 0;
     protected int contractBidAskCounter = 0;
 
-    List< Double > conList = new ArrayList<>( );
-    List< Double > conBidList = new ArrayList<>( );
-    List< Double > conAskList = new ArrayList<>( );
-    List< Double > opAvgList = new ArrayList<>( );
-    List< Double > opList = new ArrayList<>( );
+    MyDoubleList conList = new MyDoubleList( );
+    MyDoubleList conBidList = new MyDoubleList( );
+    MyDoubleList conAskList = new MyDoubleList( );
+    MyDoubleList opAvgList = new MyDoubleList( );
+    MyDoubleList opList = new MyDoubleList();
 
     MyTimeSeries conBidAskCounterSeries;
     MyTimeSeries opAvgSeries;
@@ -198,25 +199,7 @@ public class Options implements IJson {
     }
 
     public double getOpAvg() {
-
-        double sum = 0;
-
-        if ( !opList.isEmpty( ) ) {
-
-            try {
-
-                for ( int i = 0; i < opList.size( ); i++ ) {
-                    sum += opList.get( i );
-                }
-
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-
-            return L.floor( sum / opList.size( ), 100 );
-        } else {
-            return 0;
-        }
+        return L.floor( getOpList().getAvg(), 100 );
     }
 
     public void setOpAvg( double opAvg ) {
@@ -539,25 +522,25 @@ public class Options implements IJson {
             strikeJson = new JSONObject( );
 
             Call call = strike.getCall( );
-            callJson.put( JsonStrings.bid.toString( ), call.getBid( ) );
-            callJson.put( JsonStrings.ask.toString( ), call.getAsk( ) );
-            callJson.put( JsonStrings.optBidAskCounter.toString( ), call.getBidAskCounter( ) );
+            callJson.put( JsonStrings.bid, call.getBid( ) );
+            callJson.put( JsonStrings.ask, call.getAsk( ) );
+            callJson.put( JsonStrings.optBidAskCounter, call.getBidAskCounter( ) );
 
             Put put = strike.getPut( );
-            putJson.put( JsonStrings.bid.toString( ), put.getBid( ) );
-            putJson.put( JsonStrings.ask.toString( ), put.getAsk( ) );
-            putJson.put( JsonStrings.optBidAskCounter.toString( ), put.getBidAskCounter( ) );
+            putJson.put( JsonStrings.bid, put.getBid( ) );
+            putJson.put( JsonStrings.ask, put.getAsk( ) );
+            putJson.put( JsonStrings.optBidAskCounter, put.getBidAskCounter( ) );
 
-            strikeJson.put( JsonStrings.call.toString( ), callJson );
-            strikeJson.put( JsonStrings.put.toString( ), putJson );
+            strikeJson.put( JsonStrings.call, callJson );
+            strikeJson.put( JsonStrings.put, putJson );
 
             optionsData.put( str( strike.getStrike( ) ), strikeJson );
         }
 
-        mainJson.put( JsonStrings.con.toString( ), getContract( ) );
-        mainJson.put( JsonStrings.opAvg.toString( ), L.floor( getOpAvg( ), 100 ) );
-        mainJson.put( JsonStrings.data.toString( ), optionsData );
-        mainJson.put( JsonStrings.conBidAskCounter.toString( ), getConBidAskCounter( ) );
+        mainJson.put( JsonStrings.con, getContract( ) );
+        mainJson.put( JsonStrings.opAvg, L.floor( getOpAvg( ), 100 ) );
+        mainJson.put( JsonStrings.data, optionsData );
+        mainJson.put( JsonStrings.conBidAskCounter, getConBidAskCounter( ) );
 
         return mainJson;
     }
@@ -647,11 +630,11 @@ public class Options implements IJson {
         return expDate;
     }
 
-    public List<Double> getOpList() {
+    public MyDoubleList getOpList() {
         return opList;
     }
 
-    public void setExpDate(LocalDate expDate ) {
+    public void setExpDate( LocalDate expDate ) {
         this.expDate = expDate;
     }
 
@@ -741,20 +724,20 @@ public class Options implements IJson {
 
     private double conAskForCheck = 0;
 
-    public List< Double > getConAskList() {
+    public MyDoubleList getConAskList() {
         return conAskList;
     }
 
-    public List< Double > getConBidList() {
+    public MyDoubleList getConBidList() {
         return conBidList;
     }
 
-    public List< Double > getOpAvgList() {
-        return opAvgList;
+    public MyDoubleList getConList() {
+        return conList;
     }
 
-    public List< Double > getConList() {
-        return conList;
+    public MyDoubleList getOpAvgList() {
+        return opAvgList;
     }
 
     public void setContractBid( double contractBid ) {

@@ -97,7 +97,7 @@ public class ArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.QUARTER_FUT_BID_ASK_COUNTER_LIST ) {
+        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.quarterFutBidAskCounterList ) {
             @Override
             public String getObject() throws UnknownHostException {
                 return client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterSeries().getLastJson().toString();
@@ -113,7 +113,7 @@ public class ArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.QUARTER_FAR_FUT_BID_ASK_COUNTER_LIST ) {
+        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.quarterFarFutBidAskCounterList ) {
             @Override
             public String getObject() throws UnknownHostException {
                 return client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterSeries().getLastJson().toString();

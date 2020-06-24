@@ -175,11 +175,11 @@ public class MyChart {
         private void loadChartData() {
             if (props.getBool(ChartPropsEnum.IS_LOAD_DB)) {
                 for (MyTimeSeries serie : series) {
-                    serie.loadData(dots);
+                    dots.addAll( serie.getMyChartList().getValues() );
                 }
             }
         }
-
+        
         // Append data to series
         private void appendDataToSeries() {
             try {
@@ -213,7 +213,6 @@ public class MyChart {
                 }
             }
         }
-
 
         private void updateChartRange(double min, double max) {
             try {
