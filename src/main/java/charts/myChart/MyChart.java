@@ -1,7 +1,6 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
-import exp.E;
 import locals.L;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
@@ -10,8 +9,6 @@ import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.time.Second;
-import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
@@ -25,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
-import java.util.Random;
 
 public class MyChart {
 

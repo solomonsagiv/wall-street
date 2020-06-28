@@ -11,13 +11,12 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public static final int TIME = 0;
     public static final int VALUE = 1;
-
+    
     private Color color;
     private float stokeSize;
     private MyChartList myChartList;
@@ -47,7 +46,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         json.put(JsonStrings.y, item.getValue());
         return json;
     }
-
+    
 //    public void loadData( ArrayList< Double > dots ) {
 //        try {
 //            LocalDateTime time = myChartList.get( 0 ).getX( );
