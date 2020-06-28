@@ -69,7 +69,7 @@ public class DDEReader extends MyThread implements Runnable {
             Options options = exp.getOptions();
 
             if ( options.getOptionsDDeCells( ) != null ) {
-                exp.setFut( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+                exp.setCalcFut( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
             }
         }
 

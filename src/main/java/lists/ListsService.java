@@ -8,7 +8,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 // Regular list updater
@@ -53,7 +52,7 @@ public class ListsService extends MyBaseService {
         // Options lists
         for ( Exp exp : client.getExps().getExpList()) {
             try {
-                exp.getFutList().add(exp.getFut());
+                exp.getFutList().add(exp.getCalcFut());
                 client.getIndexSeries().add();
                 exp.getOpFutList().add(exp.getOpFuture());
                 try {

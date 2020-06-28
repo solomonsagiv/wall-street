@@ -3,22 +3,17 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
-import basketFinder.MiniStock;
-import basketFinder.handlers.StocksHandler;
-import com.ib.client.Contract;
 import com.ib.client.TickAttr;
-import exp.Exp;
+import exp.E;
 import exp.ExpEnum;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
-
-import java.util.Map;
 
 public class SpxRequester implements ITwsRequester {
 
     Spx spx;
     int indexId, futureId, futureFarId;
-    Exp e1, e2;
+    E e1, e2;
 
     @Override
     public void request(Downloader downloader) {
@@ -60,8 +55,8 @@ public class SpxRequester implements ITwsRequester {
 
     private void init() {
         spx = Spx.getInstance();
-        e1 = spx.getExps().getExp( ExpEnum.E1);
-        e2 = spx.getExps().getExp(ExpEnum.E2);
+        e1 = ( E ) spx.getExps().getExp( ExpEnum.E1);
+        e2 = ( E ) spx.getExps().getExp(ExpEnum.E2);
 
         indexId = spx.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
         futureId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();
@@ -78,11 +73,16 @@ public class SpxRequester implements ITwsRequester {
             if (tickerId == futureId && price > 0) {
                 // Bid
                 if (field == 1) {
-                    e1.setFutBid(price);
+                    e1.setCalcFutBid(price);
                 }
                 // Ask
                 if (field == 2) {
-                    e1.setFutAsk(price);
+                    e1.setCalcFutAsk(price);
+                }
+
+                // Last
+                if ( field == 4 ) {
+                    e1.setFutForDelta( price );
                 }
             }
 
@@ -90,11 +90,11 @@ public class SpxRequester implements ITwsRequester {
             if (tickerId == futureFarId && price > 0) {
                 // Bid
                 if (field == 1) {
-                    e2.setFutBid(price);
+                    e2.setCalcFutBid(price);
                 }
                 // Ask
                 if (field == 2) {
-                    e2.setFutAsk(price);
+                    e2.setCalcFutAsk(price);
                 }
             }
 
@@ -123,6 +123,17 @@ public class SpxRequester implements ITwsRequester {
 
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
+
+        if ( spx.isStarted() ) {
+
+            // Last
+            if ( tickerId == futureId && size > 0 ) {
+                if ( field == 8 ) {
+                    e1.setVolumeFutForDelta( size );
+                }
+            }
+
+        }
 
         // Spx miniStocks
 //        if (tickerId >= stocksHandler.getMinId() && tickerId < stocksHandler.getMaxId()) {

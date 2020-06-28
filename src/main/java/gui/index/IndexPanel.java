@@ -289,7 +289,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             highField.setText( L.format100( client.getHigh( ) ) );
             lowField.setText( L.format100( client.getLow( ) ) );
             indexField.setText( L.format100( client.getIndex( ) ) );
-            futureField.setText( L.format100( mainExp.getFut( ) ) );
+            futureField.setText( L.format100( mainExp.getCalcFut( ) ) );
 
             // Ticker present
             openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
@@ -309,7 +309,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             // Quarter
             opQuarterField.colorBack( nextExp.getOpFuture( ), L.format100( ) );
 
-            contractQuarterField.setText( L.format100( nextExp.getFut( ) ) );
+            contractQuarterField.setText( L.format100( nextExp.getCalcFut( ) ) );
 
             // Races and roll
             // Races

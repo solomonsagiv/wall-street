@@ -68,7 +68,6 @@ public class DaxRequester implements ITwsRequester {
         indexId = dax.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
         futureId = dax.getTwsHandler().getMyContract( TwsContractsEnum.FUTURE ).getMyId();
         stocksHandler = dax.getStocksHandler( );
-        deltaCalc = new DeltaCalc( dax );
     }
 
     @Override
@@ -86,15 +85,15 @@ public class DaxRequester implements ITwsRequester {
 
         if ( tickerId == futureId && price > 0 ) {
             if ( field == 4 ) {
-                expMonth.setFut( price );
+                expMonth.setCalcFut( price );
             }
 
             if ( field == 1 ) {
-                expMonth.setFutBid( price );
+                expMonth.setCalcFutBid( price );
             }
 
             if ( field == 2 ) {
-                expMonth.setFutAsk( price );
+                expMonth.setCalcFutAsk( price );
             }
             
         }
@@ -129,9 +128,9 @@ public class DaxRequester implements ITwsRequester {
 
         if ( tickerId == futureId ) {
             if ( field == 8 ) {
-                expMonth.setFutVolume( size );
+//                expMonth.setFutVolume( size );
 
-                deltaCalc.calc( expMonth.getOptions(), size, expMonth.getFut() );
+//                deltaCalc.calc( expMonth.getOptions(), size, expMonth.getCalcFut() );
 
                 System.out.println("size " + size );
             }

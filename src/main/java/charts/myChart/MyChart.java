@@ -129,6 +129,12 @@ public class MyChart {
         public ChartUpdater( BASE_CLIENT_OBJECT client, MyTimeSeries[] series ) {
             super( client );
             this.series = series;
+            initListeners();
+        }
+
+        private void initListeners() {
+
+
         }
 
         @Override
@@ -142,6 +148,7 @@ public class MyChart {
                             loadChartData();
                             load = true;
                         }
+
                         // Sleep
                         Thread.sleep(props.getInt(ChartPropsEnum.SLEEP));
 
@@ -251,7 +258,6 @@ public class MyChart {
                             for (int i = 0; i < dots.size() - (props.getInt(ChartPropsEnum.SECONDS_ON_MESS) * series.length); i++) {
                                 dots.remove(i);
                             }
-
                         }
                     }
                 }

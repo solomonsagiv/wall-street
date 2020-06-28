@@ -25,12 +25,11 @@ public abstract class Exp implements IJson {
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
 
-    protected double fut = 0;
-    protected double futBid = 0;
-    protected double futAsk = 0;
+    protected double calcFut = 0;
+    protected double calcFutBid = 0;
+    protected double calcFutAsk = 0;
     protected int futBidAskCounter = 0;
     protected double futDelta = 0;
-    private int futVolume = 0;
 
     List< Double > opFutList = new ArrayList<>( );
     List< Double > futList = new ArrayList<>( );
@@ -85,7 +84,7 @@ public abstract class Exp implements IJson {
 
     // Functions
     public double getFutureOp() {
-        return fut - client.getIndex( );
+        return calcFut - client.getIndex( );
     }
 
     public double getOpAvgFut() throws UnknownHostException {
@@ -126,7 +125,7 @@ public abstract class Exp implements IJson {
     }
 
     public double getOpFuture() {
-        return fut - client.getIndex( );
+        return calcFut - client.getIndex( );
     }
 
     public void setOpAvgFuture( double opAvg ) {
@@ -145,52 +144,52 @@ public abstract class Exp implements IJson {
 
     private double futureAskForCheck = 0;
 
-    public void setFutBid( double futBid ) {
+    public void setCalcFutBid( double calcFutBid ) {
 
         // If increment state
-        if ( futBid > this.futBid && futureAskForCheck == this.futAsk && client.isStarted( ) ) {
+        if ( calcFutBid > this.calcFutBid && futureAskForCheck == this.calcFutAsk && client.isStarted( ) ) {
             futBidAskCounter++;
         }
-        this.futBid = futBid;
+        this.calcFutBid = calcFutBid;
 
         // Ask for bid change state
-        futureAskForCheck = this.futAsk;
+        futureAskForCheck = this.calcFutAsk;
 
     }
 
     private double futureBidForCheck = 0;
 
-    public void setFutAsk( double futAsk ) {
+    public void setCalcFutAsk( double calcFutAsk ) {
 
         // If increment state
-        if ( futAsk < this.futAsk && futureBidForCheck == this.futBid && client.isStarted( ) ) {
+        if ( calcFutAsk < this.calcFutAsk && futureBidForCheck == this.calcFutBid && client.isStarted( ) ) {
             futBidAskCounter--;
         }
-        this.futAsk = futAsk;
+        this.calcFutAsk = calcFutAsk;
 
         // Ask for bid change state
-        futureBidForCheck = this.futBid;
+        futureBidForCheck = this.calcFutBid;
 
     }
 
-    public void setFut( double fut ) {
-        this.fut = fut;
+    public void setCalcFut( double calcFut ) {
+        this.calcFut = calcFut;
     }
 
     public LocalDate getExpDate() {
         return expDate;
     }
 
-    public double getFut() {
-        return fut;
+    public double getCalcFut() {
+        return calcFut;
     }
 
-    public double getFutBid() {
-        return futBid;
+    public double getCalcFutBid() {
+        return calcFutBid;
     }
 
-    public double getFutAsk() {
-        return futAsk;
+    public double getCalcFutAsk() {
+        return calcFutAsk;
     }
 
     public int getFutBidAskCounter() {
@@ -203,14 +202,6 @@ public abstract class Exp implements IJson {
 
     public double getFutDelta() {
         return futDelta;
-    }
-
-    public void setFutVolume( int futVolume ) {
-        this.futVolume = futVolume;
-    }
-
-    public int getFutVolume() {
-        return futVolume;
     }
 
     public MyTimeSeries getFutBidAskCounterSeries() {
@@ -248,9 +239,9 @@ public abstract class Exp implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson( );
-        json.put( JsonStrings.fut, getFut( ) );
-        json.put( JsonStrings.futBid, getFutBid( ) );
-        json.put( JsonStrings.futAsk, getFutAsk( ) );
+        json.put( JsonStrings.fut, getCalcFut( ) );
+        json.put( JsonStrings.futBid, getCalcFutBid( ) );
+        json.put( JsonStrings.futAsk, getCalcFutAsk( ) );
         json.put( JsonStrings.futBidAskCounter, getFutBidAskCounter( ) );
         json.put( JsonStrings.options, getOptions( ).getAsJson( ) );
         json.put( JsonStrings.expData, expData.getAsJson( ) );
