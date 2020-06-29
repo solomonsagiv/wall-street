@@ -49,7 +49,6 @@ public class DeltaCalc {
         System.out.println("last : " + last);
         System.out.println("ask : " + preAsk);
 
-
         // Buy ( Last == pre ask )
         if ( last >= preAsk ) {
             delta = quantity;

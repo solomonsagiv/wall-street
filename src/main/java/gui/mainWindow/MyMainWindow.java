@@ -103,7 +103,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void loadOnStartUp() {
-
+        
         // Connect to db
         ConnectionPool.getConnectionsPoolInstance( );
 

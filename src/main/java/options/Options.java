@@ -250,7 +250,6 @@ public class Options implements IJson {
                 } catch ( InterruptedException e ) {
                     break;
                 } catch ( Exception e ) {
-
                 }
             }
         } ).start( );

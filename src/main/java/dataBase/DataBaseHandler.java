@@ -15,11 +15,16 @@ public class DataBaseHandler {
 
     public void load() {
         TablesHandler th = client.getTablesHandler();
-        th.getTable(TablesEnum.TWS_CONTRACTS).load();
-        th.getTable(TablesEnum.STATUS).load();
-        th.getTable(TablesEnum.ARRAYS).load();
+//        System.out.println(client.getName() + "load 0" );
 
-        System.out.println( client.getName() + " Loaded" );
+        th.getTable(TablesEnum.TWS_CONTRACTS).load();
+//        System.out.println(client.getName() + "load 1" );
+
+        th.getTable(TablesEnum.STATUS).load();
+//        System.out.println(client.getName() + "load 2" );
+
+        th.getTable(TablesEnum.ARRAYS).load();
+//        System.out.println(client.getName() + "load 3" );
 
     }
 

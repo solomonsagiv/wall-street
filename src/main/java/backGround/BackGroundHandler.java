@@ -14,8 +14,6 @@ public class BackGroundHandler {
 
     public static BackGroundHandler instance;
 
-    boolean load = false;
-
     private BackGroundHandler() {
     }
 
@@ -58,6 +56,7 @@ public class BackGroundHandler {
         boolean run = true;
         double last_0 = client.getIndex( );
         boolean runnersClosed = false;
+        boolean load = false;
 
         LocalTime now;
 
@@ -122,7 +121,6 @@ public class BackGroundHandler {
                 options.checkOptionData( );
             }
         }
-
         @Override
         public void initRunnable() {
             setRunnable( this );

@@ -156,6 +156,8 @@ public abstract class MySqlTable implements IMyTableSql {
         try {
             String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", getName( ), client.getDbId( ) );
 
+            System.out.println(query );
+
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {
@@ -183,9 +185,6 @@ public abstract class MySqlTable implements IMyTableSql {
                     }
                 }
             }
-        } catch ( SQLException e ) {
-            e.printStackTrace( );
-            Arik.getInstance( ).sendErrorMessage( e );
         } catch ( Exception e ) {
             e.printStackTrace( );
         } finally {
