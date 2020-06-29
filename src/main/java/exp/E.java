@@ -66,7 +66,7 @@ public class E extends Exp {
 
         int quantity = volumeFutForDelta - this.volumeFutForDelta;
 
-        DeltaCalc.calc( quantity, getCalcFut( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
+        DeltaCalc.calc( quantity, getFutForDelta(), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
 
         this.volumeFutForDelta = volumeFutForDelta;
     }

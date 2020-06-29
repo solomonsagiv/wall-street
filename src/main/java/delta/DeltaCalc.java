@@ -2,8 +2,6 @@ package delta;
 
 import exp.E;
 import exp.ExpEnum;
-import options.Options;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
 import java.util.Scanner;
@@ -28,11 +26,12 @@ public class DeltaCalc {
 
             double last = scanner.nextDouble();
 
-            e.setVolumeFutForDelta( q );
+
             e.setFutForDelta( last );
             e.setFutBidForDelta( last - 0.5 );
             e.setFutAskForDelta( last + 0.5 );
 
+            e.setVolumeFutForDelta( q );
 
 
 
@@ -45,19 +44,27 @@ public class DeltaCalc {
 
         double delta = 0;
 
+        System.out.println("q : " + quantity);
+        System.out.println("bid : " + preBid);
+        System.out.println("last : " + last);
+        System.out.println("ask : " + preAsk);
+
+
         // Buy ( Last == pre ask )
-        if ( last == preAsk ) {
+        if ( last >= preAsk ) {
             delta = quantity;
         }
 
         // Buy ( Last == pre bid )
-        if ( last == preBid ) {
+        if ( last <= preBid ) {
             delta = quantity * -1;
         }
 
+        delta *= 50;
+
         System.out.println( delta + "$");
 
-        return delta * 50;
+        return delta;
     }
 
 }
