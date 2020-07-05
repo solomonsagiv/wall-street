@@ -86,7 +86,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         }
         this.index = index;
     }
-    
+
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson( );
@@ -111,15 +111,15 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public void loadFromJson( MyJson json ) {
         setIndexBidAskCounter( json.getInt( JsonStrings.indBidAskCounter ) );
-        getExps( ).getExp( ExpEnum.E1 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e1 ).toString( ) ) );
-        getExps( ).getExp( ExpEnum.E2 ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.e2 ).toString( ) ) );
+        getExps( ).getExp( ExpEnum.WEEK ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.week ).toString( ) ) );
+        getExps( ).getExp( ExpEnum.MONTH ).loadFromJson( new MyJson( json.getJSONObject( JsonStrings.month ).toString( ) ) );
     }
 
     @Override
     public MyJson getResetJson() {
         MyJson json = new MyJson( );
-        json.put( JsonStrings.e1, getExps().getExp( ExpEnum.E1 ).getResetJson() );
-        json.put( JsonStrings.e2, getExps().getExp( ExpEnum.E2 ).getResetJson() );
+        json.put( JsonStrings.week, getExps().getExp( ExpEnum.WEEK ).getResetJson() );
+        json.put( JsonStrings.month, getExps().getExp( ExpEnum.MONTH ).getResetJson() );
         return json;
     }
 
