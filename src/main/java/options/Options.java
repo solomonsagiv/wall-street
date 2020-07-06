@@ -116,7 +116,6 @@ public class Options implements IJson {
 
             System.out.println( exp.getEnum() + " " + strike );
 
-
             // ----- Call ------ //
             Call call = new Call( strike, id );
 

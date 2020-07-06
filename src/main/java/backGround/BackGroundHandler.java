@@ -56,8 +56,6 @@ public class BackGroundHandler {
         boolean run = true;
         double last_0 = client.getIndex( );
         boolean runnersClosed = false;
-        boolean load = false;
-
         LocalTime now;
 
         @Override
@@ -74,11 +72,6 @@ public class BackGroundHandler {
                     now = LocalTime.now( );
 
                     double last = client.getIndex( );
-
-                    if ( !load ) {
-                        load = true;
-                        client.getDataBaseHandler( ).load( );
-                    }
 
                     // Index start time
                     if ( now.isAfter( client.getIndexStartTime( ) ) && !client.isStarted( ) && last_0 != last ) {

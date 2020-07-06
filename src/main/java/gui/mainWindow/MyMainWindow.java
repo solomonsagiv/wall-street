@@ -14,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
-
+    
     // Main
     public static void main( String[] args ) {
         MyMainWindow mainWindow = new MyMainWindow( "My main window" );
@@ -109,7 +109,14 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
         // Start back runners
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            BackGroundHandler.getInstance( ).createNewRunner( client );
+            new Thread( () -> {
+                try {
+                    client.getDataBaseHandler().load();
+                    BackGroundHandler.getInstance( ).createNewRunner( client );
+                } catch ( Exception e ) {
+                    e.printStackTrace();
+                }
+            } ).start();
         }
     }
 }
