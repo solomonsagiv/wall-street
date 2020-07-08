@@ -8,13 +8,16 @@ import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.*;
+import serverObjects.stockObjects.Amazon;
+import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Microsoft;
+import serverObjects.stockObjects.Netflix;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
-    
+
     // Main
     public static void main( String[] args ) {
         MyMainWindow mainWindow = new MyMainWindow( "My main window" );
@@ -26,13 +29,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
-    //    static Dax dax;
+    // static Dax dax;
     static Spx spx;
     static Apple apple;
     static Amazon amazon;
-    static Ulta ulta;
     static Netflix netflix;
-    static Amd amd;
     static Microsoft microsoft;
 
     static {
@@ -40,9 +41,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         spx = Spx.getInstance( );
         apple = Apple.getInstance( );
         amazon = Amazon.getInstance( );
-        ulta = Ulta.getInstance( );
         netflix = Netflix.getInstance( );
-        amd = Amd.getInstance( );
         microsoft = Microsoft.getInstance( );
     }
 
@@ -53,12 +52,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void appendClients() {
 //        localhandler.clients.add(dax);
+
         LocalHandler.clients.add( spx );
         LocalHandler.clients.add( apple );
         LocalHandler.clients.add( amazon );
-        LocalHandler.clients.add( ulta );
         LocalHandler.clients.add( netflix );
-        LocalHandler.clients.add( amd );
         LocalHandler.clients.add( microsoft );
     }
 
@@ -111,12 +109,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
             new Thread( () -> {
                 try {
-                    client.getDataBaseHandler().load();
+                    client.getDataBaseHandler( ).load( );
                     BackGroundHandler.getInstance( ).createNewRunner( client );
                 } catch ( Exception e ) {
-                    e.printStackTrace();
+                    e.printStackTrace( );
                 }
-            } ).start();
+            } ).start( );
         }
     }
 }

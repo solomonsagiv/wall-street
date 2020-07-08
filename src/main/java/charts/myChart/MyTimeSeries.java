@@ -1,6 +1,7 @@
 package charts.myChart;
 
 import lists.MyChartList;
+import locals.L;
 import myJson.MyJson;
 import options.JsonStrings;
 import org.jfree.data.time.Second;
@@ -10,13 +11,14 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 import java.net.UnknownHostException;
-import java.time.LocalDateTime;
+import java.text.ParseException;
+import java.util.Date;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public static final int TIME = 0;
     public static final int VALUE = 1;
-    
+
     private Color color;
     private float stokeSize;
     private MyChartList myChartList;
@@ -25,28 +27,29 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     Second lastSeconde;
     protected BASE_CLIENT_OBJECT client;
 
-    public MyTimeSeries(Comparable name) {
-        super(name);
-        this.name = name.toString();
-    }
+//    public MyTimeSeries( Comparable name ) {
+//        super( name );
+//        this.name = name.toString( );
+//    }
 
-    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
-        super(name);
+    public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
+        super( name );
         this.client = client;
     }
 
     public TimeSeriesDataItem getLastItem() {
-        return getDataItem(getItemCount() - 1);
+        return getDataItem( getItemCount( ) - 1 );
     }
 
-    public MyJson getLastJson() {
-        TimeSeriesDataItem item = getLastItem();
-        MyJson json = new MyJson();
-        json.put(JsonStrings.x, item.getPeriod());
-        json.put(JsonStrings.y, item.getValue());
+
+    public MyJson getLastJson() throws ParseException {
+        TimeSeriesDataItem item = getLastItem( );
+        MyJson json = new MyJson( );
+        json.put( JsonStrings.x, item.getPeriod( ).toString( ) );
+        json.put( JsonStrings.y, item.getValue( ) );
         return json;
     }
-    
+
 //    public void loadData( ArrayList< Double > dots ) {
 //        try {
 //            LocalDateTime time = myChartList.get( 0 ).getX( );
@@ -70,14 +73,20 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 //        lastSeconde = new Second( );
 //    }
 
-    public void add(MyJson json) {
+    public void add( MyJson json ) {
+        Date date;
+        try {
+            if ( !json.getString( JsonStrings.x ).isEmpty() ) {
 
-        LocalDateTime time = LocalDateTime.parse( json.getString( JsonStrings.x ));
+                date = L.toDate( json.getString( JsonStrings.x ) );
+                lastSeconde = new Second( date );
 
-        lastSeconde = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonth().getValue(), time.getYear());
-
-        addOrUpdate(getLastSeconde(), json.getDouble(JsonStrings.y));
-        lastSeconde = (Second) lastSeconde.next();
+                addOrUpdate( getLastSeconde( ), json.getDouble( JsonStrings.y ) );
+                lastSeconde = ( Second ) lastSeconde.next( );
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace( );
+        }
     }
 
 //    public double add() {
@@ -107,12 +116,12 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         double data = 0;
         // live data
         try {
-            data = getData();
-            addOrUpdate(getLastSeconde(), data);
-        } catch (Exception e) {
-            e.printStackTrace();
+            data = getData( );
+            addOrUpdate( getLastSeconde( ), data );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
-        lastSeconde = (Second) lastSeconde.next();
+        lastSeconde = ( Second ) lastSeconde.next( );
         return data;
     }
 
@@ -121,7 +130,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor( Color color ) {
         this.color = color;
     }
 
@@ -129,7 +138,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return stokeSize;
     }
 
-    public void setStokeSize(float stokeSize) {
+    public void setStokeSize( float stokeSize ) {
         this.stokeSize = stokeSize;
     }
 
@@ -137,7 +146,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return myChartList;
     }
 
-    public void setMyChartList(MyChartList myChartList) {
+    public void setMyChartList( MyChartList myChartList ) {
         this.myChartList = myChartList;
     }
 
@@ -145,14 +154,14 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
 
     public Second getLastSeconde() {
-        if (lastSeconde == null) {
-            lastSeconde = new Second();
+        if ( lastSeconde == null ) {
+            lastSeconde = new Second( );
         }
         return lastSeconde;
     }

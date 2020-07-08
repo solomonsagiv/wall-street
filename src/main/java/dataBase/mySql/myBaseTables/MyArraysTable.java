@@ -6,13 +6,10 @@ import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import dataBase.mySql.mySqlComps.MySqlDataTypeEnum;
 import dataBase.mySql.mySqlComps.MySqlTable;
-import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class MyArraysTable extends MySqlTable {
@@ -23,58 +20,59 @@ public abstract class MyArraysTable extends MySqlTable {
 
     @Override
     public String getName() {
-        return client.getName() + "_arrays";
+        return client.getName( ) + "Arrays";
     }
 
     @Override
     public void insert() {
-        super.insert();
+        super.insert( );
     }
 
     @Override
     public void load() {
         try {
 
-            String query = String.format( "SELECT * FROM stocks.%s;", getName() );
+            String query = String.format( "SELECT * FROM %s.%s;", schema, getName( ) );
 
             ResultSet rs = MySql.select( query );
 
             while ( rs.next( ) ) {
 
-                for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
-                    MyLoadAbleColumn column = entry.getValue();
+                for ( Map.Entry< MySqlColumnEnum, MyLoadAbleColumn > entry : loadAbleColumns.entrySet( ) ) {
+                    MyLoadAbleColumn column = entry.getValue( );
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.getType().getName() );
+                        double d = rs.getDouble( column.getType( ).getName( ) );
                         column.setLoadedObject( d );
                         continue;
                     }
 
                     if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.getType().getName() );
+                        String s = rs.getString( column.getType( ).getName( ) );
                         column.setLoadedObject( s );
                         continue;
                     }
                 }
             }
 
-            setLoad(true);
+            setLoad( true );
 
         } catch ( SQLException e ) {
             e.printStackTrace( );
-            Arik.getInstance( ).sendErrorMessage( e  );
+            Arik.getInstance( ).sendErrorMessage( e );
         }
     }
 
     @Override
-    public void update() {}
+    public void update() {
+    }
 
     @Override
     public void reset() {
         try {
-            MySql.trunticate( getName() );
+            MySql.trunticate( getName( ) );
         } catch ( Exception e ) {
-            e.printStackTrace();
+            e.printStackTrace( );
             Arik.getInstance( ).sendErrorMessage( e );
         }
     }

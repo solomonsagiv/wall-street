@@ -87,7 +87,7 @@ public class TwsHandler implements IJson {
             try {
 
                 // Sleep
-                Thread.sleep( 200 );
+//                Thread.sleep( 200 );
 
                 // ----- Call ----- //
                 Call call = strike.getCall( );

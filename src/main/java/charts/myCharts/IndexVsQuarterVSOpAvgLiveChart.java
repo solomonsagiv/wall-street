@@ -59,6 +59,9 @@ public class IndexVsQuarterVSOpAvgLiveChart extends MyChartCreator {
                 return client.getIndexAsk();
             }
         };
+        ask.setColor( Themes.RED );
+        ask.setStokeSize( 2.25f );
+
         // OpAvg
         MyTimeSeries opAvg = new MyTimeSeries( "OpAvgFuture", client ) {
             @Override

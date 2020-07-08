@@ -15,6 +15,7 @@ public abstract class MySqlTable implements IMyTableSql {
     // Variables
     protected BASE_CLIENT_OBJECT client;
     private String name;
+    protected String schema = "jsonTables";
 
     protected Map< MySqlColumnEnum, MyColumnSql > columns = new HashMap<>( );
     protected Map< MySqlColumnEnum, MyLoadAbleColumn > loadAbleColumns = new HashMap<>( );
@@ -52,7 +53,7 @@ public abstract class MySqlTable implements IMyTableSql {
     }
 
     protected void updateSpecificCols( ArrayList< MyColumnSql > columns ) {
-        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", getName( ) ) );
+        StringBuilder query = new StringBuilder( String.format( "UPDATE `%s`.`%s` SET ", schema, getName( ) ) );
 
         int i = 0;
 
@@ -79,7 +80,7 @@ public abstract class MySqlTable implements IMyTableSql {
     @Override
     public void insert() {
 
-        String query = String.format( "INSERT INTO `stocks`.`%s` ", getName( ) );
+        String query = String.format( "INSERT INTO `%s`.`%s` ", schema, getName( ) );
         StringBuilder insertQuery = new StringBuilder( query );
         StringBuilder insertColumns = new StringBuilder( );
 
@@ -124,7 +125,7 @@ public abstract class MySqlTable implements IMyTableSql {
     @Override
     public void update() {
 
-        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", getName( ) ) );
+        StringBuilder query = new StringBuilder( String.format( "UPDATE `%s`.`%s` SET ", schema, getName( ) ) );
 
         int i = 0;
 
@@ -154,7 +155,7 @@ public abstract class MySqlTable implements IMyTableSql {
     @Override
     public void load() {
         try {
-            String query = String.format( "SELECT * FROM stocks.%s WHERE id ='%S'", getName( ), client.getDbId( ) );
+            String query = String.format( "SELECT * FROM %s.%s WHERE id ='%S'", schema, getName( ), client.getDbId( ) );
 
             System.out.println(query );
 
@@ -195,7 +196,7 @@ public abstract class MySqlTable implements IMyTableSql {
     public void loadAll() {
         try {
 
-            String query = String.format( "SELECT * FROM stocks.%s", getName( ), client.getDbId( ) );
+            String query = String.format( "SELECT * FROM %s.%s", schema, getName( ), client.getDbId( ) );
 
             ResultSet rs = MySql.select( query );
 
@@ -233,7 +234,7 @@ public abstract class MySqlTable implements IMyTableSql {
 
     @Override
     public void reset() {
-        StringBuilder query = new StringBuilder( String.format( "UPDATE `stocks`.`%s` SET ", getName( ) ) );
+        StringBuilder query = new StringBuilder( String.format( "UPDATE `%s`.`%s` SET ", schema, getName( ) ) );
         int i = 0;
 
         for ( Map.Entry< MySqlColumnEnum, MyLoadAbleColumn > entry : loadAbleColumns.entrySet( ) ) {

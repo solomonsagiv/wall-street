@@ -24,6 +24,7 @@ import roll.RollHandler;
 import serverObjects.indexObjects.Spx;
 import service.MyServiceHandler;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -32,14 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
-
-    public static void main( String[] args ) {
-        Spx spx = Spx.getInstance();
-        System.out.println(spx.getAsJson());
-//        spx.getTablesHandler().getTable( TablesEnum.DAY ).insert();
-
-        System.out.println("Done" );
-    }
 
     public static final int PRE = 0;
     public static final int CURRENT = 1;
@@ -129,13 +122,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // Call subClasses abstract functions
             initBaseId( );
             initDDECells( );
-            initSeries();
+            initSeries( );
 
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
             twsHandler = new TwsHandler( );
-            dataBaseHandler = new DataBaseHandler(this);
+            dataBaseHandler = new DataBaseHandler( this );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -163,28 +156,28 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     @Override
     public void initSeries() {
-        indexSeries = new MyTimeSeries("Index", this) {
+        indexSeries = new MyTimeSeries( "Index", this ) {
             @Override
             public double getData() {
-                return client.getIndex();
+                return client.getIndex( );
             }
         };
-        indexBidSeries = new MyTimeSeries("Index bid", this) {
+        indexBidSeries = new MyTimeSeries( "Index bid", this ) {
             @Override
             public double getData() {
-                return client.getIndexBid();
+                return client.getIndexBid( );
             }
         };
-        indexAskSeries = new MyTimeSeries("Index ask", this) {
+        indexAskSeries = new MyTimeSeries( "Index ask", this ) {
             @Override
             public double getData() {
-                return client.getIndexAsk();
+                return client.getIndexAsk( );
             }
         };
-        indexBidAskCounterSeries = new MyTimeSeries("IndBidAskCounter", this) {
+        indexBidAskCounterSeries = new MyTimeSeries( "IndBidAskCounter", this ) {
             @Override
             public double getData() {
-                return client.getIndexBidAskCounter();
+                return client.getIndexBidAskCounter( );
             }
         };
     }
@@ -309,27 +302,29 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100( getExps( ).getMainExp( ).getOpAvgFut() ) + "\n";
+        text += "OP avg: " + L.format100( getExps( ).getMainExp( ).getOpAvgFut( ) ) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
-        text += "Contract counter: " + getExps( ).getMainExp( ).getOptions().getConBidAskCounter( ) + "\n";
+        text += "Contract counter: " + getExps( ).getMainExp( ).getOptions( ).getConBidAskCounter( ) + "\n";
         return text;
     }
 
     public boolean isLoadFromDb() {
 
-        if ( !Manifest.DB ) {
-            setLoadFromDb(true);
+        if ( loadFromDb ) {
             return true;
         }
 
-        TablesHandler th = getTablesHandler();
-        return th.getTable(TablesEnum.STATUS).isLoad() && th.getTable(TablesEnum.ARRAYS).isLoad() && th.getTable(TablesEnum.TWS_CONTRACTS).isLoad();
+        if ( !Manifest.DB ) {
+            setLoadFromDb( true );
+            return true;
+        }
+
+        TablesHandler th = getTablesHandler( );
+        return th.getTable( TablesEnum.STATUS ).isLoad( ) && th.getTable( TablesEnum.ARRAYS ).isLoad( ) && th.getTable( TablesEnum.TWS_CONTRACTS ).isLoad( );
     }
 
     public void setLoadFromDb( boolean loadFromDb ) {
-        TablesHandler th = getTablesHandler();
-        th.getTable(TablesEnum.STATUS).setLoad(loadFromDb);
-        th.getTable(TablesEnum.ARRAYS).setLoad(loadFromDb);
+        this.loadFromDb = loadFromDb;
     }
 
     public int getConUp() {
@@ -461,7 +456,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         if ( indexBid > this.indexBid ) {
             indexBidAskCounter2++;
         }
-        
+
         // If increment state
         if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
             indexBidAskCounter++;
@@ -527,7 +522,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return mySqlService;
     }
 
-    public void setIndexBidAskCounter2(int indexBidAskCounter2) {
+    public void setIndexBidAskCounter2( int indexBidAskCounter2 ) {
         this.indexBidAskCounter2 = indexBidAskCounter2;
     }
 
@@ -717,11 +712,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
-                ", indexList=" + indexSeries.getItemCount() +
+                ", indexList=" + indexSeries.getItemCount( ) +
                 '}';
     }
-
-
 
 
 }

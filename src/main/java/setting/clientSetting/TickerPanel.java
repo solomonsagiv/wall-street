@@ -80,6 +80,8 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         startBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
+                client.setLoadFromDb( true );
+                client.startAll();
                 BackGroundHandler.getInstance().createNewRunner(client);
             }
         } );

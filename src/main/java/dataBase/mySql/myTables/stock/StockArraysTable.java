@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.rmi.UnknownHostException;
+import java.text.ParseException;
 import java.time.LocalTime;
 
 public class StockArraysTable extends MyArraysTable {
@@ -29,7 +30,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getIndexSeries().getLastJson().toString();
             }
 
@@ -63,7 +64,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexBidAskCounterList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getIndexBidAskCounterSeries().getLastJson().toString();
             }
 
@@ -79,7 +80,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.conWeekBidAskCounterList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getExps( ).getExp( ExpEnum.WEEK ).getOptions().getConBidAskCounterSeries().getLastJson().toString();
             }
 
@@ -94,7 +95,7 @@ public class StockArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.conMonthBidAskCounterList ) {
                 @Override
-                public String getObject() throws UnknownHostException {
+                public String getObject() throws UnknownHostException, ParseException {
                     return client.getExps( ).getExp( ExpEnum.MONTH ).getOptions().getConBidAskCounterSeries().getLastJson().toString();
                 }
 

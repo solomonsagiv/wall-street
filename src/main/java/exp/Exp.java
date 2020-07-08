@@ -62,19 +62,19 @@ public abstract class Exp implements IJson {
     }
 
     public void initSeries() {
-        opAvgFutSeries = new MyTimeSeries( "OpAvgFuture" ) {
+        opAvgFutSeries = new MyTimeSeries( "OpAvgFuture", client ) {
             @Override
             public double getData() throws UnknownHostException {
                 return getOpAvgFut( );
             }
         };
-        opAvg15FutSeries = new MyTimeSeries( "OpAvg15Future") {
+        opAvg15FutSeries = new MyTimeSeries( "OpAvg15Future", client) {
             @Override
             public double getData() throws UnknownHostException {
                 return getOpAvgFut( 900 );
             }
         };
-        futBidAskCounterSeries = new MyTimeSeries( "futBidAskCounter" ) {
+        futBidAskCounterSeries = new MyTimeSeries( "futBidAskCounter", client ) {
             @Override
             public double getData() throws UnknownHostException {
                 return getFutBidAskCounter();

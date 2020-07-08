@@ -23,10 +23,9 @@ public abstract class MyTwsContractsTable extends MySqlTable {
     }
 
     public boolean isExist( int id ) throws SQLException {
-        System.out.println( id );
         boolean exist = false;
 
-        String sql = "SELECT * FROM stocks.twsContracts;";
+        String sql = "SELECT * FROM jsonTables.twsContracts;";
 
         ResultSet rs = MySql.select( sql );
 
@@ -66,7 +65,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         String lastTradingDayOrContractMonth = contract.lastTradeDateOrContractMonth( );
 
         // the mysql insert statement
-        String query = " INSERT INTO stocks.twsContracts (id, stockName, contractName, secType, currency, exchange, tradingClass, multiplier, primaryExchange, symbol, includExpired, lastTradingDayOrContractMonth)"
+        String query = " INSERT INTO jsonTables.twsContracts (id, stockName, contractName, secType, currency, exchange, tradingClass, multiplier, primaryExchange, symbol, includExpired, lastTradingDayOrContractMonth)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         // create the mysql insert preparedstatement
@@ -90,7 +89,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
 
     private void update( MyContract contract ) throws SQLException {
 
-        String query = "UPDATE stocks.twsContracts SET stockName = ?, contractName = ?, secType = ?, currency = ?, exchange = ?, tradingClass = ?, multiplier = ?, primaryExchange = ?, symbol = ?, includExpired = ?, lastTradingDayOrContractMonth = ? WHERE id = ?";
+        String query = "UPDATE jsonTables.twsContracts SET stockName = ?, contractName = ?, secType = ?, currency = ?, exchange = ?, tradingClass = ?, multiplier = ?, primaryExchange = ?, symbol = ?, includExpired = ?, lastTradingDayOrContractMonth = ? WHERE id = ?";
 
         // Values
         int id = contract.getMyId( );
@@ -129,7 +128,7 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         try {
             TwsHandler twsHandler = client.getTwsHandler( );
 
-            String query = String.format( "SELECT * FROM stocks.%s WHERE stockName ='%s'", getName( ), client.getName( ) );
+            String query = String.format( "SELECT * FROM %s.%s WHERE stockName ='%s'", schema, getName( ), client.getName( ) );
 
             System.out.println( query );
             ResultSet rs = MySql.select( query );

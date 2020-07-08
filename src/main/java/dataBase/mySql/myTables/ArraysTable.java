@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.rmi.UnknownHostException;
+import java.text.ParseException;
 import java.time.LocalTime;
 
 public class ArraysTable extends MyArraysTable {
@@ -31,7 +32,7 @@ public class ArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getIndexSeries().getLastJson().toString();
             }
 
@@ -65,7 +66,7 @@ public class ArraysTable extends MyArraysTable {
 
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexBidAskCounterList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getIndexBidAskCounterSeries().getLastJson().toString();
             }
 
@@ -82,7 +83,7 @@ public class ArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.opAvgFutureList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutSeries().getLastJson().toString();
             }
             @Override
@@ -99,7 +100,7 @@ public class ArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.quarterFutBidAskCounterList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterSeries().getLastJson().toString();
             }
 
@@ -115,7 +116,7 @@ public class ArraysTable extends MyArraysTable {
         } );
         addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.quarterFarFutBidAskCounterList ) {
             @Override
-            public String getObject() throws UnknownHostException {
+            public String getObject() throws UnknownHostException, ParseException {
                 return client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterSeries().getLastJson().toString();
             }
 

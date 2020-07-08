@@ -72,14 +72,14 @@ public class Options implements IJson {
     }
 
     public void initSeries() {
-        conBidAskCounterSeries = new MyTimeSeries( "conBidAskCounter" ) {
+        conBidAskCounterSeries = new MyTimeSeries( "conBidAskCounter", client ) {
             @Override
             public double getData() throws UnknownHostException {
                 return getConBidAskCounter();
             }
         };
 
-        opAvgSeries = new MyTimeSeries( "opAvg" ) {
+        opAvgSeries = new MyTimeSeries( "opAvg", client ) {
             @Override
             public double getData() throws UnknownHostException {
                 return getOpAvg();
@@ -113,8 +113,6 @@ public class Options implements IJson {
         int id = exp.getTwsContract().getMyId();
 
         for ( double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin( ) ) {
-
-            System.out.println( exp.getEnum() + " " + strike );
 
             // ----- Call ------ //
             Call call = new Call( strike, id );

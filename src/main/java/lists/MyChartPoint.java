@@ -1,9 +1,12 @@
 package lists;
 
-import org.json.JSONArray;
+import locals.L;
+import options.JsonStrings;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class MyChartPoint {
 
@@ -20,9 +23,14 @@ public class MyChartPoint {
         this.y = y;
     }
 
-    public MyChartPoint(JSONObject jsonObject) {
-        this.x = LocalDateTime.parse(jsonObject.getString("x"));
-        this.y = jsonObject.getDouble("y");
+    public MyChartPoint( JSONObject json ) {
+        try {
+            Date date = L.toDate( json.getString( JsonStrings.x ) );
+            this.x = LocalDateTime.of( date.getYear() + 1900, date.getMonth(), date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds());
+            this.y = json.getDouble( "y" );
+        } catch ( ParseException e ) {
+            e.printStackTrace( );
+        }
     }
 
     public LocalDateTime getX() {

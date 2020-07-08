@@ -1,12 +1,15 @@
 package locals;
 
+import org.jfree.data.time.Second;
+
 import javax.swing.*;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 
 public class L {
@@ -14,7 +17,23 @@ public class L {
     private static DecimalFormat df100;
     private static DecimalFormat df10;
 
-    public static DateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+    public static DateFormat formatter = new SimpleDateFormat( "EEE MMM dd HH:mm:ss z yyyy", Locale.US );
+
+    public static void main( String[] args ) throws ParseException {
+        String dateInString = "Tue Jul 07 21:22:17 IDT 2020";
+
+        Date date = toDate( dateInString );
+        LocalTime time = LocalTime.of( date.getHours(), date.getMinutes(), date.getSeconds() );
+
+        Second second = new Second( date );
+        System.out.println("Secind: " + second );
+
+        System.out.println(time );
+    }
+
+    public static Date toDate( String Str ) throws ParseException {
+        return formatter.parse( Str );
+    }
 
     public static double modulu( double value ) {
 
@@ -115,13 +134,13 @@ public class L {
 
 
     public static LocalDate parseDate( String dateStr ) {
-        if ( dateStr.length() == 8 ) {
+        if ( dateStr.length( ) == 8 ) {
             String year = dateStr.substring( 0, 4 );
             String month = dateStr.substring( 4, 6 );
             String day = dateStr.substring( 6, 8 );
             return LocalDate.parse( year + "-" + month + "-" + day );
         } else {
-            return LocalDate.now();
+            return LocalDate.now( );
         }
     }
 
