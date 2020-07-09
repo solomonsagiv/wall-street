@@ -27,11 +27,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     Second lastSeconde;
     protected BASE_CLIENT_OBJECT client;
 
-//    public MyTimeSeries( Comparable name ) {
-//        super( name );
-//        this.name = name.toString( );
-//    }
-
+    // Constructor
     public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
         super( name );
         this.client = client;
@@ -41,76 +37,31 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return getDataItem( getItemCount( ) - 1 );
     }
 
-
     public MyJson getLastJson() throws ParseException {
         TimeSeriesDataItem item = getLastItem( );
         MyJson json = new MyJson( );
-        json.put( JsonStrings.x, item.getPeriod( ).toString( ) );
+        json.put( JsonStrings.x, item.getPeriod( ) );
         json.put( JsonStrings.y, item.getValue( ) );
         return json;
     }
 
-//    public void loadData( ArrayList< Double > dots ) {
-//        try {
-//            LocalDateTime time = myChartList.get( 0 ).getX( );
-//
-//            lastSeconde = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonth( ).getValue( ), time.getYear( ) );
-//
-//            for ( int i = 0; i < myChartList.size( ); i++ ) {
-//
-//                add( lastSeconde.next( ), myChartList.get( i ).getY( ) );
-//                dots.add( myChartList.get( i ).getY( ) );
-//
-//                lastSeconde = ( Second ) lastSeconde.next( );
-//
-//            }
-//            return;
-//        } catch ( IndexOutOfBoundsException e ) {
-//            e.printStackTrace( );
-//        } catch ( Exception e ) {
-//            e.printStackTrace( );
-//        }
-//        lastSeconde = new Second( );
-//    }
-
     public void add( MyJson json ) {
         Date date;
         try {
-            if ( !json.getString( JsonStrings.x ).isEmpty() ) {
+            if ( !json.getString( JsonStrings.x ).isEmpty( ) ) {
 
                 date = L.toDate( json.getString( JsonStrings.x ) );
+
                 lastSeconde = new Second( date );
 
                 addOrUpdate( getLastSeconde( ), json.getDouble( JsonStrings.y ) );
                 lastSeconde = ( Second ) lastSeconde.next( );
             }
         } catch ( Exception e ) {
+            System.out.println(client.getName() + " " + json );
             e.printStackTrace( );
         }
     }
-
-//    public double add() {
-//        double data = 0;
-//        // live data
-//        if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
-//            try {
-//                data = getData( );
-//                addOrUpdate( getLastSeconde( ), data );
-//            } catch ( Exception e ) {
-//                e.printStackTrace( );
-//            }
-//        } else {
-//            try {
-//                MyChartPoint point = myChartList.getLast( );
-//                data = point.getY( );
-//                addOrUpdate( getLastSeconde( ), data );
-//            } catch ( Exception e ) {
-//                e.printStackTrace( );
-//            }
-//        }
-//        lastSeconde = ( Second ) lastSeconde.next( );
-//        return data;
-//    }
 
     public double add() {
         double data = 0;
@@ -124,7 +75,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         lastSeconde = ( Second ) lastSeconde.next( );
         return data;
     }
-
 
     public Color getColor() {
         return color;
@@ -157,7 +107,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public void setName( String name ) {
         this.name = name;
     }
-
 
     public Second getLastSeconde() {
         if ( lastSeconde == null ) {

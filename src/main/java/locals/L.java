@@ -1,5 +1,6 @@
 package locals;
 
+import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 
 import javax.swing.*;
@@ -20,19 +21,20 @@ public class L {
     public static DateFormat formatter = new SimpleDateFormat( "EEE MMM dd HH:mm:ss z yyyy", Locale.US );
 
     public static void main( String[] args ) throws ParseException {
-        String dateInString = "Tue Jul 07 21:22:17 IDT 2020";
+        String dateInString = "Tue Jul 07 21:22:50 IDT 2020";
 
-        Date date = toDate( dateInString );
-        LocalTime time = LocalTime.of( date.getHours(), date.getMinutes(), date.getSeconds() );
+        Date date = new Date(dateInString);
+        System.out.println(date );
 
-        Second second = new Second( date );
-        System.out.println("Secind: " + second );
+//        Date date = toDate( dateInString );
+//
+//        Second second = new Second( date );
+//        System.out.println(second.getStart() );
 
-        System.out.println(time );
     }
 
-    public static Date toDate( String Str ) throws ParseException {
-        return formatter.parse( Str );
+    public static Date toDate( String string ) throws ParseException {
+        return formatter.parse( string );
     }
 
     public static double modulu( double value ) {
@@ -131,7 +133,6 @@ public class L {
             e.printStackTrace( );
         }
     }
-
 
     public static LocalDate parseDate( String dateStr ) {
         if ( dateStr.length( ) == 8 ) {
