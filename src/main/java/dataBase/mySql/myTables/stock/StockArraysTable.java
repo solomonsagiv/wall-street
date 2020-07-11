@@ -86,6 +86,7 @@ public class StockArraysTable extends MyArraysTable {
 
             @Override
             public void setLoadedObject( String object ) {
+                System.out.println(object);
                 client.getExps( ).getExp( ExpEnum.WEEK ).getOptions().getConBidAskCounterSeries().add( new MyJson( object ) );
             }
             @Override

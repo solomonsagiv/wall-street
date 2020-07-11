@@ -22,12 +22,7 @@ public class Exps {
     }
 
     // Constructor
-    public Exps( INDEX_CLIENT_OBJECT client ) {
-        this.client = client;
-        positionCalculator = new PositionCalculator( client );
-    }
-
-    public Exps( STOCK_OBJECT client ) {
+    public Exps( BASE_CLIENT_OBJECT client ) {
         this.client = client;
         positionCalculator = new PositionCalculator( client );
     }
