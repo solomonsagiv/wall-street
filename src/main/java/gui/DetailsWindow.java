@@ -1,7 +1,9 @@
 package gui;
 
+import dataBase.mySql.ConnectionPool;
 import exp.Exp;
 import exp.ExpEnum;
+import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -247,6 +249,8 @@ public class DetailsWindow {
             list.add("");
             list.add("All details");
             list.add(client.toStringPretty());
+            list.add( "Connections: " + L.str(ConnectionPool.getConnectionsPoolInstance().getConnectionsCount() ));
+            list.add( "Used connections: " + L.str( ConnectionPool.getConnectionsPoolInstance().getUseConnectionsCount() ) );
             return list;
         }
 

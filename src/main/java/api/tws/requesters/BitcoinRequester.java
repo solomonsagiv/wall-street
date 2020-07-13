@@ -3,6 +3,8 @@ package api.tws.requesters;
 import api.Downloader;
 import api.Manifest;
 import api.tws.ITwsRequester;
+import bitcoin.BitcoinChart;
+import charts.myCharts.bitcoinCharts.BitcoinLiveChart;
 import com.ib.client.TickAttr;
 import exp.ExpEnum;
 import exp.ExpMonth;
@@ -20,7 +22,12 @@ public class BitcoinRequester implements ITwsRequester {
         Thread.sleep( 2000 );
 
         BitcoinRequester requester = new BitcoinRequester();
+        downloader.addRequester( requester );
         requester.request( downloader );
+
+
+        BitcoinLiveChart chart = new BitcoinLiveChart( Bitcoin.getInstance() );
+        chart.createChart();
     }
 
     BITCOIN_CLIENT client;
@@ -38,12 +45,13 @@ public class BitcoinRequester implements ITwsRequester {
             indContract.currency("USD");
             indContract.exchange( "CME" );
             indContract.symbol( "BRTI" );
-            indContract.setType( "IND" );
+            indContract.secType( "IND" );
+            indContract.includeExpired( false );
 
-            // Future contract
+//            // Future contract
             MyContract futureContract = new MyContract(  );
             futureContract.currency("USD");
-            futureContract.setType( "FUT" );
+            futureContract.secType( "FUT" );
             futureContract.lastTradeDateOrContractMonth( "20200731" );
             futureContract.multiplier( "5" );
             futureContract.exchange( "CMECRYPTO" );
@@ -65,7 +73,6 @@ public class BitcoinRequester implements ITwsRequester {
         int minID, maxID;
         int future = 200001;
 
-        System.out.println( "Ticker: " + tickerId );
         System.out.println( "Price: " + price );
 
         // Index

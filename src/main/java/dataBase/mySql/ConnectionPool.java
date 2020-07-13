@@ -8,16 +8,28 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-    private static final int MAX_POOL_SIZE = 30;
+    private static final int MAX_POOL_SIZE = 100;
 
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = 30;
+    private static int INITIAL_POOL_SIZE = 50;
     private String url;
     private String user;
     private String password;
     private List< Connection > connections;
     private List< Connection > usedConnections = new ArrayList<>( );
+
+    public int getConnectionsCount() {
+        return connections.size( );
+    }
+
+    public int getUseConnectionsCount() {
+        return usedConnections.size( );
+    }
+
+    public void addConnection() throws SQLException {
+        connections.add( createConnection( url, user, password ) );
+    }
 
     private ConnectionPool( String url, String user, String password, List< Connection > connections ) {
         this.url = url;

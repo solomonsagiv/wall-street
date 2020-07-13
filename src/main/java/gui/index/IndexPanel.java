@@ -302,7 +302,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
                 opAvgField.colorForge( mainExp.getOpAvgFut( ), L.format100( ) );
                 opAvgQuarterField.colorForge( nextExp.getOpAvgFut( ), L.format100( ) );
             } catch ( Exception e ) {
-                e.printStackTrace( );
+                System.out.println( client.getName() + " panel " + "Future list is empty " );
             }
             opField.colorBack( mainExp.getOpFuture( ), L.format100( ) );
 

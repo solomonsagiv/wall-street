@@ -1,6 +1,5 @@
 package locals;
 
-import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import java.text.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -23,14 +21,20 @@ public class L {
     public static void main( String[] args ) throws ParseException {
         String dateInString = "Tue Jul 07 21:22:50 IDT 2020";
 
-        Date date = new Date(dateInString);
-        System.out.println(date );
+        Second second = new Second( );
 
-//        Date date = toDate( dateInString );
-//
-//        Second second = new Second( date );
-//        System.out.println(second.getStart() );
+        Date date = toDate( dateInString );
+//        System.out.println(date. );
 
+        LocalDate localDate = LocalDate.of( date.getYear() + 1900, date.getMonth(), date.getDay() );
+        System.out.println("D " + localDate );
+
+        LocalTime localTime = LocalTime.of( date.getHours(), date.getMinutes(), date.getSeconds() );
+        System.out.println("T " + localTime );
+
+//        LocalDateTime dateTime = LocalDateTime.of( date.getYear( ), date.getMonth( ), date.getDay( ), date.getHours( ), date.getMinutes( ), date.getSeconds( ) );
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        System.out.println( "Local time " + localDateTime );
     }
 
     public static Date toDate( String string ) throws ParseException {

@@ -12,6 +12,9 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
@@ -40,7 +43,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public MyJson getLastJson() throws ParseException {
         TimeSeriesDataItem item = getLastItem( );
         MyJson json = new MyJson( );
-        json.put( JsonStrings.x, item.getPeriod( ) );
+        Second second = new Second( item.getPeriod( ).getStart( ) );
+        Date date = L.toDate( second.toString( ) );
+        LocalDate localDate = LocalDate.of( date.getYear( ) + 1900, date.getMonth( ), date.getDay() );
+        LocalTime localTime = LocalTime.of( date.getHours( ), date.getMinutes( ), date.getSeconds( ) );
+        LocalDateTime localDateTime = LocalDateTime.of( localDate, localTime );
+
+        json.put( JsonStrings.x, localDateTime );
         json.put( JsonStrings.y, item.getValue( ) );
         return json;
     }
@@ -50,15 +59,15 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         try {
             if ( !json.getString( JsonStrings.x ).isEmpty( ) ) {
 
-                date = L.toDate( json.getString( JsonStrings.x ) );
+                LocalDateTime dateTime = LocalDateTime.parse( json.getString( JsonStrings.x ) );
 
-                lastSeconde = new Second( date );
+                lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear( ) );
 
                 addOrUpdate( getLastSeconde( ), json.getDouble( JsonStrings.y ) );
                 lastSeconde = ( Second ) lastSeconde.next( );
             }
         } catch ( Exception e ) {
-            System.out.println(client.getName() + " " + json );
+            System.out.println( client.getName( ) + " " + json );
             e.printStackTrace( );
         }
     }

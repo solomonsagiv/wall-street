@@ -1,5 +1,6 @@
 package setting.fullSettingWindow;
 
+import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.LocalHandler;
@@ -9,6 +10,7 @@ import serverObjects.stockObjects.STOCK_OBJECT;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
 
@@ -21,6 +23,7 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton updateBtn;
     MyGuiComps.MyButton loadBtn;
     MyGuiComps.MyButton sumBtn;
+    MyGuiComps.MyButton addConnectionButton;
 
     // Constructor
     public FullSettingDataBasePanel( BASE_CLIENT_OBJECT client ) {
@@ -129,6 +132,18 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
             }
         } );
 
+        // Add connection
+        addConnectionButton.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                try {
+                    ConnectionPool.getConnectionsPoolInstance().addConnection();
+                } catch ( SQLException throwables ) {
+                    throwables.printStackTrace( );
+                }
+            }
+        } );
+
     }
 
     private void initialize() {
@@ -193,5 +208,13 @@ public class FullSettingDataBasePanel extends MyGuiComps.MyPanel {
         sumBtn.setForeground( Themes.GREY_VERY_LIGHT );
         add( sumBtn );
 
+        // Add connection
+        addConnectionButton = new MyGuiComps.MyButton( "Add conn" );
+        addConnectionButton.setXY( sumBtn.getX(), sumBtn.getY() + startBtn.getHeight() + 5 );
+        addConnectionButton.setWidth( 70 );
+        addConnectionButton.setFont( addConnectionButton.getFont( ).deriveFont( 9f ) );
+        addConnectionButton.setBackground( Themes.BLUE );
+        addConnectionButton.setForeground( Themes.GREY_VERY_LIGHT );
+        add( addConnectionButton );
     }
 }
