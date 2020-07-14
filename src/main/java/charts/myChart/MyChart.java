@@ -9,6 +9,9 @@ import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.DateRange;
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
@@ -18,6 +21,7 @@ import threads.MyThread;
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,7 +70,8 @@ public class MyChart {
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
         plot.getDomainAxis().setVisible(props.getBool(ChartPropsEnum.INCLUDE_DOMAIN_AXIS));
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-
+        plot.setDomainPannable( true );
+        plot.setRangePannable( true );
         plot.getRangeAxis().setLabelPaint(Themes.BLUE_DARK);
         plot.getRangeAxis().setLabelFont(Themes.ARIEL_15);
 
@@ -216,6 +221,53 @@ public class MyChart {
                 }
             }
         }
+
+
+        double start, end;
+
+        public void updateChartRange() {
+            try {
+                if ( dots.size( ) > 0 ) {
+
+                    // X
+                    DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange();
+
+                    RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate().toString() ) );
+                    RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate().toString() ) );
+
+                    try {
+                        start = ( double ) series[0].getDataItem( startPeroid ).getValue();
+                        end = ( double ) series[0].getDataItem( endPeroid ).getValue();
+                    } catch ( Exception e ) {}
+
+                    double min, max;
+
+                    if ( start < end ) {
+                        min = start;
+                        max = end;
+                    } else {
+                        min = end;
+                        max = start;
+                    }
+
+                    double avg = (min + max) / 2;
+
+                    min = min - (avg * 0.0015);
+                    max = max + (avg * 0.0015);
+
+                    range = (NumberAxis) plot.getRangeAxis();
+                    range.setRange(min, max);
+
+                    System.out.println( "Range set" );
+
+                }
+            } catch ( NoSuchElementException | ParseException e ) {
+                e.printStackTrace( );
+            }
+        }
+
+
+
 
         private void updateChartRange(double min, double max) {
             try {

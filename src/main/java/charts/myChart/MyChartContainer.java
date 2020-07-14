@@ -3,11 +3,13 @@ package charts.myChart;
 import charts.MyChartPanel;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import org.jfree.chart.ChartPanel;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
 public class MyChartContainer extends JFrame {
@@ -61,6 +63,44 @@ public class MyChartContainer extends JFrame {
         for ( MyChart myChart : charts ) {
             MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) );
             myChart.chartPanel = chartPanel;
+
+            chartPanel.setMouseZoomable( false );
+            chartPanel.setMouseWheelEnabled( true );
+            chartPanel.setDomainZoomable( false );
+            chartPanel.setRangeZoomable( true );
+            chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
+            chartPanel.setFillZoomRectangle( false );
+            chartPanel.setZoomOutlinePaint( new Color( 0f, 0f, 0f, 0f ) );
+            chartPanel.setZoomAroundAnchor( true );
+
+            chartPanel.addMouseListener( new MouseAdapter( ) {
+                @Override
+                public void mouseClicked( MouseEvent e ) {
+                    super.mouseClicked( e );
+                    if ( e.getClickCount() == 2 ) {
+                        myChart.series[0]
+                    }
+                }
+            } );
+
+            try {
+                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
+                mask.setAccessible( true );
+                mask.set( chartPanel, 0 );
+            } catch ( NoSuchFieldException e ) {
+                e.printStackTrace( );
+            } catch ( IllegalAccessException e ) {
+                e.printStackTrace( );
+            }
+
+            chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
+                @Override
+                public void mouseWheelMoved( MouseWheelEvent e ) {
+//                    myChart.getUpdater( ).updateChartRange( );
+                }
+            } );
+
+
             add( chartPanel );
         }
     }

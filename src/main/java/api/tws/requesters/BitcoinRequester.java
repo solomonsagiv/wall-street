@@ -3,7 +3,6 @@ package api.tws.requesters;
 import api.Downloader;
 import api.Manifest;
 import api.tws.ITwsRequester;
-import bitcoin.BitcoinChart;
 import charts.myCharts.bitcoinCharts.BitcoinLiveChart;
 import com.ib.client.TickAttr;
 import exp.ExpEnum;
@@ -17,17 +16,42 @@ public class BitcoinRequester implements ITwsRequester {
     public static void main( String[] args ) throws InterruptedException {
         Manifest.CLIENT_ID = 77;
         Downloader downloader = Downloader.getInstance( );
-        downloader.start();
+        downloader.start( );
 
         Thread.sleep( 2000 );
 
-        BitcoinRequester requester = new BitcoinRequester();
+        Bitcoin bitcoin = Bitcoin.getInstance( );
+
+        BitcoinRequester requester = new BitcoinRequester( );
         downloader.addRequester( requester );
         requester.request( downloader );
 
+        BitcoinLiveChart chart = new BitcoinLiveChart( bitcoin );
+        chart.createChart( );
 
-        BitcoinLiveChart chart = new BitcoinLiveChart( Bitcoin.getInstance() );
-        chart.createChart();
+        Thread.sleep( 2000 );
+
+        new Thread( () -> {
+
+            while ( true ) {
+
+                try {
+
+                    // Sleep
+                    Thread.sleep( 200 );
+
+                    // Update
+                    chart.getIndex( ).add( );
+                    chart.getFuture( ).add( );
+
+                } catch ( InterruptedException e ) {
+                    e.printStackTrace( );
+                }
+
+            }
+
+        } ).start( );
+
     }
 
     BITCOIN_CLIENT client;
@@ -37,20 +61,20 @@ public class BitcoinRequester implements ITwsRequester {
     public void request( Downloader downloader ) {
         try {
 
-            client = Bitcoin.getInstance();
-            expMonth = ( ExpMonth ) client.getExps().getExp( ExpEnum.MONTH );
+            client = Bitcoin.getInstance( );
+            expMonth = ( ExpMonth ) client.getExps( ).getExp( ExpEnum.MONTH );
 
             // Index contract
-            MyContract indContract = new MyContract(  );
-            indContract.currency("USD");
+            MyContract indContract = new MyContract( );
+            indContract.currency( "USD" );
             indContract.exchange( "CME" );
             indContract.symbol( "BRTI" );
             indContract.secType( "IND" );
             indContract.includeExpired( false );
 
 //            // Future contract
-            MyContract futureContract = new MyContract(  );
-            futureContract.currency("USD");
+            MyContract futureContract = new MyContract( );
+            futureContract.currency( "USD" );
             futureContract.secType( "FUT" );
             futureContract.lastTradeDateOrContractMonth( "20200731" );
             futureContract.multiplier( "5" );
@@ -73,8 +97,6 @@ public class BitcoinRequester implements ITwsRequester {
         int minID, maxID;
         int future = 200001;
 
-        System.out.println( "Price: " + price );
-
         // Index
         if ( tickerId == index && price > 0 ) {
 
@@ -85,11 +107,13 @@ public class BitcoinRequester implements ITwsRequester {
 
             // Bid
             if ( field == 1 ) {
+                System.out.println( "Bid: " + price );
                 client.setIndexBid( price );
             }
 
             // Ask
             if ( field == 2 ) {
+                System.out.println( "Ask: " + price );
                 client.setIndexAsk( price );
             }
 
@@ -102,9 +126,18 @@ public class BitcoinRequester implements ITwsRequester {
             if ( field == 4 ) {
                 expMonth.setCalcFut( price );
             }
+
+            // Bid
+            if ( field == 1 ) {
+                expMonth.setCalcFutBid( price );
+            }
+            // Ask
+            if ( field == 2 ) {
+                expMonth.setCalcFutAsk( price );
+            }
+
         }
     }
-
 
     @Override
     public void sizeReciever( int tickerId, int field, int size ) {
