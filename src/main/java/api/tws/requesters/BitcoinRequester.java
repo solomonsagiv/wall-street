@@ -38,7 +38,7 @@ public class BitcoinRequester implements ITwsRequester {
                 try {
 
                     // Sleep
-                    Thread.sleep( 200 );
+                    Thread.sleep( 1000 );
 
                     // Update
                     chart.getIndex( ).add( );

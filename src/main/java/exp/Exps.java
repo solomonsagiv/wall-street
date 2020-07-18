@@ -1,6 +1,8 @@
 package exp;
 
+import locals.IJson;
 import locals.L;
+import myJson.MyJson;
 import options.fullOptions.PositionCalculator;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -8,7 +10,7 @@ import serverObjects.stockObjects.STOCK_OBJECT;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Exps {
+public class Exps implements IJson {
 
     // Variables
     public BASE_CLIENT_OBJECT client;
@@ -90,4 +92,22 @@ public class Exps {
         this.mainExp = mainExp;
     }
 
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = new MyJson(  );
+        for ( Exp exp : getExpList()) {
+            json.put( exp.getEnum().toString(), exp.getAsJson() );
+        }
+        return json;
+    }
+    
+    @Override
+    public void loadFromJson( MyJson json ) {
+
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        return null;
+    }
 }

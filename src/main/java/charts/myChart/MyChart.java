@@ -31,7 +31,7 @@ public class MyChart {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    XYPlot plot;
+    public XYPlot plot;
     double[] oldVals;
     JFreeChart chart;
     MyChartPanel chartPanel;

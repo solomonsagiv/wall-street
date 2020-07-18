@@ -4,6 +4,8 @@ import charts.MyChartPanel;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.NumberAxis;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
@@ -77,8 +79,13 @@ public class MyChartContainer extends JFrame {
                 @Override
                 public void mouseClicked( MouseEvent e ) {
                     super.mouseClicked( e );
-                    if ( e.getClickCount() == 2 ) {
-                        myChart.series[0]
+                    if ( e.getClickCount( ) == 2 ) {
+                        DateAxis axis = ( DateAxis ) myChart.plot.getDomainAxis( );
+                        NumberAxis rangeAxis = ( NumberAxis ) myChart.plot.getRangeAxis();
+
+                        rangeAxis.setAutoRange( true );
+                        axis.setAutoRange( true );
+                        System.out.println( "Auto range set " );
                     }
                 }
             } );
@@ -96,7 +103,7 @@ public class MyChartContainer extends JFrame {
             chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
                 @Override
                 public void mouseWheelMoved( MouseWheelEvent e ) {
-//                    myChart.getUpdater( ).updateChartRange( );
+                    myChart.getUpdater( ).updateChartRange( );
                 }
             } );
 

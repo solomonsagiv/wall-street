@@ -6,7 +6,9 @@ import exp.ExpMonth;
 import locals.Themes;
 import serverObjects.bitcoinObjects.BITCOIN_CLIENT;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 
 public class BitcoinLiveChart extends MyChartCreator {
 
@@ -23,14 +25,14 @@ public class BitcoinLiveChart extends MyChartCreator {
 
         // Props
         props = new MyProps( );
-        props.setProp( ChartPropsEnum.SECONDS, 150 );
+        props.setProp( ChartPropsEnum.SECONDS, 10800 );
         props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
         props.setProp( ChartPropsEnum.MARGIN, .17 );
         props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
         props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
         props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
         props.setProp( ChartPropsEnum.IS_LIVE, true );
-        props.setProp( ChartPropsEnum.SLEEP, 200 );
+        props.setProp( ChartPropsEnum.SLEEP, 1000 );
         props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, ( double ) INFINITE );
         props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
 
@@ -69,6 +71,9 @@ public class BitcoinLiveChart extends MyChartCreator {
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass( ).getName( ) );
+
+        chartContainer.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+
         chartContainer.create( );
 
     }
