@@ -7,7 +7,7 @@ import java.io.ObjectOutput;
 public class PriceCondition extends ContractCondition {
 
     public static final OrderConditionType conditionType = OrderConditionType.Price;
-    private static String[] mthdNames = new String[] { "default", "double bid/ask", "last", "double last", "bid/ask", "", "", "last of bid/ask", "mid-point" };
+    private static String[] mthdNames = new String[]{"default", "double bid/ask", "last", "double last", "bid/ask", "", "", "last of bid/ask", "mid-point"};
     private double m_price;
     private int m_triggerMethod;
 
@@ -16,20 +16,20 @@ public class PriceCondition extends ContractCondition {
 
     @Override
     public String toString() {
-        return toString( null );
+        return toString(null);
     }
 
     public double price() {
         return m_price;
     }
 
-    public void price( double m_price ) {
+    public void price(double m_price) {
         this.m_price = m_price;
     }
 
     @Override
-    public String toString( ContractLookuper lookuper ) {
-        return strTriggerMethod( ) + " " + super.toString( lookuper );
+    public String toString(ContractLookuper lookuper) {
+        return strTriggerMethod() + " " + super.toString(lookuper);
     }
 
     public int triggerMethod() {
@@ -37,10 +37,10 @@ public class PriceCondition extends ContractCondition {
     }
 
     String strTriggerMethod() {
-        return mthdNames[ triggerMethod( ) ];
+        return mthdNames[triggerMethod()];
     }
 
-    public void triggerMethod( int m_triggerMethod ) {
+    public void triggerMethod(int m_triggerMethod) {
         this.m_triggerMethod = m_triggerMethod;
     }
 
@@ -50,21 +50,21 @@ public class PriceCondition extends ContractCondition {
     }
 
     @Override
-    protected void valueFromString( String v ) {
-        m_price = Double.parseDouble( v );
+    protected void valueFromString(String v) {
+        m_price = Double.parseDouble(v);
     }
 
     @Override
-    public void readFrom( ObjectInput in ) throws IOException {
-        super.readFrom( in );
+    public void readFrom(ObjectInput in) throws IOException {
+        super.readFrom(in);
 
-        m_triggerMethod = in.readInt( );
+        m_triggerMethod = in.readInt();
     }
 
     @Override
-    public void writeTo( ObjectOutput out ) throws IOException {
-        super.writeTo( out );
-        out.writeInt( m_triggerMethod );
+    public void writeTo(ObjectOutput out) throws IOException {
+        super.writeTo(out);
+        out.writeInt(m_triggerMethod);
     }
 
 }

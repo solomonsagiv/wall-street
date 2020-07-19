@@ -7,7 +7,7 @@ public interface IConnectionPool {
 
     Connection getConnection() throws SQLException;
 
-    boolean releaseConnection( Connection connection );
+    boolean releaseConnection(Connection connection);
 
     String getUrl();
 

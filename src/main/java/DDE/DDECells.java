@@ -9,12 +9,12 @@ public abstract class DDECells {
 
     public abstract boolean isWorkWithDDE();
 
-    public void addCell( DDECellsEnum ddeCellsEnum,String cellLocation ) {
-        cells.put( ddeCellsEnum, cellLocation );
+    public void addCell(DDECellsEnum ddeCellsEnum, String cellLocation) {
+        cells.put(ddeCellsEnum, cellLocation);
     }
 
-    public String getCell( DDECellsEnum ddeCellsEnum ) {
-        return ( String ) cells.get( ddeCellsEnum );
+    public String getCell(DDECellsEnum ddeCellsEnum) {
+        return (String) cells.get(ddeCellsEnum);
     }
 
 }

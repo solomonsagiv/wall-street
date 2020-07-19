@@ -5,7 +5,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.rmi.UnknownHostException;
 import java.text.ParseException;
 
-public abstract class MyColumnSql< T > {
+public abstract class MyColumnSql<T> {
 
     public static final int STRING = 0;
     public static final int DOUBLE = 1;
@@ -15,7 +15,7 @@ public abstract class MyColumnSql< T > {
     protected MySqlTable myTableSql;
     protected MySqlColumnEnum type;
     BASE_CLIENT_OBJECT client;
-    
+
     // Constructor
     public MyColumnSql(MySqlTable myTableSql, MySqlColumnEnum type) {
         this.myTableSql = myTableSql;

@@ -7,7 +7,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,12 +16,12 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
 
     // Variables
     FullHeadersPanel headersPanel;
-    ArrayList< MiniStockPanel > panels;
+    ArrayList<MiniStockPanel> panels;
     TextUpdater textUpdater;
 
     // Constructor
-    public FullStocksWindow( String title ) {
-        super( title );
+    public FullStocksWindow(String title) {
+        super(title);
         textUpdater = new TextUpdater();
         textUpdater.getHandler().start();
     }
@@ -50,18 +49,18 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
     @Override
     public void initialize() {
 
-        panels = new ArrayList<>( );
+        panels = new ArrayList<>();
 
         int height = 0;
         int width = 580;
 
         // This
-        setXY( 200, 200 );
+        setXY(200, 200);
 
         // Header
         headersPanel = new FullHeadersPanel();
-        headersPanel.setBounds( 0, 0, width, 25 );
-        add( headersPanel );
+        headersPanel.setBounds(0, 0, width, 25);
+        add(headersPanel);
 
         height += headersPanel.getHeight() + 1;
 
@@ -69,21 +68,21 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
         panels(height);
 
         // Set size
-        setPreferredSize( new Dimension( width, panels.get( 0 ).getHeight() * (panels.size() + 1 ) ) );
+        setPreferredSize(new Dimension(width, panels.get(0).getHeight() * (panels.size() + 1)));
     }
 
-    private void panels( int height ) {
+    private void panels(int height) {
         // Mini panels
-        for ( BASE_CLIENT_OBJECT client: LocalHandler.clients ) {
-            if ( client instanceof STOCK_OBJECT ) {
-                MiniStockPanel panel = new MiniStockPanel( ( STOCK_OBJECT ) client );
+        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+            if (client instanceof STOCK_OBJECT) {
+                MiniStockPanel panel = new MiniStockPanel((STOCK_OBJECT) client);
 
-                panel.setXY( 0, height );
-                panels.add( panel );
+                panel.setXY(0, height);
+                panels.add(panel);
 
                 height += panel.getHeight() + 1;
 
-                add( panel );
+                add(panel);
             }
         }
     }
@@ -98,7 +97,7 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
         @Override
         public void run() {
 
-            while ( isRun() ) {
+            while (isRun()) {
                 try {
                     // Sleep
                     Thread.sleep(1000);
@@ -115,10 +114,10 @@ public class FullStocksWindow extends MyGuiComps.MyFrame {
         }
 
         private void updateText() {
-            for ( MiniStockPanel panel: panels ) {
+            for (MiniStockPanel panel : panels) {
                 try {
                     panel.updateText();
-                } catch ( Exception e ) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

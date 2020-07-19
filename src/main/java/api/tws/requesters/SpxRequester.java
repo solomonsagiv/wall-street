@@ -5,7 +5,7 @@ import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
 import com.ib.client.TickAttr;
 import exp.E;
-import exp.ExpEnum;
+import exp.ExpStrings;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
 
@@ -55,8 +55,8 @@ public class SpxRequester implements ITwsRequester {
 
     private void init() {
         spx = Spx.getInstance();
-        e1 = ( E ) spx.getExps().getExp( ExpEnum.E1);
-        e2 = ( E ) spx.getExps().getExp(ExpEnum.E2);
+        e1 = (E) spx.getExps().getExp(ExpStrings.e1);
+        e2 = (E) spx.getExps().getExp(ExpStrings.e2);
 
         indexId = spx.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
         futureId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();
@@ -81,8 +81,8 @@ public class SpxRequester implements ITwsRequester {
                 }
 
                 // Last
-                if ( field == 4 ) {
-                    e1.setFutForDelta( price );
+                if (field == 4) {
+                    e1.setFutForDelta(price);
                 }
             }
 
@@ -124,12 +124,12 @@ public class SpxRequester implements ITwsRequester {
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
 
-        if ( spx.isStarted() ) {
+        if (spx.isStarted()) {
 
             // Last
-            if ( tickerId == futureId && size > 0 ) {
-                if ( field == 8 ) {
-                    e1.setVolumeFutForDelta( size );
+            if (tickerId == futureId && size > 0) {
+                if (field == 8) {
+                    e1.setVolumeFutForDelta(size);
                 }
             }
 

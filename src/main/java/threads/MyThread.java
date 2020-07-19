@@ -3,28 +3,26 @@ package threads;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class MyThread {
-    
+
+    protected BASE_CLIENT_OBJECT client;
     // Variables
     private boolean run = true;
-
     private String name;
     private MyThreadHandler handler;
     private Runnable runnable;
 
-    protected BASE_CLIENT_OBJECT client;
-
-    public MyThread( BASE_CLIENT_OBJECT client ) {
+    public MyThread(BASE_CLIENT_OBJECT client) {
 
         this.client = client;
 
-        client.getThreads( ).add( this );
+        client.getThreads().add(this);
 
-        initRunnable( );
+        initRunnable();
 
     }
 
     public MyThread() {
-        initRunnable( );
+        initRunnable();
     }
 
     public abstract void initRunnable();
@@ -34,7 +32,7 @@ public abstract class MyThread {
         return run;
     }
 
-    public void setRun( boolean run ) {
+    public void setRun(boolean run) {
         this.run = run;
     }
 
@@ -42,7 +40,7 @@ public abstract class MyThread {
         return handler;
     }
 
-    public void setHandler( MyThreadHandler handler ) {
+    public void setHandler(MyThreadHandler handler) {
         this.handler = handler;
     }
 
@@ -50,16 +48,16 @@ public abstract class MyThread {
         return runnable;
     }
 
-    public void setRunnable( Runnable runnable ) {
+    public void setRunnable(Runnable runnable) {
         this.runnable = runnable;
-        setHandler( new MyThreadHandler( this ) );
+        setHandler(new MyThreadHandler(this));
     }
 
     public BASE_CLIENT_OBJECT getClient() {
         return client;
     }
 
-    public void setClient( BASE_CLIENT_OBJECT client ) {
+    public void setClient(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 
@@ -67,7 +65,7 @@ public abstract class MyThread {
         return name;
     }
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 

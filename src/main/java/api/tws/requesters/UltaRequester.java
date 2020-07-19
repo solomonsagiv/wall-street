@@ -12,88 +12,88 @@ import java.util.ArrayList;
 
 public class UltaRequester implements ITwsRequester {
 
-    ArrayList< Exp > exps;
+    ArrayList<Exp> exp;
     Ulta ulta;
 
     @Override
-    public void request( Downloader downloader ) {
+    public void request(Downloader downloader) {
         try {
             ulta = Ulta.getInstance();
-            exps = ulta.getExps( ).getExpList( );
+            exp = ulta.getExps().getExpList();
 
             // Index
-            downloader.reqMktData( ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
+            downloader.reqMktData(ulta.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), ulta.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
 
             // Options
-            ulta.getTwsHandler( ).requestOptions( ulta.getExps( ).getExpList( ) );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            ulta.getTwsHandler().requestOptions(ulta.getExps().getExpList());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
+    public void reciever(int tickerId, int field, double price, TickAttr attribs) {
         int index;
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = ulta.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = ulta.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
-        if ( tickerId == index && price > 0 ) {
+        if (tickerId == index && price > 0) {
             // Last
-            if ( field == 4 ) {
-                ulta.setIndex( price );
+            if (field == 4) {
+                ulta.setIndex(price);
             }
             // Bid
-            if ( field == 1 ) {
-                ulta.setIndexBid( price );
+            if (field == 1) {
+                ulta.setIndexBid(price);
             }
             // Ask
-            if ( field == 2 ) {
-                ulta.setIndexAsk( price );
+            if (field == 2) {
+                ulta.setIndexAsk(price);
             }
 
             // Bid
-            if ( field == 6 ) {
-                ulta.setHigh( price );
+            if (field == 6) {
+                ulta.setHigh(price);
             }
             // Ask
-            if ( field == 7 ) {
-                ulta.setLow( price );
+            if (field == 7) {
+                ulta.setLow(price);
             }
 
             // Base
-            if ( field == 9 ) {
-                ulta.setBase( price );
+            if (field == 9) {
+                ulta.setBase(price);
             }
 
             // Open
-            if ( field == 14 ) {
-                ulta.setOpen( price );
+            if (field == 14) {
+                ulta.setOpen(price);
             }
         }
 
-        for ( Exp exp : exps ) {
+        for (Exp exp : this.exp) {
 
             Options options = exp.getOptions();
-            minID = options.getMinId( );
-            maxID = options.getMaxId( );
+            minID = options.getMinId();
+            maxID = options.getMaxId();
 
-            if ( tickerId >= minID && tickerId <= maxID && price > 0 ) {
+            if (tickerId >= minID && tickerId <= maxID && price > 0) {
                 // Bid
-                if ( field == 1 ) {
-                    options.getOptionById( tickerId ).setBid( price );
+                if (field == 1) {
+                    options.getOptionById(tickerId).setBid(price);
                 }
                 // Ask
-                if ( field == 2 ) {
-                    options.getOptionById( tickerId ).setAsk( price );
+                if (field == 2) {
+                    options.getOptionById(tickerId).setAsk(price);
                 }
             }
         }
     }
 
     @Override
-    public void sizeReciever( int tickerId, int field, int size ) {
+    public void sizeReciever(int tickerId, int field, int size) {
 
     }
 }

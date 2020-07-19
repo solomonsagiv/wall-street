@@ -7,7 +7,7 @@ import basketFinder.handlers.DaxStocksHandler;
 import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
-import exp.ExpEnum;
+import exp.ExpStrings;
 import logic.LogicService;
 import serverObjects.ApiEnum;
 
@@ -19,37 +19,37 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     // Constructor
     public Dax() {
-        setName( "dax" );
-        setIndexBidAskMargin( .5 );
-        setDbId( 1 );
-        setStrikeMargin( 5 );
-        setBaseId( 100000 );
-        initDDECells( );
-        setIndexStartTime( LocalTime.of( 10, 0, 0 ) );
-        setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
-        setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
-        setiTwsRequester( new DaxRequester( ) );
-        setLogicService( new LogicService( this, ExpEnum.MONTH ) );
+        setName("dax");
+        setIndexBidAskMargin(.5);
+        setDbId(1);
+        setStrikeMargin(5);
+        setBaseId(100000);
+        initDDECells();
+        setIndexStartTime(LocalTime.of(10, 0, 0));
+        setIndexEndTime(LocalTime.of(18, 30, 0));
+        setFutureEndTime(LocalTime.of(18, 45, 0));
+        setiTwsRequester(new DaxRequester());
+        setLogicService(new LogicService(this, ExpStrings.month));
         baskets();
         myTableHandler();
     }
 
+    // Get instance
+    public static Dax getInstance() {
+        if (client == null) {
+            client = new Dax();
+        }
+        return client;
+    }
+
     private void myTableHandler() {
-        tablesHandler.addTable( TablesEnum.INDEX_STOCKS, new IndexStocksTable( this ) );
+        tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
     }
 
     private void baskets() {
-        stocksHandler = new DaxStocksHandler( 103000);
+        stocksHandler = new DaxStocksHandler(103000);
         basketService = new BasketService(this, stocksHandler, 20);
 
-    }
-
-    // Get instance
-    public static Dax getInstance() {
-        if ( client == null ) {
-            client = new Dax( );
-        }
-        return client;
     }
 
     @Override
@@ -70,13 +70,13 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initBaseId() {
-        setBaseId( 100000 );
+        setBaseId(100000);
     }
 
     @Override

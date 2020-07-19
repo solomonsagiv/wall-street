@@ -10,7 +10,7 @@ public abstract class MyChartCreator implements IChartCreator {
 
     protected MyProps props;
 
-    public MyChartCreator( BASE_CLIENT_OBJECT client ) {
+    public MyChartCreator(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 

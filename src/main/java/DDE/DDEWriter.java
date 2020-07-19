@@ -8,18 +8,16 @@ import threads.MyThread;
 
 public class DDEWriter extends MyThread implements Runnable {
 
-    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
-    private boolean run = true;
-    private DDEConnection ddeConnection = new DDEConnection();
-    private DDEClientConversation conversation;
-
     Spx spx = Spx.getInstance();
-
     String opAvgCell = "R2C10";
     String rollCell = "R2C11";
     String indexBidAskCounterCell = "R2C12";
     String basketsCell = "R3C5";
     String basketsCell2 = "R3C7";
+    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
+    private boolean run = true;
+    private DDEConnection ddeConnection = new DDEConnection();
+    private DDEClientConversation conversation;
 
     // Constructor
     public DDEWriter() {

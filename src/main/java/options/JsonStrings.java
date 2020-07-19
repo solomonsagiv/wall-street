@@ -69,4 +69,5 @@ public class JsonStrings {
     public static final String x = "x";
     public static final String y = "y";
     public static final String tomorrowFut = "tomorrowFut";
+    public static final String exps = "exps";
 }

@@ -9,18 +9,18 @@ import com.pengrad.telegrambot.model.request.ReplyKeyboardMarkup;
 
 public class ChooseStockCase extends ArikCase {
 
-    Keyboard keyboard = new ReplyKeyboardMarkup( new KeyboardButton[] { new KeyboardButton( "Spx" ),
-            new KeyboardButton( "Ndx" ), new KeyboardButton( "Apple" ) });
+    Keyboard keyboard = new ReplyKeyboardMarkup(new KeyboardButton[]{new KeyboardButton("Spx"),
+            new KeyboardButton("Ndx"), new KeyboardButton("Apple")});
 
     // Constructor
     public ChooseStockCase() {
 
-        setKeyboard( keyboard );
+        setKeyboard(keyboard);
     }
 
     @Override
-    public boolean doCase( Update update ) {
-        Arik.getInstance().sendMessage( update, "Choose stock", getKeyboard());
+    public boolean doCase(Update update) {
+        Arik.getInstance().sendMessage(update, "Choose stock", getKeyboard());
         return true;
     }
 

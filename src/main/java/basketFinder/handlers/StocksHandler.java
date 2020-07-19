@@ -8,12 +8,12 @@ import java.util.Map;
 public abstract class StocksHandler {
 
     // Variables
-    protected Map< Integer, MiniStock> miniStockMap = new HashMap<>( );
+    protected Map<Integer, MiniStock> miniStockMap = new HashMap<>();
 
     protected int minId = 99999999, maxId = 0;
     protected int id;
 
-    public StocksHandler( int id ) {
+    public StocksHandler(int id) {
         this.id = id;
     }
 
@@ -25,27 +25,27 @@ public abstract class StocksHandler {
         return minId;
     }
 
-    public int getMaxId() {
-        return maxId;
-    }
-
-    private void setMinId( int id ) {
-        if ( id < minId ) {
+    private void setMinId(int id) {
+        if (id < minId) {
             minId = id;
         }
     }
 
-    private void setMaxId( int id ) {
-        if ( id > maxId ) {
+    public int getMaxId() {
+        return maxId;
+    }
+
+    private void setMaxId(int id) {
+        if (id > maxId) {
             maxId = id;
         }
     }
 
-    public void addStock( String stock ) {
+    public void addStock(String stock) {
 
-        setMinId( id );
-        setMaxId( id );
+        setMinId(id);
+        setMaxId(id);
 
-        miniStockMap.put( id, new MiniStock( stock, id++ ) );
+        miniStockMap.put(id, new MiniStock(stock, id++));
     }
 }

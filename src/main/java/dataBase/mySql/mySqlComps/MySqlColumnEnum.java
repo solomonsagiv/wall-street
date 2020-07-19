@@ -30,9 +30,9 @@ public enum MySqlColumnEnum {
     CON_WEEK("conWeek", MySqlDataTypeEnum.DOUBLE),
     CON_WEEK_BID("conWeekBid", MySqlDataTypeEnum.DOUBLE),
     CON_WEEK_ASK("conWeekAsk", MySqlDataTypeEnum.DOUBLE),
-    conWeekBidAskCounterList("conWeekBidAskCounterList",MySqlDataTypeEnum.STRING ),
+    conWeekBidAskCounterList("conWeekBidAskCounterList", MySqlDataTypeEnum.STRING),
     CON_MONTH("conMonth", MySqlDataTypeEnum.DOUBLE),
-    conMonthBidAskCounterList("conMonthBidAskCounterList",MySqlDataTypeEnum.STRING ),
+    conMonthBidAskCounterList("conMonthBidAskCounterList", MySqlDataTypeEnum.STRING),
     conMonthBid("conMonthBid", MySqlDataTypeEnum.DOUBLE),
     conMonthAsk("conMonthAsk", MySqlDataTypeEnum.DOUBLE),
     CON_QUARTER("conQuarter", MySqlDataTypeEnum.DOUBLE),
@@ -69,7 +69,7 @@ public enum MySqlColumnEnum {
     private final String name;
     private final MySqlDataTypeEnum dataType;
 
-    MySqlColumnEnum(String name, MySqlDataTypeEnum dataType ) {
+    MySqlColumnEnum(String name, MySqlDataTypeEnum dataType) {
         this.name = name;
         this.dataType = dataType;
     }

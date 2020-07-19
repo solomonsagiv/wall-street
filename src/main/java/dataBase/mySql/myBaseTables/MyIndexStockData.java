@@ -1,14 +1,8 @@
 package dataBase.mySql.myBaseTables;
 
-import dataBase.mySql.mySqlComps.MyColumnSql;
-import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
-import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import dataBase.mySql.mySqlComps.MySqlTable;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class MyIndexStockData extends MySqlTable {
 
@@ -16,8 +10,8 @@ public class MyIndexStockData extends MySqlTable {
     Spx spx;
 
     // Constructor
-    public MyIndexStockData( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public MyIndexStockData(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override

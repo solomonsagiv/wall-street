@@ -9,20 +9,18 @@ import javax.swing.border.TitledBorder;
 
 public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
 
-    static String INDEXS = "INDEXS", STOCKS = "STOCKS";
-    static String WEEK = "WEEK", MONTH = "MONTH", QUARTER = "QUARTER", QUARTER_FAR = "QUARTER_FAR";
-
-    // Variables
-    BASE_CLIENT_OBJECT client;
-
     public static JComboBox clientsCombo;
     public static JComboBox optionsCombo;
+    static String INDEXS = "INDEXS", STOCKS = "STOCKS";
+    static String WEEK = "WEEK", MONTH = "MONTH", QUARTER = "QUARTER", QUARTER_FAR = "QUARTER_FAR";
+    // Variables
+    BASE_CLIENT_OBJECT client;
     FullSettingOptionsProps propsPanel;
 
     // Constructor
-    public FullSettingOptionsPanel( ) {
-        initialize( );
-        initListeners( );
+    public FullSettingOptionsPanel() {
+        initialize();
+        initListeners();
     }
 
     private void initListeners() {
@@ -32,16 +30,16 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
     private void initialize() {
 
         // This
-        setSize( 640, 150 );
+        setSize(640, 150);
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder( "Options" );
-        titledBorder.setTitleColor( Themes.BLUE_DARK );
-        setBorder( titledBorder );
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Options");
+        titledBorder.setTitleColor(Themes.BLUE_DARK);
+        setBorder(titledBorder);
 
         // Props
-        propsPanel = new FullSettingOptionsProps( client );
-        propsPanel.setXY( 0, 20 );
-        add( propsPanel );
+        propsPanel = new FullSettingOptionsProps(client);
+        propsPanel.setXY(0, 20);
+        add(propsPanel);
 
 //        // Tws
 //        twsPanel = new TwsPanel( client );
@@ -49,23 +47,23 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
 //        add( twsPanel );
 
         // Combo
-        clientsCombo = new JComboBox( getOptionsArrayString( ) );
-        clientsCombo.setBackground( Themes.BLUE );
-        clientsCombo.setForeground( Themes.GREY_VERY_LIGHT );
-        clientsCombo.setBounds( propsPanel.getX( ) + propsPanel.getWidth( ) + 5, propsPanel.getY( ), 120, 25 );
-        clientsCombo.setSelectedItem( STOCKS );
+        clientsCombo = new JComboBox(getOptionsArrayString());
+        clientsCombo.setBackground(Themes.BLUE);
+        clientsCombo.setForeground(Themes.GREY_VERY_LIGHT);
+        clientsCombo.setBounds(propsPanel.getX() + propsPanel.getWidth() + 5, propsPanel.getY(), 120, 25);
+        clientsCombo.setSelectedItem(STOCKS);
         add(clientsCombo);
 
         // Options combo
-        optionsCombo = new JComboBox( new String[]{"WEEK", "MONTH", "QUARTER", "QUARTER_FAR"});
-        optionsCombo.setBackground( Themes.BLUE );
-        optionsCombo.setForeground( Themes.GREY_VERY_LIGHT );
-        optionsCombo.setBounds( clientsCombo.getX( ) + clientsCombo.getWidth( ) + 5, clientsCombo.getY( ), 120, 25 );
-        add( optionsCombo );
+        optionsCombo = new JComboBox(new String[]{"WEEK", "MONTH", "QUARTER", "QUARTER_FAR"});
+        optionsCombo.setBackground(Themes.BLUE);
+        optionsCombo.setForeground(Themes.GREY_VERY_LIGHT);
+        optionsCombo.setBounds(clientsCombo.getX() + clientsCombo.getWidth() + 5, clientsCombo.getY(), 120, 25);
+        add(optionsCombo);
     }
 
     public String[] getOptionsArrayString() {
-        return new String[]{ "INDEXS", "STOCKS", "ALL" };
+        return new String[]{"INDEXS", "STOCKS", "ALL"};
     }
 
 }

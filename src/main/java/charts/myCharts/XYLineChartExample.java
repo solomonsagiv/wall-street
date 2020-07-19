@@ -7,6 +7,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
 import javax.swing.*;
 import java.util.Random;
 
@@ -36,6 +37,16 @@ public class XYLineChartExample extends JFrame {
         setContentPane(panel);
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            XYLineChartExample example = new XYLineChartExample("XY Chart Example | BORAJI.COM");
+            example.setSize(800, 400);
+            example.setLocationRelativeTo(null);
+            example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            example.setVisible(true);
+        });
+    }
+
     private XYDataset createDataset() {
         XYSeriesCollection dataset = new XYSeriesCollection();
 
@@ -43,13 +54,13 @@ public class XYLineChartExample extends JFrame {
 
         for (int i = 0; i < 200000; i++) {
 
-            double val = new Random().nextDouble()*1000;
+            double val = new Random().nextDouble() * 1000;
 
             series.add(i, val);
         }
 
 
-        new Thread(()->{
+        new Thread(() -> {
 
             for (int i = 0; i < series.getItemCount(); i++) {
                 try {
@@ -66,15 +77,5 @@ public class XYLineChartExample extends JFrame {
         dataset.addSeries(series);
 
         return dataset;
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            XYLineChartExample example = new XYLineChartExample("XY Chart Example | BORAJI.COM");
-            example.setSize(800, 400);
-            example.setLocationRelativeTo(null);
-            example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            example.setVisible(true);
-        });
     }
 }

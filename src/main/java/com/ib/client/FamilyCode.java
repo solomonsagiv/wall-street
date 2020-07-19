@@ -10,7 +10,7 @@ public class FamilyCode {
     public FamilyCode() {
     }
 
-    public FamilyCode( String p_accountID, String p_familyCodeStr ) {
+    public FamilyCode(String p_accountID, String p_familyCodeStr) {
         m_accountID = p_accountID;
         m_familyCodeStr = p_familyCodeStr;
     }
@@ -25,11 +25,11 @@ public class FamilyCode {
     }
 
     // Set
-    public void accountID( String accountID ) {
+    public void accountID(String accountID) {
         m_accountID = accountID;
     }
 
-    public void familyCodeStr( String familyCodeStr ) {
+    public void familyCodeStr(String familyCodeStr) {
         m_familyCodeStr = familyCodeStr;
     }
 }

@@ -18,9 +18,9 @@ public class DBCheker {
     }
 
     // Alert window
-    public void alert( String text ) {
+    public void alert(String text) {
 
-        JOptionPane.showConfirmDialog( null, text );
+        JOptionPane.showConfirmDialog(null, text);
 
     }
 

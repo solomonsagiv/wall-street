@@ -4,7 +4,7 @@ import dataBase.mySql.myBaseTables.MyArraysTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
-import exp.ExpEnum;
+import exp.ExpStrings;
 import lists.MyChartPoint;
 import myJson.MyJson;
 import org.json.JSONArray;
@@ -18,119 +18,122 @@ import java.time.LocalTime;
 public class ArraysTable extends MyArraysTable {
 
     // Constructor
-    public ArraysTable( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public ArraysTable(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override
     public void initColumns() {
-        addColumn( new MyColumnSql< String >( this, MySqlColumnEnum.time) {
+        addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.time) {
             @Override
             public String getObject() {
-                return LocalTime.now( ).toString( );
+                return LocalTime.now().toString();
             }
-        } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexList ) {
+        });
+        addColumn(new MyLoadAbleColumn<String>(this, MySqlColumnEnum.indexList) {
             @Override
             public String getObject() throws UnknownHostException, ParseException {
                 return client.getIndexSeries().getLastJson().toString();
             }
 
             @Override
-            public void setLoadedObject( String object ) {
-                client.getIndexSeries().add( new MyJson( object ) );
+            public void setLoadedObject(String object) {
+                client.getIndexSeries().add(new MyJson(object));
             }
 
             @Override
             public String getResetObject() {
-                return new JSONArray( ).toString( );
+                return new JSONArray().toString();
             }
-        } );
-        addColumn( new MyLoadAbleColumn< Double >( this, MySqlColumnEnum.opList ) {
+        });
+        addColumn(new MyLoadAbleColumn<Double>(this, MySqlColumnEnum.opList) {
             @Override
             public Double getObject() {
-                int last = client.getExps( ).getMainExp( ).getOpFutList( ).size( ) - 1;
-                return client.getExps( ).getMainExp( ).getOpFutList( ).get( last );
+                int last = client.getExps().getMainExp().getOpFutList().size() - 1;
+                return client.getExps().getMainExp().getOpFutList().get(last);
             }
 
             @Override
-            public void setLoadedObject( Double object ) {
-                client.getExps( ).getMainExp( ).getOpFutList( ).add( object );
+            public void setLoadedObject(Double object) {
+                client.getExps().getMainExp().getOpFutList().add(object);
             }
 
             @Override
             public Double getResetObject() {
                 return null;
             }
-        } );
+        });
 
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.indexBidAskCounterList ) {
+        addColumn(new MyLoadAbleColumn<String>(this, MySqlColumnEnum.indexBidAskCounterList) {
             @Override
             public String getObject() throws UnknownHostException, ParseException {
                 return client.getIndexBidAskCounterSeries().getLastJson().toString();
             }
 
             @Override
-            public void setLoadedObject( String object ) {
-                if ( object != null ) {
-                    client.getIndexBidAskCounterSeries().add( new MyJson( object ) );
-                }
-            }
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.opAvgFutureList ) {
-            @Override
-            public String getObject() throws UnknownHostException, ParseException {
-                return client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutSeries().getLastJson().toString();
-            }
-            @Override
-            public void setLoadedObject( String object ) {
-                if ( object != null ) {
-                    MyChartPoint myChartPoint = new MyChartPoint( new JSONObject( object ) );
-                    client.getExps( ).getExp( ExpEnum.E1 ).getOpAvgFutSeries().add( new MyJson( object ) );
-                }
-            }
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.quarterFutBidAskCounterList ) {
-            @Override
-            public String getObject() throws UnknownHostException, ParseException {
-                return client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterSeries().getLastJson().toString();
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                client.getExps( ).getExp( ExpEnum.E1 ).getFutBidAskCounterSeries().add( new MyJson( object ) );
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.quarterFarFutBidAskCounterList ) {
-            @Override
-            public String getObject() throws UnknownHostException, ParseException {
-                return client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterSeries().getLastJson().toString();
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                if ( object != null ) {
-                    client.getExps( ).getExp( ExpEnum.E2 ).getFutBidAskCounterSeries().add( new MyJson( object ) );
+            public void setLoadedObject(String object) {
+                if (object != null) {
+                    client.getIndexBidAskCounterSeries().add(new MyJson(object));
                 }
             }
 
             @Override
             public String getResetObject() {
-                return new JSONArray( ).toString( );
+                return new JSONArray().toString();
             }
-        } );
+        });
+        addColumn(new MyLoadAbleColumn<String>(this, MySqlColumnEnum.opAvgFutureList) {
+            @Override
+            public String getObject() throws UnknownHostException, ParseException {
+                return client.getExps().getExp(ExpStrings.e1).getOpAvgFutSeries().getLastJson().toString();
+            }
+
+            @Override
+            public void setLoadedObject(String object) {
+                if (object != null) {
+                    MyChartPoint myChartPoint = new MyChartPoint(new JSONObject(object));
+                    client.getExps().getExp(ExpStrings.e1).getOpAvgFutSeries().add(new MyJson(object));
+                }
+            }
+
+            @Override
+            public String getResetObject() {
+                return new JSONArray().toString();
+            }
+        });
+        addColumn(new MyLoadAbleColumn<String>(this, MySqlColumnEnum.quarterFutBidAskCounterList) {
+            @Override
+            public String getObject() throws UnknownHostException, ParseException {
+                return client.getExps().getExp(ExpStrings.e1).getFutBidAskCounterSeries().getLastJson().toString();
+            }
+
+            @Override
+            public void setLoadedObject(String object) {
+                client.getExps().getExp(ExpStrings.e1).getFutBidAskCounterSeries().add(new MyJson(object));
+            }
+
+            @Override
+            public String getResetObject() {
+                return new JSONArray().toString();
+            }
+        });
+        addColumn(new MyLoadAbleColumn<String>(this, MySqlColumnEnum.quarterFarFutBidAskCounterList) {
+            @Override
+            public String getObject() throws UnknownHostException, ParseException {
+                return client.getExps().getExp(ExpStrings.e2).getFutBidAskCounterSeries().getLastJson().toString();
+            }
+
+            @Override
+            public void setLoadedObject(String object) {
+                if (object != null) {
+                    client.getExps().getExp(ExpStrings.e2).getFutBidAskCounterSeries().add(new MyJson(object));
+                }
+            }
+
+            @Override
+            public String getResetObject() {
+                return new JSONArray().toString();
+            }
+        });
     }
 }

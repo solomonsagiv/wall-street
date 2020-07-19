@@ -1,15 +1,12 @@
 package dataBase.mySql.myTables.index;
 
-import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
-import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import dataBase.mySql.mySqlComps.MySqlTable;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 public class IndexStocksTable extends MySqlTable {
 
-    public IndexStocksTable( INDEX_CLIENT_OBJECT client ) {
-        super( client, "indexStocks" );
+    public IndexStocksTable(INDEX_CLIENT_OBJECT client) {
+        super(client, "indexStocks");
     }
 
     @Override

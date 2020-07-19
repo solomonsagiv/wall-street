@@ -31,53 +31,53 @@ public class Api2020 {
     public static String NICE = "273011";
     public static String PTNR = "1083484";
 
-    @SuppressWarnings( "deprecation" )
-    public static String url( String name ) {
-        return "http://localhost:4071/aoc/core/AocRT/getmanyfields?s=" + URLEncoder.encode( name )
+    @SuppressWarnings("deprecation")
+    public static String url(String name) {
+        return "http://localhost:4071/aoc/core/AocRT/getmanyfields?s=" + URLEncoder.encode(name)
                 + "&f=open,high,low,close,last,base,weight_ta35";
     }
 
-    @SuppressWarnings( "deprecation" )
-    public static String url_dollar( String name ) {
-        return "http://localhost:4071/aoc/core/AocRT/getmanyfields?s=" + URLEncoder.encode( name )
+    @SuppressWarnings("deprecation")
+    public static String url_dollar(String name) {
+        return "http://localhost:4071/aoc/core/AocRT/getmanyfields?s=" + URLEncoder.encode(name)
                 + "&f=open,high,low,close,last_known,base,weight_ta35";
     }
 
     // HTTP GET request
-    public static JSONArray sendGet( String url ) throws Exception {
+    public static JSONArray sendGet(String url) throws Exception {
 
-        URL obj = new URL( url );
-        HttpURLConnection con = ( HttpURLConnection ) obj.openConnection( );
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         // optional default is GET
-        con.setRequestMethod( "GET" );
+        con.setRequestMethod("GET");
 
         // add request header
-        con.setRequestProperty( "User-Agent", "Mozilla/5.0" );
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-        BufferedReader in = new BufferedReader( new InputStreamReader( con.getInputStream( ) ) );
-        String inputLine = in.readLine( );
-        StringBuffer response = new StringBuffer( );
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine = in.readLine();
+        StringBuffer response = new StringBuffer();
 
         // json parser
-        response.append( inputLine );
-        org.json.JSONObject job = new org.json.JSONObject( inputLine );
-        org.json.JSONObject pageName = job.getJSONObject( "GetManyFieldsResult" );
+        response.append(inputLine);
+        org.json.JSONObject job = new org.json.JSONObject(inputLine);
+        org.json.JSONObject pageName = job.getJSONObject("GetManyFieldsResult");
 
-        in.close( );
+        in.close();
 
-        return pageName.getJSONArray( "Values" );
+        return pageName.getJSONArray("Values");
     }
 
-    public static JSONObject get( String url ) {
-        JSONObject object = new JSONObject( );
+    public static JSONObject get(String url) {
+        JSONObject object = new JSONObject();
         try {
 
-            object = new JSONObject( Jsoup.connect( url ).get( ).body( ) );
-            System.out.println( object.toString( ) );
+            object = new JSONObject(Jsoup.connect(url).get().body());
+            System.out.println(object.toString());
 
-        } catch ( IOException e ) {
-            e.printStackTrace( );
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return object;

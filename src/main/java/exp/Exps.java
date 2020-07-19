@@ -5,8 +5,7 @@ import locals.L;
 import myJson.MyJson;
 import options.fullOptions.PositionCalculator;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.stockObjects.STOCK_OBJECT;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,64 +13,64 @@ public class Exps implements IJson {
 
     // Variables
     public BASE_CLIENT_OBJECT client;
-    private HashMap<ExpEnum, Exp> expMap = new HashMap<>( );
-    private ArrayList< Exp > expList = new ArrayList<>( );
-    private PositionCalculator positionCalculator;
     Exp mainExp;
-
-    public Exp getExp(ExpEnum exp ) {
-        return expMap.get( exp );
-    }
+    private HashMap<String, Exp> expMap = new HashMap<>();
+    private ArrayList<Exp> expList = new ArrayList<>();
+    private PositionCalculator positionCalculator;
 
     // Constructor
-    public Exps( BASE_CLIENT_OBJECT client ) {
+    public Exps(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        positionCalculator = new PositionCalculator( client );
+        positionCalculator = new PositionCalculator(client);
     }
 
-    public void addExp( Exp exp, ExpEnum expEnum ) {
+    public void addExp(Exp exp, String expName) {
         expList.add(exp);
-        expMap.put( expEnum, exp );
+        expMap.put(expName, exp);
     }
 
-    private void initStartEndStrikes( double future ) {
+    private void initStartEndStrikes(double future) {
 
-        double last = L.modulu( future );
-        double margin = client.getStrikeMargin( );
+        double last = L.modulu(future);
+        double margin = client.getStrikeMargin();
 
-        double startStrike = last - ( margin * 10 );
-        double endStrike = last + ( margin * 10 );
+        double startStrike = last - (margin * 10);
+        double endStrike = last + (margin * 10);
 
-        client.setStartStrike( startStrike );
-        client.setEndStrike( endStrike );
+        client.setStartStrike(startStrike);
+        client.setEndStrike(endStrike);
 
     }
 
-    public void initOptions( double future ) {
+    public void initOptions(double future) {
 
-        initStartEndStrikes( future );
+        initStartEndStrikes(future);
 
-        for ( Exp exp : getExpList( ) ) {
-            System.out.println( "Init options: " + exp );
-            exp.getOptions().initOptions( );
+        for (Exp exp : getExpList()) {
+            System.out.println("Init options: " + exp);
+            exp.getOptions().initOptions();
         }
 
     }
 
+    public Exp getExp(String name) {
+        return getExpMap().get(name);
+    }
+
     // Getters and setters
-    public HashMap< ExpEnum, Exp > getExpMap() {
+    public HashMap<String, Exp> getExpMap() {
         return expMap;
     }
 
-    public void setExpMap(HashMap< ExpEnum, Exp > expMap) {
+    public void setExpMap(HashMap<String, Exp> expMap) {
         this.expMap = expMap;
     }
 
-    public ArrayList< Exp > getExpList() {
+    public ArrayList<Exp> getExpList() {
         return expList;
     }
 
-    public void setExpList(ArrayList< Exp > expList) {
+    public void setExpList(ArrayList<Exp> expList) {
         this.expList = expList;
     }
 
@@ -79,12 +78,12 @@ public class Exps implements IJson {
         return positionCalculator;
     }
 
-    public void setPositionCalculator( PositionCalculator positionCalculator ) {
+    public void setPositionCalculator(PositionCalculator positionCalculator) {
         this.positionCalculator = positionCalculator;
     }
 
     public Exp getMainExp() {
-        if ( mainExp == null ) throw new NullPointerException( "Main exp not set" );
+        if (mainExp == null) throw new NullPointerException("Main exp not set");
         return mainExp;
     }
 
@@ -94,16 +93,18 @@ public class Exps implements IJson {
 
     @Override
     public MyJson getAsJson() {
-        MyJson json = new MyJson(  );
-        for ( Exp exp : getExpList()) {
-            json.put( exp.getEnum().toString(), exp.getAsJson() );
+        MyJson json = new MyJson();
+        for (Exp exp : getExpList()) {
+            json.put(exp.getName(), exp.getAsJson());
         }
         return json;
     }
-    
-    @Override
-    public void loadFromJson( MyJson json ) {
 
+    @Override
+    public void loadFromJson(MyJson json) {
+        for (String key : json.keySet()) {
+            getExp(key).loadFromJson(new MyJson(json.getJSONObject(key).toString()));
+        }
     }
 
     @Override

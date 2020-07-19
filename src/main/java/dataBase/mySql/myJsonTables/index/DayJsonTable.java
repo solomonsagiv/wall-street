@@ -1,6 +1,5 @@
 package dataBase.mySql.myJsonTables.index;
 
-import api.Manifest;
 import dataBase.mySql.myBaseTables.MyDayTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;

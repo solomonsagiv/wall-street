@@ -1,7 +1,7 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import exp.ExpEnum;
+import exp.ExpStrings;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -14,34 +14,34 @@ import java.util.Scanner;
 public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
 
 
-    public static void main( String[] args ) throws InterruptedException {
+    // Constructor
+    public IndexVsQuarterQuarterFarLiveChart(BASE_CLIENT_OBJECT client) {
+        super(client);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
         Spx spx = Spx.getInstance();
         IndexVsQuarterQuarterFarLiveChart testNewChart = new IndexVsQuarterQuarterFarLiveChart(spx);
         testNewChart.createChart();
 
         while (true) {
 
-            System.out.println( "Enter future: " );
-            String input = new Scanner( System.in ).nextLine();
+            System.out.println("Enter future: ");
+            String input = new Scanner(System.in).nextLine();
 
-            double d = new Random(  ).nextDouble() * 10;
+            double d = new Random().nextDouble() * 10;
 
-            if ( !input.isEmpty() ) {
-                d = L.dbl( input );
+            if (!input.isEmpty()) {
+                d = L.dbl(input);
             }
 
-            spx.setIndex( d );
-            spx.setIndexBid( d - 2 );
-            spx.setIndexAsk( d + 1 );
+            spx.setIndex(d);
+            spx.setIndexBid(d - 2);
+            spx.setIndexAsk(d + 1);
 
             Thread.sleep(200);
         }
 
-    }
-
-    // Constructor
-    public IndexVsQuarterQuarterFarLiveChart( BASE_CLIENT_OBJECT client ) {
-        super( client );
     }
 
     @Override
@@ -49,40 +49,40 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp( ChartPropsEnum.SECONDS, 150 );
-        props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
-        props.setProp( ChartPropsEnum.MARGIN, .17 );
-        props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
-        props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
-        props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
-        props.setProp( ChartPropsEnum.IS_LIVE, true );
-        props.setProp( ChartPropsEnum.SLEEP, 200 );
-        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS,(double) INFINITE );
-        props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
+        props.setProp(ChartPropsEnum.SECONDS, 150);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.MARGIN, .17);
+        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, false);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, false);
+        props.setProp(ChartPropsEnum.IS_LIVE, true);
+        props.setProp(ChartPropsEnum.SLEEP, 200);
+        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, (double) INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", client ) {
+        MyTimeSeries index = new MyTimeSeries("Index", client) {
             @Override
             public double getData() {
                 return client.getIndex();
             }
         };
-        index.setColor( Color.BLACK );
-        index.setStokeSize( 2.25f );
+        index.setColor(Color.BLACK);
+        index.setStokeSize(2.25f);
 
         // Bid
-        MyTimeSeries bid = new MyTimeSeries( "Bid", client ) {
+        MyTimeSeries bid = new MyTimeSeries("Bid", client) {
             @Override
             public double getData() {
                 return client.getIndexBid();
             }
         };
-        bid.setColor( Themes.BLUE );
-        bid.setStokeSize( 2.25f );
+        bid.setColor(Themes.BLUE);
+        bid.setStokeSize(2.25f);
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries( "Ask", client ) {
+        MyTimeSeries ask = new MyTimeSeries("Ask", client) {
             @Override
             public double getData() {
                 return client.getIndexAsk();
@@ -90,37 +90,37 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         };
 
         // Future
-        MyTimeSeries quarter = new MyTimeSeries( "Quarter", client ) {
+        MyTimeSeries quarter = new MyTimeSeries("Quarter", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp( ExpEnum.E1 ).getCalcFut();
+                return client.getExps().getExp(ExpStrings.e1).getCalcFut();
             }
         };
 
-        quarter.setColor( Themes.GREEN );
-        quarter.setStokeSize( 2.25f );
+        quarter.setColor(Themes.GREEN);
+        quarter.setStokeSize(2.25f);
 
         // Future
-        MyTimeSeries quarterFar = new MyTimeSeries( "QuarterFar", client ) {
+        MyTimeSeries quarterFar = new MyTimeSeries("QuarterFar", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp( ExpEnum.E2 ).getCalcFut();
+                return client.getExps().getExp(ExpStrings.e2).getCalcFut();
             }
         };
 
-        quarterFar.setColor( Themes.VERY_LIGHT_BLUE );
-        quarterFar.setStokeSize( 2.25f );
+        quarterFar.setColor(Themes.VERY_LIGHT_BLUE);
+        quarterFar.setStokeSize(2.25f);
 
         MyTimeSeries[] series = {index, bid, ask, quarter, quarterFar};
 
         // Chart
-        MyChart chart = new MyChart( client, series, props );
+        MyChart chart = new MyChart(client, series, props);
 
         // ----- Charts ----- //
-        MyChart[] charts = { chart };
+        MyChart[] charts = {chart};
 
         // ----- Container ----- //
-        MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );
+        MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
 
 

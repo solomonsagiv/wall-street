@@ -16,12 +16,12 @@ public class OrderState {
     private String m_warningText;
 
     OrderState() {
-        this( null, null, null, null, 0.0, 0.0, 0.0, null, null );
+        this(null, null, null, null, 0.0, 0.0, 0.0, null, null);
     }
 
-    OrderState( String status, String initMargin, String maintMargin,
-                String equityWithLoan, double commission, double minCommission,
-                double maxCommission, String commissionCurrency, String warningText ) {
+    OrderState(String status, String initMargin, String maintMargin,
+               String equityWithLoan, double commission, double minCommission,
+               double maxCommission, String commissionCurrency, String warningText) {
         m_status = status;
         m_initMargin = initMargin;
         m_maintMargin = maintMargin;
@@ -47,7 +47,7 @@ public class OrderState {
     }
 
     public OrderStatus status() {
-        return OrderStatus.get( m_status );
+        return OrderStatus.get(m_status);
     }
 
     public String getStatus() {
@@ -75,67 +75,67 @@ public class OrderState {
     }
 
     // Set
-    public void commission( double v ) {
+    public void commission(double v) {
         m_commission = v;
     }
 
-    public void commissionCurrency( String v ) {
+    public void commissionCurrency(String v) {
         m_commissionCurrency = v;
     }
 
-    public void equityWithLoan( String v ) {
+    public void equityWithLoan(String v) {
         m_equityWithLoan = v;
     }
 
-    public void initMargin( String v ) {
+    public void initMargin(String v) {
         m_initMargin = v;
     }
 
-    public void maintMargin( String v ) {
+    public void maintMargin(String v) {
         m_maintMargin = v;
     }
 
-    public void maxCommission( double v ) {
+    public void maxCommission(double v) {
         m_maxCommission = v;
     }
 
-    public void minCommission( double v ) {
+    public void minCommission(double v) {
         m_minCommission = v;
     }
 
-    public void status( OrderStatus v ) {
-        m_status = ( v == null ) ? null : v.name( );
+    public void status(OrderStatus v) {
+        m_status = (v == null) ? null : v.name();
     }
 
-    public void status( String v ) {
+    public void status(String v) {
         m_status = v;
     }
 
-    public void warningText( String v ) {
+    public void warningText(String v) {
         m_warningText = v;
     }
 
     @Override
-    public boolean equals( Object other ) {
-        if ( this == other ) {
+    public boolean equals(Object other) {
+        if (this == other) {
             return true;
         }
-        if ( !( other instanceof OrderState ) ) {
+        if (!(other instanceof OrderState)) {
             return false;
         }
-        OrderState state = ( OrderState ) other;
+        OrderState state = (OrderState) other;
 
-        if ( m_commission != state.m_commission ||
+        if (m_commission != state.m_commission ||
                 m_minCommission != state.m_minCommission ||
-                m_maxCommission != state.m_maxCommission ) {
+                m_maxCommission != state.m_maxCommission) {
             return false;
         }
 
-        return Util.StringCompare( m_status, state.m_status ) == 0 &&
-                Util.StringCompare( m_initMargin, state.m_initMargin ) == 0 &&
-                Util.StringCompare( m_maintMargin, state.m_maintMargin ) == 0 &&
-                Util.StringCompare( m_equityWithLoan, state.m_equityWithLoan ) == 0 &&
-                Util.StringCompare( m_commissionCurrency, state.m_commissionCurrency ) == 0;
+        return Util.StringCompare(m_status, state.m_status) == 0 &&
+                Util.StringCompare(m_initMargin, state.m_initMargin) == 0 &&
+                Util.StringCompare(m_maintMargin, state.m_maintMargin) == 0 &&
+                Util.StringCompare(m_equityWithLoan, state.m_equityWithLoan) == 0 &&
+                Util.StringCompare(m_commissionCurrency, state.m_commissionCurrency) == 0;
     }
 
     @Override
@@ -143,12 +143,12 @@ public class OrderState {
         // Use a few fields as a compromise between performance and hashCode quality.
         int result;
         long temp;
-        temp = Double.doubleToLongBits( m_commission );
-        result = ( int ) ( temp ^ ( temp >>> 32 ) );
-        temp = Double.doubleToLongBits( m_minCommission );
-        result = 31 * result + ( int ) ( temp ^ ( temp >>> 32 ) );
-        temp = Double.doubleToLongBits( m_maxCommission );
-        result = 31 * result + ( int ) ( temp ^ ( temp >>> 32 ) );
+        temp = Double.doubleToLongBits(m_commission);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_minCommission);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_maxCommission);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

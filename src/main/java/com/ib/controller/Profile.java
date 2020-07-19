@@ -13,7 +13,7 @@ public class Profile {
 
     private String m_name;
     private Type m_type;
-    private ArrayList< Allocation > m_allocations = new ArrayList<>( );
+    private ArrayList<Allocation> m_allocations = new ArrayList<>();
 
     public String name() {
         return m_name;
@@ -23,43 +23,43 @@ public class Profile {
         return m_type;
     }
 
-    public ArrayList< Allocation > allocations() {
+    public ArrayList<Allocation> allocations() {
         return m_allocations;
     }
 
-    public void name( String v ) {
+    public void name(String v) {
         m_name = v;
     }
 
-    public void type( Type v ) {
+    public void type(Type v) {
         m_type = v;
     }
 
-    public void add( Allocation v ) {
-        m_allocations.add( v );
+    public void add(Allocation v) {
+        m_allocations.add(v);
     }
 
-    public void setAllocations( String val ) {
-        m_allocations.clear( );
+    public void setAllocations(String val) {
+        m_allocations.clear();
 
-        StringTokenizer st = new StringTokenizer( val, ", " );
-        while ( st.hasMoreTokens( ) ) {
-            String tok = st.nextToken( );
-            StringTokenizer st2 = new StringTokenizer( tok, SEP );
+        StringTokenizer st = new StringTokenizer(val, ", ");
+        while (st.hasMoreTokens()) {
+            String tok = st.nextToken();
+            StringTokenizer st2 = new StringTokenizer(tok, SEP);
 
-            Allocation alloc = new Allocation( );
-            alloc.account( st2.nextToken( ) );
-            alloc.amount( st2.nextToken( ) );
+            Allocation alloc = new Allocation();
+            alloc.account(st2.nextToken());
+            alloc.amount(st2.nextToken());
 
-            m_allocations.add( alloc );
+            m_allocations.add(alloc);
         }
     }
 
     public enum Type {
         NONE, Percents, Ratios, Shares;
 
-        public static Type get( int ordinal ) {
-            return Types.getEnum( ordinal, values( ) );
+        public static Type get(int ordinal) {
+            return Types.getEnum(ordinal, values());
         }
     }
 
@@ -75,11 +75,11 @@ public class Profile {
             return m_amount;
         }
 
-        public void account( String v ) {
+        public void account(String v) {
             m_account = v;
         }
 
-        public void amount( String v ) {
+        public void amount(String v) {
             m_amount = v;
         }
 

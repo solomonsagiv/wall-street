@@ -1,7 +1,6 @@
 package options.optionsCalcs;
 
 import exp.Exp;
-import exp.ExpEnum;
 import locals.L;
 import options.Options;
 import options.Strike;
@@ -12,17 +11,17 @@ public class StockOptionsCalc implements IOptionsCalcs {
     // Variables
     Exp exp;
     Options options;
-    ExpEnum expEnum;
+    String expName;
     STOCK_OBJECT client;
 
     // Constructor
-    public StockOptionsCalc( STOCK_OBJECT client, ExpEnum expEnum ) {
+    public StockOptionsCalc(STOCK_OBJECT client, String expName) {
         this.client = client;
-        this.expEnum = expEnum;
+        this.expName = expName;
     }
 
     @Override
-    public double getStrikeInMoney(  ) {
+    public double getStrikeInMoney() {
 
         double currStrike = options.getCurrStrike();
 
@@ -78,14 +77,14 @@ public class StockOptionsCalc implements IOptionsCalcs {
     }
 
     public Exp getExp() {
-        if ( exp == null ) {
-            exp = client.getExps().getExp( expEnum );
+        if (exp == null) {
+            exp = client.getExps().getExp(expName);
         }
         return exp;
     }
 
     public Options getOptions() {
-        if ( options == null ) {
+        if (options == null) {
             options = getExp().getOptions();
         }
         return options;

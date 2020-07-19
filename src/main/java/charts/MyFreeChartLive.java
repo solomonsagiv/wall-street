@@ -7,6 +7,7 @@ import locals.Themes;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -23,11 +24,11 @@ public class MyFreeChartLive extends JFrame {
     BASE_CLIENT_OBJECT client;
     String name;
 
-    public MyFreeChartLive( MySingleFreeChartLive[] singleFreeCharts, BASE_CLIENT_OBJECT client, String name ) {
+    public MyFreeChartLive(MySingleFreeChartLive[] singleFreeCharts, BASE_CLIENT_OBJECT client, String name) {
         this.singleFreeCharts = singleFreeCharts;
         this.client = client;
         this.name = name;
-        init( );
+        init();
     }
 
     @Override
@@ -38,74 +39,74 @@ public class MyFreeChartLive extends JFrame {
     private void init() {
 
         // Load bounds
-        loadBounds( );
+        loadBounds();
 
         // Background color
-        setBackground( Themes.GREY_LIGHT );
+        setBackground(Themes.GREY_LIGHT);
 
         // On Close
-        addWindowListener( new java.awt.event.WindowAdapter( ) {
-            public void windowClosing( WindowEvent e ) {
-                onClose( e );
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onClose(e);
             }
-        } );
+        });
 
         // Set layout
-        setLayout( new GridLayout( singleFreeCharts.length, 0 ) );
+        setLayout(new GridLayout(singleFreeCharts.length, 0));
 
         // Append charts
-        appendCharts( );
+        appendCharts();
 
     }
 
     private void appendCharts() {
         // Append charts
-        for ( MySingleFreeChartLive mySingleFreeChart : singleFreeCharts ) {
-            JFreeChart chart = mySingleFreeChart.getChart( );
-            MyChartPanel chartPanel = new MyChartPanel( chart, mySingleFreeChart.isIncludeTickerData( ) );
-            chartPanel.setBorder( null );
-            mySingleFreeChart.setChartPanel( chartPanel );
+        for (MySingleFreeChartLive mySingleFreeChart : singleFreeCharts) {
+            JFreeChart chart = mySingleFreeChart.getChart();
+            MyChartPanel chartPanel = new MyChartPanel(chart, mySingleFreeChart.isIncludeTickerData());
+            chartPanel.setBorder(null);
+            mySingleFreeChart.setChartPanel(chartPanel);
 
-            add( chartPanel );
+            add(chartPanel);
         }
     }
 
     private void loadBounds() {
-        new Thread( () -> {
+        new Thread(() -> {
             try {
-                ResultSet rs = (( MyBoundsTable )client.getTablesHandler( ).getTable( TablesEnum.BOUNDS )).getBound( client.getName( ), getName( ) );
+                ResultSet rs = ((MyBoundsTable) client.getTablesHandler().getTable(TablesEnum.BOUNDS)).getBound(client.getName(), getName());
 
                 int width = 300, height = 500, x = 100, y = 100;
 
-                while ( rs.next( ) ) {
-                    x = rs.getInt( "x" );
-                    y = rs.getInt( "y" );
-                    width = rs.getInt( "width" );
-                    height = rs.getInt( "height" );
+                while (rs.next()) {
+                    x = rs.getInt("x");
+                    y = rs.getInt("y");
+                    width = rs.getInt("width");
+                    height = rs.getInt("height");
                 }
 
-                setPreferredSize( new Dimension( width, height ) );
-                setBounds( x, y, width, height );
-            } catch ( Exception e ) {
+                setPreferredSize(new Dimension(width, height));
+                setBounds(x, y, width, height);
+            } catch (Exception e) {
                 e.printStackTrace();
-                Arik.getInstance().sendErrorMessage( e );
+                Arik.getInstance().sendErrorMessage(e);
             }
-        } ).start( );
+        }).start();
     }
 
-    public void onClose( WindowEvent e ) {
+    public void onClose(WindowEvent e) {
 
         // Update bounds
-        new Thread( () -> {
-            (( MyBoundsTable )client.getTablesHandler( ).getTable( TablesEnum.BOUNDS )).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
-        } ).start( );
+        new Thread(() -> {
+            ((MyBoundsTable) client.getTablesHandler().getTable(TablesEnum.BOUNDS)).updateBoundOrCreateNewOne(client.getName(), name, getX(), getY(), getWidth(), getHeight());
+        }).start();
 
         // Close updaters
-        for ( MySingleFreeChartLive mySingleFreeChart : singleFreeCharts ) {
-            mySingleFreeChart.closeUpdate( );
+        for (MySingleFreeChartLive mySingleFreeChart : singleFreeCharts) {
+            mySingleFreeChart.closeUpdate();
         }
 
-        dispose( );
+        dispose();
     }
 
 }

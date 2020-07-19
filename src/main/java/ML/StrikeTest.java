@@ -18,17 +18,17 @@ public class StrikeTest {
     public StrikeTest() {
     }
 
-    public StrikeTest( OptionTest call, OptionTest put, double strike ) {
+    public StrikeTest(OptionTest call, OptionTest put, double strike) {
         this.call = call;
         this.put = put;
         this.strike = strike;
 
     }
 
-    public StrikeTest( double strike, int callId, int putId ) {
+    public StrikeTest(double strike, int callId, int putId) {
         this.strike = strike;
-        this.call = new OptionTest( "c", strike, callId );
-        this.put = new OptionTest( "p", strike, putId );
+        this.call = new OptionTest("c", strike, callId);
+        this.put = new OptionTest("p", strike, putId);
     }
 
     // Getters and Setters
@@ -36,7 +36,7 @@ public class StrikeTest {
         return call;
     }
 
-    public void setCall( OptionTest call ) {
+    public void setCall(OptionTest call) {
         this.call = call;
     }
 
@@ -44,7 +44,7 @@ public class StrikeTest {
         return put;
     }
 
-    public void setPut( OptionTest put ) {
+    public void setPut(OptionTest put) {
         this.put = put;
     }
 
@@ -52,7 +52,7 @@ public class StrikeTest {
         return strike;
     }
 
-    public void setStrike( double strike ) {
+    public void setStrike(double strike) {
         this.strike = strike;
     }
 
@@ -62,12 +62,12 @@ public class StrikeTest {
         String call = "null";
         String put = "null";
 
-        if ( getCall( ) != null ) {
-            call = getCall( ).toString( );
+        if (getCall() != null) {
+            call = getCall().toString();
         }
 
-        if ( getPut( ) != null ) {
-            put = getPut( ).toString( );
+        if (getPut() != null) {
+            put = getPut().toString();
         }
 
         return strike + "\n" + call + ", \n" + put;
@@ -77,14 +77,14 @@ public class StrikeTest {
         return stDev;
     }
 
-    public void setStDev( double stDev ) {
+    public void setStDev(double stDev) {
         this.stDev = stDev;
 
         try {
-            this.call.setStDev( stDev );
-            this.put.setStDev( stDev );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            this.call.setStDev(stDev);
+            this.put.setStDev(stDev);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

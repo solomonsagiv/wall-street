@@ -16,9 +16,9 @@ public enum OrderStatus {
     PendingSubmit,
     Unknown;
 
-    public static OrderStatus get( String apiString ) {
-        for ( OrderStatus type : values( ) ) {
-            if ( type.name( ).equalsIgnoreCase( apiString ) ) {
+    public static OrderStatus get(String apiString) {
+        for (OrderStatus type : values()) {
+            if (type.name().equalsIgnoreCase(apiString)) {
                 return type;
             }
         }

@@ -3,13 +3,12 @@ package dataBase;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 public class DataBaseHandler {
 
     BASE_CLIENT_OBJECT client;
 
-    public DataBaseHandler( BASE_CLIENT_OBJECT client ) {
+    public DataBaseHandler(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 

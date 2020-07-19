@@ -5,6 +5,17 @@ import locals.IJson;
 import myJson.MyJson;
 import options.JsonStrings;
 
+enum MyContractEnum {
+    ID,
+    SEC_TYPE,
+    CURRENCY,
+    EXCHANGE,
+    TRADING_CLASS,
+    MULTIPLIER,
+    SYMBOL,
+    INCLUDE_EXPIRED
+}
+
 public class MyContract extends Contract implements IJson {
 
     private int myId;
@@ -31,6 +42,13 @@ public class MyContract extends Contract implements IJson {
         lastTradeDateOrContractMonth(contract.lastTradeDateOrContractMonth());
     }
 
+    public MyContract() {
+    }
+
+    public MyContract(TwsContractsEnum type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " \n" +
@@ -43,29 +61,54 @@ public class MyContract extends Contract implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put( JsonStrings.id.toString(), getMyId());
-        object.put( JsonStrings.secType.toString(), secType());
-        object.put( JsonStrings.currency.toString(), currency());
-        object.put( JsonStrings.exchange.toString(), exchange());
-        object.put( JsonStrings.tradingClass.toString(), tradingClass());
-        object.put( JsonStrings.multiplier.toString(), multiplier());
-        object.put( JsonStrings.symbol.toString(), symbol());
-        object.put( JsonStrings.includeExpired.toString(), includeExpired());
-        object.put( JsonStrings.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
+        object.put(JsonStrings.id.toString(), getMyId());
+        object.put(JsonStrings.secType.toString(), secType());
+        object.put(JsonStrings.currency.toString(), currency());
+        object.put(JsonStrings.exchange.toString(), exchange());
+        object.put(JsonStrings.tradingClass.toString(), tradingClass());
+        object.put(JsonStrings.multiplier.toString(), multiplier());
+        object.put(JsonStrings.symbol.toString(), symbol());
+        object.put(JsonStrings.includeExpired.toString(), includeExpired());
+        object.put(JsonStrings.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
         return object;
     }
 
     @Override
-    public void loadFromJson(MyJson json ) {
-        setMyId( json.getInt( JsonStrings.id.toString()));
-        secType( json.getString( JsonStrings.secType.toString()));
-        currency( json.getString( JsonStrings.currency.toString()));
-        exchange( json.getString( JsonStrings.exchange.toString()));
-        tradingClass( json.getString( JsonStrings.tradingClass.toString()));
-        multiplier( json.getString( JsonStrings.multiplier.toString()));
-        symbol( json.getString( JsonStrings.symbol.toString()));
-        includeExpired( json.getBoolean( JsonStrings.includeExpired.toString()));
-        lastTradeDateOrContractMonth( json.getString( JsonStrings.lastTradingDateOrContractMonth.toString()));
+    public void loadFromJson(MyJson json) {
+        setMyId(json.getInt(JsonStrings.id.toString()));
+        secType(json.getString(JsonStrings.secType.toString()));
+        currency(json.getString(JsonStrings.currency.toString()));
+        exchange(json.getString(JsonStrings.exchange.toString()));
+        tradingClass(json.getString(JsonStrings.tradingClass.toString()));
+        multiplier(json.getString(JsonStrings.multiplier.toString()));
+        symbol(json.getString(JsonStrings.symbol.toString()));
+        includeExpired(json.getBoolean(JsonStrings.includeExpired.toString()));
+        lastTradeDateOrContractMonth(json.getString(JsonStrings.lastTradingDateOrContractMonth.toString()));
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        return getAsJson();
+    }
+
+    public int getMyId() {
+        return myId;
+    }
+
+    public void setMyId(int myId) {
+        this.myId = myId;
+    }
+
+    public boolean isRequested() {
+        return requested;
+    }
+
+    public void setRequested(boolean requested) {
+        this.requested = requested;
+    }
+
+    public TwsContractsEnum getType() {
+        return type;
     }
 
     public void setType(String string) {
@@ -96,50 +139,7 @@ public class MyContract extends Contract implements IJson {
         }
     }
 
-    @Override
-    public MyJson getResetJson() {
-        return getAsJson();
-    }
-
-    public MyContract() {
-    }
-
-    public MyContract(TwsContractsEnum type) {
-        this.type = type;
-    }
-
-    public int getMyId() {
-        return myId;
-    }
-
-    public void setMyId(int myId) {
-        this.myId = myId;
-    }
-
-    public boolean isRequested() {
-        return requested;
-    }
-
-    public void setRequested(boolean requested) {
-        this.requested = requested;
-    }
-
-    public TwsContractsEnum getType() {
-        return type;
-    }
-
     public void setType(TwsContractsEnum type) {
         this.type = type;
     }
-}
-
-enum MyContractEnum {
-    ID,
-    SEC_TYPE,
-    CURRENCY,
-    EXCHANGE,
-    TRADING_CLASS,
-    MULTIPLIER,
-    SYMBOL,
-    INCLUDE_EXPIRED
 }

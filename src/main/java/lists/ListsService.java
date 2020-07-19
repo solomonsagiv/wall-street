@@ -50,7 +50,7 @@ public class ListsService extends MyBaseService {
         client.getIndexBidAskCounterSeries().add();
 
         // Options lists
-        for ( Exp exp : client.getExps().getExpList()) {
+        for (Exp exp : client.getExps().getExpList()) {
             try {
                 exp.getFutList().add(exp.getCalcFut());
                 client.getIndexSeries().add();

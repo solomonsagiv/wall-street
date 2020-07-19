@@ -1,14 +1,13 @@
 package charts.myCharts.bitcoinCharts;
 
 import charts.myChart.*;
-import exp.ExpEnum;
 import exp.ExpMonth;
+import exp.ExpStrings;
 import locals.Themes;
 import serverObjects.bitcoinObjects.BITCOIN_CLIENT;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
 
 public class BitcoinLiveChart extends MyChartCreator {
 
@@ -16,65 +15,65 @@ public class BitcoinLiveChart extends MyChartCreator {
     MyTimeSeries future;
 
     // Constructor
-    public BitcoinLiveChart( BITCOIN_CLIENT client ) {
-        super( client );
+    public BitcoinLiveChart(BITCOIN_CLIENT client) {
+        super(client);
     }
 
     @Override
     public void createChart() {
 
         // Props
-        props = new MyProps( );
-        props.setProp( ChartPropsEnum.SECONDS, 10800 );
-        props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
-        props.setProp( ChartPropsEnum.MARGIN, .17 );
-        props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
-        props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
-        props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
-        props.setProp( ChartPropsEnum.IS_LIVE, true );
-        props.setProp( ChartPropsEnum.SLEEP, 1000 );
-        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, ( double ) INFINITE );
-        props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
+        props = new MyProps();
+        props.setProp(ChartPropsEnum.SECONDS, 10800);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.MARGIN, .17);
+        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, false);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, false);
+        props.setProp(ChartPropsEnum.IS_LIVE, true);
+        props.setProp(ChartPropsEnum.SLEEP, 1000);
+        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, (double) INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
 
         // ----- Chart 1 ----- //
         // Index
-        index = new MyTimeSeries( "Index", client ) {
+        index = new MyTimeSeries("Index", client) {
             @Override
             public double getData() {
-                return client.getIndex( );
+                return client.getIndex();
             }
         };
-        index.setColor( Color.BLACK );
-        index.setStokeSize( 2.25f );
+        index.setColor(Color.BLACK);
+        index.setStokeSize(2.25f);
 
         // Future
-        future = new MyTimeSeries( "Future", client ) {
+        future = new MyTimeSeries("Future", client) {
             @Override
             public double getData() {
-                ExpMonth expMonth = ( ExpMonth ) client.getExps( ).getExp( ExpEnum.MONTH );
+                ExpMonth expMonth = (ExpMonth) client.getExps().getExp(ExpStrings.month);
 
                 double fut = (expMonth.getCalcFutBid() + expMonth.getCalcFutAsk()) / 2;
                 return fut;
             }
         };
 
-        future.setColor( Themes.GREEN );
-        future.setStokeSize( 2.25f );
+        future.setColor(Themes.GREEN);
+        future.setStokeSize(2.25f);
 
-        MyTimeSeries[] series = { index, future };
+        MyTimeSeries[] series = {index, future};
 
         // Chart
-        MyChart chart = new MyChart( client, series, props );
+        MyChart chart = new MyChart(client, series, props);
 
         // ----- Charts ----- //
-        MyChart[] charts = { chart };
+        MyChart[] charts = {chart};
 
         // ----- Container ----- //
-        MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass( ).getName( ) );
+        MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
 
-        chartContainer.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        chartContainer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        chartContainer.create( );
+        chartContainer.create();
 
     }
 
@@ -82,7 +81,7 @@ public class BitcoinLiveChart extends MyChartCreator {
         return index;
     }
 
-    public void setIndex( MyTimeSeries index ) {
+    public void setIndex(MyTimeSeries index) {
         this.index = index;
     }
 
@@ -90,7 +89,7 @@ public class BitcoinLiveChart extends MyChartCreator {
         return future;
     }
 
-    public void setFuture( MyTimeSeries future ) {
+    public void setFuture(MyTimeSeries future) {
         this.future = future;
     }
 }

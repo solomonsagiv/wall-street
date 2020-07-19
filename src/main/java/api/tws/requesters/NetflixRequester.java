@@ -12,88 +12,88 @@ import java.util.ArrayList;
 
 public class NetflixRequester implements ITwsRequester {
 
-    ArrayList< Exp > exps;
+    ArrayList<Exp> exp;
     Netflix netflix;
 
     @Override
-    public void request( Downloader downloader ) {
+    public void request(Downloader downloader) {
         try {
             netflix = Netflix.getInstance();
-            exps = netflix.getExps( ).getExpList( );
+            exp = netflix.getExps().getExpList();
 
             // Index
-            downloader.reqMktData( netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
+            downloader.reqMktData(netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
 
             // Options
-            netflix.getTwsHandler( ).requestOptions( netflix.getExps( ).getExpList( ) );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            netflix.getTwsHandler().requestOptions(netflix.getExps().getExpList());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
+    public void reciever(int tickerId, int field, double price, TickAttr attribs) {
         int index;
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = netflix.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
-        if ( tickerId == index && price > 0 ) {
+        if (tickerId == index && price > 0) {
             // Last
-            if ( field == 4 ) {
-                netflix.setIndex( price );
+            if (field == 4) {
+                netflix.setIndex(price);
             }
             // Bid
-            if ( field == 1 ) {
-                netflix.setIndexBid( price );
+            if (field == 1) {
+                netflix.setIndexBid(price);
             }
             // Ask
-            if ( field == 2 ) {
-                netflix.setIndexAsk( price );
+            if (field == 2) {
+                netflix.setIndexAsk(price);
             }
 
             // Bid
-            if ( field == 6 ) {
-                netflix.setHigh( price );
+            if (field == 6) {
+                netflix.setHigh(price);
             }
             // Ask
-            if ( field == 7 ) {
-                netflix.setLow( price );
+            if (field == 7) {
+                netflix.setLow(price);
             }
 
             // Base
-            if ( field == 9 ) {
-                netflix.setBase( price );
+            if (field == 9) {
+                netflix.setBase(price);
             }
 
             // Open
-            if ( field == 14 ) {
-                netflix.setOpen( price );
+            if (field == 14) {
+                netflix.setOpen(price);
             }
         }
 
-        for ( Exp exp : exps ) {
+        for (Exp exp : this.exp) {
 
             Options options = exp.getOptions();
-            minID = options.getMinId( );
-            maxID = options.getMaxId( );
+            minID = options.getMinId();
+            maxID = options.getMaxId();
 
-            if ( tickerId >= minID && tickerId <= maxID && price > 0 ) {
+            if (tickerId >= minID && tickerId <= maxID && price > 0) {
                 // Bid
-                if ( field == 1 ) {
-                    options.getOptionById( tickerId ).setBid( price );
+                if (field == 1) {
+                    options.getOptionById(tickerId).setBid(price);
                 }
                 // Ask
-                if ( field == 2 ) {
-                    options.getOptionById( tickerId ).setAsk( price );
+                if (field == 2) {
+                    options.getOptionById(tickerId).setAsk(price);
                 }
             }
         }
     }
 
     @Override
-    public void sizeReciever( int tickerId, int field, int size ) {
+    public void sizeReciever(int tickerId, int field, int size) {
 
     }
 }

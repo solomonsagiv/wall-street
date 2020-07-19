@@ -11,14 +11,13 @@ public class MyTimeSeriesBuilder {
         initSeries();
     }
 
+    public static MyTimeSeries get(final int i) {
+        return null;
+    }
+
     private void initSeries() {
 
 
-
-    }
-
-    public static MyTimeSeries get(final int i ) {
-        return null;
     }
 
     public static class T {

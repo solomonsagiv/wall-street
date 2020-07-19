@@ -25,13 +25,13 @@ public class MyLogger {
 
     // Constructor
     public MyLogger() {
-        logger = createLogger( );
+        logger = createLogger();
     }
 
     // Get instance
     public static synchronized MyLogger getInstance() {
-        if ( myLogger == null ) {
-            myLogger = new MyLogger( );
+        if (myLogger == null) {
+            myLogger = new MyLogger();
         }
         return myLogger;
     }
@@ -39,27 +39,27 @@ public class MyLogger {
     // Create the logger file
     public static Logger createLogger() {
 
-        Logger logger = Logger.getLogger( name );
+        Logger logger = Logger.getLogger(name);
         FileHandler fh;
 
-        if ( Files.exists( Paths.get( locationMac ) ) ) {
+        if (Files.exists(Paths.get(locationMac))) {
             location = locationMac;
-        } else if ( Files.exists( Paths.get( locationWindows ) ) ) {
+        } else if (Files.exists(Paths.get(locationWindows))) {
             location = locationWindows;
         }
 
         try {
 
             // This block configure the logger with handler and formatter
-            fh = new FileHandler( location + name );
+            fh = new FileHandler(location + name);
 
-            logger.addHandler( fh );
-            BriefFormatter briefFormatter = new BriefFormatter( );
-            fh.setFormatter( briefFormatter );
+            logger.addHandler(fh);
+            BriefFormatter briefFormatter = new BriefFormatter();
+            fh.setFormatter(briefFormatter);
 
             return logger;
-        } catch ( SecurityException | IOException e ) {
-            e.printStackTrace( );
+        } catch (SecurityException | IOException e) {
+            e.printStackTrace();
         }
         return logger;
     }
@@ -68,21 +68,21 @@ public class MyLogger {
         return logger;
     }
 
-    public void setLogger( Logger logger ) {
+    public void setLogger(Logger logger) {
         this.logger = logger;
     }
 
     public StringBuilder getAllText() throws IOException {
 
-        StringBuilder text = new StringBuilder( );
+        StringBuilder text = new StringBuilder();
 
-        File file = new File( location + name );
+        File file = new File(location + name);
 
-        BufferedReader br = new BufferedReader( new FileReader( file ) );
+        BufferedReader br = new BufferedReader(new FileReader(file));
 
         String st;
-        while ( ( st = br.readLine( ) ) != null ) {
-            text.append( st + "\n" );
+        while ((st = br.readLine()) != null) {
+            text.append(st + "\n");
         }
 
         return text;
@@ -93,14 +93,14 @@ public class MyLogger {
 }
 
 class BriefFormatter extends Formatter {
-    String lineSeparator = System.getProperty( "line.separator" );
+    String lineSeparator = System.getProperty("line.separator");
 
     public BriefFormatter() {
-        super( );
+        super();
     }
 
     @Override
-    public String format( final LogRecord record ) {
-        return LocalTime.now( ) + " - " + record.getMessage( ) + lineSeparator;
+    public String format(final LogRecord record) {
+        return LocalTime.now() + " - " + record.getMessage() + lineSeparator;
     }
 }

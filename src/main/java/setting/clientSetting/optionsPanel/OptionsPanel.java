@@ -1,7 +1,7 @@
 package setting.clientSetting.optionsPanel;
 
 import exp.Exp;
-import exp.ExpEnum;
+import exp.ExpStrings;
 import gui.MyGuiComps;
 import locals.Themes;
 import options.Options;
@@ -16,10 +16,9 @@ import java.awt.event.ActionListener;
 
 public class OptionsPanel extends MyGuiComps.MyPanel {
 
+    public static Exp exp;
     // Variables
     BASE_CLIENT_OBJECT client;
-    public static Exp exp;
-
     JComboBox comboBox;
     RacesPanel racesPanel;
     PropsPanel propsPanel;
@@ -27,89 +26,89 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
     TwsPanel twsPanel;
 
     // Constructor
-    public OptionsPanel( BASE_CLIENT_OBJECT client ) {
+    public OptionsPanel(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        initialize( );
-        initListeners( );
+        initialize();
+        initListeners();
     }
 
     private void initListeners() {
         // Combo
-        comboBox.addActionListener( new ActionListener( ) {
+        comboBox.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed( ActionEvent actionEvent ) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    switch ( comboBox.getSelectedItem( ).toString( ) ) {
-                        case "WEEK":
-                            exp = client.getExps( ).getExp( ExpEnum.WEEK );
+                    switch (comboBox.getSelectedItem().toString()) {
+                        case "week":
+                            exp = client.getExps().getExp(ExpStrings.week);
                             break;
-                        case "MONTH":
-                            exp = client.getExps( ).getExp( ExpEnum.MONTH );
+                        case "month":
+                            exp = client.getExps().getExp(ExpStrings.month);
                             break;
-                        case "QUARTER":
-                            exp = client.getExps( ).getExp( ExpEnum.E1 );
+                        case "e1":
+                            exp = client.getExps().getExp(ExpStrings.e1);
                             break;
-                        case "QUARTER_FAR":
-                            exp = client.getExps( ).getExp( ExpEnum.E2 );
+                        case "e2":
+                            exp = client.getExps().getExp(ExpStrings.e2);
                             break;
                         case "MAIN":
-                            exp = client.getExps( ).getMainExp( );
+                            exp = client.getExps().getMainExp();
                             break;
                         default:
                             break;
                     }
-                } catch ( Exception e ) {
-                    e.printStackTrace( );
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } );
+        });
     }
 
     private void initialize() {
 
         // This
-        setSize( 640, 150 );
+        setSize(640, 150);
 
-        TitledBorder titledBorder = BorderFactory.createTitledBorder( "Options" );
-        titledBorder.setTitleColor( Themes.BLUE_DARK );
-        setBorder( titledBorder );
+        TitledBorder titledBorder = BorderFactory.createTitledBorder("Options");
+        titledBorder.setTitleColor(Themes.BLUE_DARK);
+        setBorder(titledBorder);
 
         // Races
-        racesPanel = new RacesPanel( client );
-        racesPanel.setXY( 5, 20 );
-        add( racesPanel );
+        racesPanel = new RacesPanel(client);
+        racesPanel.setXY(5, 20);
+        add(racesPanel);
 
         // Props
-        propsPanel = new PropsPanel( client );
-        propsPanel.setXY( racesPanel.getX( ) + racesPanel.getWidth( ) + 1, 20 );
-        add( propsPanel );
+        propsPanel = new PropsPanel(client);
+        propsPanel.setXY(racesPanel.getX() + racesPanel.getWidth() + 1, 20);
+        add(propsPanel);
 
         // Executors
-        executorsPanel = new ExecutorsPanel( client );
-        executorsPanel.setXY( propsPanel.getX( ) + propsPanel.getWidth( ) + 1, propsPanel.getY( ) );
-        add( executorsPanel );
+        executorsPanel = new ExecutorsPanel(client);
+        executorsPanel.setXY(propsPanel.getX() + propsPanel.getWidth() + 1, propsPanel.getY());
+        add(executorsPanel);
 
         // Tws
-        twsPanel = new TwsPanel( client );
-        twsPanel.setXY( executorsPanel.getX( ) + executorsPanel.getWidth( ) + 1, executorsPanel.getY( ) );
-        add( twsPanel );
+        twsPanel = new TwsPanel(client);
+        twsPanel.setXY(executorsPanel.getX() + executorsPanel.getWidth() + 1, executorsPanel.getY());
+        add(twsPanel);
 
         // Combo
-        comboBox = new JComboBox( getOptionsArrayString( ) );
-        comboBox.setBackground( Themes.BLUE );
-        comboBox.setForeground( Themes.GREY_VERY_LIGHT );
-        comboBox.setBounds( twsPanel.getX( ) + twsPanel.getWidth( ) + 5, twsPanel.getY( ), 120, 25 );
-        add( comboBox );
+        comboBox = new JComboBox(getOptionsArrayString());
+        comboBox.setBackground(Themes.BLUE);
+        comboBox.setForeground(Themes.GREY_VERY_LIGHT);
+        comboBox.setBounds(twsPanel.getX() + twsPanel.getWidth() + 5, twsPanel.getY(), 120, 25);
+        add(comboBox);
     }
 
     public String[] getOptionsArrayString() {
-        String[] optionsTypes = new String[ client.getExps( ).getExpList( ).size( ) ];
+        String[] optionsTypes = new String[client.getExps().getExpList().size()];
         int i = 0;
-        for ( Exp exp : client.getExps( ).getExpList( ) ) {
+        for (Exp exp : client.getExps().getExpList()) {
 
-            Options options  = exp.getOptions();
+            Options options = exp.getOptions();
 
-            optionsTypes[ i ] = exp.toString( );
+            optionsTypes[i] = exp.toString();
             i++;
         }
         return optionsTypes;

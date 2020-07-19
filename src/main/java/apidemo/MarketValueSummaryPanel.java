@@ -15,31 +15,31 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MarketValueSummaryPanel extends NewTabPanel implements IMarketValueSummaryHandler {
-    private MktValModel m_model = new MktValModel( );
+    private MktValModel m_model = new MktValModel();
 
     MarketValueSummaryPanel() {
-        HtmlButton sub = new HtmlButton( "Subscribe" ) {
+        HtmlButton sub = new HtmlButton("Subscribe") {
             protected void actionPerformed() {
-                subscribe( );
+                subscribe();
             }
         };
 
-        HtmlButton desub = new HtmlButton( "Desubscribe" ) {
+        HtmlButton desub = new HtmlButton("Desubscribe") {
             protected void actionPerformed() {
-                desubscribe( );
+                desubscribe();
             }
         };
 
-        JPanel buts = new VerticalPanel( );
-        buts.add( sub );
-        buts.add( desub );
+        JPanel buts = new VerticalPanel();
+        buts.add(sub);
+        buts.add(desub);
 
-        JTable table = new Table( m_model, 2 );
-        JScrollPane scroll = new JScrollPane( table );
+        JTable table = new Table(m_model, 2);
+        JScrollPane scroll = new JScrollPane(table);
 
-        setLayout( new BorderLayout( ) );
-        add( scroll );
-        add( buts, BorderLayout.EAST );
+        setLayout(new BorderLayout());
+        add(scroll);
+        add(buts, BorderLayout.EAST);
     }
 
     /**
@@ -47,7 +47,7 @@ public class MarketValueSummaryPanel extends NewTabPanel implements IMarketValue
      */
     @Override
     public void activated() {
-        subscribe( );
+        subscribe();
     }
 
     /**
@@ -55,21 +55,21 @@ public class MarketValueSummaryPanel extends NewTabPanel implements IMarketValue
      */
     @Override
     public void closed() {
-        desubscribe( );
+        desubscribe();
     }
 
     private void subscribe() {
-        ApiDemo.INSTANCE.controller( ).reqMarketValueSummary( "All", this );
+        ApiDemo.INSTANCE.controller().reqMarketValueSummary("All", this);
     }
 
     private void desubscribe() {
-        ApiDemo.INSTANCE.controller( ).cancelMarketValueSummary( this );
-        m_model.clear( );
+        ApiDemo.INSTANCE.controller().cancelMarketValueSummary(this);
+        m_model.clear();
     }
 
     @Override
-    public void marketValueSummary( String account, MarketValueTag tag, String value, String currency ) {
-        m_model.handle( account, currency, tag, value );
+    public void marketValueSummary(String account, MarketValueTag tag, String value, String currency) {
+        m_model.handle(account, currency, tag, value);
     }
 
     @Override

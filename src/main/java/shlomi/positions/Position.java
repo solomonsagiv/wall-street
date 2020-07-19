@@ -28,28 +28,28 @@ public class Position {
     private LocalTime closeTime;
 
     // Constructor
-    public Position( int id, String positionType, Contract contract, int position, BASE_CLIENT_OBJECT client ) {
+    public Position(int id, String positionType, Contract contract, int position, BASE_CLIENT_OBJECT client) {
         this.id = id;
         this.positionType = positionType;
         this.contract = contract;
         this.position = position;
-        this.quantity = Math.abs( position );
-        this.setClient( client );
+        this.quantity = Math.abs(position);
+        this.setClient(client);
     }
 
     public Position() {
     }
 
     // Function
-    public void open( double startPrice ) {
+    public void open(double startPrice) {
         live = true;
-        setStartTime( LocalTime.now( ) );
+        setStartTime(LocalTime.now());
         this.startPrice = startPrice;
     }
 
-    public void close( double closePrice ) {
+    public void close(double closePrice) {
         this.live = false;
-        setCloseTime( LocalTime.now( ) );
+        setCloseTime(LocalTime.now());
         this.position = 0;
         this.closePrice = closePrice;
     }
@@ -60,16 +60,16 @@ public class Position {
 
         double pnl = 0;
 
-        if ( isLive( ) ) {
+        if (isLive()) {
 
             // Long
-            if ( position > 0 ) {
-                pnl = floor( client.getIndex( ) - startPrice );
+            if (position > 0) {
+                pnl = floor(client.getIndex() - startPrice);
             }
 
             // Short
-            if ( position < 0 ) {
-                pnl = floor( client.getIndex( ) - startPrice );
+            if (position < 0) {
+                pnl = floor(client.getIndex() - startPrice);
             }
 
         }
@@ -77,26 +77,26 @@ public class Position {
         return pnl;
     }
 
-    public void setPnl( double pnl ) {
+    public void setPnl(double pnl) {
         this.pnl = pnl;
     }
 
     public String toStringVertical() {
-        String string = toString( );
-        String[] array = string.split( ", " );
+        String string = toString();
+        String[] array = string.split(", ");
         String returnString = "";
-        for ( int i = 0; i < array.length; i++ ) {
-            returnString += array[ i ] + "\n";
+        for (int i = 0; i < array.length; i++) {
+            returnString += array[i] + "\n";
         }
         return returnString;
     }
 
-    public double floor( double d ) {
-        return Math.floor( d * 10 ) / 10;
+    public double floor(double d) {
+        return Math.floor(d * 10) / 10;
     }
 
 
-    public double oposite( double d ) {
+    public double oposite(double d) {
         return d * -1;
     }
 
@@ -108,11 +108,11 @@ public class Position {
     }
 
     public String toStringVerticalYogi() {
-        String string = toString( );
-        String[] array = string.split( ", " );
+        String string = toString();
+        String[] array = string.split(", ");
         String returnString = "";
-        for ( int i = 0; i < array.length; i++ ) {
-            returnString += array[ i ] + "\n";
+        for (int i = 0; i < array.length; i++) {
+            returnString += array[i] + "\n";
         }
         return returnString;
     }
@@ -120,97 +120,128 @@ public class Position {
     public Option getOption() {
         return option;
     }
-    public void setOption( Option option ) {
+
+    public void setOption(Option option) {
         this.option = option;
     }
+
     public Contract getContract() {
         return contract;
     }
-    public void setContract( Contract contract ) {
+
+    public void setContract(Contract contract) {
         this.contract = contract;
     }
+
     public int getPosition() {
         return position;
     }
-    public void setPosition( int position ) {
+
+    public void setPosition(int position) {
         this.position = position;
     }
+
     public LocalTime getStartTime() {
         return startTime;
     }
-    public void setStartTime( LocalTime startTime ) {
+
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
+
     public LocalTime getCloseTime() {
         return closeTime;
     }
-    public void setCloseTime( LocalTime closeTime ) {
+
+    public void setCloseTime(LocalTime closeTime) {
         this.closeTime = closeTime;
     }
+
     public String getPositionType() {
         return positionType;
     }
-    public void setPositionType( String positionType ) {
+
+    public void setPositionType(String positionType) {
         this.positionType = positionType;
     }
+
     public BASE_CLIENT_OBJECT getClient() {
         return client;
     }
-    public void setClient( BASE_CLIENT_OBJECT client ) {
+
+    public void setClient(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
+
     public int getId() {
         return id;
     }
-    public void setId( int id ) {
+
+    public void setId(int id) {
         this.id = id;
     }
+
     public boolean isLive() {
         return live;
     }
-    public void setLive( boolean live ) {
+
+    public void setLive(boolean live) {
         this.live = live;
     }
+
     public int getQuantity() {
         return quantity;
     }
-    public void setQuantity( int quantity ) {
+
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     public double getStoplossPrice() {
         return stoplossPrice;
     }
-    public void setStoplossPrice( double stoplossPrice ) {
+
+    public void setStoplossPrice(double stoplossPrice) {
         this.stoplossPrice = stoplossPrice;
     }
+
     public double getProfitPrice() {
         return profitPrice;
     }
-    public void setProfitPrice( double profitPrice ) {
+
+    public void setProfitPrice(double profitPrice) {
         this.profitPrice = profitPrice;
     }
+
     public int getStoplossId() {
         return stoplossId;
     }
-    public void setStoplossId( int stoplossId ) {
+
+    public void setStoplossId(int stoplossId) {
         this.stoplossId = stoplossId;
     }
+
     public int getProfitId() {
         return profitId;
     }
-    public void setProfitId( int profitId ) {
+
+    public void setProfitId(int profitId) {
         this.profitId = profitId;
     }
+
     public double getStartPrice() {
         return startPrice;
     }
-    public void setStartPrice( double startPrice ) {
+
+    public void setStartPrice(double startPrice) {
         this.startPrice = startPrice;
     }
+
     public double getClosePrice() {
         return closePrice;
     }
-    public void setClosePrice( double closePrice ) {
+
+    public void setClosePrice(double closePrice) {
         this.closePrice = closePrice;
     }
 

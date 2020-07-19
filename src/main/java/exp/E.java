@@ -16,19 +16,19 @@ public class E extends Exp {
     protected double preFutBidForDelta = 0;
     private double preFutAskForDelta = 0;
 
-    public E( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
-        super( client, expEnum, contractsEnum, iOptionsCalcs );
+    public E(BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs) {
+        super(client, expEnum, contractsEnum, iOptionsCalcs);
     }
 
-    public E( BASE_CLIENT_OBJECT client, ExpEnum expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
-        super( client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells );
+    public E(BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells) {
+        super(client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells);
     }
 
     public double getDelta() {
         return delta;
     }
 
-    public void setDelta( double delta ) {
+    public void setDelta(double delta) {
         this.delta = delta;
     }
 
@@ -36,12 +36,21 @@ public class E extends Exp {
         return volumeFutForDelta;
     }
 
+    public void setVolumeFutForDelta(int volumeFutForDelta) {
+
+        int quantity = volumeFutForDelta - this.volumeFutForDelta;
+
+        DeltaCalc.calc(quantity, getFutForDelta(), getPreFutBidForDelta(), getPreFutAskForDelta());
+
+        this.volumeFutForDelta = volumeFutForDelta;
+    }
+
     public double getFutBidForDelta() {
         return futBidForDelta;
     }
 
-    public void setFutBidForDelta( double futBidForDelta ) {
-        this.preFutBidForDelta = getFutBidForDelta( );
+    public void setFutBidForDelta(double futBidForDelta) {
+        this.preFutBidForDelta = getFutBidForDelta();
         this.futBidForDelta = futBidForDelta;
     }
 
@@ -49,8 +58,8 @@ public class E extends Exp {
         return futAskForDelta;
     }
 
-    public void setFutAskForDelta( double futAskForDelta ) {
-        this.preFutAskForDelta = getFutAskForDelta( );
+    public void setFutAskForDelta(double futAskForDelta) {
+        this.preFutAskForDelta = getFutAskForDelta();
         this.futAskForDelta = futAskForDelta;
     }
 
@@ -62,20 +71,11 @@ public class E extends Exp {
         return preFutAskForDelta;
     }
 
-    public void setVolumeFutForDelta( int volumeFutForDelta ) {
-
-        int quantity = volumeFutForDelta - this.volumeFutForDelta;
-
-        DeltaCalc.calc( quantity, getFutForDelta(), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
-
-        this.volumeFutForDelta = volumeFutForDelta;
-    }
-
-    public void setFutForDelta( double futForDelta ) {
-        this.futForDelta = futForDelta;
-    }
-
     public double getFutForDelta() {
         return futForDelta;
+    }
+
+    public void setFutForDelta(double futForDelta) {
+        this.futForDelta = futForDelta;
     }
 }

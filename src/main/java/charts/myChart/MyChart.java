@@ -29,16 +29,16 @@ import java.util.NoSuchElementException;
 
 public class MyChart {
 
+    public XYPlot plot;
+    public ChartUpdater updater;
     // Variables
     BASE_CLIENT_OBJECT client;
-    public XYPlot plot;
     double[] oldVals;
     JFreeChart chart;
     MyChartPanel chartPanel;
-    public ChartUpdater updater;
-
     MyTimeSeries[] series;
     MyProps props;
+    boolean load = false;
 
     // Constructor
     public MyChart(BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props) {
@@ -51,7 +51,7 @@ public class MyChart {
         init(series, props);
 
         // Start updater
-        updater = new ChartUpdater( client, series);
+        updater = new ChartUpdater(client, series);
         updater.getHandler().start();
     }
 
@@ -70,8 +70,8 @@ public class MyChart {
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
         plot.getDomainAxis().setVisible(props.getBool(ChartPropsEnum.INCLUDE_DOMAIN_AXIS));
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-        plot.setDomainPannable( true );
-        plot.setRangePannable( true );
+        plot.setDomainPannable(true);
+        plot.setRangePannable(true);
         plot.getRangeAxis().setLabelPaint(Themes.BLUE_DARK);
         plot.getRangeAxis().setLabelFont(Themes.ARIEL_15);
 
@@ -116,8 +116,6 @@ public class MyChart {
 
     }
 
-    boolean load = false;
-
     public ChartUpdater getUpdater() {
         return updater;
     }
@@ -129,10 +127,11 @@ public class MyChart {
         ArrayList<Double> dots = new ArrayList<>();
         MyTimeSeries[] series;
         NumberAxis range;
+        double start, end;
 
         // Constructor
-        public ChartUpdater( BASE_CLIENT_OBJECT client, MyTimeSeries[] series ) {
-            super( client );
+        public ChartUpdater(BASE_CLIENT_OBJECT client, MyTimeSeries[] series) {
+            super(client);
             this.series = series;
             initListeners();
         }
@@ -183,11 +182,11 @@ public class MyChart {
         private void loadChartData() {
             if (props.getBool(ChartPropsEnum.IS_LOAD_DB)) {
                 for (MyTimeSeries serie : series) {
-                    dots.addAll( serie.getMyChartList().getValues() );
+                    dots.addAll(serie.getMyChartList().getValues());
                 }
             }
         }
-        
+
         // Append data to series
         private void appendDataToSeries() {
             try {
@@ -222,27 +221,25 @@ public class MyChart {
             }
         }
 
-
-        double start, end;
-
         public void updateChartRange() {
             try {
-                if ( dots.size( ) > 0 ) {
+                if (dots.size() > 0) {
 
                     // X
-                    DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange();
+                    DateRange xRange = (DateRange) plot.getDomainAxis().getRange();
 
-                    RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate().toString() ) );
-                    RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate().toString() ) );
+                    RegularTimePeriod startPeroid = new Second(L.formatter.parse(xRange.getLowerDate().toString()));
+                    RegularTimePeriod endPeroid = new Second(L.formatter.parse(xRange.getUpperDate().toString()));
 
                     try {
-                        start = ( double ) series[0].getDataItem( startPeroid ).getValue();
-                        end = ( double ) series[0].getDataItem( endPeroid ).getValue();
-                    } catch ( Exception e ) {}
+                        start = (double) series[0].getDataItem(startPeroid).getValue();
+                        end = (double) series[0].getDataItem(endPeroid).getValue();
+                    } catch (Exception e) {
+                    }
 
                     double min, max;
 
-                    if ( start < end ) {
+                    if (start < end) {
                         min = start;
                         max = end;
                     } else {
@@ -258,15 +255,13 @@ public class MyChart {
                     range = (NumberAxis) plot.getRangeAxis();
                     range.setRange(min, max);
 
-                    System.out.println( "Range set" );
+                    System.out.println("Range set");
 
                 }
-            } catch ( NoSuchElementException | ParseException e ) {
-                e.printStackTrace( );
+            } catch (NoSuchElementException | ParseException e) {
+                e.printStackTrace();
             }
         }
-
-
 
 
         private void updateChartRange(double min, double max) {
@@ -332,8 +327,8 @@ public class MyChart {
                 oldVal = oldVals[i];
 
                 try {
-                    newVal = serie.getData( );
-                } catch ( Exception e ) {
+                    newVal = serie.getData();
+                } catch (Exception e) {
                     e.printStackTrace();
                     change = false;
                     break;

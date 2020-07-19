@@ -6,12 +6,13 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public abstract class MyStatusTable extends MySqlTable {
 
     // Constructor
-    public MyStatusTable( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public MyStatusTable(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override
-    public void insert() {}
+    public void insert() {
+    }
 
     @Override
     public void load() {
@@ -21,10 +22,12 @@ public abstract class MyStatusTable extends MySqlTable {
 
     @Override
     public void update() {
-        super.update( );
+        super.update();
     }
 
     @Override
-    public void reset() {super.reset();}
+    public void reset() {
+        super.reset();
+    }
 
 }

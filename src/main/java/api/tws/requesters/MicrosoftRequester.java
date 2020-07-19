@@ -12,88 +12,88 @@ import java.util.ArrayList;
 
 public class MicrosoftRequester implements ITwsRequester {
 
-    ArrayList< Exp > exps;
+    ArrayList<Exp> exp;
     Microsoft microsoft;
 
     @Override
-    public void request( Downloader downloader ) {
+    public void request(Downloader downloader) {
         try {
             microsoft = Microsoft.getInstance();
-            exps = microsoft.getExps( ).getExpList( );
+            exp = microsoft.getExps().getExpList();
 
             // Index
-            downloader.reqMktData( microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
+            downloader.reqMktData(microsoft.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), microsoft.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
 
             // Options
-            microsoft.getTwsHandler( ).requestOptions( microsoft.getExps( ).getExpList( ) );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            microsoft.getTwsHandler().requestOptions(microsoft.getExps().getExpList());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
+    public void reciever(int tickerId, int field, double price, TickAttr attribs) {
         int index;
         int minID, maxID;
 
         // ---------- Apple ---------- //
-        index = microsoft.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        index = microsoft.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
-        if ( tickerId == index && price > 0 ) {
+        if (tickerId == index && price > 0) {
             // Last
-            if ( field == 4 ) {
-                microsoft.setIndex( price );
+            if (field == 4) {
+                microsoft.setIndex(price);
             }
             // Bid
-            if ( field == 1 ) {
-                microsoft.setIndexBid( price );
+            if (field == 1) {
+                microsoft.setIndexBid(price);
             }
             // Ask
-            if ( field == 2 ) {
-                microsoft.setIndexAsk( price );
+            if (field == 2) {
+                microsoft.setIndexAsk(price);
             }
 
             // Bid
-            if ( field == 6 ) {
-                microsoft.setHigh( price );
+            if (field == 6) {
+                microsoft.setHigh(price);
             }
             // Ask
-            if ( field == 7 ) {
-                microsoft.setLow( price );
+            if (field == 7) {
+                microsoft.setLow(price);
             }
 
             // Base
-            if ( field == 9 ) {
-                microsoft.setBase( price );
+            if (field == 9) {
+                microsoft.setBase(price);
             }
 
             // Open
-            if ( field == 14 ) {
-                microsoft.setOpen( price );
+            if (field == 14) {
+                microsoft.setOpen(price);
             }
         }
 
-        for ( Exp exp : exps ) {
+        for (Exp exp : this.exp) {
 
             Options options = exp.getOptions();
-            minID = options.getMinId( );
-            maxID = options.getMaxId( );
+            minID = options.getMinId();
+            maxID = options.getMaxId();
 
-            if ( tickerId >= minID && tickerId <= maxID && price > 0 ) {
+            if (tickerId >= minID && tickerId <= maxID && price > 0) {
                 // Bid
-                if ( field == 1 ) {
-                    options.getOptionById( tickerId ).setBid( price );
+                if (field == 1) {
+                    options.getOptionById(tickerId).setBid(price);
                 }
                 // Ask
-                if ( field == 2 ) {
-                    options.getOptionById( tickerId ).setAsk( price );
+                if (field == 2) {
+                    options.getOptionById(tickerId).setAsk(price);
                 }
             }
         }
     }
 
     @Override
-    public void sizeReciever( int tickerId, int field, int size ) {
+    public void sizeReciever(int tickerId, int field, int size) {
 
     }
 }

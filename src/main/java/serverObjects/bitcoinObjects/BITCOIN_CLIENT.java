@@ -1,7 +1,7 @@
 package serverObjects.bitcoinObjects;
 
-import exp.ExpEnum;
 import exp.ExpMonth;
+import exp.ExpStrings;
 import exp.Exps;
 import myJson.MyJson;
 import serverObjects.ApiEnum;
@@ -16,7 +16,7 @@ public class BITCOIN_CLIENT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void loadFromJson( MyJson json ) {
+    public void loadFromJson(MyJson json) {
 
     }
 
@@ -27,13 +27,13 @@ public class BITCOIN_CLIENT extends BASE_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() {
-        Exps exps = new Exps( this );
+        Exps exps = new Exps(this);
 
-        ExpMonth expMonth = new ExpMonth( this, ExpEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
+        ExpMonth expMonth = new ExpMonth(this, ExpStrings.month, TwsContractsEnum.OPT_MONTH, null);
 
-        exps.addExp( expMonth, ExpEnum.MONTH );
+        exps.addExp(expMonth, ExpStrings.month);
 
-        setExps( exps );
+        setExps(exps);
     }
 
     @Override

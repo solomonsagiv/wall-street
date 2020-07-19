@@ -7,6 +7,7 @@ import options.Options;
 import options.Strike;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -18,39 +19,39 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
     Options options;
 
     // Constructor
-    public FullOptionsUpdater( BASE_CLIENT_OBJECT client, Options options, JTable table ) {
-        super( client );
-        setName( "Full options updater" );
+    public FullOptionsUpdater(BASE_CLIENT_OBJECT client, Options options, JTable table) {
+        super(client);
+        setName("Full options updater");
         this.table = table;
         this.options = options;
     }
 
     @Override
     public void initRunnable() {
-        setRunnable( this );
+        setRunnable(this);
     }
 
     @Override
     public void run() {
 
-        while ( isRun( ) ) {
+        while (isRun()) {
             try {
 
                 // Updater text
-                updateText( );
+                updateText();
 
                 // Sleep
-                Thread.sleep( sleep );
-            } catch ( InterruptedException e ) {
+                Thread.sleep(sleep);
+            } catch (InterruptedException e) {
                 break;
-            } catch ( Exception e ) {
+            } catch (Exception e) {
                 try {
-                    Thread.sleep( 1000 );
-                } catch ( InterruptedException e1 ) {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
                     // TODO Auto-generated catch block
-                    e1.printStackTrace( );
+                    e1.printStackTrace();
                 }
-                e.printStackTrace( );
+                e.printStackTrace();
             }
         }
 
@@ -61,57 +62,56 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
         int row = 0;
 
         // Each strike
-        for ( Strike strike : options.getStrikes( ) ) {
+        for (Strike strike : options.getStrikes()) {
 
-            Option call = strike.getCall( );
+            Option call = strike.getCall();
 
             // Call
-            table.setValueAt( L.format10( call.getVega( ) ), row, 0 );
-            table.setValueAt( L.format10( call.getDelta( ) ), row, 1 );
-            table.setValueAt( L.format100( call.getBid( ) ), row, 2 );
-            table.setValueAt( L.format100( call.getTheoreticPrice( ) ), row, 3 );
-            table.setValueAt( L.format100( call.getAsk( ) ), row, 4 );
-            table.setValueAt( ( int ) call.getStrike( ), row, 5 );
-            table.setValueAt( L.format10( call.getStDev( ) * 100 ), row, 6 );
+            table.setValueAt(L.format10(call.getVega()), row, 0);
+            table.setValueAt(L.format10(call.getDelta()), row, 1);
+            table.setValueAt(L.format100(call.getBid()), row, 2);
+            table.setValueAt(L.format100(call.getTheoreticPrice()), row, 3);
+            table.setValueAt(L.format100(call.getAsk()), row, 4);
+            table.setValueAt((int) call.getStrike(), row, 5);
+            table.setValueAt(L.format10(call.getStDev() * 100), row, 6);
 
             // Put
-            Option put = strike.getPut( );
-            table.setValueAt( L.format100( put.getBid( ) ), row, 7 );
-            table.setValueAt( L.format100( put.getTheoreticPrice( ) ), row, 8 );
-            table.setValueAt( L.format100( put.getAsk( ) ), row, 9 );
-            table.setValueAt( L.format10( put.getDelta( ) ), row, 10 );
-            table.setValueAt( L.format10( put.getVega( ) ), row, 11 );
+            Option put = strike.getPut();
+            table.setValueAt(L.format100(put.getBid()), row, 7);
+            table.setValueAt(L.format100(put.getTheoreticPrice()), row, 8);
+            table.setValueAt(L.format100(put.getAsk()), row, 9);
+            table.setValueAt(L.format10(put.getDelta()), row, 10);
+            table.setValueAt(L.format10(put.getVega()), row, 11);
 
             row++;
         }
 
-        FullOptionsWindow.indexLabel.setText( str( getClient( ).getIndex( ) ) );
+        FullOptionsWindow.indexLabel.setText(str(getClient().getIndex()));
 
-        double indexPre = floor( ( ( getClient( ).getIndex( ) - getClient( ).getBase( ) ) / getClient( ).getBase( ) ) * 100 );
-        colorBackPresent( FullOptionsWindow.indexPresentLabel, indexPre );
+        double indexPre = floor(((getClient().getIndex() - getClient().getBase()) / getClient().getBase()) * 100);
+        colorBackPresent(FullOptionsWindow.indexPresentLabel, indexPre);
 
         // Delta
-        int delta = ( int ) getClient().getExps().getPositionCalculator().getTotalData( PositionCalculator.DELTA );
-        FullOptionsWindow.deltaLbl.colorForge( delta );
+        int delta = (int) getClient().getExps().getPositionCalculator().getTotalData(PositionCalculator.DELTA);
+        FullOptionsWindow.deltaLbl.colorForge(delta);
 
         // Vega
-        int vega = ( int ) getClient().getExps().getPositionCalculator().getTotalData( PositionCalculator.VEGA );
-        FullOptionsWindow.vegaLbl.colorForge( vega );
+        int vega = (int) getClient().getExps().getPositionCalculator().getTotalData(PositionCalculator.VEGA);
+        FullOptionsWindow.vegaLbl.colorForge(vega);
 
         // Pnl
-        int pnl = ( int ) getClient().getExps().getPositionCalculator().getTotalData( PositionCalculator.PNL );
-        FullOptionsWindow.pnlLbl.colorForge( pnl, Color.BLACK );
+        int pnl = (int) getClient().getExps().getPositionCalculator().getTotalData(PositionCalculator.PNL);
+        FullOptionsWindow.pnlLbl.colorForge(pnl, Color.BLACK);
 
     }
 
 
-
-    public double floor( double d ) {
-        return Math.floor( d * 100 ) / 100;
+    public double floor(double d) {
+        return Math.floor(d * 100) / 100;
     }
 
-    public String str( Object o ) {
-        return String.valueOf( o );
+    public String str(Object o) {
+        return String.valueOf(o);
     }
 
 
@@ -119,20 +119,20 @@ public class FullOptionsUpdater extends MyThread implements Runnable {
         return options;
     }
 
-    public void setOptions( Options options ) {
+    public void setOptions(Options options) {
         this.options = options;
     }
 
 
     // Present
-    public void colorBackPresent( JLabel field, double val ) {
+    public void colorBackPresent(JLabel field, double val) {
 
-        if ( val >= 0 ) {
-            field.setText( "(+" + str( val ) + "%)" );
-            field.setForeground( Themes.GREEN );
+        if (val >= 0) {
+            field.setText("(+" + str(val) + "%)");
+            field.setForeground(Themes.GREEN);
         } else {
-            field.setText( "(" + str( val ) + "%)" );
-            field.setForeground( Themes.RED );
+            field.setText("(" + str(val) + "%)");
+            field.setForeground(Themes.RED);
         }
 
     }

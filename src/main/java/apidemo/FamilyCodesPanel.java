@@ -17,31 +17,31 @@ import java.util.ArrayList;
 
 
 public class FamilyCodesPanel extends NewTabPanel {
-    private FamilyCodesModel m_model = new FamilyCodesModel( );
+    private FamilyCodesModel m_model = new FamilyCodesModel();
 
     FamilyCodesPanel() {
-        HtmlButton requestFamilyCodesButton = new HtmlButton( "Request Family Codes" ) {
+        HtmlButton requestFamilyCodesButton = new HtmlButton("Request Family Codes") {
             protected void actionPerformed() {
-                requestFamilyCodes( );
+                requestFamilyCodes();
             }
         };
 
-        HtmlButton clearFamilyCodesButton = new HtmlButton( "Clear Family Codes" ) {
+        HtmlButton clearFamilyCodesButton = new HtmlButton("Clear Family Codes") {
             protected void actionPerformed() {
-                clearFamilyCodes( );
+                clearFamilyCodes();
             }
         };
 
-        JPanel buts = new VerticalPanel( );
-        buts.add( requestFamilyCodesButton );
-        buts.add( clearFamilyCodesButton );
+        JPanel buts = new VerticalPanel();
+        buts.add(requestFamilyCodesButton);
+        buts.add(clearFamilyCodesButton);
 
-        JTable table = new Table( m_model, 2 );
-        JScrollPane scroll = new JScrollPane( table );
+        JTable table = new Table(m_model, 2);
+        JScrollPane scroll = new JScrollPane(table);
 
-        setLayout( new BorderLayout( ) );
-        add( scroll );
-        add( buts, BorderLayout.EAST );
+        setLayout(new BorderLayout());
+        add(scroll);
+        add(buts, BorderLayout.EAST);
     }
 
     /**
@@ -55,48 +55,48 @@ public class FamilyCodesPanel extends NewTabPanel {
      */
     @Override
     public void closed() {
-        clearFamilyCodes( );
+        clearFamilyCodes();
     }
 
     private void requestFamilyCodes() {
-        ApiDemo.INSTANCE.controller( ).reqFamilyCodes( m_model );
+        ApiDemo.INSTANCE.controller().reqFamilyCodes(m_model);
     }
 
     private void clearFamilyCodes() {
-        m_model.clear( );
+        m_model.clear();
     }
 
     private static class FamilyCodeRow {
         String m_accountID;
         String m_familyCodeStr;
 
-        void update( String accountID, String familyCodeStr ) {
+        void update(String accountID, String familyCodeStr) {
             m_accountID = accountID;
             m_familyCodeStr = familyCodeStr;
         }
     }
 
     private class FamilyCodesModel extends AbstractTableModel implements IFamilyCodesHandler {
-        ArrayList< FamilyCodeRow > m_list = new ArrayList<>( );
+        ArrayList<FamilyCodeRow> m_list = new ArrayList<>();
 
         @Override
-        public void familyCodes( FamilyCode[] familyCodes ) {
-            for ( FamilyCode familyCode : familyCodes ) {
-                FamilyCodeRow row = new FamilyCodeRow( );
-                m_list.add( row );
-                row.update( familyCode.accountID( ), familyCode.familyCodeStr( ) );
+        public void familyCodes(FamilyCode[] familyCodes) {
+            for (FamilyCode familyCode : familyCodes) {
+                FamilyCodeRow row = new FamilyCodeRow();
+                m_list.add(row);
+                row.update(familyCode.accountID(), familyCode.familyCodeStr());
             }
-            m_model.fireTableDataChanged( );
+            m_model.fireTableDataChanged();
         }
 
         public void clear() {
-            m_list.clear( );
-            fireTableDataChanged( );
+            m_list.clear();
+            fireTableDataChanged();
         }
 
         @Override
         public int getRowCount() {
-            return m_list.size( );
+            return m_list.size();
         }
 
         @Override
@@ -105,8 +105,8 @@ public class FamilyCodesPanel extends NewTabPanel {
         }
 
         @Override
-        public String getColumnName( int col ) {
-            switch ( col ) {
+        public String getColumnName(int col) {
+            switch (col) {
                 case 0:
                     return "Account ID";
                 case 1:
@@ -117,10 +117,10 @@ public class FamilyCodesPanel extends NewTabPanel {
         }
 
         @Override
-        public Object getValueAt( int rowIn, int col ) {
-            FamilyCodeRow row = m_list.get( rowIn );
+        public Object getValueAt(int rowIn, int col) {
+            FamilyCodeRow row = m_list.get(rowIn);
 
-            switch ( col ) {
+            switch (col) {
                 case 0:
                     return row.m_accountID;
                 case 1:

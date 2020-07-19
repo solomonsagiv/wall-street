@@ -11,7 +11,7 @@ import java.time.LocalTime;
 public class StatusJsonTable extends MyStatusTable {
 
     // Constructor
-    public StatusJsonTable( BASE_CLIENT_OBJECT client ) {
+    public StatusJsonTable(BASE_CLIENT_OBJECT client) {
         super(client);
     }
 

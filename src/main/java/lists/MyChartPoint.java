@@ -13,23 +13,23 @@ public class MyChartPoint {
     private LocalDateTime x;
     private double y;
 
-    public MyChartPoint( LocalDateTime x, double y ) {
+    public MyChartPoint(LocalDateTime x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public MyChartPoint( String x, double y ) {
-        this.x = LocalDateTime.parse( x );
+    public MyChartPoint(String x, double y) {
+        this.x = LocalDateTime.parse(x);
         this.y = y;
     }
 
-    public MyChartPoint( JSONObject json ) {
+    public MyChartPoint(JSONObject json) {
         try {
-            Date date = L.toDate( json.getString( JsonStrings.x ) );
-            this.x = LocalDateTime.of( date.getYear() + 1900, date.getMonth(), date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds());
-            this.y = json.getDouble( "y" );
-        } catch ( ParseException e ) {
-            e.printStackTrace( );
+            Date date = L.toDate(json.getString(JsonStrings.x));
+            this.x = LocalDateTime.of(date.getYear() + 1900, date.getMonth(), date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds());
+            this.y = json.getDouble("y");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 
@@ -37,7 +37,7 @@ public class MyChartPoint {
         return x;
     }
 
-    public void setX( LocalDateTime x ) {
+    public void setX(LocalDateTime x) {
         this.x = x;
     }
 
@@ -45,14 +45,14 @@ public class MyChartPoint {
         return y;
     }
 
-    public void setY( double y ) {
+    public void setY(double y) {
         this.y = y;
     }
 
     public JSONObject getAsJson() {
-        JSONObject object = new JSONObject( );
-        object.put( "x", getX( ) );
-        object.put( "y", getY( ) );
+        JSONObject object = new JSONObject();
+        object.put("x", getX());
+        object.put("y", getY());
         return object;
     }
 

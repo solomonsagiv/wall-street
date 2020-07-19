@@ -8,54 +8,57 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public class ExpData implements IJson {
 
     // Variables
-    Exp exp;
+    String expName;
     BASE_CLIENT_OBJECT client;
 
     private double start = 0;
     private int indBidAskCounter = 0;
 
-    private int getTotalIndBidAskCounter() {
-        return indBidAskCounter + client.getIndexBidAskCounter();
+    // Constructor
+    public ExpData(String expName, BASE_CLIENT_OBJECT client) {
+        this.expName = expName;
+        this.client = client;
     }
 
-    // Constructor
-    public ExpData( Exp exp, BASE_CLIENT_OBJECT client ) {
-        this.exp = exp;
-        this.client = client;
+    private int getTotalIndBidAskCounter() {
+        return indBidAskCounter + client.getIndexBidAskCounter();
     }
 
     public int getIndBidAskCounter() {
         return indBidAskCounter;
     }
-    public void setIndBidAskCounter( int indBidAskCounter ) {
+
+    public void setIndBidAskCounter(int indBidAskCounter) {
         this.indBidAskCounter = indBidAskCounter;
     }
+
     public double getStart() {
         return start;
     }
-    public void setStart( double start ) {
+
+    public void setStart(double start) {
         this.start = start;
     }
 
     @Override
     public MyJson getAsJson() {
-        MyJson json = new MyJson(  );
-        json.put( JsonStrings.start, start );
-        json.put( JsonStrings.indBidAskCounter, indBidAskCounter );
+        MyJson json = new MyJson();
+        json.put(JsonStrings.start, start);
+        json.put(JsonStrings.indBidAskCounter, indBidAskCounter);
         return json;
     }
 
     @Override
-    public void loadFromJson( MyJson json ) {
-        setStart( json.getDouble( JsonStrings.start ));
-        setIndBidAskCounter( json.getInt( JsonStrings.indBidAskCounter ) );
+    public void loadFromJson(MyJson json) {
+        setStart(json.getDouble(JsonStrings.start));
+        setIndBidAskCounter(json.getInt(JsonStrings.indBidAskCounter));
     }
 
     @Override
     public MyJson getResetJson() {
-        MyJson json = new MyJson(  );
-        json.put( JsonStrings.start, start );
-        json.put( JsonStrings.indBidAskCounter, getTotalIndBidAskCounter() );
+        MyJson json = new MyJson();
+        json.put(JsonStrings.start, start);
+        json.put(JsonStrings.indBidAskCounter, getTotalIndBidAskCounter());
         return json;
     }
 }
