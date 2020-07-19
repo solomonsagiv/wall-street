@@ -24,7 +24,7 @@ public class MyLogger {
     private Logger logger;
 
     // Constructor
-    public MyLogger() {
+    private MyLogger() {
         logger = createLogger();
     }
 
