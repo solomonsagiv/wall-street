@@ -22,73 +22,18 @@ public class MyFile {
     private MyFile( String fileName, String location ) {
         this.fileName = fileName;
         this.location = location;
-        logger = createLogger( );
     }
 
-    // Create the logger file
-    public Logger createLogger() {
-
-        System.out.println(Paths.get( location ) );
-
-        Logger logger = null;
-        FileHandler fh;
-
-        if ( Files.exists( Paths.get( location ) ) ) {
-            try {
-                logger = Logger.getLogger( location + fileName );
-
-                // This block configure the logger with handler and formatter
-                fh = new FileHandler( location + fileName );
-
-                logger.addHandler( fh );
-                BriefFormatter briefFormatter = new BriefFormatter( );
-                fh.setFormatter( briefFormatter );
-
-                return logger;
-            } catch ( SecurityException | IOException e ) {
-                e.printStackTrace( );
-            }
-        }
-        return logger;
-    }
-
-    public Logger getLogger() {
-        return logger;
-    }
-
-    public void setLogger( Logger logger ) {
-        this.logger = logger;
-    }
-
-    public StringBuilder getAllText() throws IOException {
-
-        StringBuilder text = new StringBuilder( );
-
-        File file = new File( location + fileName );
-
-        BufferedReader br = new BufferedReader( new FileReader( file ) );
-
-        String st;
-        while ( ( st = br.readLine( ) ) != null ) {
-            text.append( st + "\n" );
-        }
-
-        return text;
+    public void write( String text ) {
 
     }
 
-}
-
-class BriefFormatter extends Formatter {
-    String lineSeparator = System.getProperty( "line.separator" );
-
-    public BriefFormatter() {
-        super( );
+    public void write(Object o) {
+        write( String.valueOf( o ) );
     }
 
-    @Override
-    public String format( final LogRecord record ) {
-        return LocalTime.now( ) + " - " + record.getMessage( ) + lineSeparator;
+    public void append( String text ) {
+
     }
 }
 

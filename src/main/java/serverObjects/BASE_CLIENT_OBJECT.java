@@ -25,6 +25,7 @@ import service.MyServiceHandler;
 import threads.MyThread;
 
 import javax.swing.table.DefaultTableModel;
+import java.io.Serializable;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalTime;
