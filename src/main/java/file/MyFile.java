@@ -17,7 +17,7 @@ public class MyFile {
     private Logger logger;
     private String fileName;
     private String location;
-
+    
     // Constructor
     private MyFile( String fileName, String location ) {
         this.fileName = fileName;
@@ -36,4 +36,3 @@ public class MyFile {
 
     }
 }
-

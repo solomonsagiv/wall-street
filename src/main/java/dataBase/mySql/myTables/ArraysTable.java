@@ -52,7 +52,7 @@ public class ArraysTable extends MyArraysTable {
                 int last = client.getExps().getMainExp().getOpFutList().size() - 1;
                 return client.getExps().getMainExp().getOpFutList().get(last);
             }
-
+ +
             @Override
             public void setLoadedObject(Double object) {
                 client.getExps().getMainExp().getOpFutList().add(object);

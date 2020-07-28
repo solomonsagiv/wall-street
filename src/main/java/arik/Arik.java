@@ -20,29 +20,29 @@ public class Arik {
 
     private int updateId = 0;
 
-    private int[] accounts = {sagivID, yosiID, ronenID, royID};
-    private int[] accountsForPositions = {nivosID};
+    private int[] accounts = { sagivID, yosiID, ronenID, royID };
+    private int[] accountsForPositions = { nivosID };
 
     private Arik() {
-        bot = TelegramBotAdapter.build("400524449:AAE4dPbl22dfI9lB1r17W4ivqz2lc4C1xUY");
+        bot = TelegramBotAdapter.build( "400524449:AAE4dPbl22dfI9lB1r17W4ivqz2lc4C1xUY" );
     }
 
-    public static void main(String[] args) {
-        Arik.getInstance().start();
+    public static void main( String[] args ) {
+        Arik.getInstance( ).start( );
     }
 
     // Get instance
     public static Arik getInstance() {
-        if (arik == null) {
-            arik = new Arik();
+        if ( arik == null ) {
+            arik = new Arik( );
         }
         return arik;
     }
 
     public void start() {
-        if (!running) {
-            arikRunner = new ArikRunner(this);
-            arikRunner.start();
+        if ( !running ) {
+            arikRunner = new ArikRunner( this );
+            arikRunner.start( );
             running = true;
         }
     }
@@ -50,46 +50,50 @@ public class Arik {
     public void close() {
         arik = null;
         bot = null;
-        arikRunner.close();
+        arikRunner.close( );
         running = false;
     }
 
-    public void sendMessage(String text) {
-        getBot().execute(new SendMessage(sagivID, text));
+    public void sendMessage( String text ) {
+        getBot( ).execute( new SendMessage( sagivID, text ) );
         updateId += 1;
     }
 
-    public void sendErrorMessage(Exception e) {
-        String text = e.getMessage() + "\n" + e.getCause();
-        getBot().execute(new SendMessage(sagivID, text));
+    public void sendErrorMessage( Exception e ) {
+        String text = e.getMessage( ) + "\n" + e.getCause( );
+        getBot( ).execute( new SendMessage( sagivID, text ) );
         updateId += 1;
     }
 
     // Send message
-    public void sendMessage(Update update, String text, Keyboard keyBoard) {
-        if (keyBoard != null) {
-            getBot().execute(new SendMessage(update.message().from().id(), text).replyMarkup(keyBoard));
-            updateId = update.updateId() + 1;
+    public void sendMessage( Update update, String text, Keyboard keyBoard ) {
+        if ( keyBoard != null ) {
+            getBot( ).execute( new SendMessage( update.message( ).from( ).id( ), text ).replyMarkup( keyBoard ) );
+            updateId = update.updateId( ) + 1;
         } else {
-            getBot().execute(new SendMessage(update.message().from().id(), text));
-            updateId = update.updateId() + 1;
+            getBot( ).execute( new SendMessage( update.message( ).from( ).id( ), text ) );
+            updateId = update.updateId( ) + 1;
         }
     }
 
     // Send message
-    public void sendMessageToEveryOne(String text) {
-        for (int account : accounts) {
-            sendMessage(account, text, null);
+    public void sendMessageToEveryOne( String text ) {
+        try {
+            for ( int account : accounts ) {
+                sendMessage( account, text, null );
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
     }
 
     // Send message
-    public void sendMessage(int id, String text, Keyboard keyBoard) {
-        if (keyBoard != null) {
-            getBot().execute(new SendMessage(id, text).replyMarkup(keyBoard));
+    public void sendMessage( int id, String text, Keyboard keyBoard ) {
+        if ( keyBoard != null ) {
+            getBot( ).execute( new SendMessage( id, text ).replyMarkup( keyBoard ) );
             updateId += 1;
         } else {
-            getBot().execute(new SendMessage(id, text));
+            getBot( ).execute( new SendMessage( id, text ) );
             updateId += 1;
         }
     }
@@ -100,7 +104,7 @@ public class Arik {
         return updateId;
     }
 
-    public void setUpdateId(int updateId) {
+    public void setUpdateId( int updateId ) {
         this.updateId = updateId;
     }
 
@@ -108,7 +112,7 @@ public class Arik {
         return arikRunner;
     }
 
-    public void setArikRunner(ArikRunner arikRunner) {
+    public void setArikRunner( ArikRunner arikRunner ) {
         this.arikRunner = arikRunner;
     }
 
@@ -116,7 +120,7 @@ public class Arik {
         return bot;
     }
 
-    public void setBot(TelegramBot bot) {
+    public void setBot( TelegramBot bot ) {
         this.bot = bot;
     }
 

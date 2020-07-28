@@ -192,7 +192,7 @@ public class PopupsMenuFactory {
         e2_indexCounter_index_item2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                E2_IndexCounter_Index_Chart2 chart = new E2_IndexCounter_Index_Chart2(client);
+                IndexCounter_Index_Chart chart = new IndexCounter_Index_Chart(client);
                 try {
                     chart.createChart();
                 } catch (CloneNotSupportedException cloneNotSupportedException) {

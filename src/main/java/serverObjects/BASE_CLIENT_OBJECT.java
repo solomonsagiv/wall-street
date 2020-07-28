@@ -287,7 +287,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         text += "Close: " + index + "\n";
         text += "OP avg: " + L.format100(getExps().getMainExp().getOpAvgFut()) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter() + "\n";
-        text += "Contract counter: " + getExps().getMainExp().getOptions().getConBidAskCounter() + "\n";
         return text;
     }
 

@@ -3,12 +3,15 @@ package charts.myCharts;
 import charts.myChart.*;
 import exp.Exp;
 import exp.ExpStrings;
+import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
+import java.awt.*;
+
+public class IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
-    public E2_IndexCounter_Index_Chart2(BASE_CLIENT_OBJECT client) {
+    public IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client) {
         super(client);
     }
 
@@ -36,12 +39,9 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
         newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
-        MyTimeSeries index = new MyTimeSeries("Index", client) {
-            @Override
-            public double getData() {
-                return client.getIndex();
-            }
-        };
+        MyTimeSeries index = client.getIndexSeries();
+        index.setStokeSize( 1.5f );
+        index.setColor( Color.BLACK );
 
         series = new MyTimeSeries[1];
         series[0] = index;
@@ -49,59 +49,23 @@ public class E2_IndexCounter_Index_Chart2 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, newProps);
 
-        // ---------- Chart 2 ---------- //
-
-        Exp exp = client.getExps().getExp(ExpStrings.e1);
-
-        // Index
-        MyTimeSeries futureFarBidAskCounter = new MyTimeSeries("Future far B/A counter", client) {
-            @Override
-            public double getData() {
-                return exp.getFutBidAskCounter();
-            }
-        };
-
-        series = new MyTimeSeries[1];
-        series[0] = futureFarBidAskCounter;
-
-        MyChart futureFarBidAskCounterChart = new MyChart(client, series, newProps);
-
         // ---------- Chart 3 ---------- //
         // Index
-        MyTimeSeries indexBidAskCounter = new MyTimeSeries("Counter", client) {
-            @Override
-            public double getData() {
-                return client.getIndexBidAskCounter();
-            }
-        };
+        MyTimeSeries indexBidAskCounter = client.getIndexBidAskCounterSeries();
+        indexBidAskCounter.setColor( Themes.ORANGE );
+        indexBidAskCounter.setStokeSize( 1.5f );
 
         series = new MyTimeSeries[1];
         series[0] = indexBidAskCounter;
 
         MyChart indexCounterChart = new MyChart(client, series, props);
 
-        // ---------- Chart 4 ---------- //
-        // Index
-        MyTimeSeries indexBidAskCounter2 = new MyTimeSeries("Counter2", client) {
-            @Override
-            public double getData() {
-                return client.getIndexBidAskCounter2();
-            }
-        };
-
-        series = new MyTimeSeries[1];
-        series[0] = indexBidAskCounter2;
-
-        MyChart indexCounterChart2 = new MyChart(client, series, newProps);
-        // -------------------- Chart -------------------- //
-
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, futureFarBidAskCounterChart, indexCounterChart2, indexCounterChart};
+        MyChart[] charts = {indexChart, indexCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
-
 
     }
 

@@ -62,18 +62,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void startAll() {
-        super.startAll();
-        createCharts();
-    }
-
-    private void createCharts() {
-        // 5 lines
-        IndexVsQuarterVSOpAvgLiveChart indexVsQuarterVSOpAvgLiveChart = new IndexVsQuarterVSOpAvgLiveChart(this);
-        indexVsQuarterVSOpAvgLiveChart.createChart();
-    }
-
-    @Override
     public void initExpHandler() throws NullPointerException {
 
         // E1

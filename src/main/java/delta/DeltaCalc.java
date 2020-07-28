@@ -8,14 +8,12 @@ import java.util.Scanner;
 
 public class DeltaCalc {
 
-
     public static void main(String[] args) {
         Spx client = Spx.getInstance();
 
         E e = (E) client.getExps().getExp(ExpStrings.e1);
 
         Scanner scanner = new Scanner(System.in);
-
 
         int q = 1;
 
@@ -26,20 +24,23 @@ public class DeltaCalc {
 
             double last = scanner.nextDouble();
 
-
             e.setFutForDelta(last);
             e.setFutBidForDelta(last - 0.5);
             e.setFutAskForDelta(last + 0.5);
 
             e.setVolumeFutForDelta(q);
-
-
             q += 1;
         }
 
     }
 
-    public static double calc(int quantity, double last, double preBid, double preAsk) {
+    private double moneyPerPips = 0;
+
+    public DeltaCalc( double moneyPerPips ) {
+        this.moneyPerPips = moneyPerPips;
+    }
+
+    public double calc( int quantity, double last, double preBid, double preAsk) {
 
         double delta = 0;
 
@@ -58,7 +59,7 @@ public class DeltaCalc {
             delta = quantity * -1;
         }
 
-        delta *= 50;
+        delta *= moneyPerPips;
 
         System.out.println(delta + "$");
 

@@ -133,6 +133,10 @@ public class Downloader extends Thread implements EWrapper {
     @Override
     public void error(int id, int errorCode, String errorMsg) {
 
+        if ( id == errorCode ) {
+            JOptionPane.showMessageDialog( null, errorMsg );
+        }
+
         System.out.println(EWrapperMsgGenerator.error(id, errorCode, errorMsg));
         logger.getLogger().info(EWrapperMsgGenerator.error(id, errorCode, errorMsg));
 

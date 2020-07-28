@@ -17,14 +17,14 @@ public class ListsService extends MyBaseService {
     BASE_CLIENT_OBJECT client;
 
     // Constructor
-    public ListsService(BASE_CLIENT_OBJECT client) {
-        super(client);
+    public ListsService( BASE_CLIENT_OBJECT client ) {
+        super( client );
         this.client = client;
     }
 
     @Override
     public void go() {
-        insert();
+        insert( );
     }
 
     @Override
@@ -45,43 +45,43 @@ public class ListsService extends MyBaseService {
     private void insert() {
 
         // List for charts
-        client.getIndexBidSeries().add();
-        client.getIndexAskSeries().add();
-        client.getIndexBidAskCounterSeries().add();
+        client.getIndexBidSeries( ).add( );
+        client.getIndexAskSeries( ).add( );
+        client.getIndexBidAskCounterSeries( ).add( );
 
         // Options lists
-        for (Exp exp : client.getExps().getExpList()) {
+        for ( Exp exp : client.getExps( ).getExpList( ) ) {
             try {
-                exp.getFutList().add(exp.getCalcFut());
-                client.getIndexSeries().add();
-                exp.getOpFutList().add(exp.getOpFuture());
+                exp.getFutList( ).add( exp.getCalcFut( ) );
+                client.getIndexSeries( ).add( );
+                exp.getOpFutList( ).add( exp.getOpFuture( ) );
                 try {
-                    exp.getOpAvgFutSeries().add();
-                    exp.getOpAvg15FutSeries().add();
-                } catch (Exception e) {
-                    System.out.println(getClient().getName() + " OpAvgFutureList is empty");
+                    exp.getOpAvgFutSeries( ).add( );
+                    exp.getOpAvg15FutSeries( ).add( );
+                } catch ( Exception e ) {
+                    System.out.println( getClient( ).getName( ) + " OpAvgFutureList is empty" );
                 }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
+            } catch ( NullPointerException e ) {
+                e.printStackTrace( );
             }
 
-            Options options = exp.getOptions();
-            options.getOpList().add(options.getOp());
-            options.getOpAvgList().add(options.getOpAvg());
-            options.getConList().add(options.getContract());
-            options.getConBidList().add(options.getContractBid());
-            options.getConAskList().add(options.getContractAsk());
-            exp.getFutBidAskCounterSeries().add();
-            options.getConBidAskCounterSeries().add();
+            Options options = exp.getOptions( );
+            options.getOpList( ).add( options.getOp( ) );
+            options.getOpAvgList( ).add( options.getOpAvg( ) );
+            options.getConList( ).add( options.getContract( ) );
+            options.getConBidList( ).add( options.getContractBid( ) );
+            options.getConAskList( ).add( options.getContractAsk( ) );
+            exp.getFutBidAskCounterSeries( ).add( );
+            options.getConBidAskCounterSeries( ).add( );
         }
 
         // Roll lists
         try {
-            for (Map.Entry<RollEnum, Roll> entry : getClient().getRollHandler().getRollMap().entrySet()) {
-                Roll roll = entry.getValue();
-                roll.addRoll();
+            for ( Map.Entry< RollEnum, Roll > entry : getClient( ).getRollHandler( ).getRollMap( ).entrySet( ) ) {
+                Roll roll = entry.getValue( );
+                roll.addRoll( );
             }
-        } catch (NullPointerException e) {
+        } catch ( NullPointerException e ) {
         }
     }
 }
