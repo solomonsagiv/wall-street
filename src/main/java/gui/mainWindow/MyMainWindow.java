@@ -97,7 +97,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         windowsPanel = new WindowsPanel();
         windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
         add(windowsPanel);
-
+        
     }
 
     private void loadOnStartUp() {

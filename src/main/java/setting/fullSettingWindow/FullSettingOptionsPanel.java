@@ -1,21 +1,25 @@
 package setting.fullSettingWindow;
 
+import exp.ExpStrings;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
 
     public static JComboBox clientsCombo;
     public static JComboBox optionsCombo;
-    static String INDEXS = "INDEXS", STOCKS = "STOCKS";
-    static String WEEK = "WEEK", MONTH = "MONTH", QUARTER = "QUARTER", QUARTER_FAR = "QUARTER_FAR";
+    static final String INDEXS = "INDEXS", STOCKS = "STOCKS";
+    static final String WEEK = "week", MONTH = "month", QUARTER = "E1", QUARTER_FAR = "E2";
     // Variables
     BASE_CLIENT_OBJECT client;
     FullSettingOptionsProps propsPanel;
+    String expName;
 
     // Constructor
     public FullSettingOptionsPanel() {
@@ -23,9 +27,7 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
         initListeners();
     }
 
-    private void initListeners() {
-        // Combo
-    }
+    private void initListeners() {}
 
     private void initialize() {
 

@@ -51,12 +51,12 @@ public class ListsService extends MyBaseService {
         client.getIndexBidSeries( ).add( time );
         client.getIndexAskSeries( ).add( time );
         client.getIndexBidAskCounterSeries( ).add( time );
+        client.getIndexSeries( ).add( time );
 
         // Options lists
         for ( Exp exp : client.getExps( ).getExpList( ) ) {
             try {
                 exp.getFutList( ).add( exp.getCalcFut( ) );
-                client.getIndexSeries( ).add( time );
                 exp.getOpFutList( ).add( exp.getOpFuture( ) );
                 try {
                     exp.getOpAvgFutSeries( ).add( time );

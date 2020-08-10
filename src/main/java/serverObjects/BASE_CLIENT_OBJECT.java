@@ -124,7 +124,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Start all
     public void startAll() {
-
         // To start
         if (isLoadFromDb()) {
             myServiceHandler.getHandler().start();
@@ -142,7 +141,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     // ---------- basic functions ---------- //
-
     @Override
     public void initSeries() {
         indexSeries = new MyTimeSeries("Index", this) {

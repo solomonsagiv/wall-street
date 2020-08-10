@@ -36,8 +36,6 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
                 try {
                     double opAvg = L.dbl(opAvgField.getText());
                     OptionsPanel.exp.setOpAvgFuture(opAvg);
-                    System.out.println(OptionsPanel.exp.getName());
-                    System.out.println(opAvg);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }
@@ -57,7 +55,6 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
-
     }
 
     private void initialize() {

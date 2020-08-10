@@ -16,8 +16,7 @@ public class BackGroundHandler {
     public static BackGroundHandler instance;
     HashMap< String, BackRunner > backRunners = new HashMap<>( );
 
-    private BackGroundHandler() {
-    }
+    private BackGroundHandler() {}
 
     public static BackGroundHandler getInstance() {
         if ( instance == null ) {
@@ -127,7 +126,6 @@ public class BackGroundHandler {
         public void setRun( boolean run ) {
             this.run = run;
         }
-
     }
 
 }

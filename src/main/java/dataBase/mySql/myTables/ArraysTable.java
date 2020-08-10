@@ -90,7 +90,6 @@ public class ArraysTable extends MyArraysTable {
             @Override
             public void setLoadedObject(String object) {
                 if (object != null) {
-                    MyChartPoint myChartPoint = new MyChartPoint(new JSONObject(object));
                     client.getExps().getExp(ExpStrings.e1).getOpAvgFutSeries().add(new MyJson(object));
                 }
             }

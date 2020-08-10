@@ -31,8 +31,6 @@ public class SumJsonTable extends MySumTable {
         addColumn(new MyColumnSql<>(this, MySqlColumnEnum.data) {
             @Override
             public String getObject() {
-                MyJson json = client.getAsJson();
-//                json.put( JsonStrings.tomorrowFut,  )
                 return client.getAsJson().toString();
             }
         });

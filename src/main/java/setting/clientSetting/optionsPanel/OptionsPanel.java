@@ -82,7 +82,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         propsPanel = new PropsPanel(client);
         propsPanel.setXY(racesPanel.getX() + racesPanel.getWidth() + 1, 20);
         add(propsPanel);
-
+        
         // Executors
         executorsPanel = new ExecutorsPanel(client);
         executorsPanel.setXY(propsPanel.getX() + propsPanel.getWidth() + 1, propsPanel.getY());
@@ -108,7 +108,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
 
             Options options = exp.getOptions();
 
-            optionsTypes[i] = exp.toString();
+            optionsTypes[i] = exp.getName();
             i++;
         }
         return optionsTypes;

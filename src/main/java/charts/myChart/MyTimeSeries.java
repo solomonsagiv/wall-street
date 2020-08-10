@@ -77,8 +77,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
                 lastSeconde = new Second(dateTime.getSecond(), dateTime.getMinute(), dateTime.getHour(), dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear());
 
-                addOrUpdate(getLastSeconde(), json.getDouble(JsonStrings.y));
-                lastSeconde = (Second) lastSeconde.next();
+                addOrUpdate(lastSeconde, json.getDouble(JsonStrings.y));
             }
         } catch (Exception e) {
             System.out.println(client.getName() + " " + json);

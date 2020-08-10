@@ -27,7 +27,7 @@ public class Downloader extends Thread implements EWrapper {
     MyLogger logger;
     int NextOrderId = -1;
     Set<ITwsRequester> iTwsRequesters = new HashSet<>();
-    int MaxRequest = 50;
+    int MaxRequest = 45;
     int count = 0;
 
     // Constructor
@@ -96,9 +96,9 @@ public class Downloader extends Thread implements EWrapper {
         for (ITwsRequester requester : iTwsRequesters) {
             requester.request(this);
         }
-//        client.reqAutoOpenOrders( true );
-//        client.reqPositions( );
-//        client.reqAccountUpdates( true, Manifest.ACCOUNT );
+        client.reqAutoOpenOrders( true );
+        client.reqPositions( );
+        client.reqAccountUpdates( true, Manifest.ACCOUNT );
     }
 
     public void addRequester(ITwsRequester requester) {
@@ -133,11 +133,11 @@ public class Downloader extends Thread implements EWrapper {
     @Override
     public void error(int id, int errorCode, String errorMsg) {
 
-        if ( id == errorCode ) {
+        if ( id == 507 ) {
             JOptionPane.showMessageDialog( null, errorMsg );
+            return;
         }
 
-        System.out.println(EWrapperMsgGenerator.error(id, errorCode, errorMsg));
         logger.getLogger().info(EWrapperMsgGenerator.error(id, errorCode, errorMsg));
 
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
@@ -147,7 +147,6 @@ public class Downloader extends Thread implements EWrapper {
 
                     Option option = options.getOptionsMap().get(id);
                     options.removeStrike(option.getStrike());
-                    System.out.println("Removed: " + client.getName() + " id: " + id + " Strike: " + option.getStrike());
                 } catch (Exception e) {
                 }
             }
@@ -516,7 +515,6 @@ public class Downloader extends Thread implements EWrapper {
             if (count < MaxRequest) {
                 client.reqMktData(tickerID, contract,
                         "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null);
-
                 count++;
             } else {
                 Thread.sleep(1100);
