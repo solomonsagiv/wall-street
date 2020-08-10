@@ -41,7 +41,6 @@ public class DDEReader extends MyThread implements Runnable {
 
                 // DDE
                 read();
-
             } catch (InterruptedException e) {
                 break;
             } catch (DDEException e) {

@@ -10,7 +10,7 @@ public class Manifest {
     // SNUPPI ACCOUNT
     public static int SNUPPI_PORT = 7496;
     public static String SNUPPI_ACCOUNT = "U3450352";
-
+    
     // TEST ACCOUNT
     public static String TEST_ACCOUNT = "DU1293791";
     public static int TEST_PORT = 3333;

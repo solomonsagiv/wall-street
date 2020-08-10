@@ -10,7 +10,6 @@ import myJson.MyJson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.rmi.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalTime;
@@ -52,7 +51,7 @@ public class ArraysTable extends MyArraysTable {
                 int last = client.getExps().getMainExp().getOpFutList().size() - 1;
                 return client.getExps().getMainExp().getOpFutList().get(last);
             }
- +
+
             @Override
             public void setLoadedObject(Double object) {
                 client.getExps().getMainExp().getOpFutList().add(object);

@@ -8,6 +8,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 // Regular list updater
@@ -44,20 +45,22 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
+        LocalDateTime time = LocalDateTime.now();
+
         // List for charts
-        client.getIndexBidSeries( ).add( );
-        client.getIndexAskSeries( ).add( );
-        client.getIndexBidAskCounterSeries( ).add( );
+        client.getIndexBidSeries( ).add( time );
+        client.getIndexAskSeries( ).add( time );
+        client.getIndexBidAskCounterSeries( ).add( time );
 
         // Options lists
         for ( Exp exp : client.getExps( ).getExpList( ) ) {
             try {
                 exp.getFutList( ).add( exp.getCalcFut( ) );
-                client.getIndexSeries( ).add( );
+                client.getIndexSeries( ).add( time );
                 exp.getOpFutList( ).add( exp.getOpFuture( ) );
                 try {
-                    exp.getOpAvgFutSeries( ).add( );
-                    exp.getOpAvg15FutSeries( ).add( );
+                    exp.getOpAvgFutSeries( ).add( time );
+                    exp.getOpAvg15FutSeries( ).add( time );
                 } catch ( Exception e ) {
                     System.out.println( getClient( ).getName( ) + " OpAvgFutureList is empty" );
                 }
@@ -71,8 +74,8 @@ public class ListsService extends MyBaseService {
             options.getConList( ).add( options.getContract( ) );
             options.getConBidList( ).add( options.getContractBid( ) );
             options.getConAskList( ).add( options.getContractAsk( ) );
-            exp.getFutBidAskCounterSeries( ).add( );
-            options.getConBidAskCounterSeries( ).add( );
+            exp.getFutBidAskCounterSeries( ).add( time );
+            options.getConBidAskCounterSeries( ).add( time );
         }
 
         // Roll lists
