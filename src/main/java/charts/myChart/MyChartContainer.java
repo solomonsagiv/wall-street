@@ -68,12 +68,12 @@ public class MyChartContainer extends JFrame {
 
             chartPanel.setMouseZoomable(false);
             chartPanel.setMouseWheelEnabled(true);
-            chartPanel.setDomainZoomable(false);
-            chartPanel.setRangeZoomable(true);
+            chartPanel.setDomainZoomable(true);
+            chartPanel.setRangeZoomable(false);
             chartPanel.setZoomTriggerDistance(Integer.MAX_VALUE);
             chartPanel.setFillZoomRectangle(false);
-            chartPanel.setZoomOutlinePaint(new Color(0f, 0f, 0f, 0f));
-            chartPanel.setZoomAroundAnchor(true);
+//            chartPanel.setZoomOutlinePaint(new Color(0f, 0f, 0f, 0f));
+            chartPanel.setZoomAroundAnchor(false);
 
             chartPanel.addMouseListener(new MouseAdapter() {
                 @Override
@@ -99,15 +99,12 @@ public class MyChartContainer extends JFrame {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
-            chartPanel.addMouseWheelListener(new MouseWheelListener() {
-                @Override
-                public void mouseWheelMoved(MouseWheelEvent e) {
-                    myChart.getUpdater().updateChartRange();
-                }
-            });
-
-
+//            chartPanel.addMouseWheelListener(new MouseWheelListener() {
+//                @Override
+//                public void mouseWheelMoved(MouseWheelEvent e) {
+//                    myChart.getUpdater().updateChartRange();
+//                }
+//            });
             add(chartPanel);
         }
     }

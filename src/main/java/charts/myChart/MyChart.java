@@ -259,8 +259,6 @@ public class MyChart {
                     range = ( NumberAxis ) plot.getRangeAxis( );
                     range.setRange( min, max );
 
-                    System.out.println( "Range set" );
-
                 }
             } catch ( NoSuchElementException | ParseException e ) {
                 e.printStackTrace( );

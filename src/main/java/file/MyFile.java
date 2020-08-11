@@ -25,7 +25,6 @@ public class MyFile {
     }
 
     public void write( String text ) {
-
     }
 
     public void write(Object o) {

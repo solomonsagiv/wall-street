@@ -119,7 +119,7 @@ public class PopupsMenuFactory {
         return menu;
     }
 
-    public static JPopupMenu indexPanel(INDEX_CLIENT_OBJECT client) {
+    public static JPopupMenu  indexPanel(INDEX_CLIENT_OBJECT client) {
         // Main menu
         JPopupMenu menu = new JPopupMenu();
 
