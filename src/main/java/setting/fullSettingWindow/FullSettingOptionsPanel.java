@@ -15,7 +15,7 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
     public static JComboBox clientsCombo;
     public static JComboBox optionsCombo;
     static final String INDEXS = "INDEXS", STOCKS = "STOCKS";
-    static final String WEEK = "week", MONTH = "month", QUARTER = "E1", QUARTER_FAR = "E2";
+    static final String WEEK = "week", MONTH = "month", E1 = "e1", E2 = "e2";
     // Variables
     BASE_CLIENT_OBJECT client;
     FullSettingOptionsProps propsPanel;
@@ -57,7 +57,7 @@ public class FullSettingOptionsPanel extends MyGuiComps.MyPanel {
         add(clientsCombo);
 
         // Options combo
-        optionsCombo = new JComboBox(new String[]{"WEEK", "MONTH", "QUARTER", "QUARTER_FAR"});
+        optionsCombo = new JComboBox(new String[]{"week", "month", "e1", "e2"});
         optionsCombo.setBackground(Themes.BLUE);
         optionsCombo.setForeground(Themes.GREY_VERY_LIGHT);
         optionsCombo.setBounds(clientsCombo.getX() + clientsCombo.getWidth() + 5, clientsCombo.getY(), 120, 25);

@@ -70,7 +70,7 @@ public abstract class MyArraysTable extends MySqlTable {
     @Override
     public void reset() {
         try {
-            MySql.trunticate(getName());
+            MySql.trunticate(getName(), schema);
         } catch (Exception e) {
             e.printStackTrace();
             Arik.getInstance().sendErrorMessage(e);
