@@ -256,21 +256,15 @@ public class DetailsWindow {
         }
 
         private String convertListToString() {
-
             StringBuilder text = new StringBuilder();
-
             for (String string : getToStringList()) {
-
                 if (string.equals("\n")) {
                     text.append(string);
                 } else {
                     text.append(string).append("\n");
                 }
-
             }
-
             return text.toString();
-
         }
     }
 }

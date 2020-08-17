@@ -265,7 +265,6 @@ public class MyChart {
             }
         }
 
-
         private void updateChartRange( double min, double max ) {
             try {
                 if ( dots.size( ) > 0 ) {

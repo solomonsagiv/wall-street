@@ -21,9 +21,11 @@ public class MySql {
 
             // Execute
             stmt.execute( query );
-
+            
             // Return connection
             getPool( ).releaseConnection( conn );
+
+            System.out.println( query );
 
         } catch ( Exception e ) {
             e.printStackTrace( );

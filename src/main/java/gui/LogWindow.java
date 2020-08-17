@@ -21,53 +21,50 @@ public class LogWindow {
      * Create the application.
      */
     public LogWindow() {
-        initialize();
+        initialize( );
 
         // Start runner
-        runner = new Runner();
-        runner.start();
+        runner = new Runner( );
+        runner.start( );
     }
 
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
+    public static void main( String[] args ) {
+        EventQueue.invokeLater( new Runnable( ) {
             public void run() {
                 try {
-                    window = new LogWindow();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    window = new LogWindow( );
+                    window.frame.setVisible( true );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
                 }
             }
-        });
+        } );
     }
 
     /**
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
-        frame.addWindowListener(new WindowAdapter() {
+        frame = new JFrame( );
+        frame.addWindowListener( new WindowAdapter( ) {
             @Override
-            public void windowClosing(WindowEvent e) {
-
-                runner.interrupt();
-
+            public void windowClosing( WindowEvent e ) {
+                runner.interrupt( );
             }
-        });
-        frame.setBounds(100, 100, 901, 498);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } );
+        frame.setBounds( 100, 100, 901, 498 );
+        frame.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 
-        textArea = new JTextArea();
-        textArea.setFont(new Font("Dubai Medium", Font.PLAIN, 12));
-        textArea.setBorder(new EmptyBorder(5, 5, 5, 5));
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        textArea = new JTextArea( );
+        textArea.setFont( new Font( "Dubai Medium", Font.PLAIN, 12 ) );
+        textArea.setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
+        JScrollPane scrollPane = new JScrollPane( textArea );
+        frame.getContentPane( ).add( scrollPane, BorderLayout.CENTER );
 
     }
-
 
     private class Runner extends Thread {
 
@@ -76,39 +73,28 @@ public class LogWindow {
 
         // Constructor
         public Runner() {
-
-            logger = MyLogger.getInstance();
-
+            logger = MyLogger.getInstance( );
         }
 
         @Override
         public void run() {
-
-            init();
-
+            init( );
         }
 
         private void init() {
-
-            while (!interrupted()) {
-
+            while ( !interrupted( ) ) {
                 try {
-
-                    String text = logger.getAllText().toString();
-                    textArea.setText(text);
-
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    interrupt();
-                } catch (IOException e) {
-                    interrupt();
-                    e.printStackTrace();
+                    String text = logger.getAllText( ).toString( );
+                    textArea.setText( text );
+                    sleep( 1000 );
+                } catch ( InterruptedException e ) {
+                    interrupt( );
+                } catch ( IOException e ) {
+                    interrupt( );
+                    e.printStackTrace( );
                 }
-
             }
-
         }
-
     }
 
 }
