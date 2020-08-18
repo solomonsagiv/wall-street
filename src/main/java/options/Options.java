@@ -795,12 +795,14 @@ public class Options implements IJson {
         json.put(JsonStrings.conAsk, contractAsk);
         json.put(JsonStrings.conBidAskCounter, contractBidAskCounter);
         json.put(JsonStrings.opAvg, L.floor(getOpAvg(), 100));
+        json.put( JsonStrings.props, props.getAsJson() );
         return json;
     }
 
     @Override
     public void loadFromJson(MyJson json) {
         setContractBidAskCounter(json.getInt(JsonStrings.conBidAskCounter));
+        getProps().loadFromJson( json.getMyJson( JsonStrings.props ) );
     }
 
     @Override

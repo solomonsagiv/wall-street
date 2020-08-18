@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="webFirst">
+    <output-path>$PROJECT_DIR$/out/artifacts/webFirst</output-path>
+    <root id="archive" name="webFirst.war" />
+  </artifact>
+</component>

@@ -2,7 +2,9 @@ package dataBase.mySql.myTables;
 
 import dataBase.mySql.myBaseTables.MyStatusTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
+import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalDate;
@@ -40,7 +42,17 @@ public class StatusJsonTable extends MyStatusTable {
                 return LocalTime.now().toString();
             }
         });
-        addColumn(new MyColumnSql<>(this, MySqlColumnEnum.data) {
+        addColumn(new MyLoadAbleColumn(this, MySqlColumnEnum.data) {
+            @Override
+            public void setLoadedObject( Object object ) {
+                client.loadFromJson( new MyJson( object.toString() ) );
+            }
+
+            @Override
+            public Object getResetObject() {
+                return client.getResetJson();
+            }
+
             @Override
             public String getObject() {
                 return client.getAsJson().toString();

@@ -20,6 +20,7 @@ import locals.LocalHandler;
 import logic.LogicService;
 import myJson.MyJson;
 import options.OptionsDataHandler;
+import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
@@ -285,6 +286,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         text += "Close: " + index + "\n";
         text += "OP avg: " + L.format100(getExps().getMainExp().getOpAvgFut()) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter() + "\n";
+        try {
+            text += "Roll: " + getRollHandler().getRoll( RollEnum.E1_E2 ) +  "\n";
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
         return text;
     }
 

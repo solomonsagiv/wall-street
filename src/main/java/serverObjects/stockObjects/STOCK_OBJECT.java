@@ -109,6 +109,12 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     @Override
     public void loadFromJson(MyJson json) {
+        System.out.println( json );
+        setIndexUp( json.getInt( JsonStrings.indUp ) );
+        setIndexDown( json.getInt( JsonStrings.indDown ) );
+        setConUp( json.getInt( JsonStrings.conUp ) );
+        setConDown( json.getInt( JsonStrings.conDown ) );
+
         setIndexBidAskCounter(json.getInt(JsonStrings.indBidAskCounter));
         getExps().loadFromJson(new MyJson(json.getJSONObject(JsonStrings.exps)));
     }

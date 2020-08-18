@@ -231,11 +231,15 @@ public abstract class MySqlTable implements IMyTableSql {
 
     @Override
     public void reset() {
+
         StringBuilder query = new StringBuilder(String.format("UPDATE `%s`.`%s` SET ", schema, getName()));
         int i = 0;
 
         for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
             MyLoadAbleColumn column = entry.getValue();
+
+            System.out.println( column );
+
             if (i < loadAbleColumns.size() - 1) {
                 query.append("`" + column.getType().name() + "`='" + column.getResetObject() + "',");
             } else {
@@ -248,13 +252,14 @@ public abstract class MySqlTable implements IMyTableSql {
 
         query.append(endQuery);
 
+        System.out.println( query );
+
         MySql.update(query.toString());
     }
 
     public BASE_CLIENT_OBJECT getClient() {
         return client;
     }
-
 
     public String getName() {
         if (this.name == null) {

@@ -22,9 +22,6 @@ public class MySql {
             // Execute
             stmt.execute( query );
             
-            // Return connection
-            getPool( ).releaseConnection( conn );
-
             System.out.println( query );
 
         } catch ( Exception e ) {
@@ -48,8 +45,6 @@ public class MySql {
             // Execute
             stmt.executeUpdate( query );
 
-            // Return connection
-            getPool( ).releaseConnection( conn );
         } catch ( Exception e ) {
             Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
         } finally {
@@ -101,9 +96,6 @@ public class MySql {
             // execute the query, and get a java resultset
             st.executeUpdate( query );
 
-            // Release connection
-            getPool( ).releaseConnection( conn );
-
         } catch ( Exception e ) {
             System.err.println( e.getMessage( ) );
             Arik.getInstance( ).sendErrorMessage( e );
@@ -113,7 +105,6 @@ public class MySql {
                 getPool( ).releaseConnection( conn );
             }
         }
-
     }
 
     // Get connection pool

@@ -103,7 +103,11 @@ public class ConnectionPool implements IConnectionPool {
 
     @Override
     public boolean releaseConnection(Connection connection) {
-        connections.add(connection);
+
+        if ( !connections.contains( connection ) ) {
+            connections.add(connection);
+        }
+
         return usedConnections.remove(connection);
     }
 
