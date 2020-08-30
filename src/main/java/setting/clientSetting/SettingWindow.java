@@ -13,6 +13,8 @@ public class SettingWindow extends MyGuiComps.MyFrame {
     TickerPanel tickerPanel;
     OptionsPanel optionsPanel;
     DataBasePanel dataBasePanel;
+
+    // Constructor
     public SettingWindow(String title, BASE_CLIENT_OBJECT client) throws HeadlessException {
         super(title, client);
     }

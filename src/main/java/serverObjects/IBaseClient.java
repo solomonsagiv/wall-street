@@ -11,4 +11,7 @@ public interface IBaseClient {
     void initBaseId();
 
     void initSeries();
+
+    void openChartsOnStart();
+
 }

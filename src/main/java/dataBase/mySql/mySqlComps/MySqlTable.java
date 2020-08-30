@@ -231,7 +231,6 @@ public abstract class MySqlTable implements IMyTableSql {
 
     @Override
     public void reset() {
-
         StringBuilder query = new StringBuilder(String.format("UPDATE `%s`.`%s` SET ", schema, getName()));
         int i = 0;
 

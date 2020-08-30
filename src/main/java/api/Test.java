@@ -10,12 +10,21 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Test {
-
+    
     public static void main(String[] args) throws IOException {
 
-        Apple apple = Apple.getInstance();
-        System.out.println(apple.getAsJson().toString(4) );
+//        Apple apple = Apple.getInstance();
+//        System.out.println(apple.getAsJson().toString(4) );
 
+        for ( int i = 0; i < 5; i++ ) {
+            System.out.println( new Random(  ).nextInt( 49 ) + 1 );
+        }
+
+        System.out.println( );
+
+        for ( int i = 0; i < 2; i++ ) {
+            System.out.println( new Random(  ).nextInt( 11 ) + 1 );
+        }
     }
 
     public static void writeObject(File file, Object object) {

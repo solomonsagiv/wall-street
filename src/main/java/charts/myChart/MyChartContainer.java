@@ -74,7 +74,6 @@ public class MyChartContainer extends JFrame {
             chartPanel.setRangeZoomable( false );
             chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
             chartPanel.setFillZoomRectangle( false );
-//            chartPanel.setZoomOutlinePaint(new Color(0f, 0f, 0f, 0f));
             chartPanel.setZoomAroundAnchor( false );
 
             chartPanel.addMouseListener( new MouseAdapter( ) {
@@ -87,20 +86,19 @@ public class MyChartContainer extends JFrame {
 
                         rangeAxis.setAutoRange( true );
                         axis.setAutoRange( true );
-                        System.out.println( "Auto range set " );
                     }
                 }
             } );
 
-            try {
-                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
-                mask.setAccessible( true );
-                mask.set( chartPanel, 0 );
-            } catch ( NoSuchFieldException e ) {
-                e.printStackTrace( );
-            } catch ( IllegalAccessException e ) {
-                e.printStackTrace( );
-            }
+//            try {
+//                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
+//                mask.setAccessible( true );
+//                mask.set( chartPanel, 0 );
+//            } catch ( NoSuchFieldException e ) {
+//                e.printStackTrace( );
+//            } catch ( IllegalAccessException e ) {
+//                e.printStackTrace( );
+//            }
 //            chartPanel.addMouseWheelListener(new MouseWheelListener() {
 //                @Override
 //                public void mouseWheelMoved(MouseWheelEvent e) {
@@ -134,7 +132,6 @@ public class MyChartContainer extends JFrame {
     }
 
     public void onClose( WindowEvent e ) {
-
         new Thread( () -> {
             ( ( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS ) ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
         } ).start( );
@@ -142,7 +139,6 @@ public class MyChartContainer extends JFrame {
         for ( MyChart myChart : charts ) {
             myChart.getUpdater( ).getHandler( ).close( );
         }
-
         dispose( );
     }
 

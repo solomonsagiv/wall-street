@@ -56,6 +56,7 @@ public class MyChart {
     }
 
     private void init( MyTimeSeries[] series, MyProps props ) {
+
         // Series
         TimeSeriesCollection data = new TimeSeriesCollection( );
 
@@ -138,7 +139,6 @@ public class MyChart {
 
         private void initListeners() {
 
-
         }
 
         @Override
@@ -147,6 +147,10 @@ public class MyChart {
             // While loop
             while ( isRun( ) ) {
                 try {
+
+                    // Sleep
+                    Thread.sleep( 1000 );
+
                     if ( client.isStarted( ) ) {
                         if ( !load ) {
                             loadChartData( );

@@ -1,13 +1,18 @@
 package webServices;
 
-import javax.jws.WebService;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-@WebService(endpointInterface = "webServices.MainService", serviceName = "main")
-public class HelloWorld implements MainService {
+@Path( "/hello" )
+public class HelloWorld {
 
-    @Override
-    public String seyHello( String name ) {
-        return "Hello " + name;
+    @GET
+    @Produces( MediaType.TEXT_PLAIN )
+    public String getClichedMessage() {
+        System.out.println( " Got itdskfdskfjsldfkjsdlkfjsdlk" );
+        return "Hello World";
     }
 
 }

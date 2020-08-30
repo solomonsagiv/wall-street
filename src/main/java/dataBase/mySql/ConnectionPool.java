@@ -12,7 +12,7 @@ public class ConnectionPool implements IConnectionPool {
 
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = 50;
+    private static int INITIAL_POOL_SIZE = 20;
     private String url;
     private String user;
     private String password;

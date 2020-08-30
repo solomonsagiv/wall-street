@@ -21,12 +21,12 @@ public class MySql {
 
             // Execute
             stmt.execute( query );
-            
+
             System.out.println( query );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
-            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) + " \n" + "Insert" );
         } finally {
             // Release connection
             if ( conn != null ) {
@@ -46,7 +46,7 @@ public class MySql {
             stmt.executeUpdate( query );
 
         } catch ( Exception e ) {
-            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) + " \n" + "Update" );
         } finally {
             // Release connection
             if ( conn != null ) {
@@ -57,22 +57,21 @@ public class MySql {
 
     // Update
     public static ResultSet select( String query ) {
-        Statement st = null;
         ResultSet rs = null;
 
         Connection conn = null;
 
         try {
-            conn = ConnectionPool.getConnectionsPoolInstance( ).getConnection( );
+            conn = getPool().getConnection( );
 
             // create the java statement
-            st = conn.createStatement( );
+            Statement st = conn.createStatement( );
 
             // execute the query, and get a java resultset
             rs = st.executeQuery( query );
 
         } catch ( Exception e ) {
-            Arik.getInstance( ).sendErrorMessage( e );
+            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) + " \n" + "Select" );
         } finally {
             // Release connection
             if ( conn != null ) {
@@ -85,20 +84,18 @@ public class MySql {
     public static void trunticate( String tableName, String schema ) {
 
         String query = "TRUNCATE TABLE " + schema + "." + tableName;
-        Statement st = null;
         Connection conn = null;
         try {
 
-            conn = ConnectionPool.getConnectionsPoolInstance( ).getConnection( );
+            conn = getPool().getConnection( );
             // create the java statement
-            st = conn.createStatement( );
+            Statement st = conn.createStatement( );
 
             // execute the query, and get a java resultset
             st.executeUpdate( query );
 
         } catch ( Exception e ) {
-            System.err.println( e.getMessage( ) );
-            Arik.getInstance( ).sendErrorMessage( e );
+            Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) + " \n" + "Trunticate" );
         } finally {
             // Release connection
             if ( conn != null ) {
