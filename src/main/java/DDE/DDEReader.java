@@ -35,7 +35,7 @@ public class DDEReader extends MyThread implements Runnable {
 
         while ( isRun( ) ) {
             try {
-
+                
                 // Sleep
                 Thread.sleep( sleep );
 

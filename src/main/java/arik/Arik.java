@@ -1,5 +1,6 @@
 package arik;
 
+import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
@@ -63,6 +64,18 @@ public class Arik {
         String text = e.getMessage( ) + "\n" + e.getCause( );
         getBot( ).execute( new SendMessage( sagivID, text ) );
         updateId += 1;
+    }
+
+    public void sendMessage( String action, boolean success ) {
+        String text = action + " " + " success " + Emojis.check_mark;
+        // Success
+        if ( success ) {
+            text += " " + " success " + Emojis.check_mark;
+            sendMessage( text );
+        } else  {
+            text += " " + " failed " + Emojis.stop;
+            sendMessage( text );
+        }
     }
 
     // Send message
