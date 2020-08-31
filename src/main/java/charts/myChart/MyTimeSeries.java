@@ -3,6 +3,7 @@ package charts.myChart;
 import lists.MyChartList;
 import myJson.MyJson;
 import options.JsonStrings;
+import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesDataItem;
@@ -12,7 +13,9 @@ import java.awt.*;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 interface ITimeSeries {
     double getData() throws UnknownHostException;
@@ -28,7 +31,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     Second lastSeconde;
     private Color color;
     private float stokeSize;
-    private MyChartList myChartList;
 
     // Constructor
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
@@ -49,6 +51,18 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         }
     }
 
+    public List<Double>getValues() {
+
+        ArrayList<Double> values = new ArrayList<>();
+
+        for ( Object o: getItems()) {
+            TimeSeriesDataItem item = ( TimeSeriesDataItem ) o;
+            values.add( ( Double ) item.getValue() );
+        }
+        return values;
+    }
+
+
     public MyJson getLastJson() throws ParseException {
         TimeSeriesDataItem item = getLastItem();
         MyJson json = new MyJson();
@@ -59,7 +73,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return json;
     }
 
-//    public JSONArray getLastItemAsArray() throws ParseException {
+    @Override
+    public void add( RegularTimePeriod period, double value ) {
+        super.add( period, value );
+
+    }
+
+    //    public JSONArray getLastItemAsArray() throws ParseException {
 //        MyJson json = getLastJson();
 //
 //        JSONArray jsonArray = new JSONArray();
@@ -112,14 +132,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void setStokeSize(float stokeSize) {
         this.stokeSize = stokeSize;
-    }
-
-    public MyChartList getMyChartList() {
-        return myChartList;
-    }
-
-    public void setMyChartList(MyChartList myChartList) {
-        this.myChartList = myChartList;
     }
 
     public String getName() {

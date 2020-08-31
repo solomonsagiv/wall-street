@@ -10,9 +10,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
@@ -90,21 +88,21 @@ public class MyChartContainer extends JFrame {
                 }
             } );
 
-//            try {
-//                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
-//                mask.setAccessible( true );
-//                mask.set( chartPanel, 0 );
-//            } catch ( NoSuchFieldException e ) {
-//                e.printStackTrace( );
-//            } catch ( IllegalAccessException e ) {
-//                e.printStackTrace( );
-//            }
-//            chartPanel.addMouseWheelListener(new MouseWheelListener() {
-//                @Override
-//                public void mouseWheelMoved(MouseWheelEvent e) {
-//                    myChart.getUpdater().updateChartRange();
-//                }
-//            });
+            try {
+                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
+                mask.setAccessible( true );
+                mask.set( chartPanel, 0 );
+            } catch ( NoSuchFieldException e ) {
+                e.printStackTrace( );
+            } catch ( IllegalAccessException e ) {
+                e.printStackTrace( );
+            }
+            chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
+                @Override
+                public void mouseWheelMoved( MouseWheelEvent e ) {
+                    myChart.getUpdater( ).updateChartRange( );
+                }
+            } );
             add( chartPanel );
         }
     }

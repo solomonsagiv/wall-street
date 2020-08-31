@@ -10,12 +10,27 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Test {
-    
-    public static void main(String[] args) throws IOException {
 
-//        Apple apple = Apple.getInstance();
-//        System.out.println(apple.getAsJson().toString(4) );
+    public static void main(String[] args) throws IOException, InterruptedException {
 
+        Downloader downloader = Downloader.getInstance();
+        downloader.start();
+
+        Thread.sleep( 3000 );
+
+        downloader.close();
+
+        System.out.println( "Is connected" );
+        System.out.println(downloader.client.isConnected() );
+
+        Thread.sleep( 3000 );
+
+        downloader = Downloader.getInstance();
+        downloader.start();
+
+    }
+
+    public void Loto() {
         for ( int i = 0; i < 5; i++ ) {
             System.out.println( new Random(  ).nextInt( 49 ) + 1 );
         }

@@ -187,7 +187,8 @@ public class MyChart {
             if ( props.getBool( ChartPropsEnum.IS_LOAD_DB ) ) {
                 for ( MyTimeSeries serie : series ) {
                     try {
-                        dots.addAll( serie.getMyChartList( ).getValues( ) );
+                        dots.addAll( serie.getValues( ) );
+                        System.out.println( dots.size() );
                     } catch ( NullPointerException e ) {
 
                     }

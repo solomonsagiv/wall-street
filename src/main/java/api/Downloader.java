@@ -138,6 +138,8 @@ public class Downloader extends Thread implements EWrapper {
             return;
         }
 
+        System.out.println( EWrapperMsgGenerator.error(id, errorCode, errorMsg) );
+
         logger.getLogger().info(EWrapperMsgGenerator.error(id, errorCode, errorMsg));
 
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
@@ -514,7 +516,7 @@ public class Downloader extends Thread implements EWrapper {
 
             if (count < MaxRequest) {
                 client.reqMktData(tickerID, contract,
-                        "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null);
+                        "", false, false, null);
                 count++;
             } else {
                 Thread.sleep(1100);

@@ -6,7 +6,6 @@ import charts.myCharts.stockCharts.MonthCounter_IndexCounter_Index_Chart;
 import charts.myCharts.stockCharts.Month_Index_Live_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
-import options.OptionsWindow;
 import options.fullOptions.FullOptionsWindow;
 import options.fullOptions.PositionsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -77,16 +76,6 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem optionsCounter = new JMenuItem( "Options counter table" );
-        optionsCounter.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                OptionsWindow window = new OptionsWindow( client, client.getExps( ).getMainExp( ).getOptions( ) );
-                window.frame.setVisible( true );
-                window.startWindowUpdater( );
-            }
-        } );
-
         JMenuItem fullOptionsTable = new JMenuItem( "Full options table" );
         fullOptionsTable.addActionListener( new ActionListener( ) {
             @Override
@@ -112,7 +101,6 @@ public class PopupsMenuFactory {
         menu.add( settingWindow );
         menu.add( export );
         menu.add( charts );
-        menu.add( optionsCounter );
         menu.add( fullOptionsTable );
         menu.add( optionsPosition );
 
@@ -248,16 +236,6 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem optionsCounter = new JMenuItem( "Options counter table" );
-        optionsCounter.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                OptionsWindow window = new OptionsWindow( client, client.getExps( ).getMainExp( ).getOptions( ) );
-                window.frame.setVisible( true );
-                window.startWindowUpdater( );
-            }
-        } );
-
         JMenuItem fullOptionsTable = new JMenuItem( "Full options table" );
         fullOptionsTable.addActionListener( new ActionListener( ) {
             @Override
@@ -290,7 +268,6 @@ public class PopupsMenuFactory {
         menu.add( baskets );
         menu.add( export );
         menu.add( charts );
-        menu.add( optionsCounter );
         menu.add( fullOptionsTable );
         menu.add( optionsPosition );
 
