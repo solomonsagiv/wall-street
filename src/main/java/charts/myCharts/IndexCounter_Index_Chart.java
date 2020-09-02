@@ -30,8 +30,8 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.IS_LOAD_DB, true);
         props.setProp(ChartPropsEnum.IS_LIVE, false);
         props.setProp(ChartPropsEnum.SLEEP, 1000);
-        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, (double) INFINITE);
-        props.setProp(ChartPropsEnum.SECONDS_ON_MESS, (double)INFINITE);
+        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true);
 
         // --------- Chart 1 ---------- //

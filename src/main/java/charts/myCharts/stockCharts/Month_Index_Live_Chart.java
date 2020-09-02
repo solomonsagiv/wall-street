@@ -28,7 +28,7 @@ public class Month_Index_Live_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.IS_LOAD_DB, false);
         props.setProp(ChartPropsEnum.IS_LIVE, true);
         props.setProp(ChartPropsEnum.SLEEP, 200);
-        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, (double) INFINITE);
+        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
 
         // ----- Chart 1 ----- //
@@ -84,7 +84,6 @@ public class Month_Index_Live_Chart extends MyChartCreator {
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
-
 
     }
 

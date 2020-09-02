@@ -66,7 +66,7 @@ public class MyChartContainer extends JFrame {
             MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) );
             myChart.chartPanel = chartPanel;
 
-            chartPanel.setMouseZoomable( false );
+            chartPanel.setMouseZoomable( true );
             chartPanel.setMouseWheelEnabled( true );
             chartPanel.setDomainZoomable( true );
             chartPanel.setRangeZoomable( false );

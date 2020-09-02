@@ -1,9 +1,7 @@
 package charts.myChart;
 
-import lists.MyChartList;
 import myJson.MyJson;
 import options.JsonStrings;
-import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesDataItem;
@@ -14,7 +12,6 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 interface ITimeSeries {
@@ -32,76 +29,59 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private Color color;
     private float stokeSize;
 
+    ArrayList<Double> values;
+
     // Constructor
-    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
-        super(name);
+    public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
+        super( name );
         this.client = client;
+        values = new ArrayList<>();
     }
 
     public TimeSeriesDataItem getLastItem() {
-        return getDataItem(getItemCount() - 1);
+        return getDataItem( getItemCount( ) - 1 );
     }
 
-    public void add(LocalDateTime time) {
+    public void add( LocalDateTime time ) {
         try {
-            Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
-            addOrUpdate(second, getData());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+            Second second = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonthValue( ), time.getYear( ) );
+            double data = getData( );
+            values.add( data );
+            addOrUpdate( second, data );
+        } catch ( UnknownHostException e ) {
+            e.printStackTrace( );
         }
     }
 
-    public List<Double>getValues() {
-
-        ArrayList<Double> values = new ArrayList<>();
-
-        for ( Object o: getItems()) {
-            TimeSeriesDataItem item = ( TimeSeriesDataItem ) o;
-            values.add( ( Double ) item.getValue() );
-        }
+    public ArrayList< Double > getValues() {
         return values;
     }
 
-
     public MyJson getLastJson() throws ParseException {
-        TimeSeriesDataItem item = getLastItem();
-        MyJson json = new MyJson();
-        LocalDateTime localDateTime = LocalDateTime.now();
+        TimeSeriesDataItem item = getLastItem( );
+        MyJson json = new MyJson( );
+        LocalDateTime localDateTime = LocalDateTime.now( );
 
-        json.put(JsonStrings.x, localDateTime);
-        json.put(JsonStrings.y, item.getValue());
+        json.put( JsonStrings.x, localDateTime );
+        json.put( JsonStrings.y, item.getValue( ) );
         return json;
     }
 
-    @Override
-    public void add( RegularTimePeriod period, double value ) {
-        super.add( period, value );
-
-    }
-
-    //    public JSONArray getLastItemAsArray() throws ParseException {
-//        MyJson json = getLastJson();
-//
-//        JSONArray jsonArray = new JSONArray();
-//        jsonArray.put(json.getString(JsonStrings.x));
-//        jsonArray.put(json.getDouble(JsonStrings.y));
-//        return jsonArray;
-//    }
-
-    public void add(MyJson json) {
-        Date date;
+    public void add( MyJson json ) {
         try {
-            if (!json.getString(JsonStrings.x).isEmpty()) {
+            if ( !json.getString( JsonStrings.x ).isEmpty( ) ) {
 
-                LocalDateTime dateTime = LocalDateTime.parse(json.getString(JsonStrings.x));
+                LocalDateTime dateTime = LocalDateTime.parse( json.getString( JsonStrings.x ) );
 
-                lastSeconde = new Second(dateTime.getSecond(), dateTime.getMinute(), dateTime.getHour(), dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear());
+                lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth( ), dateTime.getMonthValue( ), dateTime.getYear( ) );
 
-                addOrUpdate(lastSeconde, json.getDouble(JsonStrings.y));
+                double data = json.getDouble( JsonStrings.y );
+                values.add( data );
+                addOrUpdate( lastSeconde, data );
             }
-        } catch (Exception e) {
-            System.out.println(client.getName() + " " + json);
-            e.printStackTrace();
+        } catch ( Exception e ) {
+            System.out.println( client.getName( ) + " " + json );
+            e.printStackTrace( );
         }
     }
 
@@ -109,20 +89,26 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         double data = 0;
         // live data
         try {
-            data = getData();
-            addOrUpdate(getLastSeconde(), data);
-        } catch (Exception e) {
-            e.printStackTrace();
+            data = getData( );
+            values.add( data );
+            addOrUpdate( getLastSeconde( ), data );
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
-        lastSeconde = (Second) lastSeconde.next();
+        lastSeconde = ( Second ) lastSeconde.next( );
         return data;
+    }
+
+    public void remove( int index ) {
+        delete( index, index );
+        values.remove( index );
     }
 
     public Color getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
+    public void setColor( Color color ) {
         this.color = color;
     }
 
@@ -130,7 +116,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return stokeSize;
     }
 
-    public void setStokeSize(float stokeSize) {
+    public void setStokeSize( float stokeSize ) {
         this.stokeSize = stokeSize;
     }
 
@@ -138,13 +124,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
     public Second getLastSeconde() {
-        if (lastSeconde == null) {
-            lastSeconde = new Second();
+        if ( lastSeconde == null ) {
+            lastSeconde = new Second( );
         }
         return lastSeconde;
     }

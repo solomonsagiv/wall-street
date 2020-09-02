@@ -105,6 +105,35 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDdeCells( ddeCells );
     }
 
+    @Override
+    public void setIndexBid( double indexBid ) {
+        super.setIndexBid( indexBid );
+        // Margin counter
+        double bidMargin = index - indexBid;
+        double askMargin = getIndexAsk() - index;
+        double marginOfMarings = askMargin - bidMargin;
+        if ( marginOfMarings > 0 ) {
+            indBidMarginCounter += marginOfMarings;
+        }
+    }
+
+    @Override
+    public void setIndexAsk( double indexAsk ) {
+        super.setIndexAsk( indexAsk );
+        // Margin counter
+        double bidMargin = index - getIndexBid();
+        double askMargin = indexAsk - index;
+        double marginOfMarings = bidMargin - askMargin;
+
+        if ( marginOfMarings > 0 && marginOfMarings < 5 ) {
+            indAskMarginCounter += marginOfMarings;
+        }
+    }
+
+    @Override
+    public void setIndex( double index ) {
+        super.setIndex( index );
+    }
 
     @Override
     public ApiEnum getApi() {

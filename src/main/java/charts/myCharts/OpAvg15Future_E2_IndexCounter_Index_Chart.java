@@ -25,7 +25,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
-        props.setProp(ChartPropsEnum.MARGIN, 0.0001);
+        props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
         props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, true);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, true);
@@ -56,7 +56,6 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
         // Chart
         MyChart opAvgFutureChart = new MyChart(client, series, opAvgFutureProps);
-
 
         MyProps newProps = (MyProps) props.clone();
         newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);

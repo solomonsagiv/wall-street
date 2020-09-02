@@ -2,6 +2,7 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import locals.L;
 import roll.RollEnum;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
@@ -53,10 +54,12 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.E1_E2).getAvg()));
-            conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
+            conversation.poke(rollCell, L.str(spx.getRollHandler().getRoll(RollEnum.E1_E2).getAvg()));
+            conversation.poke(indexBidAskCounterCell, L.str(spx.getIndexBidAskCounter()));
+            conversation.poke( "R6C1", L.str( ( int ) spx.getIndBidMarginCounter() ) );
+            conversation.poke( "R6C5", L.str( ( int ) spx.getIndAskMarginCounter() ) );
             try {
-                conversation.poke(opAvgCell, str(spx.getExps().getMainExp().getOpAvgFut()));
+                conversation.poke(opAvgCell, L.str(spx.getExps().getMainExp().getOpAvgFut()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -64,10 +67,6 @@ public class DDEWriter extends MyThread implements Runnable {
             System.out.println("DDE request error on updateData()");
             e.printStackTrace();
         }
-    }
-
-    public String str(Object o) {
-        return String.valueOf(o);
     }
 
     // Close

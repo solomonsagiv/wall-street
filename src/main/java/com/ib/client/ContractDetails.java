@@ -6,6 +6,7 @@ package com.ib.client;
 import java.util.ArrayList;
 
 public class ContractDetails {
+
     public String m_contractMonth;
     private Contract m_contract;
     private String m_marketName;

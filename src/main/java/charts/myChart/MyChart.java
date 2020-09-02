@@ -125,7 +125,7 @@ public class MyChart {
     class ChartUpdater extends MyThread implements Runnable {
 
         // Variables
-        ArrayList< Double > dots = new ArrayList<>( );
+//        ArrayList< Double > dots = new ArrayList<>( );
         MyTimeSeries[] series;
         NumberAxis range;
         double start, end;
@@ -147,13 +147,9 @@ public class MyChart {
             // While loop
             while ( isRun( ) ) {
                 try {
-
-                    // Sleep
-                    Thread.sleep( 1000 );
-
                     if ( client.isStarted( ) ) {
                         if ( !load ) {
-                            loadChartData( );
+//                            loadChartData( );
                             load = true;
                         }
 
@@ -167,6 +163,9 @@ public class MyChart {
                         } else {
                             append( );
                         }
+                    } else {
+                        // Sleep
+                        Thread.sleep( 1000 );
                     }
                 } catch ( InterruptedException e ) {
                     break;
@@ -183,43 +182,32 @@ public class MyChart {
             setTickerData( );
         }
 
-        private void loadChartData() {
-            if ( props.getBool( ChartPropsEnum.IS_LOAD_DB ) ) {
-                for ( MyTimeSeries serie : series ) {
-                    try {
-                        dots.addAll( serie.getValues( ) );
-                        System.out.println( dots.size() );
-                    } catch ( NullPointerException e ) {
-
-                    }
-                }
-            }
-        }
-
         // Append data to series
         private void appendDataToSeries() {
-            try {
-                for ( MyTimeSeries serie : series ) {
+            if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
+                try {
+                    for ( MyTimeSeries serie : series ) {
 
-                    // If bigger then target Seconds
-                    if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
-                        serie.delete( 0, 0 );
-                        dots.remove( 0 );
+                        // If bigger then target Seconds
+                        if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
+                            serie.remove( 0 );
+                        }
+
+                        // Append data
+                        serie.add( );
                     }
-                    // Append data
-                    dots.add( serie.add( ) );
+                } catch ( IndexOutOfBoundsException e ) {
+                    e.printStackTrace( );
                 }
-            } catch ( IndexOutOfBoundsException e ) {
-                e.printStackTrace( );
             }
         }
 
         public void setTickerData() {
             if ( props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) ) {
                 try {
-                    double min = Collections.min( dots );
-                    double max = Collections.max( dots );
-                    double last = dots.get( dots.size( ) - 1 );
+                    double min = Collections.min( series[ 0 ].getValues( ) );
+                    double max = Collections.max( series[ 0 ].getValues( ) );
+                    double last = ( double ) series[ 0 ].getLastItem( ).getValue( );
 
                     chartPanel.getHighLbl( ).colorForge( max, L.format10( ) );
                     chartPanel.getLowLbl( ).colorForge( min, L.format10( ) );
@@ -232,7 +220,7 @@ public class MyChart {
 
         public void updateChartRange() {
             try {
-                if ( dots.size( ) > 0 ) {
+                if ( series[ 0 ].getItemCount( ) > 0 ) {
 
                     // X
                     DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange( );
@@ -272,7 +260,7 @@ public class MyChart {
 
         private void updateChartRange( double min, double max ) {
             try {
-                if ( dots.size( ) > 0 ) {
+                if ( series[ 0 ].getItemCount( ) > 0 ) {
                     range = ( NumberAxis ) plot.getRangeAxis( );
                     range.setRange( min, max );
                 }
@@ -294,22 +282,25 @@ public class MyChart {
 
         private void chartRangeGettingBigFilter() {
 
-            if ( dots.size( ) > 0 ) {
+            if ( series[ 0 ].getItemCount( ) > 0 ) {
+
+                ArrayList< Double > dots = new ArrayList<>( );
+                for ( MyTimeSeries serie : series ) {
+                    dots.addAll( serie.getValues( ) );
+                }
+
                 double min = Collections.min( dots ) - props.getDouble( ChartPropsEnum.MARGIN );
                 double max = Collections.max( dots ) + props.getDouble( ChartPropsEnum.MARGIN );
 
                 if ( dots.size( ) > series.length * props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) ) {
 
                     // If need to rearrange
-                    if ( max - min > props.getDouble( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS ) ) {
+                    if ( max - min > props.getInt( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS ) ) {
 
                         // For each serie
                         for ( MyTimeSeries serie : series ) {
-
-                            serie.delete( 0, serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1 );
-
-                            for ( int i = 0; i < dots.size( ) - ( props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) * series.length ); i++ ) {
-                                dots.remove( i );
+                            for ( int i = 0; i < serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1; i++ ) {
+                                serie.remove( i );
                             }
                         }
                     }
