@@ -12,7 +12,6 @@ import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 interface ITimeSeries {
     double getData() throws UnknownHostException;
@@ -30,7 +29,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private float stokeSize;
 
     ArrayList<Double> values;
-
+    
     // Constructor
     public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
         super( name );
