@@ -145,6 +145,19 @@ public class PopupsMenuFactory {
             }
         } );
 
+        JMenuItem marginChart = new JMenuItem( "Margin" );
+        marginChart.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                BidAskMarginChart chart = new BidAskMarginChart( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
         JMenuItem fourLineChart = new JMenuItem( "4 lines" );
         fourLineChart.addActionListener( new ActionListener( ) {
             @Override
@@ -258,6 +271,7 @@ public class PopupsMenuFactory {
         charts.add( opAvg15 );
         charts.add( opAvg );
         charts.add( e2_indexCounter_index_item2 );
+        charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );
         charts.add( fiveLinesChart );
         charts.add( quarter_index_item );

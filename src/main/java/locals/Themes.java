@@ -20,6 +20,7 @@ public class Themes {
     public static Color GREY_LIGHT = new Color(234, 229, 234);
     public static Color GREY = new Color(203, 225, 222);
     public static Color PURPLE = new Color(130, 3, 194);
+    public static Color DARK_YELLOW = new Color(40, 110, 24 );
 
     // Races
     public static Color OPEN_RACE = new Color(148, 201, 246);

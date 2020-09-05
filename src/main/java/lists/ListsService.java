@@ -52,6 +52,7 @@ public class ListsService extends MyBaseService {
         client.getIndexAskSeries( ).add( time );
         client.getIndexBidAskCounterSeries( ).add( time );
         client.getIndexSeries( ).add( time );
+        client.getIndBIdAskMarginSeries().add( time );
 
         // Options lists
         for ( Exp exp : client.getExps( ).getExpList( ) ) {

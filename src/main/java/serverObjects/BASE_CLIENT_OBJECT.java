@@ -70,6 +70,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexBidSeries;
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
+    MyTimeSeries indBIdAskMarginSeries;
     private double startStrike;
     private double endStrike;
     private boolean loadFromDb = false;
@@ -183,6 +184,16 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 return client.getIndexBidAskCounter( );
             }
         };
+        indBIdAskMarginSeries = new MyTimeSeries( "Margin counter", this ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return client.getBidAskMarginCounter();
+            }
+        };
+    }
+
+    public double getBidAskMarginCounter() {
+        return indBidMarginCounter - indAskMarginCounter;
     }
 
     public void fullExport() {
@@ -209,7 +220,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
-
 
         String text = getName( ).toUpperCase( ) + "\n" +
                 "Export line: " + sumLine + "\n" +
@@ -692,6 +702,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public MyTimeSeries getIndexBidSeries() {
         return indexBidSeries;
+    }
+
+    public MyTimeSeries getIndBIdAskMarginSeries() {
+        return indBIdAskMarginSeries;
     }
 
     public LogicService getLogicService() {
