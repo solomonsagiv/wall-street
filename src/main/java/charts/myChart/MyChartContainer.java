@@ -88,15 +88,15 @@ public class MyChartContainer extends JFrame {
                 }
             } );
 
-            try {
-                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
-                mask.setAccessible( true );
-                mask.set( chartPanel, 0 );
-            } catch ( NoSuchFieldException e ) {
-                e.printStackTrace( );
-            } catch ( IllegalAccessException e ) {
-                e.printStackTrace( );
-            }
+//            try {
+//                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
+//                mask.setAccessible( true );
+//                mask.set( chartPanel, 0 );
+//            } catch ( NoSuchFieldException e ) {
+//                e.printStackTrace( );
+//            } catch ( IllegalAccessException e ) {
+//                e.printStackTrace( );
+//            }
             chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
                 @Override
                 public void mouseWheelMoved( MouseWheelEvent e ) {
