@@ -33,7 +33,7 @@ public class MySql {
             }
         }
     }
-
+    
     // Update
     public static void update(String query) {
         Connection conn = null;

@@ -13,6 +13,7 @@ public class BasketWindow extends MyGuiComps.MyFrame {
 
     TextUpdater textUpdater;
     MyGuiComps.MyPanel basketsStatusPanel;
+
     // Variables
     MyGuiComps.MyLabel basketsLbl;
     MyGuiComps.MyTextField basketUpField;
@@ -20,6 +21,7 @@ public class BasketWindow extends MyGuiComps.MyFrame {
     MyGuiComps.MyTextField sumBasketsField;
     MyGuiComps.MyLabel stocksChangedLbl;
     MyGuiComps.MyTextField stocksChangedField;
+
     // Constructor
     public BasketWindow(String title, INDEX_CLIENT_OBJECT client) throws HeadlessException {
         super(title, client);
