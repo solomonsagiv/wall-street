@@ -151,7 +151,9 @@ public abstract class Exp implements IJson {
     }
 
     public void setCalcFut(double calcFut) {
-        this.calcFut = calcFut;
+        if (calcFut > 1) {
+            this.calcFut = calcFut;
+        }
     }
 
     public double getCalcFutBid() {

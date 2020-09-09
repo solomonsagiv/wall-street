@@ -281,6 +281,7 @@ public class StockPanel extends JPanel implements IMyPanel {
             highPresentField.colorBack(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
             lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
             indexPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
+
             // OP
             opAvgField.colorForge(mainExp.getOptions().getOpAvg(), L.format100());
             opField.colorBack(mainExp.getOptions().getOp(), L.format100());

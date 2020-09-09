@@ -103,11 +103,13 @@ public class ConnectionPool implements IConnectionPool {
 
     @Override
     public boolean releaseConnection(Connection connection) {
-
-        if ( !connections.contains( connection ) ) {
-            connections.add(connection);
+        try {
+            if (connection != null && !connection.isClosed() && !connections.contains(connection)) {
+                connections.add(connection);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
         return usedConnections.remove(connection);
     }
 

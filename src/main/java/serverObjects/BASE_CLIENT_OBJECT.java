@@ -452,7 +452,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setIndex( double index ) {
-        this.index = index;
+        if (index > 1) {
+            this.index = index;
+        }
     }
 
     public double getIndexBid() {
@@ -460,21 +462,21 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setIndexBid( double indexBid ) {
+        if (indexBid > 1) {
+            if (indexBid > this.indexBid) {
+                indexBidAskCounter2++;
+            }
 
-        if ( indexBid > this.indexBid ) {
-            indexBidAskCounter2++;
+            // If increment state
+            if (indexBid > this.indexBid && indexAskForCheck == this.indexAsk) {
+                indexBidAskCounter++;
+            }
+            this.indexBid = indexBid;
+
+            // Ask for bid change state
+            indexBidForCheck = indexBid;
+            indexAskForCheck = this.indexAsk;
         }
-
-        // If increment state
-        if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
-            indexBidAskCounter++;
-        }
-        this.indexBid = indexBid;
-
-        // Ask for bid change state
-        indexBidForCheck = indexBid;
-        indexAskForCheck = this.indexAsk;
-
     }
 
 
@@ -491,21 +493,21 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setIndexAsk( double indexAsk ) {
+        if (indexAsk > 1) {
+            if (indexAsk < this.indexAsk) {
+                indexBidAskCounter2--;
+            }
 
-        if ( indexAsk < this.indexAsk ) {
-            indexBidAskCounter2--;
+            // If increment state
+            if (indexAsk < this.indexAsk && indexBidForCheck == indexBid) {
+                indexBidAskCounter--;
+            }
+            this.indexAsk = indexAsk;
+
+            // Handle state
+            indexAskForCheck = indexAsk;
+            indexBidForCheck = indexBid;
         }
-
-        // If increment state
-        if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
-            indexBidAskCounter--;
-        }
-        this.indexAsk = indexAsk;
-
-        // Handle state
-        indexAskForCheck = indexAsk;
-        indexBidForCheck = indexBid;
-
     }
 
     public double getOpen() {
@@ -513,7 +515,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setOpen( double open ) {
-        this.open = open;
+        if (open > 1) {
+            this.open = open;
+        }
     }
 
     public double getHigh() {
@@ -521,7 +525,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setHigh( double high ) {
-        this.high = high;
+        if (high > 1) {
+            this.high = high;
+        }
     }
 
     public double getLow() {
@@ -529,7 +535,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setLow( double low ) {
-        this.low = low;
+        if (low > 1) {
+            this.low = low;
+        }
     }
 
     public double getBase() {
@@ -537,7 +545,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setBase( double base ) {
-        this.base = base;
+        if (base > 1) {
+            this.base = base;
+        }
     }
 
     public int getIndexSumRaces() {

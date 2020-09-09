@@ -1,32 +1,18 @@
 package api;
 
-import serverObjects.stockObjects.Apple;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Test {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        Downloader downloader = Downloader.getInstance();
-        downloader.start();
-
-        Thread.sleep( 3000 );
-
-        downloader.close();
-
-        System.out.println( "Is connected" );
-        System.out.println(downloader.client.isConnected() );
-
-        Thread.sleep( 3000 );
-
-        downloader = Downloader.getInstance();
-        downloader.start();
+        double a = 51.678;
+        int b = 3;
+        System.out.println( a / b);
 
     }
 
