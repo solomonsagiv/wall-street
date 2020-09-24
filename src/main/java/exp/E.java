@@ -1,5 +1,7 @@
 package exp;
 
+import charts.myChart.MyTimeSeries;
+import delta.DeltaCalc;
 import options.OptionsDDeCells;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -14,6 +16,8 @@ public class E extends Exp {
     protected double futAskForDelta = 0;
     protected double preFutBidForDelta = 0;
     private double preFutAskForDelta = 0;
+
+    private MyTimeSeries deltaSerie;
 
     public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
         super( client, expEnum, contractsEnum, iOptionsCalcs );
@@ -36,10 +40,8 @@ public class E extends Exp {
     }
 
     public void setVolumeFutForDelta( int volumeFutForDelta ) {
-
-//        int quantity = volumeFutForDelta - this.volumeFutForDelta;
-//        DeltaCalc.calc(quantity, getFutForDelta(), getPreFutBidForDelta(), getPreFutAskForDelta());
-
+        int quantity = volumeFutForDelta - this.volumeFutForDelta;
+        this.delta += DeltaCalc.calc(quantity, getFutForDelta(), getPreFutBidForDelta(), getPreFutAskForDelta());
         this.volumeFutForDelta = volumeFutForDelta;
     }
 

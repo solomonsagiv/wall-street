@@ -12,14 +12,14 @@ public class ConnectionPool implements IConnectionPool {
 
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = 20;
+    private static int INITIAL_POOL_SIZE = 30;
     private String url;
     private String user;
     private String password;
-    private List<Connection> connections;
-    private List<Connection> usedConnections = new ArrayList<>();
+    private List< Connection > connections;
+    private List< Connection > usedConnections = new ArrayList<>( );
 
-    private ConnectionPool(String url, String user, String password, List<Connection> connections) {
+    private ConnectionPool( String url, String user, String password, List< Connection > connections ) {
         this.url = url;
         this.user = user;
         this.password = password;
@@ -27,90 +27,90 @@ public class ConnectionPool implements IConnectionPool {
     }
 
     public static ConnectionPool getConnectionsPoolInstance() {
-        if (connectionPool == null) {
+        if ( connectionPool == null ) {
             try {
                 String url = "jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/";
                 String user = "sagivMasterUser";
                 String password = "Solomonsagivawsmaster12";
 
-                connectionPool = ConnectionPool.create(url, user, password);
-            } catch (Exception e) {
+                connectionPool = ConnectionPool.create( url, user, password );
+            } catch ( Exception e ) {
 //                Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
             }
         }
         return connectionPool;
     }
 
-    public static ConnectionPool create(String url, String user, String password) throws SQLException {
-        List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
+    public static ConnectionPool create( String url, String user, String password ) throws SQLException {
+        List< Connection > pool = new ArrayList<>( );
         try {
-            for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
-                new Thread(() -> {
+            for ( int i = 0; i < INITIAL_POOL_SIZE; i++ ) {
+                new Thread( () -> {
                     try {
-                        pool.add(createConnection(url, user, password));
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                        pool.add( createConnection( url, user, password ) );
+                    } catch ( SQLException throwables ) {
+                        throwables.printStackTrace( );
                     }
-                }).start();
+                } ).start( );
             }
         } finally {
-            return new ConnectionPool(url, user, password, pool);
+            return new ConnectionPool( url, user, password, pool );
         }
     }
 
     // standard constructors
     private static Connection createConnection(
-            String url, String user, String password)
+            String url, String user, String password )
             throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        return DriverManager.getConnection( url, user, password );
     }
 
     public int getConnectionsCount() {
-        return connections.size();
+        return connections.size( );
     }
 
     public int getUseConnectionsCount() {
-        return usedConnections.size();
+        return usedConnections.size( );
     }
 
     public void addConnection() throws SQLException {
-        connections.add(createConnection(url, user, password));
+        connections.add( createConnection( url, user, password ) );
     }
 
     @Override
     public Connection getConnection() throws SQLException {
-        if (connections.isEmpty()) {
-            if (usedConnections.size() < MAX_POOL_SIZE) {
-                connections.add(createConnection(url, user, password));
+        if ( connections.isEmpty( ) ) {
+            if ( usedConnections.size( ) < MAX_POOL_SIZE ) {
+                connections.add( createConnection( url, user, password ) );
             } else {
                 throw new RuntimeException(
-                        "Maximum pool size reached, no available connections!");
+                        "Maximum pool size reached, no available connections!" );
             }
         }
 
-        Connection connection = connections.remove(connections.size() - 1);
-        usedConnections.add(connection);
+        Connection connection = connections.remove( connections.size( ) - 1 );
+        usedConnections.add( connection );
         return connection;
     }
 
     public void shutdown() throws SQLException {
-        usedConnections.forEach(this::releaseConnection);
-        for (Connection c : connections) {
-            c.close();
+        usedConnections.forEach( this::releaseConnection );
+        for ( Connection c : connections ) {
+            c.close( );
         }
-        connections.clear();
+        connections.clear( );
     }
 
     @Override
-    public boolean releaseConnection(Connection connection) {
+    public boolean releaseConnection( Connection connection ) {
         try {
-            if (connection != null && !connection.isClosed() && !connections.contains(connection)) {
-                connections.add(connection);
+            if ( connection != null && !connection.isClosed( ) && !connections.contains( connection ) ) {
+                connections.add( connection );
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch ( SQLException throwables ) {
+            throwables.printStackTrace( );
         }
-        return usedConnections.remove(connection);
+        return usedConnections.remove( connection );
     }
 
     @Override
@@ -129,6 +129,6 @@ public class ConnectionPool implements IConnectionPool {
     }
 
     public int getSize() {
-        return connections.size() + usedConnections.size();
+        return connections.size( ) + usedConnections.size( );
     }
 }

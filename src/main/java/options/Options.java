@@ -790,7 +790,7 @@ public class Options implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson();
-        json.put(JsonStrings.con, contract);
+        json.put(JsonStrings.con, getContract());
         json.put(JsonStrings.conBid, contractBid);
         json.put(JsonStrings.conAsk, contractAsk);
         json.put(JsonStrings.conBidAskCounter, contractBidAskCounter);

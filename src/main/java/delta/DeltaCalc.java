@@ -8,60 +8,56 @@ import java.util.Scanner;
 
 public class DeltaCalc {
 
-    public static void main(String[] args) {
-        Spx client = Spx.getInstance();
+    public static void main( String[] args ) {
+        Spx client = Spx.getInstance( );
 
-        E e = (E) client.getExps().getExp(ExpStrings.e1);
+        E e = ( E ) client.getExps( ).getExp( ExpStrings.e1 );
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner( System.in );
 
         int q = 1;
 
-        while (true) {
+        while ( true ) {
 
-            System.out.println();
-            System.out.println("Enter last");
+            System.out.println( );
+            System.out.println( "Enter last" );
 
-            double last = scanner.nextDouble();
+            double last = scanner.nextDouble( );
 
-            e.setFutForDelta(last);
-            e.setFutBidForDelta(last - 0.5);
-            e.setFutAskForDelta(last + 0.5);
+            e.setFutForDelta( last );
+            e.setFutBidForDelta( last - 0.5 );
+            e.setFutAskForDelta( last + 0.5 );
 
-            e.setVolumeFutForDelta(q);
+            e.setVolumeFutForDelta( q );
             q += 1;
         }
 
     }
 
-    private double moneyPerPips = 0;
+    public static double calc( int quantity, double last, double preBid, double preAsk ) {
 
-    public DeltaCalc( double moneyPerPips ) {
-        this.moneyPerPips = moneyPerPips;
-    }
-
-    public double calc( int quantity, double last, double preBid, double preAsk) {
+        double moneyPerPips = 50;
 
         double delta = 0;
 
-        System.out.println("q : " + quantity);
-        System.out.println("bid : " + preBid);
-        System.out.println("last : " + last);
-        System.out.println("ask : " + preAsk);
-
         // Buy ( Last == pre ask )
-        if (last >= preAsk) {
+        if ( last >= preAsk ) {
             delta = quantity;
         }
 
-        // Buy ( Last == pre bid )
-        if (last <= preBid) {
+        // Sell ( Last == pre bid )
+        if ( last <= preBid ) {
             delta = quantity * -1;
         }
 
         delta *= moneyPerPips;
 
-        System.out.println(delta + "$");
+        System.out.println( );
+        System.out.println( "Last: " + last );
+        System.out.println( "Q: " + quantity );
+        System.out.println( "Pre bid: " + preBid );
+        System.out.println( "Pre ask: " + preAsk );
+        System.out.println( delta + "$" );
 
         return delta;
     }

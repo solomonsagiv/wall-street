@@ -13,7 +13,7 @@ public class MyDoubleList extends ArrayList<Double> {
     }
 
     public double getAvg() {
-        if (sum <= 0) {
+        if (size() <= 0) {
             return 0;
         }
         return sum / size();

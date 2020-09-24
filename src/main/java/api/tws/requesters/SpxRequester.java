@@ -3,6 +3,7 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
+import basketFinder.MiniStock;
 import com.ib.client.TickAttr;
 import exp.E;
 import exp.ExpStrings;
@@ -71,13 +72,17 @@ public class SpxRequester implements ITwsRequester {
 
             // ---------- Future ---------- //
             if (tickerId == futureId && price > 0) {
+
                 // Bid
                 if (field == 1) {
                     e1.setCalcFutBid(price);
+                    e1.setFutBidForDelta(price);
                 }
+
                 // Ask
                 if (field == 2) {
                     e1.setCalcFutAsk(price);
+                    e1.setFutAskForDelta(price);
                 }
 
                 // Last
@@ -123,16 +128,13 @@ public class SpxRequester implements ITwsRequester {
 
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
-
         if (spx.isStarted()) {
-
             // Last
             if (tickerId == futureId && size > 0) {
                 if (field == 8) {
                     e1.setVolumeFutForDelta(size);
                 }
             }
-
         }
 
         // Spx miniStocks
