@@ -145,6 +145,19 @@ public class PopupsMenuFactory {
             }
         } );
 
+        JMenuItem delta = new JMenuItem( "Delta E1" );
+        delta.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                EDeltaChart chart = new EDeltaChart( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
         JMenuItem marginChart = new JMenuItem( "Margin" );
         marginChart.addActionListener( new ActionListener( ) {
             @Override
@@ -198,8 +211,8 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem e2_indexCounter_index_item2 = new JMenuItem( "E2 / Ind counuter/ Ind ( 2 )" );
-        e2_indexCounter_index_item2.addActionListener( new ActionListener( ) {
+        JMenuItem indexCounter_index_item = new JMenuItem( "E2 / Ind counuter/ Ind ( 2 )" );
+        indexCounter_index_item.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 IndexCounter_Index_Chart chart = new IndexCounter_Index_Chart( client );
@@ -270,7 +283,8 @@ public class PopupsMenuFactory {
         charts.add( fourLineChart );
         charts.add( opAvg15 );
         charts.add( opAvg );
-        charts.add( e2_indexCounter_index_item2 );
+        charts.add( indexCounter_index_item );
+        charts.add( delta );
         charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );
         charts.add( fiveLinesChart );

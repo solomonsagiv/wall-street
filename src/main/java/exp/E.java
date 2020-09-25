@@ -7,6 +7,8 @@ import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
+import java.net.UnknownHostException;
+
 public class E extends Exp {
 
     protected double delta = 0;
@@ -21,10 +23,12 @@ public class E extends Exp {
 
     public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
         super( client, expEnum, contractsEnum, iOptionsCalcs );
+        initSeries();
     }
 
     public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
         super( client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells );
+        initSeries();
     }
 
     public double getDelta() {
@@ -45,6 +49,15 @@ public class E extends Exp {
         this.volumeFutForDelta = volumeFutForDelta;
     }
 
+    public void initSeries() {
+        deltaSerie = new MyTimeSeries("Delta", client) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return delta;
+            }
+        };
+    }
+
     public double getFutBidForDelta() {
         return futBidForDelta;
     }
@@ -52,6 +65,10 @@ public class E extends Exp {
     public void setFutBidForDelta( double futBidForDelta ) {
         this.preFutBidForDelta = getFutBidForDelta( );
         this.futBidForDelta = futBidForDelta;
+    }
+
+    public MyTimeSeries getDeltaSerie() {
+        return deltaSerie;
     }
 
     public double getFutAskForDelta() {

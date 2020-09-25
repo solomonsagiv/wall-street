@@ -30,15 +30,15 @@ public class StockPanel extends JPanel implements IMyPanel {
     MyGuiComps.MyTextField lowPresentField;
     MyGuiComps.MyTextField highField;
     MyGuiComps.MyTextField highPresentField;
-    MyGuiComps.MyTextField futureField;
-    MyGuiComps.MyTextField opField;
-    MyGuiComps.MyTextField opAvgField;
+    MyGuiComps.MyTextField weekContractField;
+    MyGuiComps.MyTextField weekOpField;
+    MyGuiComps.MyTextField weekOpAvgField;
     // Exp
     MyGuiComps.MyPanel exp;
     // Quarter
-    MyGuiComps.MyTextField opAvgQuarterField;
-    MyGuiComps.MyTextField opQuarterField;
-    MyGuiComps.MyTextField contractQuarterField;
+    MyGuiComps.MyTextField monthOpAvgField;
+    MyGuiComps.MyTextField monthOpField;
+    MyGuiComps.MyTextField monthContractField;
     // Races and roll
     MyGuiComps.MyPanel racesAndRollPanel;
     MyGuiComps.MyLabel conRacesLbl;
@@ -144,33 +144,33 @@ public class StockPanel extends JPanel implements IMyPanel {
         highPresentField.setXY(230, 35);
         ticker.add(highPresentField);
 
-        futureField = new MyGuiComps.MyTextField();
-        futureField.setXY(5, 64);
-        ticker.add(futureField);
+        weekContractField = new MyGuiComps.MyTextField();
+        weekContractField.setXY(5, 64);
+        ticker.add(weekContractField);
 
-        opField = new MyGuiComps.MyTextField();
-        opField.setFont(opField.getFont().deriveFont(Font.BOLD));
-        opField.setXY(80, 64);
-        ticker.add(opField);
+        weekOpField = new MyGuiComps.MyTextField();
+        weekOpField.setFont(weekOpField.getFont().deriveFont(Font.BOLD));
+        weekOpField.setXY(80, 64);
+        ticker.add(weekOpField);
 
-        opAvgField = new MyGuiComps.MyTextField();
-        opAvgField.setXY(155, 64);
-        ticker.add(opAvgField);
+        weekOpAvgField = new MyGuiComps.MyTextField();
+        weekOpAvgField.setXY(155, 64);
+        ticker.add(weekOpAvgField);
 
         // Quarter
-        opAvgQuarterField = new MyGuiComps.MyTextField();
-        opAvgQuarterField.setXY(155, 93);
-        ticker.add(opAvgQuarterField);
+        monthOpAvgField = new MyGuiComps.MyTextField();
+        monthOpAvgField.setXY(155, 93);
+        ticker.add(monthOpAvgField);
 
-        contractQuarterField = new MyGuiComps.MyTextField();
-        contractQuarterField.setXY(5, 93);
-        ticker.add(contractQuarterField);
+        monthContractField = new MyGuiComps.MyTextField();
+        monthContractField.setXY(5, 93);
+        ticker.add(monthContractField);
 
-        opQuarterField = new MyGuiComps.MyTextField();
-        opQuarterField.setFont(opQuarterField.getFont().deriveFont(Font.BOLD));
-        opQuarterField.setXY(80, 93);
-        opQuarterField.setForeground(Color.WHITE);
-        ticker.add(opQuarterField);
+        monthOpField = new MyGuiComps.MyTextField();
+        monthOpField.setFont(monthOpField.getFont().deriveFont(Font.BOLD));
+        monthOpField.setXY(80, 93);
+        monthOpField.setForeground(Color.WHITE);
+        ticker.add(monthOpField);
         add(ticker);
 
         // ---------- Races and roll ---------- //
@@ -274,7 +274,6 @@ public class StockPanel extends JPanel implements IMyPanel {
             highField.setText(L.format100(client.getHigh()));
             lowField.setText(L.format100(client.getLow()));
             indexField.setText(L.format100(client.getIndex()));
-            futureField.setText(L.format100(mainExp.getOptions().getContract()));
 
             // Ticker present
             openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
@@ -282,14 +281,15 @@ public class StockPanel extends JPanel implements IMyPanel {
             lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
             indexPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
 
-            // OP
-            opAvgField.colorForge(mainExp.getOptions().getOpAvg(), L.format100());
-            opField.colorBack(mainExp.getOptions().getOp(), L.format100());
+            // Week
+            weekContractField.setText(L.format100(currExp.getOptions().getContract()));
+            weekOpAvgField.colorForge(currExp.getOptions().getOpAvg(), L.format100());
+            weekOpField.colorBack(currExp.getOptions().getOp(), L.format100());
 
-            // Quarter
-            opQuarterField.colorBack(nextExp.getOptions().getOp(), L.format100());
-            opAvgQuarterField.colorForge(nextExp.getOptions().getOpAvg(), L.format100());
-            contractQuarterField.setText(L.format100(nextExp.getOptions().getContract()));
+            // Month
+            monthOpField.colorBack(nextExp.getOptions().getOp(), L.format100());
+            monthOpAvgField.colorForge(nextExp.getOptions().getOpAvg(), L.format100());
+            monthContractField.setText(L.format100(nextExp.getOptions().getContract()));
 
             // Races and roll
             // Races
@@ -297,9 +297,9 @@ public class StockPanel extends JPanel implements IMyPanel {
             indRacesField.colorForge(client.getIndexSum());
 
             // Roll
-            double month = currExp.getOptions().getContract();
-            double quarter = nextExp.getOptions().getContract();
-            rollField.colorForge(quarter - month, L.format100());
+            double week = currExp.getOptions().getContract();
+            double month = nextExp.getOptions().getContract();
+            rollField.colorForge(month - week, L.format100());
         } catch (NullPointerException e) {
             e.printStackTrace();
         } catch (Exception e) {
