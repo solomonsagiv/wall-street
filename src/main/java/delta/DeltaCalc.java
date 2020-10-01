@@ -18,12 +18,9 @@ public class DeltaCalc {
         int q = 1;
 
         while ( true ) {
-
             System.out.println( );
             System.out.println( "Enter last" );
-
             double last = scanner.nextDouble( );
-
             e.setFutForDelta( last );
             e.setFutBidForDelta( last - 0.5 );
             e.setFutAskForDelta( last + 0.5 );
@@ -31,7 +28,6 @@ public class DeltaCalc {
             e.setVolumeFutForDelta( q );
             q += 1;
         }
-
     }
 
     public static double calc( int quantity, double last, double preBid, double preAsk ) {

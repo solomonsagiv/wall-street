@@ -208,7 +208,7 @@ public class Options implements IJson {
 
             while (!isGotData()) {
                 try {
-
+                    
                     // Sleep
                     Thread.sleep(1000);
                     boolean bool = true;
