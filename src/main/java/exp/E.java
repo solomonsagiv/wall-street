@@ -18,7 +18,6 @@ public class E extends Exp {
     protected double futAskForDelta = 0;
     protected double preFutBidForDelta = 0;
     private double preFutAskForDelta = 0;
-
     private MyTimeSeries deltaSerie;
 
     public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
@@ -47,9 +46,11 @@ public class E extends Exp {
         int quantity = volumeFutForDelta - this.volumeFutForDelta;
         this.delta += DeltaCalc.calc(quantity, getFutForDelta(), getPreFutBidForDelta(), getPreFutAskForDelta());
         this.volumeFutForDelta = volumeFutForDelta;
+        System.out.println( delta + " " + getName() );
     }
 
     public void initSeries() {
+        super.initSeries();
         deltaSerie = new MyTimeSeries("Delta", client) {
             @Override
             public double getData() throws UnknownHostException {

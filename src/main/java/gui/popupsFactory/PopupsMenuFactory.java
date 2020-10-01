@@ -145,6 +145,19 @@ public class PopupsMenuFactory {
             }
         } );
 
+        JMenuItem fullCharts = new JMenuItem( "Full charts" );
+        fullCharts.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                FullCharts chart = new FullCharts( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
         JMenuItem delta = new JMenuItem( "Delta E1" );
         delta.addActionListener( new ActionListener( ) {
             @Override
@@ -280,6 +293,7 @@ public class PopupsMenuFactory {
 
         export.add( exportSumLine );
 
+        charts.add( fullCharts );
         charts.add( fourLineChart );
         charts.add( opAvg15 );
         charts.add( opAvg );

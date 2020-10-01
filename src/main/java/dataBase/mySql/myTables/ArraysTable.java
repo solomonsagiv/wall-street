@@ -120,7 +120,6 @@ public class ArraysTable extends MyArraysTable {
             public String getObject() throws UnknownHostException, ParseException {
                 return client.getExps().getExp(ExpStrings.e2).getFutBidAskCounterSeries().getLastJson().toString();
             }
-
             @Override
             public void setLoadedObject(String object) {
                 if (object != null) {

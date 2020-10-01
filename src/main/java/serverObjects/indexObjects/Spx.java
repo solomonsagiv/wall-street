@@ -108,10 +108,12 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void setIndexBid( double indexBid ) {
         super.setIndexBid( indexBid );
+
         // Margin counter
         double bidMargin = index - indexBid;
         double askMargin = getIndexAsk() - index;
         double marginOfMarings = askMargin - bidMargin;
+
         if ( marginOfMarings > 0 ) {
             indBidMarginCounter += marginOfMarings;
         }

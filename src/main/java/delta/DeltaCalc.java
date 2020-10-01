@@ -47,6 +47,13 @@ public class DeltaCalc {
         }
 
         delta *= moneyPerPips;
+
+//        System.out.println( "Q " + quantity );
+//        System.out.println( "Last " + last );
+//        System.out.println( "pre Bid: " + preBid );
+//        System.out.println( "pre ask: " + preAsk );
+//        System.out.println( "Delta: " + delta );
+
         return delta;
     }
 

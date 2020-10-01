@@ -17,7 +17,6 @@ public class DataBaseHandler {
         th.getTable( TablesEnum.TWS_CONTRACTS ).load( );
         th.getTable( TablesEnum.STATUS ).load( );
         th.getTable( TablesEnum.ARRAYS ).load( );
-
     }
 
 }
