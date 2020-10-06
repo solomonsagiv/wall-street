@@ -290,7 +290,7 @@ public class PopupsMenuFactory {
                 new PositionsWindow( client, client.getExps( ).getPositionCalculator( ).getPositions( ) );
             }
         } );
-
+        
         export.add( exportSumLine );
 
         charts.add( fullCharts );

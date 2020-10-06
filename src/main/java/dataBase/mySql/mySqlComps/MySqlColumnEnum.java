@@ -64,7 +64,8 @@ public enum MySqlColumnEnum {
     roll("roll", MySqlDataTypeEnum.DOUBLE),
     ROLL_AVG("rollAvg", MySqlDataTypeEnum.DOUBLE),
     opAvgFutureList("opAvgFutureList", MySqlDataTypeEnum.STRING),
-    data("data", MySqlDataTypeEnum.STRING);
+    data("data", MySqlDataTypeEnum.STRING),
+    e1DeltaList("e1DeltaList", MySqlDataTypeEnum.STRING);
 
     private final String name;
     private final MySqlDataTypeEnum dataType;

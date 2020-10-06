@@ -4,12 +4,12 @@ import dataBase.mySql.myBaseTables.MyArraysTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import exp.E;
 import exp.ExpStrings;
-import lists.MyChartPoint;
 import myJson.MyJson;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.rmi.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalTime;
@@ -124,6 +124,23 @@ public class ArraysTable extends MyArraysTable {
             public void setLoadedObject(String object) {
                 if (object != null) {
                     client.getExps().getExp(ExpStrings.e2).getFutBidAskCounterSeries().add(new MyJson(object));
+                }
+            }
+
+            @Override
+            public String getResetObject() {
+                return new JSONArray().toString();
+            }
+        });
+        addColumn(new MyLoadAbleColumn<String>(this, MySqlColumnEnum.e1DeltaList) {
+            @Override
+            public String getObject() throws UnknownHostException, ParseException {
+                return ((E)client.getExps().getExp(ExpStrings.e1)).getDeltaSerie().getLastJson().toString();
+            }
+            @Override
+            public void setLoadedObject(String object) {
+                if (object != null) {
+                    ((E)client.getExps().getExp(ExpStrings.e1)).getDeltaSerie().add(new MyJson(object));
                 }
             }
 

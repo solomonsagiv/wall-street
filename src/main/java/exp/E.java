@@ -2,6 +2,8 @@ package exp;
 
 import charts.myChart.MyTimeSeries;
 import delta.DeltaCalc;
+import myJson.MyJson;
+import options.JsonStrings;
 import options.OptionsDDeCells;
 import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -11,7 +13,7 @@ import java.net.UnknownHostException;
 
 public class E extends Exp {
 
-    protected double delta = 0;
+    protected int delta = 0;
     protected int volumeFutForDelta = 0;
     protected double futForDelta = 0;
     protected double futBidForDelta = 0;
@@ -20,21 +22,21 @@ public class E extends Exp {
     private double preFutAskForDelta = 0;
     private MyTimeSeries deltaSerie;
 
-    public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
-        super( client, expEnum, contractsEnum, iOptionsCalcs );
+    public E(BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs) {
+        super(client, expEnum, contractsEnum, iOptionsCalcs);
         initSeries();
     }
 
-    public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
-        super( client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells );
+    public E(BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells) {
+        super(client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells);
         initSeries();
     }
 
-    public double getDelta() {
+    public int getDelta() {
         return delta;
     }
 
-    public void setDelta( double delta ) {
+    public void setDelta(int delta) {
         this.delta = delta;
     }
 
@@ -42,11 +44,11 @@ public class E extends Exp {
         return volumeFutForDelta;
     }
 
-    public void setVolumeFutForDelta( int volumeFutForDelta ) {
+    public void setVolumeFutForDelta(int volumeFutForDelta) {
         int quantity = volumeFutForDelta - this.volumeFutForDelta;
         this.delta += DeltaCalc.calc(quantity, getFutForDelta(), getPreFutBidForDelta(), getPreFutAskForDelta());
         this.volumeFutForDelta = volumeFutForDelta;
-        System.out.println( delta + " " + getName() );
+        System.out.println(delta + " " + getName());
     }
 
     public void initSeries() {
@@ -59,12 +61,25 @@ public class E extends Exp {
         };
     }
 
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = super.getAsJson();
+        json.put(JsonStrings.delta, getDelta());
+        return super.getAsJson();
+    }
+
+    @Override
+    public void loadFromJson(MyJson json) {
+        setDelta(json.getInt(JsonStrings.delta));
+        super.loadFromJson(json);
+    }
+
     public double getFutBidForDelta() {
         return futBidForDelta;
     }
 
-    public void setFutBidForDelta( double futBidForDelta ) {
-        this.preFutBidForDelta = getFutBidForDelta( );
+    public void setFutBidForDelta(double futBidForDelta) {
+        this.preFutBidForDelta = getFutBidForDelta();
         this.futBidForDelta = futBidForDelta;
     }
 
@@ -76,8 +91,8 @@ public class E extends Exp {
         return futAskForDelta;
     }
 
-    public void setFutAskForDelta( double futAskForDelta ) {
-        this.preFutAskForDelta = getFutAskForDelta( );
+    public void setFutAskForDelta(double futAskForDelta) {
+        this.preFutAskForDelta = getFutAskForDelta();
         this.futAskForDelta = futAskForDelta;
     }
 
@@ -93,7 +108,7 @@ public class E extends Exp {
         return futForDelta;
     }
 
-    public void setFutForDelta( double futForDelta ) {
+    public void setFutForDelta(double futForDelta) {
         this.futForDelta = futForDelta;
     }
 }
