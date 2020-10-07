@@ -56,6 +56,8 @@ public class E extends Exp {
         deltaSerie = new MyTimeSeries("Delta", client) {
             @Override
             public double getData() throws UnknownHostException {
+
+
                 return delta;
             }
         };
