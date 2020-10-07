@@ -65,6 +65,7 @@ public class E extends Exp {
 
     @Override
     public MyJson getAsJson() {
+
         MyJson json = super.getAsJson();
         json.put(JsonStrings.delta, getDelta());
         return super.getAsJson();
