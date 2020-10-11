@@ -79,6 +79,7 @@ public class DaxRequester implements ITwsRequester {
             if (field == 4) {
                 dax.setIndex(price);
                 dax.setIndexAsk( price + 2 );
+
                 dax.setIndexBid( price - 2 );
             }
 
