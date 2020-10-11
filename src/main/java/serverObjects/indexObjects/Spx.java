@@ -2,10 +2,10 @@ package serverObjects.indexObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsEnum;
+import api.Manifest;
 import api.tws.requesters.SpxRequester;
 import charts.myCharts.FourLineChart;
-import charts.myCharts.OpAvg15Future_E2_IndexCounter_Index_Chart;
-import charts.myCharts.OpAvgFuture_E2_IndexCounter_Index_Chart;
+import charts.myCharts.FullCharts;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.E;
@@ -111,7 +111,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         // Margin counter
         double bidMargin = index - indexBid;
-        double askMargin = getIndexAsk() - index;
+        double askMargin = getIndexAsk( ) - index;
         double marginOfMarings = askMargin - bidMargin;
 
         if ( marginOfMarings > 0 ) {
@@ -123,7 +123,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public void setIndexAsk( double indexAsk ) {
         super.setIndexAsk( indexAsk );
         // Margin counter
-        double bidMargin = index - getIndexBid();
+        double bidMargin = index - getIndexBid( );
         double askMargin = indexAsk - index;
         double marginOfMarings = bidMargin - askMargin;
 
@@ -150,21 +150,16 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
 
-        FourLineChart chart = new FourLineChart( client );
-        chart.createChart( );
+        if ( Manifest.OPEN_CHARTS ) {
+            FourLineChart chart = new FourLineChart( client );
+            chart.createChart( );
 
-        OpAvgFuture_E2_IndexCounter_Index_Chart chart2 = new OpAvgFuture_E2_IndexCounter_Index_Chart( client );
-        try {
-            chart2.createChart( );
-        } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-            cloneNotSupportedException.printStackTrace( );
-        }
-
-        OpAvg15Future_E2_IndexCounter_Index_Chart chart3 = new OpAvg15Future_E2_IndexCounter_Index_Chart( client );
-        try {
-            chart3.createChart( );
-        } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-            cloneNotSupportedException.printStackTrace( );
+            FullCharts fullCharts = new FullCharts( client );
+            try {
+                fullCharts.createChart( );
+            } catch ( CloneNotSupportedException e ) {
+                e.printStackTrace( );
+            }
         }
 
     }

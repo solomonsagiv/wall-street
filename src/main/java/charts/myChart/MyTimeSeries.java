@@ -1,5 +1,6 @@
 package charts.myChart;
 
+import lists.MyDoubleList;
 import myJson.MyJson;
 import options.JsonStrings;
 import org.jfree.data.time.Second;
@@ -28,13 +29,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private Color color;
     private float stokeSize;
 
-    ArrayList<Double> values;
+    MyDoubleList values;
     
     // Constructor
     public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
         super( name );
         this.client = client;
-        values = new ArrayList<>();
+        values = new MyDoubleList();
     }
 
     public TimeSeriesDataItem getLastItem() {

@@ -1,6 +1,7 @@
 package lists;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyDoubleList extends ArrayList<Double> {
 
@@ -33,6 +34,29 @@ public class MyDoubleList extends ArrayList<Double> {
         return currSum / size();
     }
 
+    public double getLastValAsStd() {
+        return (get( size() - 1 ) - getAvg()) / getStd( this );
+    }
+
+    public List<Double> toStdList() {
+        List<Double> list = new ArrayList<>();
+        for ( double num: this ) {
+            list.add( (num - getAvg()) / getStd( this ) );
+        }
+        return list;
+    }
+
+    public double getStd( List<Double> list ) {
+        double standardDeviation = 0.0;
+        int length = list.size();
+        double avg = getAvg();
+
+        for ( double num : list ) {
+            standardDeviation += Math.pow( num - avg, 2 );
+        }
+
+        return Math.sqrt( standardDeviation / length );
+    }
 
     @Override
     public Double remove(int index) {

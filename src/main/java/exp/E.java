@@ -56,8 +56,6 @@ public class E extends Exp {
         deltaSerie = new MyTimeSeries("Delta", client) {
             @Override
             public double getData() throws UnknownHostException {
-
-
                 return delta;
             }
         };
@@ -65,10 +63,9 @@ public class E extends Exp {
 
     @Override
     public MyJson getAsJson() {
-
         MyJson json = super.getAsJson();
         json.put(JsonStrings.delta, getDelta());
-        return super.getAsJson();
+        return json;
     }
 
     @Override

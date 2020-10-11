@@ -8,6 +8,7 @@ import basketFinder.handlers.StocksHandler;
 import com.ib.client.Contract;
 import com.ib.client.TickAttr;
 import delta.DeltaCalc;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.indexObjects.Dax;
@@ -19,7 +20,7 @@ public class DaxRequester implements ITwsRequester {
 
     Dax dax;
     int indexId, futureId, futureFarId;
-    Exp expWeek, expMonth;
+    E e1;
     StocksHandler stocksHandler;
     DeltaCalc deltaCalc;
 
@@ -35,7 +36,9 @@ public class DaxRequester implements ITwsRequester {
             // Future
             downloader.reqMktData(twsHandler.getMyContract(TwsContractsEnum.FUTURE).getMyId(), twsHandler.getMyContract(TwsContractsEnum.FUTURE));
             // Stocks
-            requestStocks(downloader);
+//            requestStocks(downloader);
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,8 +65,7 @@ public class DaxRequester implements ITwsRequester {
 
     private void init() {
         dax = Dax.getInstance();
-        expWeek = dax.getExps().getExp(ExpStrings.week);
-        expMonth = dax.getExps().getExp(ExpStrings.month);
+        e1 = ( E ) dax.getExps().getExp(ExpStrings.e1);
 
         indexId = dax.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
         futureId = dax.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();
@@ -76,6 +78,8 @@ public class DaxRequester implements ITwsRequester {
         if (tickerId == indexId && price > 0) {
             if (field == 4) {
                 dax.setIndex(price);
+                dax.setIndexAsk( price + 2 );
+                dax.setIndexBid( price - 2 );
             }
 
             if (field == 9) {
@@ -96,30 +100,6 @@ public class DaxRequester implements ITwsRequester {
                 expMonth.setCalcFutAsk(price);
             }
 
-        }
-
-        if (dax.isStarted()) {
-
-            // Spx miniStocks
-            if (tickerId >= stocksHandler.getMinId() && tickerId < stocksHandler.getMaxId()) {
-
-                MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
-
-                // Bid
-                if (field == 1) {
-                    stock.setIndexBid(price);
-                }
-
-                // Ask
-                if (field == 2) {
-                    stock.setIndexAsk(price);
-                }
-
-                // Last
-                if (field == 4) {
-                    stock.setInd(price);
-                }
-            }
         }
     }
 

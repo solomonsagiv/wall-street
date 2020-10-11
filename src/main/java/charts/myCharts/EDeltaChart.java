@@ -18,9 +18,9 @@ public class EDeltaChart extends MyChartCreator {
 
     @Override
     public void createChart() throws CloneNotSupportedException {
-
+        
         MyTimeSeries[] series;
-
+        
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);

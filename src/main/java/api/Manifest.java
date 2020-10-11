@@ -19,6 +19,7 @@ public class Manifest {
     public static boolean DB = false;
     public static boolean DB_RUNNER = false;
     public static boolean DB_UPDATER = false;
+    public static boolean OPEN_CHARTS = false;
     public static String ACCOUNT = REAL_ACCOUNT;
     public static int PORT = REAL_PORT;
     public static int SCREEN = 0;
