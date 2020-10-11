@@ -90,6 +90,7 @@ public class DaxRequester implements ITwsRequester {
 
         if (tickerId == futureId && price > 0) {
             if (field == 4) {
+
                 expMonth.setCalcFut(price);
             }
 
