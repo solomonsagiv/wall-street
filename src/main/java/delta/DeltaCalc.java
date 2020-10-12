@@ -22,8 +22,8 @@ public class DeltaCalc {
             System.out.println( "Enter last" );
             double last = scanner.nextDouble( );
             e.setFutForDelta( last );
-            e.setFutBidForDelta( last - 0.5 );
-            e.setFutAskForDelta( last + 0.5 );
+            e.setBidForDelta( last - 0.5 );
+            e.setAskForDelta( last + 0.5 );
 
             e.setVolumeFutForDelta( q );
             q += 1;

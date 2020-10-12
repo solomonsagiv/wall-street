@@ -78,7 +78,7 @@ public class E extends Exp {
         return futBidForDelta;
     }
 
-    public void setFutBidForDelta(double futBidForDelta) {
+    public void setBidForDelta(double futBidForDelta) {
         this.preFutBidForDelta = getFutBidForDelta();
         this.futBidForDelta = futBidForDelta;
     }
@@ -91,7 +91,7 @@ public class E extends Exp {
         return futAskForDelta;
     }
 
-    public void setFutAskForDelta(double futAskForDelta) {
+    public void setAskForDelta(double futAskForDelta) {
         this.preFutAskForDelta = getFutAskForDelta();
         this.futAskForDelta = futAskForDelta;
     }

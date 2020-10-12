@@ -3,7 +3,6 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
-import basketFinder.MiniStock;
 import com.ib.client.TickAttr;
 import exp.E;
 import exp.ExpStrings;
@@ -76,13 +75,13 @@ public class SpxRequester implements ITwsRequester {
                 // Bid
                 if (field == 1) {
                     e1.setCalcFutBid(price);
-                    e1.setFutBidForDelta(price);
+                    e1.setBidForDelta(price);
                 }
 
                 // Ask
                 if (field == 2) {
                     e1.setCalcFutAsk(price);
-                    e1.setFutAskForDelta(price);
+                    e1.setAskForDelta(price);
                 }
 
                 // Last

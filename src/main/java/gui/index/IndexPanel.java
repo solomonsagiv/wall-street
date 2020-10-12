@@ -299,14 +299,15 @@ public class IndexPanel extends JPanel implements IMyPanel {
                 opAvgField.colorForge(mainExp.getOpAvgFut(), L.format100());
                 opAvgQuarterField.colorForge(nextExp.getOpAvgFut(), L.format100());
             } catch (Exception e) {
-                System.out.println(client.getName() + " panel " + "Future list is empty ");
+                System.out.println(client.getName() + " panel Future list is empty ");
             }
             opField.colorBack(mainExp.getOpFuture(), L.format100());
 
-            // Quarter
-            opQuarterField.colorBack(nextExp.getOpFuture(), L.format100());
-
-            contractQuarterField.setText(L.format100(nextExp.getCalcFut()));
+            // Next exp
+            if (nextExp != null) {
+                opQuarterField.colorBack(nextExp.getOpFuture(), L.format100());
+                contractQuarterField.setText(L.format100(nextExp.getCalcFut()));
+            }
 
             // Races and roll
             // Races
