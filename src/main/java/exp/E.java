@@ -21,22 +21,23 @@ public class E extends Exp {
     protected double preFutBidForDelta = 0;
     private double preFutAskForDelta = 0;
     private MyTimeSeries deltaSerie;
+    private MyTimeSeries deltaScaledSerie;
 
-    public E(BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs) {
-        super(client, expEnum, contractsEnum, iOptionsCalcs);
-        initSeries();
+    public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
+        super( client, expEnum, contractsEnum, iOptionsCalcs );
+        initSeries( );
     }
 
-    public E(BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells) {
-        super(client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells);
-        initSeries();
+    public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
+        super( client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells );
+        initSeries( );
     }
 
     public int getDelta() {
         return delta;
     }
 
-    public void setDelta(int delta) {
+    public void setDelta( int delta ) {
         this.delta = delta;
     }
 
@@ -44,16 +45,24 @@ public class E extends Exp {
         return volumeFutForDelta;
     }
 
-    public void setVolumeFutForDelta(int volumeFutForDelta) {
+    public void setVolumeFutForDelta( int volumeFutForDelta ) {
         int quantity = volumeFutForDelta - this.volumeFutForDelta;
-        this.delta += DeltaCalc.calc(quantity, getFutForDelta(), getPreFutBidForDelta(), getPreFutAskForDelta());
+        this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
         this.volumeFutForDelta = volumeFutForDelta;
-        System.out.println(delta + " " + getName());
+        System.out.println( delta + " " + getName( ) );
     }
 
     public void initSeries() {
-        super.initSeries();
-        deltaSerie = new MyTimeSeries("Delta", client) {
+        super.initSeries( );
+
+        deltaSerie = new MyTimeSeries( "Delta", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return delta;
+            }
+        };
+
+        deltaScaledSerie = new MyTimeSeries( "Delta scaled", client, true ) {
             @Override
             public double getData() throws UnknownHostException {
                 return delta;
@@ -63,23 +72,23 @@ public class E extends Exp {
 
     @Override
     public MyJson getAsJson() {
-        MyJson json = super.getAsJson();
-        json.put(JsonStrings.delta, getDelta());
+        MyJson json = super.getAsJson( );
+        json.put( JsonStrings.delta, getDelta( ) );
         return json;
     }
 
     @Override
-    public void loadFromJson(MyJson json) {
-        setDelta(json.getInt(JsonStrings.delta));
-        super.loadFromJson(json);
+    public void loadFromJson( MyJson json ) {
+        setDelta( json.getInt( JsonStrings.delta ) );
+        super.loadFromJson( json );
     }
 
     public double getFutBidForDelta() {
         return futBidForDelta;
     }
 
-    public void setBidForDelta(double futBidForDelta) {
-        this.preFutBidForDelta = getFutBidForDelta();
+    public void setBidForDelta( double futBidForDelta ) {
+        this.preFutBidForDelta = getFutBidForDelta( );
         this.futBidForDelta = futBidForDelta;
     }
 
@@ -87,12 +96,16 @@ public class E extends Exp {
         return deltaSerie;
     }
 
+    public MyTimeSeries getDeltaScaledSerie() {
+        return deltaScaledSerie;
+    }
+
     public double getFutAskForDelta() {
         return futAskForDelta;
     }
 
-    public void setAskForDelta(double futAskForDelta) {
-        this.preFutAskForDelta = getFutAskForDelta();
+    public void setAskForDelta( double futAskForDelta ) {
+        this.preFutAskForDelta = getFutAskForDelta( );
         this.futAskForDelta = futAskForDelta;
     }
 
@@ -108,7 +121,9 @@ public class E extends Exp {
         return futForDelta;
     }
 
-    public void setFutForDelta(double futForDelta) {
-        this.futForDelta = futForDelta;
+    public void setFutForDelta( double futForDelta ) {
+        if ( futForDelta > 1 ) {
+            this.futForDelta = futForDelta;
+        }
     }
 }

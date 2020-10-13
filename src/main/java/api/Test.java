@@ -6,21 +6,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Test {
 
     public static void main( String[] args ) throws IOException, InterruptedException {
-        double[] d = { 3, 4, 5, 2, 4, 4, 4, 3, 6};
 
-        MyDoubleList doubles = new MyDoubleList();
-        for ( double ds: d) {
-            doubles.add( ds );
+        MyDoubleList doubles = new MyDoubleList( );
+
+        for ( int i = 0; i < 20; i++ ) {
+            doubles.add( ( double ) i );
+            System.out.println( doubles.getLastValAsStd() );
         }
 
-        System.out.println( doubles.toStdList() );
     }
 
     public static void loto() {

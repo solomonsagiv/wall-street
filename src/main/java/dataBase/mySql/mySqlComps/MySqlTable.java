@@ -140,7 +140,7 @@ public abstract class MySqlTable implements IMyTableSql {
             }
             i++;
         }
-
+        
         String endQuery = String.format("WHERE `id`='%s';", client.getDbId());
 
         query.append(endQuery);

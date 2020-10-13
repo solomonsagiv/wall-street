@@ -369,6 +369,9 @@ public class Options implements IJson {
     }
 
     public double getOp() {
+        if ( getContract() == 0 || client.getIndex() == 0 ) {
+            return 0;
+        }
         return L.floor(getContract() - client.getIndex(), 100);
     }
 

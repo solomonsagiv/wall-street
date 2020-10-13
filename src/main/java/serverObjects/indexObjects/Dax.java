@@ -33,9 +33,10 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setiTwsRequester(new DaxRequester());
-        setLogicService(new LogicService(this, ExpStrings.month));
+        setLogicService(new LogicService(this, ExpStrings.e1));
         baskets();
         myTableHandler();
+        getMyServiceHandler().removeService( getMySqlService() );
     }
 
     // Get instance

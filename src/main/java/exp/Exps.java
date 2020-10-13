@@ -109,6 +109,10 @@ public class Exps implements IJson {
 
     @Override
     public MyJson getResetJson() {
-        return null;
+        MyJson json = new MyJson();
+        for (Exp exp : getExpList()) {
+            json.put(exp.getName(), exp.getResetJson());
+        }
+        return json;
     }
 }

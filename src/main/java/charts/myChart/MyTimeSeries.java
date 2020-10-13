@@ -3,6 +3,7 @@ package charts.myChart;
 import lists.MyDoubleList;
 import myJson.MyJson;
 import options.JsonStrings;
+import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesDataItem;
@@ -12,7 +13,6 @@ import java.awt.*;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 interface ITimeSeries {
     double getData() throws UnknownHostException;
@@ -28,14 +28,31 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     Second lastSeconde;
     private Color color;
     private float stokeSize;
+    private boolean scaled = false;
 
-    MyDoubleList values;
-    
+    MyDoubleList myValues;
+
     // Constructor
     public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
         super( name );
+        this.name = ( String ) name;
         this.client = client;
-        values = new MyDoubleList();
+        myValues = new MyDoubleList( );
+    }
+
+    // Constructor
+    public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client, boolean scaled ) {
+        this( name, client );
+        this.scaled = scaled;
+    }
+
+    public double getScaledData() {
+        return getMyValues( ).getLastValAsStd( );
+    }
+
+    public double getScaledData( RegularTimePeriod timePeriod ) {
+        double data = ( double ) getDataItem( timePeriod ).getValue( );
+        return myValues.scaled( data );
     }
 
     public TimeSeriesDataItem getLastItem() {
@@ -44,24 +61,31 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void add( LocalDateTime time ) {
         try {
+
             Second second = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonthValue( ), time.getYear( ) );
             double data = getData( );
-            values.add( data );
+            getMyValues( ).add( data );
+
+            if ( scaled ) {
+                data = getMyValues( ).getLastValAsStd( );
+                System.out.println( name + "  " + data );
+            }
+
             addOrUpdate( second, data );
+
         } catch ( UnknownHostException e ) {
             e.printStackTrace( );
         }
     }
 
-    public ArrayList< Double > getValues() {
-        return values;
+    public MyDoubleList getMyValues() {
+        return myValues;
     }
 
     public MyJson getLastJson() throws ParseException {
         TimeSeriesDataItem item = getLastItem( );
-        MyJson json = new MyJson( );
         LocalDateTime localDateTime = LocalDateTime.now( );
-
+        MyJson json = new MyJson( );
         json.put( JsonStrings.x, localDateTime );
         json.put( JsonStrings.y, item.getValue( ) );
         return json;
@@ -76,21 +100,21 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
                 lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth( ), dateTime.getMonthValue( ), dateTime.getYear( ) );
 
                 double data = json.getDouble( JsonStrings.y );
-                values.add( data );
+                myValues.add( data );
                 addOrUpdate( lastSeconde, data );
             }
         } catch ( Exception e ) {
-            System.out.println( client.getName( ) + " " + json );
             e.printStackTrace( );
         }
     }
+
 
     public double add() {
         double data = 0;
         // live data
         try {
             data = getData( );
-            values.add( data );
+            myValues.add( data );
             addOrUpdate( getLastSeconde( ), data );
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -101,7 +125,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void remove( int index ) {
         delete( index, index );
-        values.remove( index );
+        myValues.remove( index );
     }
 
     public Color getColor() {
@@ -118,6 +142,10 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void setStokeSize( float stokeSize ) {
         this.stokeSize = stokeSize;
+    }
+
+    public boolean isScaled() {
+        return scaled;
     }
 
     public String getName() {

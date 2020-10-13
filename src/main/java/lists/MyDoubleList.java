@@ -21,6 +21,7 @@ public class MyDoubleList extends ArrayList<Double> {
     }
 
     public double getAvg(int seconds) {
+
         if (sum <= 0) {
             return 0;
         }
@@ -35,23 +36,31 @@ public class MyDoubleList extends ArrayList<Double> {
     }
 
     public double getLastValAsStd() {
-        return (get( size() - 1 ) - getAvg()) / getStd( this );
+        if ( size() > 1 ) {
+            return ( get( size( ) - 1 ) - getAvg( ) ) / getStd( );
+        } else {
+            return 0;
+        }
     }
 
-    public List<Double> toStdList() {
+    public double scaled( double val ) {
+        return (val - getAvg()) / getStd();
+    }
+
+    public List<Double> scaledList() {
         List<Double> list = new ArrayList<>();
         for ( double num: this ) {
-            list.add( (num - getAvg()) / getStd( this ) );
+            list.add( (num - getAvg()) / getStd( ) );
         }
         return list;
     }
 
-    public double getStd( List<Double> list ) {
+    public double getStd() {
         double standardDeviation = 0.0;
-        int length = list.size();
+        int length = this.size();
         double avg = getAvg();
 
-        for ( double num : list ) {
+        for ( double num : this ) {
             standardDeviation += Math.pow( num - avg, 2 );
         }
 

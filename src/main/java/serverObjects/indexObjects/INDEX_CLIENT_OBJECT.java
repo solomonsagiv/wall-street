@@ -82,8 +82,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public MyJson getResetJson() {
         MyJson json = new MyJson();
-        json.put(JsonStrings.e1, getExps().getExp(ExpStrings.e1).getResetJson());
-        json.put(JsonStrings.e2, getExps().getExp(ExpStrings.e2).getResetJson());
+        json.put( JsonStrings.exps, exps.getResetJson() );
         return json;
     }
 

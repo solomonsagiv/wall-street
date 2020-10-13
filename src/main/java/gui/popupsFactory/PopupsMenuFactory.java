@@ -171,6 +171,20 @@ public class PopupsMenuFactory {
             }
         } );
 
+
+        JMenuItem deltaScaled = new JMenuItem( "Delta E1 scaled" );
+        deltaScaled.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                EDeltaScaledChart chart = new EDeltaScaledChart( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
         JMenuItem marginChart = new JMenuItem( "Margin" );
         marginChart.addActionListener( new ActionListener( ) {
             @Override
@@ -290,7 +304,7 @@ public class PopupsMenuFactory {
                 new PositionsWindow( client, client.getExps( ).getPositionCalculator( ).getPositions( ) );
             }
         } );
-        
+
         export.add( exportSumLine );
 
         charts.add( fullCharts );
@@ -299,6 +313,7 @@ public class PopupsMenuFactory {
         charts.add( opAvg );
         charts.add( indexCounter_index_item );
         charts.add( delta );
+        charts.add( deltaScaled );
         charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );
         charts.add( fiveLinesChart );

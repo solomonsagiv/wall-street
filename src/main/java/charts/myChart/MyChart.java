@@ -149,7 +149,6 @@ public class MyChart {
                 try {
                     if ( client.isStarted( ) ) {
                         if ( !load ) {
-//                            loadChartData( );
                             load = true;
                         }
 
@@ -205,8 +204,8 @@ public class MyChart {
         public void setTickerData() {
             if ( props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) ) {
                 try {
-                    double min = Collections.min( series[ 0 ].getValues( ) );
-                    double max = Collections.max( series[ 0 ].getValues( ) );
+                    double min = Collections.min( series[ 0 ].getMyValues( ) );
+                    double max = Collections.max( series[ 0 ].getMyValues( ) );
                     double last = ( double ) series[ 0 ].getLastItem( ).getValue( );
 
                     chartPanel.getHighLbl( ).colorForge( max, L.format10( ) );
@@ -227,11 +226,16 @@ public class MyChart {
 
                     RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );
                     RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate( ).toString( ) ) );
-
                     try {
-                        start = ( double ) series[ 0 ].getDataItem( startPeroid ).getValue( );
-                        end = ( double ) series[ 0 ].getDataItem( endPeroid ).getValue( );
+                        if ( series[ 0 ].isScaled( ) ) {
+                            start = series[ 0 ].getScaledData( startPeroid );
+                            end = series[ 0 ].getScaledData( endPeroid );
+                        } else {
+                            start = ( double ) series[ 0 ].getDataItem( startPeroid ).getValue( );
+                            end = ( double ) series[ 0 ].getDataItem( endPeroid ).getValue( );
+                        }
                     } catch ( Exception e ) {
+                        e.printStackTrace( );
                     }
 
                     double min, max;
@@ -286,9 +290,13 @@ public class MyChart {
 
                 ArrayList< Double > dots = new ArrayList<>( );
                 for ( MyTimeSeries serie : series ) {
-                    dots.addAll( serie.getValues( ) );
+                    if ( serie.isScaled() ) {
+                        dots.addAll( serie.getMyValues( ).scaledList() );
+                    } else {
+                        dots.addAll( serie.getMyValues( ));
+                    }
                 }
-
+                
                 double min = Collections.min( dots ) - props.getDouble( ChartPropsEnum.MARGIN );
                 double max = Collections.max( dots ) + props.getDouble( ChartPropsEnum.MARGIN );
 
@@ -309,7 +317,6 @@ public class MyChart {
                 // Update chart range
                 updateChartRange( min, max );
             }
-
         }
 
         // Is data changed

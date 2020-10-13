@@ -66,6 +66,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     // Services
     ListsService listsService;
     MySqlService mySqlService;
+    MyTimeSeries indexScaledSeries;
     MyTimeSeries indexSeries;
     MyTimeSeries indexBidSeries;
     MyTimeSeries indexAskSeries;
@@ -160,6 +161,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     // ---------- basic functions ---------- //
     @Override
     public void initSeries() {
+        indexScaledSeries = new MyTimeSeries( "Index scaled", this, true ) {
+            @Override
+            public double getData() {
+                return client.getIndex();
+            }
+        };
         indexSeries = new MyTimeSeries( "Index", this ) {
             @Override
             public double getData() {
@@ -716,6 +723,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public MyTimeSeries getIndBIdAskMarginSeries() {
         return indBIdAskMarginSeries;
+    }
+
+    public MyTimeSeries getIndexScaledSeries() {
+        return indexScaledSeries;
     }
 
     public LogicService getLogicService() {

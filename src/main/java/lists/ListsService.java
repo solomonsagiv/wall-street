@@ -23,7 +23,7 @@ public class ListsService extends MyBaseService {
         super(client);
         this.client = client;
     }
-
+    
     @Override
     public void go() {
         insert();
@@ -53,6 +53,7 @@ public class ListsService extends MyBaseService {
         client.getIndexAskSeries().add(time);
         client.getIndexBidAskCounterSeries().add(time);
         client.getIndexSeries().add(time);
+        client.getIndexScaledSeries().add( time );
         client.getIndBIdAskMarginSeries().add(time);
 
         // Options lists
@@ -64,6 +65,7 @@ public class ListsService extends MyBaseService {
                 // E
                 if (exp instanceof E) {
                     ((E) exp).getDeltaSerie().add(time);
+                    ((E) exp).getDeltaScaledSerie().add(time);
                 }
 
                 try {
