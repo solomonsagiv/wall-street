@@ -4,6 +4,7 @@ import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.Manifest;
 import api.tws.requesters.SpxRequester;
+import charts.myCharts.EDeltaChart;
 import charts.myCharts.FourLineChart;
 import charts.myCharts.FullCharts;
 import dataBase.mySql.mySqlComps.TablesEnum;
@@ -154,7 +155,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             FourLineChart chart = new FourLineChart( client );
             chart.createChart( );
 
-            FullCharts fullCharts = new FullCharts( client );
+            EDeltaChart fullCharts = new EDeltaChart( client );
             try {
                 fullCharts.createChart( );
             } catch ( CloneNotSupportedException e ) {

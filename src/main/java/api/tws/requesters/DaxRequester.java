@@ -68,34 +68,34 @@ public class DaxRequester implements ITwsRequester {
     @Override
     public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
 
-        if ( tickerId == indexId && price > 0 ) {
-            if ( field == 4 ) {
-                dax.setIndex( price );
-                dax.setIndexAsk( price + 2 );
-                dax.setIndexBid( price - 2 );
-            }
-
-            if ( field == 9 ) {
-                dax.setBase( price );
-            }
-        }
-
-        if ( tickerId == futureId && price > 0 ) {
-            if ( field == 4 ) {
-                e1.setCalcFut( price );
-                e1.setFutForDelta( price );
-            }
-
-            if ( field == 1 ) {
-                e1.setCalcFutBid( price );
-                e1.setBidForDelta( price );
-            }
-
-            if ( field == 2 ) {
-                e1.setCalcFutAsk( price );
-                e1.setAskForDelta( price );
-            }
-        }
+//        if ( tickerId == indexId && price > 0 ) {
+//            if ( field == 4 ) {
+//                dax.setIndex( price );
+//                dax.setIndexAsk( price + 2 );
+//                dax.setIndexBid( price - 2 );
+//            }
+//
+//            if ( field == 9 ) {
+//                dax.setBase( price );
+//            }
+//        }
+//
+//        if ( tickerId == futureId && price > 0 ) {
+//            if ( field == 4 ) {
+//                e1.setCalcFut( price );
+//                e1.setFutForDelta( price );
+//            }
+//
+//            if ( field == 1 ) {
+//                e1.setCalcFutBid( price );
+//                e1.setBidForDelta( price );
+//            }
+//
+//            if ( field == 2 ) {
+//                e1.setCalcFutAsk( price );
+//                e1.setAskForDelta( price );
+//            }
+//        }
     }
 
     @Override

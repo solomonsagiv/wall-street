@@ -18,8 +18,6 @@ public class E extends Exp {
     protected double futForDelta = 0;
     protected double futBidForDelta = 0;
     protected double futAskForDelta = 0;
-    protected double preFutBidForDelta = 0;
-    private double preFutAskForDelta = 0;
     private MyTimeSeries deltaSerie;
     private MyTimeSeries deltaScaledSerie;
 
@@ -46,10 +44,19 @@ public class E extends Exp {
     }
 
     public void setVolumeFutForDelta( int volumeFutForDelta ) {
-        int quantity = volumeFutForDelta - this.volumeFutForDelta;
-        this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
+        int quantity = 0;
+        if ( this.volumeFutForDelta != 0 ) {
+            quantity = volumeFutForDelta - this.volumeFutForDelta;
+            calcDelta( quantity );
+        }
+
         this.volumeFutForDelta = volumeFutForDelta;
-        System.out.println( delta + " " + getName( ) );
+    }
+
+    public void calcDelta( int quantity ) {
+        new Thread( () -> {
+            this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getFutBidForDelta( ), getFutAskForDelta( ) );
+        } ).start( );
     }
 
     public void initSeries() {
@@ -88,7 +95,6 @@ public class E extends Exp {
     }
 
     public void setBidForDelta( double futBidForDelta ) {
-        this.preFutBidForDelta = getFutBidForDelta( );
         this.futBidForDelta = futBidForDelta;
     }
 
@@ -105,16 +111,7 @@ public class E extends Exp {
     }
 
     public void setAskForDelta( double futAskForDelta ) {
-        this.preFutAskForDelta = getFutAskForDelta( );
         this.futAskForDelta = futAskForDelta;
-    }
-
-    public double getPreFutBidForDelta() {
-        return preFutBidForDelta;
-    }
-
-    public double getPreFutAskForDelta() {
-        return preFutAskForDelta;
     }
 
     public double getFutForDelta() {

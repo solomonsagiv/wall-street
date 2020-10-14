@@ -68,7 +68,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
             if ( scaled ) {
                 data = getMyValues( ).getLastValAsStd( );
-                System.out.println( name + "  " + data );
             }
 
             addOrUpdate( second, data );
@@ -107,7 +106,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             e.printStackTrace( );
         }
     }
-
 
     public double add() {
         double data = 0;
