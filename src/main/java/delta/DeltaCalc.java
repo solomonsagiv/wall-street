@@ -47,10 +47,10 @@ public class DeltaCalc {
             }
 
             System.out.println( );
-//            System.out.println( "Q " + quantity );
-//            System.out.println( "pre Bid: " + preBid );
-//            System.out.println( "Last " + last );
-//            System.out.println( "pre ask: " + preAsk );
+            System.out.println( "Q " + quantity );
+            System.out.println( "pre Bid: " + preBid );
+            System.out.println( "Last " + last );
+            System.out.println( "pre ask: " + preAsk );
             System.out.println( "Delta: " + delta );
         }
         return delta;

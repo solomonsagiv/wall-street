@@ -1,6 +1,8 @@
 package api;
 
+import charts.myCharts.EDeltaChart;
 import lists.MyDoubleList;
+import serverObjects.indexObjects.Spx;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,14 +12,15 @@ import java.util.Random;
 
 public class Test {
 
-    public static void main( String[] args ) throws IOException, InterruptedException {
+    public static void main( String[] args ) throws IOException, InterruptedException, CloneNotSupportedException {
 
-        MyDoubleList doubles = new MyDoubleList( );
+        Spx spx = Spx.getInstance();
+        spx.startAll();
 
-        for ( int i = 0; i < 20; i++ ) {
-            doubles.add( ( double ) i );
-            System.out.println( doubles.getLastValAsStd() );
-        }
+        EDeltaChart eDeltaChart = new EDeltaChart( spx );
+        eDeltaChart.createChart();
+
+
 
     }
 

@@ -66,44 +66,58 @@ public class MyChartContainer extends JFrame {
             MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) );
             myChart.chartPanel = chartPanel;
 
-            chartPanel.setMouseZoomable( true );
-            chartPanel.setMouseWheelEnabled( true );
-            chartPanel.setDomainZoomable( true );
-            chartPanel.setRangeZoomable( false );
-            chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
-            chartPanel.setFillZoomRectangle( false );
-            chartPanel.setZoomAroundAnchor( false );
-
-            chartPanel.addMouseListener( new MouseAdapter( ) {
-                @Override
-                public void mouseClicked( MouseEvent e ) {
-                    super.mouseClicked( e );
-                    if ( e.getClickCount( ) == 2 ) {
-                        DateAxis axis = ( DateAxis ) myChart.plot.getDomainAxis( );
-                        NumberAxis rangeAxis = ( NumberAxis ) myChart.plot.getRangeAxis( );
-
-                        rangeAxis.setAutoRange( true );
-                        axis.setAutoRange( true );
-                    }
-                }
-            } );
-
-//            try {
-//                Field mask = ChartPanel.class.getDeclaredField( "panMask" );
-//                mask.setAccessible( true );
-//                mask.set( chartPanel, 0 );
-//            } catch ( NoSuchFieldException e ) {
-//                e.printStackTrace( );
-//            } catch ( IllegalAccessException e ) {
-//                e.printStackTrace( );
-//            }
-            chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
-                @Override
-                public void mouseWheelMoved( MouseWheelEvent e ) {
-                    myChart.getUpdater( ).updateChartRange( );
-                }
-            } );
+            initProps( chartPanel );
+//          addPan( chartPanel );
+            mouseListener( chartPanel, myChart );
+            mouseWheel( chartPanel, myChart );
             add( chartPanel );
+        }
+    }
+
+    private void initProps( MyChartPanel chartPanel ) {
+        chartPanel.setMouseZoomable( true );
+        chartPanel.setMouseWheelEnabled( true );
+        chartPanel.setDomainZoomable( true );
+        chartPanel.setRangeZoomable( false );
+        chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
+        chartPanel.setFillZoomRectangle( false );
+        chartPanel.setZoomAroundAnchor( false );
+    }
+
+    private void mouseWheel( MyChartPanel chartPanel, MyChart myChart ) {
+        chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
+            @Override
+            public void mouseWheelMoved( MouseWheelEvent e ) {
+                myChart.getUpdater( ).updateChartRange( );
+            }
+        } );
+    }
+
+    private void mouseListener( MyChartPanel chartPanel, MyChart myChart ) {
+        chartPanel.addMouseListener( new MouseAdapter( ) {
+            @Override
+            public void mouseClicked( MouseEvent e ) {
+                super.mouseClicked( e );
+                if ( e.getClickCount( ) == 2 ) {
+                    DateAxis axis = ( DateAxis ) myChart.plot.getDomainAxis( );
+                    NumberAxis rangeAxis = ( NumberAxis ) myChart.plot.getRangeAxis( );
+
+                    rangeAxis.setAutoRange( true );
+                    axis.setAutoRange( true );
+                }
+            }
+        } );
+    }
+
+    private void addPan( MyChartPanel chartPanel ) {
+        try {
+            Field mask = ChartPanel.class.getDeclaredField( "panMask" );
+            mask.setAccessible( true );
+            mask.set( chartPanel, 0 );
+        } catch ( NoSuchFieldException e ) {
+            e.printStackTrace( );
+        } catch ( IllegalAccessException e ) {
+            e.printStackTrace( );
         }
     }
 

@@ -226,6 +226,7 @@ public class MyChart {
 
                     RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );
                     RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate( ).toString( ) ) );
+
                     try {
                         if ( series[ 0 ].isScaled( ) ) {
                             start = series[ 0 ].getScaledData( startPeroid );
@@ -296,15 +297,13 @@ public class MyChart {
                         dots.addAll( serie.getMyValues( ));
                     }
                 }
-                
+
                 double min = Collections.min( dots ) - props.getDouble( ChartPropsEnum.MARGIN );
                 double max = Collections.max( dots ) + props.getDouble( ChartPropsEnum.MARGIN );
 
                 if ( dots.size( ) > series.length * props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) ) {
-
                     // If need to rearrange
                     if ( max - min > props.getInt( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS ) ) {
-
                         // For each serie
                         for ( MyTimeSeries serie : series ) {
                             for ( int i = 0; i < serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1; i++ ) {
@@ -313,7 +312,6 @@ public class MyChart {
                         }
                     }
                 }
-
                 // Update chart range
                 updateChartRange( min, max );
             }

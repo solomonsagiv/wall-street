@@ -79,6 +79,10 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         getExps().loadFromJson(new MyJson(json.getJSONObject(JsonStrings.exps)));
     }
 
+    public StocksHandler getStocksHandler() {
+        return stocksHandler;
+    }
+
     @Override
     public MyJson getResetJson() {
         MyJson json = new MyJson();

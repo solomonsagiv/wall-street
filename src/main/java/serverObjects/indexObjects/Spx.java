@@ -4,6 +4,8 @@ import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.Manifest;
 import api.tws.requesters.SpxRequester;
+import basketFinder.MiniStock;
+import basketFinder.handlers.StocksHandler;
 import charts.myCharts.EDeltaChart;
 import charts.myCharts.FourLineChart;
 import charts.myCharts.FullCharts;
@@ -23,6 +25,7 @@ import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
+import java.util.Map;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
@@ -44,7 +47,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         roll( );
         myTableHandler( );
     }
-
+    
     // Get instance
     public static Spx getInstance() {
         if ( client == null ) {
@@ -150,7 +153,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void openChartsOnStart() {
-
         if ( Manifest.OPEN_CHARTS ) {
             FourLineChart chart = new FourLineChart( client );
             chart.createChart( );
@@ -162,7 +164,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
                 e.printStackTrace( );
             }
         }
-
     }
 
     @Override

@@ -3,11 +3,15 @@ package api.tws.requesters;
 import api.Downloader;
 import api.tws.ITwsRequester;
 import api.tws.TwsHandler;
+import basketFinder.MiniStock;
+import com.ib.client.Contract;
 import com.ib.client.TickAttr;
 import exp.E;
 import exp.ExpStrings;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
+
+import java.util.Map;
 
 public class SpxRequester implements ITwsRequester {
 
@@ -38,20 +42,20 @@ public class SpxRequester implements ITwsRequester {
         }
     }
 
-//    private void requestStocks(Downloader downloader) throws Exception {
-//
-//        Contract contract = new Contract();
-//        contract.secType("STK");
-//        contract.exchange("SMART");
-//        contract.currency("USD");
-//        contract.primaryExch("ISLAND");
-//
-//        for (Map.Entry<Integer, MiniStock> entry : spx.getStocksHandler().getMiniStockMap().entrySet()) {
-//            MiniStock stock = entry.getValue();
-//            contract.symbol(stock.getName());
-//            downloader.reqMktData(stock.getId(), contract);
-//        }
-//    }
+    private void requestStocks(Downloader downloader) throws Exception {
+
+        Contract contract = new Contract();
+        contract.secType("STK");
+        contract.exchange("SMART");
+        contract.currency("USD");
+        contract.primaryExch("ISLAND");
+
+        for ( Map.Entry<Integer, MiniStock > entry : spx.getStocksHandler().getMiniStockMap().entrySet()) {
+            MiniStock stock = entry.getValue();
+            contract.symbol(stock.getName());
+            downloader.reqMktData(stock.getId(), contract);
+        }
+    }
 
     private void init() {
         spx = Spx.getInstance();

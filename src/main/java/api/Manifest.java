@@ -23,13 +23,6 @@ public class Manifest {
     public static String ACCOUNT = REAL_ACCOUNT;
     public static int PORT = REAL_PORT;
     public static int SCREEN = 0;
-
-    // FUTURES
-    public static String EXPIRY = "202006";
-
-    // DB
-    public static String EXP = "JUN";
-
     /*
      * On expiration change
      * 1. EXPIRY date
