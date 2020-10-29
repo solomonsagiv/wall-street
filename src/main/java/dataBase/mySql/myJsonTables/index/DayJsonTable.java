@@ -40,6 +40,5 @@ public class DayJsonTable extends MyDayTable {
                 return client.getAsJson().toString();
             }
         });
-
     }
 }

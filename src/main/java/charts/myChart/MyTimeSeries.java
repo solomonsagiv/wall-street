@@ -13,6 +13,7 @@ import java.awt.*;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 interface ITimeSeries {
     double getData() throws UnknownHostException;
@@ -52,6 +53,11 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public double getScaledData( RegularTimePeriod timePeriod ) {
         double data = ( double ) getDataItem( timePeriod ).getValue( );
+        return myValues.scaled( data );
+    }
+
+    public double getScaledData( int index ) {
+        double data = ( double ) getDataItem( index ).getValue( );
         return myValues.scaled( data );
     }
 
@@ -95,7 +101,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             if ( !json.getString( JsonStrings.x ).isEmpty( ) ) {
 
                 LocalDateTime dateTime = LocalDateTime.parse( json.getString( JsonStrings.x ) );
-
                 lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth( ), dateTime.getMonthValue( ), dateTime.getYear( ) );
 
                 double data = json.getDouble( JsonStrings.y );

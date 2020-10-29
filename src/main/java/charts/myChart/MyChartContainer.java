@@ -3,6 +3,7 @@ package charts.myChart;
 import charts.MyChartPanel;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import javafx.scene.input.MouseDragEvent;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -67,7 +68,7 @@ public class MyChartContainer extends JFrame {
             myChart.chartPanel = chartPanel;
 
             initProps( chartPanel );
-//          addPan( chartPanel );
+            addPan( chartPanel );
             mouseListener( chartPanel, myChart );
             mouseWheel( chartPanel, myChart );
             add( chartPanel );
@@ -80,8 +81,8 @@ public class MyChartContainer extends JFrame {
         chartPanel.setDomainZoomable( true );
         chartPanel.setRangeZoomable( false );
         chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
-        chartPanel.setFillZoomRectangle( false );
-        chartPanel.setZoomAroundAnchor( false );
+        chartPanel.setFillZoomRectangle( true );
+        chartPanel.setZoomAroundAnchor( true );
     }
 
     private void mouseWheel( MyChartPanel chartPanel, MyChart myChart ) {
@@ -107,6 +108,36 @@ public class MyChartContainer extends JFrame {
                 }
             }
         } );
+
+        chartPanel.addMouseListener( new MouseAdapter( ) {
+            @Override
+            public void mouseReleased( MouseEvent e ) {
+                super.mouseReleased( e );
+                System.out.println( "Mouse released" );
+                myChart.getUpdater( ).updateChartRange( );
+            }
+        } );
+
+        chartPanel.addKeyListener( new KeyAdapter( ) {
+            @Override
+            public void keyReleased( KeyEvent e ) {
+                super.keyReleased( e );
+
+                // Right arrow
+                if ( e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                    myChart.getUpdater().moveForward();
+                }
+            }
+        } );
+
+//        chartPanel.addMouseListener( new MouseAdapter( ) {
+//            @Override
+//            public void mouseDragged( MouseEvent e ) {
+//                super.mouseDragged( e );
+//                System.out.println( "Mouse dragged" );
+//                myChart.getUpdater( ).updateChartRange( );
+//            }
+//        } );
     }
 
     private void addPan( MyChartPanel chartPanel ) {

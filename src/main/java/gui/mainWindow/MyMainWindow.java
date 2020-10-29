@@ -59,7 +59,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         LocalHandler.clients.add(netflix);
         LocalHandler.clients.add(microsoft);
     }
-
+    
     @Override
     public void initOnClose() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

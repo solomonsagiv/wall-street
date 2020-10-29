@@ -2,7 +2,7 @@ package dataBase.mySql.mySqlComps;
 
 public enum MySqlColumnEnum {
 
-    ID("id", MySqlDataTypeEnum.INT),
+    id("id", MySqlDataTypeEnum.INT),
     NAME("id", MySqlDataTypeEnum.STRING),
     date("date", MySqlDataTypeEnum.STRING),
     OPEN("open", MySqlDataTypeEnum.DOUBLE),

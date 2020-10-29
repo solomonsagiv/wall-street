@@ -128,7 +128,7 @@ public class MyChart {
 //        ArrayList< Double > dots = new ArrayList<>( );
         MyTimeSeries[] series;
         NumberAxis range;
-        double start, end;
+        double min, max;
 
         // Constructor
         public ChartUpdater( BASE_CLIENT_OBJECT client, MyTimeSeries[] series ) {
@@ -186,12 +186,10 @@ public class MyChart {
             if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
                 try {
                     for ( MyTimeSeries serie : series ) {
-
                         // If bigger then target Seconds
                         if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
                             serie.remove( 0 );
                         }
-
                         // Append data
                         serie.add( );
                     }
@@ -227,32 +225,39 @@ public class MyChart {
                     RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );
                     RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate( ).toString( ) ) );
 
+                    int startIndex = ( int ) L.abs( series[ 0 ].getIndex( startPeroid ) );
+                    int endIndex = ( int ) L.abs( series[ 0 ].getIndex( endPeroid ) );
+
+                    ArrayList< Double > dots = new ArrayList<>( );
+
                     try {
                         if ( series[ 0 ].isScaled( ) ) {
-                            start = series[ 0 ].getScaledData( startPeroid );
-                            end = series[ 0 ].getScaledData( endPeroid );
+
+                            for ( MyTimeSeries mts : series ) {
+                                for ( int i = startIndex; i < endIndex; i++ ) {
+                                    dots.add( mts.getScaledData( i ) );
+                                }
+                            }
+
+                            min = Collections.min( dots );
+                            max = Collections.max( dots );
                         } else {
-                            start = ( double ) series[ 0 ].getDataItem( startPeroid ).getValue( );
-                            end = ( double ) series[ 0 ].getDataItem( endPeroid ).getValue( );
+
+                            for ( MyTimeSeries mts : series ) {
+                                for ( int i = startIndex; i < endIndex; i++ ) {
+                                    dots.add( ( Double ) mts.getValue( i ) );
+                                }
+                            }
+
+                            min = Collections.min( dots );
+                            max = Collections.max( dots );
                         }
                     } catch ( Exception e ) {
                         e.printStackTrace( );
                     }
 
-                    double min, max;
-
-                    if ( start < end ) {
-                        min = start;
-                        max = end;
-                    } else {
-                        min = end;
-                        max = start;
-                    }
-
-                    double avg = ( min + max ) / 2;
-
-                    min = min - ( avg * 0.0015 );
-                    max = max + ( avg * 0.0015 );
+                    min = min - ( min * 0.0001 );
+                    max = max + ( max * 0.0001 );
 
                     range = ( NumberAxis ) plot.getRangeAxis( );
                     range.setRange( min, max );
@@ -291,10 +296,10 @@ public class MyChart {
 
                 ArrayList< Double > dots = new ArrayList<>( );
                 for ( MyTimeSeries serie : series ) {
-                    if ( serie.isScaled() ) {
-                        dots.addAll( serie.getMyValues( ).scaledList() );
+                    if ( serie.isScaled( ) ) {
+                        dots.addAll( serie.getMyValues( ).scaledList( ) );
                     } else {
-                        dots.addAll( serie.getMyValues( ));
+                        dots.addAll( serie.getMyValues( ) );
                     }
                 }
 
@@ -354,6 +359,23 @@ public class MyChart {
         @Override
         public void initRunnable() {
             setRunnable( this );
+        }
+
+        public void moveForward() {
+            try {
+
+                // X
+                DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange( );
+                RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );
+                RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate( ).toString( ) ) );
+
+                int startIndex = ( int ) L.abs( series[ 0 ].getIndex( startPeroid ) );
+                int endIndex = ( int ) L.abs( series[ 0 ].getIndex( endPeroid ) );
+
+
+            } catch ( ParseException e ) {
+                e.printStackTrace( );
+            }
         }
     }
 }

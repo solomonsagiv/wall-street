@@ -19,6 +19,7 @@ public class MyGuiComps {
             super(title);
             init();
             initialize();
+            initListeners();
             packAndFinish();
             initOnClose();
         }
