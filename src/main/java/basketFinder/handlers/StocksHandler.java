@@ -1,6 +1,7 @@
 package basketFinder.handlers;
 
 import basketFinder.MiniStock;
+import myJson.MyJson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,5 +48,11 @@ public abstract class StocksHandler {
         setMaxId(id);
 
         miniStockMap.put(id, new MiniStock(stock, id++));
+    }
+
+    public void loadStocksFromJson( MyJson json ) {
+        for (String d : json.keySet()) {
+            System.out.println(d);
+        }
     }
 }

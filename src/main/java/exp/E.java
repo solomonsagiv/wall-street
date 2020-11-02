@@ -14,11 +14,15 @@ import java.net.UnknownHostException;
 public class E extends Exp {
 
     protected int delta = 0;
+    protected int preDelta = 0;
     protected int volumeFutForDelta = 0;
     protected double futForDelta = 0;
     protected double futBidForDelta = 0;
     protected double futAskForDelta = 0;
+    protected double preFutBidForDelta = 0;
+    protected double preFutAskForDelta = 0;
     private MyTimeSeries deltaSerie;
+    private MyTimeSeries preDeltaSerie;
     private MyTimeSeries deltaScaledSerie;
 
     public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
@@ -56,6 +60,7 @@ public class E extends Exp {
     public void calcDelta( int quantity ) {
         new Thread( () -> {
             this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getFutBidForDelta( ), getFutAskForDelta( ) );
+            this.preDelta += DeltaCalc.calc( quantity, getFutForDelta( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
         } ).start( );
     }
 
@@ -68,6 +73,14 @@ public class E extends Exp {
                 return delta;
             }
         };
+
+        preDeltaSerie = new MyTimeSeries( "Pre delta", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return preDelta;
+            }
+        };
+
 
         deltaScaledSerie = new MyTimeSeries( "Delta scaled", client, true ) {
             @Override
@@ -95,7 +108,20 @@ public class E extends Exp {
     }
 
     public void setBidForDelta( double futBidForDelta ) {
+
+        // Set pre bid
+        this.preFutBidForDelta = this.futBidForDelta;
+
+        // Set current
         this.futBidForDelta = futBidForDelta;
+    }
+
+    public double getPreFutAskForDelta() {
+        return preFutAskForDelta;
+    }
+
+    public double getPreFutBidForDelta() {
+        return preFutBidForDelta;
     }
 
     public MyTimeSeries getDeltaSerie() {
@@ -106,11 +132,20 @@ public class E extends Exp {
         return deltaScaledSerie;
     }
 
+    public MyTimeSeries getPreDeltaSerie() {
+        return preDeltaSerie;
+    }
+
     public double getFutAskForDelta() {
         return futAskForDelta;
     }
 
     public void setAskForDelta( double futAskForDelta ) {
+
+        // Set pre ask
+        this.preFutAskForDelta = this.futAskForDelta;
+
+        // Set current
         this.futAskForDelta = futAskForDelta;
     }
 

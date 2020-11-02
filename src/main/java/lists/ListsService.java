@@ -65,6 +65,7 @@ public class ListsService extends MyBaseService {
                 // E
                 if (exp instanceof E) {
                     ((E) exp).getDeltaSerie().add(time);
+                    ((E) exp).getPreDeltaSerie().add(time);
                     ((E) exp).getDeltaScaledSerie().add(time);
                 }
 

@@ -13,7 +13,7 @@ public class TablesHandler {
 
     public static void main(String[] args) {
         Spx spx = Spx.getInstance();
-        spx.getTablesHandler().getTable(TablesEnum.STATUS).update();
+        spx.getTablesHandler().getTable(TablesEnum.INDEX_STOCKS).load();
         System.out.println("Done");
     }
 

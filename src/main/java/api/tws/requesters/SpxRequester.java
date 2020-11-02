@@ -50,7 +50,7 @@ public class SpxRequester implements ITwsRequester {
         contract.currency("USD");
         contract.primaryExch("ISLAND");
 
-        for ( Map.Entry<Integer, MiniStock > entry : spx.getStocksHandler().getMiniStockMap().entrySet()) {
+        for (Map.Entry<Integer, MiniStock> entry : spx.getStocksHandler().getMiniStockMap().entrySet()) {
             MiniStock stock = entry.getValue();
             contract.symbol(stock.getName());
             downloader.reqMktData(stock.getId(), contract);

@@ -10,6 +10,7 @@ import dataBase.mySql.myTables.ArraysTable;
 import dataBase.mySql.myTables.StatusJsonTable;
 import dataBase.mySql.myTables.SumJsonTable;
 import dataBase.mySql.myTables.TwsContractsTable;
+import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.E;
 import exp.ExpStrings;
 import exp.Exps;
@@ -38,6 +39,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         tablesHandler.addTable(TablesEnum.SUM, new SumJsonTable(this));
         tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
         tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this));
+        tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
     }
 
     @Override
@@ -86,7 +88,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     @Override
     public MyJson getResetJson() {
         MyJson json = new MyJson();
-        json.put( JsonStrings.exps, exps.getResetJson() );
+        json.put(JsonStrings.exps, exps.getResetJson());
         return json;
     }
 

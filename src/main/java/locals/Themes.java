@@ -34,6 +34,9 @@ public class Themes {
     public static Color VERY_LIGHT_BLUE = new Color(235, 228, 235);
     public static Color GREEN = new Color(7, 153, 98);
     public static Color GREEN_LIGHT = new Color(7, 217, 147);
+
+    public static Color GREEN_LIGHT_2 = new Color(204, 217, 197);
+
     public static Color RED = new Color(229, 19, 0);
     public static Color PINK_LIGHT = new Color(255, 124, 176);
 

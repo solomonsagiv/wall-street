@@ -9,10 +9,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class EDeltaChart extends MyChartCreator {
+public class EDeltaPreDeltaChart extends MyChartCreator {
 
     // Constructor
-    public EDeltaChart(BASE_CLIENT_OBJECT client) {
+    public EDeltaPreDeltaChart(BASE_CLIENT_OBJECT client) {
         super(client);
     }
 
@@ -49,8 +49,14 @@ public class EDeltaChart extends MyChartCreator {
         deltaSerie.setColor(Themes.GREEN);
         deltaSerie.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
+        // Delta
+        MyTimeSeries preDeltaSerie = e1.getDeltaSerie();
+        preDeltaSerie.setColor(Themes.GREEN_LIGHT_2);
+        preDeltaSerie.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[2];
         series[0] = deltaSerie;
+        series[1] = preDeltaSerie;
 
 
         // Chart
