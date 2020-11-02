@@ -21,7 +21,7 @@ public class BasketService extends MyBaseService {
     public BasketService(BASE_CLIENT_OBJECT client, StocksHandler stocksHandler, int plagForBasket) {
         super(client);
         this.client = client;
-        this.miniStockMap = stocksHandler.getMiniStockMap();
+        this.miniStockMap = stocksHandler.getStocksMap();
         this.plagForBasket = plagForBasket;
     }
 

@@ -25,7 +25,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Amazon amazon;
     static Netflix netflix;
     static Microsoft microsoft;
-    
+
     static {
         dax = Dax.getInstance();
         spx = Spx.getInstance();

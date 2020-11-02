@@ -45,19 +45,12 @@ public class EDeltaPreDeltaChart extends MyChartCreator {
         props1.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Delta
-        MyTimeSeries deltaSerie = e1.getDeltaSerie();
-        deltaSerie.setColor(Themes.GREEN);
-        deltaSerie.setStokeSize(1.5f);
-
-        // Delta
-        MyTimeSeries preDeltaSerie = e1.getDeltaSerie();
+        MyTimeSeries preDeltaSerie = e1.getPreDeltaSerie();
         preDeltaSerie.setColor(Themes.GREEN_LIGHT_2);
         preDeltaSerie.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[2];
-        series[0] = deltaSerie;
-        series[1] = preDeltaSerie;
-
+        series = new MyTimeSeries[1];
+        series[0] = preDeltaSerie;
 
         // Chart
         MyChart opAvgFutureChart = new MyChart(client, series, props1);

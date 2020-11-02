@@ -8,13 +8,12 @@ public class MiniStock {
     private double ind;
     private double volume = 0;
     private double lastCheckVolume = 0;
-    private int indexBidAskCounter = 0;
-    private double indexBid = 0;
-    private double indexAsk = 0;
+    private double indBid = 0;
+    private double indAsk = 0;
+    private double preIndBid = 0;
+    private double preIndAsk = 0;
     private boolean down = false;
     private boolean up = false;
-    private double indexAskForCheck = 0;
-    private double indexBidForCheck = 0;
 
     // Constructor
     public MiniStock(String name, int id) {
@@ -22,31 +21,19 @@ public class MiniStock {
         this.id = id;
     }
 
-    public void setIndexBid(double indexBid) {
-
-        // If increment state
-        if (indexBid > this.indexBid && indexAskForCheck == this.indexAsk) {
-            indexBidAskCounter++;
-        }
-        this.indexBid = indexBid;
-
-        // Ask for bid change state
-        indexBidForCheck = indexBid;
-        indexAskForCheck = this.indexAsk;
+    public void setIndBid( double indBid ) {
+        // Pre
+        this.preIndBid = this.indBid;
+        // Current
+        this.indBid = indBid;
 
     }
 
-    public void setIndexAsk(double indexAsk) {
-        // If increment state
-        if (indexAsk < this.indexAsk && indexBidForCheck == indexBid) {
-            indexBidAskCounter--;
-        }
-        this.indexAsk = indexAsk;
-
-        // Handle state
-        indexAskForCheck = indexAsk;
-        indexBidForCheck = indexBid;
-
+    public void setIndAsk( double indAsk ) {
+        // Pre
+        this.preIndAsk = this.indAsk;
+        // Current
+        this.indAsk = indAsk;
     }
 
     public void updateLastData() {
@@ -76,10 +63,10 @@ public class MiniStock {
     }
 
     public void setInd(double ind) {
-        if (ind == indexAsk) {
+        if (ind == indAsk ) {
             up = true;
         }
-        if (ind == indexBid) {
+        if (ind == indBid ) {
             down = true;
         }
         this.ind = ind;
@@ -111,5 +98,13 @@ public class MiniStock {
 
     public void setUp(boolean up) {
         this.up = up;
+    }
+
+    public double getPreIndBid() {
+        return preIndBid;
+    }
+
+    public double getPreIndAsk() {
+        return preIndAsk;
     }
 }

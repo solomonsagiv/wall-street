@@ -30,9 +30,9 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
 
     public STOCK_OBJECT() {
         super();
-        setIndexStartTime(LocalTime.of(15, 30, 0));
-        setIndexEndTime(LocalTime.of(22, 0, 0));
-        setFutureEndTime(LocalTime.of(22, 15, 0));
+        setIndexStartTime(LocalTime.of(16, 30, 0));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
+        setFutureEndTime(LocalTime.of(23, 15, 0));
         initTablesHandler();
         setLogicService(new LogicService(this, ExpStrings.month));
         roll();

@@ -46,7 +46,7 @@ public class DaxRequester implements ITwsRequester {
         contract.currency( "EUR" );
         contract.primaryExch( "IBIS" );
 
-        for ( Map.Entry< Integer, MiniStock > entry : dax.getStocksHandler( ).getMiniStockMap( ).entrySet( ) ) {
+        for ( Map.Entry< Integer, MiniStock > entry : dax.getStocksHandler( ).getStocksMap( ).entrySet( ) ) {
             MiniStock stock = entry.getValue( );
             contract.symbol( stock.getName( ) );
 
@@ -100,13 +100,13 @@ public class DaxRequester implements ITwsRequester {
 
     @Override
     public void sizeReciever( int tickerId, int field, int size ) {
-        if ( dax.isStarted( ) ) {
-            // Last
-            if ( tickerId == futureId && size > 0 ) {
-                if ( field == 8 ) {
-                    e1.setVolumeFutForDelta( size );
-                }
-            }
-        }
+//        if ( dax.isStarted( ) ) {
+//            // Last
+//            if ( tickerId == futureId && size > 0 ) {
+//                if ( field == 8 ) {
+//                    e1.setVolumeFutForDelta( size );
+//                }
+//            }
+//        }
     }
 }

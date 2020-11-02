@@ -27,7 +27,7 @@ public class Downloader extends Thread implements EWrapper {
     MyLogger logger;
     int NextOrderId = -1;
     Set<ITwsRequester> iTwsRequesters = new HashSet<>();
-    int MaxRequest = 45;
+    int MaxRequest = 49;
     int count = 0;
 
     // Constructor
@@ -511,15 +511,16 @@ public class Downloader extends Thread implements EWrapper {
         NextOrderId = nextOrderId;
     }
 
-    public void reqMktData(int tickerID, Contract contract) throws Exception {
+    public synchronized void reqMktData(int tickerID, Contract contract) throws Exception {
         if (client.isConnected()) {
 
             if (count < MaxRequest) {
+                System.out.println( "Count " + count );
                 client.reqMktData(tickerID, contract,
                         "", false, false, null);
                 count++;
             } else {
-                Thread.sleep(1100);
+                Thread.sleep(1010);
                 count = 0;
             }
         } else {

@@ -9,50 +9,34 @@ import java.util.Map;
 public class StocksHandler {
 
     // Variables
-    protected Map<Integer, MiniStock> miniStockMap = new HashMap<>();
+    protected Map<Integer, MiniStock> stocksMap = new HashMap<>();
 
-    protected int minId = 99999999, maxId = 0;
+    protected int minId = 0, maxId = 0;
     protected int id;
 
     public StocksHandler(int id) {
         this.id = id;
     }
 
-    public Map<Integer, MiniStock> getMiniStockMap() {
-        return miniStockMap;
+    public Map<Integer, MiniStock> getStocksMap() {
+        return stocksMap;
+    }
+
+    public void loadStocksFromJson( MyJson json ) {
+        int currId = id;
+        minId = currId;
+        for (String key : json.keySet()) {
+            stocksMap.put( currId, new MiniStock( key, currId ));
+            currId++;
+        }
+        maxId = currId;
     }
 
     public int getMinId() {
         return minId;
     }
 
-    private void setMinId(int id) {
-        if (id < minId) {
-            minId = id;
-        }
-    }
-
     public int getMaxId() {
         return maxId;
-    }
-
-    private void setMaxId(int id) {
-        if (id > maxId) {
-            maxId = id;
-        }
-    }
-
-    public void addStock(String stock) {
-
-        setMinId(id);
-        setMaxId(id);
-
-        miniStockMap.put(id, new MiniStock(stock, id++));
-    }
-
-    public void loadStocksFromJson( MyJson json ) {
-        for (String key : json.keySet()) {
-            
-        }
     }
 }

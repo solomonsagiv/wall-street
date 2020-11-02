@@ -36,13 +36,12 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setName( "spx" );
         setIndexBidAskMargin( .5 );
         setDbId( 2 );
-
         setStrikeMargin( 5 );
         setBaseId( 10000 );
         initDDECells( );
-        setIndexStartTime( LocalTime.of( 15, 31, 0 ) );
-        setIndexEndTime( LocalTime.of( 22, 0, 0 ) );
-        setFutureEndTime( LocalTime.of( 22, 15, 0 ) );
+        setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
+        setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
+        setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setiTwsRequester( new SpxRequester( ) );
         setLogicService( new LogicService( this, ExpStrings.e1 ) );
         roll( );

@@ -59,7 +59,7 @@ public class E extends Exp {
 
     public void calcDelta( int quantity ) {
         new Thread( () -> {
-            this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getFutBidForDelta( ), getFutAskForDelta( ) );
+//            this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getFutBidForDelta( ), getFutAskForDelta( ) );
             this.preDelta += DeltaCalc.calc( quantity, getFutForDelta( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
         } ).start( );
     }
@@ -80,7 +80,6 @@ public class E extends Exp {
                 return preDelta;
             }
         };
-
 
         deltaScaledSerie = new MyTimeSeries( "Delta scaled", client, true ) {
             @Override
