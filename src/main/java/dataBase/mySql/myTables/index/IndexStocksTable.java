@@ -24,6 +24,8 @@ public class IndexStocksTable extends MySqlTable {
             @Override
             public void setLoadedObject( String object ) {
                 System.out.println("Object " + object);
+                dsd;la,;da,ss
+                ldsldma
                 System.out.println(object);
             }
 
