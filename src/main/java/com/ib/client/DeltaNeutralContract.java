@@ -14,7 +14,7 @@ public class DeltaNeutralContract {
         m_price = 0;
     }
 
-    public DeltaNeutralContract( int conid, double delta, double price ) {
+    public DeltaNeutralContract(int conid, double delta, double price) {
         m_conid = conid;
         m_delta = delta;
         m_price = price;
@@ -34,34 +34,34 @@ public class DeltaNeutralContract {
     }
 
     // Set
-    public void conid( int conid ) {
+    public void conid(int conid) {
         m_conid = conid;
     }
 
-    public void delta( double delta ) {
+    public void delta(double delta) {
         m_delta = delta;
     }
 
-    public void price( double price ) {
+    public void price(double price) {
         m_price = price;
     }
 
     @Override
-    public boolean equals( Object p_other ) {
-        if ( this == p_other ) {
+    public boolean equals(Object p_other) {
+        if (this == p_other) {
             return true;
         }
 
-        if ( p_other == null || !( p_other instanceof DeltaNeutralContract ) ) {
+        if (p_other == null || !(p_other instanceof DeltaNeutralContract)) {
             return false;
         }
 
-        DeltaNeutralContract l_theOther = ( DeltaNeutralContract ) p_other;
+        DeltaNeutralContract l_theOther = (DeltaNeutralContract) p_other;
 
-        if ( m_conid != l_theOther.m_conid ) {
+        if (m_conid != l_theOther.m_conid) {
             return false;
         }
-        if ( m_delta != l_theOther.m_delta ) {
+        if (m_delta != l_theOther.m_delta) {
             return false;
         }
         return m_price == l_theOther.m_price;
@@ -72,10 +72,10 @@ public class DeltaNeutralContract {
         int result;
         long temp;
         result = m_conid;
-        temp = Double.doubleToLongBits( m_delta );
-        result = 31 * result + ( int ) ( temp ^ ( temp >>> 32 ) );
-        temp = Double.doubleToLongBits( m_price );
-        result = 31 * result + ( int ) ( temp ^ ( temp >>> 32 ) );
+        temp = Double.doubleToLongBits(m_delta);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

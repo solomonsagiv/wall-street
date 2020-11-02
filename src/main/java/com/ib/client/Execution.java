@@ -34,11 +34,11 @@ public class Execution {
         m_evMultiplier = 0;
     }
 
-    public Execution( int p_orderId, int p_clientId, String p_execId, String p_time,
-                      String p_acctNumber, String p_exchange, String p_side, int p_shares,
-                      double p_price, int p_permId, int p_liquidation, int p_cumQty,
-                      double p_avgPrice, String p_orderRef, String p_evRule, double p_evMultiplier,
-                      String p_modelCode ) {
+    public Execution(int p_orderId, int p_clientId, String p_execId, String p_time,
+                     String p_acctNumber, String p_exchange, String p_side, int p_shares,
+                     double p_price, int p_permId, int p_liquidation, int p_cumQty,
+                     double p_avgPrice, String p_orderRef, String p_evRule, double p_evMultiplier,
+                     String p_modelCode) {
         m_orderId = p_orderId;
         m_clientId = p_clientId;
         m_execId = p_execId;
@@ -128,89 +128,89 @@ public class Execution {
     }
 
     // Set
-    public void orderId( int orderId ) {
+    public void orderId(int orderId) {
         m_orderId = orderId;
     }
 
-    public void clientId( int clientId ) {
+    public void clientId(int clientId) {
         m_clientId = clientId;
     }
 
-    public void execId( String execId ) {
+    public void execId(String execId) {
         m_execId = execId;
     }
 
-    public void time( String time ) {
+    public void time(String time) {
         m_time = time;
     }
 
-    public void acctNumber( String acctNumber ) {
+    public void acctNumber(String acctNumber) {
         m_acctNumber = acctNumber;
     }
 
-    public void exchange( String exchange ) {
+    public void exchange(String exchange) {
         m_exchange = exchange;
     }
 
-    public void side( String side ) {
+    public void side(String side) {
         m_side = side;
     }
 
-    public void shares( double shares ) {
+    public void shares(double shares) {
         m_shares = shares;
     }
 
-    public void price( double price ) {
+    public void price(double price) {
         m_price = price;
     }
 
-    public void permId( int permId ) {
+    public void permId(int permId) {
         m_permId = permId;
     }
 
-    public void liquidation( int liquidation ) {
+    public void liquidation(int liquidation) {
         m_liquidation = liquidation;
     }
 
-    public void cumQty( double cumQty ) {
+    public void cumQty(double cumQty) {
         m_cumQty = cumQty;
     }
 
-    public void avgPrice( double avgPrice ) {
+    public void avgPrice(double avgPrice) {
         m_avgPrice = avgPrice;
     }
 
-    public void orderRef( String orderRef ) {
+    public void orderRef(String orderRef) {
         m_orderRef = orderRef;
     }
 
-    public void evRule( String evRule ) {
+    public void evRule(String evRule) {
         m_evRule = evRule;
     }
 
-    public void evMultiplier( double evMultiplier ) {
+    public void evMultiplier(double evMultiplier) {
         m_evMultiplier = evMultiplier;
     }
 
-    public void modelCode( String modelCode ) {
+    public void modelCode(String modelCode) {
         m_modelCode = modelCode;
     }
 
     @Override
-    public boolean equals( Object p_other ) {
-        if ( this == p_other ) {
+    public boolean equals(Object p_other) {
+        if (this == p_other) {
             return true;
         }
-        if ( !( p_other instanceof Execution ) ) {
+        if (!(p_other instanceof Execution)) {
             return false;
         }
-        Execution l_theOther = ( Execution ) p_other;
-        return m_execId.equals( l_theOther.m_execId );
+        Execution l_theOther = (Execution) p_other;
+        return m_execId.equals(l_theOther.m_execId);
     }
 
     @Override
     public int hashCode() {
         // Since equals() uses m_execId only, the hashCode should do as well.
-        return m_execId != null ? m_execId.hashCode( ) : 0;
+        return m_execId != null ? m_execId.hashCode() : 0;
     }
 }

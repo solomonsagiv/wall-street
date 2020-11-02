@@ -9,20 +9,20 @@ public class PercentChangeCondition extends ContractCondition {
     }
 
     @Override
-    public String toString( ContractLookuper lookuper ) {
-        return super.toString( lookuper );
+    public String toString(ContractLookuper lookuper) {
+        return super.toString(lookuper);
     }
 
     @Override
     public String toString() {
-        return toString( null );
+        return toString(null);
     }
 
     public double changePercent() {
         return m_changePercent;
     }
 
-    public void changePercent( double m_changePercent ) {
+    public void changePercent(double m_changePercent) {
         this.m_changePercent = m_changePercent;
     }
 
@@ -32,8 +32,8 @@ public class PercentChangeCondition extends ContractCondition {
     }
 
     @Override
-    protected void valueFromString( String v ) {
-        m_changePercent = Double.parseDouble( v );
+    protected void valueFromString(String v) {
+        m_changePercent = Double.parseDouble(v);
     }
 
 }

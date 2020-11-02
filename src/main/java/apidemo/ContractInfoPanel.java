@@ -22,136 +22,136 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 class ContractInfoPanel extends JPanel {
-    private final Contract m_contract = new Contract( );
-    private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel( );
+    private final Contract m_contract = new Contract();
+    private final NewTabbedPanel m_resultsPanels = new NewTabbedPanel();
 
     ContractInfoPanel() {
-        final NewTabbedPanel m_requestPanels = new NewTabbedPanel( );
-        m_requestPanels.addTab( "Contract details", new DetailsRequestPanel( ) );
-        m_requestPanels.addTab( "Fundamentals", new FundaRequestPanel( ) );
+        final NewTabbedPanel m_requestPanels = new NewTabbedPanel();
+        m_requestPanels.addTab("Contract details", new DetailsRequestPanel());
+        m_requestPanels.addTab("Fundamentals", new FundaRequestPanel());
 
-        setLayout( new BorderLayout( ) );
-        add( m_requestPanels, BorderLayout.NORTH );
-        add( m_resultsPanels );
+        setLayout(new BorderLayout());
+        add(m_requestPanels, BorderLayout.NORTH);
+        add(m_resultsPanels);
     }
 
     static class DetailsResultsPanel extends JPanel implements IContractDetailsHandler {
-        JLabel m_label = new JLabel( );
-        JTextArea m_text = new JTextArea( );
+        JLabel m_label = new JLabel();
+        JTextArea m_text = new JTextArea();
 
         DetailsResultsPanel() {
-            JScrollPane scroll = new JScrollPane( m_text );
+            JScrollPane scroll = new JScrollPane(m_text);
 
-            setLayout( new BorderLayout( ) );
-            add( m_label, BorderLayout.NORTH );
-            add( scroll );
+            setLayout(new BorderLayout());
+            add(m_label, BorderLayout.NORTH);
+            add(scroll);
         }
 
         @Override
-        public void contractDetails( ArrayList< ContractDetails > list ) {
+        public void contractDetails(ArrayList<ContractDetails> list) {
             // set label
-            if ( list.size( ) == 0 ) {
-                m_label.setText( "No matching contracts were found" );
-            } else if ( list.size( ) > 1 ) {
-                m_label.setText( list.size( ) + " contracts returned; showing first contract only" );
+            if (list.size() == 0) {
+                m_label.setText("No matching contracts were found");
+            } else if (list.size() > 1) {
+                m_label.setText(list.size() + " contracts returned; showing first contract only");
             } else {
-                m_label.setText( null );
+                m_label.setText(null);
             }
 
             // set text
-            if ( list.size( ) == 0 ) {
-                m_text.setText( null );
+            if (list.size() == 0) {
+                m_text.setText(null);
             } else {
-                m_text.setText( list.get( 0 ).toString( ) );
+                m_text.setText(list.get(0).toString());
             }
         }
     }
 
     class DetailsRequestPanel extends JPanel {
-        ContractPanel m_contractPanel = new ContractPanel( m_contract );
+        ContractPanel m_contractPanel = new ContractPanel(m_contract);
 
         DetailsRequestPanel() {
-            HtmlButton but = new HtmlButton( "Query" ) {
+            HtmlButton but = new HtmlButton("Query") {
                 @Override
                 protected void actionPerformed() {
-                    onQuery( );
+                    onQuery();
                 }
             };
 
-            setLayout( new BoxLayout( this, BoxLayout.X_AXIS ) );
-            add( m_contractPanel );
-            add( Box.createHorizontalStrut( 20 ) );
-            add( but );
+            setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            add(m_contractPanel);
+            add(Box.createHorizontalStrut(20));
+            add(but);
         }
 
         void onQuery() {
-            m_contractPanel.onOK( );
+            m_contractPanel.onOK();
 
-            DetailsResultsPanel panel = new DetailsResultsPanel( );
-            m_resultsPanels.addTab( m_contract.symbol( ) + " " + "Description", panel, true, true );
-            ApiDemo.INSTANCE.controller( ).reqContractDetails( m_contract, panel );
+            DetailsResultsPanel panel = new DetailsResultsPanel();
+            m_resultsPanels.addTab(m_contract.symbol() + " " + "Description", panel, true, true);
+            ApiDemo.INSTANCE.controller().reqContractDetails(m_contract, panel);
         }
     }
 
     public class FundaRequestPanel extends JPanel {
-        ContractPanel m_contractPanel = new ContractPanel( m_contract );
-        TCombo< FundamentalType > m_type = new TCombo<>( FundamentalType.values( ) );
+        ContractPanel m_contractPanel = new ContractPanel(m_contract);
+        TCombo<FundamentalType> m_type = new TCombo<>(FundamentalType.values());
 
         FundaRequestPanel() {
-            HtmlButton but = new HtmlButton( "Query" ) {
+            HtmlButton but = new HtmlButton("Query") {
                 @Override
                 protected void actionPerformed() {
-                    onQuery( );
+                    onQuery();
                 }
             };
 
-            VerticalPanel rightPanel = new VerticalPanel( );
-            rightPanel.add( "Report type", m_type );
+            VerticalPanel rightPanel = new VerticalPanel();
+            rightPanel.add("Report type", m_type);
 
-            setLayout( new BoxLayout( this, BoxLayout.X_AXIS ) );
-            add( m_contractPanel );
-            add( Box.createHorizontalStrut( 20 ) );
-            add( rightPanel );
-            add( Box.createHorizontalStrut( 10 ) );
-            add( but );
+            setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+            add(m_contractPanel);
+            add(Box.createHorizontalStrut(20));
+            add(rightPanel);
+            add(Box.createHorizontalStrut(10));
+            add(but);
         }
 
         void onQuery() {
-            m_contractPanel.onOK( );
-            FundaResultPanel panel = new FundaResultPanel( );
-            FundamentalType type = m_type.getSelectedItem( );
-            m_resultsPanels.addTab( m_contract.symbol( ) + " " + type, panel, true, true );
-            ApiDemo.INSTANCE.controller( ).reqFundamentals( m_contract, type, panel );
+            m_contractPanel.onOK();
+            FundaResultPanel panel = new FundaResultPanel();
+            FundamentalType type = m_type.getSelectedItem();
+            m_resultsPanels.addTab(m_contract.symbol() + " " + type, panel, true, true);
+            ApiDemo.INSTANCE.controller().reqFundamentals(m_contract, type, panel);
         }
     }
 
     class FundaResultPanel extends JPanel implements INewTab, IFundamentalsHandler {
         String m_data;
-        JTextArea m_text = new JTextArea( );
+        JTextArea m_text = new JTextArea();
 
         FundaResultPanel() {
-            HtmlButton b = new HtmlButton( "View in browser" ) {
+            HtmlButton b = new HtmlButton("View in browser") {
                 @Override
                 protected void actionPerformed() {
-                    onView( );
+                    onView();
                 }
             };
 
-            JScrollPane scroll = new JScrollPane( m_text );
-            setLayout( new BorderLayout( ) );
-            add( scroll );
-            add( b, BorderLayout.EAST );
+            JScrollPane scroll = new JScrollPane(m_text);
+            setLayout(new BorderLayout());
+            add(scroll);
+            add(b, BorderLayout.EAST);
         }
 
         void onView() {
             try {
-                File file = File.createTempFile( "tws", ".xml" );
-                try ( FileWriter writer = new FileWriter( file ) ) {
-                    writer.write( m_text.getText( ) );
+                File file = File.createTempFile("tws", ".xml");
+                try (FileWriter writer = new FileWriter(file)) {
+                    writer.write(m_text.getText());
                 }
-                Desktop.getDesktop( ).open( file );
-            } catch ( IOException e ) {
-                e.printStackTrace( );
+                Desktop.getDesktop().open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
@@ -160,7 +160,7 @@ class ContractInfoPanel extends JPanel {
          */
         @Override
         public void activated() {
-            ApiDemo.INSTANCE.controller( ).reqFundamentals( m_contract, FundamentalType.ReportRatios, this );
+            ApiDemo.INSTANCE.controller().reqFundamentals(m_contract, FundamentalType.ReportRatios, this);
         }
 
         /**
@@ -171,9 +171,9 @@ class ContractInfoPanel extends JPanel {
         }
 
         @Override
-        public void fundamentals( String str ) {
+        public void fundamentals(String str) {
             m_data = str;
-            m_text.setText( str );
+            m_text.setText(str);
         }
     }
 }

@@ -3,9 +3,7 @@ package arik;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class ArikCase {
@@ -17,16 +15,17 @@ public abstract class ArikCase {
     private Keyboard keyboard;
 
     // Constructor
-    public ArikCase() {}
+    public ArikCase() {
+    }
 
-    public abstract boolean doCase( Update update );
+    public abstract boolean doCase(Update update);
 
     public Map myMessages() {
-        if ( caseMaps == null ) throw new NullPointerException( "Message isn't set" );
+        if (caseMaps == null) throw new NullPointerException("Message isn't set");
         return caseMaps;
     }
 
-    public void setMyMessage( Map myMessages ) {
+    public void setMyMessage(Map myMessages) {
         this.caseMaps = myMessages;
     }
 
@@ -34,8 +33,8 @@ public abstract class ArikCase {
         return keyboard;
     }
 
-    public void setKeyboard( Keyboard keyboard ) {
-        if ( keyboard == null ) throw new NullPointerException( getClass().getName() + " Keyboard isn't set" );
+    public void setKeyboard(Keyboard keyboard) {
+        if (keyboard == null) throw new NullPointerException(getClass().getName() + " Keyboard isn't set");
         this.keyboard = keyboard;
     }
 }

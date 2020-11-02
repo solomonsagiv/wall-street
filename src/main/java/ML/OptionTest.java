@@ -26,34 +26,34 @@ public class OptionTest {
     // Trading variables
     private Position position;
 
-    private ArrayList< Double > bidStateList = new ArrayList<>( );
-    private ArrayList< Double > askStateList = new ArrayList<>( );
+    private ArrayList<Double> bidStateList = new ArrayList<>();
+    private ArrayList<Double> askStateList = new ArrayList<>();
 
     private int bidAskCounter = 0;
-    private ArrayList< Integer > bidAskCounterList = new ArrayList<>( );
+    private ArrayList<Integer> bidAskCounterList = new ArrayList<>();
 
     // Constructor
-    public OptionTest( String side, double strike, int id ) {
+    public OptionTest(String side, double strike, int id) {
         this.side = side;
         this.strike = strike;
         this.id = id;
 
-        if ( side.toLowerCase( ).contains( "c" ) ) {
-            setCallOrPut( true );
+        if (side.toLowerCase().contains("c")) {
+            setCallOrPut(true);
         } else {
-            setCallOrPut( false );
+            setCallOrPut(false);
         }
 
-        setPosition( new Position( ) );
+        setPosition(new Position());
     }
 
 
-    public boolean isBetweenBid_Ask( double price ) {
-        return price > getBid( ) && price < getAsk( );
+    public boolean isBetweenBid_Ask(double price) {
+        return price > getBid() && price < getAsk();
     }
 
-    public boolean isBetweenBid_Avg( double price ) {
-        return price > getBid( ) && price < getBidAskAvg( );
+    public boolean isBetweenBid_Avg(double price) {
+        return price > getBid() && price < getBidAskAvg();
     }
 
     public void increaseBidAskCounter() {
@@ -68,11 +68,11 @@ public class OptionTest {
         return strike;
     }
 
-    public void setStrike( int strike ) {
+    public void setStrike(int strike) {
         this.strike = strike;
     }
 
-    public void setStrike( double strike ) {
+    public void setStrike(double strike) {
         this.strike = strike;
     }
 
@@ -80,7 +80,7 @@ public class OptionTest {
         return id;
     }
 
-    public void setId( int id ) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -88,7 +88,7 @@ public class OptionTest {
         return side;
     }
 
-    public void setSide( String side ) {
+    public void setSide(String side) {
         this.side = side;
     }
 
@@ -96,7 +96,7 @@ public class OptionTest {
         return last;
     }
 
-    public void setLast( double last ) {
+    public void setLast(double last) {
         this.last = last;
     }
 
@@ -104,7 +104,7 @@ public class OptionTest {
         return high;
     }
 
-    public void setHigh( double high ) {
+    public void setHigh(double high) {
         this.high = high;
     }
 
@@ -112,7 +112,7 @@ public class OptionTest {
         return low;
     }
 
-    public void setLow( double low ) {
+    public void setLow(double low) {
         this.low = low;
     }
 
@@ -120,7 +120,7 @@ public class OptionTest {
         return open;
     }
 
-    public void setOpen( double open ) {
+    public void setOpen(double open) {
         this.open = open;
     }
 
@@ -128,7 +128,7 @@ public class OptionTest {
         return base;
     }
 
-    public void setBase( double base ) {
+    public void setBase(double base) {
         this.base = base;
     }
 
@@ -136,13 +136,13 @@ public class OptionTest {
         return bid;
     }
 
-    public void setBid( double newBid ) {
+    public void setBid(double newBid) {
         this.bid = newBid;
     }
 
-    public void setBidWithCalc( double newBid ) {
-        if ( newBid > bid && bid != 0 ) {
-            increaseBidAskCounter( );
+    public void setBidWithCalc(double newBid) {
+        if (newBid > bid && bid != 0) {
+            increaseBidAskCounter();
         }
         this.bid = newBid;
     }
@@ -151,7 +151,7 @@ public class OptionTest {
         return bid_quantity;
     }
 
-    public void setBid_quantity( int bid_quantity ) {
+    public void setBid_quantity(int bid_quantity) {
         this.bid_quantity = bid_quantity;
     }
 
@@ -159,13 +159,13 @@ public class OptionTest {
         return ask;
     }
 
-    public void setAsk( double newAsk ) {
+    public void setAsk(double newAsk) {
         this.ask = newAsk;
     }
 
-    public void setAskWithCalc( double newAsk ) {
-        if ( newAsk < ask && ask != 0 ) {
-            decreaseBidAskCounter( );
+    public void setAskWithCalc(double newAsk) {
+        if (newAsk < ask && ask != 0) {
+            decreaseBidAskCounter();
         }
         this.ask = newAsk;
     }
@@ -174,7 +174,7 @@ public class OptionTest {
         return ask_quantity;
     }
 
-    public void setAsk_quantity( int ask_quantity ) {
+    public void setAsk_quantity(int ask_quantity) {
         this.ask_quantity = ask_quantity;
     }
 
@@ -182,49 +182,49 @@ public class OptionTest {
         return bidAskCounter;
     }
 
-    public void setBidAskCounter( int bidAskCounter ) {
+    public void setBidAskCounter(int bidAskCounter) {
         this.bidAskCounter = bidAskCounter;
     }
 
-    public ArrayList< Double > getBidStateList() {
+    public ArrayList<Double> getBidStateList() {
         return bidStateList;
     }
 
-    public void setBidStateList( ArrayList< Double > bidStateList ) {
+    public void setBidStateList(ArrayList<Double> bidStateList) {
         this.bidStateList = bidStateList;
     }
 
-    public ArrayList< Double > getAskStateList() {
+    public ArrayList<Double> getAskStateList() {
         return askStateList;
     }
 
-    public void setAskStateList( ArrayList< Double > askStateList ) {
+    public void setAskStateList(ArrayList<Double> askStateList) {
         this.askStateList = askStateList;
     }
 
-    public void addBidState( double bid ) {
-        if ( bidStateList.size( ) < 2 ) {
-            bidStateList.add( bid );
+    public void addBidState(double bid) {
+        if (bidStateList.size() < 2) {
+            bidStateList.add(bid);
         } else {
-            bidStateList.remove( 0 );
-            bidStateList.add( bid );
+            bidStateList.remove(0);
+            bidStateList.add(bid);
         }
     }
 
-    public double getBidState( int index ) throws NullPointerException {
-        return bidStateList.get( index );
+    public double getBidState(int index) throws NullPointerException {
+        return bidStateList.get(index);
     }
 
-    public double getAskState( int index ) throws NullPointerException {
-        return askStateList.get( index );
+    public double getAskState(int index) throws NullPointerException {
+        return askStateList.get(index);
     }
 
-    public void addAskState( double ask ) {
-        if ( askStateList.size( ) < 2 ) {
-            askStateList.add( ask );
+    public void addAskState(double ask) {
+        if (askStateList.size() < 2) {
+            askStateList.add(ask);
         } else {
-            askStateList.remove( 0 );
-            askStateList.add( ask );
+            askStateList.remove(0);
+            askStateList.add(ask);
         }
     }
 
@@ -232,29 +232,29 @@ public class OptionTest {
         return stDev;
     }
 
-    public void setStDev( double stDev ) {
+    public void setStDev(double stDev) {
         this.stDev = stDev;
     }
 
-    public ArrayList< Integer > getBidAskCounterList() {
+    public ArrayList<Integer> getBidAskCounterList() {
         return bidAskCounterList;
     }
 
-    public void setBidAskCounterList( ArrayList< Integer > bidAskCounterList ) {
+    public void setBidAskCounterList(ArrayList<Integer> bidAskCounterList) {
         this.bidAskCounterList = bidAskCounterList;
     }
 
     public String getName() {
-        return getSide( ) + getStrike( );
+        return getSide() + getStrike();
     }
 
     public double getBidAskAvg() {
-        return ( bid + ask ) / 2;
+        return (bid + ask) / 2;
     }
 
     @Override
     public String toString() {
-        return getSide( ) + " [last=" + last + ", base=" + base + ", bid=" + bid + ", ask=" + ask + ", bidAskCounter="
+        return getSide() + " [last=" + last + ", base=" + base + ", bid=" + bid + ", ask=" + ask + ", bidAskCounter="
                 + bidAskCounter + "]";
     }
 
@@ -262,7 +262,7 @@ public class OptionTest {
         return position;
     }
 
-    public void setPosition( Position position ) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -270,7 +270,7 @@ public class OptionTest {
         return theoreticPrice;
     }
 
-    public void setTheoreticPrice( double theoreticPrice ) {
+    public void setTheoreticPrice(double theoreticPrice) {
         this.theoreticPrice = theoreticPrice;
     }
 
@@ -278,7 +278,7 @@ public class OptionTest {
         return callOrPut;
     }
 
-    public void setCallOrPut( boolean callOrPut ) {
+    public void setCallOrPut(boolean callOrPut) {
         this.callOrPut = callOrPut;
     }
 

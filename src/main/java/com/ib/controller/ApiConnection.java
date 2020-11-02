@@ -13,61 +13,61 @@ import java.io.IOException;
 public class ApiConnection extends EClientSocket {
     public static final char EOL = 0;
     public static final char LOG_EOL = '_';
-    private static final EJavaSignal m_signal = new EJavaSignal( );
+    private static final EJavaSignal m_signal = new EJavaSignal();
     private final ILogger m_inLogger;
     private final ILogger m_outLogger;
 
-    public ApiConnection( EWrapper wrapper, ILogger inLogger, ILogger outLogger ) {
-        super( wrapper, m_signal );
+    public ApiConnection(EWrapper wrapper, ILogger inLogger, ILogger outLogger) {
+        super(wrapper, m_signal);
         m_inLogger = inLogger;
         m_outLogger = outLogger;
     }
 
     @Override
-    protected void sendMsg( EMessage msg ) throws IOException {
+    protected void sendMsg(EMessage msg) throws IOException {
         // TODO Auto-generated method stub
-        super.sendMsg( msg );
+        super.sendMsg(msg);
 
-        byte[] buf = msg.getRawData( );
+        byte[] buf = msg.getRawData();
 
-        m_outLogger.log( new String( buf, 0, buf.length ) );
+        m_outLogger.log(new String(buf, 0, buf.length));
     }
 
     @Override
     public int readInt() throws IOException {
-        int c = super.readInt( );
+        int c = super.readInt();
 
-        m_inLogger.log( String.valueOf( ( char ) c ) );
+        m_inLogger.log(String.valueOf((char) c));
 
         return c;
     }
 
     @Override
-    public int read( byte[] buf, int off, int len ) throws IOException {
-        int n = super.read( buf, off, len );
+    public int read(byte[] buf, int off, int len) throws IOException {
+        int n = super.read(buf, off, len);
 
-        m_inLogger.log( new String( buf, 0, n ) );
+        m_inLogger.log(new String(buf, 0, n));
 
         return n;
     }
 
-    public synchronized void placeOrder( Contract contract, Order order ) {
+    public synchronized void placeOrder(Contract contract, Order order) {
         // not connected?
-        if ( !isConnected( ) ) {
-            notConnected( );
+        if (!isConnected()) {
+            notConnected();
             return;
         }
 
         // ApiController requires TWS 932 or higher; this limitation could be removed if needed
-        if ( serverVersion( ) < 66 ) {
-            error( EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS, "ApiController requires TWS build 932 or higher to place orders." );
+        if (serverVersion() < 66) {
+            error(EClientErrors.NO_VALID_ID, EClientErrors.UPDATE_TWS, "ApiController requires TWS build 932 or higher to place orders.");
             return;
         }
 
-        placeOrder( order.orderId( ), contract, order );
+        placeOrder(order.orderId(), contract, order);
     }
 
     public interface ILogger {
-        void log( String valueOf );
+        void log(String valueOf);
     }
 }

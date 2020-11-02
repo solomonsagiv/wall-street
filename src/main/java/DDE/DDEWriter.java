@@ -2,25 +2,23 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import locals.L;
 import roll.RollEnum;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
 public class DDEWriter extends MyThread implements Runnable {
 
+    Spx spx = Spx.getInstance();
+    String opAvgCell = "R2C10";
+    String rollCell = "R2C11";
+    String indexBidAskCounterCell = "R2C12";
+    String basketsCell = "R3C5";
+    String basketsCell2 = "R3C7";
     private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
     private boolean run = true;
     private DDEConnection ddeConnection = new DDEConnection();
     private DDEClientConversation conversation;
-
-    Spx spx = Spx.getInstance();
-
-    String opAvgCell = "R2C10";
-    String rollCell = "R2C11";
-    String indexBidAskCounterCell = "R2C12";
-    String indexMove15Cell = "R3C1";
-    String basketsCell = "R3C5";
-    String basketsCell2 = "R3C7";
 
     // Constructor
     public DDEWriter() {
@@ -56,13 +54,10 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke(rollCell, str(spx.getRollHandler().getRoll(RollEnum.QUARTER_QUARTER_FAR).getAvg()));
-            conversation.poke(indexBidAskCounterCell, str(spx.getIndexBidAskCounter()));
-            conversation.poke(indexMove15Cell, str(spx.getMove(900)));
-            conversation.poke(basketsCell, str(spx.getBasketService().getBaskets()));
-            conversation.poke(basketsCell2, str(spx.getBasketService2().getBaskets()));
+            conversation.poke(rollCell, L.str(spx.getRollHandler().getRoll(RollEnum.E1_E2).getAvg()));
+            conversation.poke(indexBidAskCounterCell, L.str(spx.getIndexBidAskCounter()));
             try {
-                conversation.poke(opAvgCell, str(spx.getOptionsHandler().getMainOptions().getOpAvgFuture()));
+                conversation.poke(opAvgCell, L.str(spx.getExps().getMainExp().getOpAvgFut()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -70,10 +65,6 @@ public class DDEWriter extends MyThread implements Runnable {
             System.out.println("DDE request error on updateData()");
             e.printStackTrace();
         }
-    }
-
-    public String str(Object o) {
-        return String.valueOf(o);
     }
 
     // Close

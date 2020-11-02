@@ -10,7 +10,7 @@ public class BasketService extends MyBaseService {
 
     // Variables
     private BASE_CLIENT_OBJECT client;
-    private Map< Integer, MiniStock > miniStockMap;
+    private Map<Integer, MiniStock> miniStockMap;
     private int basketUp = 0;
     private int basketDown = 0;
     private double ind = 0;
@@ -18,10 +18,10 @@ public class BasketService extends MyBaseService {
     private int changeCounter = 0;
 
     // Constructor
-    public BasketService( BASE_CLIENT_OBJECT client, StocksHandler stocksHandler, int plagForBasket ) {
-        super( client );
+    public BasketService(BASE_CLIENT_OBJECT client, StocksHandler stocksHandler, int plagForBasket) {
+        super(client);
         this.client = client;
-        this.miniStockMap = stocksHandler.getMiniStockMap( );
+        this.miniStockMap = stocksHandler.getMiniStockMap();
         this.plagForBasket = plagForBasket;
     }
 
@@ -29,49 +29,49 @@ public class BasketService extends MyBaseService {
 
         boolean basket = false;
 
-        if ( client.isStarted( ) ) {
+        if (client.isStarted()) {
 
             changeCounter = 0;
 
-            StringBuilder stringBuilder = new StringBuilder( );
+            StringBuilder stringBuilder = new StringBuilder();
 
-            for ( MiniStock stock : miniStockMap.values( ) ) {
+            for (MiniStock stock : miniStockMap.values()) {
 
                 // Volume != lastCheckVolume
-                if ( stock.getVolume( ) == stock.getLastCheckVolume( ) ) {
+                if (stock.getVolume() == stock.getLastCheckVolume()) {
                 } else {
                     changeCounter++;
-                    stringBuilder.append( stock.getName( ) ).append( ", " );
+                    stringBuilder.append(stock.getName()).append(", ");
                 }
-                stock.updateLastData( );
+                stock.updateLastData();
             }
 
-            System.out.println( "Changed: " + changeCounter );
-            if ( changeCounter > plagForBasket ) {
+            System.out.println("Changed: " + changeCounter);
+            if (changeCounter > plagForBasket) {
 
                 // Up
-                if ( client.getIndex( ) > ind ) {
+                if (client.getIndex() > ind) {
                     basketUp++;
-                    System.out.println( "Basket up" );
+                    System.out.println("Basket up");
                 }
 
                 // Down
-                if ( client.getIndex( ) < ind ) {
+                if (client.getIndex() < ind) {
                     basketDown++;
-                    System.out.println( "Basket down" );
+                    System.out.println("Basket down");
                 }
                 basket = true;
 
             }
 
         }
-        ind = client.getIndex( );
+        ind = client.getIndex();
         return basket;
     }
 
     @Override
     public void go() {
-        searchBasket( );
+        searchBasket();
     }
 
     @Override

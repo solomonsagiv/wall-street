@@ -27,13 +27,13 @@ public enum MarketValueTag {
     WarrantValue,
     FxCashBalance;
 
-    public static MarketValueTag get( int i ) {
-        return Types.getEnum( i, values( ) );
+    public static MarketValueTag get(int i) {
+        return Types.getEnum(i, values());
     }
 
     @Override
     public String toString() {
-        switch ( this ) {
+        switch (this) {
             case NetLiquidationByCurrency:
                 return "Net Liq";
             case StockMarketValue:
@@ -43,6 +43,6 @@ public enum MarketValueTag {
             case FutureOptionValue:
                 return "Futures";
         }
-        return super.toString( ).replaceAll( "Value", "" );
+        return super.toString().replaceAll("Value", "");
     }
 }

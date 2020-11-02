@@ -2,10 +2,7 @@ package serverObjects.stockObjects;
 
 import DDE.DDECells;
 import api.tws.requesters.AmazonRequester;
-import api.tws.requesters.AppleRequester;
 import serverObjects.ApiEnum;
-
-import java.time.LocalTime;
 
 public class Amazon extends STOCK_OBJECT {
 
@@ -13,17 +10,17 @@ public class Amazon extends STOCK_OBJECT {
 
     // Constrtor
     public Amazon() {
-        setName( "amazon" );
-        setStrikeMargin( 10 );
-        setDbId( 5 );
+        setName("amazon");
+        setStrikeMargin(10);
+        setDbId(5);
         initDDECells();
         setiTwsRequester(new AmazonRequester());
     }
 
     // Get instance
     public static Amazon getInstance() {
-        if ( client == null ) {
-            client = new Amazon( );
+        if (client == null) {
+            client = new Amazon();
         }
         return client;
     }
@@ -35,13 +32,13 @@ public class Amazon extends STOCK_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override

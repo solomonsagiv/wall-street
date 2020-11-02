@@ -11,35 +11,35 @@ public abstract class OperatorCondition extends OrderCondition {
 
     protected abstract String valueToString();
 
-    protected abstract void valueFromString( String v );
+    protected abstract void valueFromString(String v);
 
 
     @Override
-    public void readFrom( ObjectInput in ) throws IOException {
-        super.readFrom( in );
+    public void readFrom(ObjectInput in) throws IOException {
+        super.readFrom(in);
 
-        m_isMore = in.readBoolean( );
+        m_isMore = in.readBoolean();
 
-        valueFromString( in.readUTF( ) );
+        valueFromString(in.readUTF());
     }
 
     @Override
     public String toString() {
-        return " is " + ( isMore( ) ? ">= " : "<= " ) + valueToString( );
+        return " is " + (isMore() ? ">= " : "<= ") + valueToString();
     }
 
     @Override
-    public void writeTo( ObjectOutput out ) throws IOException {
-        super.writeTo( out );
-        out.writeBoolean( m_isMore );
-        out.writeUTF( valueToString( ) );
+    public void writeTo(ObjectOutput out) throws IOException {
+        super.writeTo(out);
+        out.writeBoolean(m_isMore);
+        out.writeUTF(valueToString());
     }
 
     public boolean isMore() {
         return m_isMore;
     }
 
-    public void isMore( boolean m_isMore ) {
+    public void isMore(boolean m_isMore) {
         this.m_isMore = m_isMore;
     }
 }

@@ -7,26 +7,26 @@ import serverObjects.ApiEnum;
 
 public class Ulta extends STOCK_OBJECT {
 
-    public static void main( String[] args ) {
-        Ulta ulta = Ulta.getInstance();
-        ulta.getTablesHandler().getTable( TablesEnum.DAY ).insert();
-    }
-
     static Ulta client = null;
 
     // Constrtor
     public Ulta() {
-        setName( "ulta" );
-        setStrikeMargin( 2.5 );
-        setDbId( 6 );
+        setName("ulta");
+        setStrikeMargin(2.5);
+        setDbId(6);
         initDDECells();
         setiTwsRequester(new UltaRequester());
     }
 
+    public static void main(String[] args) {
+        Ulta ulta = Ulta.getInstance();
+        ulta.getTablesHandler().getTable(TablesEnum.DAY).insert();
+    }
+
     // Get instance
     public static Ulta getInstance() {
-        if ( client == null ) {
-            client = new Ulta( );
+        if (client == null) {
+            client = new Ulta();
         }
         return client;
     }
@@ -38,13 +38,13 @@ public class Ulta extends STOCK_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override

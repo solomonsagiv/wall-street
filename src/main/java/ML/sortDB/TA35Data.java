@@ -8,63 +8,63 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "ta35data" )
+@Table(name = "ta35data")
 public class TA35Data {
 
     @Id
-    @Column( name = "id" )
+    @Column(name = "id")
     private int id;
-    @Column( name = "date" )
+    @Column(name = "date")
     private String date;
-    @Column( name = "time" )
+    @Column(name = "time")
     private String time;
-    @Column( name = "fut" )
+    @Column(name = "fut")
     private double future;
-    @Column( name = "ind" )
+    @Column(name = "ind")
     private double index;
-    @Column( name = "futUp" )
+    @Column(name = "futUp")
     private int future_up;
-    @Column( name = "futDown" )
+    @Column(name = "futDown")
     private int future_down;
-    @Column( name = "indUp" )
+    @Column(name = "indUp")
     private int index_up;
-    @Column( name = "indDown" )
+    @Column(name = "indDown")
     private int index_down;
-    @Column( name = "optimiCounter" )
+    @Column(name = "optimiCounter")
     private int optimi_counter = 0;
-    @Column( name = "pesimiCounter" )
+    @Column(name = "pesimiCounter")
     private int pesimi_counter = 0;
-    @Column( name = "basketUp" )
+    @Column(name = "basketUp")
     private int basket_up = 0;
-    @Column( name = "basketDown" )
+    @Column(name = "basketDown")
     private int basket_down = 0;
-    @Column( name = "optimiMove" )
+    @Column(name = "optimiMove")
     private double optimiMove = 0;
-    @Column( name = "pesimiMove" )
+    @Column(name = "pesimiMove")
     private double pesimiMove = 0;
-    @Column( name = "futBidAskCounter" )
+    @Column(name = "futBidAskCounter")
     private int futureBidAskCounter = 0;
-    @Column( name = "indBidAskCounter" )
+    @Column(name = "indBidAskCounter")
     private int indexBidAskCounter = 0;
-    @Column( name = "opAvg" )
+    @Column(name = "opAvg")
     private double opAvg = 0;
-    @Column( name = "options" )
-    private String options = new JSONObject( ).toString( );
-    @Column( name = "base" )
+    @Column(name = "options")
+    private String options = new JSONObject().toString();
+    @Column(name = "base")
     private double base = 0;
-    @Column( name = "indBid" )
+    @Column(name = "indBid")
     private double indexBid = 0;
-    @Column( name = "indAsk" )
+    @Column(name = "indAsk")
     private double indexAsk = 0;
 
     // Empty constructor
     public TA35Data() {
     }
 
-    public TA35Data( String date, String time, double future, double index, int future_up, int future_down, int index_up,
-                     int index_down, int optimi_counter, int pesimi_counter, int basket_up, int basket_down, double optimiMove,
-                     double pesimiMove, int futureBidAskCounter, int indexBidAskCounter, double opAvg, String options,
-                     double base, double indexBid, double indexAsk ) {
+    public TA35Data(String date, String time, double future, double index, int future_up, int future_down, int index_up,
+                    int index_down, int optimi_counter, int pesimi_counter, int basket_up, int basket_down, double optimiMove,
+                    double pesimiMove, int futureBidAskCounter, int indexBidAskCounter, double opAvg, String options,
+                    double base, double indexBid, double indexAsk) {
         this.date = date;
         this.time = time;
         this.future = future;
@@ -92,7 +92,7 @@ public class TA35Data {
         return date;
     }
 
-    public void setDate( String date ) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -100,7 +100,7 @@ public class TA35Data {
         return base;
     }
 
-    public void setBase( double base ) {
+    public void setBase(double base) {
         this.base = base;
     }
 
@@ -108,7 +108,7 @@ public class TA35Data {
         return indexBid;
     }
 
-    public void setIndexBid( double indexBid ) {
+    public void setIndexBid(double indexBid) {
         this.indexBid = indexBid;
     }
 
@@ -116,7 +116,7 @@ public class TA35Data {
         return indexAsk;
     }
 
-    public void setIndexAsk( double indexAsk ) {
+    public void setIndexAsk(double indexAsk) {
         this.indexAsk = indexAsk;
     }
 
@@ -124,7 +124,7 @@ public class TA35Data {
         return id;
     }
 
-    public void setId( int id ) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -132,7 +132,7 @@ public class TA35Data {
         return time;
     }
 
-    public void setTime( String time ) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -140,7 +140,7 @@ public class TA35Data {
         return future;
     }
 
-    public void setFuture( double future ) {
+    public void setFuture(double future) {
         this.future = future;
     }
 
@@ -148,7 +148,7 @@ public class TA35Data {
         return index;
     }
 
-    public void setIndex( double index ) {
+    public void setIndex(double index) {
         this.index = index;
     }
 
@@ -156,7 +156,7 @@ public class TA35Data {
         return future_up;
     }
 
-    public void setFuture_up( int future_up ) {
+    public void setFuture_up(int future_up) {
         this.future_up = future_up;
     }
 
@@ -164,7 +164,7 @@ public class TA35Data {
         return future_down;
     }
 
-    public void setFuture_down( int future_down ) {
+    public void setFuture_down(int future_down) {
         this.future_down = future_down;
     }
 
@@ -172,7 +172,7 @@ public class TA35Data {
         return index_up;
     }
 
-    public void setIndex_up( int index_up ) {
+    public void setIndex_up(int index_up) {
         this.index_up = index_up;
     }
 
@@ -180,7 +180,7 @@ public class TA35Data {
         return index_down;
     }
 
-    public void setIndex_down( int index_down ) {
+    public void setIndex_down(int index_down) {
         this.index_down = index_down;
     }
 
@@ -188,7 +188,7 @@ public class TA35Data {
         return optimi_counter;
     }
 
-    public void setOptimi_counter( int optimi_counter ) {
+    public void setOptimi_counter(int optimi_counter) {
         this.optimi_counter = optimi_counter;
     }
 
@@ -196,7 +196,7 @@ public class TA35Data {
         return pesimi_counter;
     }
 
-    public void setPesimi_counter( int pesimi_counter ) {
+    public void setPesimi_counter(int pesimi_counter) {
         this.pesimi_counter = pesimi_counter;
     }
 
@@ -204,7 +204,7 @@ public class TA35Data {
         return basket_up;
     }
 
-    public void setBasket_up( int basket_up ) {
+    public void setBasket_up(int basket_up) {
         this.basket_up = basket_up;
     }
 
@@ -212,7 +212,7 @@ public class TA35Data {
         return basket_down;
     }
 
-    public void setBasket_down( int basket_down ) {
+    public void setBasket_down(int basket_down) {
         this.basket_down = basket_down;
     }
 
@@ -220,7 +220,7 @@ public class TA35Data {
         return optimiMove;
     }
 
-    public void setOptimiMove( double optimiMove ) {
+    public void setOptimiMove(double optimiMove) {
         this.optimiMove = optimiMove;
     }
 
@@ -228,7 +228,7 @@ public class TA35Data {
         return pesimiMove;
     }
 
-    public void setPesimiMove( double pesimiMove ) {
+    public void setPesimiMove(double pesimiMove) {
         this.pesimiMove = pesimiMove;
     }
 
@@ -236,7 +236,7 @@ public class TA35Data {
         return futureBidAskCounter;
     }
 
-    public void setFutureBidAskCounter( int futureBidAskCounter ) {
+    public void setFutureBidAskCounter(int futureBidAskCounter) {
         this.futureBidAskCounter = futureBidAskCounter;
     }
 
@@ -244,7 +244,7 @@ public class TA35Data {
         return indexBidAskCounter;
     }
 
-    public void setIndexBidAskCounter( int indexBidAskCounter ) {
+    public void setIndexBidAskCounter(int indexBidAskCounter) {
         this.indexBidAskCounter = indexBidAskCounter;
     }
 
@@ -252,7 +252,7 @@ public class TA35Data {
         return opAvg;
     }
 
-    public void setOpAvg( double opAvg ) {
+    public void setOpAvg(double opAvg) {
         this.opAvg = opAvg;
     }
 
@@ -260,7 +260,7 @@ public class TA35Data {
         return options;
     }
 
-    public void setOptions( String options ) {
+    public void setOptions(String options) {
         this.options = options;
     }
 

@@ -10,14 +10,14 @@ public class TimeCondition extends OperatorCondition {
 
     @Override
     public String toString() {
-        return "time" + super.toString( );
+        return "time" + super.toString();
     }
 
     public String time() {
         return m_time;
     }
 
-    public void time( String m_time ) {
+    public void time(String m_time) {
         this.m_time = m_time;
     }
 
@@ -27,7 +27,7 @@ public class TimeCondition extends OperatorCondition {
     }
 
     @Override
-    protected void valueFromString( String v ) {
+    protected void valueFromString(String v) {
         m_time = v;
     }
 

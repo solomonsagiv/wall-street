@@ -5,17 +5,17 @@ package apidemo.util;
 
 import javax.swing.*;
 
-public class TCombo< T > extends JComboBox< T > {
-    public TCombo( T... strs ) {
-        super( strs );
+public class TCombo<T> extends JComboBox<T> {
+    public TCombo(T... strs) {
+        super(strs);
     }
 
     public String getText() {
-        return getSelectedItem( ) == null ? null : getSelectedItem( ).toString( );
+        return getSelectedItem() == null ? null : getSelectedItem().toString();
     }
 
     @Override
     public T getSelectedItem() {
-        return ( T ) super.getSelectedItem( );
+        return (T) super.getSelectedItem();
     }
 }

@@ -52,9 +52,7 @@ public class LogWindow {
         frame.addWindowListener( new WindowAdapter( ) {
             @Override
             public void windowClosing( WindowEvent e ) {
-
                 runner.interrupt( );
-
             }
         } );
         frame.setBounds( 100, 100, 901, 498 );
@@ -68,7 +66,6 @@ public class LogWindow {
 
     }
 
-
     private class Runner extends Thread {
 
         // Variables
@@ -76,27 +73,19 @@ public class LogWindow {
 
         // Constructor
         public Runner() {
-
             logger = MyLogger.getInstance( );
-
         }
 
         @Override
         public void run() {
-
             init( );
-
         }
 
         private void init() {
-
             while ( !interrupted( ) ) {
-
                 try {
-
                     String text = logger.getAllText( ).toString( );
                     textArea.setText( text );
-
                     sleep( 1000 );
                 } catch ( InterruptedException e ) {
                     interrupt( );
@@ -104,11 +93,8 @@ public class LogWindow {
                     interrupt( );
                     e.printStackTrace( );
                 }
-
             }
-
         }
-
     }
 
 }

@@ -21,7 +21,7 @@ public class TwsPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton requestDataBtn;
 
     // Constructor
-    public TwsPanel( BASE_CLIENT_OBJECT client ) {
+    public TwsPanel(BASE_CLIENT_OBJECT client) {
         this.client = client;
         initialize();
         initListeners();
@@ -30,39 +30,39 @@ public class TwsPanel extends MyGuiComps.MyPanel {
     private void initListeners() {
 
         // Date
-        dateField.addActionListener( new ActionListener( ) {
+        dateField.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed( ActionEvent actionEvent ) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 // Interest
-                if ( !dateField.getText().isEmpty() ) {
+                if (!dateField.getText().isEmpty()) {
                     try {
 
                         String s = dateField.getText();
 
-                        OptionsPanel.options.getTwsContract().lastTradeDateOrContractMonth( s );
+                        OptionsPanel.exp.getTwsContract().lastTradeDateOrContractMonth(s);
 
-                        String year = s.substring( 0,4 );
-                        String month = s.substring( 4,6 );
-                        String day = s.substring( 6,8 );
+                        String year = s.substring(0, 4);
+                        String month = s.substring(4, 6);
+                        String day = s.substring(6, 8);
                         String date = year + "-" + month + "-" + day;
 
-                        OptionsPanel.options.setExpDate( LocalDate.parse( date ) );
-                        System.out.println(OptionsPanel.options.getType() );
-                        System.out.println(OptionsPanel.options.getTwsContract() );
-                        System.out.println(date );
-                    } catch ( Exception e ) {
+                        OptionsPanel.exp.getOptions().setExpDate(LocalDate.parse(date));
+                        System.out.println(OptionsPanel.exp.getName());
+                        System.out.println(OptionsPanel.exp.getTwsContract());
+                        System.out.println(date);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
-        } );
+        });
 
         // Request btn
         requestDataBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                // TODO
+                    // TODO
 //                    client.requestApi();
 
                 } catch (Exception e) {
@@ -76,26 +76,26 @@ public class TwsPanel extends MyGuiComps.MyPanel {
     private void initialize() {
 
         // This
-        setSize( 150, 125 );
-        TitledBorder titledBorder = new TitledBorder( "Tws" );
-        titledBorder.setTitleColor( Themes.BLUE_DARK );
-        setBorder( titledBorder );
+        setSize(150, 125);
+        TitledBorder titledBorder = new TitledBorder("Tws");
+        titledBorder.setTitleColor(Themes.BLUE_DARK);
+        setBorder(titledBorder);
 
         // ----- Date ----- //
         // Lbl
-        dateLbl = new MyGuiComps.MyLabel( "Date" );
-        dateLbl.setXY( 10, 10 );
-        dateLbl.setHorizontalAlignment( JLabel.LEFT );
-        dateLbl.setFont( dateLbl.getFont( ).deriveFont( 9f ) );
-        dateLbl.setLabelFor( dateLbl );
-        add( dateLbl );
+        dateLbl = new MyGuiComps.MyLabel("Date");
+        dateLbl.setXY(10, 10);
+        dateLbl.setHorizontalAlignment(JLabel.LEFT);
+        dateLbl.setFont(dateLbl.getFont().deriveFont(9f));
+        dateLbl.setLabelFor(dateLbl);
+        add(dateLbl);
 
         // Field
-        dateField = new MyGuiComps.MyTextField( );
-        dateField.setXY( 10, 30 );
+        dateField = new MyGuiComps.MyTextField();
+        dateField.setXY(10, 30);
         dateField.setFontSize(9);
-        dateField.setSize( 70, 20 );
-        add( dateField );
+        dateField.setSize(70, 20);
+        add(dateField);
 
         // Request button
         requestDataBtn = new MyGuiComps.MyButton("Request");

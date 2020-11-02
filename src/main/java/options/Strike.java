@@ -7,10 +7,11 @@ public class Strike {
     private double strike;
     private double stDev = 0;
 
-    public Strike() {}
+    public Strike() {
+    }
 
     // Constructor
-    public Strike( Call call, Put put, double strike ) {
+    public Strike(Call call, Put put, double strike) {
         this.call = call;
         this.put = put;
         this.strike = strike;
@@ -22,7 +23,7 @@ public class Strike {
         return call;
     }
 
-    public void setCall( Call call ) {
+    public void setCall(Call call) {
         this.call = call;
     }
 
@@ -30,7 +31,7 @@ public class Strike {
         return put;
     }
 
-    public void setPut( Put put ) {
+    public void setPut(Put put) {
         this.put = put;
     }
 
@@ -38,7 +39,7 @@ public class Strike {
         return strike;
     }
 
-    public void setStrike( double strike ) {
+    public void setStrike(double strike) {
         this.strike = strike;
     }
 
@@ -48,12 +49,12 @@ public class Strike {
         String call = "null";
         String put = "null";
 
-        if ( getCall( ) != null ) {
-            call = getCall( ).toString( );
+        if (getCall() != null) {
+            call = getCall().toString();
         }
 
-        if ( getPut( ) != null ) {
-            put = getPut( ).toString( );
+        if (getPut() != null) {
+            put = getPut().toString();
         }
 
         return strike + "\n" + call + ", \n" + put;
@@ -63,14 +64,14 @@ public class Strike {
         return stDev;
     }
 
-    public void setStDev( double stDev ) {
+    public void setStDev(double stDev) {
         this.stDev = stDev;
 
         try {
-            this.call.setStDev( stDev );
-            this.put.setStDev( stDev );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            this.call.setStDev(stDev);
+            this.put.setStDev(stDev);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

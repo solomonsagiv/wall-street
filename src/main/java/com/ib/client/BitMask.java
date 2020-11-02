@@ -4,7 +4,7 @@ public class BitMask {
 
     private int m_mask = 0;
 
-    public BitMask( int mask ) {
+    public BitMask(int mask) {
         m_mask = mask;
     }
 
@@ -16,21 +16,21 @@ public class BitMask {
         m_mask = 0;
     }
 
-    public boolean get( int index ) {
-        if ( index >= 32 ) {
-            throw new IndexOutOfBoundsException( );
+    public boolean get(int index) {
+        if (index >= 32) {
+            throw new IndexOutOfBoundsException();
         }
 
-        return ( m_mask & ( 1 << index ) ) != 0;
+        return (m_mask & (1 << index)) != 0;
     }
 
-    public boolean set( int index, boolean element ) {
-        boolean res = get( index );
+    public boolean set(int index, boolean element) {
+        boolean res = get(index);
 
-        if ( element ) {
+        if (element) {
             m_mask |= 1 << index;
         } else {
-            m_mask &= ~( 1 << index );
+            m_mask &= ~(1 << index);
         }
 
         return res;

@@ -10,18 +10,18 @@ public class Microsoft extends STOCK_OBJECT {
 
     // Constrtor
     public Microsoft() {
-        setName( "microsoft" );
-        setStrikeMargin( 2.5 );
+        setName("microsoft");
+        setStrikeMargin(2.5);
 
-        setDbId( 9 );
+        setDbId(9);
         initDDECells();
         setiTwsRequester(new MicrosoftRequester());
     }
 
     // Get instance
     public static Microsoft getInstance() {
-        if ( client == null ) {
-            client = new Microsoft( );
+        if (client == null) {
+            client = new Microsoft();
         }
         return client;
     }
@@ -33,13 +33,13 @@ public class Microsoft extends STOCK_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override

@@ -19,31 +19,31 @@ import java.util.HashMap;
 
 
 public class AccountSummaryPanel extends NewTabPanel {
-    private SummaryModel m_model = new SummaryModel( );
+    private SummaryModel m_model = new SummaryModel();
 
     AccountSummaryPanel() {
-        HtmlButton sub = new HtmlButton( "Subscribe" ) {
+        HtmlButton sub = new HtmlButton("Subscribe") {
             protected void actionPerformed() {
-                subscribe( );
+                subscribe();
             }
         };
 
-        HtmlButton desub = new HtmlButton( "Desubscribe" ) {
+        HtmlButton desub = new HtmlButton("Desubscribe") {
             protected void actionPerformed() {
-                desubscribe( );
+                desubscribe();
             }
         };
 
-        JPanel buts = new VerticalPanel( );
-        buts.add( sub );
-        buts.add( desub );
+        JPanel buts = new VerticalPanel();
+        buts.add(sub);
+        buts.add(desub);
 
-        JTable table = new Table( m_model );
-        JScrollPane scroll = new JScrollPane( table );
+        JTable table = new Table(m_model);
+        JScrollPane scroll = new JScrollPane(table);
 
-        setLayout( new BorderLayout( ) );
-        add( scroll );
-        add( buts, BorderLayout.EAST );
+        setLayout(new BorderLayout());
+        add(scroll);
+        add(buts, BorderLayout.EAST);
     }
 
     /**
@@ -51,7 +51,7 @@ public class AccountSummaryPanel extends NewTabPanel {
      */
     @Override
     public void activated() {
-        subscribe( );
+        subscribe();
     }
 
     /**
@@ -59,107 +59,107 @@ public class AccountSummaryPanel extends NewTabPanel {
      */
     @Override
     public void closed() {
-        desubscribe( );
+        desubscribe();
     }
 
     private void subscribe() {
-        ApiDemo.INSTANCE.controller( ).reqAccountSummary( "All", AccountSummaryTag.values( ), m_model );
+        ApiDemo.INSTANCE.controller().reqAccountSummary("All", AccountSummaryTag.values(), m_model);
     }
 
     private void desubscribe() {
-        ApiDemo.INSTANCE.controller( ).cancelAccountSummary( m_model );
-        m_model.clear( );
+        ApiDemo.INSTANCE.controller().cancelAccountSummary(m_model);
+        m_model.clear();
     }
 
     private static class SummaryModel extends AbstractTableModel implements IAccountSummaryHandler {
-        ArrayList< SummaryRow > m_rows = new ArrayList<>( );
-        HashMap< String, SummaryRow > m_map = new HashMap<>( );
+        ArrayList<SummaryRow> m_rows = new ArrayList<>();
+        HashMap<String, SummaryRow> m_map = new HashMap<>();
         boolean m_complete;
 
         public void clear() {
-            ApiDemo.INSTANCE.controller( ).cancelAccountSummary( this );
-            m_rows.clear( );
-            m_map.clear( );
+            ApiDemo.INSTANCE.controller().cancelAccountSummary(this);
+            m_rows.clear();
+            m_map.clear();
             m_complete = false;
-            fireTableDataChanged( );
+            fireTableDataChanged();
         }
 
         @Override
-        public void accountSummary( String account, AccountSummaryTag tag, String value, String currency ) {
-            SummaryRow row = m_map.get( account );
-            if ( row == null ) {
-                row = new SummaryRow( );
-                m_map.put( account, row );
-                m_rows.add( row );
+        public void accountSummary(String account, AccountSummaryTag tag, String value, String currency) {
+            SummaryRow row = m_map.get(account);
+            if (row == null) {
+                row = new SummaryRow();
+                m_map.put(account, row);
+                m_rows.add(row);
             }
-            row.update( account, tag, value );
+            row.update(account, tag, value);
 
-            if ( m_complete ) {
-                fireTableDataChanged( );
+            if (m_complete) {
+                fireTableDataChanged();
             }
         }
 
         @Override
         public void accountSummaryEnd() {
-            fireTableDataChanged( );
+            fireTableDataChanged();
             m_complete = true;
         }
 
         @Override
         public int getRowCount() {
-            return m_rows.size( );
+            return m_rows.size();
         }
 
         @Override
         public int getColumnCount() {
-            return AccountSummaryTag.values( ).length + 1; // add one for Account column
+            return AccountSummaryTag.values().length + 1; // add one for Account column
         }
 
         @Override
-        public String getColumnName( int col ) {
-            if ( col == 0 ) {
+        public String getColumnName(int col) {
+            if (col == 0) {
                 return "Account";
             }
-            return AccountSummaryTag.values( )[ col - 1 ].toString( );
+            return AccountSummaryTag.values()[col - 1].toString();
         }
 
         @Override
-        public Object getValueAt( int rowIn, int col ) {
-            SummaryRow row = m_rows.get( rowIn );
+        public Object getValueAt(int rowIn, int col) {
+            SummaryRow row = m_rows.get(rowIn);
 
-            if ( col == 0 ) {
+            if (col == 0) {
                 return row.m_account;
             }
 
-            AccountSummaryTag tag = AccountSummaryTag.values( )[ col - 1 ];
-            String val = row.m_map.get( tag );
+            AccountSummaryTag tag = AccountSummaryTag.values()[col - 1];
+            String val = row.m_map.get(tag);
 
-            switch ( tag ) {
+            switch (tag) {
                 case Cushion:
-                    return fmtPct( val );
+                    return fmtPct(val);
                 case LookAheadNextChange:
-                    return fmtTime( val );
+                    return fmtTime(val);
                 default:
-                    return AccountInfoPanel.format( val, null );
+                    return AccountInfoPanel.format(val, null);
             }
         }
 
-        String fmtPct( String val ) {
-            return val == null || val.length( ) == 0 ? null : Formats.fmtPct( Double.parseDouble( val ) );
+        String fmtPct(String val) {
+            return val == null || val.length() == 0 ? null : Formats.fmtPct(Double.parseDouble(val));
         }
 
-        String fmtTime( String val ) {
-            return val == null || val.length( ) == 0 || val.equals( "0" ) ? null : Formats.fmtDate( Long.parseLong( val ) * 1000 );
+        String fmtTime(String val) {
+            return val == null || val.length() == 0 || val.equals("0") ? null : Formats.fmtDate(Long.parseLong(val) * 1000);
         }
     }
 
     private static class SummaryRow {
         String m_account;
-        HashMap< AccountSummaryTag, String > m_map = new HashMap<>( );
+        HashMap<AccountSummaryTag, String> m_map = new HashMap<>();
 
-        public void update( String account, AccountSummaryTag tag, String value ) {
+        public void update(String account, AccountSummaryTag tag, String value) {
             m_account = account;
-            m_map.put( tag, value );
+            m_map.put(tag, value);
         }
     }
 }

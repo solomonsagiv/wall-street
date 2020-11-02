@@ -13,7 +13,7 @@ public class DepthMktDataDescription {
     public DepthMktDataDescription() {
     }
 
-    public DepthMktDataDescription( String p_exchange, String p_secType, String listingExch, String serviceDataType, int aggGroup ) {
+    public DepthMktDataDescription(String p_exchange, String p_secType, String listingExch, String serviceDataType, int aggGroup) {
         m_exchange = p_exchange;
         m_secType = p_secType;
         m_listingExch = listingExch;
@@ -43,23 +43,23 @@ public class DepthMktDataDescription {
     }
 
     // Set
-    public void exchange( String exchange ) {
+    public void exchange(String exchange) {
         m_exchange = exchange;
     }
 
-    public void secType( String secType ) {
+    public void secType(String secType) {
         m_secType = secType;
     }
 
-    public void listingExch( String listingExch ) {
+    public void listingExch(String listingExch) {
         m_listingExch = listingExch;
     }
 
-    public void serviceDataType( String serviceDataType ) {
+    public void serviceDataType(String serviceDataType) {
         m_serviceDataType = serviceDataType;
     }
 
-    public void aggGroup( int aggGroup ) {
+    public void aggGroup(int aggGroup) {
         m_aggGroup = aggGroup;
     }
 }

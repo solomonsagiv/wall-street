@@ -39,10 +39,10 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    double d = L.dbl( openField.getText() );
-                    client.setOpen( d );
-                } catch ( Exception e ) {
-                    JOptionPane.showMessageDialog( null, e.getMessage() );
+                    double d = L.dbl(openField.getText());
+                    client.setOpen(d);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -53,45 +53,47 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    double d = L.dbl( baseField.getText() );
-                    client.setBase( d );
-                } catch ( Exception e ) {
-                    JOptionPane.showMessageDialog( null, e.getMessage() );
+                    double d = L.dbl(baseField.getText());
+                    client.setBase(d);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                     e.printStackTrace();
                 }
             }
         });
 
         // Index bid ask counter
-        indexBidAskCounterField.addActionListener( new ActionListener( ) {
+        indexBidAskCounterField.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed( ActionEvent actionEvent ) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    int counter = L.INT( indexBidAskCounterField.getText() );
-                    client.setIndexBidAskCounter( counter );
-                } catch ( Exception e ) {
-                    JOptionPane.showMessageDialog( null, e.getMessage() );
+                    int counter = L.INT(indexBidAskCounterField.getText());
+                    client.setIndexBidAskCounter(counter);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                     e.printStackTrace();
                 }
             }
-        } );
+        });
 
         // Start
-        startBtn.addActionListener( new ActionListener( ) {
+        startBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed( ActionEvent actionEvent ) {
+            public void actionPerformed(ActionEvent actionEvent) {
+                client.setLoadFromDb(true);
+                client.startAll();
                 BackGroundHandler.getInstance().createNewRunner(client);
             }
-        } );
+        });
 
         // Start
-        stopBtn.addActionListener( new ActionListener( ) {
+        stopBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed( ActionEvent actionEvent ) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 BackGroundHandler.getInstance().removeRunner(client);
                 client.closeAll();
             }
-        } );
+        });
     }
 
     private void initialize() {
@@ -139,7 +141,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         // Lbl
         indexBidAskCounterLbl = new MyGuiComps.MyLabel("Ind B/A counter");
         indexBidAskCounterLbl.setXY(120, 10);
-        indexBidAskCounterLbl.setWidth( 100 );
+        indexBidAskCounterLbl.setWidth(100);
         indexBidAskCounterLbl.setHorizontalAlignment(JLabel.LEFT);
         indexBidAskCounterLbl.setFont(indexBidAskCounterLbl.getFont().deriveFont(9f));
         indexBidAskCounterLbl.setLabelFor(indexBidAskCounterField);
@@ -153,19 +155,19 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         add(indexBidAskCounterField);
 
         // ----- Start ----- //
-        startBtn = new MyGuiComps.MyButton( "Start" );
-        startBtn.setXY( 10, 60 );
+        startBtn = new MyGuiComps.MyButton("Start");
+        startBtn.setXY(10, 60);
         startBtn.setWidth(70);
-        startBtn.setFont( startBtn.getFont( ).deriveFont( 9f ) );
+        startBtn.setFont(startBtn.getFont().deriveFont(9f));
         startBtn.setBackground(Themes.BLUE);
         startBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(startBtn);
 
         // ----- Stop ----- //
-        stopBtn = new MyGuiComps.MyButton( "Stop" );
-        stopBtn.setXY( 85, 60 );
+        stopBtn = new MyGuiComps.MyButton("Stop");
+        stopBtn.setXY(85, 60);
         stopBtn.setWidth(70);
-        stopBtn.setFont( stopBtn.getFont( ).deriveFont( 9f ) );
+        stopBtn.setFont(stopBtn.getFont().deriveFont(9f));
         stopBtn.setBackground(Themes.BLUE);
         stopBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(stopBtn);

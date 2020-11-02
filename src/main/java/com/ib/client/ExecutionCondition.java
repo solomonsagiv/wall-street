@@ -15,12 +15,12 @@ public class ExecutionCondition extends OrderCondition {
     }
 
     @Override
-    public void readFrom( ObjectInput in ) throws IOException {
-        super.readFrom( in );
+    public void readFrom(ObjectInput in) throws IOException {
+        super.readFrom(in);
 
-        m_secType = in.readUTF( );
-        m_exchange = in.readUTF( );
-        m_symbol = in.readUTF( );
+        m_secType = in.readUTF();
+        m_exchange = in.readUTF();
+        m_symbol = in.readUTF();
     }
 
     @Override
@@ -29,19 +29,19 @@ public class ExecutionCondition extends OrderCondition {
     }
 
     @Override
-    public void writeTo( ObjectOutput out ) throws IOException {
-        super.writeTo( out );
+    public void writeTo(ObjectOutput out) throws IOException {
+        super.writeTo(out);
 
-        out.writeUTF( m_secType );
-        out.writeUTF( m_exchange );
-        out.writeUTF( m_symbol );
+        out.writeUTF(m_secType);
+        out.writeUTF(m_exchange);
+        out.writeUTF(m_symbol);
     }
 
     public String exchange() {
         return m_exchange;
     }
 
-    public void exchange( String m_exchange ) {
+    public void exchange(String m_exchange) {
         this.m_exchange = m_exchange;
     }
 
@@ -49,7 +49,7 @@ public class ExecutionCondition extends OrderCondition {
         return m_secType;
     }
 
-    public void secType( String m_secType ) {
+    public void secType(String m_secType) {
         this.m_secType = m_secType;
     }
 
@@ -57,7 +57,7 @@ public class ExecutionCondition extends OrderCondition {
         return m_symbol;
     }
 
-    public void symbol( String m_symbol ) {
+    public void symbol(String m_symbol) {
         this.m_symbol = m_symbol;
     }
 

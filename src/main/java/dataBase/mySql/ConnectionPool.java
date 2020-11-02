@@ -8,11 +8,11 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-    private static final int MAX_POOL_SIZE = 200;
+    private static final int MAX_POOL_SIZE = 100;
 
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = 100;
+    private static int INITIAL_POOL_SIZE = 30;
     private String url;
     private String user;
     private String password;
@@ -42,7 +42,7 @@ public class ConnectionPool implements IConnectionPool {
     }
 
     public static ConnectionPool create( String url, String user, String password ) throws SQLException {
-        List< Connection > pool = new ArrayList<>( INITIAL_POOL_SIZE );
+        List< Connection > pool = new ArrayList<>( );
         try {
             for ( int i = 0; i < INITIAL_POOL_SIZE; i++ ) {
                 new Thread( () -> {
@@ -63,6 +63,18 @@ public class ConnectionPool implements IConnectionPool {
             String url, String user, String password )
             throws SQLException {
         return DriverManager.getConnection( url, user, password );
+    }
+
+    public int getConnectionsCount() {
+        return connections.size( );
+    }
+
+    public int getUseConnectionsCount() {
+        return usedConnections.size( );
+    }
+
+    public void addConnection() throws SQLException {
+        connections.add( createConnection( url, user, password ) );
     }
 
     @Override
@@ -91,7 +103,13 @@ public class ConnectionPool implements IConnectionPool {
 
     @Override
     public boolean releaseConnection( Connection connection ) {
-        connections.add( connection );
+        try {
+            if ( connection != null && !connection.isClosed( ) && !connections.contains( connection ) ) {
+                connections.add( connection );
+            }
+        } catch ( SQLException throwables ) {
+            throwables.printStackTrace( );
+        }
         return usedConnections.remove( connection );
     }
 

@@ -10,59 +10,59 @@ public abstract class OrderCondition {
     private OrderConditionType m_type;
     private boolean m_isConjunctionConnection;
 
-    public static OrderCondition create( OrderConditionType type ) {
+    public static OrderCondition create(OrderConditionType type) {
         OrderCondition rval = null;
 
-        switch ( type ) {
+        switch (type) {
             case Execution:
-                rval = new ExecutionCondition( );
+                rval = new ExecutionCondition();
                 break;
 
             case Margin:
-                rval = new MarginCondition( );
+                rval = new MarginCondition();
                 break;
 
             case PercentChange:
-                rval = new PercentChangeCondition( );
+                rval = new PercentChangeCondition();
                 break;
 
             case Price:
-                rval = new PriceCondition( );
+                rval = new PriceCondition();
                 break;
 
             case Time:
-                rval = new TimeCondition( );
+                rval = new TimeCondition();
                 break;
 
             case Volume:
-                rval = new VolumeCondition( );
+                rval = new VolumeCondition();
                 break;
         }
 
-        if ( rval != null )
+        if (rval != null)
             rval.m_type = type;
 
         return rval;
     }
 
-    public void readFrom( ObjectInput in ) throws IOException {
-        conjunctionConnection( in.readUTF( ).compareToIgnoreCase( "a" ) == 0 );
+    public void readFrom(ObjectInput in) throws IOException {
+        conjunctionConnection(in.readUTF().compareToIgnoreCase("a") == 0);
     }
 
-    public void writeTo( ObjectOutput out ) throws IOException {
-        out.writeUTF( conjunctionConnection( ) ? "a" : "o" );
+    public void writeTo(ObjectOutput out) throws IOException {
+        out.writeUTF(conjunctionConnection() ? "a" : "o");
     }
 
     @Override
     public String toString() {
-        return conjunctionConnection( ) ? "<AND>" : "<OR>";
+        return conjunctionConnection() ? "<AND>" : "<OR>";
     }
 
     public boolean conjunctionConnection() {
         return m_isConjunctionConnection;
     }
 
-    public void conjunctionConnection( boolean isConjunctionConnection ) {
+    public void conjunctionConnection(boolean isConjunctionConnection) {
         this.m_isConjunctionConnection = isConjunctionConnection;
     }
 

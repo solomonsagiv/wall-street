@@ -20,24 +20,24 @@ public class BlackScholesFormula {
      * @param v          = Implied volatility of returns of underlying stock/asset
      * @return
      */
-    public static double calculate( boolean callOption, double s, double k,
-                                    double r, double t, double v ) {
+    public static double calculate(boolean callOption, double s, double k,
+                                   double r, double t, double v) {
 
         //System.out.println("    ----- ");
         //System.out.println(" in BlackScholesFormula:calculate(" + callOption + "," + s + "," + k + "," + r + "," + t + "," + v);
 
         double blackScholesOptionPrice = 0.0;
 
-        if ( callOption ) {
-            double cd1 = cumulativeDistribution( d1( s, k, r, t, v ) );
-            double cd2 = cumulativeDistribution( d2( s, k, r, t, v ) );
+        if (callOption) {
+            double cd1 = cumulativeDistribution(d1(s, k, r, t, v));
+            double cd2 = cumulativeDistribution(d2(s, k, r, t, v));
 
-            blackScholesOptionPrice = s * cd1 - k * Math.exp( -r * t ) * cd2;
+            blackScholesOptionPrice = s * cd1 - k * Math.exp(-r * t) * cd2;
         } else {
-            double cd1 = cumulativeDistribution( -d1( s, k, r, t, v ) );
-            double cd2 = cumulativeDistribution( -d2( s, k, r, t, v ) );
+            double cd1 = cumulativeDistribution(-d1(s, k, r, t, v));
+            double cd2 = cumulativeDistribution(-d2(s, k, r, t, v));
 
-            blackScholesOptionPrice = k * Math.exp( -r * t ) * cd2 - s * cd1;
+            blackScholesOptionPrice = k * Math.exp(-r * t) * cd2 - s * cd1;
         }
 
 //        System.out.println("  callOption-" + callOption + ", spot-" + s + ", strike-" + k + ", r-" + r + ", T-" + t + ", v-" + v);
@@ -46,7 +46,7 @@ public class BlackScholesFormula {
     }
 
 
-    public static double calculate( OptionDetails req ) {
+    public static double calculate(OptionDetails req) {
 
         //System.out.println("in BlackScholesFormula:calculate(Optiondetails req)");
         //System.out.println(req.toString());
@@ -54,26 +54,26 @@ public class BlackScholesFormula {
 
         double response;
 
-        response = calculate( req.callOption, req.spotPriceOfUnderlying,
+        response = calculate(req.callOption, req.spotPriceOfUnderlying,
                 req.strikePrice, req.riskFreeInterestRate, req.timeToExpire,
-                req.volatility );
+                req.volatility);
 
         return response;
     }
 
 
-    public static OptionDetails calculateWithGreeks( OptionDetails req ) {
+    public static OptionDetails calculateWithGreeks(OptionDetails req) {
 
         OptionDetails response = req;
 
         double price;
 
-        price = calculate( req.callOption, req.spotPriceOfUnderlying,
+        price = calculate(req.callOption, req.spotPriceOfUnderlying,
                 req.strikePrice, req.riskFreeInterestRate, req.timeToExpire,
-                req.volatility );
+                req.volatility);
 
-        @SuppressWarnings( "static-access" )
-        OptionGreeks greeks = new BlackScholesGreeks( ).calculate( req );
+        @SuppressWarnings("static-access")
+        OptionGreeks greeks = new BlackScholesGreeks().calculate(req);
 
         response.optionValue = price;
         response.callOption = req.callOption;
@@ -102,10 +102,10 @@ public class BlackScholesFormula {
      * @param v = Implied volatility of returns of underlying stock/asset
      * @return
      */
-    private static double d1( double s, double k, double r, double t, double v ) {
+    private static double d1(double s, double k, double r, double t, double v) {
 
-        double top = Math.log( s / k ) + ( r + Math.pow( v, 2 ) / 2 ) * t;
-        double bottom = v * Math.sqrt( t );
+        double top = Math.log(s / k) + (r + Math.pow(v, 2) / 2) * t;
+        double bottom = v * Math.sqrt(t);
 
         return top / bottom;
     }
@@ -118,27 +118,27 @@ public class BlackScholesFormula {
      * @param v = Implied volatility of returns of underlying stock/asset
      * @return
      */
-    private static double d2( double s, double k, double r, double t, double v ) {
-        return d1( s, k, r, t, v ) - v * Math.sqrt( t );
+    private static double d2(double s, double k, double r, double t, double v) {
+        return d1(s, k, r, t, v) - v * Math.sqrt(t);
     }
 
-    public static double cumulativeDistribution( double x ) {
+    public static double cumulativeDistribution(double x) {
 
         //System.out.println(" in BlackScholesFormula:cumulativeDitibution(" + x + ")");
 
-        double t = 1 / ( 1 + P * Math.abs( x ) );
-        double t1 = B1 * Math.pow( t, 1 );
-        double t2 = B2 * Math.pow( t, 2 );
-        double t3 = B3 * Math.pow( t, 3 );
-        double t4 = B4 * Math.pow( t, 4 );
-        double t5 = B5 * Math.pow( t, 5 );
+        double t = 1 / (1 + P * Math.abs(x));
+        double t1 = B1 * Math.pow(t, 1);
+        double t2 = B2 * Math.pow(t, 2);
+        double t3 = B3 * Math.pow(t, 3);
+        double t4 = B4 * Math.pow(t, 4);
+        double t5 = B5 * Math.pow(t, 5);
         double b = t1 + t2 + t3 + t4 + t5;
 
-        double snd = standardNormalDistribution( x ); //for testing
-        double cd = 1 - ( snd * b );
+        double snd = standardNormalDistribution(x); //for testing
+        double cd = 1 - (snd * b);
 
         double resp = 0.0;
-        if ( x < 0 ) {
+        if (x < 0) {
             resp = 1 - cd;
         } else {
             resp = cd;
@@ -156,11 +156,11 @@ public class BlackScholesFormula {
      * @param x
      * @return
      */
-    public static double standardNormalDistribution( double x ) {
+    public static double standardNormalDistribution(double x) {
 
         //System.out.println(" in BlackScholesFormula:standardNormalDistribution(" + x + ")");
-        double top = Math.exp( -0.5 * Math.pow( x, 2 ) );
-        double bottom = Math.sqrt( 2 * Math.PI );
+        double top = Math.exp(-0.5 * Math.pow(x, 2));
+        double bottom = Math.sqrt(2 * Math.PI);
         double resp = top / bottom;
 
         return resp;

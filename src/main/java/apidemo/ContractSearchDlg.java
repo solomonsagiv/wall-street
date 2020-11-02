@@ -15,132 +15,132 @@ import java.util.ArrayList;
 public class ContractSearchDlg extends JDialog {
 
     private final ContractPanel m_contractPanel;
-    private final DefaultListModel< Contract > m_contractList = new DefaultListModel<>( );
-    private final JList< Contract > m_contracts = new JList<>( m_contractList );
+    private final DefaultListModel<Contract> m_contractList = new DefaultListModel<>();
+    private final JList<Contract> m_contracts = new JList<>(m_contractList);
     private final ContractLookuper m_lookuper;
-    private Contract m_contract = new Contract( );
+    private Contract m_contract = new Contract();
 
-    ContractSearchDlg( int conId, String exchange, ContractLookuper lookuper ) {
+    ContractSearchDlg(int conId, String exchange, ContractLookuper lookuper) {
         m_lookuper = lookuper;
 
-        if ( conId > 0 && !exchange.isEmpty( ) ) {
-            m_contract.conid( conId );
-            m_contract.exchange( exchange );
+        if (conId > 0 && !exchange.isEmpty()) {
+            m_contract.conid(conId);
+            m_contract.exchange(exchange);
 
-            ArrayList< ContractDetails > list = lookupContract( );
+            ArrayList<ContractDetails> list = lookupContract();
 
-            if ( !list.isEmpty( ) ) {
-                m_contract = list.get( 0 ).contract( );
+            if (!list.isEmpty()) {
+                m_contract = list.get(0).contract();
             }
         }
 
-        m_contractPanel = new ContractPanel( m_contract );
+        m_contractPanel = new ContractPanel(m_contract);
 
-        JPanel buttons = new JPanel( new FlowLayout( FlowLayout.CENTER, 15, 5 ) );
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
 
-        buttons.add( new HtmlButton( "search" ) {
+        buttons.add(new HtmlButton("search") {
             @Override
             protected void actionPerformed() {
-                onSearch( );
+                onSearch();
             }
-        } );
+        });
 
-        m_contracts.setCellRenderer( ( list, value, index, isSelected, cellHasFocus ) -> onGetListCellRenderer( value, isSelected ) );
+        m_contracts.setCellRenderer((list, value, index, isSelected, cellHasFocus) -> onGetListCellRenderer(value, isSelected));
 
-        m_contracts.addMouseListener( new MouseListener( ) {
+        m_contracts.addMouseListener(new MouseListener() {
 
             @Override
-            public void mouseReleased( MouseEvent e ) {
-            }
-
-            @Override
-            public void mousePressed( MouseEvent e ) {
+            public void mouseReleased(MouseEvent e) {
             }
 
             @Override
-            public void mouseExited( MouseEvent e ) {
+            public void mousePressed(MouseEvent e) {
             }
 
             @Override
-            public void mouseEntered( MouseEvent e ) {
+            public void mouseExited(MouseEvent e) {
             }
 
             @Override
-            public void mouseClicked( MouseEvent e ) {
-                if ( e.getClickCount( ) > 1 ) {
-                    dispose( );
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() > 1) {
+                    dispose();
                 }
             }
-        } );
+        });
 
-        add( m_contractPanel, BorderLayout.NORTH );
-        add( buttons, BorderLayout.CENTER );
-        add( m_contracts, BorderLayout.SOUTH );
+        add(m_contractPanel, BorderLayout.NORTH);
+        add(buttons, BorderLayout.CENTER);
+        add(m_contracts, BorderLayout.SOUTH);
 
-        pack( );
-        setModalityType( ModalityType.APPLICATION_MODAL );
-        Util.closeOnEsc( this );
+        pack();
+        setModalityType(ModalityType.APPLICATION_MODAL);
+        Util.closeOnEsc(this);
     }
 
-    private ArrayList< ContractDetails > lookupContract() {
+    private ArrayList<ContractDetails> lookupContract() {
         //return com.ib.client.Util.lookupContract(ApiDemo.INSTANCE.controller(), m_contract);
-        return m_lookuper.lookupContract( m_contract );
+        return m_lookuper.lookupContract(m_contract);
     }
 
     public boolean isSucceeded() {
-        return m_contractList.size( ) > 0 && m_contracts.getSelectedIndex( ) >= 0;
+        return m_contractList.size() > 0 && m_contracts.getSelectedIndex() >= 0;
     }
 
     private Contract selectedContract() {
-        if ( m_contractList.isEmpty( ) || m_contracts.getSelectedIndex( ) < 0 )
+        if (m_contractList.isEmpty() || m_contracts.getSelectedIndex() < 0)
             return m_contract;
 
-        return ( m_contractList.get( m_contracts.getSelectedIndex( ) ) );
+        return (m_contractList.get(m_contracts.getSelectedIndex()));
     }
 
     int refConId() {
-        return selectedContract( ).conid( );
+        return selectedContract().conid();
     }
 
     String refExchId() {
-        return selectedContract( ).exchange( );
+        return selectedContract().exchange();
     }
 
     String refContract() {
-        if ( selectedContract( ).conid( ) == 0 || selectedContract( ).exchange( ).isEmpty( ) )
+        if (selectedContract().conid() == 0 || selectedContract().exchange().isEmpty())
             return null;
 
-        return selectedContract( ).symbol( ) + " " + selectedContract( ).exchange( ) + " " + selectedContract( ).secType( ) + " " + selectedContract( ).currency( );
+        return selectedContract().symbol() + " " + selectedContract().exchange() + " " + selectedContract().secType() + " " + selectedContract().currency();
     }
 
     private void onSearch() {
-        m_contractPanel.onOK( );
+        m_contractPanel.onOK();
 
-        m_contract.conid( 0 );
-        m_contract.tradingClass( null );
+        m_contract.conid(0);
+        m_contract.tradingClass(null);
 
-        ArrayList< ContractDetails > list = lookupContract( );
+        ArrayList<ContractDetails> list = lookupContract();
 
-        m_contractList.clear( );
+        m_contractList.clear();
 
-        for ( ContractDetails el : list ) {
-            m_contractList.addElement( el.contract( ) );
+        for (ContractDetails el : list) {
+            m_contractList.addElement(el.contract());
         }
 
-        m_contracts.updateUI( );
-        pack( );
+        m_contracts.updateUI();
+        pack();
     }
 
-    private Component onGetListCellRenderer( Contract value, boolean isSelected ) {
-        JPanel panel = new JPanel( );
+    private Component onGetListCellRenderer(Contract value, boolean isSelected) {
+        JPanel panel = new JPanel();
 
-        panel.add( new JLabel( value.symbol( ) ) );
-        panel.add( new JLabel( value.exchange( ) ) );
-        panel.add( new JLabel( value.secType( ).toString( ) ) );
-        panel.add( new JLabel( value.currency( ) ) );
+        panel.add(new JLabel(value.symbol()));
+        panel.add(new JLabel(value.exchange()));
+        panel.add(new JLabel(value.secType().toString()));
+        panel.add(new JLabel(value.currency()));
 
-        if ( isSelected ) {
-            panel.setBackground( Color.LIGHT_GRAY );
+        if (isSelected) {
+            panel.setBackground(Color.LIGHT_GRAY);
         }
 
         return panel;

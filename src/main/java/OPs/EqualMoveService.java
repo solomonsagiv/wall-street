@@ -19,11 +19,11 @@ public class EqualMoveService extends MyBaseService {
     private double move = 0;
     private double liveMove = 0;
 
-    private List moveList = new ArrayList< Double >( );
+    private List moveList = new ArrayList<Double>();
 
     // Constructor
-    public EqualMoveService( BASE_CLIENT_OBJECT client, Options options, double opPlag ) {
-        super( client );
+    public EqualMoveService(BASE_CLIENT_OBJECT client, Options options, double opPlag) {
+        super(client);
 
         this.options = options;
         this.opPlag = opPlag;
@@ -31,28 +31,28 @@ public class EqualMoveService extends MyBaseService {
 
     @Override
     public void go() {
-        calculateFromIndex( );
+        calculateFromIndex();
     }
 
     private void calculateFromIndex() {
 
-        double op = options.getOp( );
+        double op = options.getOp();
 
         // ----- Equal area ----- //
-        if ( op > oposite( opPlag ) && op < opPlag ) {
+        if (op > oposite(opPlag) && op < opPlag) {
 
             // Start of the move
-            if ( !equalStatusIndex ) {
+            if (!equalStatusIndex) {
 
                 // Set start price
-                startPrice = getClient( ).getIndex( );
+                startPrice = getClient().getIndex();
 
             }
 
             // Set equalLiveMove
-            endPrice = getClient( ).getIndex( );
+            endPrice = getClient().getIndex();
             double equalLiveMove = endPrice - startPrice;
-            setLiveMove( equalLiveMove );
+            setLiveMove(equalLiveMove);
 
             // Set status true
             equalStatusIndex = true;
@@ -61,19 +61,19 @@ public class EqualMoveService extends MyBaseService {
         } else {
 
             // End of the move
-            if ( equalStatusIndex ) {
+            if (equalStatusIndex) {
 
                 // Reset live move
-                setLiveMove( 0 );
+                setLiveMove(0);
 
                 // Set end price
-                endPrice = getClient( ).getIndex( );
+                endPrice = getClient().getIndex();
 
                 // Get the move
-                double move = floor( endPrice - startPrice, 10 );
+                double move = floor(endPrice - startPrice, 10);
 
                 // Append the move
-                appendMoveIndex( move );
+                appendMoveIndex(move);
 
             }
 
@@ -98,15 +98,15 @@ public class EqualMoveService extends MyBaseService {
         return ServiceEnum.EQUAL_MOVE;
     }
 
-    private double oposite( double d ) {
+    private double oposite(double d) {
         return d * -1;
     }
 
-    private double floor( double d, int zeros ) {
-        return Math.floor( d * zeros ) / zeros;
+    private double floor(double d, int zeros) {
+        return Math.floor(d * zeros) / zeros;
     }
 
-    public void setLiveMove( double liveMove ) {
+    public void setLiveMove(double liveMove) {
         this.liveMove = liveMove;
     }
 
@@ -114,15 +114,11 @@ public class EqualMoveService extends MyBaseService {
         return options;
     }
 
-    public void setOptions( Options options ) {
+    public void setOptions(Options options) {
         this.options = options;
     }
 
-    public void setMove( double move ) {
-        this.move = move;
-    }
-
-    public void appendMoveIndex( double move ) {
+    public void appendMoveIndex(double move) {
         this.move += move;
     }
 
@@ -132,5 +128,9 @@ public class EqualMoveService extends MyBaseService {
 
     public double getMove() {
         return move + liveMove;
+    }
+
+    public void setMove(double move) {
+        this.move = move;
     }
 }

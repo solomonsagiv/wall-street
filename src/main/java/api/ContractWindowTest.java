@@ -8,27 +8,23 @@ import java.awt.event.WindowEvent;
 
 public class ContractWindowTest extends MyGuiComps.MyFrame {
 
-    public static void main(String[] args) {
-        ContractWindowTest contractWindowTest = new ContractWindowTest("Contracts");
-
-    }
-
-    // Variables
-    MyGuiComps.MyLabel spxLbl;
     public static MyGuiComps.MyTextField spxQuarterField = new MyGuiComps.MyTextField();
     public static MyGuiComps.MyTextField spxQuarterFarField = new MyGuiComps.MyTextField();
-
-
-    MyGuiComps.MyLabel ndxLbl = new MyGuiComps.MyLabel("Ndx");
     public static MyGuiComps.MyTextField ndxQuarterField = new MyGuiComps.MyTextField();
     public static MyGuiComps.MyTextField ndxQuarterFarField = new MyGuiComps.MyTextField();
-
-
+    // Variables
+    MyGuiComps.MyLabel spxLbl;
+    MyGuiComps.MyLabel ndxLbl = new MyGuiComps.MyLabel("Ndx");
     // Constructor
-    public ContractWindowTest( String title ) throws HeadlessException {
+    public ContractWindowTest(String title) throws HeadlessException {
         super(title);
 
         startDownloader();
+    }
+
+    public static void main(String[] args) {
+        ContractWindowTest contractWindowTest = new ContractWindowTest("Contracts");
+
     }
 
     private void startDownloader() {
@@ -41,7 +37,7 @@ public class ContractWindowTest extends MyGuiComps.MyFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.exit( 0 );
+                System.exit(0);
             }
         });
     }

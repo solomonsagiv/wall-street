@@ -1,9 +1,9 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import exp.Exp;
+import exp.ExpStrings;
 import locals.Themes;
-import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
@@ -11,8 +11,8 @@ import java.awt.*;
 public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
 
     // Constructor
-    public IndexVsQuarterVSOpAvg15LiveChart( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public IndexVsQuarterVSOpAvg15LiveChart(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override
@@ -20,69 +20,79 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp( ChartPropsEnum.SECONDS, 150 );
-        props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
-        props.setProp( ChartPropsEnum.MARGIN, .17 );
-        props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
-        props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
-        props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
-        props.setProp( ChartPropsEnum.IS_LIVE, true );
-        props.setProp( ChartPropsEnum.SLEEP, 200 );
-        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, (double)INFINITE );
-        props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
+        props.setProp(ChartPropsEnum.SECONDS, 150);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.MARGIN, .17);
+        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, false);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, false);
+        props.setProp(ChartPropsEnum.IS_LIVE, true);
+        props.setProp(ChartPropsEnum.SLEEP, 200);
+        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 2.25f, props, client.getIndexList() ) {
+        MyTimeSeries index = new MyTimeSeries("Index", client) {
             @Override
             public double getData() {
                 return client.getIndex();
             }
         };
+        index.setColor(Color.BLACK);
+        index.setStokeSize(2.25f);
 
-        // Index
-        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
+        // Bid
+        MyTimeSeries bid = new MyTimeSeries("Bid", client) {
             @Override
             public double getData() {
                 return client.getIndexBid();
             }
         };
+        bid.setColor(Themes.BLUE);
+        bid.setStokeSize(2.25f);
 
-        // Index
-        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
+        // Ask
+        MyTimeSeries ask = new MyTimeSeries("Ask", client) {
             @Override
             public double getData() {
                 return client.getIndexAsk();
             }
         };
 
-        // OpAvg
-        MyTimeSeries opAvg = new MyTimeSeries( "OpAvg15Future", Themes.BLUE_LIGHT_2, 2.25f, props, null ) {
-            @Override
-            public double getData() {
-                Options options = client.getOptionsHandler().getOptions( OptionsEnum.QUARTER );
-                return options.getFuture() - options.getOpAvgFuture(900);
-            }
-        };
-
         // Future
-        MyTimeSeries future = new MyTimeSeries( "Future", Themes.GREEN, 2.25f, props, null ) {
+        MyTimeSeries quarter = new MyTimeSeries("Quarter", client) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.QUARTER ).getFuture();
+                return client.getExps().getExp(ExpStrings.e1).getCalcFut();
             }
         };
 
-        MyTimeSeries[] series = { index, bid, ask, future, opAvg };
+        quarter.setColor(Themes.GREEN);
+        quarter.setStokeSize(2.25f);
+
+        // OpAvg
+        MyTimeSeries opAvg = new MyTimeSeries("OpAvg15Future", client) {
+            @Override
+            public double getData() {
+                Exp exp = client.getExps().getExp(ExpStrings.e1);
+                return exp.getCalcFut() - exp.getOpAvgFut(900);
+            }
+        };
+
+        opAvg.setColor(Themes.BLUE_LIGHT_2);
+        opAvg.setStokeSize(2.25f);
+
+        MyTimeSeries[] series = {index, bid, ask, quarter, opAvg};
 
         // Chart
-        MyChart chart = new MyChart( client, series, props );
+        MyChart chart = new MyChart(client, series, props);
 
         // ----- Charts ----- //
-        MyChart[] charts = { chart };
+        MyChart[] charts = {chart};
 
         // ----- Container ----- //
-        MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );
+        MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
 
 

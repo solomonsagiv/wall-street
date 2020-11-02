@@ -10,7 +10,7 @@ public class NewsProvider {
     public NewsProvider() {
     }
 
-    public NewsProvider( String p_providerCode, String p_providerName ) {
+    public NewsProvider(String p_providerCode, String p_providerName) {
         m_providerCode = p_providerCode;
         m_providerName = p_providerName;
     }
@@ -25,11 +25,11 @@ public class NewsProvider {
     }
 
     // Set
-    public void providerCode( String providerCode ) {
+    public void providerCode(String providerCode) {
         m_providerCode = providerCode;
     }
 
-    public void providerName( String providerName ) {
+    public void providerName(String providerName) {
         m_providerName = providerName;
     }
 }

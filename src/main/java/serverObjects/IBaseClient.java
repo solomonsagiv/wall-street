@@ -2,9 +2,16 @@ package serverObjects;
 
 public interface IBaseClient {
 
-    void initOptionsHandler();
+    void initExpHandler();
+
     void initDDECells();
+
     ApiEnum getApi();
+
     void initBaseId();
+
+    void initSeries();
+
+    void openChartsOnStart();
 
 }

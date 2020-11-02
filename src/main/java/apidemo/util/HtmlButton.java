@@ -12,132 +12,132 @@ import java.awt.event.MouseEvent;
 import java.util.HashSet;
 
 public class HtmlButton extends JLabel {
-    static Color light = new Color( 220, 220, 220 );
+    static Color light = new Color(220, 220, 220);
     protected boolean m_selected;
     private String m_text;
     private ActionListener m_al;
-    private Color m_bg = getBackground( );
+    private Color m_bg = getBackground();
 
-    public HtmlButton( String text ) {
-        this( text, null );
+    public HtmlButton(String text) {
+        this(text, null);
     }
 
-    public HtmlButton( String text, ActionListener v ) {
-        super( text );
+    public HtmlButton(String text, ActionListener v) {
+        super(text);
         m_text = text;
         m_al = v;
-        setOpaque( true );
-        setForeground( Color.blue );
+        setOpaque(true);
+        setForeground(Color.blue);
 
-        MouseAdapter a = new MouseAdapter( ) {
-            public void mousePressed( MouseEvent e ) {
-                onPressed( e );
+        MouseAdapter a = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                onPressed(e);
             }
 
-            public void mouseReleased( MouseEvent e ) {
-                onClicked( e );
-                setBackground( m_bg );
+            public void mouseReleased(MouseEvent e) {
+                onClicked(e);
+                setBackground(m_bg);
             }
 
-            public void mouseEntered( MouseEvent e ) {
-                onEntered( e );
+            public void mouseEntered(MouseEvent e) {
+                onEntered(e);
             }
 
-            public void mouseExited( MouseEvent e ) {
-                onExited( );
+            public void mouseExited(MouseEvent e) {
+                onExited();
             }
 
             @Override
-            public void mouseMoved( MouseEvent e ) {
-                onMouseMoved( e );
+            public void mouseMoved(MouseEvent e) {
+                onMouseMoved(e);
             }
         };
-        addMouseListener( a );
-        addMouseMotionListener( a );
-        setFont( getFont( ).deriveFont( Font.PLAIN ) );
+        addMouseListener(a);
+        addMouseMotionListener(a);
+        setFont(getFont().deriveFont(Font.PLAIN));
     }
 
-    static String underline( String str ) {
-        return String.format( "<html><u>%s</html>", str );
+    static String underline(String str) {
+        return String.format("<html><u>%s</html>", str);
     }
 
-    static String bold( String str ) {
-        return String.format( "<html><b>%s</html>", str );
+    static String bold(String str) {
+        return String.format("<html><b>%s</html>", str);
     }
 
     public boolean isSelected() {
         return m_selected;
     }
 
-    public void setSelected( boolean v ) {
+    public void setSelected(boolean v) {
         m_selected = v;
     }
 
-    public void addActionListener( ActionListener v ) {
+    public void addActionListener(ActionListener v) {
         m_al = v;
     }
 
     @Override
-    public void setText( String text ) {
+    public void setText(String text) {
         m_text = text;
-        super.setText( text );
+        super.setText(text);
     }
 
-    protected void onMouseMoved( MouseEvent e ) {
+    protected void onMouseMoved(MouseEvent e) {
     }
 
-    protected void onEntered( MouseEvent e ) {
-        if ( !m_selected ) {
-            setText( underline( m_text ) );
+    protected void onEntered(MouseEvent e) {
+        if (!m_selected) {
+            setText(underline(m_text));
         }
     }
 
     protected void onExited() {
-        setText( m_text );
+        setText(m_text);
     }
 
-    protected void onPressed( MouseEvent e ) {
-        if ( !m_selected ) {
-            setBackground( light );
+    protected void onPressed(MouseEvent e) {
+        if (!m_selected) {
+            setBackground(light);
         }
     }
 
-    protected void onClicked( MouseEvent e ) {
-        actionPerformed( );
+    protected void onClicked(MouseEvent e) {
+        actionPerformed();
     }
 
     protected void actionPerformed() {
-        if ( m_al != null ) {
-            m_al.actionPerformed( null );
+        if (m_al != null) {
+            m_al.actionPerformed(null);
         }
     }
 
     public static class HtmlRadioButton extends HtmlButton {
-        private HashSet< HtmlRadioButton > m_group;
+        private HashSet<HtmlRadioButton> m_group;
 
-        HtmlRadioButton( String text, HashSet< HtmlRadioButton > group ) {
-            super( text );
+        HtmlRadioButton(String text, HashSet<HtmlRadioButton> group) {
+            super(text);
             m_group = group;
-            group.add( this );
+            group.add(this);
         }
 
         @Override
         protected void actionPerformed() {
-            for ( HtmlRadioButton but : m_group ) {
-                but.setSelected( false );
+            for (HtmlRadioButton but : m_group) {
+                but.setSelected(false);
             }
-            setSelected( true );
-            super.actionPerformed( );
+            setSelected(true);
+            super.actionPerformed();
         }
     }
 
     static class B implements Border {
         @Override
-        public void paintBorder( Component c, Graphics g, int x, int y, int width, int height ) {
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         }
 
         @Override
-        public Insets getBorderInsets( Component c ) {
+        public Insets getBorderInsets(Component c) {
             return null;
         }
 

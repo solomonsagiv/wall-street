@@ -19,14 +19,14 @@ import java.util.LinkedList;
  */
 public class EReader extends Thread {
     static final int MAX_MSG_LENGTH = 0xffffff;
-    private static final EWrapper defaultWrapper = new DefaultEWrapper( );
+    private static final EWrapper defaultWrapper = new DefaultEWrapper();
     private static final int IN_BUF_SIZE_DEFAULT = 8192;
     private EClientSocket m_clientSocket;
     private EReaderSignal m_signal;
     private EDecoder m_processMsgsDecoder;
-    private byte[] m_iBuf = new byte[ IN_BUF_SIZE_DEFAULT ];
+    private byte[] m_iBuf = new byte[IN_BUF_SIZE_DEFAULT];
     private int m_iBufLen = 0;
-    private Deque< EMessage > m_msgQueue = new LinkedList<>( );
+    private Deque<EMessage> m_msgQueue = new LinkedList<>();
 
     /**
      * Construct the EReader.
@@ -34,14 +34,14 @@ public class EReader extends Thread {
      * @param parent An EClientSocket connected to TWS.
      * @param signal A callback that informs that there are messages in msg queue.
      */
-    public EReader( EClientSocket parent, EReaderSignal signal ) {
+    public EReader(EClientSocket parent, EReaderSignal signal) {
         m_clientSocket = parent;
         m_signal = signal;
-        m_processMsgsDecoder = new EDecoder( parent.serverVersion( ), parent.wrapper( ), parent );
+        m_processMsgsDecoder = new EDecoder(parent.serverVersion(), parent.wrapper(), parent);
     }
 
     protected boolean isUseV100Plus() {
-        return m_clientSocket.isUseV100Plus( );
+        return m_clientSocket.isUseV100Plus();
     }
 
     protected EClient parent() {
@@ -49,7 +49,7 @@ public class EReader extends Thread {
     }
 
     private EWrapper eWrapper() {
-        return parent( ).wrapper( );
+        return parent().wrapper();
     }
 
     /**
@@ -59,109 +59,109 @@ public class EReader extends Thread {
     public void run() {
         try {
             // loop until thread is terminated
-            while ( !isInterrupted( ) ) {
-                if ( !putMessageToQueue( ) )
+            while (!isInterrupted()) {
+                if (!putMessageToQueue())
                     break;
             }
-        } catch ( Exception ex ) {
+        } catch (Exception ex) {
             //if (parent().isConnected()) {
-            if ( ex instanceof EOFException ) {
-                eWrapper( ).error( EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code( ),
-                        EClientErrors.BAD_LENGTH.msg( ) + " " + ex.getMessage( ) );
+            if (ex instanceof EOFException) {
+                eWrapper().error(EClientErrors.NO_VALID_ID, EClientErrors.BAD_LENGTH.code(),
+                        EClientErrors.BAD_LENGTH.msg() + " " + ex.getMessage());
             } else {
-                eWrapper( ).error( ex );
+                eWrapper().error(ex);
             }
             //}
         }
 
-        m_signal.issueSignal( );
+        m_signal.issueSignal();
     }
 
     public boolean putMessageToQueue() throws IOException {
-        EMessage msg = readSingleMessage( );
+        EMessage msg = readSingleMessage();
 
-        if ( msg == null )
+        if (msg == null)
             return false;
 
-        synchronized ( m_msgQueue ) {
-            m_msgQueue.addFirst( msg );
+        synchronized (m_msgQueue) {
+            m_msgQueue.addFirst(msg);
         }
 
-        m_signal.issueSignal( );
+        m_signal.issueSignal();
 
         return true;
     }
 
     protected EMessage getMsg() {
-        synchronized ( m_msgQueue ) {
-            return m_msgQueue.isEmpty( ) ? null : m_msgQueue.removeLast( );
+        synchronized (m_msgQueue) {
+            return m_msgQueue.isEmpty() ? null : m_msgQueue.removeLast();
         }
     }
 
     public void processMsgs() throws IOException {
-        EMessage msg = getMsg( );
-        while ( msg != null && m_processMsgsDecoder.processMsg( msg ) > 0 ) {
-            msg = getMsg( );
+        EMessage msg = getMsg();
+        while (msg != null && m_processMsgsDecoder.processMsg(msg) > 0) {
+            msg = getMsg();
         }
     }
 
     private EMessage readSingleMessage() throws IOException {
-        if ( isUseV100Plus( ) ) {
-            int msgSize = m_clientSocket.readInt( );
+        if (isUseV100Plus()) {
+            int msgSize = m_clientSocket.readInt();
 
-            if ( msgSize > MAX_MSG_LENGTH ) {
-                throw new InvalidMessageLengthException( "message is too long: "
-                        + msgSize );
+            if (msgSize > MAX_MSG_LENGTH) {
+                throw new InvalidMessageLengthException("message is too long: "
+                        + msgSize);
             }
 
-            byte[] buf = new byte[ msgSize ];
+            byte[] buf = new byte[msgSize];
 
             int offset = 0;
 
-            while ( offset < msgSize ) {
-                offset += m_clientSocket.read( buf, offset, msgSize - offset );
+            while (offset < msgSize) {
+                offset += m_clientSocket.read(buf, offset, msgSize - offset);
             }
 
-            return new EMessage( buf, buf.length );
+            return new EMessage(buf, buf.length);
         }
 
-        if ( m_iBufLen == 0 ) {
-            m_iBufLen = appendIBuf( );
+        if (m_iBufLen == 0) {
+            m_iBufLen = appendIBuf();
         }
 
         int msgSize = 0;
 
-        while ( true )
+        while (true)
             try {
-                msgSize = m_iBufLen > 0 ? new EDecoder( m_clientSocket.serverVersion( ), defaultWrapper )
-                        .processMsg( new EMessage( m_iBuf, m_iBufLen ) ) : 0;
+                msgSize = m_iBufLen > 0 ? new EDecoder(m_clientSocket.serverVersion(), defaultWrapper)
+                        .processMsg(new EMessage(m_iBuf, m_iBufLen)) : 0;
                 break;
-            } catch ( Exception e ) {
-                if ( m_iBufLen >= m_iBuf.length * 3 / 4 ) {
-                    byte[] tmp = new byte[ m_iBuf.length * 2 ];
+            } catch (Exception e) {
+                if (m_iBufLen >= m_iBuf.length * 3 / 4) {
+                    byte[] tmp = new byte[m_iBuf.length * 2];
 
-                    System.arraycopy( m_iBuf, 0, tmp, 0, m_iBuf.length );
+                    System.arraycopy(m_iBuf, 0, tmp, 0, m_iBuf.length);
 
                     m_iBuf = tmp;
                 }
 
-                m_iBufLen += appendIBuf( );
+                m_iBufLen += appendIBuf();
             }
 
-        if ( msgSize == 0 )
+        if (msgSize == 0)
             return null;
 
 
-        EMessage msg = new EMessage( m_iBuf, msgSize );
+        EMessage msg = new EMessage(m_iBuf, msgSize);
 
-        System.arraycopy( Arrays.copyOfRange( m_iBuf, msgSize, m_iBuf.length ), 0, m_iBuf, 0, m_iBuf.length - msgSize );
+        System.arraycopy(Arrays.copyOfRange(m_iBuf, msgSize, m_iBuf.length), 0, m_iBuf, 0, m_iBuf.length - msgSize);
 
         m_iBufLen -= msgSize;
 
-        if ( m_iBufLen < IN_BUF_SIZE_DEFAULT && m_iBuf.length > IN_BUF_SIZE_DEFAULT ) {
-            byte[] tmp = new byte[ IN_BUF_SIZE_DEFAULT ];
+        if (m_iBufLen < IN_BUF_SIZE_DEFAULT && m_iBuf.length > IN_BUF_SIZE_DEFAULT) {
+            byte[] tmp = new byte[IN_BUF_SIZE_DEFAULT];
 
-            System.arraycopy( m_iBuf, 0, tmp, 0, tmp.length );
+            System.arraycopy(m_iBuf, 0, tmp, 0, tmp.length);
 
             m_iBuf = tmp;
         }
@@ -170,13 +170,13 @@ public class EReader extends Thread {
     }
 
     protected int appendIBuf() throws IOException {
-        return m_clientSocket.read( m_iBuf, m_iBufLen, m_iBuf.length - m_iBufLen );
+        return m_clientSocket.read(m_iBuf, m_iBufLen, m_iBuf.length - m_iBufLen);
     }
 
-    @SuppressWarnings( "serial" )
+    @SuppressWarnings("serial")
     private static class InvalidMessageLengthException extends IOException {
-        public InvalidMessageLengthException( String message ) {
-            super( message );
+        public InvalidMessageLengthException(String message) {
+            super(message);
         }
     }
 }

@@ -1,5 +1,7 @@
 package lists;
 
+import exp.E;
+import exp.Exp;
 import options.Options;
 import roll.Roll;
 import roll.RollEnum;
@@ -21,7 +23,7 @@ public class ListsService extends MyBaseService {
         super(client);
         this.client = client;
     }
-
+    
     @Override
     public void go() {
         insert();
@@ -44,23 +46,32 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime time = LocalDateTime.now();
 
         // List for charts
-        client.getIndexBidList().add(new MyChartPoint(now, client.getIndexBid()));
-        client.getIndexAskList().add(new MyChartPoint(now, client.getIndexAsk()));
-        client.getIndexBidAskCounterList().add(new MyChartPoint(now, client.getIndexBidAskCounter()));
-        client.getIndexBidAskCounter2List().add(new MyChartPoint(now, client.getIndexBidAskCounter2()));
+        client.getIndexBidSeries().add(time);
+        client.getIndexAskSeries().add(time);
+        client.getIndexBidAskCounterSeries().add(time);
+        client.getIndexSeries().add(time);
+        client.getIndexScaledSeries().add( time );
+        client.getIndBIdAskMarginSeries().add(time);
 
         // Options lists
-        for (Options options : client.getOptionsHandler().getOptionsList()) {
+        for (Exp exp : client.getExps().getExpList()) {
             try {
-                options.getFutureList().add(options.getFuture());
-                client.getIndexList().add(new MyChartPoint(now, client.getIndex()));
-                options.getOpFutureList().add(options.getOpFuture());
+                exp.getFutList().add(exp.getCalcFut());
+                exp.getOpFutList().add(exp.getOpFuture());
+
+                // E
+                if (exp instanceof E) {
+                    ((E) exp).getDeltaSerie().add(time);
+                    ((E) exp).getPreDeltaSerie().add(time);
+                    ((E) exp).getDeltaScaledSerie().add(time);
+                }
+
                 try {
-                    options.getOpAvgFutureList().add(new MyChartPoint(now, options.getOpAvgFuture()));
-                    options.getOpAvg15FutureList().add(new MyChartPoint(now, options.getOpAvgFuture(900)));
+                    exp.getOpAvgFutSeries().add(time);
+                    exp.getOpAvg15FutSeries().add(time);
                 } catch (Exception e) {
                     System.out.println(getClient().getName() + " OpAvgFutureList is empty");
                 }
@@ -68,13 +79,14 @@ public class ListsService extends MyBaseService {
                 e.printStackTrace();
             }
 
+            Options options = exp.getOptions();
             options.getOpList().add(options.getOp());
             options.getOpAvgList().add(options.getOpAvg());
             options.getConList().add(options.getContract());
             options.getConBidList().add(options.getContractBid());
             options.getConAskList().add(options.getContractAsk());
-            options.getFutBidAskCounterList().add(new MyChartPoint(now, options.getFutureBidAskCounter()));
-            options.getConBidAskCounterList().add(new MyChartPoint(now, options.getConBidAskCounter()));
+            exp.getFutBidAskCounterSeries().add(time);
+            options.getConBidAskCounterSeries().add(time);
         }
 
         // Roll lists

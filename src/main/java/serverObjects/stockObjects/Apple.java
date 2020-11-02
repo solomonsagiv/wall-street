@@ -4,26 +4,24 @@ import DDE.DDECells;
 import api.tws.requesters.AppleRequester;
 import serverObjects.ApiEnum;
 
-import java.time.LocalTime;
-
 public class Apple extends STOCK_OBJECT {
 
     static Apple client = null;
 
     // Constrtor
     public Apple() {
-        setName( "apple" );
-        setStrikeMargin( 5 );
+        setName("apple");
+        setStrikeMargin(5);
 
-        setDbId( 4 );
+        setDbId(4);
         initDDECells();
         setiTwsRequester(new AppleRequester());
     }
 
     // Get instance
     public static Apple getInstance() {
-        if ( client == null ) {
-            client = new Apple( );
+        if (client == null) {
+            client = new Apple();
         }
         return client;
     }
@@ -35,13 +33,13 @@ public class Apple extends STOCK_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override

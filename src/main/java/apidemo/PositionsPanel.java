@@ -19,32 +19,32 @@ import java.util.HashMap;
 
 
 public class PositionsPanel extends NewTabPanel {
-    private PositionModel m_model = new PositionModel( );
+    private PositionModel m_model = new PositionModel();
     private boolean m_complete;
 
     PositionsPanel() {
-        HtmlButton sub = new HtmlButton( "Subscribe" ) {
+        HtmlButton sub = new HtmlButton("Subscribe") {
             protected void actionPerformed() {
-                subscribe( );
+                subscribe();
             }
         };
 
-        HtmlButton desub = new HtmlButton( "Desubscribe" ) {
+        HtmlButton desub = new HtmlButton("Desubscribe") {
             protected void actionPerformed() {
-                desubscribe( );
+                desubscribe();
             }
         };
 
-        JPanel buts = new VerticalPanel( );
-        buts.add( sub );
-        buts.add( desub );
+        JPanel buts = new VerticalPanel();
+        buts.add(sub);
+        buts.add(desub);
 
-        JTable table = new Table( m_model, 2 );
-        JScrollPane scroll = new JScrollPane( table );
+        JTable table = new Table(m_model, 2);
+        JScrollPane scroll = new JScrollPane(table);
 
-        setLayout( new BorderLayout( ) );
-        add( scroll );
-        add( buts, BorderLayout.EAST );
+        setLayout(new BorderLayout());
+        add(scroll);
+        add(buts, BorderLayout.EAST);
     }
 
     /**
@@ -52,7 +52,7 @@ public class PositionsPanel extends NewTabPanel {
      */
     @Override
     public void activated() {
-        subscribe( );
+        subscribe();
     }
 
     /**
@@ -60,42 +60,42 @@ public class PositionsPanel extends NewTabPanel {
      */
     @Override
     public void closed() {
-        desubscribe( );
+        desubscribe();
     }
 
     private void subscribe() {
-        ApiDemo.INSTANCE.controller( ).reqPositions( m_model );
+        ApiDemo.INSTANCE.controller().reqPositions(m_model);
     }
 
     private void desubscribe() {
-        ApiDemo.INSTANCE.controller( ).cancelPositions( m_model );
-        m_model.clear( );
+        ApiDemo.INSTANCE.controller().cancelPositions(m_model);
+        m_model.clear();
     }
 
     private static class PositionKey {
         String m_account;
         int m_conid;
 
-        PositionKey( String account, int conid ) {
+        PositionKey(String account, int conid) {
             m_account = account;
             m_conid = conid;
         }
 
         @Override
         public int hashCode() {
-            return m_account.hashCode( ) + m_conid;
+            return m_account.hashCode() + m_conid;
         }
 
         @Override
-        public boolean equals( Object obj ) {
-            if ( this == obj ) {
+        public boolean equals(Object obj) {
+            if (this == obj) {
                 return true;
             }
-            if ( !( obj instanceof PositionKey ) ) {
+            if (!(obj instanceof PositionKey)) {
                 return false;
             }
-            PositionKey other = ( PositionKey ) obj;
-            return m_account.equals( other.m_account ) && m_conid == other.m_conid;
+            PositionKey other = (PositionKey) obj;
+            return m_account.equals(other.m_account) && m_conid == other.m_conid;
         }
     }
 
@@ -105,7 +105,7 @@ public class PositionsPanel extends NewTabPanel {
         double m_position;
         double m_avgCost;
 
-        void update( String account, Contract contract, double position, double avgCost ) {
+        void update(String account, Contract contract, double position, double avgCost) {
             m_account = account;
             m_contract = contract;
             m_position = position;
@@ -114,40 +114,40 @@ public class PositionsPanel extends NewTabPanel {
     }
 
     private class PositionModel extends AbstractTableModel implements IPositionHandler {
-        HashMap< PositionKey, PositionRow > m_map = new HashMap<>( );
-        ArrayList< PositionRow > m_list = new ArrayList<>( );
+        HashMap<PositionKey, PositionRow> m_map = new HashMap<>();
+        ArrayList<PositionRow> m_list = new ArrayList<>();
 
         @Override
-        public void position( String account, Contract contract, double position, double avgCost ) {
-            PositionKey key = new PositionKey( account, contract.conid( ) );
-            PositionRow row = m_map.get( key );
-            if ( row == null ) {
-                row = new PositionRow( );
-                m_map.put( key, row );
-                m_list.add( row );
+        public void position(String account, Contract contract, double position, double avgCost) {
+            PositionKey key = new PositionKey(account, contract.conid());
+            PositionRow row = m_map.get(key);
+            if (row == null) {
+                row = new PositionRow();
+                m_map.put(key, row);
+                m_list.add(row);
             }
-            row.update( account, contract, position, avgCost );
+            row.update(account, contract, position, avgCost);
 
-            if ( m_complete ) {
-                m_model.fireTableDataChanged( );
+            if (m_complete) {
+                m_model.fireTableDataChanged();
             }
         }
 
         @Override
         public void positionEnd() {
-            m_model.fireTableDataChanged( );
+            m_model.fireTableDataChanged();
             m_complete = true;
         }
 
         public void clear() {
-            m_map.clear( );
-            m_list.clear( );
-            fireTableDataChanged( );
+            m_map.clear();
+            m_list.clear();
+            fireTableDataChanged();
         }
 
         @Override
         public int getRowCount() {
-            return m_map.size( );
+            return m_map.size();
         }
 
         @Override
@@ -156,8 +156,8 @@ public class PositionsPanel extends NewTabPanel {
         }
 
         @Override
-        public String getColumnName( int col ) {
-            switch ( col ) {
+        public String getColumnName(int col) {
+            switch (col) {
                 case 0:
                     return "Account";
                 case 1:
@@ -172,18 +172,18 @@ public class PositionsPanel extends NewTabPanel {
         }
 
         @Override
-        public Object getValueAt( int rowIn, int col ) {
-            PositionRow row = m_list.get( rowIn );
+        public Object getValueAt(int rowIn, int col) {
+            PositionRow row = m_list.get(rowIn);
 
-            switch ( col ) {
+            switch (col) {
                 case 0:
                     return row.m_account;
                 case 1:
-                    return row.m_contract.description( );
+                    return row.m_contract.description();
                 case 2:
                     return row.m_position;
                 case 3:
-                    return Formats.fmt( row.m_avgCost );
+                    return Formats.fmt(row.m_avgCost);
                 default:
                     return null;
             }

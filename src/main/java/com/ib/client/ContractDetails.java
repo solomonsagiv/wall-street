@@ -6,6 +6,8 @@ package com.ib.client;
 import java.util.ArrayList;
 
 public class ContractDetails {
+
+    public String m_contractMonth;
     private Contract m_contract;
     private String m_marketName;
     private double m_minTick;
@@ -14,7 +16,6 @@ public class ContractDetails {
     private String m_validExchanges;
     private int m_underConid;
     private String m_longName;
-    public String m_contractMonth;
     private String m_industry;
     private String m_category;
     private String m_subcategory;
@@ -24,7 +25,7 @@ public class ContractDetails {
     private String m_evRule;
     private double m_evMultiplier;
     private int m_mdSizeMultiplier;
-    private ArrayList< TagValue > m_secIdList; // CUSIP/ISIN/etc.
+    private ArrayList<TagValue> m_secIdList; // CUSIP/ISIN/etc.
     private int m_aggGroup;
 
     // BOND values
@@ -45,17 +46,17 @@ public class ContractDetails {
     private String m_notes;
 
     public ContractDetails() {
-        m_contract = new Contract( );
+        m_contract = new Contract();
         m_minTick = 0;
         m_underConid = 0;
         m_evMultiplier = 0;
     }
 
-    public ContractDetails( Contract p_contract, String p_marketName,
-                            double p_minTick, String p_orderTypes, String p_validExchanges, int p_underConId, String p_longName,
-                            String p_contractMonth, String p_industry, String p_category, String p_subcategory,
-                            String p_timeZoneId, String p_tradingHours, String p_liquidHours,
-                            String p_evRule, double p_evMultiplier, int p_mdSizeMultiplier, int p_aggGroup ) {
+    public ContractDetails(Contract p_contract, String p_marketName,
+                           double p_minTick, String p_orderTypes, String p_validExchanges, int p_underConId, String p_longName,
+                           String p_contractMonth, String p_industry, String p_category, String p_subcategory,
+                           String p_timeZoneId, String p_tradingHours, String p_liquidHours,
+                           String p_evRule, double p_evMultiplier, int p_mdSizeMultiplier, int p_aggGroup) {
         m_contract = p_contract;
         m_marketName = p_marketName;
         m_minTick = p_minTick;
@@ -76,19 +77,19 @@ public class ContractDetails {
         m_aggGroup = p_aggGroup;
     }
 
-    public static void add( StringBuilder sb, String tag, Object val ) {
-        if ( val == null || val instanceof String && ( ( String ) val ).length( ) == 0 ) {
+    public static void add(StringBuilder sb, String tag, Object val) {
+        if (val == null || val instanceof String && ((String) val).length() == 0) {
             return;
         }
-        sb.append( tag );
-        sb.append( '\t' );
-        sb.append( val );
-        sb.append( '\n' );
+        sb.append(tag);
+        sb.append('\t');
+        sb.append(val);
+        sb.append('\n');
     }
 
     // Get
     public int conid() {
-        return m_contract.conid( );
+        return m_contract.conid();
     }
 
     public Contract contract() {
@@ -163,7 +164,7 @@ public class ContractDetails {
         return m_mdSizeMultiplier;
     }
 
-    public ArrayList< TagValue > secIdList() {
+    public ArrayList<TagValue> secIdList() {
         return m_secIdList;
     }
 
@@ -232,185 +233,185 @@ public class ContractDetails {
     }
 
     // Set
-    public void contract( Contract contract ) {
+    public void contract(Contract contract) {
         m_contract = contract;
     }
 
-    public void marketName( String marketName ) {
+    public void marketName(String marketName) {
         m_marketName = marketName;
     }
 
-    public void minTick( double minTick ) {
+    public void minTick(double minTick) {
         m_minTick = minTick;
     }
 
-    public void priceMagnifier( int priceMagnifier ) {
+    public void priceMagnifier(int priceMagnifier) {
         m_priceMagnifier = priceMagnifier;
     }
 
-    public void orderTypes( String orderTypes ) {
+    public void orderTypes(String orderTypes) {
         m_orderTypes = orderTypes;
     }
 
-    public void validExchanges( String validExchanges ) {
+    public void validExchanges(String validExchanges) {
         m_validExchanges = validExchanges;
     }
 
-    public void underConid( int underConid ) {
+    public void underConid(int underConid) {
         m_underConid = underConid;
     }
 
-    public void longName( String longName ) {
+    public void longName(String longName) {
         m_longName = longName;
     }
 
-    public void contractMonth( String contractMonth ) {
+    public void contractMonth(String contractMonth) {
         m_contractMonth = contractMonth;
     }
 
-    public void industry( String industry ) {
+    public void industry(String industry) {
         m_industry = industry;
     }
 
-    public void category( String category ) {
+    public void category(String category) {
         m_category = category;
     }
 
-    public void subcategory( String subcategory ) {
+    public void subcategory(String subcategory) {
         m_subcategory = subcategory;
     }
 
-    public void timeZoneId( String timeZoneId ) {
+    public void timeZoneId(String timeZoneId) {
         m_timeZoneId = timeZoneId;
     }
 
-    public void tradingHours( String tradingHours ) {
+    public void tradingHours(String tradingHours) {
         m_tradingHours = tradingHours;
     }
 
-    public void liquidHours( String liquidHours ) {
+    public void liquidHours(String liquidHours) {
         m_liquidHours = liquidHours;
     }
 
-    public void evRule( String evRule ) {
+    public void evRule(String evRule) {
         m_evRule = evRule;
     }
 
-    public void evMultiplier( double evMultiplier ) {
+    public void evMultiplier(double evMultiplier) {
         m_evMultiplier = evMultiplier;
     }
 
-    public void mdSizeMultiplier( int mdSizeMultiplier ) {
+    public void mdSizeMultiplier(int mdSizeMultiplier) {
         m_mdSizeMultiplier = mdSizeMultiplier;
     }
 
-    public void secIdList( ArrayList< TagValue > secIdList ) {
+    public void secIdList(ArrayList<TagValue> secIdList) {
         m_secIdList = secIdList;
     }
 
-    public void aggGroup( int aggGroup ) {
+    public void aggGroup(int aggGroup) {
         m_aggGroup = aggGroup;
     }
 
-    public void cusip( String cusip ) {
+    public void cusip(String cusip) {
         m_cusip = cusip;
     }
 
-    public void ratings( String ratings ) {
+    public void ratings(String ratings) {
         m_ratings = ratings;
     }
 
-    public void descAppend( String descAppend ) {
+    public void descAppend(String descAppend) {
         m_descAppend = descAppend;
     }
 
-    public void bondType( String bondType ) {
+    public void bondType(String bondType) {
         m_bondType = bondType;
     }
 
-    public void couponType( String couponType ) {
+    public void couponType(String couponType) {
         m_couponType = couponType;
     }
 
-    public void callable( boolean callable ) {
+    public void callable(boolean callable) {
         m_callable = callable;
     }
 
-    public void putable( boolean putable ) {
+    public void putable(boolean putable) {
         m_putable = putable;
     }
 
-    public void coupon( double coupon ) {
+    public void coupon(double coupon) {
         m_coupon = coupon;
     }
 
-    public void convertible( boolean convertible ) {
+    public void convertible(boolean convertible) {
         m_convertible = convertible;
     }
 
-    public void maturity( String maturity ) {
+    public void maturity(String maturity) {
         m_maturity = maturity;
     }
 
-    public void issueDate( String issueDate ) {
+    public void issueDate(String issueDate) {
         m_issueDate = issueDate;
     }
 
-    public void nextOptionDate( String nextOptionDate ) {
+    public void nextOptionDate(String nextOptionDate) {
         m_nextOptionDate = nextOptionDate;
     }
 
-    public void nextOptionType( String nextOptionType ) {
+    public void nextOptionType(String nextOptionType) {
         m_nextOptionType = nextOptionType;
     }
 
-    public void nextOptionPartial( boolean nextOptionPartial ) {
+    public void nextOptionPartial(boolean nextOptionPartial) {
         m_nextOptionPartial = nextOptionPartial;
     }
 
-    public void notes( String notes ) {
+    public void notes(String notes) {
         m_notes = notes;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder( m_contract.toString( ) );
+        StringBuilder sb = new StringBuilder(m_contract.toString());
 
-        add( sb, "marketName", m_marketName );
-        add( sb, "minTick", m_minTick );
-        add( sb, "priceMagnifier", m_priceMagnifier );
-        add( sb, "orderTypes", m_orderTypes );
-        add( sb, "validExchanges", m_validExchanges );
-        add( sb, "underConId", m_underConid );
-        add( sb, "longName", m_longName );
-        add( sb, "contractMonth", m_contractMonth );
-        add( sb, "industry", m_industry );
-        add( sb, "category", m_category );
-        add( sb, "subcategory", m_subcategory );
-        add( sb, "timeZoneId", m_timeZoneId );
-        add( sb, "tradingHours", m_tradingHours );
-        add( sb, "liquidHours", m_liquidHours );
-        add( sb, "evRule", m_evRule );
-        add( sb, "evMultiplier", m_evMultiplier );
-        add( sb, "mdSizeMultiplier", m_mdSizeMultiplier );
-        add( sb, "aggGroup", m_aggGroup );
+        add(sb, "marketName", m_marketName);
+        add(sb, "minTick", m_minTick);
+        add(sb, "priceMagnifier", m_priceMagnifier);
+        add(sb, "orderTypes", m_orderTypes);
+        add(sb, "validExchanges", m_validExchanges);
+        add(sb, "underConId", m_underConid);
+        add(sb, "longName", m_longName);
+        add(sb, "contractMonth", m_contractMonth);
+        add(sb, "industry", m_industry);
+        add(sb, "category", m_category);
+        add(sb, "subcategory", m_subcategory);
+        add(sb, "timeZoneId", m_timeZoneId);
+        add(sb, "tradingHours", m_tradingHours);
+        add(sb, "liquidHours", m_liquidHours);
+        add(sb, "evRule", m_evRule);
+        add(sb, "evMultiplier", m_evMultiplier);
+        add(sb, "mdSizeMultiplier", m_mdSizeMultiplier);
+        add(sb, "aggGroup", m_aggGroup);
 
-        add( sb, "cusip", m_cusip );
-        add( sb, "ratings", m_ratings );
-        add( sb, "descAppend", m_descAppend );
-        add( sb, "bondType", m_bondType );
-        add( sb, "couponType", m_couponType );
-        add( sb, "callable", m_callable );
-        add( sb, "putable", m_putable );
-        add( sb, "coupon", m_coupon );
-        add( sb, "convertible", m_convertible );
-        add( sb, "maturity", m_maturity );
-        add( sb, "issueDate", m_issueDate );
-        add( sb, "nextOptionDate", m_nextOptionDate );
-        add( sb, "nextOptionType", m_nextOptionType );
-        add( sb, "nextOptionPartial", m_nextOptionPartial );
-        add( sb, "notes", m_notes );
+        add(sb, "cusip", m_cusip);
+        add(sb, "ratings", m_ratings);
+        add(sb, "descAppend", m_descAppend);
+        add(sb, "bondType", m_bondType);
+        add(sb, "couponType", m_couponType);
+        add(sb, "callable", m_callable);
+        add(sb, "putable", m_putable);
+        add(sb, "coupon", m_coupon);
+        add(sb, "convertible", m_convertible);
+        add(sb, "maturity", m_maturity);
+        add(sb, "issueDate", m_issueDate);
+        add(sb, "nextOptionDate", m_nextOptionDate);
+        add(sb, "nextOptionType", m_nextOptionType);
+        add(sb, "nextOptionPartial", m_nextOptionPartial);
+        add(sb, "notes", m_notes);
 
-        return sb.toString( );
+        return sb.toString();
     }
 }

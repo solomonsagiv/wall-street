@@ -11,12 +11,12 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     // Private constructor
     public Ndx() {
-        super( );
-        setName( "ndx" );
-        setIndexBidAskMargin( 1.25 );
-        setDbId( 3 );
-        setStrikeMargin( 40 );
-        setBaseId( 20000 );
+        super();
+        setName("ndx");
+        setIndexBidAskMargin(1.25);
+        setDbId(3);
+        setStrikeMargin(40);
+        setBaseId(20000);
         initDDECells();
         setIndexStartTime(LocalTime.of(16, 30, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));
@@ -25,8 +25,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     // Get instance
     public static Ndx getInstance() {
-        if ( client == null ) {
-            client = new Ndx( );
+        if (client == null) {
+            client = new Ndx();
         }
         return client;
     }
@@ -34,7 +34,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public void initDDECells() {
 
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return true;
@@ -43,7 +43,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
         // TODO init cells
 
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
 
     }
 

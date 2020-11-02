@@ -1,12 +1,12 @@
 package gui.stock;
 
+import exp.Exp;
+import exp.ExpStrings;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import gui.popupsFactory.PopupsMenuFactory;
 import locals.L;
 import locals.Themes;
-import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.stockObjects.STOCK_OBJECT;
 import threads.MyThread;
@@ -18,6 +18,8 @@ import java.awt.event.MouseEvent;
 
 public class StockPanel extends JPanel implements IMyPanel {
 
+    public MyGuiComps.MyTextField conRacesField;
+    public MyGuiComps.MyTextField indRacesField;
     // Ticker
     MyGuiComps.MyPanel ticker;
     MyGuiComps.MyTextField openField;
@@ -28,26 +30,20 @@ public class StockPanel extends JPanel implements IMyPanel {
     MyGuiComps.MyTextField lowPresentField;
     MyGuiComps.MyTextField highField;
     MyGuiComps.MyTextField highPresentField;
-    MyGuiComps.MyTextField futureField;
-    MyGuiComps.MyTextField opField;
-    MyGuiComps.MyTextField opAvgField;
-
+    MyGuiComps.MyTextField weekContractField;
+    MyGuiComps.MyTextField weekOpField;
+    MyGuiComps.MyTextField weekOpAvgField;
     // Exp
     MyGuiComps.MyPanel exp;
-
     // Quarter
-    MyGuiComps.MyTextField opAvgQuarterField;
-    MyGuiComps.MyTextField opQuarterField;
-    MyGuiComps.MyTextField contractQuarterField;
-
+    MyGuiComps.MyTextField monthOpAvgField;
+    MyGuiComps.MyTextField monthOpField;
+    MyGuiComps.MyTextField monthContractField;
     // Races and roll
     MyGuiComps.MyPanel racesAndRollPanel;
     MyGuiComps.MyLabel conRacesLbl;
     MyGuiComps.MyLabel indRacesLbl;
     MyGuiComps.MyLabel rollLbl;
-
-    public MyGuiComps.MyTextField conRacesField;
-    public MyGuiComps.MyTextField indRacesField;
     MyGuiComps.MyTextField rollField;
 
     // Exp
@@ -66,202 +62,201 @@ public class StockPanel extends JPanel implements IMyPanel {
     Color backGround = Themes.GREY_LIGHT;
 
     STOCK_OBJECT client;
-    Options optWeek;
-    Options optMonth;
-    Options mainOptions;
+
+    Exp currExp, nextExp, mainExp;
 
     private Updater updater;
 
-    public StockPanel( STOCK_OBJECT client ) {
+    public StockPanel(STOCK_OBJECT client) {
         this.client = client;
-        optWeek = client.getOptionsHandler( ).getOptions( OptionsEnum.WEEK );
-        optMonth = client.getOptionsHandler( ).getOptions( OptionsEnum.MONTH );
-        mainOptions = client.getOptionsHandler( ).getMainOptions( );
+        currExp = client.getExps().getExp(ExpStrings.week);
+        nextExp = client.getExps().getExp(ExpStrings.month);
+        mainExp = client.getExps().getMainExp();
 
-        init( );
-        initListeners( );
+        init();
+        initListeners();
 
         // Updater
-        getUpdater( ).getHandler( ).start( );
+        getUpdater().getHandler().start();
     }
 
     private void initListeners() {
         // Right click
-        addMouseListener( new MouseAdapter( ) {
+        addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked( MouseEvent event ) {
-                if ( event.getModifiers( ) == MouseEvent.BUTTON3_MASK ) {
-                    showPopUpMenu( event );
+            public void mouseClicked(MouseEvent event) {
+                if (event.getModifiers() == MouseEvent.BUTTON3_MASK) {
+                    showPopUpMenu(event);
                 }
             }
-        } );
+        });
     }
 
-    public void showPopUpMenu( MouseEvent event ) {
-        JPopupMenu menu = PopupsMenuFactory.stockPanel( client );
-        menu.show( event.getComponent( ), event.getX( ), event.getY( ) );
+    public void showPopUpMenu(MouseEvent event) {
+        JPopupMenu menu = PopupsMenuFactory.stockPanel(client);
+        menu.show(event.getComponent(), event.getX(), event.getY());
     }
 
     private void init() {
 
-        setLayout( null );
-        setBounds( 0, 0, 0, height );
+        setLayout(null);
+        setBounds(0, 0, 0, height);
 
         // Ticker section
-        ticker = new MyGuiComps.MyPanel( );
-        ticker.setLayout( null );
-        ticker.setBounds( 0, 0, 311, height );
-        ticker.setBackground( backGround );
+        ticker = new MyGuiComps.MyPanel();
+        ticker.setLayout(null);
+        ticker.setBounds(0, 0, 311, height);
+        ticker.setBackground(backGround);
 
-        openField = new MyGuiComps.MyTextField( );
-        openField.setXY( 5, 6 );
-        ticker.add( openField );
+        openField = new MyGuiComps.MyTextField();
+        openField.setXY(5, 6);
+        ticker.add(openField);
 
-        openPresentField = new MyGuiComps.MyTextField( );
-        openPresentField.setFont( openPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        openPresentField.setXY( 5, 35 );
-        ticker.add( openPresentField );
+        openPresentField = new MyGuiComps.MyTextField();
+        openPresentField.setFont(openPresentField.getFont().deriveFont(Font.BOLD));
+        openPresentField.setXY(5, 35);
+        ticker.add(openPresentField);
 
-        indexField = new MyGuiComps.MyTextField( );
-        indexField.setXY( 80, 6 );
-        ticker.add( indexField );
+        indexField = new MyGuiComps.MyTextField();
+        indexField.setXY(80, 6);
+        ticker.add(indexField);
 
-        indexPresentField = new MyGuiComps.MyTextField( );
-        indexPresentField.setFont( indexPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        indexPresentField.setXY( 80, 35 );
-        ticker.add( indexPresentField );
+        indexPresentField = new MyGuiComps.MyTextField();
+        indexPresentField.setFont(indexPresentField.getFont().deriveFont(Font.BOLD));
+        indexPresentField.setXY(80, 35);
+        ticker.add(indexPresentField);
 
-        lowField = new MyGuiComps.MyTextField( );
-        lowField.setXY( 155, 6 );
-        ticker.add( lowField );
+        lowField = new MyGuiComps.MyTextField();
+        lowField.setXY(155, 6);
+        ticker.add(lowField);
 
-        lowPresentField = new MyGuiComps.MyTextField( );
-        lowPresentField.setFont( lowPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        lowPresentField.setXY( 155, 35 );
-        ticker.add( lowPresentField );
+        lowPresentField = new MyGuiComps.MyTextField();
+        lowPresentField.setFont(lowPresentField.getFont().deriveFont(Font.BOLD));
+        lowPresentField.setXY(155, 35);
+        ticker.add(lowPresentField);
 
-        highField = new MyGuiComps.MyTextField( );
-        highField.setXY( 230, 6 );
-        ticker.add( highField );
+        highField = new MyGuiComps.MyTextField();
+        highField.setXY(230, 6);
+        ticker.add(highField);
 
-        highPresentField = new MyGuiComps.MyTextField( );
-        highPresentField.setFont( highPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        highPresentField.setXY( 230, 35 );
-        ticker.add( highPresentField );
+        highPresentField = new MyGuiComps.MyTextField();
+        highPresentField.setFont(highPresentField.getFont().deriveFont(Font.BOLD));
+        highPresentField.setXY(230, 35);
+        ticker.add(highPresentField);
 
-        futureField = new MyGuiComps.MyTextField( );
-        futureField.setXY( 5, 64 );
-        ticker.add( futureField );
+        weekContractField = new MyGuiComps.MyTextField();
+        weekContractField.setXY(5, 64);
+        ticker.add(weekContractField);
 
-        opField = new MyGuiComps.MyTextField( );
-        opField.setFont( opField.getFont( ).deriveFont( Font.BOLD ) );
-        opField.setXY( 80, 64 );
-        ticker.add( opField );
+        weekOpField = new MyGuiComps.MyTextField();
+        weekOpField.setFont(weekOpField.getFont().deriveFont(Font.BOLD));
+        weekOpField.setXY(80, 64);
+        ticker.add(weekOpField);
 
-        opAvgField = new MyGuiComps.MyTextField( );
-        opAvgField.setXY( 155, 64 );
-        ticker.add( opAvgField );
+        weekOpAvgField = new MyGuiComps.MyTextField();
+        weekOpAvgField.setXY(155, 64);
+        ticker.add(weekOpAvgField);
 
         // Quarter
-        opAvgQuarterField = new MyGuiComps.MyTextField( );
-        opAvgQuarterField.setXY( 155, 93 );
-        ticker.add( opAvgQuarterField );
+        monthOpAvgField = new MyGuiComps.MyTextField();
+        monthOpAvgField.setXY(155, 93);
+        ticker.add(monthOpAvgField);
 
-        contractQuarterField = new MyGuiComps.MyTextField( );
-        contractQuarterField.setXY( 5, 93 );
-        ticker.add( contractQuarterField );
+        monthContractField = new MyGuiComps.MyTextField();
+        monthContractField.setXY(5, 93);
+        ticker.add(monthContractField);
 
-        opQuarterField = new MyGuiComps.MyTextField( );
-        opQuarterField.setFont( opQuarterField.getFont( ).deriveFont( Font.BOLD ) );
-        opQuarterField.setXY( 80, 93 );
-        opQuarterField.setForeground( Color.WHITE );
-        ticker.add( opQuarterField );
-        add( ticker );
+        monthOpField = new MyGuiComps.MyTextField();
+        monthOpField.setFont(monthOpField.getFont().deriveFont(Font.BOLD));
+        monthOpField.setXY(80, 93);
+        monthOpField.setForeground(Color.WHITE);
+        ticker.add(monthOpField);
+        add(ticker);
 
         // ---------- Races and roll ---------- //
         // Panel
-        racesAndRollPanel = new MyGuiComps.MyPanel( );
-        racesAndRollPanel.setLayout( null );
-        racesAndRollPanel.setBackground( backGround );
-        racesAndRollPanel.setBounds( 312, 0, 111, height );
-        add( racesAndRollPanel );
+        racesAndRollPanel = new MyGuiComps.MyPanel();
+        racesAndRollPanel.setLayout(null);
+        racesAndRollPanel.setBackground(backGround);
+        racesAndRollPanel.setBounds(312, 0, 111, height);
+        add(racesAndRollPanel);
 
         // Con lbl
-        conRacesLbl = new MyGuiComps.MyLabel( "Cont" );
-        conRacesLbl.setHorizontalAlignment( JLabel.CENTER );
-        conRacesLbl.setBounds( 5, 5, 50, 25 );
-        conRacesLbl.setForeground( Themes.BLUE );
-        racesAndRollPanel.add( conRacesLbl );
+        conRacesLbl = new MyGuiComps.MyLabel("Cont");
+        conRacesLbl.setHorizontalAlignment(JLabel.CENTER);
+        conRacesLbl.setBounds(5, 5, 50, 25);
+        conRacesLbl.setForeground(Themes.BLUE);
+        racesAndRollPanel.add(conRacesLbl);
 
         // Con field
-        conRacesField = new MyGuiComps.MyTextField( );
-        conRacesField.setBounds( 55, 7, 50, 25 );
-        racesAndRollPanel.add( conRacesField );
+        conRacesField = new MyGuiComps.MyTextField();
+        conRacesField.setBounds(55, 7, 50, 25);
+        racesAndRollPanel.add(conRacesField);
 
         // Ind lbl
-        indRacesLbl = new MyGuiComps.MyLabel( "Ind" );
-        indRacesLbl.setHorizontalAlignment( JLabel.CENTER );
-        indRacesLbl.setBounds( 5, 35, 50, 25 );
-        indRacesLbl.setForeground( Themes.BLUE );
-        racesAndRollPanel.add( indRacesLbl );
+        indRacesLbl = new MyGuiComps.MyLabel("Ind");
+        indRacesLbl.setHorizontalAlignment(JLabel.CENTER);
+        indRacesLbl.setBounds(5, 35, 50, 25);
+        indRacesLbl.setForeground(Themes.BLUE);
+        racesAndRollPanel.add(indRacesLbl);
 
         // Ind field
-        indRacesField = new MyGuiComps.MyTextField( );
-        indRacesField.setBounds( 55, 37, 50, 25 );
-        racesAndRollPanel.add( indRacesField );
+        indRacesField = new MyGuiComps.MyTextField();
+        indRacesField.setBounds(55, 37, 50, 25);
+        racesAndRollPanel.add(indRacesField);
 
-        rollLbl = new MyGuiComps.MyLabel( "Roll" );
-        rollLbl.setHorizontalAlignment( JLabel.CENTER );
-        rollLbl.setBounds( 5, 65, 50, 25 );
-        rollLbl.setForeground( Themes.BLUE );
-        racesAndRollPanel.add( rollLbl );
+        rollLbl = new MyGuiComps.MyLabel("Roll");
+        rollLbl.setHorizontalAlignment(JLabel.CENTER);
+        rollLbl.setBounds(5, 65, 50, 25);
+        rollLbl.setForeground(Themes.BLUE);
+        racesAndRollPanel.add(rollLbl);
 
         // Roll field
-        rollField = new MyGuiComps.MyTextField( );
-        rollField.setBounds( 55, 67, 50, 25 );
-        racesAndRollPanel.add( rollField );
+        rollField = new MyGuiComps.MyTextField();
+        rollField.setBounds(55, 67, 50, 25);
+        racesAndRollPanel.add(rollField);
 
         // ---------- Exp ---------- //
-        expPanel = new MyGuiComps.MyPanel( );
-        expPanel.setLayout( null );
-        expPanel.setBounds( 424, 0, 111, height );
-        add( expPanel );
+        expPanel = new MyGuiComps.MyPanel();
+        expPanel.setLayout(null);
+        expPanel.setBounds(424, 0, 111, height);
+        add(expPanel);
 
         // Move
-        expMoveLbl = new MyGuiComps.MyLabel( "Move" );
-        expMoveLbl.setBounds( 5, 7, 50, 25 );
-        expMoveLbl.setFont( Themes.VEDANA_12 );
-        expPanel.add( expMoveLbl );
+        expMoveLbl = new MyGuiComps.MyLabel("Move");
+        expMoveLbl.setBounds(5, 7, 50, 25);
+        expMoveLbl.setFont(Themes.VEDANA_12);
+        expPanel.add(expMoveLbl);
 
-        expMoveField = new MyGuiComps.MyTextField( );
-        expMoveField.setBounds( 55, 7, 50, 25 );
-        expPanel.add( expMoveField );
+        expMoveField = new MyGuiComps.MyTextField();
+        expMoveField.setBounds(55, 7, 50, 25);
+        expPanel.add(expMoveField);
 
         // Races
-        expRacesLbl = new MyGuiComps.MyLabel( "Races" );
-        expRacesLbl.setFont( Themes.VEDANA_12 );
-        expRacesLbl.setBounds( 5, 37, 50, 25 );
-        expPanel.add( expRacesLbl );
+        expRacesLbl = new MyGuiComps.MyLabel("Races");
+        expRacesLbl.setFont(Themes.VEDANA_12);
+        expRacesLbl.setBounds(5, 37, 50, 25);
+        expPanel.add(expRacesLbl);
 
-        expRacesField = new MyGuiComps.MyTextField( );
-        expRacesField.setBounds( 55, 37, 50, 25 );
-        expPanel.add( expRacesField );
+        expRacesField = new MyGuiComps.MyTextField();
+        expRacesField.setBounds(55, 37, 50, 25);
+        expPanel.add(expRacesField);
 
         // OpAvg
-        expOpAvgLbl = new MyGuiComps.MyLabel( "OP/AVG" );
-        expOpAvgLbl.setFont( Themes.VEDANA_12 );
-        expOpAvgLbl.setBounds( 5, 67, 50, 25 );
-        expPanel.add( expOpAvgLbl );
+        expOpAvgLbl = new MyGuiComps.MyLabel("OP/AVG");
+        expOpAvgLbl.setFont(Themes.VEDANA_12);
+        expOpAvgLbl.setBounds(5, 67, 50, 25);
+        expPanel.add(expOpAvgLbl);
 
-        expOpAvgField = new MyGuiComps.MyTextField( );
-        expOpAvgField.setBounds( 55, 67, 50, 25 );
-        expPanel.add( expOpAvgField );
+        expOpAvgField = new MyGuiComps.MyTextField();
+        expOpAvgField.setBounds(55, 67, 50, 25);
+        expPanel.add(expOpAvgField);
 
     }
 
     public Updater getUpdater() {
-        if ( updater == null ) {
-            updater = new Updater( client );
+        if (updater == null) {
+            updater = new Updater(client);
         }
         return updater;
     }
@@ -275,98 +270,99 @@ public class StockPanel extends JPanel implements IMyPanel {
         try {
 
             // ---------- Ticker ---------- //
-            openField.setText( L.format100( client.getOpen( ) ) );
-            highField.setText( L.format100( client.getHigh( ) ) );
-            lowField.setText( L.format100( client.getLow( ) ) );
-            indexField.setText( L.format100( client.getIndex( ) ) );
-            futureField.setText( L.format100( mainOptions.getContract( ) ) );
+            openField.setText(L.format100(client.getOpen()));
+            highField.setText(L.format100(client.getHigh()));
+            lowField.setText(L.format100(client.getLow()));
+            indexField.setText(L.format100(client.getIndex()));
 
             // Ticker present
-            openPresentField.colorBack( L.present( client.getOpen( ), client.getBase( ) ), L.format100( ), "%" );
-            highPresentField.colorBack( L.present( client.getHigh( ), client.getBase( ) ), L.format100( ), "%" );
-            lowPresentField.colorBack( L.present( client.getLow( ), client.getBase( ) ), L.format100( ), "%" );
-            indexPresentField.colorBack( L.present( client.getIndex( ), client.getBase( ) ), L.format100( ), "%" );
-            // OP
-            opAvgField.colorForge( mainOptions.getOpAvg( ), L.format100( ) );
-            opField.colorBack( mainOptions.getOp( ), L.format100( ) );
+            openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
+            highPresentField.colorBack(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
+            lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
+            indexPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
 
-            // Quarter
-            opQuarterField.colorBack( optMonth.getOp( ), L.format100( ) );
-            opAvgQuarterField.colorForge( optMonth.getOpAvg( ), L.format100( ) );
-            contractQuarterField.setText( L.format100( optMonth.getContract( ) ) );
+            // Week
+            weekContractField.setText(L.format100(currExp.getOptions().getContract()));
+            weekOpAvgField.colorForge(currExp.getOptions().getOpAvg(), L.format100());
+            weekOpField.colorBack(currExp.getOptions().getOp(), L.format100());
+
+            // Month
+            monthOpField.colorBack(nextExp.getOptions().getOp(), L.format100());
+            monthOpAvgField.colorForge(nextExp.getOptions().getOpAvg(), L.format100());
+            monthContractField.setText(L.format100(nextExp.getOptions().getContract()));
 
             // Races and roll
             // Races
-            conRacesField.colorForge( client.getFutSum( ) );
-            indRacesField.colorForge( client.getIndexSum( ) );
+            conRacesField.colorForge(client.getFutSum());
+            indRacesField.colorForge(client.getIndexSum());
 
             // Roll
-            double month = optWeek.getContract( );
-            double quarter = optMonth.getContract( );
-            rollField.colorForge( quarter - month, L.format100( ) );
-        } catch ( NullPointerException e ) {
-            e.printStackTrace( );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            double week = currExp.getOptions().getContract();
+            double month = nextExp.getOptions().getContract();
+            rollField.colorForge(month - week, L.format100());
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void updateRaces() {
-        updateIfChanged( );
+        updateIfChanged();
     }
 
     void updateIfChanged() {
         // Con up
-        if ( client.isConUpChanged( ) ) {
-            L.noisy( conRacesField, Themes.GREEN );
+        if (client.isConUpChanged()) {
+            L.noisy(conRacesField, Themes.GREEN);
         }
 
         // Con down
-        if ( client.isConDownChanged( ) ) {
-            L.noisy( conRacesField, Themes.RED );
+        if (client.isConDownChanged()) {
+            L.noisy(conRacesField, Themes.RED);
         }
 
         // Ind up
-        if ( client.isIndUpChanged( ) ) {
-            L.noisy( indRacesField, Themes.GREEN );
+        if (client.isIndUpChanged()) {
+            L.noisy(indRacesField, Themes.GREEN);
         }
 
         // Ind down
-        if ( client.isIndDownChanged( ) ) {
-            L.noisy( indRacesField, Themes.RED );
+        if (client.isIndDownChanged()) {
+            L.noisy(indRacesField, Themes.RED);
         }
     }
 
     public class Updater extends MyThread implements Runnable {
 
-        public Updater( BASE_CLIENT_OBJECT client ) {
-            super( client );
-            setName( "UPDATER" );
+        public Updater(BASE_CLIENT_OBJECT client) {
+            super(client);
+            setName("UPDATER");
         }
 
         @Override
         public void initRunnable() {
-            setRunnable( this );
+            setRunnable(this);
         }
 
         @Override
         public void run() {
 
-            while ( isRun( ) ) {
+            while (isRun()) {
                 try {
                     // Sleep
-                    Thread.sleep( 500 );
+                    Thread.sleep(500);
 
-                    updateText( );
+                    updateText();
 
-                } catch ( InterruptedException e ) {
+                } catch (InterruptedException e) {
                 }
             }
         }
 
         public void close() {
-            setRun( false );
+            setRun(false);
         }
 
     }

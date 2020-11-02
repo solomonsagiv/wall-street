@@ -1,80 +1,89 @@
 package charts.myCharts.stockCharts;
 
 import charts.myChart.*;
+import exp.ExpStrings;
 import locals.Themes;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
+import java.net.UnknownHostException;
 
 public class Month_Index_Live_Chart extends MyChartCreator {
 
     // Constructor
-    public Month_Index_Live_Chart( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public Month_Index_Live_Chart(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
-    
+
     @Override
     public void createChart() {
 
         // Props
         props = new MyProps();
-        props.setProp( ChartPropsEnum.SECONDS, 150 );
-        props.setProp( ChartPropsEnum.IS_INCLUDE_TICKER, false );
-        props.setProp( ChartPropsEnum.MARGIN, .17 );
-        props.setProp( ChartPropsEnum.RANGE_MARGIN, 0.0 );
-        props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
-        props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
-        props.setProp( ChartPropsEnum.IS_LIVE, true );
-        props.setProp( ChartPropsEnum.SLEEP, 200 );
-        props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, (double) INFINITE );
-        props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
+        props.setProp(ChartPropsEnum.SECONDS, 150);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.MARGIN, .17);
+        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, false);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, false);
+        props.setProp(ChartPropsEnum.IS_LIVE, true);
+        props.setProp(ChartPropsEnum.SLEEP, 200);
+        props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Index", Color.BLACK, 2.25f, props, client.getIndexList() ) {
+        MyTimeSeries indexSeries = new MyTimeSeries("Index", client) {
             @Override
-            public double getData() {
+            public double getData() throws UnknownHostException {
                 return client.getIndex();
             }
         };
 
-        // Index
-        MyTimeSeries bid = new MyTimeSeries( "Bid", Themes.BLUE, 2.25f, props, client.getIndexBidList() ) {
+        indexSeries.setColor(Color.BLACK);
+        indexSeries.setStokeSize(2.25f);
+
+        // Index bid
+        MyTimeSeries indexBidSeries = new MyTimeSeries("Index bid", client) {
             @Override
-            public double getData() {
+            public double getData() throws UnknownHostException {
                 return client.getIndexBid();
             }
         };
+        indexBidSeries.setColor(Themes.BLUE);
+        indexBidSeries.setStokeSize(2.25f);
 
-        // Index
-        MyTimeSeries ask = new MyTimeSeries( "Ask", Themes.RED, 2.25f, props, client.getIndexAskList() ) {
+        // Index ask
+        MyTimeSeries indexAskSeries = new MyTimeSeries("Index ask", client) {
             @Override
-            public double getData() {
+            public double getData() throws UnknownHostException {
                 return client.getIndexAsk();
             }
         };
+        indexAskSeries.setColor(Themes.RED);
+        indexAskSeries.setStokeSize(2.25f);
 
-        // Future
-        MyTimeSeries future = new MyTimeSeries( "Contract", Themes.GREEN, 2.25f, props, null ) {
+        // Contract
+        MyTimeSeries contractSeries = new MyTimeSeries("Contract", client) {
             @Override
             public double getData() {
-                return client.getOptionsHandler().getOptions( OptionsEnum.MONTH ).getContract();
+                return client.getExps().getExp(ExpStrings.month).getOptions().getContract();
             }
         };
+        contractSeries.setColor(Themes.GREEN);
+        contractSeries.setStokeSize(2.25f);
 
-        MyTimeSeries[] series = {index, bid, ask, future};
+        MyTimeSeries[] series = {indexSeries, indexBidSeries, indexAskSeries, contractSeries};
 
         // Chart
-        MyChart chart = new MyChart( client, series, props );
+        MyChart chart = new MyChart(client, series, props);
 
         // ----- Charts ----- //
-        MyChart[] charts = { chart };
+        MyChart[] charts = {chart};
 
         // ----- Container ----- //
-        MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass().getName() );
+        MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
-
 
     }
 

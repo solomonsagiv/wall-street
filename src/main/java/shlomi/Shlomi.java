@@ -8,12 +8,11 @@ public class Shlomi {
     private BASE_CLIENT_OBJECT client;
 
     // Constructor
-    public Shlomi( BASE_CLIENT_OBJECT client ) {
+    public Shlomi(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 
     // -------------- Functions ---------------- //
-
 
 
     // ---------- Getters and Setters ---------- //

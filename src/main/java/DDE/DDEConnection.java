@@ -5,7 +5,9 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+
 import javax.swing.*;
+
 /**
  * Excel Example.
  *
@@ -13,28 +15,28 @@ import javax.swing.*;
  */
 public class DDEConnection {
 
-	// Get conversation instance
-	public DDEClientConversation createNewConversation( String excelPath) {
-		DDEClientConversation conversation = new DDEClientConversation();
-		conversation.setTimeout(3000);
-		// Connect to the excel
-		try {
-			conversation.connect("Excel", excelPath);
-		} catch ( DDEException e) {
-			JOptionPane.showConfirmDialog(null, e.getMessage() + "\n" + e.getCause());
-			e.printStackTrace();
-		} catch (Exception e) {
-			JOptionPane.showConfirmDialog(null, e.getMessage() + "\n" + e.getCause());
-		}
-		return conversation;
-	}
+    // Empty Constructor
+    public DDEConnection() {
+    }
 
-	// Empty Constructor
-	public DDEConnection() {
-	}
+    // Get conversation instance
+    public DDEClientConversation createNewConversation(String excelPath) {
+        DDEClientConversation conversation = new DDEClientConversation();
+        conversation.setTimeout(3000);
+        // Connect to the excel
+        try {
+            conversation.connect("Excel", excelPath);
+        } catch (DDEException e) {
+            JOptionPane.showConfirmDialog(null, e.getMessage() + "\n" + e.getCause());
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, e.getMessage() + "\n" + e.getCause());
+        }
+        return conversation;
+    }
 
-	public double dbl(String s) {
-		return Double.parseDouble(s.replace(",", ""));
-	}
+    public double dbl(String s) {
+        return Double.parseDouble(s.replace(",", ""));
+    }
 
 }

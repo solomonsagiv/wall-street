@@ -13,7 +13,7 @@ public class LoadedData {
         return index;
     }
 
-    public void setIndex( double index ) {
+    public void setIndex(double index) {
         this.index = index;
     }
 
@@ -21,7 +21,7 @@ public class LoadedData {
         return future;
     }
 
-    public void setFuture( double future ) {
+    public void setFuture(double future) {
         this.future = future;
     }
 
@@ -29,7 +29,7 @@ public class LoadedData {
         return option;
     }
 
-    public void setOption( double option ) {
+    public void setOption(double option) {
         this.option = option;
     }
 }

@@ -10,8 +10,8 @@ public class ShlomiRunner extends MyThread implements Runnable {
     Algorithm algorithm;
 
     // Constructor
-    public ShlomiRunner( BASE_CLIENT_OBJECT client, Algorithm algorithm ) {
-        super( client );
+    public ShlomiRunner(BASE_CLIENT_OBJECT client, Algorithm algorithm) {
+        super(client);
         this.algorithm = algorithm;
     }
 
@@ -21,16 +21,16 @@ public class ShlomiRunner extends MyThread implements Runnable {
     }
 
     private void init() {
-        while ( isRun() ) {
+        while (isRun()) {
             try {
                 // Sleep
-                Thread.sleep( sleep );
+                Thread.sleep(sleep);
 
                 // Go (Do the algorithm logic)
                 go();
 
-            } catch ( InterruptedException e ) {
-                e.printStackTrace( );
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -41,6 +41,6 @@ public class ShlomiRunner extends MyThread implements Runnable {
 
     @Override
     public void initRunnable() {
-        setRunnable( this );
+        setRunnable(this);
     }
 }

@@ -114,87 +114,87 @@ public class ScannerSubscription {
     }
 
     // Set
-    public void numberOfRows( int num ) {
+    public void numberOfRows(int num) {
         m_numberOfRows = num;
     }
 
-    public void instrument( String txt ) {
+    public void instrument(String txt) {
         m_instrument = txt;
     }
 
-    public void locationCode( String txt ) {
+    public void locationCode(String txt) {
         m_locationCode = txt;
     }
 
-    public void scanCode( String txt ) {
+    public void scanCode(String txt) {
         m_scanCode = txt;
     }
 
-    public void abovePrice( double price ) {
+    public void abovePrice(double price) {
         m_abovePrice = price;
     }
 
-    public void belowPrice( double price ) {
+    public void belowPrice(double price) {
         m_belowPrice = price;
     }
 
-    public void aboveVolume( int volume ) {
+    public void aboveVolume(int volume) {
         m_aboveVolume = volume;
     }
 
-    public void averageOptionVolumeAbove( int volume ) {
+    public void averageOptionVolumeAbove(int volume) {
         m_averageOptionVolumeAbove = volume;
     }
 
-    public void marketCapAbove( double cap ) {
+    public void marketCapAbove(double cap) {
         m_marketCapAbove = cap;
     }
 
-    public void marketCapBelow( double cap ) {
+    public void marketCapBelow(double cap) {
         m_marketCapBelow = cap;
     }
 
-    public void moodyRatingAbove( String r ) {
+    public void moodyRatingAbove(String r) {
         m_moodyRatingAbove = r;
     }
 
-    public void moodyRatingBelow( String r ) {
+    public void moodyRatingBelow(String r) {
         m_moodyRatingBelow = r;
     }
 
-    public void spRatingAbove( String r ) {
+    public void spRatingAbove(String r) {
         m_spRatingAbove = r;
     }
 
-    public void spRatingBelow( String r ) {
+    public void spRatingBelow(String r) {
         m_spRatingBelow = r;
     }
 
-    public void maturityDateAbove( String d ) {
+    public void maturityDateAbove(String d) {
         m_maturityDateAbove = d;
     }
 
-    public void maturityDateBelow( String d ) {
+    public void maturityDateBelow(String d) {
         m_maturityDateBelow = d;
     }
 
-    public void couponRateAbove( double r ) {
+    public void couponRateAbove(double r) {
         m_couponRateAbove = r;
     }
 
-    public void couponRateBelow( double r ) {
+    public void couponRateBelow(double r) {
         m_couponRateBelow = r;
     }
 
-    public void excludeConvertible( String c ) {
+    public void excludeConvertible(String c) {
         m_excludeConvertible = c;
     }
 
-    public void scannerSettingPairs( String val ) {
+    public void scannerSettingPairs(String val) {
         m_scannerSettingPairs = val;
     }
 
-    public void stockTypeFilter( String val ) {
+    public void stockTypeFilter(String val) {
         m_stockTypeFilter = val;
     }
 }

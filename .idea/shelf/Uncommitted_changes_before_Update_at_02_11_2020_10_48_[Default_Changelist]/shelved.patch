@@ -1,0 +1,69 @@
+Index: src/main/java/dataBase/mySql/myTables/index/IndexStocksTable.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dataBase.mySql.myTables.index;\r\n\r\nimport dataBase.mySql.mySqlComps.MySqlTable;\r\nimport serverObjects.indexObjects.INDEX_CLIENT_OBJECT;\r\n\r\npublic class IndexStocksTable extends MySqlTable {\r\n\r\n    public IndexStocksTable(INDEX_CLIENT_OBJECT client) {\r\n        super(client, \"indexStocks\");\r\n    }\r\n\r\n    @Override\r\n    public void initColumns() {\r\n//        addColumn( new MyLoadAbleColumn<String>( this, client.getName(), MySqlColumnEnum.DAX_STOCKS ) {\r\n//            @Override\r\n//            public Object getObject() {\r\n//                return null;\r\n//            }\r\n//            @Override\r\n//            public void setLoadedObject( String object ) {\r\n//                if (object != null) {\r\n//                    if (client instanceof Dax) {\r\n//                        System.out.println(object);\r\n//                    }\r\n//                    ((INDEX_CLIENT_OBJECT) client).getStocksHandler().addStock( object );\r\n//                }\r\n//\r\n//            }\r\n//            @Override\r\n//            public String getResetObject() {\r\n//                return null;\r\n//            }\r\n//        } );\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/dataBase/mySql/myTables/index/IndexStocksTable.java	(revision 5d9c7596ce2da1a42fedbb63284385034adb7327)
++++ src/main/java/dataBase/mySql/myTables/index/IndexStocksTable.java	(date 1604240700395)
+@@ -1,6 +1,9 @@
+ package dataBase.mySql.myTables.index;
+ 
++import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
++import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+ import dataBase.mySql.mySqlComps.MySqlTable;
++import serverObjects.indexObjects.Dax;
+ import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+ 
+ public class IndexStocksTable extends MySqlTable {
+@@ -8,28 +11,27 @@
+     public IndexStocksTable(INDEX_CLIENT_OBJECT client) {
+         super(client, "indexStocks");
+     }
+-
++    
+     @Override
+     public void initColumns() {
+-//        addColumn( new MyLoadAbleColumn<String>( this, client.getName(), MySqlColumnEnum.DAX_STOCKS ) {
+-//            @Override
+-//            public Object getObject() {
+-//                return null;
+-//            }
+-//            @Override
+-//            public void setLoadedObject( String object ) {
+-//                if (object != null) {
+-//                    if (client instanceof Dax) {
+-//                        System.out.println(object);
+-//                    }
+-//                    ((INDEX_CLIENT_OBJECT) client).getStocksHandler().addStock( object );
+-//                }
+-//
+-//            }
+-//            @Override
+-//            public String getResetObject() {
+-//                return null;
+-//            }
+-//        } );
++        addColumn( new MyLoadAbleColumn<String>( this, client.getName(), MySqlColumnEnum.DAX_STOCKS ) {
++            @Override
++            public Object getObject() {
++                return null;
++            }
++            @Override
++            public void setLoadedObject( String object ) {
++                if (object != null) {
++                    if (client instanceof Dax ) {
++                        System.out.println(object);
++                    }
++                    ((INDEX_CLIENT_OBJECT) client).getStocksHandler().addStock( object );
++                }
++            }
++            @Override
++            public String getResetObject() {
++                return null;
++            }
++        } );
+     }
+ }
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_30_10_2020__17_59__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_30_10_2020__17_59__Default_Changelist_.xml

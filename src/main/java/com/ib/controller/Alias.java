@@ -15,11 +15,11 @@ public class Alias {
         return m_account;
     }
 
-    public void alias( String v ) {
+    public void alias(String v) {
         m_alias = v;
     }
 
-    public void account( String v ) {
+    public void account(String v) {
         m_account = v;
     }
 

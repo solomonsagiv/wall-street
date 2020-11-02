@@ -20,20 +20,20 @@ public class CommissionReport {
     }
 
     @Override
-    public boolean equals( Object p_other ) {
-        if ( this == p_other ) {
+    public boolean equals(Object p_other) {
+        if (this == p_other) {
             return true;
         }
-        if ( !( p_other instanceof CommissionReport ) ) {
+        if (!(p_other instanceof CommissionReport)) {
             return false;
         }
-        CommissionReport l_theOther = ( CommissionReport ) p_other;
-        return m_execId.equals( l_theOther.m_execId );
+        CommissionReport l_theOther = (CommissionReport) p_other;
+        return m_execId.equals(l_theOther.m_execId);
     }
 
     @Override
     public int hashCode() {
         // Since equals() uses m_execId only, the hashCode should do as well.
-        return m_execId == null ? 0 : m_execId.hashCode( );
+        return m_execId == null ? 0 : m_execId.hashCode();
     }
 }

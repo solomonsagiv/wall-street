@@ -25,7 +25,7 @@ public class OptionDetails {
     double gamma;
     double vega;
 
-    public OptionDetails( Boolean call, double s, double k, double r, double t, double v ) {
+    public OptionDetails(Boolean call, double s, double k, double r, double t, double v) {
 
         callOption = call;
         spotPriceOfUnderlying = s;
@@ -36,18 +36,18 @@ public class OptionDetails {
     }
 
     // floor .00
-    public static double floor( double d ) {
-        return Math.floor( d * 100 ) / 100;
+    public static double floor(double d) {
+        return Math.floor(d * 100) / 100;
     }
 
     // double[] greeks
     public double[] getGreeaks() {
-        double[] greeks = new double[ 5 ];
-        greeks[ 0 ] = optionValue;
-        greeks[ 1 ] = delta * 100;
-        greeks[ 2 ] = gamma;
-        greeks[ 3 ] = vega;
-        greeks[ 4 ] = volatility;
+        double[] greeks = new double[5];
+        greeks[0] = optionValue;
+        greeks[1] = delta * 100;
+        greeks[2] = gamma;
+        greeks[3] = vega;
+        greeks[4] = volatility;
         return greeks;
     }
 
@@ -57,8 +57,8 @@ public class OptionDetails {
         out += strikePrice + "] int rate [" + riskFreeInterestRate + "] expire [";
         out += timeToExpire + "] vol [" + volatility + "] \n \n";
 
-        out += "option value-[" + floor( optionValue * 100 ) + "] \n delta-[" + floor( delta * 100 ) + "] \n theta-[";
-        out += floor( theta ) + "] \n gamma-[" + floor( gamma ) + "] \n vega-[" + floor( vega ) + "]";
+        out += "option value-[" + floor(optionValue * 100) + "] \n delta-[" + floor(delta * 100) + "] \n theta-[";
+        out += floor(theta) + "] \n gamma-[" + floor(gamma) + "] \n vega-[" + floor(vega) + "]";
 
         return out;
     }
