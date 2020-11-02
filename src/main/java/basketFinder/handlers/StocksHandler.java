@@ -6,7 +6,7 @@ import myJson.MyJson;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class StocksHandler {
+public class StocksHandler {
 
     // Variables
     protected Map<Integer, MiniStock> miniStockMap = new HashMap<>();
@@ -51,8 +51,8 @@ public abstract class StocksHandler {
     }
 
     public void loadStocksFromJson( MyJson json ) {
-        for (String d : json.keySet()) {
-            System.out.println(d);
+        for (String key : json.keySet()) {
+            
         }
     }
 }

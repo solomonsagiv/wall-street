@@ -36,6 +36,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setName( "spx" );
         setIndexBidAskMargin( .5 );
         setDbId( 2 );
+
         setStrikeMargin( 5 );
         setBaseId( 10000 );
         initDDECells( );
@@ -46,6 +47,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setLogicService( new LogicService( this, ExpStrings.e1 ) );
         roll( );
         myTableHandler( );
+        initStocksHandler();
+    }
+
+    private void initStocksHandler() {
+        stocksHandler = new StocksHandler( 10200 );
     }
 
     // get instance

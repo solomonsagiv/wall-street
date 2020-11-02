@@ -33,7 +33,7 @@ public class PopupsMenuFactory {
                 new SettingWindow( client.getName( ), client );
             }
         } );
-
+        
         JMenuItem contractIndexRealTime = new JMenuItem( "Month - Index live" );
         contractIndexRealTime.addActionListener( new ActionListener( ) {
             @Override
@@ -171,6 +171,18 @@ public class PopupsMenuFactory {
             }
         } );
 
+        JMenuItem deltaPreDelta = new JMenuItem( "Delta E1, Pre delta" );
+        deltaPreDelta.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                EDeltaPreDeltaChart chart = new EDeltaPreDeltaChart( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
 
         JMenuItem deltaScaled = new JMenuItem( "Delta E1 scaled" );
         deltaScaled.addActionListener( new ActionListener( ) {
@@ -313,6 +325,7 @@ public class PopupsMenuFactory {
         charts.add( opAvg );
         charts.add( indexCounter_index_item );
         charts.add( delta );
+        charts.add( deltaPreDelta );
         charts.add( deltaScaled );
         charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );

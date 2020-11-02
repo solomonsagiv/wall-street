@@ -35,7 +35,7 @@ public class SpxRequester implements ITwsRequester {
             downloader.reqMktData(twsHandler.getMyContract(TwsContractsEnum.FUTURE_FAR).getMyId(), twsHandler.getMyContract(TwsContractsEnum.FUTURE_FAR));
 
             // Stocks
-//            requestStocks(downloader);
+            requestStocks(downloader);
 
         } catch (Exception e) {
             e.printStackTrace();
