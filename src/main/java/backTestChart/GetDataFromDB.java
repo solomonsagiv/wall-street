@@ -2,6 +2,7 @@ package backTestChart;
 
 import dataBase.mySql.MySql;
 import myJson.MyJson;
+import options.JsonStrings;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,15 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GetDataFromDB {
-
-    public static void main( String[] args ) {
-
-        String query = "select * from jsonTables.spxJsonDay where date = '2020-10-26';";
-
-        GetDataFromDB getDataFromDB = new GetDataFromDB( query );
-        getDataFromDB.getDataFromDb( );
-
-    }
 
     // Variables
     String query;
@@ -35,22 +27,15 @@ public class GetDataFromDB {
         return timeList;
     }
 
-    public Map< String, ArrayList< Double > > getDataFromDb() {
+    public Map< String, ArrayList< Double > > getDataFromDb( String[] cols ) {
 
         ResultSet rs = MySql.select( query );
         Map< String, ArrayList< Double > > map = new HashMap<>( );
-
         timeList = new ArrayList<>( );
 
-        ArrayList< Double > indList = new ArrayList<>( );
-        ArrayList< Double > indBidList = new ArrayList<>( );
-        ArrayList< Double > indAskList = new ArrayList<>( );
-        ArrayList< Double > futList = new ArrayList<>( );
-
-        map.put( "index", indList );
-        map.put( "bid", indBidList );
-        map.put( "ask", indAskList );
-        map.put( "fut", futList );
+        for ( int i = 0; i < cols.length; i++ ) {
+            map.put( cols[ i ], new ArrayList<>( ) );
+        }
 
         while ( true ) {
             try {
@@ -58,11 +43,33 @@ public class GetDataFromDB {
 
                 MyJson json = new MyJson( rs.getString( "data" ) );
 
-                double fut = json.getMyJson( "exps" ).getMyJson( "e1" ).getDouble( "fut" );
-                indList.add( json.getDouble( "ind" ) );
-                indBidList.add( json.getDouble( "indBid" ) );
-                indAskList.add( json.getDouble( "indAsk" ) );
-                futList.add( fut );
+                for ( Map.Entry< String, ArrayList< Double > > entry : map.entrySet( ) ) {
+
+                    ArrayList< Double > list = entry.getValue( );
+
+                    switch ( entry.getKey( ) ) {
+                        case JsonStrings.e1Fut:
+                            double fut = json.getMyJson( "exps" ).getMyJson( "e1" ).getDouble( "fut" );
+                            list.add( fut );
+                            break;
+                        case JsonStrings.e1Delta:
+                            double delta = json.getMyJson( "exps" ).getMyJson( "e1" ).getDouble( "delta" );
+                            list.add( delta );
+                            break;
+                        case JsonStrings.ind:
+                            list.add( json.getDouble( "ind" ) );
+                            break;
+                        case JsonStrings.indBid:
+                            list.add( json.getDouble( "indBid" ) );
+                            break;
+                        case JsonStrings.indAsk:
+                            list.add( json.getDouble( "indAsk" ) );
+                        default:
+                            break;
+                    }
+                }
+
+                // Time
                 timeList.add( LocalTime.parse( rs.getString( "time" ) ) );
 
             } catch ( SQLException throwables ) {

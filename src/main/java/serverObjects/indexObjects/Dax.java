@@ -3,7 +3,6 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import api.tws.requesters.DaxRequester;
 import basketFinder.BasketService;
-import basketFinder.handlers.DaxStocksHandler;
 import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
@@ -34,7 +33,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setiTwsRequester(new DaxRequester());
         setLogicService(new LogicService(this, ExpStrings.e1));
-        baskets();
         myTableHandler();
         getMyServiceHandler().removeService( getMySqlService() );
     }
@@ -49,11 +47,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     private void myTableHandler() {
         tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
-    }
-
-    private void baskets() {
-        stocksHandler = new DaxStocksHandler(103000);
-        basketService = new BasketService(this, stocksHandler, 20);
     }
 
     @Override

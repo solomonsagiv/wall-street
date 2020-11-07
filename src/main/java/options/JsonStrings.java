@@ -71,4 +71,7 @@ public class JsonStrings {
     public static final String tomorrowFut = "tomorrowFut";
     public static final String exps = "exps";
     public static final String delta = "delta";
+    public static final String e1Delta = "e1Delta";
+    public static final String e1Fut = "e1Fut";
+
 }

@@ -2,6 +2,7 @@ package serverObjects.indexObjects;
 
 import basketFinder.BasketService;
 import basketFinder.handlers.StocksHandler;
+import charts.myChart.MyTimeSeries;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.myJsonTables.index.DayJsonTable;
@@ -44,6 +45,7 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() throws NullPointerException {
+
         // E1
         E e1 = new E(this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc(this, ExpStrings.e1));
 

@@ -37,7 +37,7 @@ public class SpxRequester implements ITwsRequester {
             downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ) );
 
             // Stocks
-//            requestStocks( downloader );
+            requestStocks( downloader );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -56,6 +56,7 @@ public class SpxRequester implements ITwsRequester {
             try {
                 MiniStock stock = entry.getValue( );
                 contract.symbol( stock.getName( ) );
+                
                 downloader.reqMktData( stock.getId( ), contract );
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -113,25 +114,28 @@ public class SpxRequester implements ITwsRequester {
             }
 
             // Spx miniStocks
-//            if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
-//
-//                MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
-//
-//                // Bid
-//                if ( field == 1 ) {
-//                    stock.setIndBid( price );
-//                }
-//
-//                // Ask
-//                if ( field == 2 ) {
-//                    stock.setIndAsk( price );
-//                }
-//
-//                // Last
-//                if ( field == 4 ) {
-//                    stock.setInd( price );
-//                }
-//            }
+            if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
+
+
+                System.out.println( tickerId );
+
+                MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
+
+                // Bid
+                if ( field == 1 ) {
+                    stock.setIndBid( price );
+                }
+
+                // Ask
+                if ( field == 2 ) {
+                    stock.setIndAsk( price );
+                }
+
+                // Last
+                if ( field == 4 ) {
+                    stock.setInd( price );
+                }
+            }
         }
     }
 
@@ -147,15 +151,15 @@ public class SpxRequester implements ITwsRequester {
         }
 
         // Spx miniStocks
-//        if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
-//
-//            MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
-//
-//            if ( field == 8 ) {
-//                stock.setVolume( size );
-//            }
-//
-//        }
+        if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
+
+            MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
+
+            if ( field == 8 ) {
+                stock.setVolume( size );
+            }
+
+        }
 
     }
 }

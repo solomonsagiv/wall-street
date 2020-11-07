@@ -491,7 +491,7 @@ public class Downloader extends Thread implements EWrapper {
     public void histogramData(int reqId, List<Entry<Double, Long>> items) {
         System.out.println(EWrapperMsgGenerator.histogramData(reqId, items));
     }
-
+    
     // ---------- Getters and Setters ---------- //
     public EClientSocket getClient() {
         return client;
@@ -515,7 +515,7 @@ public class Downloader extends Thread implements EWrapper {
         if (client.isConnected()) {
 
             if (count < MaxRequest) {
-                System.out.println( "Count " + count );
+//                System.out.println( "Count " + count );
                 client.reqMktData(tickerID, contract,
                         "", false, false, null);
                 count++;

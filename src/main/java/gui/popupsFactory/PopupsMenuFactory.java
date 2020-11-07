@@ -171,11 +171,12 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem deltaPreDelta = new JMenuItem( "Delta E1, Pre delta" );
-        deltaPreDelta.addActionListener( new ActionListener( ) {
+
+        JMenuItem eDeltaStocksDelta = new JMenuItem( "E1, stocks delta" );
+        eDeltaStocksDelta.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                EDeltaPreDeltaChart chart = new EDeltaPreDeltaChart( client );
+                EDeltaStocksDeltaChart chart = new EDeltaStocksDeltaChart( client );
                 try {
                     chart.createChart( );
                 } catch ( CloneNotSupportedException cloneNotSupportedException ) {
@@ -318,14 +319,13 @@ public class PopupsMenuFactory {
         } );
 
         export.add( exportSumLine );
-
         charts.add( fullCharts );
         charts.add( fourLineChart );
         charts.add( opAvg15 );
         charts.add( opAvg );
         charts.add( indexCounter_index_item );
+        charts.add( eDeltaStocksDelta );
         charts.add( delta );
-        charts.add( deltaPreDelta );
         charts.add( deltaScaled );
         charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );

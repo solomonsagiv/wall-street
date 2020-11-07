@@ -6,6 +6,7 @@ import options.Options;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
@@ -23,7 +24,7 @@ public class ListsService extends MyBaseService {
         super(client);
         this.client = client;
     }
-    
+
     @Override
     public void go() {
         insert();
@@ -54,7 +55,13 @@ public class ListsService extends MyBaseService {
         client.getIndexBidAskCounterSeries().add(time);
         client.getIndexSeries().add(time);
         client.getIndexScaledSeries().add( time );
-        client.getIndBIdAskMarginSeries().add(time);
+        client.getIndBidAskMarginSeries().add(time);
+
+        // Index
+        if ( client instanceof INDEX_CLIENT_OBJECT ) {
+            ((INDEX_CLIENT_OBJECT) client ).getStocksHandler().getDeltaSeries().add();
+            System.out.println( "Delta : " + ((INDEX_CLIENT_OBJECT) client ).getStocksHandler().getDelta() );
+        }
 
         // Options lists
         for (Exp exp : client.getExps().getExpList()) {
@@ -65,7 +72,6 @@ public class ListsService extends MyBaseService {
                 // E
                 if (exp instanceof E) {
                     ((E) exp).getDeltaSerie().add(time);
-                    ((E) exp).getPreDeltaSerie().add(time);
                     ((E) exp).getDeltaScaledSerie().add(time);
                 }
 

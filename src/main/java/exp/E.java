@@ -14,7 +14,6 @@ import java.net.UnknownHostException;
 public class E extends Exp {
 
     protected int delta = 0;
-    protected int preDelta = 0;
     protected int volumeFutForDelta = 0;
     protected double futForDelta = 0;
     protected double futBidForDelta = 0;
@@ -22,7 +21,6 @@ public class E extends Exp {
     protected double preFutBidForDelta = 0;
     protected double preFutAskForDelta = 0;
     private MyTimeSeries deltaSerie;
-    private MyTimeSeries preDeltaSerie;
     private MyTimeSeries deltaScaledSerie;
 
     public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
@@ -59,8 +57,7 @@ public class E extends Exp {
 
     public void calcDelta( int quantity ) {
         new Thread( () -> {
-//            this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getFutBidForDelta( ), getFutAskForDelta( ) );
-            this.preDelta += DeltaCalc.calc( quantity, getFutForDelta( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
+            this.delta += DeltaCalc.calc( quantity, getFutForDelta( ), getPreFutBidForDelta( ), getPreFutAskForDelta( ) );
         } ).start( );
     }
 
@@ -71,13 +68,6 @@ public class E extends Exp {
             @Override
             public double getData() throws UnknownHostException {
                 return delta;
-            }
-        };
-
-        preDeltaSerie = new MyTimeSeries( "Pre delta", client ) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return preDelta;
             }
         };
 
@@ -129,10 +119,6 @@ public class E extends Exp {
 
     public MyTimeSeries getDeltaScaledSerie() {
         return deltaScaledSerie;
-    }
-
-    public MyTimeSeries getPreDeltaSerie() {
-        return preDeltaSerie;
     }
 
     public double getFutAskForDelta() {

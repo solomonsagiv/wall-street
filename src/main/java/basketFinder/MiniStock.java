@@ -1,12 +1,17 @@
 package basketFinder;
 
+import basketFinder.handlers.StocksHandler;
+import delta.DeltaCalc;
+
 public class MiniStock {
 
     // Variables
     private String name;
     private int id;
     private double ind;
-    private double volume = 0;
+    private int delta = 0;
+    private int volume = 0;
+    private double weight = 0;
     private double lastCheckVolume = 0;
     private double indBid = 0;
     private double indAsk = 0;
@@ -14,11 +19,13 @@ public class MiniStock {
     private double preIndAsk = 0;
     private boolean down = false;
     private boolean up = false;
+    private StocksHandler stocksHandler;
 
     // Constructor
-    public MiniStock(String name, int id) {
+    public MiniStock( String name, int id, StocksHandler stocksHandler ) {
         this.name = name;
         this.id = id;
+        this.stocksHandler = stocksHandler;
     }
 
     public void setIndBid( double indBid ) {
@@ -62,7 +69,7 @@ public class MiniStock {
         return ind;
     }
 
-    public void setInd(double ind) {
+    public void setInd( double ind ) {
         if (ind == indAsk ) {
             up = true;
         }
@@ -71,13 +78,36 @@ public class MiniStock {
         }
         this.ind = ind;
     }
-
+    
     public double getVolume() {
         return volume;
     }
 
-    public void setVolume(double volume) {
+    public void setVolume(int volume) {
+
+        // Delta
+        handleDelta( volume );
+
+        // Volume
         this.volume = volume;
+
+    }
+
+    private void handleDelta( int volume ) {
+
+        // Quantity
+        int quantity = volume - this.volume;
+
+        // Delta
+        double currDelta = DeltaCalc.calc( quantity, this.ind, preIndBid, preIndAsk ) * weight;
+
+//        System.out.println( getName() + "  " + currDelta );
+
+        this.delta += currDelta;
+
+        // Stock
+        stocksHandler.appendDelta( (int) currDelta );
+
     }
 
     public double getLastCheckVolume() {
@@ -106,5 +136,13 @@ public class MiniStock {
 
     public double getPreIndAsk() {
         return preIndAsk;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight( double weight ) {
+        this.weight = weight;
     }
 }

@@ -71,7 +71,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexBidSeries;
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
-    MyTimeSeries indBIdAskMarginSeries;
+    MyTimeSeries indBidAskMarginSeries;
     private double startStrike;
     private double endStrike;
     private boolean loadFromDb = false;
@@ -191,7 +191,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 return client.getIndexBidAskCounter( );
             }
         };
-        indBIdAskMarginSeries = new MyTimeSeries( "Margin counter", this ) {
+        indBidAskMarginSeries = new MyTimeSeries( "Margin counter", this ) {
             @Override
             public double getData() throws UnknownHostException {
                 return client.getBidAskMarginCounter();
@@ -721,8 +721,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return indexBidSeries;
     }
 
-    public MyTimeSeries getIndBIdAskMarginSeries() {
-        return indBIdAskMarginSeries;
+    public MyTimeSeries getIndBidAskMarginSeries() {
+        return indBidAskMarginSeries;
     }
 
     public MyTimeSeries getIndexScaledSeries() {

@@ -41,7 +41,7 @@ public class BidAskMarginChart extends MyChartCreator {
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
-        MyTimeSeries index = client.getIndBIdAskMarginSeries();
+        MyTimeSeries index = client.getIndBidAskMarginSeries();
         index.setStokeSize( 1.5f );
         index.setColor( Themes.DARK_YELLOW );
 

@@ -46,12 +46,13 @@ public class DeltaCalc {
                 delta = quantity * -1;
             }
 
-            System.out.println( );
-            System.out.println( "Q " + quantity );
-            System.out.println( "pre Bid: " + preBid );
-            System.out.println( "Last " + last );
-            System.out.println( "pre ask: " + preAsk );
-            System.out.println( "Delta: " + delta );
+//            System.out.println( );
+//            System.out.println( "Q " + quantity );
+//            System.out.println( "pre Bid: " + preBid );
+//            System.out.println( "Last " + last );
+//            System.out.println( "pre ask: " + preAsk );
+//            System.out.println( "Delta: " + delta );
+
         }
         return delta;
     }
