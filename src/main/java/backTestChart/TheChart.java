@@ -39,10 +39,9 @@ public class TheChart extends MyChartCreator {
 
     private void crateSeries() {
 
-
         for ( int i = 0; i < chartsNames.length; i++ ) {
-            String chartName = chartsNames[i];
-            Color color = colors[i];
+            String chartName = chartsNames[ i ];
+            Color color = colors[ i ];
             ArrayList< Double > list = dataMap.get( chartName );
 
             MyTimeSeries serie = new MyTimeSeries( chartName, null ) {
@@ -65,7 +64,6 @@ public class TheChart extends MyChartCreator {
                 serie.addOrUpdate( second, list.get( j ) );
             }
         }
-
 
 
     }

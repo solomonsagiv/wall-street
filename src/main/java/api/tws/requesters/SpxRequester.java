@@ -116,7 +116,6 @@ public class SpxRequester implements ITwsRequester {
             // Spx miniStocks
             if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
 
-
                 System.out.println( tickerId );
 
                 MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );

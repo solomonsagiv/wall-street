@@ -24,7 +24,7 @@ public class DDEReader extends MyThread implements Runnable {
         super( );
         conversation = ddeConnection.createNewConversation( excelPath );
     }
-
+    
     @Override
     public void initRunnable() {
         setRunnable( this );

@@ -57,6 +57,7 @@ public class IndexStocksTable extends MySqlTable {
 
                 MyJson json = new MyJson( rs.getString( "data" ));
                 getClient().getStocksHandler().loadStocksFromJson( json );
+                System.out.println( "Load: " +  json);
 
             } catch ( SQLException throwables ) {
                 throwables.printStackTrace( );

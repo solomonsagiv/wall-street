@@ -48,7 +48,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         myTableHandler( );
         initStocksHandler();
     }
-    
+
     private void initStocksHandler() {
         stocksHandler = new StocksHandler( 10200, client );
     }

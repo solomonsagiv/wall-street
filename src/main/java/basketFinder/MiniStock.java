@@ -53,7 +53,7 @@ public class MiniStock {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
@@ -61,7 +61,7 @@ public class MiniStock {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId( int id ) {
         this.id = id;
     }
 
@@ -70,20 +70,20 @@ public class MiniStock {
     }
 
     public void setInd( double ind ) {
-        if (ind == indAsk ) {
+        if ( ind == indAsk ) {
             up = true;
         }
-        if (ind == indBid ) {
+        if ( ind == indBid ) {
             down = true;
         }
         this.ind = ind;
     }
-    
+
     public double getVolume() {
         return volume;
     }
 
-    public void setVolume(int volume) {
+    public void setVolume( int volume ) {
 
         // Delta
         handleDelta( volume );
@@ -106,7 +106,7 @@ public class MiniStock {
         this.delta += currDelta;
 
         // Stock
-        stocksHandler.appendDelta( (int) currDelta );
+        stocksHandler.appendDelta( ( int ) currDelta );
 
     }
 
@@ -118,7 +118,7 @@ public class MiniStock {
         return down;
     }
 
-    public void setDown(boolean down) {
+    public void setDown( boolean down ) {
         this.down = down;
     }
 
@@ -126,7 +126,7 @@ public class MiniStock {
         return up;
     }
 
-    public void setUp(boolean up) {
+    public void setUp( boolean up ) {
         this.up = up;
     }
 

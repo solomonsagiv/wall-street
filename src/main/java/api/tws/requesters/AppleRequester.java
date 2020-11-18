@@ -14,12 +14,14 @@ public class AppleRequester implements ITwsRequester {
 
     ArrayList< Exp > exp;
     Apple apple;
+    int index;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             apple = Apple.getInstance( );
             exp = apple.getExps( ).getExpList( );
+            index = apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
@@ -33,11 +35,6 @@ public class AppleRequester implements ITwsRequester {
 
     @Override
     public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
-        int index;
-        int minID, maxID;
-
-        // ---------- Apple ---------- //
-        index = apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
         if ( tickerId == index && price > 0 ) {
             // Last
@@ -76,8 +73,8 @@ public class AppleRequester implements ITwsRequester {
         for ( Exp exp : this.exp ) {
 
             Options options = exp.getOptions( );
-            minID = options.getMinId( );
-            maxID = options.getMaxId( );
+            int minID = options.getMinId( );
+            int maxID = options.getMaxId( );
 
             if ( tickerId >= minID && tickerId <= maxID && price > 0 ) {
                 // Bid

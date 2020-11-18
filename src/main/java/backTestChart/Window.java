@@ -17,7 +17,6 @@ public class Window extends MyGuiComps.MyFrame {
 
     public static void main( String[] args ) {
         Window window = new Window( "Window" );
-
     }
 
     MyGuiComps.MyPanel mainPanel;
@@ -100,7 +99,7 @@ public class Window extends MyGuiComps.MyFrame {
                     int year = L.INT( yearString );
 
                     // Props
-                    String[] cols = { JsonStrings.ind, JsonStrings.e1Delta };
+                    String[] cols = { JsonStrings.ind, JsonStrings.indBidAskCounter };
                     Color[] colors = { Color.BLACK, Themes.GREEN };
 
                     // Query
@@ -121,8 +120,6 @@ public class Window extends MyGuiComps.MyFrame {
                 }
             }
         } );
-
-
     }
 
     @Override

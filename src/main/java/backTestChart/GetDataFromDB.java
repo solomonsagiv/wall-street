@@ -56,6 +56,10 @@ public class GetDataFromDB {
                             double delta = json.getMyJson( "exps" ).getMyJson( "e1" ).getDouble( "delta" );
                             list.add( delta );
                             break;
+                        case JsonStrings.indBidAskCounter:
+                            double indBidAskCounter = json.getInt( "indBidAskCounter" );
+                            list.add( indBidAskCounter );
+                            break;
                         case JsonStrings.ind:
                             list.add( json.getDouble( "ind" ) );
                             break;

@@ -14,12 +14,14 @@ public class AmazonRequester implements ITwsRequester {
 
     ArrayList<Exp> exp;
     Amazon amazon;
+    int index;
 
     @Override
     public void request(Downloader downloader) {
         try {
             amazon = Amazon.getInstance();
             exp = amazon.getExps().getExpList();
+            index = amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
             // Index
             downloader.reqMktData(amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
@@ -33,11 +35,6 @@ public class AmazonRequester implements ITwsRequester {
 
     @Override
     public void reciever(int tickerId, int field, double price, TickAttr attribs) {
-        int index;
-        int minID, maxID;
-
-        // ---------- Apple ---------- //
-        index = amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
         if (tickerId == index && price > 0) {
             // Last
@@ -77,8 +74,8 @@ public class AmazonRequester implements ITwsRequester {
 
             Options options = exp.getOptions();
 
-            minID = options.getMinId();
-            maxID = options.getMaxId();
+            int minID = options.getMinId();
+            int maxID = options.getMaxId();
 
             if (tickerId >= minID && tickerId <= maxID && price > 0) {
                 // Bid

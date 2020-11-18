@@ -14,12 +14,14 @@ public class NetflixRequester implements ITwsRequester {
 
     ArrayList<Exp> exp;
     Netflix netflix;
+    int index;
 
     @Override
     public void request(Downloader downloader) {
         try {
             netflix = Netflix.getInstance();
             exp = netflix.getExps().getExpList();
+            index = netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
             // Index
             downloader.reqMktData(netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
@@ -33,12 +35,6 @@ public class NetflixRequester implements ITwsRequester {
 
     @Override
     public void reciever(int tickerId, int field, double price, TickAttr attribs) {
-        int index;
-        int minID, maxID;
-
-        // ---------- Apple ---------- //
-        index = netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
-
         if (tickerId == index && price > 0) {
             // Last
             if (field == 4) {
@@ -76,8 +72,8 @@ public class NetflixRequester implements ITwsRequester {
         for (Exp exp : this.exp) {
 
             Options options = exp.getOptions();
-            minID = options.getMinId();
-            maxID = options.getMaxId();
+            int minID = options.getMinId();
+            int maxID = options.getMaxId();
 
             if (tickerId >= minID && tickerId <= maxID && price > 0) {
                 // Bid

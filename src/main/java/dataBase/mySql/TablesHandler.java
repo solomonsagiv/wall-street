@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class TablesHandler {
 
-    Map tables = new HashMap<TablesEnum, MySqlTable>();
+    Map<TablesEnum, MySqlTable> tables = new HashMap<>();
 
     public static void main(String[] args) {
         Spx spx = Spx.getInstance();
@@ -25,7 +25,7 @@ public class TablesHandler {
         tables.put(tablesEnum, myTableSql);
     }
 
-    public Map getTables() {
+    public Map<TablesEnum, MySqlTable> getTables() {
         return tables;
     }
 

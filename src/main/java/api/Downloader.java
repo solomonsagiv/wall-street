@@ -29,6 +29,7 @@ public class Downloader extends Thread implements EWrapper {
     Set<ITwsRequester> iTwsRequesters = new HashSet<>();
     int MaxRequest = 49;
     int count = 0;
+    private boolean twsDoneRequest = false;
 
     // Constructor
     private Downloader() {
@@ -99,6 +100,8 @@ public class Downloader extends Thread implements EWrapper {
         client.reqAutoOpenOrders( true );
         client.reqPositions( );
         client.reqAccountUpdates( true, Manifest.ACCOUNT );
+        
+        twsDoneRequest = true;
     }
 
     public void addRequester(ITwsRequester requester) {
@@ -513,9 +516,7 @@ public class Downloader extends Thread implements EWrapper {
 
     public synchronized void reqMktData(int tickerID, Contract contract) throws Exception {
         if (client.isConnected()) {
-
             if (count < MaxRequest) {
-//                System.out.println( "Count " + count );
                 client.reqMktData(tickerID, contract,
                         "", false, false, null);
                 count++;

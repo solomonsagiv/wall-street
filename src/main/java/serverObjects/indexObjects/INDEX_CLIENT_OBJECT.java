@@ -40,7 +40,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         tablesHandler.addTable(TablesEnum.SUM, new SumJsonTable(this));
         tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
         tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this));
-        tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
     }
 
     @Override

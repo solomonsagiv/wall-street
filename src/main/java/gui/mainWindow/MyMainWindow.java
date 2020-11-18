@@ -116,5 +116,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 }
             }).start();
         }
+        System.out.println( Microsoft.getInstance().getTwsHandler().getMyContracts() );
     }
 }

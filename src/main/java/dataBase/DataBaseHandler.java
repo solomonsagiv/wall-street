@@ -1,9 +1,12 @@
 package dataBase;
 
 import dataBase.mySql.TablesHandler;
+import dataBase.mySql.mySqlComps.MySqlTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
+
+import java.util.Map;
 
 public class DataBaseHandler {
 
@@ -15,15 +18,15 @@ public class DataBaseHandler {
 
     public void load() {
         TablesHandler th = client.getTablesHandler( );
-        th.getTable( TablesEnum.TWS_CONTRACTS ).load( );
-        th.getTable( TablesEnum.STATUS ).load( );
-        th.getTable( TablesEnum.ARRAYS ).load( );
+        for ( Map.Entry< TablesEnum, MySqlTable > entry : th.getTables( ).entrySet( ) ) {
+            try {
+                MySqlTable table = entry.getValue();
+                table.load();
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
 
-        // Index stocks weight
-        if ( client instanceof INDEX_CLIENT_OBJECT ) {
-            th.getTable( TablesEnum.INDEX_STOCKS ).load();
         }
-
     }
-    
+
 }
