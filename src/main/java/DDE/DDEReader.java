@@ -3,6 +3,7 @@ package DDE;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import exp.Exp;
+import gui.mainWindow.ConnectionPanel;
 import locals.L;
 import locals.LocalHandler;
 import options.Options;
@@ -17,14 +18,13 @@ public class DDEReader extends MyThread implements Runnable {
     int sleep = 150;
     DDEClientConversation conversation;
     private DDEConnection ddeConnection = new DDEConnection( );
-    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
 
     // Constructor
     public DDEReader() {
         super( );
-        conversation = ddeConnection.createNewConversation( excelPath );
+        conversation = ddeConnection.createNewConversation( ConnectionPanel.excelLocationField.getText() );
     }
-    
+
     @Override
     public void initRunnable() {
         setRunnable( this );
@@ -35,7 +35,6 @@ public class DDEReader extends MyThread implements Runnable {
 
         while ( isRun( ) ) {
             try {
-                
                 // Sleep
                 Thread.sleep( sleep );
 

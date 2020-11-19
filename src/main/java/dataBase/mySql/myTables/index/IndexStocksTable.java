@@ -13,8 +13,6 @@ import java.sql.SQLException;
 
 public class IndexStocksTable extends MySqlTable {
 
-
-
     public IndexStocksTable(INDEX_CLIENT_OBJECT client) {
         super(client, "indexStocks");
     }

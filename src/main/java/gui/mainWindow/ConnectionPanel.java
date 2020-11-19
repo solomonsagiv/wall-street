@@ -26,10 +26,14 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel twsStatusLbl = new MyGuiComps.MyLabel("TWS");
     MyGuiComps.MyLabel portLbl = new MyGuiComps.MyLabel("Port");
     MyGuiComps.MyTextField portField = new MyGuiComps.MyTextField();
+    public static MyGuiComps.MyTextField excelLocationField = new MyGuiComps.MyTextField(  );
 
     DDEReader ddeReader;
     DDEWriter ddeWriter;
     Downloader downloader;
+
+    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
+    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPXT.xlsx]Trading";
 
     // Constructor
     public ConnectionPanel() {
@@ -130,7 +134,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
         // This
         setWidth(500);
-        setHeight(130);
+        setHeight(170);
         setBackground(Color.WHITE);
 
         // Connection
@@ -204,6 +208,15 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         logBtn.setForeground(Themes.BLUE_DARK);
         add(logBtn);
 
+        // Excel location
+        excelLocationField.setXY( portField.getX(), portField.getY() + portField.getHeight() + 15 );
+        excelLocationField.setWidth( 400 );
+        excelLocationField.setHeight( 25 );
+        excelLocationField.setText( excelPath );
+        excelLocationField.setBackground( Color.WHITE );
+        excelLocationField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Themes.BLUE_DARK));
+        excelLocationField.setForeground(Themes.BLUE_DARK);
+        add( excelLocationField );
     }
 
 }
