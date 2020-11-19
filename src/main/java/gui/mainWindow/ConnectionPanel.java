@@ -33,7 +33,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     Downloader downloader;
 
     private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
-    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPXT.xlsx]Trading";
+    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/SPX.xlsx";
 
     // Constructor
     public ConnectionPanel() {
@@ -212,7 +212,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         excelLocationField.setXY( portField.getX(), portField.getY() + portField.getHeight() + 15 );
         excelLocationField.setWidth( 400 );
         excelLocationField.setHeight( 25 );
-        excelLocationField.setText( excelPath );
+        excelLocationField.setText( yogiPath );
         excelLocationField.setBackground( Color.WHITE );
         excelLocationField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Themes.BLUE_DARK));
         excelLocationField.setForeground(Themes.BLUE_DARK);
