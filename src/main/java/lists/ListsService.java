@@ -56,6 +56,7 @@ public class ListsService extends MyBaseService {
         client.getIndexSeries().add(time);
         client.getIndexScaledSeries().add( time );
         client.getIndBidAskMarginSeries().add(time);
+        client.getLogicService().getIndRacesSerie().add(time);
 
         // Index
         if ( client instanceof INDEX_CLIENT_OBJECT ) {
