@@ -2,6 +2,7 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import gui.mainWindow.ConnectionPanel;
 import locals.L;
 import roll.RollEnum;
 import serverObjects.indexObjects.Spx;
@@ -15,16 +16,15 @@ public class DDEWriter extends MyThread implements Runnable {
     String indexBidAskCounterCell = "R2C12";
     String basketsCell = "R3C5";
     String basketsCell2 = "R3C7";
-    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
     private boolean run = true;
     private DDEConnection ddeConnection = new DDEConnection();
     private DDEClientConversation conversation;
 
     // Constructor
     public DDEWriter() {
-        this.conversation = ddeConnection.createNewConversation(excelPath);
+        this.conversation = ddeConnection.createNewConversation( ConnectionPanel.excelLocationField.getText() );
     }
-
+    
     @Override
     public void initRunnable() {
         setName("DDE Writer");

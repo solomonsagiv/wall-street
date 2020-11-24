@@ -14,11 +14,7 @@ public class Test {
 
     public static void main( String[] args ) throws IOException, InterruptedException, CloneNotSupportedException {
 
-        Spx spx = Spx.getInstance();
-        spx.startAll();
-
-        EDeltaChart eDeltaChart = new EDeltaChart( spx );
-        eDeltaChart.createChart();
+       loto();
 
 
 
