@@ -34,8 +34,22 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         initTablesHandler();
-        setLogicService(new LogicService(this, ExpStrings.month));
+        initLogic();
         roll();
+    }
+
+    protected void initLogic() {
+        setLogicService( new LogicService( this ) {
+            @Override
+            public double getFuture() {
+                return getExps().getExp( ExpStrings.month ).getOptions().getContract();
+            }
+
+            @Override
+            public double getRacesMargin() {
+                return getFuture() * .0001;
+            }
+        } );
     }
 
     protected void roll() {
@@ -150,7 +164,7 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
                 ", indexBidAskMargin=" + getIndexBidAskMargin() +
                 ", listsService=" + getListsService() +
                 ", mySqlService=" + getMySqlService() +
-                ", racesMargin=" + getRacesMargin() +
+                ", racesMargin=" + getLogicService().getRacesMargin() +
                 ", conUp=" + getConUp() +
                 ", conDown=" + getConDown() +
                 ", indexUp=" + getIndexUp() +

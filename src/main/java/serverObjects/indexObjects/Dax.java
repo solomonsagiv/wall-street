@@ -32,7 +32,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setiTwsRequester(new DaxRequester());
-        setLogicService(new LogicService(this, ExpStrings.e1));
+        initLogic();
         myTableHandler();
         getMyServiceHandler().removeService( getMySqlService() );
     }
@@ -43,6 +43,20 @@ public class Dax extends INDEX_CLIENT_OBJECT {
             client = new Dax();
         }
         return client;
+    }
+
+    private void initLogic() {
+        setLogicService( new LogicService( this ) {
+            @Override
+            public double getFuture() {
+                return 0;
+            }
+
+            @Override
+            public double getRacesMargin() {
+                return getFuture() * .0001;
+            }
+        } );
     }
 
     private void myTableHandler() {

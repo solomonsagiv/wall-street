@@ -1,14 +1,13 @@
 package logic;
 
+import charts.myChart.MyTimeSeries;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
-public class LogicService extends MyBaseService {
+import java.net.UnknownHostException;
 
-    // Variables
-    Options options;
-    String expName;
+public abstract class LogicService extends MyBaseService {
 
     // regular count
     int conRunnerUpCount = 0;
@@ -29,10 +28,27 @@ public class LogicService extends MyBaseService {
     boolean run = true;
     double margin = 0;
 
+    MyTimeSeries indRacesSerie;
+
+    public abstract double getFuture();
+
     // Constructor
-    public LogicService(BASE_CLIENT_OBJECT client, String expName) {
+    public LogicService(BASE_CLIENT_OBJECT client) {
         super(client);
-        this.expName = expName;
+        initSeries();
+    }
+
+    private void initSeries() {
+        indRacesSerie = new MyTimeSeries( "Ind races", getClient() ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getClient().getIndexSumRaces();
+            }
+        };
+    }
+
+    public MyTimeSeries getIndRacesSerie() {
+        return indRacesSerie;
     }
 
     @Override
@@ -51,21 +67,9 @@ public class LogicService extends MyBaseService {
         double future = 0;
         double index = 0;
 
-        // Options
-        if (options == null) {
-            options = getClient().getExps().getExp(expName).getOptions();
-        }
+        margin = getRacesMargin();
 
-        // Margin
-        if (margin == 0) {
-            if (getClient().getRacesMargin() != 0) {
-                margin = getClient().getRacesMargin();
-            } else {
-                return;
-            }
-        }
-
-        future = options.getContract();
+        future = getFuture();
         index = getClient().getIndex();
 
         // set for the first time the hoze and stock 0
@@ -378,9 +382,7 @@ public class LogicService extends MyBaseService {
 
         // setText to the window
         updateRaces();
-
     }
-
 
     public void close() {
         run = false;
@@ -400,7 +402,6 @@ public class LogicService extends MyBaseService {
         indRunnerDownCount = 0;
     }
 
-
     // Refresh the logic variables
     public void refresh() {
         conRunner = 0;
@@ -417,6 +418,6 @@ public class LogicService extends MyBaseService {
         bool = true;
     }
 
-
+    public abstract double getRacesMargin();
 }
 

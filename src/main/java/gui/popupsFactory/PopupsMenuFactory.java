@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 public class PopupsMenuFactory {
 
     public static JPopupMenu stockPanel( STOCK_OBJECT client ) {
+
         // Main menu
         JPopupMenu menu = new JPopupMenu( );
 
@@ -48,6 +49,19 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 MonthCounter_IndexCounter_Index_Chart chart = new MonthCounter_IndexCounter_Index_Chart( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
+        JMenuItem indRaces = new JMenuItem( "Ind Races" );
+        indRaces.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                IndRacesChart chart = new IndRacesChart( client );
                 try {
                     chart.createChart( );
                 } catch ( CloneNotSupportedException cloneNotSupportedException ) {
@@ -96,6 +110,7 @@ public class PopupsMenuFactory {
 
         charts.add( contractIndexRealTime );
         charts.add( indexBidAskCounterItem );
+        charts.add( indRaces );
 
         menu.add( details );
         menu.add( settingWindow );
@@ -150,6 +165,19 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 FullCharts chart = new FullCharts( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
+                    cloneNotSupportedException.printStackTrace( );
+                }
+            }
+        } );
+
+        JMenuItem indRaces = new JMenuItem( "Ind Races" );
+        indRaces.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                IndRacesChart chart = new IndRacesChart( client );
                 try {
                     chart.createChart( );
                 } catch ( CloneNotSupportedException cloneNotSupportedException ) {
@@ -324,6 +352,7 @@ public class PopupsMenuFactory {
         charts.add( opAvg15 );
         charts.add( opAvg );
         charts.add( indexCounter_index_item );
+        charts.add( indRaces );
         charts.add( eDeltaStocksDelta );
         charts.add( delta );
         charts.add( deltaScaled );

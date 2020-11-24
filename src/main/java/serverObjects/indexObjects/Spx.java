@@ -43,14 +43,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setiTwsRequester( new SpxRequester( ) );
-        setLogicService( new LogicService( this, ExpStrings.e1 ) );
+        initLogic();
         roll( );
         myTableHandler( );
         initStocksHandler();
-    }
-    
-    private void initStocksHandler() {
-        stocksHandler = new StocksHandler( 10200, client );
     }
 
     // get instance
@@ -60,6 +56,25 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         }
         return client;
     }
+
+    private void initLogic() {
+        setLogicService( new LogicService( this ) {
+            @Override
+            public double getFuture() {
+                return getExps().getExp( ExpStrings.e1 ).getCalcFut();
+            }
+
+            @Override
+            public double getRacesMargin() {
+                return 0.0001;
+            }
+        } );
+    }
+
+    private void initStocksHandler() {
+        stocksHandler = new StocksHandler( 10200, client );
+    }
+
 
     private void myTableHandler() {
         tablesHandler.addTable( TablesEnum.INDEX_STOCKS, new IndexStocksTable( this ) );

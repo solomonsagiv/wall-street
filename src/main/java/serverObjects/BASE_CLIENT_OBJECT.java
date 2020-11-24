@@ -294,10 +294,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.endStrike = endStrike;
     }
 
-    public double getRacesMargin() {
-        return index * .0001;
-    }
-
     public DefaultTableModel getModel() {
         return model;
     }
@@ -774,7 +770,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", indexBidAskMargin=" + indexBidAskMargin +
                 ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +
-                ", racesMargin=" + getRacesMargin( ) +
+                ", racesMargin=" + getLogicService( ).getRacesMargin() +
                 ", optimiPesimiMargin=" + optimiPesimiMargin +
                 ", conUp=" + conUp +
                 ", conDown=" + conDown +
