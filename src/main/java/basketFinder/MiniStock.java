@@ -101,7 +101,7 @@ public class MiniStock {
         // Delta
         double currDelta = DeltaCalc.calc( quantity, this.ind, preIndBid, preIndAsk ) * weight;
 
-//        System.out.println( getName() + "  " + currDelta );
+        System.out.println( getName() + "  " + currDelta );
 
         this.delta += currDelta;
 

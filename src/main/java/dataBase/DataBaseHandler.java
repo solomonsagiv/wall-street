@@ -1,9 +1,12 @@
 package dataBase;
 
+import basketFinder.MiniStock;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+
+import java.util.Map;
 
 public class DataBaseHandler {
 
@@ -22,8 +25,11 @@ public class DataBaseHandler {
         // Index stocks weight
         if ( client instanceof INDEX_CLIENT_OBJECT ) {
             th.getTable( TablesEnum.INDEX_STOCKS ).load();
-        }
 
+            for ( Map.Entry< Integer, MiniStock > entry : ( ( INDEX_CLIENT_OBJECT ) client ).getStocksHandler().getStocksMap().entrySet()) {
+                System.out.println( entry.getValue().getWeight() );
+            }
+        }
     }
     
 }

@@ -19,7 +19,6 @@ import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
-    static Dax dax;
     static Spx spx;
     static Apple apple;
     static Amazon amazon;
@@ -27,7 +26,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Microsoft microsoft;
 
     static {
-        dax = Dax.getInstance();
         spx = Spx.getInstance();
         apple = Apple.getInstance();
         amazon = Amazon.getInstance();
@@ -52,7 +50,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(dax);
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
         LocalHandler.clients.add(amazon);

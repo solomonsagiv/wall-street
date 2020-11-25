@@ -16,6 +16,8 @@ public class BitcoinRequester implements ITwsRequester {
     BITCOIN_CLIENT client;
     ExpMonth expMonth;
 
+    boolean requested = false;
+
     public static void main(String[] args) throws InterruptedException {
         Manifest.CLIENT_ID = 77;
         Downloader downloader = Downloader.getInstance();
@@ -86,6 +88,8 @@ public class BitcoinRequester implements ITwsRequester {
             downloader.reqMktData(200000, indContract);
             downloader.reqMktData(200001, futureContract);
 
+            requested = true;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,5 +146,10 @@ public class BitcoinRequester implements ITwsRequester {
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

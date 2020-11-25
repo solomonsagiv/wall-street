@@ -11,4 +11,5 @@ public interface ITwsRequester {
 
     void sizeReciever(int tickerId, int field, int size);
 
+    boolean isRequested();
 }

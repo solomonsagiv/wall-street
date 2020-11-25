@@ -44,7 +44,7 @@ public class StocksHandler {
 
             // Mini stock
             MiniStock stock = new MiniStock( key, currId, this );
-            stock.setWeight( L.dbl( json.getString( key )) / 100 );
+            stock.setWeight( L.dbl( json.getString( key )) );
 
             // Set weight
             stocksMap.put( currId, stock );

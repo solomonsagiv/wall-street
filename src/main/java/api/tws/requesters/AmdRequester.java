@@ -14,6 +14,7 @@ public class AmdRequester implements ITwsRequester {
 
     ArrayList<Exp> expList;
     Amd amd;
+    boolean requested = false;
 
     @Override
     public void request(Downloader downloader) {
@@ -26,6 +27,8 @@ public class AmdRequester implements ITwsRequester {
 
             // Options
             amd.getTwsHandler().requestOptions(amd.getExps().getExpList());
+
+            requested = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,5 +98,10 @@ public class AmdRequester implements ITwsRequester {
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

@@ -12,20 +12,26 @@ import java.util.ArrayList;
 
 public class NetflixRequester implements ITwsRequester {
 
+    int index;
+    int minID, maxID;
     ArrayList<Exp> exp;
     Netflix netflix;
+    boolean requested = false;
 
     @Override
     public void request(Downloader downloader) {
         try {
             netflix = Netflix.getInstance();
             exp = netflix.getExps().getExpList();
+            index = netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
             // Index
             downloader.reqMktData(netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
 
             // Options
             netflix.getTwsHandler().requestOptions(netflix.getExps().getExpList());
+
+            requested = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,11 +39,7 @@ public class NetflixRequester implements ITwsRequester {
 
     @Override
     public void reciever(int tickerId, int field, double price, TickAttr attribs) {
-        int index;
-        int minID, maxID;
 
-        // ---------- Apple ---------- //
-        index = netflix.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
         if (tickerId == index && price > 0) {
             // Last
@@ -95,5 +97,10 @@ public class NetflixRequester implements ITwsRequester {
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

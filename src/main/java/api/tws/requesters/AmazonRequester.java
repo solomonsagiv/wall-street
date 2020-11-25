@@ -12,20 +12,28 @@ import java.util.ArrayList;
 
 public class AmazonRequester implements ITwsRequester {
 
+    int index;
+    int minID, maxID;
+
     ArrayList<Exp> exp;
     Amazon amazon;
+
+    boolean requested = false;
 
     @Override
     public void request(Downloader downloader) {
         try {
             amazon = Amazon.getInstance();
             exp = amazon.getExps().getExpList();
+            index = amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
             // Index
             downloader.reqMktData(amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId(), amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX));
 
             // Options
             amazon.getTwsHandler().requestOptions(amazon.getExps().getExpList());
+
+            requested = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,11 +41,6 @@ public class AmazonRequester implements ITwsRequester {
 
     @Override
     public void reciever(int tickerId, int field, double price, TickAttr attribs) {
-        int index;
-        int minID, maxID;
-
-        // ---------- Apple ---------- //
-        index = amazon.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
 
         if (tickerId == index && price > 0) {
             // Last
@@ -96,5 +99,10 @@ public class AmazonRequester implements ITwsRequester {
     @Override
     public void sizeReciever(int tickerId, int field, int size) {
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

@@ -45,7 +45,7 @@ public class IndexStocksTable extends MySqlTable {
             }
         } );
     }
-
+    
     @Override
     public void load() {
         String query = String.format( "SELECT * FROM jsonTables.indexStocks WHERE name ='%s';", client.getName() );

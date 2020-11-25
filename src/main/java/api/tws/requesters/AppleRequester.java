@@ -12,20 +12,27 @@ import java.util.ArrayList;
 
 public class AppleRequester implements ITwsRequester {
 
+    int index;
+    int minID, maxID;
     ArrayList< Exp > exp;
     Apple apple;
+
+    boolean requested = false;
 
     @Override
     public void request( Downloader downloader ) {
         try {
             apple = Apple.getInstance( );
             exp = apple.getExps( ).getExpList( );
+            index = apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
             // Index
             downloader.reqMktData( apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( ), apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ) );
 
             // Options
             apple.getTwsHandler( ).requestOptions( apple.getExps( ).getExpList( ) );
+
+            requested = true;
         } catch ( Exception e ) {
             e.printStackTrace( );
         }
@@ -33,11 +40,6 @@ public class AppleRequester implements ITwsRequester {
 
     @Override
     public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
-        int index;
-        int minID, maxID;
-
-        // ---------- Apple ---------- //
-        index = apple.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
 
         if ( tickerId == index && price > 0 ) {
             // Last
@@ -95,5 +97,10 @@ public class AppleRequester implements ITwsRequester {
     @Override
     public void sizeReciever( int tickerId, int field, int size ) {
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

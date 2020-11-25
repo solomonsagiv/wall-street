@@ -20,6 +20,7 @@ public class DaxRequester implements ITwsRequester {
     int indexId, futureId;
     E e1;
     StocksHandler stocksHandler;
+    boolean requested = false;
 
     @Override
     public void request( Downloader downloader ) {
@@ -32,6 +33,8 @@ public class DaxRequester implements ITwsRequester {
             downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.INDEX ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.INDEX ) );
             // Future
             downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE ) );
+
+            requested = true;
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -108,5 +111,10 @@ public class DaxRequester implements ITwsRequester {
 //                }
 //            }
 //        }
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

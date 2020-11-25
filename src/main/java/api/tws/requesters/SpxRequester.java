@@ -20,6 +20,7 @@ public class SpxRequester implements ITwsRequester {
     int indexId, futureId, futureFarId;
     E e1, e2;
     StocksHandler stocksHandler;
+    boolean requested = false;
 
     @Override
     public void request( Downloader downloader ) {
@@ -37,7 +38,10 @@ public class SpxRequester implements ITwsRequester {
             downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ) );
 
             // Stocks
-//            requestStocks( downloader );
+            requestStocks( downloader );
+
+            // Requested status
+            requested = true;
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -56,7 +60,9 @@ public class SpxRequester implements ITwsRequester {
             try {
                 MiniStock stock = entry.getValue( );
                 contract.symbol( stock.getName( ) );
-                
+
+                System.out.println( stock.getName()  + "  lksdjflsdkfjdslkfjsdlkfjsdlfkjsdflkjsdflkdsjfljk");
+
                 downloader.reqMktData( stock.getId( ), contract );
             } catch ( Exception e ) {
                 e.printStackTrace( );
@@ -115,9 +121,6 @@ public class SpxRequester implements ITwsRequester {
 
             // Spx miniStocks
             if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
-
-                System.out.println( tickerId );
-
                 MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
 
                 // Bid
@@ -154,11 +157,18 @@ public class SpxRequester implements ITwsRequester {
 
             MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
 
-            if ( field == 8 ) {
-                stock.setVolume( size );
+            if ( stock.getName().equals( "AAPL" ) ) {
+                if ( field == 8 ) {
+                    stock.setVolume( size );
+                }
             }
 
         }
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }
