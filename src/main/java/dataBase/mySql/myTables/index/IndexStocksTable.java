@@ -5,7 +5,6 @@ import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
 import dataBase.mySql.mySqlComps.MySqlTable;
 import myJson.MyJson;
-import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 import java.sql.ResultSet;

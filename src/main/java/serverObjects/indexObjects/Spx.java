@@ -4,11 +4,9 @@ import DDE.DDECells;
 import DDE.DDECellsEnum;
 import api.Manifest;
 import api.tws.requesters.SpxRequester;
-import basketFinder.MiniStock;
 import basketFinder.handlers.StocksHandler;
 import charts.myCharts.EDeltaChart;
 import charts.myCharts.FourLineChart;
-import charts.myCharts.FullCharts;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.E;
@@ -25,7 +23,6 @@ import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
-import java.util.Map;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
@@ -110,6 +107,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
         ddeCells.addCell( DDECellsEnum.LOW, "R10C2" );
         ddeCells.addCell( DDECellsEnum.BASE, "R8C5" );
+        ddeCells.addCell(DDECellsEnum.FUT_WEEK, "R36C4");
+        ddeCells.addCell(DDECellsEnum.FUT_MONTH, "R37C4");
+        ddeCells.addCell(DDECellsEnum.FUT_QUARTER, "R38C4");
+        ddeCells.addCell(DDECellsEnum.FUT_QUARTER_FAR, "R39C4");
 
         setDdeCells( ddeCells );
     }

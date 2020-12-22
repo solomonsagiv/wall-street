@@ -23,7 +23,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
-
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -72,6 +71,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
     MyTimeSeries indBidAskMarginSeries;
+
+    private double futWeek = 0;
+    private double futMonth = 0;
+    private double futQuarter = 0;
+    private double futQuarterFar = 0;
     private double startStrike;
     private double endStrike;
     private boolean loadFromDb = false;
@@ -197,6 +201,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 return client.getBidAskMarginCounter();
             }
         };
+
     }
 
     public double getBidAskMarginCounter() {
@@ -734,7 +739,43 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return logicService;
     }
 
-    public void setLogicService( LogicService logicService ) {
+    public double getFutWeek() {
+        return futWeek;
+    }
+
+    public void setFutWeek(double futWeek) {
+        this.futWeek = futWeek;
+    }
+
+    public double getFutMonth() {
+        return futMonth;
+    }
+
+    public void setFutMonth(double futMonth) {
+        this.futMonth = futMonth;
+    }
+
+    public static int getPRE() {
+        return PRE;
+    }
+
+    public double getFutQuarter() {
+        return futQuarter;
+    }
+
+    public void setFutQuarter(double futQuarter) {
+        this.futQuarter = futQuarter;
+    }
+
+    public double getFutQuarterFar() {
+        return futQuarterFar;
+    }
+
+    public void setFutQuarterFar(double futQuarterFar) {
+        this.futQuarterFar = futQuarterFar;
+    }
+
+    public void setLogicService(LogicService logicService ) {
         this.logicService = logicService;
     }
 

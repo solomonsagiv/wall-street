@@ -3,8 +3,8 @@ package api;
 public class Manifest {
 
     // REAL ACCOUNT
-    public static int REAL_PORT = 7777;
-    public static int CLIENT_ID = 98;
+    public static int REAL_PORT = 4343;
+    public static int CLIENT_ID = 999;
     public static String REAL_ACCOUNT = "U2177653";
 
     // SNUPPI ACCOUNT
@@ -19,9 +19,9 @@ public class Manifest {
     public static boolean DB = false;
     public static boolean DB_RUNNER = false;
     public static boolean DB_UPDATER = false;
-    public static boolean OPEN_CHARTS = false;
-    public static String ACCOUNT = REAL_ACCOUNT;
-    public static int PORT = REAL_PORT;
+    public static boolean OPEN_CHARTS = true;
+    public static String ACCOUNT = SNUPPI_ACCOUNT;
+    public static int PORT = SNUPPI_PORT;
     public static int SCREEN = 0;
     /*
      * On expiration change
