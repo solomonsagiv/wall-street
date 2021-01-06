@@ -21,6 +21,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     public MyGuiComps.MyTextField conRacesField;
     public MyGuiComps.MyTextField indRacesField;
+
     // Ticker
     MyGuiComps.MyPanel ticker;
     MyGuiComps.MyTextField openField;
@@ -34,10 +35,12 @@ public class IndexPanel extends JPanel implements IMyPanel {
     MyGuiComps.MyTextField futureField;
     MyGuiComps.MyTextField opField;
     MyGuiComps.MyTextField opAvgField;
+
     // Quarter
     MyGuiComps.MyTextField opAvgQuarterField;
     MyGuiComps.MyTextField opQuarterField;
     MyGuiComps.MyTextField contractQuarterField;
+
     // Races and roll
     MyGuiComps.MyPanel racesAndRollPanel;
     MyGuiComps.MyLabel conRacesLbl;

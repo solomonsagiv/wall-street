@@ -71,7 +71,7 @@ public class BackGroundHandler {
                     now = LocalTime.now( );
 
                     double last = client.getIndex( );
-                    
+
                     // Index start time
                     if ( now.isAfter( client.getIndexStartTime( ) ) && !client.isStarted( ) && last_0 != last ) {
                         if ( client.getOpen( ) == 0 ) {

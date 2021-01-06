@@ -11,8 +11,10 @@ import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import dataTable.DataTable;
 import exp.Exps;
 import lists.ListsService;
+import lists.MyDoubleList;
 import locals.IJson;
 import locals.L;
 import locals.LocalHandler;
@@ -23,6 +25,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -44,6 +47,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     protected double indBidMarginCounter = 0;
     protected double indAskMarginCounter = 0;
+
+    // Data table
+    DataTable dataTable;
 
     // Roll
     protected RollHandler rollHandler;
@@ -72,6 +78,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexBidAskCounterSeries;
     MyTimeSeries indBidAskMarginSeries;
 
+    private double futDay = 0;
     private double futWeek = 0;
     private double futMonth = 0;
     private double futQuarter = 0;
@@ -83,6 +90,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     private LocalTime indexStartTime;
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
+
+
+
+    MyDoubleList dayOpList = new MyDoubleList( );
+    MyDoubleList weekOpList = new MyDoubleList( );
+    MyDoubleList monthOpList = new MyDoubleList( );
+    MyDoubleList e2OpList = new MyDoubleList( );
 
     // Base id
     private int baseId;
@@ -168,7 +182,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         indexScaledSeries = new MyTimeSeries( "Index scaled", this, true ) {
             @Override
             public double getData() {
-                return client.getIndex();
+                return client.getIndex( );
             }
         };
         indexSeries = new MyTimeSeries( "Index", this ) {
@@ -198,7 +212,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         indBidAskMarginSeries = new MyTimeSeries( "Margin counter", this ) {
             @Override
             public double getData() throws UnknownHostException {
-                return client.getBidAskMarginCounter();
+                return client.getBidAskMarginCounter( );
             }
         };
 
@@ -300,7 +314,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public double getRacesMargin() {
-        return index * .0001;
+        return index * .00008;
     }
 
     public DefaultTableModel getModel() {
@@ -464,7 +478,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setIndex( double index ) {
-        if (index > 1) {
+        if ( index > 1 ) {
             this.index = index;
         }
     }
@@ -474,13 +488,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setIndexBid( double indexBid ) {
-        if (indexBid > 1) {
-            if (indexBid > this.indexBid) {
+        if ( indexBid > 1 ) {
+            if ( indexBid > this.indexBid ) {
                 indexBidAskCounter2++;
             }
 
             // If increment state
-            if (indexBid > this.indexBid && indexAskForCheck == this.indexAsk) {
+            if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
                 indexBidAskCounter++;
             }
             this.indexBid = indexBid;
@@ -488,6 +502,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // Ask for bid change state
             indexBidForCheck = indexBid;
             indexAskForCheck = this.indexAsk;
+
         }
     }
 
@@ -505,13 +520,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setIndexAsk( double indexAsk ) {
-        if (indexAsk > 1) {
-            if (indexAsk < this.indexAsk) {
+        if ( indexAsk > 1 ) {
+            if ( indexAsk < this.indexAsk ) {
                 indexBidAskCounter2--;
             }
 
             // If increment state
-            if (indexAsk < this.indexAsk && indexBidForCheck == indexBid) {
+            if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
                 indexBidAskCounter--;
             }
             this.indexAsk = indexAsk;
@@ -519,6 +534,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // Handle state
             indexAskForCheck = indexAsk;
             indexBidForCheck = indexBid;
+
         }
     }
 
@@ -527,7 +543,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setOpen( double open ) {
-        if (open > 1) {
+        if ( open > 1 ) {
             this.open = open;
         }
     }
@@ -537,7 +553,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setHigh( double high ) {
-        if (high > 1) {
+        if ( high > 1 ) {
             this.high = high;
         }
     }
@@ -547,7 +563,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setLow( double low ) {
-        if (low > 1) {
+        if ( low > 1 ) {
             this.low = low;
         }
     }
@@ -557,7 +573,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void setBase( double base ) {
-        if (base > 1) {
+        if ( base > 1 ) {
             this.base = base;
         }
     }
@@ -739,20 +755,34 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return logicService;
     }
 
+    public double getFutDay() {
+        return futDay;
+    }
+
+    public void setFutDay( double futDay ) {
+        if ( futDay > 0 ) {
+            this.futDay = futDay;
+        }
+    }
+
     public double getFutWeek() {
         return futWeek;
     }
 
-    public void setFutWeek(double futWeek) {
-        this.futWeek = futWeek;
+    public void setFutWeek( double futWeek ) {
+        if ( futWeek > 0 ) {
+            this.futWeek = futWeek;
+        }
     }
 
     public double getFutMonth() {
         return futMonth;
     }
 
-    public void setFutMonth(double futMonth) {
-        this.futMonth = futMonth;
+    public void setFutMonth( double futMonth ) {
+        if ( futMonth > 0 ) {
+            this.futMonth = futMonth;
+        }
     }
 
     public static int getPRE() {
@@ -763,25 +793,52 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return futQuarter;
     }
 
-    public void setFutQuarter(double futQuarter) {
-        this.futQuarter = futQuarter;
+    public void setFutQuarter( double futQuarter ) {
+        if ( futQuarter > 0 ) {
+            this.futQuarter = futQuarter;
+        }
     }
 
     public double getFutQuarterFar() {
         return futQuarterFar;
     }
 
-    public void setFutQuarterFar(double futQuarterFar) {
-        this.futQuarterFar = futQuarterFar;
+    public void setFutQuarterFar( double futQuarterFar ) {
+        if ( futQuarterFar > 0 ) {
+            this.futQuarterFar = futQuarterFar;
+        }
     }
 
-    public void setLogicService(LogicService logicService ) {
+    public void setLogicService( LogicService logicService ) {
         this.logicService = logicService;
+    }
+
+    public MyDoubleList getWeekOpList() {
+        return weekOpList;
+    }
+
+    public MyDoubleList getMonthOpList() {
+        return monthOpList;
+    }
+
+    public MyDoubleList getE2OpList() {
+        return e2OpList;
+    }
+
+    public MyDoubleList getDayOpList() {
+        return dayOpList;
     }
 
     @Override
     public MyJson getAsJson() {
         return null;
+    }
+
+    public DataTable getDataTable() {
+        if ( dataTable == null ) {
+            dataTable = new DataTable();
+        }
+        return dataTable;
     }
 
     public DataBaseHandler getDataBaseHandler() {
@@ -795,6 +852,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
+                ", Rows=" + getDataTable().getRows().size() +
+                ", Day fut=" + getFutDay( ) +
+                ", Week fut=" + getFutWeek() +
+                ", Month fut=" + getFutMonth() +
+                ", E1 fut=" + getFutQuarter() +
+                ", E2 fut=" + getFutQuarterFar() +
                 ", optionsHandler=" + exps.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +

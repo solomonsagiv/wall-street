@@ -39,6 +39,7 @@ public class MyChart {
     MyTimeSeries[] series;
     MyProps props;
     boolean load = false;
+    XYLineAndShapeRenderer renderer;
 
     // Constructor
     public MyChart( BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props ) {
@@ -97,7 +98,7 @@ public class MyChart {
         }
 
         // Style lines
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer( );
+        renderer = new XYLineAndShapeRenderer( );
         renderer.setShapesVisible( false );
         plot.setRenderer( renderer );
 
@@ -106,6 +107,7 @@ public class MyChart {
 
             // Append serie
             data.addSeries( serie );
+            serie.setId( i );
 
             // Style serie
             renderer.setSeriesShapesVisible( i, false );
@@ -117,8 +119,18 @@ public class MyChart {
 
     }
 
+    public MyTimeSeries[] getSeries() {
+        return series;
+    }
+
     public ChartUpdater getUpdater() {
         return updater;
+    }
+
+    public void updateSeriesVisibility() {
+        for ( MyTimeSeries serie : series ) {
+            renderer.setSeriesVisible( serie.getId(), serie.isVisible() );
+        }
     }
 
     // ---------- Chart updater thread ---------- //
@@ -235,7 +247,9 @@ public class MyChart {
 
                             for ( MyTimeSeries mts : series ) {
                                 for ( int i = startIndex; i < endIndex; i++ ) {
-                                    dots.add( mts.getScaledData( i ) );
+                                    if ( mts.isVisible() ) {
+                                        dots.add( mts.getScaledData( i ) );
+                                    }
                                 }
                             }
 
@@ -245,10 +259,11 @@ public class MyChart {
 
                             for ( MyTimeSeries mts : series ) {
                                 for ( int i = startIndex; i < endIndex; i++ ) {
-                                    dots.add( ( Double ) mts.getValue( i ) );
+                                    if ( mts.isVisible( ) ) {
+                                        dots.add( ( Double ) mts.getValue( i ) );
+                                    }
                                 }
                             }
-
                             min = Collections.min( dots );
                             max = Collections.max( dots );
                         }
@@ -297,9 +312,13 @@ public class MyChart {
                 ArrayList< Double > dots = new ArrayList<>( );
                 for ( MyTimeSeries serie : series ) {
                     if ( serie.isScaled( ) ) {
-                        dots.addAll( serie.getMyValues( ).scaledList( ) );
+                        if ( serie.isVisible() ) {
+                            dots.addAll( serie.getMyValues( ).scaledList( ) );
+                        }
                     } else {
-                        dots.addAll( serie.getMyValues( ) );
+                        if ( serie.isVisible() ) {
+                            dots.addAll( serie.getMyValues( ) );
+                        }
                     }
                 }
 
@@ -371,7 +390,6 @@ public class MyChart {
 
                 int startIndex = ( int ) L.abs( series[ 0 ].getIndex( startPeroid ) );
                 int endIndex = ( int ) L.abs( series[ 0 ].getIndex( endPeroid ) );
-
 
             } catch ( ParseException e ) {
                 e.printStackTrace( );

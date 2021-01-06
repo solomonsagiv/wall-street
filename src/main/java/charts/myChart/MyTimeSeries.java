@@ -21,15 +21,17 @@ interface ITimeSeries {
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
+    private int id = 0;
     public static final int TIME = 0;
     public static final int VALUE = 1;
     protected BASE_CLIENT_OBJECT client;
     MyProps props;
-    String name;
+    private String name;
     Second lastSeconde;
     private Color color;
     private float stokeSize;
     private boolean scaled = false;
+    private boolean visible = true;
 
     MyDoubleList myValues;
 
@@ -164,5 +166,21 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             lastSeconde = new Second( );
         }
         return lastSeconde;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible( boolean visible ) {
+        this.visible = visible;
+    }
+
+    public void setId( int id ) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

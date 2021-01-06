@@ -20,7 +20,7 @@ public class Themes {
     public static Color GREY_LIGHT = new Color( 234, 229, 234 );
     public static Color GREY = new Color( 203, 225, 222 );
     public static Color PURPLE = new Color( 130, 3, 194 );
-    public static Color DARK_YELLOW = new Color( 40, 110, 24 );
+    public static Color DARK_GREEN = new Color( 40, 110, 24 );
 
     // Races
     public static Color OPEN_RACE = new Color( 148, 201, 246 );
@@ -30,8 +30,9 @@ public class Themes {
     public static Color LIGHT_BLUE = new Color( 176, 196, 222 );
     public static Color VERY_LIGHT_BLUE = new Color( 235, 228, 235 );
     public static Color GREEN = new Color( 7, 153, 98 );
-    public static Color GREEN_LIGHT = new Color(94, 172, 147);
+    public static Color GREEN_LIGHT = new Color( 94, 172, 147 );
     public static Color GREEN_LIGHT_2 = new Color( 141, 213, 136 );
+    public static Color GREEN_LIGHT_3 = new Color( 108, 93, 156 );
     public static Color RED = new Color( 229, 19, 0 );
     public static Color PINK_LIGHT = new Color( 255, 124, 176 );
 

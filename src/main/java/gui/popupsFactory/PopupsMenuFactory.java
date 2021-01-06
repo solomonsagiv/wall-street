@@ -1,11 +1,13 @@
 package gui.popupsFactory;
 
+import Excel.MyExcelWriter;
 import basketFinder.window.BasketWindow;
 import charts.myCharts.*;
 import charts.myCharts.stockCharts.MonthCounter_IndexCounter_Index_Chart;
 import charts.myCharts.stockCharts.Month_Index_Live_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
+import gui.MyGuiComps;
 import options.fullOptions.FullOptionsWindow;
 import options.fullOptions.PositionsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -251,6 +253,17 @@ public class PopupsMenuFactory {
             }
         } );
 
+
+        JMenuItem threeFut = new JMenuItem( "Futures real time" );
+        threeFut.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                FuturesChart chart = new FuturesChart( client );
+                chart.createChart( );
+            }
+        } );
+
+
         JMenuItem indexCounter_index_item = new JMenuItem( "E2 / Ind counuter/ Ind ( 2 )" );
         indexCounter_index_item.addActionListener( new ActionListener( ) {
             @Override
@@ -293,6 +306,20 @@ public class PopupsMenuFactory {
             }
         } );
 
+        JMenuItem export_to_excel = new JMenuItem( "Export to excel" );
+        export_to_excel.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                try {
+                    MyExcelWriter writer = new MyExcelWriter( );
+                    writer.export( client.getDataTable( ) );
+                } catch ( Exception exception ) {
+                    JOptionPane.showMessageDialog( null, exception.getStackTrace() );
+                }
+            }
+        } );
+
+
         JMenuItem details = new JMenuItem( "Details" );
         details.addActionListener( new ActionListener( ) {
             @Override
@@ -319,6 +346,8 @@ public class PopupsMenuFactory {
         } );
 
         export.add( exportSumLine );
+        export.add( export_to_excel );
+        charts.add( threeFut );
         charts.add( fullCharts );
         charts.add( fourLineChart );
         charts.add( opAvg15 );

@@ -5,8 +5,7 @@ import DDE.DDECellsEnum;
 import api.Manifest;
 import api.tws.requesters.SpxRequester;
 import basketFinder.handlers.StocksHandler;
-import charts.myCharts.EDeltaChart;
-import charts.myCharts.FourLineChart;
+import charts.myCharts.FuturesChart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.E;
@@ -43,7 +42,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setLogicService( new LogicService( this, ExpStrings.e1 ) );
         roll( );
         myTableHandler( );
-        initStocksHandler();
+        initStocksHandler( );
     }
 
     private void initStocksHandler() {
@@ -73,11 +72,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public void initExpHandler() throws NullPointerException {
 
         // E1
-        OptionsDDeCells e1DDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
+        OptionsDDeCells e1DDeCells = new OptionsDDeCells( "R12C10", "R12C9", "R12C11" );
         E e = new E( this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpStrings.e1 ), e1DDeCells );
 
         // E2
-        OptionsDDeCells e2DDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
+        OptionsDDeCells e2DDeCells = new OptionsDDeCells( "R13C10", "R13C9", "R13C11" );
         E e2 = new E( this, ExpStrings.e2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpStrings.e2 ), e2DDeCells );
 
         // Add to
@@ -90,6 +89,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initDDECells() {
+
         DDECells ddeCells = new DDECells( ) {
             @Override
             public boolean isWorkWithDDE() {
@@ -101,18 +101,19 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
         ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
         ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
-        ddeCells.addCell( DDECellsEnum.INDEX_MOVE_15, "R3C1" );
 
-        ddeCells.addCell( DDECellsEnum.OPEN, "R10C4" );
-        ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
-        ddeCells.addCell( DDECellsEnum.LOW, "R10C2" );
-        ddeCells.addCell( DDECellsEnum.BASE, "R8C5" );
-        ddeCells.addCell(DDECellsEnum.FUT_WEEK, "R36C4");
-        ddeCells.addCell(DDECellsEnum.FUT_MONTH, "R37C4");
-        ddeCells.addCell(DDECellsEnum.FUT_QUARTER, "R38C4");
-        ddeCells.addCell(DDECellsEnum.FUT_QUARTER_FAR, "R39C4");
+        ddeCells.addCell( DDECellsEnum.OPEN, "R13C4" );
+        ddeCells.addCell( DDECellsEnum.HIGH, "R13C1" );
+        ddeCells.addCell( DDECellsEnum.LOW, "R13C2" );
+        ddeCells.addCell( DDECellsEnum.BASE, "R11C5" );
+        ddeCells.addCell( DDECellsEnum.FUT_DAY, "R9C10" );
+        ddeCells.addCell( DDECellsEnum.FUT_WEEK, "R10C10" );
+        ddeCells.addCell( DDECellsEnum.FUT_MONTH, "R11C10" );
+        ddeCells.addCell( DDECellsEnum.FUT_QUARTER, "R12C10" );
+        ddeCells.addCell( DDECellsEnum.FUT_QUARTER_FAR, "R13C10" );
 
         setDdeCells( ddeCells );
+
     }
 
     @Override
@@ -160,15 +161,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if ( Manifest.OPEN_CHARTS ) {
-            FourLineChart chart = new FourLineChart( client );
-            chart.createChart( );
-
-            EDeltaChart fullCharts = new EDeltaChart( client );
-            try {
-                fullCharts.createChart( );
-            } catch ( CloneNotSupportedException e ) {
-                e.printStackTrace( );
-            }
+            FuturesChart chart = new FuturesChart( this );
+            chart.createChart();
         }
     }
 

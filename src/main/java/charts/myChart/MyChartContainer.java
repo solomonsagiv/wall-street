@@ -95,6 +95,8 @@ public class MyChartContainer extends JFrame {
     }
 
     private void mouseListener( MyChartPanel chartPanel, MyChart myChart ) {
+
+        // 2 Clicks
         chartPanel.addMouseListener( new MouseAdapter( ) {
             @Override
             public void mouseClicked( MouseEvent e ) {
@@ -109,6 +111,7 @@ public class MyChartContainer extends JFrame {
             }
         } );
 
+        // Mouse release
         chartPanel.addMouseListener( new MouseAdapter( ) {
             @Override
             public void mouseReleased( MouseEvent e ) {
@@ -118,26 +121,15 @@ public class MyChartContainer extends JFrame {
             }
         } );
 
-        chartPanel.addKeyListener( new KeyAdapter( ) {
+        chartPanel.addMouseListener( new MouseAdapter( ) {
             @Override
-            public void keyReleased( KeyEvent e ) {
-                super.keyReleased( e );
-
-                // Right arrow
-                if ( e.getKeyCode() == KeyEvent.VK_RIGHT ) {
-                    myChart.getUpdater().moveForward();
+            public void mouseClicked( MouseEvent e ) {
+                super.mouseClicked( e );
+                if ( e.getButton() == MouseEvent.BUTTON3 ) {
+                   new ChartFilterWindow( "Filter", client, myChart );
                 }
             }
         } );
-
-//        chartPanel.addMouseListener( new MouseAdapter( ) {
-//            @Override
-//            public void mouseDragged( MouseEvent e ) {
-//                super.mouseDragged( e );
-//                System.out.println( "Mouse dragged" );
-//                myChart.getUpdater( ).updateChartRange( );
-//            }
-//        } );
     }
 
     private void addPan( MyChartPanel chartPanel ) {

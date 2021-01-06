@@ -57,10 +57,14 @@ public class ListsService extends MyBaseService {
         client.getIndexScaledSeries().add( time );
         client.getIndBidAskMarginSeries().add(time);
 
+        client.getDayOpList().add( client.getFutDay() - client.getIndex() );
+        client.getWeekOpList().add( client.getFutWeek() - client.getIndex() );
+        client.getMonthOpList().add( client.getFutMonth() - client.getIndex() );
+        client.getE2OpList().add( client.getFutQuarterFar() - client.getIndex() );
+
         // Index
         if ( client instanceof INDEX_CLIENT_OBJECT ) {
             ((INDEX_CLIENT_OBJECT) client ).getStocksHandler().getDeltaSeries().add();
-            System.out.println( "Delta : " + ((INDEX_CLIENT_OBJECT) client ).getStocksHandler().getDelta() );
         }
 
         // Options lists

@@ -15,6 +15,7 @@ import dataBase.mySql.myTables.index.IndexStocksTable;
 import exp.E;
 import exp.ExpStrings;
 import exp.Exps;
+import logic.LogicService;
 import myJson.MyJson;
 import options.JsonStrings;
 import options.optionsCalcs.IndexOptionsCalc;
@@ -40,6 +41,8 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         tablesHandler.addTable(TablesEnum.SUM, new SumJsonTable(this));
         tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
         tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this));
+
+        setLogicService( new LogicService( this, "DAY" ) );
     }
 
     @Override

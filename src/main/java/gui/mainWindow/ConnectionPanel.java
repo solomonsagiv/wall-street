@@ -8,6 +8,7 @@ import gui.LogWindow;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     Downloader downloader;
 
     private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
-    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/SPX.xlsx";
+    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPX.xlsx]Spx";
 
     // Constructor
     public ConnectionPanel() {
@@ -92,7 +93,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     public void connectDDE() {
         try {
-            ddeReader = new DDEReader();
+            ddeReader = new DDEReader( Spx.getInstance() );
             ddeReader.getHandler().start();
 
             ddeWriter = new DDEWriter();
