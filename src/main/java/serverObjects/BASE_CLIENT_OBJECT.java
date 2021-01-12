@@ -1,6 +1,7 @@
 package serverObjects;
 
 import DDE.DDECells;
+import DDE.DDECellsBloomberg;
 import api.Downloader;
 import api.Manifest;
 import api.tws.ITwsRequester;
@@ -91,8 +92,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
 
-
-
     MyDoubleList dayOpList = new MyDoubleList( );
     MyDoubleList weekOpList = new MyDoubleList( );
     MyDoubleList monthOpList = new MyDoubleList( );
@@ -143,7 +142,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
             // Call subClasses abstract functions
             initBaseId( );
-            initDDECells( );
             initSeries( );
 
             // MyServices
@@ -675,6 +673,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public DDECells getDdeCells() {
+        if ( ddeCells == null ) {
+            ddeCells = new DDECellsBloomberg();
+        }
         return ddeCells;
     }
 

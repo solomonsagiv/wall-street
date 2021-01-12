@@ -34,7 +34,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDbId( 2 );
         setStrikeMargin( 5 );
         setBaseId( 10000 );
-        initDDECells( );
         setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
@@ -85,35 +84,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         exps.addExp( e2, ExpStrings.e2 );
         exps.setMainExp( e );
         setExps( exps );
-    }
-
-    @Override
-    public void initDDECells() {
-
-        DDECells ddeCells = new DDECells( ) {
-            @Override
-            public boolean isWorkWithDDE() {
-                return true;
-            }
-        };
-
-        // Ind
-        ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
-        ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
-        ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
-
-        ddeCells.addCell( DDECellsEnum.OPEN, "R13C4" );
-        ddeCells.addCell( DDECellsEnum.HIGH, "R13C1" );
-        ddeCells.addCell( DDECellsEnum.LOW, "R13C2" );
-        ddeCells.addCell( DDECellsEnum.BASE, "R11C5" );
-        ddeCells.addCell( DDECellsEnum.FUT_DAY, "R9C10" );
-        ddeCells.addCell( DDECellsEnum.FUT_WEEK, "R10C10" );
-        ddeCells.addCell( DDECellsEnum.FUT_MONTH, "R11C10" );
-        ddeCells.addCell( DDECellsEnum.FUT_QUARTER, "R12C10" );
-        ddeCells.addCell( DDECellsEnum.FUT_QUARTER_FAR, "R13C10" );
-
-        setDdeCells( ddeCells );
-
     }
 
     @Override

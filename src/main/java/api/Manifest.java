@@ -1,5 +1,7 @@
 package api;
 
+import dataBase.mySql.MyDBConnections;
+
 public class Manifest {
 
     // REAL ACCOUNT
@@ -14,12 +16,13 @@ public class Manifest {
     // TEST ACCOUNT
     public static String TEST_ACCOUNT = "DU1293791";
     public static int TEST_PORT = 3333;
-    
+                                            
     // SELECTED ACCOUNT
     public static boolean DB = false;
     public static boolean DB_RUNNER = false;
     public static boolean DB_UPDATER = false;
     public static boolean OPEN_CHARTS = true;
+    public static final int DB_CONNECTION_TYPE = MyDBConnections.SLO_POSTGRES_LOCAL;
     public static String ACCOUNT = SNUPPI_ACCOUNT;
     public static int PORT = SNUPPI_PORT;
     public static int SCREEN = 0;

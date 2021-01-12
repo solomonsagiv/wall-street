@@ -96,8 +96,8 @@ public class DDEReader extends MyThread implements Runnable {
         client.setFutDay( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_DAY ) ) );
         client.setFutWeek( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_WEEK ) ) );
         client.setFutMonth( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_MONTH ) ) );
-        client.setFutQuarter( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_QUARTER ) ) );
-        client.setFutQuarterFar( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_QUARTER_FAR ) ) );
+        client.setFutQuarter( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E1 ) ) );
+        client.setFutQuarterFar( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E2 ) ) );
 
     }
 

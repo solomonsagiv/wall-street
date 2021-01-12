@@ -1,5 +1,7 @@
 package dataBase.mySql;
 
+import api.Manifest;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,6 +21,7 @@ public class ConnectionPool implements IConnectionPool {
     private List< Connection > connections;
     private List< Connection > usedConnections = new ArrayList<>( );
 
+    // Constructor
     private ConnectionPool( String url, String user, String password, List< Connection > connections ) {
         this.url = url;
         this.user = user;
@@ -29,11 +32,9 @@ public class ConnectionPool implements IConnectionPool {
     public static ConnectionPool getConnectionsPoolInstance() {
         if ( connectionPool == null ) {
             try {
-                String url = "jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/";
-                String user = "sagivMasterUser";
-                String password = "Solomonsagivawsmaster12";
-
-                connectionPool = ConnectionPool.create( url, user, password );
+                MyDBConnections dbConnections = new MyDBConnections();
+                DBConnectionType connectionType = dbConnections.getConnectionType( Manifest.DB_CONNECTION_TYPE );
+                connectionPool = ConnectionPool.create( connectionType );
             } catch ( Exception e ) {
 //                Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
             }
@@ -41,20 +42,20 @@ public class ConnectionPool implements IConnectionPool {
         return connectionPool;
     }
 
-    public static ConnectionPool create( String url, String user, String password ) throws SQLException {
+    public static ConnectionPool create( DBConnectionType dbConnectionType ) throws SQLException {
         List< Connection > pool = new ArrayList<>( );
         try {
             for ( int i = 0; i < INITIAL_POOL_SIZE; i++ ) {
                 new Thread( () -> {
                     try {
-                        pool.add( createConnection( url, user, password ) );
+                        pool.add( createConnection( dbConnectionType.getUrl(), dbConnectionType.getUser(), dbConnectionType.getPassword() ) );
                     } catch ( SQLException throwables ) {
                         throwables.printStackTrace( );
                     }
                 } ).start( );
             }
         } finally {
-            return new ConnectionPool( url, user, password, pool );
+            return new ConnectionPool( dbConnectionType.getUrl(), dbConnectionType.getUser(), dbConnectionType.getPassword(), pool );
         }
     }
 

@@ -41,7 +41,7 @@ public abstract class Exp implements IJson {
     private double futureAskForCheck = 0;
     private double futureBidForCheck = 0;
 
-    private Exp( BASE_CLIENT_OBJECT client, String expName, TwsContractsEnum twsContractsEnum ) {
+    private Exp( BASE_CLIENT_OBJECT client, String expName ) {
         this.client = client;
         this.expName = expName;
         this.twsContractsEnum = twsContractsEnum;
@@ -50,14 +50,14 @@ public abstract class Exp implements IJson {
     }
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, String expName, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs ) {
-        this( client, expName, twsContractsEnum );
+    public Exp( BASE_CLIENT_OBJECT client, String expName, IOptionsCalcs iOptionsCalcs ) {
+        this( client, expName );
         this.options = new Options( client, this, iOptionsCalcs );
     }
 
     // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, String expName, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
-        this( client, expName, twsContractsEnum );
+    public Exp( BASE_CLIENT_OBJECT client, String expName, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
+        this( client, expName );
         this.options = new Options( client, this, iOptionsCalcs, optionsDDeCells );
     }
 
