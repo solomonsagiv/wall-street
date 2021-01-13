@@ -13,6 +13,9 @@ import dataBase.mySql.MySqlService;
 import dataBase.mySql.TablesHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataTable.DataTable;
+import exp.E;
+import exp.ExpReg;
+import exp.ExpStrings;
 import exp.Exps;
 import lists.ListsService;
 import lists.MyDoubleList;
@@ -41,7 +44,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Options
     protected Exps exps;
-    protected TwsHandler twsHandler;
     protected ITwsRequester iTwsRequester;
     protected DDECells ddeCells;
     protected double strikeMargin = 0;
@@ -59,7 +61,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     protected OptionsDataHandler optionsDataHandler;
 
     // TablesHandler
-    protected TablesHandler tablesHandler;
     protected LogicService logicService;
 
     // Basic
@@ -147,7 +148,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
-            twsHandler = new TwsHandler( );
             dataBaseHandler = new DataBaseHandler( this );
 
         } catch ( Exception e ) {
@@ -216,41 +216,27 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     }
 
+    @Override
+    public void initExpHandler() {
+        // Add to
+        Exps exps = new Exps( this );
+        exps.addExp( new ExpReg( this, ExpStrings.day ) );
+        exps.addExp( new ExpReg( this, ExpStrings.week ) );
+        exps.addExp( new ExpReg( this, ExpStrings.month ) );
+        exps.addExp( new E( this, ExpStrings.e1 ) );
+        exps.addExp( new E( this, ExpStrings.e2 ) );
+        setExps( exps );
+
+    }
+
     public double getBidAskMarginCounter() {
         return indBidMarginCounter - indAskMarginCounter;
     }
 
     public void fullExport() {
 
-        boolean sumLine = false, status = false, arrays = false;
+       // TODO
 
-        try {
-            getTablesHandler( ).getTable( TablesEnum.SUM ).insert( );
-            sumLine = true;
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-        }
-
-        try {
-            getTablesHandler( ).getTable( TablesEnum.STATUS ).reset( );
-            status = true;
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-        }
-
-        try {
-            getTablesHandler( ).getTable( TablesEnum.ARRAYS ).reset( );
-            arrays = true;
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-        }
-
-        String text = getName( ).toUpperCase( ) + "\n" +
-                "Export line: " + sumLine + "\n" +
-                "Reset status: " + status + "\n" +
-                "Reset array: " + arrays + "\n";
-
-        Arik.getInstance( ).sendMessage( Arik.sagivID, text, null );
     }
 
     // ---------- Getters and Setters ---------- //
@@ -373,8 +359,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             return true;
         }
 
-        TablesHandler th = getTablesHandler( );
-        return th.getTable( TablesEnum.STATUS ).isLoad( ) && th.getTable( TablesEnum.ARRAYS ).isLoad( ) && th.getTable( TablesEnum.TWS_CONTRACTS ).isLoad( );
+        return true;
     }
 
     public void setLoadFromDb( boolean loadFromDb ) {
@@ -612,6 +597,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return exps;
     }
 
+
     public void setExps( Exps exps ) {
         this.exps = exps;
     }
@@ -674,30 +660,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public DDECells getDdeCells() {
         if ( ddeCells == null ) {
-            ddeCells = new DDECellsBloomberg();
+            ddeCells = new DDECellsBloomberg( );
         }
         return ddeCells;
     }
 
     public void setDdeCells( DDECells ddeCells ) {
         this.ddeCells = ddeCells;
-    }
-
-    public TwsHandler getTwsHandler() {
-        return twsHandler;
-    }
-
-    public void setTwsHandler( TwsHandler twsHandler ) {
-        this.twsHandler = twsHandler;
-    }
-
-    public TablesHandler getTablesHandler() {
-        if ( tablesHandler == null ) throw new NullPointerException( getName( ) + " Table handler didn't set" );
-        return tablesHandler;
-    }
-
-    public void setTablesHandler( TablesHandler tablesHandler ) {
-        this.tablesHandler = tablesHandler;
     }
 
     public int getIndexBidAskCounter() {
@@ -800,6 +769,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         }
     }
 
+
     public double getFutQuarterFar() {
         return futQuarterFar;
     }
@@ -837,7 +807,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public DataTable getDataTable() {
         if ( dataTable == null ) {
-            dataTable = new DataTable();
+            dataTable = new DataTable( );
         }
         return dataTable;
     }
@@ -853,12 +823,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", Rows=" + getDataTable().getRows().size() +
+                ", Rows=" + getDataTable( ).getRows( ).size( ) +
                 ", Day fut=" + getFutDay( ) +
-                ", Week fut=" + getFutWeek() +
-                ", Month fut=" + getFutMonth() +
-                ", E1 fut=" + getFutQuarter() +
-                ", E2 fut=" + getFutQuarterFar() +
+                ", Week fut=" + getFutWeek( ) +
+                ", Month fut=" + getFutMonth( ) +
+                ", E1 fut=" + getFutQuarter( ) +
+                ", E2 fut=" + getFutQuarterFar( ) +
                 ", optionsHandler=" + exps.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +

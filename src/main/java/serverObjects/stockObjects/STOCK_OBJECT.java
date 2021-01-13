@@ -10,7 +10,7 @@ import dataBase.mySql.myTables.TwsContractsTable;
 import dataBase.mySql.myTables.stock.StockArraysTable;
 import exp.ExpMonth;
 import exp.ExpStrings;
-import exp.ExpWeek;
+import exp.ExpReg;
 import exp.Exps;
 import logic.LogicService;
 import myJson.MyJson;
@@ -56,28 +56,9 @@ public abstract class STOCK_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void initExpHandler() {
-
-        // Week
-        ExpWeek expWeek = new ExpWeek(this, ExpStrings.week, TwsContractsEnum.OPT_WEEK, new StockOptionsCalc(this, ExpStrings.week));
-
-        // Month
-        ExpMonth expMonth = new ExpMonth(this, ExpStrings.month, TwsContractsEnum.OPT_MONTH, new StockOptionsCalc(this, ExpStrings.month));
-
-        // Exp handler
-        Exps exps = new Exps(this);
-        exps.addExp(expWeek, ExpStrings.week);
-        exps.addExp(expMonth, ExpStrings.month);
-        exps.setMainExp(expMonth);
-
-        setExps(exps);
-    }
-
-    @Override
     public void setIndex(double index) {
         if (this.index == 0) {
             this.index = index;
-            getExps().initOptions(index);
 
             // Request options tws
             if (getApi() == ApiEnum.TWS) {

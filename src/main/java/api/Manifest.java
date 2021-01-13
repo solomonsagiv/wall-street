@@ -16,6 +16,9 @@ public class Manifest {
     // TEST ACCOUNT
     public static String TEST_ACCOUNT = "DU1293791";
     public static int TEST_PORT = 3333;
+
+    // GATEWAY
+    public static int GATEWAY_PORT = 4001;
                                             
     // SELECTED ACCOUNT
     public static boolean DB = false;
@@ -24,7 +27,7 @@ public class Manifest {
     public static boolean OPEN_CHARTS = true;
     public static final int DB_CONNECTION_TYPE = MyDBConnections.SLO_POSTGRES_LOCAL;
     public static String ACCOUNT = SNUPPI_ACCOUNT;
-    public static int PORT = SNUPPI_PORT;
+    public static int PORT = GATEWAY_PORT;
     public static int SCREEN = 0;
     /*
      * On expiration change

@@ -68,25 +68,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public void initExpHandler() throws NullPointerException {
-
-        // E1
-        OptionsDDeCells e1DDeCells = new OptionsDDeCells( "R12C10", "R12C9", "R12C11" );
-        E e = new E( this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpStrings.e1 ), e1DDeCells );
-
-        // E2
-        OptionsDDeCells e2DDeCells = new OptionsDDeCells( "R13C10", "R13C9", "R13C11" );
-        E e2 = new E( this, ExpStrings.e2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpStrings.e2 ), e2DDeCells );
-
-        // Add to
-        Exps exps = new Exps( this );
-        exps.addExp( e, ExpStrings.e1 );
-        exps.addExp( e2, ExpStrings.e2 );
-        exps.setMainExp( e );
-        setExps( exps );
-    }
-
-    @Override
     public void setIndexBid( double indexBid ) {
         super.setIndexBid( indexBid );
 

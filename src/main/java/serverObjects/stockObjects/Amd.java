@@ -14,7 +14,6 @@ public class Amd extends STOCK_OBJECT {
         setStrikeMargin(1);
 
         setDbId(8);
-        initDDECells();
         setiTwsRequester(new AmdRequester());
     }
 
@@ -29,17 +28,6 @@ public class Amd extends STOCK_OBJECT {
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
-    }
-
-    @Override
-    public void initDDECells() {
-        DDECells ddeCells = new DDECells() {
-            @Override
-            public boolean isWorkWithDDE() {
-                return false;
-            }
-        };
-        setDdeCells(ddeCells);
     }
 
     @Override

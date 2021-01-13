@@ -23,13 +23,8 @@ public class E extends Exp {
     private MyTimeSeries deltaSerie;
     private MyTimeSeries deltaScaledSerie;
 
-    public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum contractsEnum, IOptionsCalcs iOptionsCalcs ) {
-        super( client, expEnum, contractsEnum, iOptionsCalcs );
-        initSeries( );
-    }
-
-    public E( BASE_CLIENT_OBJECT client, String expEnum, TwsContractsEnum twsContractsEnum, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
-        super( client, expEnum, twsContractsEnum, iOptionsCalcs, optionsDDeCells );
+    public E( BASE_CLIENT_OBJECT client, String expEnum ) {
+        super( client, expEnum );
         initSeries( );
     }
 

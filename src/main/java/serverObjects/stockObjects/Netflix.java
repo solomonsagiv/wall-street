@@ -18,7 +18,6 @@ public class Netflix extends STOCK_OBJECT {
         setStrikeMargin(5);
 
         setDbId(7);
-        initDDECells();
         setIndexStartTime(LocalTime.of(16, 30, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
@@ -46,17 +45,6 @@ public class Netflix extends STOCK_OBJECT {
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
-    }
-
-    @Override
-    public void initDDECells() {
-        DDECells ddeCells = new DDECells() {
-            @Override
-            public boolean isWorkWithDDE() {
-                return false;
-            }
-        };
-        setDdeCells(ddeCells);
     }
 
     @Override

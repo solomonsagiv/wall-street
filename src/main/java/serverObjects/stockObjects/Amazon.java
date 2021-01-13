@@ -13,7 +13,6 @@ public class Amazon extends STOCK_OBJECT {
         setName("amazon");
         setStrikeMargin(10);
         setDbId(5);
-        initDDECells();
         setiTwsRequester(new AmazonRequester());
     }
 
@@ -28,17 +27,6 @@ public class Amazon extends STOCK_OBJECT {
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
-    }
-
-    @Override
-    public void initDDECells() {
-        DDECells ddeCells = new DDECells() {
-            @Override
-            public boolean isWorkWithDDE() {
-                return false;
-            }
-        };
-        setDdeCells(ddeCells);
     }
 
     @Override

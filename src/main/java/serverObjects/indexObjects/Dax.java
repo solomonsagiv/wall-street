@@ -27,7 +27,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setDbId(1);
         setStrikeMargin(5);
         setBaseId(100000);
-        initDDECells();
         setIndexStartTime(LocalTime.of(10, 0, 0));
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
@@ -47,28 +46,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     private void myTableHandler() {
         tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
-    }
-
-    @Override
-    public void initExpHandler() throws NullPointerException {
-        // E1
-        E e = new E(this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc(this, ExpStrings.e1));
-
-        Exps exps = new Exps(this);
-        exps.addExp(e, ExpStrings.e1);
-        exps.setMainExp(e);
-        setExps(exps);
-    }
-
-    @Override
-    public void initDDECells() {
-        DDECells ddeCells = new DDECells() {
-            @Override
-            public boolean isWorkWithDDE() {
-                return false;
-            }
-        };
-        setDdeCells(ddeCells);
     }
 
     @Override

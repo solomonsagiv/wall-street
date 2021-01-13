@@ -28,7 +28,6 @@ public abstract class Exp implements IJson {
     protected int futBidAskCounter = 0;
     protected double futDelta = 0;
     ExpData expData;
-    Options options;
     List< Double > opFutList = new ArrayList<>( );
     List< Double > futList = new ArrayList<>( );
 
@@ -41,24 +40,11 @@ public abstract class Exp implements IJson {
     private double futureAskForCheck = 0;
     private double futureBidForCheck = 0;
 
-    private Exp( BASE_CLIENT_OBJECT client, String expName ) {
+    public Exp( BASE_CLIENT_OBJECT client, String expName ) {
         this.client = client;
         this.expName = expName;
-        this.twsContractsEnum = twsContractsEnum;
         this.expData = new ExpData( expName, client );
         initSeries( );
-    }
-
-    // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, String expName, IOptionsCalcs iOptionsCalcs ) {
-        this( client, expName );
-        this.options = new Options( client, this, iOptionsCalcs );
-    }
-
-    // Constructor
-    public Exp( BASE_CLIENT_OBJECT client, String expName, IOptionsCalcs iOptionsCalcs, OptionsDDeCells optionsDDeCells ) {
-        this( client, expName );
-        this.options = new Options( client, this, iOptionsCalcs, optionsDDeCells );
     }
 
     public void initSeries() {
@@ -135,11 +121,6 @@ public abstract class Exp implements IJson {
         for ( int i = 0; i < size; i++ ) {
             opFutList.add( opAvg );
         }
-    }
-
-    // Getters and setters
-    public Options getOptions() {
-        return options;
     }
 
     public LocalDate getExpDate() {
@@ -241,7 +222,6 @@ public abstract class Exp implements IJson {
         json.put( JsonStrings.futBid, getCalcFutBid( ) );
         json.put( JsonStrings.futAsk, getCalcFutAsk( ) );
         json.put( JsonStrings.futBidAskCounter, getFutBidAskCounter( ) );
-        json.put( JsonStrings.options, getOptions( ).getAsJson( ) );
         json.put( JsonStrings.expData, expData.getAsJson( ) );
         try {
             json.put( JsonStrings.opAvgFut, getOpAvgFut( ) );
@@ -254,7 +234,6 @@ public abstract class Exp implements IJson {
     @Override
     public void loadFromJson( MyJson json ) {
         setFutBidAskCounter( json.getInt( JsonStrings.futBidAskCounter ) );
-        options.loadFromJson( new MyJson( json.getJSONObject( JsonStrings.options ) ) );
         expData.loadFromJson( new MyJson( json.getJSONObject( JsonStrings.expData ) ) );
     }
 

@@ -46,24 +46,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
     }
 
     @Override
-    public void initExpHandler() throws NullPointerException {
-
-        // E1
-        E e1 = new E(this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc(this, ExpStrings.e1));
-
-        // E2
-        E e2 = new E(this, ExpStrings.e2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc(this, ExpStrings.e2));
-
-        // Append to handler
-        Exps exps = new Exps(this);
-        exps.addExp(e1, ExpStrings.e1);
-        exps.addExp(e2, ExpStrings.e2);
-        exps.setMainExp(e1);
-
-        setExps(exps);
-    }
-
-    @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson();
         json.put(JsonStrings.ind, getIndex());

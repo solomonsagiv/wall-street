@@ -24,9 +24,9 @@ public class Exps implements IJson {
         positionCalculator = new PositionCalculator(client);
     }
 
-    public void addExp(Exp exp, String expName) {
+    public void addExp(Exp exp) {
         expList.add(exp);
-        expMap.put(expName, exp);
+        expMap.put(exp.getName(), exp);
     }
 
     private void initStartEndStrikes(double future) {
@@ -39,17 +39,6 @@ public class Exps implements IJson {
 
         client.setStartStrike(startStrike);
         client.setEndStrike(endStrike);
-
-    }
-
-    public void initOptions(double future) {
-
-        initStartEndStrikes(future);
-
-        for (Exp exp : getExpList()) {
-            System.out.println("Init options: " + exp);
-            exp.getOptions().initOptions();
-        }
 
     }
 
