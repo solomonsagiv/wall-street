@@ -1,9 +1,5 @@
 package api;
 
-import charts.myCharts.EDeltaChart;
-import lists.MyDoubleList;
-import serverObjects.indexObjects.Spx;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

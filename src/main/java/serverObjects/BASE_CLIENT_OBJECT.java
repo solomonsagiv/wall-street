@@ -2,16 +2,11 @@ package serverObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsBloomberg;
-import api.Downloader;
 import api.Manifest;
-import api.tws.ITwsRequester;
-import api.tws.TwsHandler;
-import arik.Arik;
 import charts.myChart.MyTimeSeries;
 import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.TablesHandler;
-import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.dataUpdaters.DataUpdater_A;
 import dataTable.DataTable;
 import exp.E;
 import exp.ExpReg;
@@ -24,7 +19,6 @@ import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
 import myJson.MyJson;
-import options.OptionsDataHandler;
 import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
@@ -44,7 +38,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Options
     protected Exps exps;
-    protected ITwsRequester iTwsRequester;
     protected DDECells ddeCells;
     protected double strikeMargin = 0;
 
@@ -56,9 +49,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Roll
     protected RollHandler rollHandler;
-
-    // Options handler
-    protected OptionsDataHandler optionsDataHandler;
 
     // TablesHandler
     protected LogicService logicService;
@@ -148,7 +138,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
-            dataBaseHandler = new DataBaseHandler( this );
+            dataBaseHandler = new DataBaseHandler( this, new DataUpdater_A() );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -307,13 +297,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public void setModel( DefaultTableModel model ) {
         this.model = model;
-    }
-
-    public OptionsDataHandler getOptionsDataHandler() {
-        if ( optionsDataHandler == null ) {
-            optionsDataHandler = new OptionsDataHandler( this );
-        }
-        return optionsDataHandler;
     }
 
     public HashMap< String, Integer > getIds() {
@@ -684,16 +667,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public void setRollHandler( RollHandler rollHandler ) {
         this.rollHandler = rollHandler;
-    }
-
-    public ITwsRequester getiTwsRequester() {
-        if ( iTwsRequester == null ) throw new NullPointerException( "Tws requester not set " );
-        return iTwsRequester;
-    }
-
-    public void setiTwsRequester( ITwsRequester iTwsRequester ) {
-        this.iTwsRequester = iTwsRequester;
-        Downloader.getInstance( ).addRequester( iTwsRequester );
     }
 
     public MyTimeSeries getIndexSeries() {

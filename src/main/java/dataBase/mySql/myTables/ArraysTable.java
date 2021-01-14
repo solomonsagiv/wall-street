@@ -137,44 +137,6 @@ public class ArraysTable extends MyArraysTable {
                 return new JSONArray( ).toString( );
             }
         } );
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.e1DeltaList ) {
-            @Override
-            public String getObject() throws UnknownHostException, ParseException {
-                return ( ( E ) client.getExps( ).getExp( ExpStrings.e1 ) ).getDeltaSerie( ).getLastJson( ).toString( );
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                if ( object != null ) {
-                    ( ( E ) client.getExps( ).getExp( ExpStrings.e1 ) ).getDeltaSerie( ).add( new MyJson( object ) );
-                }
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        } );
-
-        addColumn( new MyLoadAbleColumn< String >( this, MySqlColumnEnum.stocksDelta ) {
-
-            @Override
-            public String getObject() throws UnknownHostException, ParseException {
-                return client.getStocksHandler( ).getDeltaSeries( ).getLastJson( ).toString( );
-            }
-
-            @Override
-            public void setLoadedObject( String object ) {
-                if ( object != null ) {
-                    client.getStocksHandler( ).getDeltaSeries( ).add( new MyJson( object ) );
-                }
-            }
-
-            @Override
-            public String getResetObject() {
-                return new JSONArray( ).toString( );
-            }
-        } );
 
     }
 }

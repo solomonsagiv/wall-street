@@ -47,18 +47,6 @@ public class FullCharts extends MyChartCreator {
 
         Exp e1 = client.getExps().getExp(ExpStrings.e1);
 
-        // ---------- EDelta ---------- //
-        // Index
-        MyTimeSeries deltaSerie = (( E )e1).getDeltaSerie();
-        deltaSerie.setColor(Themes.GREEN);
-        deltaSerie.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[1];
-        series[0] = deltaSerie;
-
-        // Chart
-        MyChart deltaChart = new MyChart(client, series, propsWithMarker);
-
         // --------- OpAvgFuture 15 ---------- //
         MyProps opAvgFutureProps = (MyProps) props.clone();
         opAvgFutureProps.setProp(ChartPropsEnum.MARKER, marker);
@@ -116,7 +104,7 @@ public class FullCharts extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, deltaChart, opAvgFuture15Chart, opAvgFutureChart, indexBidAskCounterChart};
+        MyChart[] charts = {indexChart, opAvgFuture15Chart, opAvgFutureChart, indexBidAskCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

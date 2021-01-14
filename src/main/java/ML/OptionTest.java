@@ -1,7 +1,5 @@
 package ML;
 
-import shlomi.positions.Position;
-
 import java.util.ArrayList;
 
 public class OptionTest {
@@ -23,9 +21,6 @@ public class OptionTest {
     private double theoreticPrice;
     private boolean callOrPut;
 
-    // Trading variables
-    private Position position;
-
     private ArrayList<Double> bidStateList = new ArrayList<>();
     private ArrayList<Double> askStateList = new ArrayList<>();
 
@@ -44,7 +39,6 @@ public class OptionTest {
             setCallOrPut(false);
         }
 
-        setPosition(new Position());
     }
 
 
@@ -256,14 +250,6 @@ public class OptionTest {
     public String toString() {
         return getSide() + " [last=" + last + ", base=" + base + ", bid=" + bid + ", ask=" + ask + ", bidAskCounter="
                 + bidAskCounter + "]";
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 
     public double getTheoreticPrice() {

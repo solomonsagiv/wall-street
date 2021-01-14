@@ -1,25 +1,14 @@
 package serverObjects.indexObjects;
 
-import DDE.DDECells;
-import DDE.DDECellsEnum;
 import api.Manifest;
-import api.tws.requesters.SpxRequester;
-import basketFinder.handlers.StocksHandler;
 import charts.myCharts.FuturesChart;
-import dataBase.mySql.mySqlComps.TablesEnum;
-import dataBase.mySql.myTables.index.IndexStocksTable;
-import exp.E;
 import exp.ExpStrings;
-import exp.Exps;
 import logic.LogicService;
-import options.OptionsDDeCells;
-import options.optionsCalcs.IndexOptionsCalc;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
 
@@ -37,15 +26,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
-        setiTwsRequester( new SpxRequester( ) );
         setLogicService( new LogicService( this, ExpStrings.e1 ) );
         roll( );
-        myTableHandler( );
-        initStocksHandler( );
-    }
-
-    private void initStocksHandler() {
-        stocksHandler = new StocksHandler( 10200, client );
     }
 
     // get instance
@@ -54,10 +36,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             client = new Spx( );
         }
         return client;
-    }
-
-    private void myTableHandler() {
-        tablesHandler.addTable( TablesEnum.INDEX_STOCKS, new IndexStocksTable( this ) );
     }
 
     private void roll() {

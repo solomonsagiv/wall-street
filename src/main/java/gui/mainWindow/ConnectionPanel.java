@@ -2,7 +2,7 @@ package gui.mainWindow;
 
 import DDE.DDEReader;
 import DDE.DDEWriter;
-import api.Downloader;
+import IDDEReaderUpdater.DDEReaderUpdater_A;
 import api.Manifest;
 import gui.LogWindow;
 import gui.MyGuiComps;
@@ -31,7 +31,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     DDEReader ddeReader;
     DDEWriter ddeWriter;
-    Downloader downloader;
 
     private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
     private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPX.xlsx]Spx";
@@ -56,9 +55,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         break;
                     case "DDE":
                         connectDDE();
-                        break;
-                    case "TWS":
-                        connectTws();
                         break;
                     default:
                         break;
@@ -88,44 +84,17 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     public void connectAll() {
         connectDDE();
-        connectTws();
     }
 
     public void connectDDE() {
         try {
-            ddeReader = new DDEReader( Spx.getInstance() );
+            ddeReader = new DDEReader( Spx.getInstance(),new DDEReaderUpdater_A( Spx.getInstance() ) );
             ddeReader.getHandler().start();
 
             ddeWriter = new DDEWriter();
             ddeWriter.getHandler().start();
 
             ddeStatusLbl.setForeground(Themes.GREEN);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void connectTws() {
-        try {
-            Manifest.CLIENT_ID = L.INT(portField.getText());
-            downloader = Downloader.getInstance();
-
-            if (!downloader.isAlive() && !downloader.getClient().isConnected()) {
-                downloader.start();
-                new Thread(() -> {
-                    for (int i = 0; i < 5; i++) {
-                        try {
-                            Thread.sleep(1000);
-                            if (downloader.isConnected()) {
-                                twsStatusLbl.setForeground(Themes.GREEN);
-                                break;
-                            }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -4,10 +4,8 @@ import exp.Exp;
 import exp.ExpStrings;
 import gui.MyGuiComps;
 import locals.Themes;
-import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import setting.clientSetting.RacesPanel;
-import setting.clientSetting.TwsPanel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -23,7 +21,6 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
     RacesPanel racesPanel;
     PropsPanel propsPanel;
     ExecutorsPanel executorsPanel;
-    TwsPanel twsPanel;
 
     // Constructor
     public OptionsPanel(BASE_CLIENT_OBJECT client) {
@@ -88,30 +85,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         executorsPanel.setXY(propsPanel.getX() + propsPanel.getWidth() + 1, propsPanel.getY());
         add(executorsPanel);
 
-        // Tws
-        twsPanel = new TwsPanel(client);
-        twsPanel.setXY(executorsPanel.getX() + executorsPanel.getWidth() + 1, executorsPanel.getY());
-        add(twsPanel);
-
-        // Combo
-        comboBox = new JComboBox(getOptionsArrayString());
-        comboBox.setBackground(Themes.BLUE);
-        comboBox.setForeground(Themes.GREY_VERY_LIGHT);
-        comboBox.setBounds(twsPanel.getX() + twsPanel.getWidth() + 5, twsPanel.getY(), 120, 25);
-        add(comboBox);
     }
 
-    public String[] getOptionsArrayString() {
-        String[] optionsTypes = new String[client.getExps().getExpList().size()];
-        int i = 0;
-        for (Exp exp : client.getExps().getExpList()) {
-
-            Options options = exp.getOptions();
-
-            optionsTypes[i] = exp.getName();
-            i++;
-        }
-        return optionsTypes;
-    }
 
 }

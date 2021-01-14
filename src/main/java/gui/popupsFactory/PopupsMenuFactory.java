@@ -1,113 +1,16 @@
 package gui.popupsFactory;
 
 import Excel.MyExcelWriter;
-import basketFinder.window.BasketWindow;
 import charts.myCharts.*;
-import charts.myCharts.stockCharts.MonthCounter_IndexCounter_Index_Chart;
-import charts.myCharts.stockCharts.Month_Index_Live_Chart;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
-import gui.MyGuiComps;
-import options.fullOptions.FullOptionsWindow;
-import options.fullOptions.PositionsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.stockObjects.STOCK_OBJECT;
 import setting.clientSetting.SettingWindow;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PopupsMenuFactory {
-
-    public static JPopupMenu stockPanel( STOCK_OBJECT client ) {
-        // Main menu
-        JPopupMenu menu = new JPopupMenu( );
-
-        // Charts menu
-        JMenu charts = new JMenu( "Charts" );
-
-        // Setting
-        JMenuItem settingWindow = new JMenuItem( "Setting" );
-        settingWindow.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                new SettingWindow( client.getName( ), client );
-            }
-        } );
-        
-        JMenuItem contractIndexRealTime = new JMenuItem( "Month - Index live" );
-        contractIndexRealTime.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                Month_Index_Live_Chart chart = new Month_Index_Live_Chart( client );
-                chart.createChart( );
-            }
-        } );
-
-        JMenuItem indexBidAskCounterItem = new JMenuItem( "Counters - Index" );
-        indexBidAskCounterItem.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                MonthCounter_IndexCounter_Index_Chart chart = new MonthCounter_IndexCounter_Index_Chart( client );
-                try {
-                    chart.createChart( );
-                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-                    cloneNotSupportedException.printStackTrace( );
-                }
-            }
-        } );
-
-        // Export menu
-        JMenu export = new JMenu( "Export" );
-
-        JMenuItem exportSumLine = new JMenuItem( "Export sum line" );
-        exportSumLine.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                client.getTablesHandler( ).getTable( TablesEnum.SUM ).insert( );
-            }
-        } );
-
-        JMenuItem details = new JMenuItem( "Details" );
-        details.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                DetailsWindow detailsWindow = new DetailsWindow( client );
-                detailsWindow.frame.setVisible( true );
-            }
-        } );
-
-        JMenuItem fullOptionsTable = new JMenuItem( "Full options table" );
-        fullOptionsTable.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                new FullOptionsWindow( client );
-            }
-        } );
-
-        JMenuItem optionsPosition = new JMenuItem( "Positions" );
-        optionsPosition.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                new PositionsWindow( client, client.getExps( ).getPositionCalculator( ).getPositions( ) );
-            }
-        } );
-
-        export.add( exportSumLine );
-
-        charts.add( contractIndexRealTime );
-        charts.add( indexBidAskCounterItem );
-
-        menu.add( details );
-        menu.add( settingWindow );
-        menu.add( export );
-        menu.add( charts );
-        menu.add( fullOptionsTable );
-        menu.add( optionsPosition );
-
-        return menu;
-    }
 
     public static JPopupMenu indexPanel( INDEX_CLIENT_OBJECT client ) {
 
@@ -123,14 +26,6 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 new SettingWindow( client.getName( ), client );
-            }
-        } );
-
-        JMenuItem baskets = new JMenuItem( "Baskets" );
-        baskets.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                new BasketWindow( "Baskets " + client.getName( ), client );
             }
         } );
 
@@ -152,46 +47,6 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 FullCharts chart = new FullCharts( client );
-                try {
-                    chart.createChart( );
-                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-                    cloneNotSupportedException.printStackTrace( );
-                }
-            }
-        } );
-
-        JMenuItem delta = new JMenuItem( "Delta E1" );
-        delta.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                EDeltaChart chart = new EDeltaChart( client );
-                try {
-                    chart.createChart( );
-                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-                    cloneNotSupportedException.printStackTrace( );
-                }
-            }
-        } );
-
-
-        JMenuItem eDeltaStocksDelta = new JMenuItem( "E1, stocks delta" );
-        eDeltaStocksDelta.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                EDeltaStocksDeltaChart chart = new EDeltaStocksDeltaChart( client );
-                try {
-                    chart.createChart( );
-                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-                    cloneNotSupportedException.printStackTrace( );
-                }
-            }
-        } );
-
-        JMenuItem deltaScaled = new JMenuItem( "Delta E1 scaled" );
-        deltaScaled.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                EDeltaScaledChart chart = new EDeltaScaledChart( client );
                 try {
                     chart.createChart( );
                 } catch ( CloneNotSupportedException cloneNotSupportedException ) {
@@ -302,7 +157,7 @@ public class PopupsMenuFactory {
         exportSumLine.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
-                client.getTablesHandler( ).getTable( TablesEnum.SUM ).insert( );
+                // todo
             }
         } );
 
@@ -329,22 +184,6 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem fullOptionsTable = new JMenuItem( "Full options table" );
-        fullOptionsTable.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                new FullOptionsWindow( client );
-            }
-        } );
-
-        JMenuItem optionsPosition = new JMenuItem( "Positions" );
-        optionsPosition.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                new PositionsWindow( client, client.getExps( ).getPositionCalculator( ).getPositions( ) );
-            }
-        } );
-
         export.add( exportSumLine );
         export.add( export_to_excel );
         charts.add( threeFut );
@@ -353,9 +192,6 @@ public class PopupsMenuFactory {
         charts.add( opAvg15 );
         charts.add( opAvg );
         charts.add( indexCounter_index_item );
-        charts.add( eDeltaStocksDelta );
-        charts.add( delta );
-        charts.add( deltaScaled );
         charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );
         charts.add( fiveLinesChart );
@@ -364,11 +200,8 @@ public class PopupsMenuFactory {
 
         menu.add( details );
         menu.add( settingWindow );
-        menu.add( baskets );
         menu.add( export );
         menu.add( charts );
-        menu.add( fullOptionsTable );
-        menu.add( optionsPosition );
 
         return menu;
     }

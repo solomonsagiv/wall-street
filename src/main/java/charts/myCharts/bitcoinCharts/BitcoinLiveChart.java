@@ -52,7 +52,7 @@ public class BitcoinLiveChart extends MyChartCreator {
             public double getData() {
                 ExpMonth expMonth = (ExpMonth) client.getExps().getExp(ExpStrings.month);
 
-                double fut = (expMonth.getCalcFutBid() + expMonth.getCalcFutAsk()) / 2;
+                double fut = (expMonth.getFutureBid() + expMonth.getFutureAsk()) / 2;
                 return fut;
             }
         };

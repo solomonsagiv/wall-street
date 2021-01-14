@@ -1,16 +1,13 @@
 package options;
 
 import charts.myChart.MyTimeSeries;
-import com.ib.client.Types;
 import exp.Exp;
 import lists.MyDoubleList;
 import locals.IJson;
 import locals.L;
 import myJson.MyJson;
-import options.optionsCalcs.IOptionsCalcs;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.MyContract;
 
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -44,27 +41,20 @@ public class Options implements IJson {
     MyDoubleList opList = new MyDoubleList();
     MyTimeSeries conBidAskCounterSeries;
     MyTimeSeries opAvgSeries;
-    IOptionsCalcs iOptionsCalcs;
     private boolean requested = false;
     private double contract = 0;
     private double conAskForCheck = 0;
     private double conBidForCheck = 0;
 
-    public Options(BASE_CLIENT_OBJECT client, Exp exp, IOptionsCalcs iOptionsCalcs) {
+    public Options(BASE_CLIENT_OBJECT client, Exp exp) {
         this.client = client;
         this.exp = exp;
-        this.iOptionsCalcs = iOptionsCalcs;
-
         strikes = new ArrayList<>();
         optionsMap = new HashMap<>();
         props = new OptionsProps();
         initSeries();
     }
 
-    public Options(BASE_CLIENT_OBJECT client, Exp exp, IOptionsCalcs iOptionsCalcs, OptionsDDeCells dDeCells) {
-        this(client, exp, iOptionsCalcs);
-        this.optionsDDeCells = dDeCells;
-    }
 
     public void initSeries() {
         conBidAskCounterSeries = new MyTimeSeries("conBidAskCounter", client) {
@@ -100,50 +90,6 @@ public class Options implements IJson {
         return null;
     }
 
-    public void initOptions() {
-
-        double startStrike = client.getStartStrike();
-        double endStrike = client.getEndStrike();
-
-        int id = exp.getTwsContract().getMyId();
-
-        for (double strike = startStrike; strike < endStrike; strike += client.getStrikeMargin()) {
-
-            // ----- Call ------ //
-            Call call = new Call(strike, id);
-
-            MyContract contractCall = new MyContract(exp.getTwsContract());
-
-            // MyTwsContract
-            contractCall.setMyId(id);
-            contractCall.strike(strike);
-            contractCall.right(Types.Right.Call);
-
-            client.getTwsHandler().addContract(contractCall);
-
-            call.setMyContract(contractCall);
-
-            setOption(call);
-            id++;
-
-            // ----- Put ------ //
-            Put put = new Put(strike, id);
-
-            MyContract contractPut = new MyContract(exp.getTwsContract());
-
-            // MyTwsContract
-            contractPut.setMyId(id);
-            contractPut.strike(strike);
-            contractPut.right(Types.Right.Put);
-            client.getTwsHandler().addContract(contractPut);
-
-            put.setMyContract(contractPut);
-
-            setOption(put);
-            id++;
-
-        }
-    }
 
     public void setOpValues(double val) {
         if (!opList.isEmpty()) {
@@ -203,49 +149,7 @@ public class Options implements IJson {
         }
     }
 
-    public void checkOptionData() {
-        new Thread(() -> {
-
-            while (!isGotData()) {
-                try {
-                    
-                    // Sleep
-                    Thread.sleep(1000);
-                    boolean bool = true;
-
-                    double increment = client.getStrikeMargin();
-
-                    // For each strike
-                    double strikInMoney = iOptionsCalcs.getStrikeInMoney();
-                    double startStrike = strikInMoney - increment * 2;
-                    double endStrike = strikInMoney + increment * 2;
-
-                    for (double strikePrice = startStrike; strikePrice < endStrike; strikePrice += client.getStrikeMargin()) {
-
-                        Strike strike = getStrike(strikePrice);
-
-                        Option call = strike.getCall();
-                        Option put = strike.getPut();
-
-                        if (call.getBid() == 0 || call.getAsk() == 0 || put.getBid() == 0 || put.getAsk() == 0) {
-                            bool = false;
-                            break;
-                        }
-                    }
-
-                    // Exit the function
-                    if (bool) {
-                        setGotData(bool);
-                        Thread.currentThread().interrupt();
-                    }
-
-                } catch (InterruptedException e) {
-                    break;
-                } catch (Exception e) {
-                }
-            }
-        }).start();
-    }
+    double dividend = 0;
 
     // Claculate the index from options
     public double getContract() {
@@ -277,7 +181,7 @@ public class Options implements IJson {
                         putAsk = 99999999;
                     }
 
-                    final double v = strike.getStrike() * (Math.exp((-props.getInterestZero() - 0.002 + iOptionsCalcs.getCalcDevidend()) * (getProps().getDays() / 360.0)));
+                    final double v = strike.getStrike() * (Math.exp((-props.getInterestZero() - 0.002 + dividend ) * (getProps().getDays() / 360.0)));
                     double buy = callAsk - putBid + v;
                     double sell = callBid - putAsk + v;
                     buys.add(buy);
@@ -300,65 +204,6 @@ public class Options implements IJson {
 
             return floor(((bidMin + askMax) / 2), 100);
         } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    // Claculate the index from options
-    public double calcContractAbsolute() {
-
-        try {
-            ArrayList<Double> buys = new ArrayList<>();
-            ArrayList<Double> sells = new ArrayList<>();
-
-            double strikeInMoney = iOptionsCalcs.getStrikeInMoney();
-            double startStrike = strikeInMoney - (client.getStrikeMargin() * 5);
-            double endStrike = strikeInMoney + (client.getStrikeMargin() * 5);
-
-            for (double strikePrice = startStrike; strikePrice <= endStrike; strikePrice += client.getStrikeMargin()) {
-
-                Strike strike;
-                double call_ask = 0;
-                double call_bid = 0;
-                double put_ask = 0;
-                double put_bid = 0;
-
-                try {
-                    strike = getStrike(strikePrice);
-
-                    call_ask = strike.getCall().getAsk();
-                    call_bid = strike.getCall().getBid();
-                    put_ask = strike.getPut().getAsk();
-                    put_bid = strike.getPut().getBid();
-
-                    if (call_ask <= 0) {
-                        call_ask = 99999999;
-                    }
-                    if (put_ask <= 0) {
-                        put_ask = 99999999;
-                    }
-
-                    double v = (strikePrice / (Math.pow(props.getInterest(), (getAbsolutDays() / 360.0))));
-
-                    double buy = (call_ask - put_bid) + v;
-                    double sell = (call_bid - put_ask) + v;
-
-                    buys.add(buy);
-                    sells.add(sell);
-
-                } catch (Exception e) {
-                    // TODO: handle exception
-                }
-            }
-
-            double currentBidMin = Collections.min(buys);
-            double currentAskMax = Collections.max(sells);
-
-            double future = floor((currentBidMin + currentAskMax) / 2, 100);
-
-            return future;
-        } catch (Exception e) {
-            e.printStackTrace();
             return 0;
         }
     }
@@ -751,10 +596,6 @@ public class Options implements IJson {
 
     public MyTimeSeries getOpAvgSeries() {
         return opAvgSeries;
-    }
-
-    public IOptionsCalcs getiOptionsCalcs() {
-        return iOptionsCalcs;
     }
 
     public double getCurrStrike() {

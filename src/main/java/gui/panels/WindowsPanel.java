@@ -1,18 +1,11 @@
 package gui.panels;
 
 import gui.MyGuiComps;
-import gui.fullStocksWindow.FullStocksWindow;
 import gui.index.IndexWindow;
-import gui.stock.StockWindow;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
-import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.*;
-import setting.fullSettingWindow.FullSettingWindow;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,46 +39,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "SPX":
                         new IndexWindow("Spx", Spx.getInstance());
                         break;
-                    case "NDX":
-                        new IndexWindow("Ndx", Ndx.getInstance());
-                        break;
-                    case "DAX":
-                        new IndexWindow("Dax", Dax.getInstance());
-                        break;
-                    case "APPLE":
-                        new StockWindow("Apple", Apple.getInstance());
-                        break;
-                    case "AMAZON":
-                        new StockWindow("Amazon", Amazon.getInstance());
-                        break;
-                    case "ULTA":
-                        new StockWindow("Ulta", Ulta.getInstance());
-                        break;
-                    case "NETFLIX":
-                        new StockWindow("Netflix", Netflix.getInstance());
-                        break;
-                    case "MICROSOFT":
-                        new StockWindow("Microsoft", Microsoft.getInstance());
-                        break;
-                    case "AMD":
-                        new StockWindow("Amd", Amd.getInstance());
-                        break;
-                    case "STOCKS":
-                        new FullStocksWindow("Stocks");
-                        JOptionPane.showConfirmDialog(null, selected);
-                        break;
                     default:
                         break;
                 }
-            }
-        });
-
-
-        // Full setting
-        fullSettingBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new FullSettingWindow("Full setting");
             }
         });
     }

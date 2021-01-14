@@ -46,12 +46,8 @@ public class Roll implements IJson {
     private double price(Exp exp) {
         double price = 0;
         try {
-            if (priceEnum == RollPriceEnum.CONTRACT) {
-                price = exp.getOptions().getContract();
-            }
-
             if (priceEnum == RollPriceEnum.FUTURE) {
-                price = exp.getCalcFut();
+                price = exp.getFuture();
             }
             return price;
         } catch (Exception e) {

@@ -5,9 +5,6 @@ import locals.IJson;
 import locals.L;
 import myJson.MyJson;
 import options.JsonStrings;
-import options.Options;
-import options.OptionsDDeCells;
-import options.optionsCalcs.IOptionsCalcs;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
@@ -22,9 +19,9 @@ public abstract class Exp implements IJson {
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
-    protected double calcFut = 0;
-    protected double calcFutBid = 0;
-    protected double calcFutAsk = 0;
+    protected double future = 0;
+    protected double futureBid = 0;
+    protected double futureAsk = 0;
     protected int futBidAskCounter = 0;
     protected double futDelta = 0;
     ExpData expData;
@@ -70,7 +67,7 @@ public abstract class Exp implements IJson {
 
     // Functions
     public double getFutureOp() {
-        return calcFut - client.getIndex( );
+        return future - client.getIndex( );
     }
 
     public double getOpAvgFut() throws UnknownHostException {
@@ -111,7 +108,7 @@ public abstract class Exp implements IJson {
     }
 
     public double getOpFuture() {
-        return calcFut - client.getIndex( );
+        return future - client.getIndex( );
     }
 
     public void setOpAvgFuture( double opAvg ) {
@@ -127,47 +124,47 @@ public abstract class Exp implements IJson {
         return expDate;
     }
 
-    public double getCalcFut() {
-        return calcFut;
+    public double getFuture() {
+        return future;
     }
 
-    public void setCalcFut( double calcFut ) {
-        if ( calcFut > 1 ) {
-            this.calcFut = calcFut;
+    public void setFuture( double future ) {
+        if ( future > 1 ) {
+            this.future = future;
         }
     }
 
-    public double getCalcFutBid() {
-        return calcFutBid;
+    public double getFutureBid() {
+        return futureBid;
     }
 
-    public void setCalcFutBid( double calcFutBid ) {
+    public void setFutureBid( double futureBid ) {
 
         // If increment state
-        if ( calcFutBid > this.calcFutBid && futureAskForCheck == this.calcFutAsk && client.isStarted( ) ) {
+        if ( futureBid > this.futureBid && futureAskForCheck == this.futureAsk && client.isStarted( ) ) {
             futBidAskCounter++;
         }
-        this.calcFutBid = calcFutBid;
+        this.futureBid = futureBid;
 
         // Ask for bid change state
-        futureAskForCheck = this.calcFutAsk;
+        futureAskForCheck = this.futureAsk;
 
     }
-
-    public double getCalcFutAsk() {
-        return calcFutAsk;
+    
+    public double getFutureAsk() {
+        return futureAsk;
     }
 
-    public void setCalcFutAsk( double calcFutAsk ) {
+    public void setFutureAsk( double futureAsk ) {
 
         // If increment state
-        if ( calcFutAsk < this.calcFutAsk && futureBidForCheck == this.calcFutBid && client.isStarted( ) ) {
+        if ( futureAsk < this.futureAsk && futureBidForCheck == this.futureBid && client.isStarted( ) ) {
             futBidAskCounter--;
         }
-        this.calcFutAsk = calcFutAsk;
+        this.futureAsk = futureAsk;
 
         // Ask for bid change state
-        futureBidForCheck = this.calcFutBid;
+        futureBidForCheck = this.futureBid;
 
     }
 
@@ -207,10 +204,6 @@ public abstract class Exp implements IJson {
         return twsContractsEnum;
     }
 
-    public tws.MyContract getTwsContract() {
-        return client.getTwsHandler( ).getMyContract( getTwsContractsEnum( ) );
-    }
-
     public String getName() {
         return expName;
     }
@@ -218,9 +211,9 @@ public abstract class Exp implements IJson {
     @Override
     public MyJson getAsJson() {
         MyJson json = new MyJson( );
-        json.put( JsonStrings.fut, getCalcFut( ) );
-        json.put( JsonStrings.futBid, getCalcFutBid( ) );
-        json.put( JsonStrings.futAsk, getCalcFutAsk( ) );
+        json.put( JsonStrings.fut, getFuture( ) );
+        json.put( JsonStrings.futBid, getFutureBid( ) );
+        json.put( JsonStrings.futAsk, getFutureAsk( ) );
         json.put( JsonStrings.futBidAskCounter, getFutBidAskCounter( ) );
         json.put( JsonStrings.expData, expData.getAsJson( ) );
         try {

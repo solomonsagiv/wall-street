@@ -99,7 +99,7 @@ public class FuturesChart extends MyChartCreator {
         MyTimeSeries futureQuarter = new MyTimeSeries( "Fut E1", client ) {
             @Override
             public double getData() {
-                return client.getExps( ).getExp( ExpStrings.e1 ).getCalcFut( );
+                return client.getExps( ).getExp( ExpStrings.e1 ).getFuture( );
             }
         };
 

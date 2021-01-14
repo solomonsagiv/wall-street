@@ -222,13 +222,11 @@ public class DetailsWindow {
             String text = convertListToString();
 
             textArea.setText(text);
-            optionsArea.setText(exp.getOptions().toStringVertical());
         }
 
         private ArrayList<String> getToStringList() {
             ArrayList<String> list = new ArrayList<>();
             list.add("Started: " + client.isStarted());
-            list.add("Contract: " + exp.getOptions().getContract());
             list.add("Index: " + client.getIndex());
             list.add("IndexBidAskCounter: " + client.getIndexBidAskCounter());
             list.add("Base: " + client.getBase());
@@ -237,16 +235,10 @@ public class DetailsWindow {
             list.add("MySql: " + client.getMyServiceHandler().isExist(client.getMySqlService()));
             list.add("\n");
             list.add("Exp date: " + exp.getExpDate());
-            list.add("Days: " + exp.getOptions().getProps().getDays());
             list.add("Start strike: " + client.getStartStrike());
             list.add("End strike: " + client.getEndStrike());
-            list.add("Got options: " + exp.getOptions().isGotData());
-            list.add("Interest: " + exp.getOptions().getProps().getInterest());
-            list.add("Devidend: " + exp.getOptions().getProps().getDevidend());
-            list.add("Calc Devidend: " + exp.getOptions().getiOptionsCalcs().getCalcDevidend());
             list.add("");
             list.add("Tws Contract");
-            list.add(client.getTwsHandler().getMyContract(exp.getTwsContractsEnum()).getAsJson().toString(4));
             list.add("");
             list.add("All details");
             list.add(client.toStringPretty());

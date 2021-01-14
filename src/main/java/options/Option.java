@@ -1,6 +1,5 @@
 package options;
 
-import shlomi.positions.Position;
 import tws.MyContract;
 
 import java.util.ArrayList;
@@ -26,9 +25,6 @@ public abstract class Option {
     private double delta;
     private MyContract myContract;
 
-    // Trading variables
-    private Position position;
-
     private ArrayList<Double> bidStateList = new ArrayList<>();
     private ArrayList<Double> askStateList = new ArrayList<>();
 
@@ -40,7 +36,6 @@ public abstract class Option {
         this.strike = strike;
         this.id = id;
 
-        setPosition(new Position());
     }
 
     public boolean gotBidAsk() {
@@ -241,14 +236,6 @@ public abstract class Option {
 
     public double getBidAskAvg() {
         return (bid + ask) / 2;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 
     public double getTheoreticPrice() {

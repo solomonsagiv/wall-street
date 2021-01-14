@@ -1,7 +1,6 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -66,7 +65,7 @@ public class FourLineChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries("Future", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.e1).getCalcFut();
+                return client.getExps().getExp(ExpStrings.e1).getFuture();
             }
         };
 

@@ -18,18 +18,11 @@ public class ContractWindowTest extends MyGuiComps.MyFrame {
     // Constructor
     public ContractWindowTest(String title) throws HeadlessException {
         super(title);
-
-        startDownloader();
     }
 
     public static void main(String[] args) {
         ContractWindowTest contractWindowTest = new ContractWindowTest("Contracts");
 
-    }
-
-    private void startDownloader() {
-        Downloader downloader = Downloader.getInstance();
-        downloader.start();
     }
 
     @Override

@@ -1,8 +1,6 @@
 package setting.clientSetting.optionsPanel;
 
-import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
-import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -37,40 +35,7 @@ public class PropsPanel extends MyGuiComps.MyPanel {
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
-                // Interest
-                if (!interestField.getText().isEmpty()) {
-                    try {
-                        double d = L.dbl(interestField.getText());
-                        OptionsPanel.exp.getOptions().getProps().setInterestWithCalc(d);
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
-                // Div
-                if (!divField.getText().isEmpty()) {
-                    try {
-                        double d = L.dbl(divField.getText());
-                        OptionsPanel.exp.getOptions().getProps().setDevidend(d);
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
-                // Days
-                if (!daysField.getText().isEmpty()) {
-                    try {
-                        double d = L.dbl(daysField.getText());
-                        OptionsPanel.exp.getOptions().getProps().setDays(d);
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage());
-                        e.printStackTrace();
-                    }
-                }
-
-                // Update to DB
-                client.getTablesHandler().getTable(TablesEnum.STATUS).update();
+                // todo
             }
         });
     }

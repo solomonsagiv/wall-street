@@ -3,9 +3,7 @@ package exp;
 import locals.IJson;
 import locals.L;
 import myJson.MyJson;
-import options.fullOptions.PositionCalculator;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,12 +14,10 @@ public class Exps implements IJson {
     Exp mainExp;
     private HashMap<String, Exp> expMap = new HashMap<>();
     private ArrayList<Exp> expList = new ArrayList<>();
-    private PositionCalculator positionCalculator;
 
     // Constructor
     public Exps(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        positionCalculator = new PositionCalculator(client);
     }
 
     public void addExp(Exp exp) {
@@ -61,14 +57,6 @@ public class Exps implements IJson {
 
     public void setExpList(ArrayList<Exp> expList) {
         this.expList = expList;
-    }
-
-    public PositionCalculator getPositionCalculator() {
-        return positionCalculator;
-    }
-
-    public void setPositionCalculator(PositionCalculator positionCalculator) {
-        this.positionCalculator = positionCalculator;
     }
 
     public Exp getMainExp() {

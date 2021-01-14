@@ -8,28 +8,6 @@ import java.util.Scanner;
 
 public class DeltaCalc {
 
-    public static void main( String[] args ) {
-        Spx client = Spx.getInstance( );
-
-        E e = ( E ) client.getExps( ).getExp( ExpStrings.e1 );
-
-        Scanner scanner = new Scanner( System.in );
-
-        int q = 1;
-
-        while ( true ) {
-            System.out.println( );
-            System.out.println( "Enter last" );
-            double last = scanner.nextDouble( );
-            e.setFutForDelta( last );
-            e.setBidForDelta( last - 0.5 );
-            e.setAskForDelta( last + 0.5 );
-
-            e.setVolumeFutForDelta( q );
-            q += 1;
-        }
-    }
-
     public static double calc( int quantity, double last, double preBid, double preAsk ) {
 
         double delta = 0;

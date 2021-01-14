@@ -93,7 +93,7 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         MyTimeSeries quarter = new MyTimeSeries("Quarter", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.e1).getCalcFut();
+                return client.getExps().getExp(ExpStrings.e1).getFuture();
             }
         };
 
@@ -104,7 +104,7 @@ public class IndexVsQuarterQuarterFarLiveChart extends MyChartCreator {
         MyTimeSeries quarterFar = new MyTimeSeries("QuarterFar", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.e2).getCalcFut();
+                return client.getExps().getExp(ExpStrings.e2).getFuture();
             }
         };
 

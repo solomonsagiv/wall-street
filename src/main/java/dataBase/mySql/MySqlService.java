@@ -20,23 +20,18 @@ public class MySqlService extends MyBaseService {
     public void go() {
         // Updater
         if (Manifest.DB_UPDATER) {
-
-            // Status
-            if (sleepCount % 10000 == 0) {
-                client.getTablesHandler().getTable(TablesEnum.STATUS).update();
-            }
+            // TODO
+            /
         }
 
         // DB runner
         if (Manifest.DB_RUNNER) {
 
             // Insert line
-            client.getTablesHandler().getTable(TablesEnum.DAY).insert();
+            // TODO
 
             // Arrays
-            if (sleepCount % 4000 == 0) {
-                client.getTablesHandler().getTable(TablesEnum.ARRAYS).insert();
-            }
+            // TODO
         }
     }
 

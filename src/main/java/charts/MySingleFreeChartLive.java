@@ -1,8 +1,6 @@
 package charts;
 
-import exp.ExpStrings;
 import locals.Themes;
-import options.Options;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.AxisLocation;
@@ -17,9 +15,7 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.Layer;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -39,8 +35,6 @@ public class MySingleFreeChartLive {
     int secondesOnMess = 10;
     int sleep = 200;
     double[] oldVals;
-    Options mainOptions;
-    Options quarterOptions;
     private JFreeChart chart;
     private MyChartPanel chartPanel;
     private boolean includeTickerData;
@@ -49,8 +43,6 @@ public class MySingleFreeChartLive {
     public MySingleFreeChartLive(BASE_CLIENT_OBJECT client, XYSeries[] series, Color[] colors, double margin,
                                  ArrayList<String> list, int seconds, boolean includeTickerData, double rangeTickUnit,
                                  float strokeSize, boolean rangeGridLineVisible, Marker marker) {
-        this.mainOptions = client.getExps().getMainExp().getOptions();
-        this.quarterOptions = client.getExps().getExp(ExpStrings.e1).getOptions();
         this.client = client;
         this.series = series;
         this.colors = colors;
@@ -178,10 +170,6 @@ public class MySingleFreeChartLive {
                 marginFromMaxToMin = 20;
             }
 
-            if (client instanceof Ndx) {
-                marginFromMaxToMin = 30;
-            }
-
             // Append data to the series
             filterAndAppendData(marginFromMaxToMin);
 
@@ -287,14 +275,10 @@ public class MySingleFreeChartLive {
             switch (string) {
                 case "index":
                     return client.getIndex();
-                case "contract":
-                    return mainOptions.getContract();
                 case "indexBid":
                     return client.getIndexBid();
                 case "indexAsk":
                     return client.getIndexAsk();
-                case "quarterContract":
-                    return quarterOptions.getContract();
                 default:
                     return 0;
             }

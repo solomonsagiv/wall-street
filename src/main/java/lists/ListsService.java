@@ -2,11 +2,9 @@ package lists;
 
 import exp.E;
 import exp.Exp;
-import options.Options;
 import roll.Roll;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
 
@@ -62,22 +60,11 @@ public class ListsService extends MyBaseService {
         client.getMonthOpList().add( client.getFutMonth() - client.getIndex() );
         client.getE2OpList().add( client.getFutQuarterFar() - client.getIndex() );
 
-        // Index
-        if ( client instanceof INDEX_CLIENT_OBJECT ) {
-            ((INDEX_CLIENT_OBJECT) client ).getStocksHandler().getDeltaSeries().add();
-        }
-
         // Options lists
         for (Exp exp : client.getExps().getExpList()) {
             try {
-                exp.getFutList().add(exp.getCalcFut());
+                exp.getFutList().add(exp.getFuture());
                 exp.getOpFutList().add(exp.getOpFuture());
-
-                // E
-                if (exp instanceof E) {
-                    ((E) exp).getDeltaSerie().add(time);
-                    ((E) exp).getDeltaScaledSerie().add(time);
-                }
 
                 try {
                     exp.getOpAvgFutSeries().add(time);
@@ -89,14 +76,7 @@ public class ListsService extends MyBaseService {
                 e.printStackTrace();
             }
 
-            Options options = exp.getOptions();
-            options.getOpList().add(options.getOp());
-            options.getOpAvgList().add(options.getOpAvg());
-            options.getConList().add(options.getContract());
-            options.getConBidList().add(options.getContractBid());
-            options.getConAskList().add(options.getContractAsk());
             exp.getFutBidAskCounterSeries().add(time);
-            options.getConBidAskCounterSeries().add(time);
         }
 
         // Roll lists

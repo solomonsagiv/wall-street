@@ -8,7 +8,6 @@ import gui.popupsFactory.PopupsMenuFactory;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import threads.MyThread;
 
@@ -74,11 +73,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         currExp = client.getExps().getExp(ExpStrings.e1);
         nextExp = client.getExps().getExp(ExpStrings.e2);
-
-        if (client instanceof Dax) {
-            currExp = client.getExps().getExp(ExpStrings.week);
-            nextExp = client.getExps().getExp(ExpStrings.month);
-        }
 
         mainExp = client.getExps().getMainExp();
         init();
@@ -289,7 +283,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             highField.setText(L.format100(client.getHigh()));
             lowField.setText(L.format100(client.getLow()));
             indexField.setText(L.format100(client.getIndex()));
-            futureField.setText(L.format100(mainExp.getCalcFut()));
+            futureField.setText(L.format100(mainExp.getFuture()));
 
             // Ticker present
             openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
@@ -309,7 +303,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             // Next exp
             if (nextExp != null) {
                 opQuarterField.colorBack(nextExp.getOpFuture(), L.format100());
-                contractQuarterField.setText(L.format100(nextExp.getCalcFut()));
+                contractQuarterField.setText(L.format100(nextExp.getFuture()));
             }
 
             // Races and roll

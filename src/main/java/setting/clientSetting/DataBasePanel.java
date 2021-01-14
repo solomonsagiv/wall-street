@@ -52,8 +52,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         resetBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                client.getTablesHandler().getTable(TablesEnum.STATUS).reset();
-                client.getTablesHandler().getTable(TablesEnum.ARRAYS).reset();
+                // TODO
                 resetBtn.complete();
             }
         });
@@ -62,8 +61,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                client.getTablesHandler().getTable(TablesEnum.STATUS).update();
-                client.getTablesHandler().getTable(TablesEnum.ARRAYS).update();
+                // TODO
                 updateBtn.complete();
             }
         });
@@ -72,8 +70,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         updateBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                client.getTablesHandler().getTable(TablesEnum.STATUS).load();
-                client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
+                // TODO
                 updateBtn.complete();
             }
         });
@@ -82,7 +79,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         sumBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                client.getTablesHandler().getTable(TablesEnum.SUM).insert();
+                // TODO
                 sumBtn.complete();
             }
         });

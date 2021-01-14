@@ -1,48 +1,15 @@
 package serverObjects.indexObjects;
 
-import basketFinder.BasketService;
-import basketFinder.handlers.StocksHandler;
-import charts.myChart.MyTimeSeries;
-import dataBase.mySql.TablesHandler;
-import dataBase.mySql.myBaseTables.MyBoundsTable;
-import dataBase.mySql.myJsonTables.index.DayJsonTable;
-import dataBase.mySql.mySqlComps.TablesEnum;
-import dataBase.mySql.myTables.ArraysTable;
-import dataBase.mySql.myTables.StatusJsonTable;
-import dataBase.mySql.myTables.SumJsonTable;
-import dataBase.mySql.myTables.TwsContractsTable;
-import dataBase.mySql.myTables.index.IndexStocksTable;
-import exp.E;
-import exp.ExpStrings;
-import exp.Exps;
-import logic.LogicService;
 import myJson.MyJson;
 import options.JsonStrings;
-import options.optionsCalcs.IndexOptionsCalc;
 import roll.RollEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import tws.TwsContractsEnum;
 
 public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
 
-    protected BasketService basketService;
-    protected StocksHandler stocksHandler;
 
     public INDEX_CLIENT_OBJECT() {
         super();
-        initTablesHandler();
-    }
-
-    public void initTablesHandler() {
-        tablesHandler = new TablesHandler();
-        tablesHandler.addTable(TablesEnum.TWS_CONTRACTS, new TwsContractsTable(this));
-        tablesHandler.addTable(TablesEnum.DAY, new DayJsonTable(this));
-        tablesHandler.addTable(TablesEnum.STATUS, new StatusJsonTable(this));
-        tablesHandler.addTable(TablesEnum.SUM, new SumJsonTable(this));
-        tablesHandler.addTable(TablesEnum.ARRAYS, new ArraysTable(this));
-        tablesHandler.addTable(TablesEnum.BOUNDS, new MyBoundsTable(this));
-
-        setLogicService( new LogicService( this, "DAY" ) );
     }
 
     @Override
@@ -67,9 +34,6 @@ public abstract class INDEX_CLIENT_OBJECT extends BASE_CLIENT_OBJECT {
         getExps().loadFromJson(new MyJson(json.getJSONObject(JsonStrings.exps)));
     }
 
-    public StocksHandler getStocksHandler() {
-        return stocksHandler;
-    }
 
     @Override
     public MyJson getResetJson() {

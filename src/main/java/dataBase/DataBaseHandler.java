@@ -1,32 +1,52 @@
 package dataBase;
 
-import dataBase.mySql.TablesHandler;
-import dataBase.mySql.mySqlComps.MySqlTable;
-import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.dataUpdaters.IDataUpdater;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
+import threads.MyThread;
 
-import java.util.Map;
-
-public class DataBaseHandler {
+public class DataBaseHandler extends MyThread implements Runnable {
 
     BASE_CLIENT_OBJECT client;
+    IDataUpdater dataUpdater;
 
-    public DataBaseHandler( BASE_CLIENT_OBJECT client ) {
+    public DataBaseHandler( BASE_CLIENT_OBJECT client, IDataUpdater dataUpdater ) {
         this.client = client;
+        this.dataUpdater = dataUpdater;
+    }
+
+    @Override
+    public void initRunnable() {
+        setRunnable( this );
     }
 
     public void load() {
-        TablesHandler th = client.getTablesHandler( );
-        for ( Map.Entry< TablesEnum, MySqlTable > entry : th.getTables( ).entrySet( ) ) {
+        // todo
+    }
+
+    @Override
+    public void run() {
+
+        while ( isRun() ) {
             try {
-                MySqlTable table = entry.getValue();
-                table.load();
+                // Sleep
+                Thread.sleep( 200 );
+
+                // Update database
+                update();
+
+
+            } catch ( InterruptedException e ) {
+                e.printStackTrace();
+                getHandler().close();
             } catch ( Exception e ) {
                 e.printStackTrace();
             }
 
         }
+
     }
 
+    private void update() {
+        dataUpdater.insertData( client );
+    }
 }
