@@ -47,6 +47,6 @@ public class DataBaseHandler extends MyThread implements Runnable {
     }
 
     private void update() {
-        dataUpdater.insertData( client );
+        dataUpdater.insertData();
     }
 }

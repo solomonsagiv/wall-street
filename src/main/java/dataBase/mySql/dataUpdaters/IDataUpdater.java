@@ -2,8 +2,14 @@ package dataBase.mySql.dataUpdaters;
 
 import serverObjects.BASE_CLIENT_OBJECT;
 
-public interface IDataUpdater {
+public abstract class IDataUpdater {
 
-    public void insertData( BASE_CLIENT_OBJECT client );
+    BASE_CLIENT_OBJECT client;
+
+    public IDataUpdater( BASE_CLIENT_OBJECT client ) {
+        this.client = client;
+    }
+
+    public abstract void insertData();
 
 }

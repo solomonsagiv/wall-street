@@ -34,6 +34,17 @@ public class MySql {
         }
     }
 
+    public static void insert( String query, boolean thread ) {
+        if ( thread ) {
+            new Thread( () -> {
+                insert( query );
+            } ).start();
+        } else {
+            insert( query );
+        }
+    }
+
+
     // Update
     public static void update( String query ) {
         Connection conn = null;

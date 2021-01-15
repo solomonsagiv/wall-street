@@ -138,7 +138,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this );
-            dataBaseHandler = new DataBaseHandler( this, new DataUpdater_A() );
+            dataBaseHandler = new DataBaseHandler( this, new DataUpdater_A(this) );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
