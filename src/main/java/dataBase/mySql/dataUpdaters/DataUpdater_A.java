@@ -59,39 +59,39 @@ public class DataUpdater_A extends IDataUpdater {
             MySql.insert( query, true );
         }
 
-        // Fut month
+        // Fut week
         double fut_week =  exps.getExp( ExpStrings.week ).getFuture();
 
-        if ( fut_day != fut_day_0 ) {
-            fut_day_0 = fut_day;
-            query = String.format( query, client.getName(), "fut_day", fut_day_0 );
+        if ( fut_week != fut_week_0 ) {
+            fut_week_0 = fut_week;
+            query = String.format( query, client.getName(), "fut_week", fut_week_0 );
             MySql.insert( query, true );
         }
 
-        // Fut day
-        double fut_day =  exps.getExp( ExpStrings.day ).getFuture();
+        // Fut month
+        double fut_month =  exps.getExp( ExpStrings.month ).getFuture();
 
-        if ( fut_day != fut_day_0 ) {
-            fut_day_0 = fut_day;
-            query = String.format( query, client.getName(), "fut_day", fut_day_0 );
+        if ( fut_month != fut_month_0 ) {
+            fut_month_0 = fut_month;
+            query = String.format( query, client.getName(), "fut_month", fut_month_0 );
             MySql.insert( query, true );
         }
 
-        // Fut day
-        double fut_day =  exps.getExp( ExpStrings.day ).getFuture();
+        // Fut e1
+        double fut_e1 =  exps.getExp( ExpStrings.e1 ).getFuture();
 
-        if ( fut_day != fut_day_0 ) {
-            fut_day_0 = fut_day;
-            query = String.format( query, client.getName(), "fut_day", fut_day_0 );
+        if ( fut_e1 != fut_e1_0 ) {
+            fut_e1_0 = fut_e1;
+            query = String.format( query, client.getName(), "fut_e1", fut_e1_0 );
             MySql.insert( query, true );
         }
 
-        // Fut day
-        double fut_day =  exps.getExp( ExpStrings.day ).getFuture();
+        // Fut e2
+        double fut_e2 =  exps.getExp( ExpStrings.e2 ).getFuture();
 
-        if ( fut_day != fut_day_0 ) {
-            fut_day_0 = fut_day;
-            query = String.format( query, client.getName(), "fut_day", fut_day_0 );
+        if ( fut_e2 != fut_e2_0 ) {
+            fut_e2_0 = fut_e2;
+            query = String.format( query, client.getName(), "fut_e2", fut_e2_0 );
             MySql.insert( query, true );
         }
 

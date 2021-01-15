@@ -4,8 +4,16 @@ import java.util.HashMap;
 
 public class MyDBConnections {
 
-    public static void main( String[] args ) {
-        MySql.insert( "INSERT INTO spx.index (time, value) VALUES ('now()', 5699)" );
+    public static void main( String[] args ) throws InterruptedException {
+
+        for (int i = 0; i < 30; i++) {
+            Thread.sleep(200);
+
+            new Thread(() -> {
+                MySql.insert( "INSERT INTO spx.index (time, value) VALUES ('now()', 5699)" );
+            }).start();
+
+        }
     }
 
     // Static variables

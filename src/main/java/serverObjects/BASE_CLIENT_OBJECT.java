@@ -7,7 +7,6 @@ import charts.myChart.MyTimeSeries;
 import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataUpdater_A;
-import dataTable.DataTable;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -43,9 +42,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     protected double indBidMarginCounter = 0;
     protected double indAskMarginCounter = 0;
-
-    // Data table
-    DataTable dataTable;
 
     // Roll
     protected RollHandler rollHandler;
@@ -137,7 +133,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
             // MyServices
             listsService = new ListsService( this );
-            mySqlService = new MySqlService( this );
+            mySqlService = new MySqlService( this, new DataUpdater_A(this ) );
             dataBaseHandler = new DataBaseHandler( this, new DataUpdater_A(this) );
 
         } catch ( Exception e ) {
@@ -778,13 +774,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return null;
     }
 
-    public DataTable getDataTable() {
-        if ( dataTable == null ) {
-            dataTable = new DataTable( );
-        }
-        return dataTable;
-    }
-
     public DataBaseHandler getDataBaseHandler() {
         return dataBaseHandler;
     }
@@ -796,7 +785,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", Rows=" + getDataTable( ).getRows( ).size( ) +
                 ", Day fut=" + getFutDay( ) +
                 ", Week fut=" + getFutWeek( ) +
                 ", Month fut=" + getFutMonth( ) +

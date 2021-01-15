@@ -3,9 +3,7 @@ package DDE;
 import IDDEReaderUpdater.IDDEReaderUpdater;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
-import dataTable.RowData;
 import gui.mainWindow.ConnectionPanel;
-import locals.L;
 import locals.LocalHandler;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -45,9 +43,6 @@ public class DDEReader extends MyThread implements Runnable {
                 // DDE
                 read( );
 
-                // Add row data
-                appendDataLine( );
-
             } catch ( InterruptedException e ) {
                 break;
             } catch ( DDEException e ) {
@@ -56,13 +51,6 @@ public class DDEReader extends MyThread implements Runnable {
             } catch ( Exception e ) {
                 e.printStackTrace( );
             }
-        }
-    }
-
-    private void appendDataLine() {
-        if ( client.isStarted( ) ) {
-            client.getDataTable( ).addRow( new RowData( client.getIndex( ), client.getIndexBid( ), client.getIndexAsk( ),
-                    client.getFutDay( ), client.getFutWeek( ), client.getFutMonth( ), client.getFutQuarter( ), client.getFutQuarterFar( ) ) );
         }
     }
 

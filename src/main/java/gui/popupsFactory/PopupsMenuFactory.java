@@ -1,11 +1,10 @@
 package gui.popupsFactory;
 
-import Excel.MyExcelWriter;
 import charts.myCharts.*;
-import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import setting.clientSetting.SettingWindow;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -166,8 +165,6 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 try {
-                    MyExcelWriter writer = new MyExcelWriter( );
-                    writer.export( client.getDataTable( ) );
                 } catch ( Exception exception ) {
                     JOptionPane.showMessageDialog( null, exception.getStackTrace() );
                 }

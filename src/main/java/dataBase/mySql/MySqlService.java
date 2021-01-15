@@ -1,7 +1,7 @@
 package dataBase.mySql;
 
 import api.Manifest;
-import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.dataUpdaters.IDataUpdater;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
@@ -10,10 +10,12 @@ import service.ServiceEnum;
 public class MySqlService extends MyBaseService {
 
     BASE_CLIENT_OBJECT client;
+    IDataUpdater dataUpdater;
 
-    public MySqlService(BASE_CLIENT_OBJECT client) {
+    public MySqlService(BASE_CLIENT_OBJECT client, IDataUpdater dataUpdater ) {
         super(client);
         this.client = client;
+        this.dataUpdater = dataUpdater;
     }
 
     @Override
@@ -21,14 +23,14 @@ public class MySqlService extends MyBaseService {
         // Updater
         if (Manifest.DB_UPDATER) {
             // TODO
-            /
+            
         }
 
         // DB runner
         if (Manifest.DB_RUNNER) {
 
             // Insert line
-            // TODO
+            dataUpdater.insertData();
 
             // Arrays
             // TODO
@@ -42,7 +44,7 @@ public class MySqlService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 2000;
+        return 200;
     }
 
     @Override
