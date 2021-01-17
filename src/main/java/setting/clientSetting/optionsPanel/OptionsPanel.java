@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class OptionsPanel extends MyGuiComps.MyPanel {
 
@@ -85,6 +86,18 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         executorsPanel.setXY(propsPanel.getX() + propsPanel.getWidth() + 1, propsPanel.getY());
         add(executorsPanel);
 
+        // Combo options
+        comboBox = new JComboBox( getExpsNames() );
+        comboBox.setBounds( executorsPanel.getX() + executorsPanel.getWidth() + 5, executorsPanel.getY(), 60, 25);
+        add( comboBox );
+    }
+
+    private String[] getExpsNames() {
+        ArrayList<String> names = new ArrayList<>();
+        for ( Exp exp: client.getExps().getExpList() ) {
+            names.add( exp.getName() );
+        }
+        return  names.toArray(String[]::new);
     }
 
 

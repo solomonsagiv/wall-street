@@ -211,6 +211,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         exps.addExp( new ExpReg( this, ExpStrings.month ) );
         exps.addExp( new E( this, ExpStrings.e1 ) );
         exps.addExp( new E( this, ExpStrings.e2 ) );
+        exps.setMainExp( exps.getExp( ExpStrings.day ) );
         setExps( exps );
 
     }

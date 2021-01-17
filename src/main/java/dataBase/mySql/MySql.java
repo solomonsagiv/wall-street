@@ -5,6 +5,7 @@ import arik.Arik;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalTime;
 
 public class MySql {
 
@@ -21,7 +22,7 @@ public class MySql {
             // Execute
             stmt.execute( query );
 
-//            System.out.println( query );
+            System.out.println( LocalTime.now() + "  " + query );
 
         } catch ( Exception e ) {
             e.printStackTrace( );

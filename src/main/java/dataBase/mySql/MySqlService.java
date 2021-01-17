@@ -44,7 +44,7 @@ public class MySqlService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 200;
+        return 100;
     }
 
     @Override
