@@ -382,7 +382,6 @@ public class MyChart {
 
         public void moveForward() {
             try {
-
                 // X
                 DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange( );
                 RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );

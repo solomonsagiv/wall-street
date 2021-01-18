@@ -1,9 +1,6 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
-import dataBase.mySql.myBaseTables.MyBoundsTable;
-import dataBase.mySql.mySqlComps.TablesEnum;
-import javafx.scene.input.MouseDragEvent;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -13,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Field;
-import java.sql.ResultSet;
 
 public class MyChartContainer extends JFrame {
 
@@ -125,8 +121,8 @@ public class MyChartContainer extends JFrame {
             @Override
             public void mouseClicked( MouseEvent e ) {
                 super.mouseClicked( e );
-                if ( e.getButton() == MouseEvent.BUTTON3 ) {
-                   new ChartFilterWindow( "Filter", client, myChart );
+                if ( e.getButton( ) == MouseEvent.BUTTON3 ) {
+                    new ChartFilterWindow( "Filter", client, myChart );
                 }
             }
         } );

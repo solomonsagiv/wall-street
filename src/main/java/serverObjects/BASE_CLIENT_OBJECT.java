@@ -21,7 +21,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
-
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;

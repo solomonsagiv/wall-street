@@ -1,5 +1,6 @@
 package DDE;
 
+import arik.Arik;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import gui.mainWindow.ConnectionPanel;
@@ -70,6 +71,7 @@ public class DDEWriter extends MyThread implements Runnable {
             }
         } catch ( DDEException e ) {
             System.out.println( "DDE request error on updateData()" );
+            Arik.getInstance().sendMessage( e.getStackTrace().toString() );
             e.printStackTrace( );
         }
     }

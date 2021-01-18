@@ -22,7 +22,7 @@ public class Manifest {
                                             
     // SELECTED ACCOUNT
     public static boolean DB = false;
-    public static boolean DB_RUNNER = true;
+    public static boolean DB_RUNNER = false;
     public static boolean DB_UPDATER = false;
     public static boolean OPEN_CHARTS = true;
     public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_POSTGRES;
