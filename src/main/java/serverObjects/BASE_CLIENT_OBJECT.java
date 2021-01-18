@@ -4,7 +4,6 @@ import DDE.DDECells;
 import DDE.DDECellsBloomberg;
 import api.Manifest;
 import charts.myChart.MyTimeSeries;
-import dataBase.DataBaseHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataUpdater_A;
 import exp.E;
@@ -54,7 +53,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Table
     DefaultTableModel model = new DefaultTableModel( );
-    DataBaseHandler dataBaseHandler;
 
     // Services
     ListsService listsService;
@@ -134,7 +132,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // MyServices
             listsService = new ListsService( this );
             mySqlService = new MySqlService( this, new DataUpdater_A(this ) );
-            dataBaseHandler = new DataBaseHandler( this, new DataUpdater_A(this) );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -773,10 +770,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     @Override
     public MyJson getAsJson() {
         return null;
-    }
-
-    public DataBaseHandler getDataBaseHandler() {
-        return dataBaseHandler;
     }
 
     @Override

@@ -10,6 +10,6 @@ public abstract class IDataUpdater {
         this.client = client;
     }
 
-    public abstract void insertData();
+    public abstract void insertData( int sleep );
 
 }

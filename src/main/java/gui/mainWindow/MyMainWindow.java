@@ -98,7 +98,9 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
                 try {
-                    client.getDataBaseHandler().load();
+                    // todo load from database
+
+                    //
                     BackGroundHandler.getInstance().createNewRunner(client);
                 } catch (Exception e) {
                     e.printStackTrace();

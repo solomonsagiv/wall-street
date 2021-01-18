@@ -30,7 +30,7 @@ public class MySqlService extends MyBaseService {
         if (Manifest.DB_RUNNER) {
 
             // Insert line
-            dataUpdater.insertData();
+            dataUpdater.insertData( getSleep() );
 
             // Arrays
             // TODO
