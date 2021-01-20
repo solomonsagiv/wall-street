@@ -22,6 +22,8 @@ public abstract class IDDEReaderUpdater {
             d = L.dbl( conversation.request( cell ) );
         } catch ( NumberFormatException | DDEException e ) {
             // TODO
+            System.out.println( "Cell: " + cell );
+            e.printStackTrace();
         } finally {
             return d;
         }

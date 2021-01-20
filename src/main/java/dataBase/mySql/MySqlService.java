@@ -23,7 +23,6 @@ public class MySqlService extends MyBaseService {
         // Updater
         if (Manifest.DB_UPDATER) {
             // TODO
-            
         }
 
         // DB runner

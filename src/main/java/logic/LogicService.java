@@ -1,5 +1,7 @@
 package logic;
 
+import exp.ExpStrings;
+import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
@@ -25,11 +27,13 @@ public class LogicService extends MyBaseService {
     boolean bool = true;
     boolean run = true;
     double margin = 0;
+    Exps exps;
 
     // Constructor
     public LogicService( BASE_CLIENT_OBJECT client, String expName ) {
         super( client );
         this.expName = expName;
+        this.exps = client.getExps();
     }
 
     @Override
@@ -49,7 +53,7 @@ public class LogicService extends MyBaseService {
         double index = getClient( ).getIndex( );
 
         if ( expName.equals( "DAY" ) ) {
-            future = getClient( ).getFutDay( );
+            future = exps.getExp( ExpStrings.day ).getFuture();
         }
         
         // Margin

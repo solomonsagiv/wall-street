@@ -2,6 +2,7 @@ package charts.myCharts;
 
 import charts.myChart.*;
 import exp.ExpStrings;
+import exp.Exps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -16,6 +17,8 @@ public class FuturesChart extends MyChartCreator {
 
     @Override
     public void createChart() {
+
+        Exps exps = client.getExps();
 
         // Props
         props = new MyProps( );
@@ -66,7 +69,7 @@ public class FuturesChart extends MyChartCreator {
         MyTimeSeries futureDay = new MyTimeSeries( "Fut day", client ) {
             @Override
             public double getData() {
-                return client.getFutDay( );
+                return exps.getExp( ExpStrings.day ).getFuture();
             }
         };
 
@@ -77,7 +80,7 @@ public class FuturesChart extends MyChartCreator {
         MyTimeSeries futureWeek = new MyTimeSeries( "Fut week", client ) {
             @Override
             public double getData() {
-                return client.getFutWeek( );
+                return exps.getExp( ExpStrings.week ).getFuture();
             }
         };
 
@@ -88,7 +91,7 @@ public class FuturesChart extends MyChartCreator {
         MyTimeSeries futureMonth = new MyTimeSeries( "Fut month", client ) {
             @Override
             public double getData() {
-                return client.getFutMonth( );
+                return exps.getExp( ExpStrings.month ).getFuture();
             }
         };
 
@@ -99,7 +102,7 @@ public class FuturesChart extends MyChartCreator {
         MyTimeSeries futureQuarter = new MyTimeSeries( "Fut E1", client ) {
             @Override
             public double getData() {
-                return client.getExps( ).getExp( ExpStrings.e1 ).getFuture( );
+                return exps.getExp( ExpStrings.e1 ).getFuture();
             }
         };
 
@@ -110,7 +113,7 @@ public class FuturesChart extends MyChartCreator {
         MyTimeSeries futureQuarterFar = new MyTimeSeries( "Fut E2", client ) {
             @Override
             public double getData() {
-                return client.getFutQuarterFar( );
+                return exps.getExp( ExpStrings.e2 ).getFuture();
             }
         };
 

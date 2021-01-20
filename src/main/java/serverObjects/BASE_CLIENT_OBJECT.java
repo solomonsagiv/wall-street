@@ -11,7 +11,6 @@ import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
 import lists.ListsService;
-import lists.MyDoubleList;
 import locals.IJson;
 import locals.L;
 import locals.LocalHandler;
@@ -21,6 +20,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -63,11 +63,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexBidAskCounterSeries;
     MyTimeSeries indBidAskMarginSeries;
 
-    private double futDay = 0;
-    private double futWeek = 0;
-    private double futMonth = 0;
-    private double futQuarter = 0;
-    private double futQuarterFar = 0;
     private double startStrike;
     private double endStrike;
     private boolean loadFromDb = false;
@@ -75,11 +70,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     private LocalTime indexStartTime;
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
-
-    MyDoubleList dayOpList = new MyDoubleList( );
-    MyDoubleList weekOpList = new MyDoubleList( );
-    MyDoubleList monthOpList = new MyDoubleList( );
-    MyDoubleList e2OpList = new MyDoubleList( );
 
     // Base id
     private int baseId;
@@ -195,7 +185,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 return client.getBidAskMarginCounter( );
             }
         };
-
     }
 
     @Override
@@ -691,79 +680,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return logicService;
     }
 
-    public double getFutDay() {
-        return futDay;
-    }
-
-    public void setFutDay( double futDay ) {
-        if ( futDay > 0 ) {
-            this.futDay = futDay;
-        }
-    }
-
-    public double getFutWeek() {
-        return futWeek;
-    }
-
-    public void setFutWeek( double futWeek ) {
-        if ( futWeek > 0 ) {
-            this.futWeek = futWeek;
-        }
-    }
-
-    public double getFutMonth() {
-        return futMonth;
-    }
-
-    public void setFutMonth( double futMonth ) {
-        if ( futMonth > 0 ) {
-            this.futMonth = futMonth;
-        }
-    }
-
     public static int getPRE() {
         return PRE;
     }
 
-    public double getFutQuarter() {
-        return futQuarter;
-    }
-
-    public void setFutQuarter( double futQuarter ) {
-        if ( futQuarter > 0 ) {
-            this.futQuarter = futQuarter;
-        }
-    }
-
-
-    public double getFutQuarterFar() {
-        return futQuarterFar;
-    }
-
-    public void setFutQuarterFar( double futQuarterFar ) {
-        if ( futQuarterFar > 0 ) {
-            this.futQuarterFar = futQuarterFar;
-        }
-    }
-
     public void setLogicService( LogicService logicService ) {
         this.logicService = logicService;
-    }
-
-    public MyDoubleList getWeekOpList() {
-        return weekOpList;
-    }
-
-    public MyDoubleList getMonthOpList() {
-        return monthOpList;
-    }
-
-    public MyDoubleList getE2OpList() {
-        return e2OpList;
-    }
-
-    public MyDoubleList getDayOpList() {
-        return dayOpList;
     }
 
     @Override
@@ -778,11 +700,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", Day fut=" + getFutDay( ) +
-                ", Week fut=" + getFutWeek( ) +
-                ", Month fut=" + getFutMonth( ) +
-                ", E1 fut=" + getFutQuarter( ) +
-                ", E2 fut=" + getFutQuarterFar( ) +
                 ", optionsHandler=" + exps.toString( ) +
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +

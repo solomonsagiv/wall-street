@@ -1,6 +1,5 @@
 package lists;
 
-import exp.E;
 import exp.Exp;
 import roll.Roll;
 import roll.RollEnum;
@@ -55,16 +54,12 @@ public class ListsService extends MyBaseService {
         client.getIndexScaledSeries().add( time );
         client.getIndBidAskMarginSeries().add(time);
 
-        client.getDayOpList().add( client.getFutDay() - client.getIndex() );
-        client.getWeekOpList().add( client.getFutWeek() - client.getIndex() );
-        client.getMonthOpList().add( client.getFutMonth() - client.getIndex() );
-        client.getE2OpList().add( client.getFutQuarterFar() - client.getIndex() );
-
         // Options lists
         for (Exp exp : client.getExps().getExpList()) {
             try {
                 exp.getFutList().add(exp.getFuture());
                 exp.getOpFutList().add(exp.getOpFuture());
+                exp.getOpFutList().add( exp.getFuture() - client.getIndex() );
 
                 try {
                     exp.getOpAvgFutSeries().add(time);

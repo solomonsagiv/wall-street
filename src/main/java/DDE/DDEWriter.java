@@ -3,15 +3,18 @@ package DDE;
 import arik.Arik;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import exp.ExpStrings;
+import exp.Exps;
 import gui.mainWindow.ConnectionPanel;
 import locals.L;
 import roll.RollEnum;
-import serverObjects.indexObjects.Spx;
+import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
+
+import java.net.UnknownHostException;
 
 public class DDEWriter extends MyThread implements Runnable {
 
-    Spx spx = Spx.getInstance( );
     String rollCell = "R9C14";
     String indexBidAskCounterCell = "R9C13";
     String opAvgDayCell = "R9C12";
@@ -22,10 +25,15 @@ public class DDEWriter extends MyThread implements Runnable {
     private boolean run = true;
     private DDEConnection ddeConnection = new DDEConnection( );
     private DDEClientConversation conversation;
+    Exps exps;
+    BASE_CLIENT_OBJECT client;
 
     // Constructor
-    public DDEWriter() {
+    public DDEWriter( BASE_CLIENT_OBJECT client ) {
         this.conversation = ddeConnection.createNewConversation( ConnectionPanel.excelLocationField.getText( ) );
+        this.client = client;
+        this.exps = client.getExps( );
+
     }
 
     @Override
@@ -43,7 +51,7 @@ public class DDEWriter extends MyThread implements Runnable {
                 // Sleep
                 Thread.sleep( 4000 );
 
-                if ( spx.isStarted( ) ) {
+                if ( client.isStarted( ) ) {
                     // Write the data to the excel
                     writeData( );
                 }
@@ -57,19 +65,15 @@ public class DDEWriter extends MyThread implements Runnable {
     // Write the data to the excel
     private void writeData() {
         try {
-            conversation.poke( rollCell, L.str( spx.getRollHandler( ).getRoll( RollEnum.E1_E2 ).getAvg( ) ) );
-            conversation.poke( indexBidAskCounterCell, L.str( spx.getIndexBidAskCounter( ) ) );
+            conversation.poke( rollCell, L.str( client.getRollHandler( ).getRoll( RollEnum.E1_E2 ).getAvg( ) ) );
+            conversation.poke( indexBidAskCounterCell, L.str( client.getIndexBidAskCounter( ) ) );
 
-            conversation.poke( opAvgDayCell, L.str( spx.getDayOpList( ).getAvg( ) ) );
-            conversation.poke( opAvgWeekCell, L.str( spx.getWeekOpList( ).getAvg( ) ) );
-            conversation.poke( opAvgMonthCell, L.str( spx.getMonthOpList( ).getAvg( ) ) );
-            conversation.poke( opAvgE2Cell, L.str( spx.getE2OpList( ).getAvg( ) ) );
-            try {
-                conversation.poke( opAvgE1Cell, L.str( spx.getExps( ).getMainExp( ).getOpAvgFut( ) ) );
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-        } catch ( DDEException e ) {
+            conversation.poke( opAvgDayCell, L.str( exps.getExp( ExpStrings.day ).getOpAvgFut() ) );
+            conversation.poke( opAvgWeekCell, L.str( exps.getExp( ExpStrings.week ).getOpAvgFut() ) );
+            conversation.poke( opAvgMonthCell, L.str( exps.getExp( ExpStrings.month ).getOpAvgFut() ) );
+            conversation.poke( opAvgE1Cell, L.str( exps.getExp( ExpStrings.e1 ).getOpAvgFut() ) );
+            conversation.poke( opAvgE2Cell, L.str( exps.getExp( ExpStrings.e2 ).getOpAvgFut() ) );
+        } catch ( DDEException | UnknownHostException e ) {
             System.out.println( "DDE request error on updateData()" );
             Arik.getInstance().sendMessage( e.getStackTrace().toString() );
             e.printStackTrace( );

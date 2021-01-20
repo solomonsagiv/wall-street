@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import api.Manifest;
+import arik.Arik;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,7 +37,7 @@ public class ConnectionPool implements IConnectionPool {
                 DBConnectionType connectionType = dbConnections.getConnectionType( Manifest.DB_CONNECTION_TYPE );
                 connectionPool = ConnectionPool.create( connectionType );
             } catch ( Exception e ) {
-//                Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
+                Arik.getInstance( ).sendMessage( e.getMessage( ) + "\n" + e.getCause( ) );
             }
         }
         return connectionPool;
@@ -63,6 +64,13 @@ public class ConnectionPool implements IConnectionPool {
     private static Connection createConnection(
             String url, String user, String password )
             throws SQLException {
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch ( ClassNotFoundException e ) {
+            e.printStackTrace( );
+        }
+
         return DriverManager.getConnection( url, user, password );
     }
 
@@ -74,7 +82,7 @@ public class ConnectionPool implements IConnectionPool {
         return usedConnections.size( );
     }
 
-    public void addConnection() throws SQLException {
+    public void addConnection() throws SQLException, ClassNotFoundException {
         connections.add( createConnection( url, user, password ) );
     }
 

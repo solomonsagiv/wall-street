@@ -23,7 +23,6 @@ public class DDEReader extends MyThread implements Runnable {
         super( client );
         this.iddeReaderUpdater = iddeReaderUpdater;
         conversation = ddeConnection.createNewConversation( ConnectionPanel.excelLocationField.getText( ) );
-
     }
 
     @Override
@@ -65,6 +64,5 @@ public class DDEReader extends MyThread implements Runnable {
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
         iddeReaderUpdater.updateData( conversation );
     }
-
 
 }

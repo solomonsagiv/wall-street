@@ -6,7 +6,6 @@ import IDDEReaderUpdater.DDEReaderUpdater_A;
 import api.Manifest;
 import gui.LogWindow;
 import gui.MyGuiComps;
-import locals.L;
 import locals.Themes;
 import serverObjects.indexObjects.Spx;
 
@@ -32,8 +31,9 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     DDEReader ddeReader;
     DDEWriter ddeWriter;
 
-    private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
-    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPX.xlsx]Spx";
+    private String excelPathTws = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
+    private String excelPath = "C:/Users/user/Desktop/[SPX.xlsx]Spx";
+//    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPX.xlsx]Spx";
 
     // Constructor
     public ConnectionPanel() {
@@ -91,11 +91,12 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             ddeReader = new DDEReader( Spx.getInstance(),new DDEReaderUpdater_A( Spx.getInstance() ) );
             ddeReader.getHandler().start();
 
-            ddeWriter = new DDEWriter();
+            ddeWriter = new DDEWriter( Spx.getInstance() );
             ddeWriter.getHandler().start();
 
             ddeStatusLbl.setForeground(Themes.GREEN);
         } catch (Exception e) {
+//            JOptionPane.showMessageDialog( null, e.getMessage() );
             e.printStackTrace();
         }
     }
@@ -182,7 +183,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         excelLocationField.setXY( portField.getX(), portField.getY() + portField.getHeight() + 15 );
         excelLocationField.setWidth( 400 );
         excelLocationField.setHeight( 25 );
-        excelLocationField.setText( yogiPath );
+        excelLocationField.setText( excelPath );
         excelLocationField.setBackground( Color.WHITE );
         excelLocationField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Themes.BLUE_DARK));
         excelLocationField.setForeground(Themes.BLUE_DARK);

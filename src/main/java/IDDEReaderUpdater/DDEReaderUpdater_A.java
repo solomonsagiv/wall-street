@@ -2,6 +2,7 @@ package IDDEReaderUpdater;
 
 import DDE.DDECellsEnum;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public class DDEReaderUpdater_A extends IDDEReaderUpdater {
@@ -24,11 +25,13 @@ public class DDEReaderUpdater_A extends IDDEReaderUpdater {
         client.setHigh( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.HIGH ), conversation ) );
         client.setLow( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.LOW ), conversation ) );
         client.setBase( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.BASE ), conversation ) );
-        client.setFutDay( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_DAY ), conversation ) );
-        client.setFutWeek( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_WEEK ), conversation ) );
-        client.setFutMonth( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_MONTH ), conversation ) );
-        client.setFutQuarter( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E1 ), conversation ) );
-        client.setFutQuarterFar( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E2 ), conversation ) );
+
+        // Exps
+        client.getExps( ).getExp( ExpStrings.day ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_DAY ), conversation ) );
+        client.getExps( ).getExp( ExpStrings.week ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_WEEK ), conversation ) );
+        client.getExps( ).getExp( ExpStrings.month ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_MONTH ), conversation ) );
+        client.getExps( ).getExp( ExpStrings.e1 ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E1 ), conversation ) );
+        client.getExps( ).getExp( ExpStrings.e2 ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E2 ), conversation ) );
 
     }
 
