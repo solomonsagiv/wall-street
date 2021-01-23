@@ -58,9 +58,7 @@ public class DataUpdater_A extends IDataUpdater {
         if ( sleep_count % 10000 == 0 ) {
             updateListsRetro( );
         }
-
-        System.out.println( fut_day_timeStamp.size() );
-
+        
         // Index
         if ( client.getIndex( ) != index_0 ) {
             index_0 = client.getIndex( );

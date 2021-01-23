@@ -26,7 +26,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.e1 ) );
+        setLogicService( new LogicService( this, ExpStrings.day ) );
         roll( );
     }
 
