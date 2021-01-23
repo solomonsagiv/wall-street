@@ -48,7 +48,7 @@ public class DataUpdater_A extends IDataUpdater {
         super( client );
         exps = client.getExps( );
     }
-
+    
     int sleep_count = 100;
 
     @Override
