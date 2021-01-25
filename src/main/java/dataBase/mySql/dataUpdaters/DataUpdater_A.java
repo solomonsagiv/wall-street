@@ -48,7 +48,7 @@ public class DataUpdater_A extends IDataUpdater {
         super( client );
         exps = client.getExps( );
     }
-    
+
     int sleep_count = 100;
 
     @Override
@@ -58,7 +58,7 @@ public class DataUpdater_A extends IDataUpdater {
         if ( sleep_count % 10000 == 0 ) {
             updateListsRetro( );
         }
-        
+
         // Index
         if ( client.getIndex( ) != index_0 ) {
             index_0 = client.getIndex( );
