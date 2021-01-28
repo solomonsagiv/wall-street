@@ -4,13 +4,11 @@ import dataBase.mySql.myBaseTables.MyArraysTable;
 import dataBase.mySql.mySqlComps.MyColumnSql;
 import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
 import dataBase.mySql.mySqlComps.MySqlColumnEnum;
-import exp.E;
 import exp.ExpStrings;
 import myJson.MyJson;
 import org.json.JSONArray;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-
 import java.rmi.UnknownHostException;
 import java.text.ParseException;
 import java.time.LocalTime;
@@ -24,7 +22,7 @@ public class ArraysTable extends MyArraysTable {
         super( client );
         this.client = ( INDEX_CLIENT_OBJECT ) client;
     }
-
+    
     @Override
     public void initColumns() {
         addColumn( new MyColumnSql< String >( this, MySqlColumnEnum.time ) {

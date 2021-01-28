@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 public class DataUpdater_A extends IDataUpdater {
 
+    static final String DATA_SCHEME = "data";
+    static final String SPX_SCHEME = "spx";
+
     public static void main( String[] args ) {
         ArrayList< MyTimeStampObject > list = new ArrayList<>( );
         list.add( new MyTimeStampObject( Instant.now( ), 4545 ) );
@@ -21,7 +24,7 @@ public class DataUpdater_A extends IDataUpdater {
         list.add( new MyTimeStampObject( Instant.now( ), 3434 ) );
 
         DataUpdater_A dataUpdater_a = new DataUpdater_A( Spx.getInstance( ) );
-        dataUpdater_a.insertListRetro( list, "index" );
+        dataUpdater_a.insertListRetro( list, DataUpdater_A.SPX_SCHEME,"index" );
     }
 
     ArrayList< MyTimeStampObject > index_timestamp = new ArrayList<>( );
@@ -32,6 +35,7 @@ public class DataUpdater_A extends IDataUpdater {
     ArrayList< MyTimeStampObject > fut_month_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_e1_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_e2_timeStamp = new ArrayList<>( );
+    ArrayList< MyTimeStampObject > ind_bid_ask_counter_timestamp = new ArrayList<>( );
 
     double index_0 = 0;
     double index_bid_0 = 0;
@@ -117,12 +121,20 @@ public class DataUpdater_A extends IDataUpdater {
             fut_e2_timeStamp.add( new MyTimeStampObject( Instant.now( ), fut_e2_0 ) );
         }
 
+        // Ind bid ask counter
+        int ind_bid_ask_counter = client.getIndexBidAskCounter();
+
+        if ( ind_bid_ask_counter != index_bid_ask_counter_0 ) {
+            index_bid_ask_counter_0 = ind_bid_ask_counter;
+            ind_bid_ask_counter_timestamp.add( new MyTimeStampObject( Instant.now( ), index_bid_ask_counter_0 ) );
+        }
+        
         // Update count
         sleep_count += sleep;
 
     }
 
-    private void insertListRetro( ArrayList< MyTimeStampObject > list, String name ) {
+    private void insertListRetro( ArrayList< MyTimeStampObject > list, String scheme, String tableName ) {
 
         if ( list.size( ) > 0 ) {
 
@@ -137,7 +149,7 @@ public class DataUpdater_A extends IDataUpdater {
             }
             queryBuiler.append( ";" );
 
-            String q = String.format( queryBuiler.toString( ), client.getName( ), name );
+            String q = String.format( queryBuiler.toString( ), scheme, tableName );
 
             System.out.println( q );
 
@@ -150,13 +162,14 @@ public class DataUpdater_A extends IDataUpdater {
     }
 
     private void updateListsRetro() {
-        insertListRetro( index_timestamp, "index" );
-        insertListRetro( index_bid_timestamp, "index_bid" );
-        insertListRetro( index_ask_timestamp, "index_ask" );
-        insertListRetro( fut_day_timeStamp, "fut_day" );
-        insertListRetro( fut_week_timeStamp, "fut_week" );
-        insertListRetro( fut_month_timeStamp, "fut_month" );
-        insertListRetro( fut_e1_timeStamp, "fut_e1" );
-        insertListRetro( fut_e2_timeStamp, "fut_e2" );
+        insertListRetro( index_timestamp, SPX_SCHEME, "index" );
+        insertListRetro( index_bid_timestamp, SPX_SCHEME,  "index_bid" );
+        insertListRetro( index_ask_timestamp, SPX_SCHEME,  "index_ask" );
+        insertListRetro( fut_day_timeStamp, SPX_SCHEME,  "fut_day" );
+        insertListRetro( fut_week_timeStamp, SPX_SCHEME,  "fut_week" );
+        insertListRetro( fut_month_timeStamp, SPX_SCHEME,  "fut_month" );
+        insertListRetro( fut_e1_timeStamp, SPX_SCHEME,  "fut_e1" );
+        insertListRetro( fut_e2_timeStamp, SPX_SCHEME,  "fut_e2" );
+        insertListRetro( ind_bid_ask_counter_timestamp, SPX_SCHEME,  "spx500_bid_ask_counter" );
     }
 }

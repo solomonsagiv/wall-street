@@ -23,6 +23,7 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
@@ -163,6 +164,7 @@ public class MyChart {
                         if ( !load ) {
                             load = true;
                         }
+                        System.out.println( LocalTime.now() );
 
                         // Sleep
                         Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );

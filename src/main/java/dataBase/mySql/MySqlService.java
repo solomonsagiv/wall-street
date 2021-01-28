@@ -32,7 +32,8 @@ public class MySqlService extends MyBaseService {
             dataUpdater.insertData( getSleep() );
 
             // Arrays
-            // TODO
+
+
         }
     }
 

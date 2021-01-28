@@ -146,7 +146,7 @@ public class MyChartContainer extends JFrame {
 //                ResultSet rs = ( ( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS ) ).getBound( client.getName( ), getName( ) );
 
                 int width = 100, height = 100, x = 100, y = 100;
-
+                
 //                while ( rs.next( ) ) {
 //                    x = rs.getInt( "x" );
 //                    y = rs.getInt( "y" );

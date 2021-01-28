@@ -70,7 +70,6 @@ public class ConnectionPool implements IConnectionPool {
         } catch ( ClassNotFoundException e ) {
             e.printStackTrace( );
         }
-
         return DriverManager.getConnection( url, user, password );
     }
 

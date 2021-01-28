@@ -13,7 +13,7 @@ import threads.MyThread;
 public class DDEReader extends MyThread implements Runnable {
 
     // Variables
-    int sleep = 150;
+    int sleep = 100;
     DDEClientConversation conversation;
     private DDEConnection ddeConnection = new DDEConnection( );
     IDDEReaderUpdater iddeReaderUpdater;
@@ -64,5 +64,4 @@ public class DDEReader extends MyThread implements Runnable {
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
         iddeReaderUpdater.updateData( conversation );
     }
-
 }

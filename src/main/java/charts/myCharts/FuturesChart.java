@@ -29,7 +29,7 @@ public class FuturesChart extends MyChartCreator {
         props.setProp( ChartPropsEnum.IS_GRID_VISIBLE, false );
         props.setProp( ChartPropsEnum.IS_LOAD_DB, false );
         props.setProp( ChartPropsEnum.IS_LIVE, true );
-        props.setProp( ChartPropsEnum.SLEEP, 200 );
+        props.setProp( ChartPropsEnum.SLEEP, 100 );
         props.setProp( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE );
         props.setProp( ChartPropsEnum.SECONDS_ON_MESS, 10 );
 
