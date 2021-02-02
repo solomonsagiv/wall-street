@@ -4,6 +4,7 @@ import org.jfree.data.time.Second;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Timestamp;
 import java.text.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,6 +39,12 @@ public class L {
 
     public static Date toDate(String string) throws ParseException {
         return formatter.parse(string);
+    }
+
+
+    public static LocalDateTime toLocalDateTime(String timeStamp) {
+        Timestamp ts = Timestamp.valueOf( timeStamp );
+        return ts.toLocalDateTime();
     }
 
     public static double modulu(double value) {

@@ -5,7 +5,7 @@ import DDE.DDECellsBloomberg;
 import api.Manifest;
 import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataUpdater_A;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_A;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -119,7 +119,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
             // MyServices
             listsService = new ListsService( this );
-            mySqlService = new MySqlService( this, new DataUpdater_A(this ) );
+            mySqlService = new MySqlService( this, new DataBaseHandler_A(this ) );
 
         } catch ( Exception e ) {
             e.printStackTrace( );

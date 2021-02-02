@@ -100,7 +100,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 try {
                     // todo load from database
 
-                    //
+
                     BackGroundHandler.getInstance().createNewRunner(client);
                 } catch (Exception e) {
                     e.printStackTrace();

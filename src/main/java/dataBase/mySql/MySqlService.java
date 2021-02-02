@@ -1,7 +1,7 @@
 package dataBase.mySql;
 
 import api.Manifest;
-import dataBase.mySql.dataUpdaters.IDataUpdater;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
@@ -10,9 +10,9 @@ import service.ServiceEnum;
 public class MySqlService extends MyBaseService {
 
     BASE_CLIENT_OBJECT client;
-    IDataUpdater dataUpdater;
+    IDataBaseHandler dataUpdater;
 
-    public MySqlService(BASE_CLIENT_OBJECT client, IDataUpdater dataUpdater ) {
+    public MySqlService(BASE_CLIENT_OBJECT client, IDataBaseHandler dataUpdater ) {
         super(client);
         this.client = client;
         this.dataUpdater = dataUpdater;
