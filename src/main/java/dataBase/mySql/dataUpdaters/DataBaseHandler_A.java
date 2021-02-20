@@ -5,7 +5,7 @@ import dataBase.mySql.MySql;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
-
+import serverObjects.indexObjects.Spx;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -21,19 +21,20 @@ public class DataBaseHandler_A extends IDataBaseHandler {
 
     public static void main( String[] args ) throws ParseException, SQLException {
 
-        String query = "select * from spx.snp500_index where time::date = now()::date;";
+        String query = "select * from spx.snp500_index where time::date = '2021-02-03'::date;";
 
         ResultSet rs = MySql.select( query );
 
+        MyTimeSeries index = Spx.getInstance( ).getIndexAskSeries( );
+
         while ( rs.next( ) ) {
+            Timestamp ts = rs.getTimestamp( "time" );
+            double value = rs.getDouble( 2 );
 
-            System.out.println( rs.getTimestamp( "time" ) );
-
+            index.add( ts.toLocalDateTime( ), value );
         }
-
-
     }
-
+    
     ArrayList< MyTimeStampObject > index_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > index_bid_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > index_ask_timestamp = new ArrayList<>( );
@@ -44,6 +45,7 @@ public class DataBaseHandler_A extends IDataBaseHandler {
     ArrayList< MyTimeStampObject > fut_e2_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > ind_bid_ask_counter_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > op_avg_fut_day_timestamp = new ArrayList<>( );
+    ArrayList< MyTimeStampObject > op_avg_fut_day_15_timestamp = new ArrayList<>( );
 
     double index_0 = 0;
     double index_bid_0 = 0;
@@ -76,7 +78,7 @@ public class DataBaseHandler_A extends IDataBaseHandler {
             index_0 = client.getIndex( );
             index_timestamp.add( new MyTimeStampObject( Instant.now( ), index_0 ) );
         }
-
+        
         // Index bid
         if ( client.getIndexBid( ) != index_bid_0 ) {
             index_bid_0 = client.getIndexBid( );
@@ -139,8 +141,17 @@ public class DataBaseHandler_A extends IDataBaseHandler {
 
         // Op avg day
         if ( sleep % 1000 == 0 ) {
-            double op_avg_day = exps.getExp( ExpStrings.day ).getOpAvgFut( 900 );
-            op_avg_fut_day_timestamp.add( new MyTimeStampObject( Instant.now( ), op_avg_day ) );
+            try {
+
+                double op_avg_15_day = exps.getExp( ExpStrings.day ).getOpAvgFut( 900 );
+                op_avg_fut_day_15_timestamp.add( new MyTimeStampObject( Instant.now( ), op_avg_15_day ) );
+
+                double op_avg_day = exps.getExp( ExpStrings.day ).getOpAvgFut( );
+                op_avg_fut_day_timestamp.add( new MyTimeStampObject( Instant.now( ), op_avg_day ) );
+
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
         }
 
         // Update count
@@ -150,25 +161,23 @@ public class DataBaseHandler_A extends IDataBaseHandler {
 
     @Override
     public void loadData() {
-
-        loadSerieData( SPX_SCHEME, "snp500_index", client.getIndexSeries() );
-
+        loadSerieData( SPX_SCHEME, "index", client.getIndexSeries( ) );
+        loadSerieData( SPX_SCHEME, "index_bid", client.getIndexBidSeries( ) );
+        loadSerieData( SPX_SCHEME, "index_ask", client.getIndexAskSeries( ) );
+        loadSerieData( SPX_SCHEME, "index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
+        loadSerieData( SAGIV_SCHEME, "op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
+        loadSerieData( SAGIV_SCHEME, "op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
     }
 
     private void loadSerieData( String scheme, String table, MyTimeSeries timeSeries ) {
-
         String query = String.format( "SELECT * FROM %s.%s WHERE time::date = now()::date;", scheme, table );
-
         ResultSet rs = MySql.select( query );
-
         while ( true ) {
             try {
                 if ( !rs.next( ) ) break;
-
-                Timestamp timestamp = rs.getTimestamp( "time" );
-                double value = rs.getDouble( 1 );
+                Timestamp timestamp = rs.getTimestamp( 1 );
+                double value = rs.getDouble( 2 );
                 timeSeries.add( timestamp.toLocalDateTime( ), value );
-
             } catch ( SQLException throwables ) {
                 throwables.printStackTrace( );
             }
@@ -191,8 +200,6 @@ public class DataBaseHandler_A extends IDataBaseHandler {
             queryBuiler.append( ";" );
 
             String q = String.format( queryBuiler.toString( ), scheme, tableName );
-
-            System.out.println( q );
 
             // Insert
             MySql.insert( q, true );

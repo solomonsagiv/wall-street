@@ -48,7 +48,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 //        LocalHandler.clients.add(netflix);
 //        LocalHandler.clients.add(microsoft);
     }
-    
+
     @Override
     public void initOnClose() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,9 +98,10 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
                 try {
-                    // todo load from database
+                    // Load data from database
+                    client.getMySqlService().getDataBaseHandler().loadData();
 
-
+                    // Start back runner
                     BackGroundHandler.getInstance().createNewRunner(client);
                 } catch (Exception e) {
                     e.printStackTrace();

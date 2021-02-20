@@ -29,6 +29,8 @@ import java.util.HashMap;
 
 public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
+    private int lastTick = -1;
+
     public static final int PRE = 0;
     public static final int CURRENT = 1;
 
@@ -119,7 +121,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
             // MyServices
             listsService = new ListsService( this );
-            mySqlService = new MySqlService( this, new DataBaseHandler_A(this ) );
+            mySqlService = new MySqlService( this, new DataBaseHandler_A( this ) );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -206,7 +208,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public void fullExport() {
 
-       // TODO
+        // TODO
 
     }
 
@@ -453,7 +455,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         }
     }
 
-
     public double getIndBidMarginCounter() {
         return indBidMarginCounter;
     }
@@ -694,6 +695,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     @Override
     public void openChartsOnStart() {
+    }
+
+    public int getLastTick() {
+        return lastTick;
+    }
+
+    public void setLastTick( int lastTick ) {
+        this.lastTick = lastTick;
     }
 
     @Override

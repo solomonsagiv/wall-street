@@ -8,7 +8,6 @@ import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesDataItem;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.text.ParseException;

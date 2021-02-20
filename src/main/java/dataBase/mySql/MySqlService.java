@@ -10,12 +10,12 @@ import service.ServiceEnum;
 public class MySqlService extends MyBaseService {
 
     BASE_CLIENT_OBJECT client;
-    IDataBaseHandler dataUpdater;
+    IDataBaseHandler dataBaseHandler;
 
-    public MySqlService(BASE_CLIENT_OBJECT client, IDataBaseHandler dataUpdater ) {
+    public MySqlService(BASE_CLIENT_OBJECT client, IDataBaseHandler dataBaseHandler ) {
         super(client);
         this.client = client;
-        this.dataUpdater = dataUpdater;
+        this.dataBaseHandler = dataBaseHandler;
     }
 
     @Override
@@ -29,12 +29,15 @@ public class MySqlService extends MyBaseService {
         if (Manifest.DB_RUNNER) {
 
             // Insert line
-            dataUpdater.insertData( getSleep() );
+            dataBaseHandler.insertData( getSleep() );
 
             // Arrays
 
-
         }
+    }
+
+    public IDataBaseHandler getDataBaseHandler() {
+        return dataBaseHandler;
     }
 
     @Override
