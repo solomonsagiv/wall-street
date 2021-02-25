@@ -67,16 +67,7 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem fourLineChart = new JMenuItem( "4 lines" );
-        fourLineChart.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                FourLineChart chart = new FourLineChart( client );
-                chart.createChart( );
-            }
-        } );
-
-        JMenuItem opAvg15 = new JMenuItem( "OpAvg 15 Index B/A FutFarCounter Index" );
+        JMenuItem opAvg15 = new JMenuItem( "OpAvg 15 -- Index B/A -- Index" );
         opAvg15.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -86,15 +77,6 @@ public class PopupsMenuFactory {
                 } catch ( CloneNotSupportedException cloneNotSupportedException ) {
                     cloneNotSupportedException.printStackTrace( );
                 }
-            }
-        } );
-
-        JMenuItem fiveLinesChart = new JMenuItem( "5 lines" );
-        fiveLinesChart.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                FiveLineChart chart = new FiveLineChart( client );
-                chart.createChart( );
             }
         } );
 
@@ -113,38 +95,6 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 FuturesChart chart = new FuturesChart( client );
-                chart.createChart( );
-            }
-        } );
-
-
-        JMenuItem indexCounter_index_item = new JMenuItem( "E2 / Ind counuter/ Ind ( 2 )" );
-        indexCounter_index_item.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                IndexCounter_Index_Chart chart = new IndexCounter_Index_Chart( client );
-                try {
-                    chart.createChart( );
-                } catch ( CloneNotSupportedException cloneNotSupportedException ) {
-                    cloneNotSupportedException.printStackTrace( );
-                }
-            }
-        } );
-
-        JMenuItem quarter_index_item = new JMenuItem( "E1" );
-        quarter_index_item.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterLiveChart chart = new IndexVsQuarterLiveChart( client );
-                chart.createChart( );
-            }
-        } );
-
-        JMenuItem quarter_quarterFar_index_item = new JMenuItem( "E1 / E2" );
-        quarter_quarterFar_index_item.addActionListener( new ActionListener( ) {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                IndexVsQuarterQuarterFarLiveChart chart = new IndexVsQuarterQuarterFarLiveChart( client );
                 chart.createChart( );
             }
         } );
@@ -185,15 +135,10 @@ public class PopupsMenuFactory {
         export.add( export_to_excel );
         charts.add( threeFut );
         charts.add( fullCharts );
-        charts.add( fourLineChart );
         charts.add( opAvg15 );
         charts.add( opAvg );
-        charts.add( indexCounter_index_item );
         charts.add( marginChart );
         charts.add( indQuarterOpAvg15Future );
-        charts.add( fiveLinesChart );
-        charts.add( quarter_index_item );
-        charts.add( quarter_quarterFar_index_item );
 
         menu.add( details );
         menu.add( settingWindow );

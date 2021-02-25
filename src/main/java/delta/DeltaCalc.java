@@ -1,11 +1,5 @@
 package delta;
 
-import exp.E;
-import exp.ExpStrings;
-import serverObjects.indexObjects.Spx;
-
-import java.util.Scanner;
-
 public class DeltaCalc {
 
     public static double calc( int quantity, double last, double preBid, double preAsk ) {
