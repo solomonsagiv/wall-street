@@ -149,8 +149,6 @@ public class DataBaseHandler_A extends IDataBaseHandler {
                     double op_avg_day = exps.getExp( ExpStrings.day ).getOpAvgFut( );
                     op_avg_fut_day_timestamp.add( new MyTimeStampObject( Instant.now( ), op_avg_day ) );
 
-                    System.out.println( "Op avg " );
-
                 } catch ( Exception e ) {
                     e.printStackTrace( );
                 }
@@ -167,7 +165,7 @@ public class DataBaseHandler_A extends IDataBaseHandler {
             loadSerieData( SPX_SCHEME, "snp500_index_bid", client.getIndexBidSeries( ) );
             loadSerieData( SPX_SCHEME, "snp500_index_ask", client.getIndexAskSeries( ) );
             loadSerieData( SPX_SCHEME, "snp500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
-            loadSerieData( SAGIV_SCHEME, "snp500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
+            loadSerieData( SAGIV_SCHEME, "snp500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
             loadSerieData( SAGIV_SCHEME, "snp500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
         }
 
