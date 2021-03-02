@@ -161,10 +161,10 @@ public class DataBaseHandler_A extends IDataBaseHandler {
 
     @Override
     public void loadData() {
-        loadSerieData( SPX_SCHEME, "snp500_index", client.getIndexSeries( ) );
-        loadSerieData( SPX_SCHEME, "snp500_index_bid", client.getIndexBidSeries( ) );
-        loadSerieData( SPX_SCHEME, "snp500_index_ask", client.getIndexAskSeries( ) );
-        loadSerieData( SPX_SCHEME, "snp500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
+        loadSerieData( DATA_SCHEME, "snp500_index", client.getIndexSeries( ) );
+        loadSerieData( DATA_SCHEME, "snp500_index_bid", client.getIndexBidSeries( ) );
+        loadSerieData( DATA_SCHEME, "snp500_index_ask", client.getIndexAskSeries( ) );
+        loadSerieData( DATA_SCHEME, "snp500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
     }
@@ -209,15 +209,15 @@ public class DataBaseHandler_A extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
-        insertListRetro( index_timestamp, SPX_SCHEME, "snp500_index" );
-        insertListRetro( index_bid_timestamp, SPX_SCHEME, "snp500_index_bid" );
-        insertListRetro( index_ask_timestamp, SPX_SCHEME, "snp500_index_ask" );
-        insertListRetro( fut_day_timeStamp, SPX_SCHEME, "snp500_fut_day" );
-        insertListRetro( fut_week_timeStamp, SPX_SCHEME, "snp500_fut_week" );
-        insertListRetro( fut_month_timeStamp, SPX_SCHEME, "snp500_fut_month" );
-        insertListRetro( fut_e1_timeStamp, SPX_SCHEME, "snp500_fut_e1" );
-        insertListRetro( fut_e2_timeStamp, SPX_SCHEME, "snp500_fut_e2" );
-        insertListRetro( ind_bid_ask_counter_timestamp, SPX_SCHEME, "snp500_index_bid_ask_counter" );
+        insertListRetro( index_timestamp, DATA_SCHEME, "snp500_index" );
+        insertListRetro( index_bid_timestamp, DATA_SCHEME, "snp500_index_bid" );
+        insertListRetro( index_ask_timestamp, DATA_SCHEME, "snp500_index_ask" );
+        insertListRetro( fut_day_timeStamp, DATA_SCHEME, "snp500_fut_day" );
+        insertListRetro( fut_week_timeStamp, DATA_SCHEME, "snp500_fut_week" );
+        insertListRetro( fut_month_timeStamp, DATA_SCHEME, "snp500_fut_month" );
+        insertListRetro( fut_e1_timeStamp, DATA_SCHEME, "snp500_fut_e1" );
+        insertListRetro( fut_e2_timeStamp, DATA_SCHEME, "snp500_fut_e2" );
+        insertListRetro( ind_bid_ask_counter_timestamp, DATA_SCHEME, "snp500_index_bid_ask_counter" );
         insertListRetro( op_avg_fut_day_timestamp, SAGIV_SCHEME, "snp500_op_avg_day" );
         insertListRetro( op_avg_fut_day_15_timestamp, SAGIV_SCHEME, "snp500_op_avg_15_day" );
     }

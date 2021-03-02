@@ -30,13 +30,12 @@ public class MyDBConnections {
         map.put( SLO_POSTGRES_LOCAL, new DBConnectionType( "jdbc:postgresql://localhost:5432/postgres", "postgres", "Solomonpostgres12" ) );
         map.put( JIBE_POSTGRES, new DBConnectionType( "jdbc:postgresql://52.4.58.207:5432/jibe", "jibe_admin", "160633a0cd2ab5a9b82f088a77240cb68f9232a8" ) );
     }
-    
+
     public DBConnectionType getConnectionType( int type ) {
         return map.get( type );
     }
 
 }
-
 // DB connection type class
 class DBConnectionType {
 
