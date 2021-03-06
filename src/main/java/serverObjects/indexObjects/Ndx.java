@@ -3,8 +3,6 @@ package serverObjects.indexObjects;
 import IDDEReaderUpdater.DDEReaderUpdater_A;
 import api.Manifest;
 import charts.myCharts.FuturesChart;
-import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_A;
 import exp.ExpStrings;
 import logic.LogicService;
 import roll.Roll;
@@ -15,13 +13,13 @@ import serverObjects.ApiEnum;
 
 import java.time.LocalTime;
 
-public class Spx extends INDEX_CLIENT_OBJECT {
+public class Ndx extends INDEX_CLIENT_OBJECT {
 
-    static Spx client = null;
+    static Ndx client = null;
 
     // Constructor
-    public Spx() {
-        setName( "spx" );
+    public Ndx() {
+        setName( "ndx" );
         setIndexBidAskMargin( .5 );
         setStrikeMargin( 5 );
         setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
@@ -29,14 +27,13 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.day ) );
         setDdeReaderUpdater( new DDEReaderUpdater_A( this ) );
-        setMySqlService( new MySqlService( this, new DataBaseHandler_A( this ) ) );
         roll( );
     }
 
     // get instance
-    public static Spx getInstance() {
+    public static Ndx getInstance() {
         if ( client == null ) {
-            client = new Spx( );
+            client = new Ndx( );
         }
         return client;
     }

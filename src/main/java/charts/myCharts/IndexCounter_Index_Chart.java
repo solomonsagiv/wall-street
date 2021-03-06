@@ -1,8 +1,6 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import exp.Exp;
-import exp.ExpStrings;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -19,7 +17,7 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
     public void createChart() throws CloneNotSupportedException {
 
         MyTimeSeries[] series;
-
+        
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);

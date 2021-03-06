@@ -67,7 +67,7 @@ public class PopupsMenuFactory {
             }
         } );
 
-        JMenuItem opAvg15 = new JMenuItem( "OpAvg 15 -- Index B/A -- Index" );
+        JMenuItem opAvg15 = new JMenuItem( "OpAvg 15 -- Index B/A -- Ind races -- Index" );
         opAvg15.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent e ) {

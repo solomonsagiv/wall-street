@@ -18,7 +18,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
     @Override
     public void createChart() throws CloneNotSupportedException {
-
+        
         MyTimeSeries[] series;
 
         // Props
@@ -35,7 +35,6 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp( ChartPropsEnum.SECONDS_ON_MESS, INFINITE );
         props.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true );
 
-
         MyProps props_2 = ( MyProps ) props.clone( );
         ValueMarker marker = new ValueMarker( 0 );
         marker.setPaint( Color.BLACK );
@@ -46,8 +45,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         MyProps props_3 = ( MyProps ) props.clone( );
         props_3.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
-
-        Exp e1 = client.getExps( ).getExp( ExpStrings.day );
+        Exp e1 = client.getExps( ).getExp( ExpStrings.e1 );
 
         // --------- OpAvgFuture 1 ---------- //
         MyTimeSeries opAvgFuture = e1.getOpAvg15FutSeries( );
@@ -59,9 +57,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
         MyChart opAvgFutureChart = new MyChart( client, series, props_2 );
 
-        // --------- Index 2 ---------- //
-        props_3.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
-
+        // --------- Index ---------- //
         MyTimeSeries indexSeries = client.getIndexSeries( );
         indexSeries.setColor( Color.BLACK );
         indexSeries.setStokeSize( 1.5f );
@@ -70,6 +66,17 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         series[ 0 ] = indexSeries;
 
         MyChart indexChart = new MyChart( client, series, props_3 );
+
+
+        // --------- Index races counter ---------- //
+        MyTimeSeries indRacesSeries = client.getIndCounterSeries( );
+        indRacesSeries.setColor( Themes.BROWN );
+        indRacesSeries.setStokeSize( 1.5f );
+
+        series = new MyTimeSeries[ 1 ];
+        series[ 0 ] = indRacesSeries;
+
+        MyChart indRacesChart = new MyChart( client, series, props_3 );
 
         // -------- Index bid ask counter -------- //
         MyTimeSeries indBidAskCounterSeries = client.getIndexBidAskCounterSeries( );
@@ -84,7 +91,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = { indexChart, opAvgFutureChart, indexBidAskCounterChart };
+        MyChart[] charts = { indexChart, opAvgFutureChart, indRacesChart, indexBidAskCounterChart, };
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass( ).getName( ) );

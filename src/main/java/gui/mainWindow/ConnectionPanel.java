@@ -2,17 +2,18 @@ package gui.mainWindow;
 
 import DDE.DDEReader;
 import DDE.DDEWriter;
-import IDDEReaderUpdater.DDEReaderUpdater_A;
 import api.Manifest;
 import gui.LogWindow;
 import gui.MyGuiComps;
+import locals.LocalHandler;
 import locals.Themes;
-import serverObjects.indexObjects.Spx;
-
+import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConnectionPanel extends MyGuiComps.MyPanel {
 
@@ -28,11 +29,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyTextField portField = new MyGuiComps.MyTextField();
     public static MyGuiComps.MyTextField excelLocationField = new MyGuiComps.MyTextField(  );
 
-    DDEReader ddeReader;
-    DDEWriter ddeWriter;
+    Map<String, DDEReader> ddeReaders = new HashMap<>();
+    Map<String, DDEWriter> ddeWriters = new HashMap<>();
 
     private String excelPathTws = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
-    private String excelPath = "C:/Users/user/Desktop/[SPX.xlsx]Spx";
 //    private String yogiPath = "C:/Users/user/Dropbox/My PC (DESKTOP-3TD8U17)/Desktop/[SPX.xlsx]Spx";
 
     // Constructor
@@ -66,7 +66,17 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         disConnectBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ddeReader.getHandler().close();
+
+                for ( Map.Entry< String, DDEReader > entry: ddeReaders.entrySet() ) {
+                    DDEReader val = entry.getValue();
+                    val.getHandler().close();
+                }
+
+                for ( Map.Entry< String, DDEWriter > entry: ddeWriters.entrySet() ) {
+                    DDEWriter val = entry.getValue();
+                    val.getHandler().close();
+                }
+
                 ddeStatusLbl.setForeground(Themes.RED);
             }
         });
@@ -88,11 +98,19 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     public void connectDDE() {
         try {
-            ddeReader = new DDEReader( Spx.getInstance(),new DDEReaderUpdater_A( Spx.getInstance() ) );
-            ddeReader.getHandler().start();
+            for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
 
-            ddeWriter = new DDEWriter( Spx.getInstance() );
-            ddeWriter.getHandler().start();
+                // Reader
+                DDEReader ddeReader = new DDEReader( client, client.getDdeReaderUpdater() );
+                ddeReader.getHandler().start();
+                ddeReaders.put( client.getName(), ddeReader );
+
+                // Writer
+                DDEWriter ddeWriter = new DDEWriter( client );
+                ddeWriter.getHandler().start();
+                ddeWriters.put( client.getName(), ddeWriter );
+
+            }
 
             ddeStatusLbl.setForeground(Themes.GREEN);
         } catch (Exception e) {
@@ -157,6 +175,16 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         disConnectBtn.setBackground(Themes.RED);
         disConnectBtn.setBorder(BorderFactory.createLineBorder(Themes.RED.brighter()));
         add(disConnectBtn);
+
+
+        // Item comboBox
+        String[] items = new String[]{"ALL", "DDE", "TWS"};
+        connectionComboBox = new JComboBox(items);
+        connectionComboBox.setBounds(connectionBtn.getX() + connectionBtn.getWidth() + 20, connectionBtn.getY(), 80, 25);
+        connectionComboBox.setBackground(Themes.BLUE_DARK);
+        connectionComboBox.setForeground(Color.WHITE);
+        add(connectionComboBox);
+
 
         // Status lbl
         ddeStatusLbl.setXY(disConnectBtn.getX() + disConnectBtn.getWidth() + 20, disConnectBtn.getY());

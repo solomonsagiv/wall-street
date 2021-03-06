@@ -1,10 +1,10 @@
 package serverObjects.indexObjects;
 
-import IDDEReaderUpdater.DDEReaderUpdater_A;
+import IDDEReaderUpdater.DDEReaderUpdater_B;
 import api.Manifest;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_A;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_B;
 import exp.ExpStrings;
 import logic.LogicService;
 import roll.Roll;
@@ -15,28 +15,28 @@ import serverObjects.ApiEnum;
 
 import java.time.LocalTime;
 
-public class Spx extends INDEX_CLIENT_OBJECT {
+public class Dax extends INDEX_CLIENT_OBJECT {
 
-    static Spx client = null;
+    static Dax client = null;
 
     // Constructor
-    public Spx() {
-        setName( "spx" );
+    public Dax() {
+        setName( "dax" );
         setIndexBidAskMargin( .5 );
         setStrikeMargin( 5 );
-        setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
-        setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
-        setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
+        setIndexStartTime( LocalTime.of( 10, 0, 0 ) );
+        setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
+        setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.day ) );
-        setDdeReaderUpdater( new DDEReaderUpdater_A( this ) );
-        setMySqlService( new MySqlService( this, new DataBaseHandler_A( this ) ) );
+        setMySqlService( new MySqlService( this, new DataBaseHandler_B( this ) ) );
+        setDdeReaderUpdater( new DDEReaderUpdater_B( this ) );
         roll( );
     }
 
     // get instance
-    public static Spx getInstance() {
+    public static Dax getInstance() {
         if ( client == null ) {
-            client = new Spx( );
+            client = new Dax( );
         }
         return client;
     }
@@ -44,8 +44,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     private void roll() {
         rollHandler = new RollHandler( this );
 
-        Roll quarter_quarterFar = new Roll( this, ExpStrings.e1, ExpStrings.e2, RollPriceEnum.FUTURE );
-        rollHandler.addRoll( RollEnum.E1_E2, quarter_quarterFar );
+        Roll roll = new Roll( this, ExpStrings.week, ExpStrings.month, RollPriceEnum.FUTURE );
+        rollHandler.addRoll( RollEnum.WEEK_MONTH, roll );
     }
 
     @Override
@@ -65,6 +65,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void setIndexAsk( double indexAsk ) {
         super.setIndexAsk( indexAsk );
+
         // Margin counter
         double bidMargin = index - getIndexBid( );
         double askMargin = indexAsk - index;

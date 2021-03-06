@@ -2,10 +2,10 @@ package serverObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsBloomberg;
+import IDDEReaderUpdater.IDDEReaderUpdater;
 import api.Manifest;
 import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_A;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -54,6 +54,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     // Table
     DefaultTableModel model = new DefaultTableModel( );
 
+    // DDE reader
+    IDDEReaderUpdater ddeReaderUpdater;
+
     // Services
     ListsService listsService;
     MySqlService mySqlService;
@@ -63,6 +66,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
     MyTimeSeries indBidAskMarginSeries;
+    MyTimeSeries indCounterSeries;
 
     private double startStrike;
     private double endStrike;
@@ -72,9 +76,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
 
-    // Base id
-    private int baseId;
-
     // Position
     private ArrayList< MyThread > threads = new ArrayList<>( );
     private HashMap< String, Integer > ids = new HashMap<>( );
@@ -82,9 +83,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Lists map
     private String name = null;
-
-    // DB
-    private int dbId = 0;
 
     // MyService
     private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
@@ -116,12 +114,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             LocalHandler.clients.add( this );
 
             // Call subClasses abstract functions
-            initBaseId( );
             initSeries( );
 
             // MyServices
             listsService = new ListsService( this );
-            mySqlService = new MySqlService( this, new DataBaseHandler_A( this ) );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -186,6 +182,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 return client.getBidAskMarginCounter( );
             }
         };
+        indCounterSeries = new MyTimeSeries( "ind counter", this ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return client.getIndexSum();
+            }
+        };
     }
 
     @Override
@@ -199,7 +201,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         exps.addExp( new E( this, ExpStrings.e2 ) );
         exps.setMainExp( exps.getExp( ExpStrings.day ) );
         setExps( exps );
-
     }
 
     public double getBidAskMarginCounter() {
@@ -207,9 +208,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     }
 
     public void fullExport() {
-
         // TODO
-
     }
 
     // ---------- Getters and Setters ---------- //
@@ -376,14 +375,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.threads = threads;
     }
 
-    public int getDbId() {
-        return dbId;
-    }
-
-    public void setDbId( int dbId ) {
-        this.dbId = dbId;
-    }
-
     public int getIndexSum() {
         return indexUp - indexDown;
     }
@@ -406,14 +397,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public void setName( String name ) {
         this.name = name;
-    }
-
-    public int getBaseId() {
-        return baseId;
-    }
-
-    public void setBaseId( int baseId ) {
-        this.baseId = baseId;
     }
 
     public abstract double getTheoAvgMargin();
@@ -526,10 +509,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         }
     }
 
-    public int getIndexSumRaces() {
-        return indexUp - indexDown;
-    }
-
     public double getStrikeMargin() {
         if ( strikeMargin == 0 ) throw new NullPointerException( getName( ) + " Strike margin not set" );
         return strikeMargin;
@@ -541,6 +520,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public ListsService getListsService() {
         return listsService;
+    }
+
+    public void setMySqlService( MySqlService mySqlService ) {
+        this.mySqlService = mySqlService;
     }
 
     public MySqlService getMySqlService() {
@@ -561,7 +544,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         }
         return exps;
     }
-
 
     public void setExps( Exps exps ) {
         this.exps = exps;
@@ -675,6 +657,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return indexScaledSeries;
     }
 
+    public MyTimeSeries getIndCounterSeries() {
+        return indCounterSeries;
+    }
+
     public LogicService getLogicService() {
         if ( logicService == null ) throw new NullPointerException( getName( ) + " Logic not set" );
         return logicService;
@@ -705,6 +691,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.lastTick = lastTick;
     }
 
+    public IDDEReaderUpdater getDdeReaderUpdater() {
+        return ddeReaderUpdater;
+    }
+
+    public void setDdeReaderUpdater( IDDEReaderUpdater ddeReaderUpdater ) {
+        this.ddeReaderUpdater = ddeReaderUpdater;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
@@ -716,7 +710,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +
                 ", started=" + started +
-                ", dbId=" + dbId +
                 ", index=" + index +
                 ", indexBidAskCounter=" + indexBidAskCounter +
                 ", indexBid=" + indexBid +
@@ -737,6 +730,5 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", indexList=" + indexSeries.getItemCount( ) +
                 '}';
     }
-
 
 }

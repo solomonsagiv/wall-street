@@ -6,7 +6,6 @@ import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -18,7 +17,6 @@ public class DataBaseHandler_A extends IDataBaseHandler {
 
     static final String SAGIV_SCHEME = "sagiv";
     static final String DATA_SCHEME = "data";
-    static final String SPX_SCHEME = "spx";
 
     public static void main( String[] args ) throws ParseException, SQLException {
 
@@ -36,6 +34,8 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         }
     }
 
+
+
     ArrayList< MyTimeStampObject > index_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > index_bid_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > index_ask_timestamp = new ArrayList<>( );
@@ -47,6 +47,7 @@ public class DataBaseHandler_A extends IDataBaseHandler {
     ArrayList< MyTimeStampObject > ind_bid_ask_counter_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > op_avg_fut_day_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > op_avg_fut_day_15_timestamp = new ArrayList<>( );
+    ArrayList< MyTimeStampObject > ind_counter_timestamp = new ArrayList<>( );
 
     double index_0 = 0;
     double index_bid_0 = 0;
@@ -57,7 +58,14 @@ public class DataBaseHandler_A extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double index_bid_ask_counter_0 = 0;
+    double ind_counter_0;
+
     Exps exps;
+
+    @Override
+    public String getExcelPath() {
+        return "C:/Users/user/Desktop/[SPX.xlsx]Spx";
+    }
 
     public DataBaseHandler_A( BASE_CLIENT_OBJECT client ) {
         super( client );
@@ -136,8 +144,16 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         int ind_bid_ask_counter = client.getIndexBidAskCounter( );
 
         if ( ind_bid_ask_counter != index_bid_ask_counter_0 ) {
+
+            double last_count = ind_bid_ask_counter - index_bid_ask_counter_0;
             index_bid_ask_counter_0 = ind_bid_ask_counter;
-            ind_bid_ask_counter_timestamp.add( new MyTimeStampObject( Instant.now( ), index_bid_ask_counter_0 ) );
+            ind_bid_ask_counter_timestamp.add( new MyTimeStampObject( Instant.now( ), last_count ) );
+        }
+
+        // Races ind counter
+        if ( client.getIndexSum() != ind_counter_0 ) {
+            ind_counter_0 = client.getIndexSum();
+            ind_counter_timestamp.add( new MyTimeStampObject( Instant.now(), ind_counter_0 ) );
         }
 
         // Op avg day
@@ -156,7 +172,6 @@ public class DataBaseHandler_A extends IDataBaseHandler {
 
         // Update count
         sleep_count += sleep;
-
     }
 
     @Override
@@ -167,6 +182,7 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         loadSerieData( DATA_SCHEME, "snp500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
+        loadSerieData( SAGIV_SCHEME, "snp500_index_counter", client.getIndCounterSeries() );
     }
 
     private void loadSerieData( String scheme, String table, MyTimeSeries timeSeries ) {
@@ -220,5 +236,6 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         insertListRetro( ind_bid_ask_counter_timestamp, DATA_SCHEME, "snp500_index_bid_ask_counter" );
         insertListRetro( op_avg_fut_day_timestamp, SAGIV_SCHEME, "snp500_op_avg_day" );
         insertListRetro( op_avg_fut_day_15_timestamp, SAGIV_SCHEME, "snp500_op_avg_15_day" );
+        insertListRetro( ind_counter_timestamp, SAGIV_SCHEME, "snp500_index_counter" );
     }
 }

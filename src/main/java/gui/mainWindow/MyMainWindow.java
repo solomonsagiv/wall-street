@@ -7,6 +7,7 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +15,12 @@ import java.awt.*;
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static Spx spx;
+    static Dax dax;
 
     static {
-//        dax = Dax.getInstance();
+        dax = Dax.getInstance();
         spx = Spx.getInstance();
+
 //        apple = Apple.getInstance();
 //        amazon = Amazon.getInstance();
 //        netflix = Netflix.getInstance();
@@ -41,7 +44,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-//        LocalHandler.clients.add(dax);
+        LocalHandler.clients.add(dax);
         LocalHandler.clients.add(spx);
 //        LocalHandler.clients.add(apple);
 //        LocalHandler.clients.add(amazon);

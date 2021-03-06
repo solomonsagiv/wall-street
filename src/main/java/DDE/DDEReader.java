@@ -18,6 +18,8 @@ public class DDEReader extends MyThread implements Runnable {
     private DDEConnection ddeConnection = new DDEConnection( );
     IDDEReaderUpdater iddeReaderUpdater;
 
+
+
     // Constructor
     public DDEReader( BASE_CLIENT_OBJECT client, IDDEReaderUpdater iddeReaderUpdater ) {
         super( client );

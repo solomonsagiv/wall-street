@@ -4,6 +4,8 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class IDataBaseHandler {
 
+    public abstract String getExcelPath();
+
     BASE_CLIENT_OBJECT client;
 
     public IDataBaseHandler( BASE_CLIENT_OBJECT client ) {

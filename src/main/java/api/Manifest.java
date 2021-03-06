@@ -21,11 +21,11 @@ public class Manifest {
     public static int GATEWAY_PORT = 4001;
 
     // SELECTED ACCOUNT
-    public static boolean DB = true;
-    public static boolean DB_RUNNER = true;
-    public static boolean DB_UPDATER = true;
+    public static boolean DB = false;
+    public static boolean DB_RUNNER = false;
+    public static boolean DB_UPDATER = false;
     public static boolean OPEN_CHARTS = true;
-    public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_POSTGRES;
+    public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_POSTGRES  ;
     public static String ACCOUNT = SNUPPI_ACCOUNT;
     public static int PORT = GATEWAY_PORT;
     public static int SCREEN = 0;
