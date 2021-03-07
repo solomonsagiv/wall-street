@@ -40,11 +40,6 @@ public class DataBaseHandler_B extends IDataBaseHandler {
 
     Exps exps;
 
-    @Override
-    public String getExcelPath() {
-        return "C:/Users/user/Desktop/[SPX.xlsx]Dax";
-    }
-
     public DataBaseHandler_B( BASE_CLIENT_OBJECT client ) {
         super( client );
         exps = client.getExps( );

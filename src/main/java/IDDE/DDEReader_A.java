@@ -1,74 +1,24 @@
-package IDDEReaderUpdater;
+package IDDE;
 
 import DDE.DDECellsEnum;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-import java.util.ArrayList;
-
-public class DDEReaderUpdater_B extends IDDEReaderUpdater {
-
-    boolean initStocksCeels = false;
-
-    ArrayList< String > stocksPriceCells = new ArrayList<>( );
-    ArrayList< String > stocksVolumeCells = new ArrayList<>( );
+public class DDEReader_A extends IDDEReader {
 
     // Constructor
-    public DDEReaderUpdater_B( BASE_CLIENT_OBJECT client ) {
+    public DDEReader_A( BASE_CLIENT_OBJECT client ) {
         super( client );
-
-        System.out.println( "Initittttttttt" );
-    }
-
-    private void initStockCells( DDEClientConversation conversation ) {
-
-        int lastPriceCol = 27;
-        int volumeCol = 28;
-        int row = 0;
-
-        while ( true ) {
-            System.out.println( "Enter" );
-            String cell = "R%sC%s";
-            String lastCell = String.format( cell, row, lastPriceCol );
-            cell = "R%sC%s";
-            String volumeCell = String.format( cell, row, volumeCol );
-
-            stocksPriceCells.add( lastCell );
-            stocksVolumeCells.add( volumeCell );
-
-            System.out.println( lastCell + " " + volumeCell );
-
-            double v = requestDouble( lastCell, conversation );
-
-            System.out.println( "V : " + v );
-//
-//            if ( v == 0 ) {
-//                break;
-//            }
-
-            if ( row > 500 ) {
-                break;
-            }
-
-            row++;
-        }
-
-        initStocksCeels = true;
-
     }
 
     @Override
     public void updateData( DDEClientConversation conversation ) {
 
-        if ( !initStocksCeels ) {
-            initStockCells( conversation );
-
-        }
-
-
         // Index
         client.setIndex( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND ), conversation ) );
+        client.setIndexBid( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND_BID ), conversation ) );
+        client.setIndexAsk( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND_ASK ), conversation ) );
 
         // Ticker
         client.setOpen( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.OPEN ), conversation ) );
@@ -84,6 +34,4 @@ public class DDEReaderUpdater_B extends IDDEReaderUpdater {
         client.getExps( ).getExp( ExpStrings.e2 ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E2 ), conversation ) );
 
     }
-
-
 }

@@ -1,6 +1,8 @@
 package serverObjects.indexObjects;
 
-import IDDEReaderUpdater.DDEReaderUpdater_B;
+import IDDE.DDEHandler;
+import IDDE.DDEReader_B;
+import IDDE.DDEWriter_B;
 import api.Manifest;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
@@ -12,7 +14,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
 import java.time.LocalTime;
 
 public class Dax extends INDEX_CLIENT_OBJECT {
@@ -29,7 +30,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.day ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_B( this ) ) );
-        setDdeReaderUpdater( new DDEReaderUpdater_B( this ) );
+        setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Dax" ) );
         roll( );
     }
 

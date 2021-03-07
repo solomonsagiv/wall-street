@@ -1,9 +1,8 @@
 package DDE;
 
-import IDDEReaderUpdater.IDDEReaderUpdater;
+import IDDE.IDDEReader;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
-import gui.mainWindow.ConnectionPanel;
 import locals.LocalHandler;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -16,15 +15,13 @@ public class DDEReader extends MyThread implements Runnable {
     int sleep = 100;
     DDEClientConversation conversation;
     private DDEConnection ddeConnection = new DDEConnection( );
-    IDDEReaderUpdater iddeReaderUpdater;
-
-
+    IDDEReader iddeReaderUpdater;
 
     // Constructor
-    public DDEReader( BASE_CLIENT_OBJECT client, IDDEReaderUpdater iddeReaderUpdater ) {
+    public DDEReader( BASE_CLIENT_OBJECT client ) {
         super( client );
-        this.iddeReaderUpdater = iddeReaderUpdater;
-        conversation = ddeConnection.createNewConversation( ConnectionPanel.excelLocationField.getText( ) );
+        this.iddeReaderUpdater = client.getDdeHandler().getIddeReader();
+        this.conversation = ddeConnection.createNewConversation( client.getDdeHandler().getPath() );
     }
 
     @Override

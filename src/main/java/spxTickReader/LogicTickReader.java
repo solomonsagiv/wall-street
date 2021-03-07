@@ -1,7 +1,7 @@
 package spxTickReader;
 
 import DDE.DDEConnection;
-import IDDEReaderUpdater.IDDEReaderUpdater;
+import IDDE.IDDEReader;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import exp.E;
@@ -16,7 +16,7 @@ public class LogicTickReader extends MyThread implements Runnable {
 
     DDEClientConversation conversation;
     private DDEConnection ddeConnection = new DDEConnection( );
-    IDDEReaderUpdater iddeReaderUpdater;
+    IDDEReader iddeReaderUpdater;
     final String FILE_LOCATION = "C:/Users/user/Desktop/Book1.xlsm";
 
     E e1;

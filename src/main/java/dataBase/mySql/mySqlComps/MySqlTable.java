@@ -1,12 +1,9 @@
 package dataBase.mySql.mySqlComps;
 
-import arik.Arik;
 import dataBase.mySql.MySql;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,30 +48,6 @@ public abstract class MySqlTable implements IMyTableSql {
 
     }
 
-    protected void updateSpecificCols(ArrayList<MyColumnSql> columns) {
-        StringBuilder query = new StringBuilder(String.format("UPDATE `%s`.`%s` SET ", schema, getName()));
-
-        int i = 0;
-
-        for (MyColumnSql column : columns) {
-            try {
-                if (i < columns.size() - 1) {
-                    query.append("`" + column.getType().name() + "`='" + column.getObject() + "',");
-                } else {
-                    query.append("`" + column.getType().name() + "`='" + column.getObject() + "'");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            i++;
-        }
-
-        String endQuery = String.format("WHERE `id`='%s';", client.getDbId());
-
-        query.append(endQuery);
-
-        MySql.update(query.toString());
-    }
 
     @Override
     public void insert() {
@@ -141,7 +114,7 @@ public abstract class MySqlTable implements IMyTableSql {
             i++;
         }
         
-        String endQuery = String.format("WHERE `id`='%s';", client.getDbId());
+        String endQuery = String.format("WHERE `id`='%s';", 1);
 
         query.append(endQuery);
 
@@ -152,7 +125,7 @@ public abstract class MySqlTable implements IMyTableSql {
     @Override
     public void load() {
         try {
-            String query = String.format("SELECT * FROM %s.%s WHERE id ='%S'", schema, getName(), client.getDbId());
+            String query = String.format("SELECT * FROM %s.%s WHERE id ='%S'", schema, getName(), 1);
 
             System.out.println(query);
 
@@ -190,45 +163,6 @@ public abstract class MySqlTable implements IMyTableSql {
         }
     }
 
-    public void loadAll() {
-        try {
-
-            String query = String.format("SELECT * FROM %s.%s", schema, getName(), client.getDbId());
-
-            ResultSet rs = MySql.select(query);
-
-            while (rs.next()) {
-
-                for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
-
-                    MyLoadAbleColumn column = entry.getValue();
-
-                    if (column.getType().getDataType() == MySqlDataTypeEnum.DOUBLE) {
-                        double d = rs.getDouble(column.getType().name());
-                        column.setLoadedObject(d);
-                        continue;
-                    }
-
-                    if (column.getType().getDataType() == MySqlDataTypeEnum.INT) {
-                        int i = rs.getInt(column.getType().name());
-                        column.setLoadedObject(i);
-                        continue;
-                    }
-
-                    if (column.getType().getDataType() == MySqlDataTypeEnum.STRING) {
-                        String s = rs.getString(column.getType().name());
-                        column.setLoadedObject(s);
-                        continue;
-                    }
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Arik.getInstance().sendErrorMessage(e);
-        }
-    }
-
     @Override
     public void reset() {
         StringBuilder query = new StringBuilder(String.format("UPDATE `%s`.`%s` SET ", schema, getName()));
@@ -247,7 +181,7 @@ public abstract class MySqlTable implements IMyTableSql {
             i++;
         }
 
-        String endQuery = String.format(" WHERE `id`='%s';", client.getDbId());
+        String endQuery = String.format(" WHERE `id`='%s';", 1);
 
         query.append(endQuery);
 

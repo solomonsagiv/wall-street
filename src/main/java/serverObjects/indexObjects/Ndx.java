@@ -1,6 +1,8 @@
 package serverObjects.indexObjects;
 
-import IDDEReaderUpdater.DDEReaderUpdater_A;
+import IDDE.DDEHandler;
+import IDDE.DDEReader_A;
+import IDDE.DDEWriter_A;
 import api.Manifest;
 import charts.myCharts.FuturesChart;
 import exp.ExpStrings;
@@ -26,7 +28,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.day ) );
-        setDdeReaderUpdater( new DDEReaderUpdater_A( this ) );
+        setDdeHandler( new DDEHandler( this, new DDEReader_A( this ), new DDEWriter_A( this ), "C:/Users/user/Desktop/[SPX.xlsx]Ndx" ) );
         roll( );
     }
 

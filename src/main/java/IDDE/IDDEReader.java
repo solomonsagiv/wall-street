@@ -1,16 +1,15 @@
-package IDDEReaderUpdater;
+package IDDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-public abstract class IDDEReaderUpdater {
+public abstract class IDDEReader {
 
     protected BASE_CLIENT_OBJECT client;
-    protected DDEClientConversation conversation;
 
-    public IDDEReaderUpdater( BASE_CLIENT_OBJECT client ) {
+    public IDDEReader( BASE_CLIENT_OBJECT client ) {
         this.client = client;
     }
 
@@ -28,5 +27,4 @@ public abstract class IDDEReaderUpdater {
             return d;
         }
     }
-
 }

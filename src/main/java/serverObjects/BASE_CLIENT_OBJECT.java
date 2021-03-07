@@ -2,8 +2,9 @@ package serverObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsBloomberg;
-import IDDEReaderUpdater.IDDEReaderUpdater;
+import IDDE.DDEHandler;
 import api.Manifest;
+import baskets.BasketFinder;
 import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySqlService;
 import exp.E;
@@ -19,6 +20,7 @@ import myJson.MyJson;
 import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
+import stocksHandler.StocksHandler;
 import threads.MyThread;
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
@@ -54,8 +56,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     // Table
     DefaultTableModel model = new DefaultTableModel( );
 
-    // DDE reader
-    IDDEReaderUpdater ddeReaderUpdater;
+    // DDE Handler
+    private DDEHandler ddeHandler;
+
+    // Basket finder
+    private BasketFinder basketFinder;
 
     // Services
     ListsService listsService;
@@ -83,6 +88,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     // Lists map
     private String name = null;
+
+    // Stocks
+    private StocksHandler stocksHandler;
 
     // MyService
     private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
@@ -118,6 +126,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
             // MyServices
             listsService = new ListsService( this );
+            stocksHandler = new StocksHandler( this );
+            basketFinder = new BasketFinder( this );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -683,6 +693,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     public void openChartsOnStart() {
     }
 
+    public BasketFinder getBasketFinder() {
+        return basketFinder;
+    }
+
     public int getLastTick() {
         return lastTick;
     }
@@ -691,12 +705,20 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.lastTick = lastTick;
     }
 
-    public IDDEReaderUpdater getDdeReaderUpdater() {
-        return ddeReaderUpdater;
+    public DDEHandler getDdeHandler() {
+        return ddeHandler;
     }
 
-    public void setDdeReaderUpdater( IDDEReaderUpdater ddeReaderUpdater ) {
-        this.ddeReaderUpdater = ddeReaderUpdater;
+    public StocksHandler getStocksHandler() {
+        return stocksHandler;
+    }
+
+    public void setStocksHandler( StocksHandler stocksHandler ) {
+        this.stocksHandler = stocksHandler;
+    }
+
+    public void setDdeHandler( DDEHandler ddeHandler ) {
+        this.ddeHandler = ddeHandler;
     }
 
     @Override
@@ -706,6 +728,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +
                 ", endFutureTrading=" + getFutureEndTime( ) +
+                ", Basket target changes=" + getBasketFinder().getTargetChanges() +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +

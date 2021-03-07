@@ -9,7 +9,6 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -102,9 +101,10 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
                 try {
+
                     // Load data from database
                     client.getMySqlService().getDataBaseHandler().loadData();
-
+                    
                     // Start back runner
                     BackGroundHandler.getInstance().createNewRunner(client);
                 } catch (Exception e) {
