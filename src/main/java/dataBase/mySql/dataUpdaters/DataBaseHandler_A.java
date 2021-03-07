@@ -169,7 +169,7 @@ public class DataBaseHandler_A extends IDataBaseHandler {
                 e.printStackTrace( );
             }
         }
-
+        
         // Update count
         sleep_count += sleep;
     }

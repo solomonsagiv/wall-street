@@ -19,6 +19,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     // Variables
     JComboBox connectionComboBox;
+    JComboBox clientComboBox;
     MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection ");
     MyGuiComps.MyButton connectionBtn = new MyGuiComps.MyButton("Connect");
     MyGuiComps.MyButton disConnectBtn = new MyGuiComps.MyButton("Disconnect");
@@ -178,12 +179,12 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
 
         // Item comboBox
-        String[] items = new String[]{"ALL", "DDE", "TWS"};
-        connectionComboBox = new JComboBox(items);
-        connectionComboBox.setBounds(connectionBtn.getX() + connectionBtn.getWidth() + 20, connectionBtn.getY(), 80, 25);
-        connectionComboBox.setBackground(Themes.BLUE_DARK);
-        connectionComboBox.setForeground(Color.WHITE);
-        add(connectionComboBox);
+        String[] clientItems = (String[]) LocalHandler.clients.toArray();
+        clientComboBox = new JComboBox(clientItems);
+        clientComboBox.setBounds(connectionComboBox.getX() + connectionComboBox.getWidth() + 20, connectionComboBox.getY(), 80, 25);
+        clientComboBox.setBackground(Themes.BLUE_DARK);
+        clientComboBox.setForeground(Color.WHITE);
+        add(clientComboBox);
 
 
         // Status lbl
