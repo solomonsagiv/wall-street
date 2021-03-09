@@ -34,8 +34,6 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         }
     }
 
-
-
     ArrayList< MyTimeStampObject > index_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > index_bid_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > index_ask_timestamp = new ArrayList<>( );

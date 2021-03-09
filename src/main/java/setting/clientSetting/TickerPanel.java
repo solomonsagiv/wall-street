@@ -27,6 +27,10 @@ public class TickerPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton stopBtn;
     MyGuiComps.MyLabel targetBasketChangesLbl;
     MyGuiComps.MyTextField targetBasketChangesField;
+    MyGuiComps.MyLabel basketUpLb;
+    MyGuiComps.MyLabel basketDownLb;
+    MyGuiComps.MyTextField basketUpField;
+    MyGuiComps.MyTextField basketDownField;
 
     public static void main( String[] args ) {
         SettingWindow window = new SettingWindow( "S", Spx.getInstance( ) );
@@ -114,6 +118,33 @@ public class TickerPanel extends MyGuiComps.MyPanel {
                 }
             }
         } );
+
+        // Basket up
+        basketUpField.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                try {
+                    int basket = L.INT( basketUpField.getText() );
+                    client.getBasketFinder().setBasketUp( basket );
+                } catch ( Exception e ) {
+                    e.printStackTrace();
+                }
+            }
+        } );
+
+        // Basket down
+        basketDownField.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                try {
+                    int basket = L.INT( basketDownField.getText() );
+                    client.getBasketFinder().setBasketDown( basket );
+                } catch ( Exception e ) {
+                    e.printStackTrace();
+                }
+            }
+        } );
+
     }
                             
     private void initialize() {
@@ -189,6 +220,24 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         targetBasketChangesField.setXY( targetBasketChangesLbl.getX( ), targetBasketChangesLbl.getY( ) + targetBasketChangesLbl.getHeight( ) + 5 );
         targetBasketChangesField.setSize( 70, 20 );
         add( targetBasketChangesField );
+
+        // Basket up
+        basketUpLb = new MyGuiComps.MyLabel( "Basket up" );
+        basketUpLb.setXY( targetBasketChangesLbl.getX() + targetBasketChangesLbl.getWidth() + 5, targetBasketChangesLbl.getY() );
+        add( basketUpLb );
+
+        basketUpField = new MyGuiComps.MyTextField(  );
+        basketUpField.setXY( basketUpLb.getX(), basketUpLb.getY() + basketUpLb.getHeight() + 3 );
+        add( basketUpField );
+
+        // Basket down
+        basketDownLb = new MyGuiComps.MyLabel( "Basket down" );
+        basketDownLb.setXY( basketUpLb.getX() + basketUpLb.getWidth() + 5, basketUpLb.getY() );
+        add( basketDownLb );
+
+        basketDownField = new MyGuiComps.MyTextField(  );
+        basketDownField.setXY( basketDownLb.getX(), basketDownLb.getY() + basketDownLb.getHeight() + 3 );
+        add( basketDownField );
 
         // ----- Start ----- //
         startBtn = new MyGuiComps.MyButton( "Start" );

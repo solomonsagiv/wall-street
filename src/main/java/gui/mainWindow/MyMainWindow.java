@@ -8,7 +8,9 @@ import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,10 +18,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static Spx spx;
     static Dax dax;
+    static Ndx ndx;
 
     static {
-        dax = Dax.getInstance();
-        spx = Spx.getInstance();
+        dax = Dax.getInstance( );
+        spx = Spx.getInstance( );
+        ndx = Ndx.getInstance( );
 
 //        apple = Apple.getInstance();
 //        amazon = Amazon.getInstance();
@@ -33,19 +37,20 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     WindowsPanel windowsPanel;
 
     // Constructor
-    public MyMainWindow(String title) throws HeadlessException {
-        super(title);
+    public MyMainWindow( String title ) throws HeadlessException {
+        super( title );
     }
 
     // Main
-    public static void main(String[] args) {
-        MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println(mainWindow.getWidth());
+    public static void main( String[] args ) {
+        MyMainWindow mainWindow = new MyMainWindow( "My main window" );
+        System.out.println( mainWindow.getWidth( ) );
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(dax);
-        LocalHandler.clients.add(spx);
+        LocalHandler.clients.add( dax );
+        LocalHandler.clients.add( spx );
+//        LocalHandler.clients.add( ndx );
 //        LocalHandler.clients.add(apple);
 //        LocalHandler.clients.add(amazon);
 //        LocalHandler.clients.add(netflix);
@@ -54,7 +59,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initOnClose() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     }
 
     @Override
@@ -65,52 +70,52 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // Append clients
-        appendClients();
+        appendClients( );
 
         // Load data from DB
-        loadOnStartUp();
+        loadOnStartUp( );
 
         // This
-        setXY(100, 100);
-        setSize(500, 420);
-        setLayout(null);
+        setXY( 100, 100 );
+        setSize( 500, 420 );
+        setLayout( null );
 
         // Head
-        headPanel = new HeadPanel();
-        headPanel.setXY(0, 0);
-        add(headPanel);
+        headPanel = new HeadPanel( );
+        headPanel.setXY( 0, 0 );
+        add( headPanel );
 
         // Connection
-        connectionPanel = new ConnectionPanel();
-        connectionPanel.setXY(0, headPanel.getHeight());
-        getContentPane().add(connectionPanel);
+        connectionPanel = new ConnectionPanel( );
+        connectionPanel.setXY( 0, headPanel.getHeight( ) );
+        getContentPane( ).add( connectionPanel );
 
         // Windows
-        windowsPanel = new WindowsPanel();
-        windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
-        add(windowsPanel);
+        windowsPanel = new WindowsPanel( );
+        windowsPanel.setXY( 0, connectionPanel.getY( ) + connectionPanel.getHeight( ) + 1 );
+        add( windowsPanel );
 
     }
 
     private void loadOnStartUp() {
 
         // Connect to db
-        ConnectionPool.getConnectionsPoolInstance();
+        ConnectionPool.getConnectionsPoolInstance( );
 
         // Start back runners
-        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-            new Thread(() -> {
+        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
+            new Thread( () -> {
                 try {
 
                     // Load data from database
-                    client.getMySqlService().getDataBaseHandler().loadData();
-                    
+                    client.getMySqlService( ).getDataBaseHandler( ).loadData( );
+
                     // Start back runner
-                    BackGroundHandler.getInstance().createNewRunner(client);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    BackGroundHandler.getInstance( ).createNewRunner( client );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
                 }
-            }).start();
+            } ).start( );
         }
     }
 }

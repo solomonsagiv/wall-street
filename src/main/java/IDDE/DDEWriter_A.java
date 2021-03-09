@@ -31,7 +31,6 @@ public class DDEWriter_A extends IDDEWriter {
         try {
             conversation.poke( rollCell, L.str( client.getRollHandler( ).getRoll( RollEnum.E1_E2 ).getAvg( ) ) );
             conversation.poke( indexBidAskCounterCell, L.str( client.getIndexBidAskCounter( ) ) );
-
             conversation.poke( opAvgDayCell, L.str( exps.getExp( ExpStrings.day ).getOpAvgFut() ) );
             conversation.poke( opAvgWeekCell, L.str( exps.getExp( ExpStrings.week ).getOpAvgFut() ) );
             conversation.poke( opAvgMonthCell, L.str( exps.getExp( ExpStrings.month ).getOpAvgFut() ) );

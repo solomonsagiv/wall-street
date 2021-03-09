@@ -1,6 +1,5 @@
 package IDDE;
 
-import DDE.DDECellsEnum;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import exp.ExpStrings;
@@ -11,6 +10,16 @@ import stocksHandler.MiniStock;
 public class DDEReader_B extends IDDEReader {
 
     boolean initStocksCells = false;
+
+    String indCell = "R2C3";
+    String openCell = "R12C4";
+    String highCell = "R12C1";
+    String lowCell = "R12C2";
+    String baseCell = "R10C5";
+    String futWeekCell = "R9C10";
+    String futMonthCell = "R10C10";
+    String e1Cell = "R11C10";
+    String e2Cell = "R12C10";
 
     // Constructor
     public DDEReader_B( BASE_CLIENT_OBJECT client ) {
@@ -23,7 +32,6 @@ public class DDEReader_B extends IDDEReader {
         int row = 2;
 
         while ( true ) {
-
             try {
                 String name = conversation.request( String.format( "R%sC%s", row, nameCol ) );
 
@@ -57,20 +65,19 @@ public class DDEReader_B extends IDDEReader {
         }
 
         // Index
-        client.setIndex( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND ), conversation ) );
+        client.setIndex( requestDouble( indCell, conversation ) );
 
         // Ticker
-        client.setOpen( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.OPEN ), conversation ) );
-        client.setHigh( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.HIGH ), conversation ) );
-        client.setLow( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.LOW ), conversation ) );
-        client.setBase( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.BASE ), conversation ) );
+        client.setOpen( requestDouble( openCell, conversation ) );
+        client.setHigh( requestDouble( highCell, conversation ) );
+        client.setLow( requestDouble( lowCell, conversation ) );
+        client.setBase( requestDouble( baseCell, conversation ) );
 
         // Exps
-        client.getExps( ).getExp( ExpStrings.day ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_DAY ), conversation ) );
-        client.getExps( ).getExp( ExpStrings.week ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_WEEK ), conversation ) );
-        client.getExps( ).getExp( ExpStrings.month ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.FUT_MONTH ), conversation ) );
-        client.getExps( ).getExp( ExpStrings.e1 ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E1 ), conversation ) );
-        client.getExps( ).getExp( ExpStrings.e2 ).setFuture( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.E2 ), conversation ) );
+        client.getExps( ).getExp( ExpStrings.week ).setFuture( requestDouble( futWeekCell, conversation ) );
+        client.getExps( ).getExp( ExpStrings.month ).setFuture( requestDouble( futMonthCell, conversation ) );
+        client.getExps( ).getExp( ExpStrings.e1 ).setFuture( requestDouble( e1Cell, conversation ) );
+        client.getExps( ).getExp( ExpStrings.e2 ).setFuture( requestDouble( e2Cell, conversation ) );
 
         // Stocks
         updateStocks( conversation );

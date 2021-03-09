@@ -6,6 +6,7 @@ import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +43,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "DAX":
                         new IndexWindow("Dax", Dax.getInstance());
+                        break;
+                    case "NDX":
+                        new IndexWindow("Ndx", Ndx.getInstance());
                         break;
                     default:
                         break;

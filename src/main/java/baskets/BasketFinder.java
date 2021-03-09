@@ -1,10 +1,12 @@
 package baskets;
 
+import charts.myChart.MyTimeSeries;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import stocksHandler.MiniStock;
 import stocksHandler.StocksHandler;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 public class BasketFinder extends MyBaseService {
@@ -12,17 +14,33 @@ public class BasketFinder extends MyBaseService {
     // Variables
     private BASE_CLIENT_OBJECT client;
     StocksHandler stocksHandler;
-    private int targetChanges = 25;
+    private int targetChanges = 26;
     private int changesCount = 0;
     private ArrayList< MiniStock > stocksChanges = new ArrayList<>( );
     private int basketUp = 0;
     private int basketDown = 0;
     private double preLastPrice = 0;
+    private int sleep = 0;
 
-    public BasketFinder( BASE_CLIENT_OBJECT client ) {
+    MyTimeSeries basketsSeries;
+
+    public BasketFinder( BASE_CLIENT_OBJECT client, int targetChanges, int sleep ) {
         super( client );
         this.client = client;
+        this.targetChanges = targetChanges;
+        this.sleep = sleep;
         this.stocksHandler = client.getStocksHandler( );
+
+        initSeries();
+    }
+
+    private void initSeries() {
+        basketsSeries = new MyTimeSeries( "Baskets", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return client.getBasketFinder().getBaskets();
+            }
+        };
     }
 
     @Override
@@ -36,7 +54,7 @@ public class BasketFinder extends MyBaseService {
         for ( MiniStock stock : stocksHandler.getStocks( ) ) {
             try {
                 // If changed
-                if ( stock.getVolume( ) > stock.getVol_0( ) && stock.getVolume( ) > 0 ) {
+                if ( stock.getVolume( ) > stock.getVol_0( ) && stock.getVolume( ) > 0 && stock.getVol_0() > 0 ) {
                     changesCount++;
                 }
 
@@ -68,6 +86,10 @@ public class BasketFinder extends MyBaseService {
 
     }
 
+    public MyTimeSeries getBasketsSeries() {
+        return basketsSeries;
+    }
+
     public int getBasketUp() {
         return basketUp;
     }
@@ -84,6 +106,18 @@ public class BasketFinder extends MyBaseService {
         this.targetChanges = targetChanges;
     }
 
+    public int getBaskets() {
+        return basketUp - basketDown;
+    }
+
+    public void setBasketUp( int basketUp ) {
+        this.basketUp = basketUp;
+    }
+
+    public void setBasketDown( int basketDown ) {
+        this.basketDown = basketDown;
+    }
+
     @Override
     public String getName() {
         return client.getName( ) + " " + "basket finder";
@@ -91,6 +125,17 @@ public class BasketFinder extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 3000;
+        return sleep;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append( "Target changes= " + targetChanges + "\n" );
+        str.append( "Changes= " + changesCount + "\n" );
+        str.append( "BasketUp= " + basketUp + "\n" );
+        str.append( "BasketDown= " + basketDown + "\n" );
+        str.append( "Stoocks= " + stocksHandler.toString() );
+        return str.toString();
     }
 }

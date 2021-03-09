@@ -1,12 +1,13 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import exp.ExpStrings;
+import exp.Exp;
 import exp.Exps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.awt.*;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 public class FuturesChart extends MyChartCreator {
 
@@ -14,6 +15,8 @@ public class FuturesChart extends MyChartCreator {
     public FuturesChart( BASE_CLIENT_OBJECT client ) {
         super( client );
     }
+
+    ArrayList<MyTimeSeries> myTimeSeries = new ArrayList<>();
 
     @Override
     public void createChart() {
@@ -63,66 +66,33 @@ public class FuturesChart extends MyChartCreator {
         };
         ask.setColor( Themes.RED );
         ask.setStokeSize( 2.25f );
+        
+        // Futures
+        Color green = Themes.DARK_GREEN;
 
+        for ( Exp exp: exps.getExpList() ) {
 
-        // Day fut
-        MyTimeSeries futureDay = new MyTimeSeries( "Fut day", client ) {
-            @Override
-            public double getData() {
-                return exps.getExp( ExpStrings.day ).getFuture();
-            }
-        };
+            MyTimeSeries myTimeSerie = new MyTimeSeries( "Fut " + exp.getName(), client ) {
+                @Override
+                public double getData() throws UnknownHostException {
+                    return exp.getFuture();
+                }
+            };
 
-        futureDay.setColor( Themes.GREEN_LIGHT_3 );
-        futureDay.setStokeSize( 2.25f );
+            myTimeSerie.setStokeSize( 2.25f );
+            myTimeSerie.setColor( green );
+            green = green.brighter();
 
-        // Week fut
-        MyTimeSeries futureWeek = new MyTimeSeries( "Fut week", client ) {
-            @Override
-            public double getData() {
-                return exps.getExp( ExpStrings.week ).getFuture();
-            }
-        };
+            myTimeSeries.add( myTimeSerie );
 
-        futureWeek.setColor( Themes.GREEN_LIGHT_2 );
-        futureWeek.setStokeSize( 2.25f );
+        }
 
-        // Month fut
-        MyTimeSeries futureMonth = new MyTimeSeries( "Fut month", client ) {
-            @Override
-            public double getData() {
-                return exps.getExp( ExpStrings.month ).getFuture();
-            }
-        };
-
-        futureMonth.setColor( Themes.GREEN_LIGHT );
-        futureMonth.setStokeSize( 2.25f );
-
-        // E1 fut
-        MyTimeSeries futureQuarter = new MyTimeSeries( "Fut E1", client ) {
-            @Override
-            public double getData() {
-                return exps.getExp( ExpStrings.e1 ).getFuture();
-            }
-        };
-
-        futureQuarter.setColor( Themes.GREEN );
-        futureQuarter.setStokeSize( 2.25f );
-
-        // E2 fut
-        MyTimeSeries futureQuarterFar = new MyTimeSeries( "Fut E2", client ) {
-            @Override
-            public double getData() {
-                return exps.getExp( ExpStrings.e2 ).getFuture();
-            }
-        };
-
-        futureQuarterFar.setColor( Themes.DARK_GREEN );
-        futureQuarterFar.setStokeSize( 2.25f );
-
+        myTimeSeries.add( index );
+        myTimeSeries.add( bid );
+        myTimeSeries.add( ask );
 
         // Series
-        MyTimeSeries[] series = { index, bid, ask, futureDay, futureWeek, futureMonth, futureQuarter, futureQuarterFar };
+        MyTimeSeries[] series = toArray();
 
         // Chart
         MyChart chart = new MyChart( client, series, props );
@@ -134,5 +104,14 @@ public class FuturesChart extends MyChartCreator {
         MyChartContainer chartContainer = new MyChartContainer( client, charts, getClass( ).getName( ) );
         chartContainer.create( );
     }
+
+    private MyTimeSeries[] toArray() {
+        MyTimeSeries[] arr = new MyTimeSeries[myTimeSeries.size()];
+        for ( int i = 0; i < arr.length; i++ ) {
+            arr[i] = myTimeSeries.get( i );
+        }
+        return arr;
+    }
+
 
 }

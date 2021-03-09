@@ -209,18 +209,32 @@ public class MyGuiComps {
     // ---------- JLabel ---------- //
     public static class MyLabel extends JLabel {
 
+        boolean bold = false;
+
         public MyLabel(String text) {
             super(text);
+            init();
+        }
+
+        public MyLabel(String text, boolean bold ) {
+            super(text);
+            this.bold = bold;
             init();
         }
 
         private void init() {
 
             setBounds(new Rectangle(60, 25));
-            setFont(Themes.VEDANA_12);
+
             setForeground(Themes.BLUE);
             setHorizontalAlignment(JLabel.CENTER);
             setVerticalAlignment(JLabel.CENTER);
+
+            if ( bold ) {
+                setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
+            } else {
+                setFont( Themes.VEDANA_12 );
+            }
 
         }
 

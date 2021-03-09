@@ -4,10 +4,14 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_B;
 import IDDE.DDEWriter_B;
 import api.Manifest;
+import baskets.BasketFinder;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_B;
+import exp.E;
+import exp.ExpReg;
 import exp.ExpStrings;
+import exp.Exps;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
@@ -28,8 +32,9 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 10, 0, 0 ) );
         setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.day ) );
+        setLogicService( new LogicService( this, ExpStrings.week ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_B( this ) ) );
+        setBasketFinder( new BasketFinder( this, 26, 5000 ) );
         setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Dax" ) );
         roll( );
     }
@@ -40,6 +45,18 @@ public class Dax extends INDEX_CLIENT_OBJECT {
             client = new Dax( );
         }
         return client;
+    }
+
+    @Override
+    public void initExpHandler() {
+        // Add to
+        Exps exps = new Exps( this );
+        exps.addExp( new ExpReg( this, ExpStrings.week ) );
+        exps.addExp( new ExpReg( this, ExpStrings.month ) );
+        exps.addExp( new E( this, ExpStrings.e1 ) );
+        exps.addExp( new E( this, ExpStrings.e2 ) );
+        exps.setMainExp( exps.getExp( ExpStrings.e1 ) );
+        setExps( exps );
     }
 
     private void roll() {
@@ -100,4 +117,11 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         return 0.05;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append( super.toString() );
+        str.append( "Baskets= " + getBasketFinder().toString() );
+        return str.toString();
+    }
 }

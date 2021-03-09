@@ -8,7 +8,7 @@ public class MiniStock {
     private double volume = 0;
     private double volume_0 = 0;
     private MiniStockDDECells ddeCells;
-
+    
     public MiniStock( String name ) {
         this.name = name;
     }
@@ -16,6 +16,15 @@ public class MiniStock {
     public MiniStock( String name, int row ) {
         this.name = name;
         this.ddeCells = new MiniStockDDECells( row );
+    }
+
+    @Override
+    public String toString() {
+        return "MiniStock{" +
+                "name='" + name + '\'' +
+                ", lastPrice=" + lastPrice +
+                ", volume=" + volume +
+                '}';
     }
 
     public String getName() {
@@ -72,7 +81,7 @@ public class MiniStock {
         private int row;
 
         // Constructor
-        public MiniStockDDECells(int row) {
+        public MiniStockDDECells( int row ) {
             this.row = row;
             this.lastPriceCell = String.format( lastPriceCell, row );
             this.volumeCell = String.format( volumeCell, row );
@@ -111,6 +120,7 @@ public class MiniStock {
         public void setRow( int row ) {
             this.row = row;
         }
+
     }
 
 }

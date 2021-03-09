@@ -52,7 +52,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         connectionBtn.addActionListener( new ActionListener( ) {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
-                connectDDE();
+                connectDDE( );
             }
         } );
 
@@ -102,7 +102,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         client = Ndx.getInstance( );
                         break;
                     default:
-                        client = Spx.getInstance();
+                        client = Spx.getInstance( );
                         break;
                 }
 
@@ -137,17 +137,21 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 // Spx
             } else if ( clientComboBox.getSelectedItem( ).equals( "SPX" ) ) {
                 registerClient( Spx.getInstance( ) );
-
                 // Dax
             } else if ( clientComboBox.getSelectedItem( ).equals( "DAX" ) ) {
                 registerClient( Dax.getInstance( ) );
+            }  // Ndx
+            else if ( clientComboBox.getSelectedItem( ).equals( "NDX" ) ) {
+                registerClient( Ndx.getInstance( ) );
             }
 
             ddeStatusLbl.setForeground( Themes.GREEN );
-        } catch ( Exception e ) {
-            JOptionPane.showMessageDialog( null, e.getMessage() );
+        } catch (
+                Exception e ) {
+            JOptionPane.showMessageDialog( null, e.getMessage( ) );
             e.printStackTrace( );
         }
+
     }
 
     private void registerClient( BASE_CLIENT_OBJECT client ) {

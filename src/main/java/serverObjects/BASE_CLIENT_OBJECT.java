@@ -127,7 +127,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
             // MyServices
             listsService = new ListsService( this );
             stocksHandler = new StocksHandler( this );
-            basketFinder = new BasketFinder( this );
 
         } catch ( Exception e ) {
             e.printStackTrace( );
@@ -721,6 +720,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         this.ddeHandler = ddeHandler;
     }
 
+    public void setBasketFinder( BasketFinder basketFinder ) {
+        this.basketFinder = basketFinder;
+    }
+
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
@@ -728,7 +732,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 ", startOfIndexTrading=" + getIndexStartTime( ) +
                 ", endOfIndexTrading=" + getIndexEndTime( ) +
                 ", endFutureTrading=" + getFutureEndTime( ) +
-                ", Basket target changes=" + getBasketFinder().getTargetChanges() +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +

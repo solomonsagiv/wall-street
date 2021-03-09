@@ -89,6 +89,20 @@ public class PopupsMenuFactory {
             }
         } );
 
+        JMenuItem baskets = new JMenuItem( "Baskets" );
+        baskets.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                if ( client.getBasketFinder( ) != null ) {
+                    try {
+                        Index_baskets_chart chart = new Index_baskets_chart( client );
+                        chart.createChart( );
+                    } catch ( CloneNotSupportedException e ) {
+                        e.printStackTrace( );
+                    }
+                }
+            }
+        } );
 
         JMenuItem threeFut = new JMenuItem( "Futures real time" );
         threeFut.addActionListener( new ActionListener( ) {
@@ -116,7 +130,7 @@ public class PopupsMenuFactory {
             public void actionPerformed( ActionEvent e ) {
                 try {
                 } catch ( Exception exception ) {
-                    JOptionPane.showMessageDialog( null, exception.getStackTrace() );
+                    JOptionPane.showMessageDialog( null, exception.getStackTrace( ) );
                 }
             }
         } );
@@ -135,6 +149,7 @@ public class PopupsMenuFactory {
         export.add( export_to_excel );
         charts.add( threeFut );
         charts.add( fullCharts );
+        charts.add( baskets );
         charts.add( opAvg15 );
         charts.add( opAvg );
         charts.add( marginChart );

@@ -17,13 +17,11 @@ import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
-
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.NoSuchElementException;
@@ -130,7 +128,7 @@ public class MyChart {
 
     public void updateSeriesVisibility() {
         for ( MyTimeSeries serie : series ) {
-            renderer.setSeriesVisible( serie.getId(), serie.isVisible() );
+            renderer.setSeriesVisible( serie.getId( ), serie.isVisible( ) );
         }
     }
 
@@ -164,8 +162,6 @@ public class MyChart {
                         if ( !load ) {
                             load = true;
                         }
-                        System.out.println( LocalTime.now() );
-
                         // Sleep
                         Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
 
@@ -249,7 +245,7 @@ public class MyChart {
 
                             for ( MyTimeSeries mts : series ) {
                                 for ( int i = startIndex; i < endIndex; i++ ) {
-                                    if ( mts.isVisible() ) {
+                                    if ( mts.isVisible( ) ) {
                                         dots.add( mts.getScaledData( i ) );
                                     }
                                 }
@@ -297,7 +293,6 @@ public class MyChart {
         }
 
         public void setTextWithColor( JLabel label, double price ) {
-
             label.setText( L.str( price ) );
 
             if ( price > 0 ) {
@@ -314,11 +309,11 @@ public class MyChart {
                 ArrayList< Double > dots = new ArrayList<>( );
                 for ( MyTimeSeries serie : series ) {
                     if ( serie.isScaled( ) ) {
-                        if ( serie.isVisible() ) {
+                        if ( serie.isVisible( ) ) {
                             dots.addAll( serie.getMyValues( ).scaledList( ) );
                         }
                     } else {
-                        if ( serie.isVisible() ) {
+                        if ( serie.isVisible( ) ) {
                             dots.addAll( serie.getMyValues( ) );
                         }
                     }
@@ -362,10 +357,10 @@ public class MyChart {
                     break;
                 }
 
-                // If 0
-                if ( newVal == 0 ) {
-                    break;
-                }
+//                // If 0
+//                if ( newVal == 0 ) {
+//                    break;
+//                }
 
                 // If new val
                 if ( newVal != oldVal ) {

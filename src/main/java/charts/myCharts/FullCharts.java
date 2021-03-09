@@ -1,7 +1,6 @@
 package charts.myCharts;
 
 import charts.myChart.*;
-import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;

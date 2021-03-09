@@ -1,18 +1,23 @@
 package serverObjects.indexObjects;
 
 import IDDE.DDEHandler;
-import IDDE.DDEReader_A;
-import IDDE.DDEWriter_A;
+import IDDE.DDEReader_B;
+import IDDE.DDEWriter_B;
 import api.Manifest;
+import baskets.BasketFinder;
 import charts.myCharts.FuturesChart;
+import dataBase.mySql.MySqlService;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_B;
+import exp.E;
+import exp.ExpReg;
 import exp.ExpStrings;
+import exp.Exps;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
 import java.time.LocalTime;
 
 public class Ndx extends INDEX_CLIENT_OBJECT {
@@ -27,8 +32,10 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.day ) );
-        setDdeHandler( new DDEHandler( this, new DDEReader_A( this ), new DDEWriter_A( this ), "C:/Users/user/Desktop/[SPX.xlsx]Ndx" ) );
+        setLogicService( new LogicService( this, ExpStrings.week ) );
+        setMySqlService( new MySqlService( this, new DataBaseHandler_B( this ) ) );
+        setBasketFinder( new BasketFinder( this, 80, 5000 ) );
+        setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Ndx" ) );
         roll( );
     }
 
@@ -45,6 +52,18 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
         Roll quarter_quarterFar = new Roll( this, ExpStrings.e1, ExpStrings.e2, RollPriceEnum.FUTURE );
         rollHandler.addRoll( RollEnum.E1_E2, quarter_quarterFar );
+    }
+
+    @Override
+    public void initExpHandler() {
+        // Add to
+        Exps exps = new Exps( this );
+        exps.addExp( new ExpReg( this, ExpStrings.week ) );
+        exps.addExp( new ExpReg( this, ExpStrings.month ) );
+        exps.addExp( new E( this, ExpStrings.e1 ) );
+        exps.addExp( new E( this, ExpStrings.e2 ) );
+        exps.setMainExp( exps.getExp( ExpStrings.week ) );
+        setExps( exps );
     }
 
     @Override
@@ -95,6 +114,14 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append( super.toString() );
+        str.append( "Baskets= " + getBasketFinder().toString() );
+        return str.toString();
     }
 
 }
