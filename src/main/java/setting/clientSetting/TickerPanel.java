@@ -28,9 +28,11 @@ public class TickerPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel targetBasketChangesLbl;
     MyGuiComps.MyTextField targetBasketChangesField;
     MyGuiComps.MyLabel basketUpLb;
-    MyGuiComps.MyLabel basketDownLb;
+    MyGuiComps.MyLabel basketDownLbl;
     MyGuiComps.MyTextField basketUpField;
     MyGuiComps.MyTextField basketDownField;
+    MyGuiComps.MyLabel basketsSleepLbl;
+    MyGuiComps.MyTextField basketsSleepField;
 
     public static void main( String[] args ) {
         SettingWindow window = new SettingWindow( "S", Spx.getInstance( ) );
@@ -124,10 +126,10 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 try {
-                    int basket = L.INT( basketUpField.getText() );
-                    client.getBasketFinder().setBasketUp( basket );
+                    int basket = L.INT( basketUpField.getText( ) );
+                    client.getBasketFinder( ).setBasketUp( basket );
                 } catch ( Exception e ) {
-                    e.printStackTrace();
+                    e.printStackTrace( );
                 }
             }
         } );
@@ -137,8 +139,21 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed( ActionEvent actionEvent ) {
                 try {
-                    int basket = L.INT( basketDownField.getText() );
-                    client.getBasketFinder().setBasketDown( basket );
+                    int basket = L.INT( basketDownField.getText( ) );
+                    client.getBasketFinder( ).setBasketDown( basket );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                }
+            }
+        } );
+
+        // Baskets sleep
+        basketsSleepField.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+                try {
+                    int sleep = L.INT( basketsSleepField.getText() );
+                    client.getBasketFinder().setSleep( sleep );
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }
@@ -146,7 +161,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
         } );
 
     }
-                            
+
     private void initialize() {
 
         // This
@@ -223,21 +238,31 @@ public class TickerPanel extends MyGuiComps.MyPanel {
 
         // Basket up
         basketUpLb = new MyGuiComps.MyLabel( "Basket up" );
-        basketUpLb.setXY( targetBasketChangesLbl.getX() + targetBasketChangesLbl.getWidth() + 5, targetBasketChangesLbl.getY() );
+        basketUpLb.setXY( targetBasketChangesLbl.getX( ) + targetBasketChangesLbl.getWidth( ) + 10, targetBasketChangesLbl.getY( ) );
         add( basketUpLb );
 
-        basketUpField = new MyGuiComps.MyTextField(  );
-        basketUpField.setXY( basketUpLb.getX(), basketUpLb.getY() + basketUpLb.getHeight() + 3 );
+        basketUpField = new MyGuiComps.MyTextField( );
+        basketUpField.setXY( basketUpLb.getX( ), basketUpLb.getY( ) + basketUpLb.getHeight( ) + 3 );
         add( basketUpField );
 
         // Basket down
-        basketDownLb = new MyGuiComps.MyLabel( "Basket down" );
-        basketDownLb.setXY( basketUpLb.getX() + basketUpLb.getWidth() + 5, basketUpLb.getY() );
-        add( basketDownLb );
+        basketDownLbl = new MyGuiComps.MyLabel( "Basket down" );
+        basketDownLbl.setWidth( 70 );
+        basketDownLbl.setXY( basketUpLb.getX( ) + basketUpLb.getWidth( ) + 15, basketUpLb.getY( ) );
+        add( basketDownLbl );
 
-        basketDownField = new MyGuiComps.MyTextField(  );
-        basketDownField.setXY( basketDownLb.getX(), basketDownLb.getY() + basketDownLb.getHeight() + 3 );
+        basketDownField = new MyGuiComps.MyTextField( );
+        basketDownField.setXY( basketDownLbl.getX( ), basketDownLbl.getY( ) + basketDownLbl.getHeight( ) + 3 );
         add( basketDownField );
+
+        // Sleep basket
+        basketsSleepLbl = new MyGuiComps.MyLabel( "Sleep" );
+        basketsSleepLbl.setXY( basketDownLbl.getX( ) + basketDownLbl.getWidth( ) + 10, basketDownLbl.getY( ) );
+        add( basketsSleepLbl );
+
+        basketsSleepField = new MyGuiComps.MyTextField( );
+        basketsSleepField.setXY( basketsSleepLbl.getX( ), basketsSleepLbl.getY( ) + basketsSleepLbl.getHeight( ) + 3 );
+        add( basketsSleepField );
 
         // ----- Start ----- //
         startBtn = new MyGuiComps.MyButton( "Start" );

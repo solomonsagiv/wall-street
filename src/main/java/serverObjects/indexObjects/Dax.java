@@ -34,7 +34,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.week ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_B( this ) ) );
-        setBasketFinder( new BasketFinder( this, 26, 5000 ) );
+        setBasketFinder( new BasketFinder( this, 24, 3000 ) );
         setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Dax" ) );
         roll( );
     }

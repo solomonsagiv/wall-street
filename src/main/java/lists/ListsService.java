@@ -55,6 +55,10 @@ public class ListsService extends MyBaseService {
         client.getIndBidAskMarginSeries( ).add( time );
         client.getIndCounterSeries().add( time );
 
+        if ( client.getBasketFinder() != null ) {
+            client.getBasketFinder().getBasketsSeries().add( time );
+        }
+
         // Options lists
         for ( Exp exp : client.getExps( ).getExpList( ) ) {
             try {

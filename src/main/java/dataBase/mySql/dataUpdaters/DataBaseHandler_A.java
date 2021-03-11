@@ -164,16 +164,36 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         // Update count
         sleep_count += sleep;
     }
-
+    
     @Override
     public void loadData() {
         loadSerieData( DATA_SCHEME, "spx500_index", client.getIndexSeries( ) );
         loadSerieData( DATA_SCHEME, "spx500_index_bid", client.getIndexBidSeries( ) );
         loadSerieData( DATA_SCHEME, "spx500_index_ask", client.getIndexAskSeries( ) );
-        loadSerieData( DATA_SCHEME, "spx500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
+        loadSerieDataAgg( DATA_SCHEME, "spx500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
         loadSerieData( SAGIV_SCHEME, "snp500_index_counter", client.getIndCounterSeries() );
+    }
+    
+    private void loadSerieDataAgg(String scheme, String table, MyTimeSeries timeSeries) {
+        String query = String.format( "SELECT * FROM %s.%s WHERE time::date = now()::date;", scheme, table );
+        ResultSet rs = MySql.select( query );
+
+        double valAgg = 0;
+
+        while ( true ) {
+            try {
+                if ( !rs.next( ) ) break;
+                Timestamp timestamp = rs.getTimestamp( 1 );
+                double value = rs.getDouble( 2 );
+                valAgg += value;
+
+                timeSeries.add( timestamp.toLocalDateTime( ), valAgg );
+            } catch ( SQLException throwables ) {
+                throwables.printStackTrace( );
+            }
+        }
     }
 
     private void loadSerieData( String scheme, String table, MyTimeSeries timeSeries ) {

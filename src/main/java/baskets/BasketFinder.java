@@ -118,6 +118,10 @@ public class BasketFinder extends MyBaseService {
         this.basketDown = basketDown;
     }
 
+    public void setSleep( int sleep ) {
+        this.sleep = sleep;
+    }
+
     @Override
     public String getName() {
         return client.getName( ) + " " + "basket finder";
