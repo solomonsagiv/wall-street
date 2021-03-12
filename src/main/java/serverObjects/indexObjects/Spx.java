@@ -6,7 +6,7 @@ import IDDE.DDEWriter_A;
 import api.Manifest;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_A;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import exp.ExpStrings;
 import logic.LogicService;
 import roll.Roll;
@@ -31,7 +31,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.day ) );
         setDdeHandler( new DDEHandler( this, new DDEReader_A( this ), new DDEWriter_A( this ), "C:/Users/user/Desktop/[SPX.xlsx]Spx" ) );
-        setMySqlService( new MySqlService( this, new DataBaseHandler_A( this ) ) );
+        setMySqlService( new MySqlService( this, new DataBaseHandler_Spx( this ) ) );
         roll( );
     }
 

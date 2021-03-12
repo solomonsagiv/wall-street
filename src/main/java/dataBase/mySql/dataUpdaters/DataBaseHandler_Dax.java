@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class DataBaseHandler_B extends IDataBaseHandler {
+public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     static final String SAGIV_SCHEME = "sagiv";
     static final String DATA_SCHEME = "data";
@@ -40,7 +40,7 @@ public class DataBaseHandler_B extends IDataBaseHandler {
 
     Exps exps;
 
-    public DataBaseHandler_B( BASE_CLIENT_OBJECT client ) {
+    public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client ) {
         super( client );
         exps = client.getExps( );
     }

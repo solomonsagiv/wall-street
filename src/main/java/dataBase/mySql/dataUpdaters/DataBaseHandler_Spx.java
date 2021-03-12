@@ -13,7 +13,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class DataBaseHandler_A extends IDataBaseHandler {
+public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     static final String SAGIV_SCHEME = "sagiv";
     static final String DATA_SCHEME = "data";
@@ -45,7 +45,8 @@ public class DataBaseHandler_A extends IDataBaseHandler {
     ArrayList< MyTimeStampObject > ind_bid_ask_counter_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > op_avg_fut_day_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > op_avg_fut_day_15_timestamp = new ArrayList<>( );
-    ArrayList< MyTimeStampObject > ind_counter_timestamp = new ArrayList<>( );
+    ArrayList< MyTimeStampObject > ind_races_timestamp = new ArrayList<>( );
+    ArrayList< MyTimeStampObject > fut_races_timestamp = new ArrayList<>( );
 
     double index_0 = 0;
     double index_bid_0 = 0;
@@ -56,11 +57,12 @@ public class DataBaseHandler_A extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double index_bid_ask_counter_0 = 0;
-    double ind_counter_0;
+    double ind_races_0 = 0;
+    double fut_races_0 = 0;
 
     Exps exps;
 
-    public DataBaseHandler_A( BASE_CLIENT_OBJECT client ) {
+    public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client ) {
         super( client );
         exps = client.getExps( );
     }
@@ -143,10 +145,15 @@ public class DataBaseHandler_A extends IDataBaseHandler {
         }
 
         // Races ind counter
-        if ( client.getIndexSum() != ind_counter_0 ) {
-            ind_counter_0 = client.getIndexSum();
-            ind_counter_timestamp.add( new MyTimeStampObject( Instant.now(), ind_counter_0 ) );
+        if ( client.getIndexSum() != ind_races_0 ) {
+            ind_races_0 = client.getIndexSum();
+            ind_races_timestamp.add( new MyTimeStampObject( Instant.now(), ind_races_0 ) );
         }
+
+
+
+
+
 
         // Op avg day
         if ( sleep_count % 1000 == 0 ) {
