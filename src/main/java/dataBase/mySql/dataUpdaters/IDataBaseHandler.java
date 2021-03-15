@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class IDataBaseHandler {
 
@@ -60,7 +61,6 @@ public abstract class IDataBaseHandler {
         }
     }
 
-
     protected void loadOpSerieData(String scheme, String table, List<Double> list ) {
         String query = String.format("SELECT * FROM %s.%s WHERE time::date = now()::date;", scheme, table);
 
@@ -70,6 +70,7 @@ public abstract class IDataBaseHandler {
         while (true) {
             try {
                 if (!rs.next()) break;
+
 
 
 

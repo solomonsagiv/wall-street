@@ -1,12 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
-import charts.myChart.MyTimeSeries;
-import dataBase.mySql.MySql;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Dax extends IDataBaseHandler {
@@ -156,45 +151,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 //        loadSerieData( SAGIV_SCHEME, "snp500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
 //        loadSerieData( SAGIV_SCHEME, "snp500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
 //        loadSerieData( SAGIV_SCHEME, "snp500_index_counter", client.getIndCounterSeries() );
-    }
-
-    private void loadSerieData( String scheme, String table, MyTimeSeries timeSeries ) {
-        String query = String.format( "SELECT * FROM %s.%s WHERE time::date = now()::date;", scheme, table );
-        ResultSet rs = MySql.select( query );
-        while ( true ) {
-            try {
-                if ( !rs.next( ) ) break;
-                Timestamp timestamp = rs.getTimestamp( 1 );
-                double value = rs.getDouble( 2 );
-                timeSeries.add( timestamp.toLocalDateTime( ), value );
-            } catch ( SQLException throwables ) {
-                throwables.printStackTrace( );
-            }
-        }
-    }
-    
-    private void insertListRetro( ArrayList< MyTimeStampObject > list, String scheme, String tableName ) {
-        if ( list.size( ) > 0 ) {
-
-            // Create the query
-            StringBuilder queryBuiler = new StringBuilder( "INSERT INTO %s.%s (time, value) VALUES " );
-            int last_item_id = list.get( list.size( ) - 1 ).hashCode( );
-            for ( MyTimeStampObject row : list ) {
-                queryBuiler.append( String.format( "(cast('%s' as timestamp with time zone), %s)", row.getInstant( ), row.getValue( ) ) );
-                if ( row.hashCode( ) != last_item_id ) {
-                    queryBuiler.append( "," );
-                }
-            }
-            queryBuiler.append( ";" );
-
-            String q = String.format( queryBuiler.toString( ), scheme, tableName );
-
-            // Insert
-            MySql.insert( q, true );
-
-            // Clear the list
-            list.clear( );
-        }
     }
 
     private void updateListsRetro() {

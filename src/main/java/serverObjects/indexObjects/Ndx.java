@@ -29,9 +29,9 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName( "ndx" );
         setIndexBidAskMargin( .5 );
         setStrikeMargin( 5 );
-        setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
-        setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
-        setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
+        setIndexStartTime( LocalTime.of( 15, 31, 0 ) );
+        setIndexEndTime( LocalTime.of( 22, 0, 0 ) );
+        setFutureEndTime( LocalTime.of( 22, 15, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.week ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_Dax( this ) ) );
         setBasketFinder( new BasketFinder( this, 80, 3000 ) );
