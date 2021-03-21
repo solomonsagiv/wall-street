@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class DataBaseHandler_Spx extends IDataBaseHandler {
+public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     public static void main( String[] args ) throws ParseException, SQLException {
 
@@ -33,34 +33,26 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     }
 
     ArrayList< MyTimeStampObject > index_timestamp = new ArrayList<>( );
-    ArrayList< MyTimeStampObject > index_bid_timestamp = new ArrayList<>( );
-    ArrayList< MyTimeStampObject > index_ask_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_day_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_week_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_month_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_e1_timeStamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_e2_timeStamp = new ArrayList<>( );
-    ArrayList< MyTimeStampObject > ind_bid_ask_counter_timestamp = new ArrayList<>( );
-    ArrayList< MyTimeStampObject > op_avg_fut_day_timestamp = new ArrayList<>( );
-    ArrayList< MyTimeStampObject > op_avg_fut_day_15_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > ind_races_timestamp = new ArrayList<>( );
     ArrayList< MyTimeStampObject > fut_races_timestamp = new ArrayList<>( );
 
     double index_0 = 0;
-    double index_bid_0 = 0;
-    double index_ask_0 = 0;
     double fut_day_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-    double index_bid_ask_counter_0 = 0;
     double ind_races_0 = 0;
     double fut_races_0 = 0;
 
     Exps exps;
 
-    public DataBaseHandler_Spx( BASE_CLIENT_OBJECT client ) {
+    public DataBaseHandler_Ndx( BASE_CLIENT_OBJECT client ) {
         super( client );
         exps = client.getExps( );
     }
@@ -79,18 +71,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         if ( client.getIndex( ) != index_0 ) {
             index_0 = client.getIndex( );
             index_timestamp.add( new MyTimeStampObject( Instant.now( ), index_0 ) );
-        }
-
-        // Index bid
-        if ( client.getIndexBid( ) != index_bid_0 ) {
-            index_bid_0 = client.getIndexBid( );
-            index_bid_timestamp.add( new MyTimeStampObject( Instant.now( ), index_bid_0 ) );
-        }
-
-        // Index ask
-        if ( client.getIndexAsk( ) != index_ask_0 ) {
-            index_ask_0 = client.getIndexAsk( );
-            index_ask_timestamp.add( new MyTimeStampObject( Instant.now( ), index_ask_0 ) );
         }
 
         // Fut day
@@ -133,22 +113,13 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             fut_e2_timeStamp.add( new MyTimeStampObject( Instant.now( ), fut_e2_0 ) );
         }
 
-        // Ind bid ask counter
-        int ind_bid_ask_counter = client.getIndexBidAskCounter( );
-
-        if ( ind_bid_ask_counter != index_bid_ask_counter_0 ) {
-            double last_count = ind_bid_ask_counter - index_bid_ask_counter_0;
-            index_bid_ask_counter_0 = ind_bid_ask_counter;
-            ind_bid_ask_counter_timestamp.add( new MyTimeStampObject( Instant.now( ), last_count ) );
-        }
-
         // Races ind counter
         int ind_races = client.getIndexSum( );
 
         if ( ind_races != ind_races_0 ) {
-            double last_count = ind_races - ind_races_0;
+            double change = ind_races - ind_races_0;
             ind_races_0 = ind_races;
-            ind_races_timestamp.add( new MyTimeStampObject( Instant.now( ), last_count ) );
+            ind_races_timestamp.add( new MyTimeStampObject( Instant.now( ), change ) );
         }
 
         // Races fut counter
@@ -160,47 +131,29 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             fut_races_timestamp.add( new MyTimeStampObject( Instant.now( ), last_count ) );
         }
 
-        // Op avg day
-        if ( sleep_count % 3000 == 0 ) {
-            try {
-                double op_avg_15_day = exps.getExp( ExpStrings.day ).getOpAvgFut( 900 );
-                op_avg_fut_day_15_timestamp.add( new MyTimeStampObject( Instant.now( ), op_avg_15_day ) );
-
-                double op_avg_day = exps.getExp( ExpStrings.day ).getOpAvgFut( );
-                op_avg_fut_day_timestamp.add( new MyTimeStampObject( Instant.now( ), op_avg_day ) );
-
-            } catch ( Exception e ) {
-                e.printStackTrace( );
-            }
-        }
         // Update count
         sleep_count += sleep;
     }
     
     @Override
     public void loadData() {
-        loadSerieData( DATA_SCHEME, "spx500_index", client.getIndexSeries( ) );
-        loadSerieData( DATA_SCHEME, "spx500_index_bid", client.getIndexBidSeries( ) );
-        loadSerieData( DATA_SCHEME, "spx500_index_ask", client.getIndexAskSeries( ) );
-        loadSerieDataAgg( DATA_SCHEME, "spx500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
-        loadSerieData( SAGIV_SCHEME, "spx500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
-        loadSerieData( SAGIV_SCHEME, "spx500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
-        loadSerieDataAgg( SAGIV_SCHEME, "spx500_index_races", client.getIndexRacesSeries( ) );
+//        loadSerieData( DATA_SCHEME, "spx500_index", client.getIndexSeries( ) );
+//        loadSerieData( DATA_SCHEME, "spx500_index_bid", client.getIndexBidSeries( ) );
+//        loadSerieData( DATA_SCHEME, "spx500_index_ask", client.getIndexAskSeries( ) );
+//        loadSerieDataAgg( DATA_SCHEME, "spx500_index_bid_ask_counter", client.getIndexBidAskCounterSeries( ) );
+//        loadSerieData( SAGIV_SCHEME, "spx500_op_avg_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvgFutSeries( ) );
+//        loadSerieData( SAGIV_SCHEME, "spx500_op_avg_15_day", client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
+//        loadSerieDataAgg( SAGIV_SCHEME, "spx500_index_races", client.getIndexRacesSeries( ) );
     }
 
     private void updateListsRetro() {
-        insertListRetro( index_timestamp, DATA_SCHEME, "spx500_index" );
-        insertListRetro( index_bid_timestamp, DATA_SCHEME, "spx500_index_bid" );
-        insertListRetro( index_ask_timestamp, DATA_SCHEME, "spx500_index_ask" );
-        insertListRetro( fut_day_timeStamp, DATA_SCHEME, "spx500_fut_day" );
-        insertListRetro( fut_week_timeStamp, DATA_SCHEME, "spx500_fut_week" );
-        insertListRetro( fut_month_timeStamp, DATA_SCHEME, "spx500_fut_month" );
-        insertListRetro( fut_e1_timeStamp, DATA_SCHEME, "spx500_fut_e1" );
-        insertListRetro( fut_e2_timeStamp, DATA_SCHEME, "spx500_fut_e2" );
-        insertListRetro( ind_bid_ask_counter_timestamp, DATA_SCHEME, "spx500_index_bid_ask_counter" );
-        insertListRetro( op_avg_fut_day_timestamp, SAGIV_SCHEME, "spx500_op_avg_day" );
-        insertListRetro( op_avg_fut_day_15_timestamp, SAGIV_SCHEME, "spx500_op_avg_15_day" );
-        insertListRetro( ind_races_timestamp, SAGIV_SCHEME, "spx500_index_races" );
-        insertListRetro( fut_races_timestamp, SAGIV_SCHEME, "spx500_fut_races" );
+        insertListRetro( index_timestamp, DATA_SCHEME, "ndx_index" );
+        insertListRetro( fut_day_timeStamp, DATA_SCHEME, "ndx_fut_day" );
+        insertListRetro( fut_week_timeStamp, DATA_SCHEME, "ndx_fut_week" );
+        insertListRetro( fut_month_timeStamp, DATA_SCHEME, "ndx_fut_month" );
+        insertListRetro( fut_e1_timeStamp, DATA_SCHEME, "ndx_fut_e1" );
+        insertListRetro( fut_e2_timeStamp, DATA_SCHEME, "ndx_fut_e2" );
+        insertListRetro( ind_races_timestamp, SAGIV_SCHEME, "ndx_index_races" );
+        insertListRetro( fut_races_timestamp, SAGIV_SCHEME, "ndx_fut_races" );
     }
 }

@@ -3,9 +3,7 @@ package options;
 import charts.myChart.MyTimeSeries;
 import exp.Exp;
 import lists.MyDoubleList;
-import locals.IJson;
 import locals.L;
-import myJson.MyJson;
 import org.json.JSONObject;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -14,7 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class Options implements IJson {
+public class Options  {
 
     protected OptionsProps props;
     protected Exp exp;
@@ -631,27 +629,5 @@ public class Options implements IJson {
         return optionsDDeCells;
     }
 
-    @Override
-    public MyJson getAsJson() {
-        MyJson json = new MyJson();
-        json.put(JsonStrings.con, getContract());
-        json.put(JsonStrings.conBid, contractBid);
-        json.put(JsonStrings.conAsk, contractAsk);
-        json.put(JsonStrings.conBidAskCounter, contractBidAskCounter);
-        json.put(JsonStrings.opAvg, L.floor(getOpAvg(), 100));
-        json.put( JsonStrings.props, props.getAsJson() );
-        return json;
-    }
-
-    @Override
-    public void loadFromJson(MyJson json) {
-        setContractBidAskCounter(json.getInt(JsonStrings.conBidAskCounter));
-        getProps().loadFromJson( json.getMyJson( JsonStrings.props ) );
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        return null;
-    }
 
 }

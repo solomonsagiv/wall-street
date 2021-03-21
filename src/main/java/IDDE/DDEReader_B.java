@@ -30,7 +30,7 @@ public class DDEReader_B extends IDDEReader {
 
         int nameCol = 26;
         int row = 2;
-
+        
         while ( true ) {
             try {
                 String name = conversation.request( String.format( "R%sC%s", row, nameCol ) );

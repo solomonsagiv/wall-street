@@ -1,15 +1,12 @@
 package roll;
 
 import exp.Exp;
-import locals.IJson;
-import myJson.MyJson;
-import options.JsonStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Roll implements IJson {
+public class Roll {
 
     // Variables
     BASE_CLIENT_OBJECT client;
@@ -70,20 +67,4 @@ public class Roll implements IJson {
         return price(e2) - price(e1);
     }
 
-    @Override
-    public MyJson getAsJson() {
-        MyJson json = new MyJson();
-        json.put(JsonStrings.roll, getRoll());
-        json.put(JsonStrings.rollAvg, getAvg());
-        return json;
-    }
-
-    @Override
-    public void loadFromJson(MyJson json) {
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        return new MyJson();
-    }
 }

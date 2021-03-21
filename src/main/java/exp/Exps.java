@@ -1,13 +1,12 @@
 package exp;
 
-import locals.IJson;
 import locals.L;
-import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Exps implements IJson {
+public class Exps {
 
     // Variables
     public BASE_CLIENT_OBJECT client;
@@ -68,28 +67,4 @@ public class Exps implements IJson {
         this.mainExp = mainExp;
     }
 
-    @Override
-    public MyJson getAsJson() {
-        MyJson json = new MyJson();
-        for (Exp exp : getExpList()) {
-            json.put(exp.getName(), exp.getAsJson());
-        }
-        return json;
-    }
-
-    @Override
-    public void loadFromJson(MyJson json) {
-        for (String key : json.keySet()) {
-            getExp(key).loadFromJson(new MyJson(json.getJSONObject(key).toString()));
-        }
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        MyJson json = new MyJson();
-        for (Exp exp : getExpList()) {
-            json.put(exp.getName(), exp.getResetJson());
-        }
-        return json;
-    }
 }

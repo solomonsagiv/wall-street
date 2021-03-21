@@ -1,11 +1,8 @@
 package exp;
 
-import locals.IJson;
-import myJson.MyJson;
-import options.JsonStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-public class ExpData implements IJson {
+public class ExpData {
 
     // Variables
     String expName;
@@ -40,25 +37,4 @@ public class ExpData implements IJson {
         this.start = start;
     }
 
-    @Override
-    public MyJson getAsJson() {
-        MyJson json = new MyJson();
-        json.put(JsonStrings.start, start);
-        json.put(JsonStrings.indBidAskCounter, indBidAskCounter);
-        return json;
-    }
-
-    @Override
-    public void loadFromJson(MyJson json) {
-        setStart(json.getDouble(JsonStrings.start));
-        setIndBidAskCounter(json.getInt(JsonStrings.indBidAskCounter));
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        MyJson json = new MyJson();
-        json.put(JsonStrings.start, start);
-        json.put(JsonStrings.indBidAskCounter, getTotalIndBidAskCounter());
-        return json;
-    }
 }

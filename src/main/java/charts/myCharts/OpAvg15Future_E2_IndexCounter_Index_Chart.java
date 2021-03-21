@@ -69,7 +69,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
 
         // --------- Index races counter ---------- //
-        MyTimeSeries indRacesSeries = client.getIndCounterSeries( );
+        MyTimeSeries indRacesSeries = client.getIndexRacesSeries( );
         indRacesSeries.setColor( Themes.BROWN );
         indRacesSeries.setStokeSize( 1.5f );
 

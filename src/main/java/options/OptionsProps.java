@@ -1,46 +1,16 @@
 package options;
 
 import charts.myChart.MyProps;
-import locals.IJson;
-import myJson.MyJson;
 
 import java.time.LocalDate;
 
-public class OptionsProps extends MyProps implements IJson {
+public class OptionsProps extends MyProps {
 
     private double interestZero = 0;
     private double interest = 1;
     private double devidend = 0;
     private double days = 0;
     private LocalDate date;
-
-    public MyJson getAsJson() {
-        MyJson object = new MyJson();
-        object.put(JsonStrings.interest, getInterest());
-        object.put(JsonStrings.devidend, getDevidend());
-        object.put(JsonStrings.date, getDate());
-        object.put(JsonStrings.days, getDays());
-        return object;
-    }
-
-    @Override
-    public void loadFromJson(MyJson json) {
-        setInterest(json.getDouble(JsonStrings.interest));
-        setInterestZero(json.getDouble(JsonStrings.interest) - 1);
-        setDevidend(json.getDouble(JsonStrings.devidend));
-        setDate(json.getDate(JsonStrings.date));
-        setDays(json.getDouble(JsonStrings.days));
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        MyJson object = new MyJson();
-        object.put(JsonStrings.interest, 1);
-        object.put(JsonStrings.devidend, 0);
-        object.put(JsonStrings.date, getDate());
-        object.put(JsonStrings.days, 0);
-        return object;
-    }
 
     public void setInterestWithCalc(double interest) {
         setInterest(1 + (interest * 0.01));

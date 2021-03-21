@@ -1,10 +1,7 @@
 package exp;
 
 import charts.myChart.MyTimeSeries;
-import locals.IJson;
 import locals.L;
-import myJson.MyJson;
-import options.JsonStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
@@ -13,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Exp implements IJson {
+public abstract class Exp  {
 
     // Variables
     protected BASE_CLIENT_OBJECT client;
@@ -31,6 +28,7 @@ public abstract class Exp implements IJson {
     MyTimeSeries opAvgFutSeries;
     MyTimeSeries opAvg15FutSeries;
     MyTimeSeries futBidAskCounterSeries;
+    MyTimeSeries futSeries;
 
     String expName;
     TwsContractsEnum twsContractsEnum;
@@ -61,6 +59,12 @@ public abstract class Exp implements IJson {
             @Override
             public double getData() throws UnknownHostException {
                 return getFutBidAskCounter( );
+            }
+        };
+        futSeries = new MyTimeSeries( "futSeries", client ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getFuture();
             }
         };
     }
@@ -188,6 +192,10 @@ public abstract class Exp implements IJson {
         return opAvg15FutSeries;
     }
 
+
+
+
+
     public MyTimeSeries getOpAvgFutSeries() {
         return opAvgFutSeries;
     }
@@ -208,32 +216,4 @@ public abstract class Exp implements IJson {
         return expName;
     }
 
-    @Override
-    public MyJson getAsJson() {
-        MyJson json = new MyJson( );
-        json.put( JsonStrings.fut, getFuture( ) );
-        json.put( JsonStrings.futBid, getFutureBid( ) );
-        json.put( JsonStrings.futAsk, getFutureAsk( ) );
-        json.put( JsonStrings.futBidAskCounter, getFutBidAskCounter( ) );
-        json.put( JsonStrings.expData, expData.getAsJson( ) );
-        try {
-            json.put( JsonStrings.opAvgFut, getOpAvgFut( ) );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-        }
-        return json;
-    }
-
-    @Override
-    public void loadFromJson( MyJson json ) {
-        setFutBidAskCounter( json.getInt( JsonStrings.futBidAskCounter ) );
-        expData.loadFromJson( new MyJson( json.getJSONObject( JsonStrings.expData ) ) );
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        MyJson json = new MyJson( );
-        json.put( JsonStrings.expData, expData.getAsJson( ) );
-        return json;
-    }
 }

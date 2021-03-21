@@ -113,7 +113,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
                 LocalDateTime dateTime = LocalDateTime.parse( json.getString( JsonStrings.x ) );
                 lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth( ), dateTime.getMonthValue( ), dateTime.getYear( ) );
-
+                
                 double data = json.getDouble( JsonStrings.y );
                 myValues.add( data );
                 addOrUpdate( lastSeconde, data );

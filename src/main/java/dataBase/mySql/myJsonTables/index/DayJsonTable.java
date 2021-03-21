@@ -37,7 +37,7 @@ public class DayJsonTable extends MyDayTable {
         addColumn(new MyColumnSql<String>(this, MySqlColumnEnum.data) {
             @Override
             public String getObject() {
-                return client.getAsJson().toString();
+                return "";
             }
         });
     }

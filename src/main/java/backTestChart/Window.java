@@ -1,10 +1,12 @@
 package backTestChart;
 
+import exp.ExpStrings;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
 import options.JsonStrings;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,10 +30,13 @@ public class Window extends MyGuiComps.MyFrame {
     MyGuiComps.MyTextField yearField;
     MyGuiComps.MyButton chartBtn;
     MyGuiComps.MyButton deltaChartBtn;
+    MyGuiComps.MyButton op_counter_index_btn;
+
+    Spx client;
 
     public Window( String title ) throws HeadlessException {
         super( title );
-
+        client = Spx.getInstance();
     }
 
     @Override
@@ -55,9 +60,9 @@ public class Window extends MyGuiComps.MyFrame {
 
                 chartBtn.setEnabled( false );
 
-                String dayString = dayField.getText();
-                String monthString = monthField.getText();
-                String yearString = yearField.getText();
+                String dayString = dayField.getText( );
+                String monthString = monthField.getText( );
+                String yearString = yearField.getText( );
 
                 int day = L.INT( dayString );
                 int month = L.INT( monthString );
@@ -71,7 +76,7 @@ public class Window extends MyGuiComps.MyFrame {
                 GetDataFromDB dataFromDB = new GetDataFromDB( query );
                 Map< String, ArrayList< Double > > map = dataFromDB.getDataFromDb( cols );
 
-                TheChart chart = new TheChart( Spx.getInstance( ), year, month, day, map, colors, dataFromDB.getTimeList(), cols );
+                TheChart chart = new TheChart( Spx.getInstance( ), year, month, day, map, colors, dataFromDB.getTimeList( ), cols );
 
                 try {
                     chart.createChart( );
@@ -90,9 +95,9 @@ public class Window extends MyGuiComps.MyFrame {
                     deltaChartBtn.setEnabled( false );
 
                     // Date
-                    String dayString = dayField.getText();
-                    String monthString = monthField.getText();
-                    String yearString = yearField.getText();
+                    String dayString = dayField.getText( );
+                    String monthString = monthField.getText( );
+                    String yearString = yearField.getText( );
 
                     int day = L.INT( dayString );
                     int month = L.INT( monthString );
@@ -120,10 +125,38 @@ public class Window extends MyGuiComps.MyFrame {
                 }
             }
         } );
+
+        op_counter_index_btn.addActionListener( new ActionListener( ) {
+            @Override
+            public void actionPerformed( ActionEvent actionEvent ) {
+
+                String day = dayField.getText( );
+                String month = monthField.getText( );
+                String year = yearField.getText( );
+
+                GetDataFromDB data = new GetDataFromDB( );
+                data.loadSeries( String.format( "SELECT * FROM data.spx500_index i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day ), client.getIndexSeries( ) );
+                data.loadSeriesAgg( String.format( "SELECT * FROM data.spx500_index_bid_ask_counter i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day ), client.getIndexBidAskCounterSeries( ) );
+                data.loadSeries( String.format( "SELECT * FROM sagiv.spx500_op_avg_15_day i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day ), client.getExps( ).getExp( ExpStrings.day ).getOpAvg15FutSeries( ) );
+
+                System.out.println( "------------------------------------ Loaded ---------------------------------------------" );
+
+                Chart_opavg_indexbidaskcounter_index chart = new Chart_opavg_indexbidaskcounter_index( client );
+                try {
+                    chart.createChart( );
+                } catch ( CloneNotSupportedException e ) {
+                    e.printStackTrace( );
+                }
+
+            }
+        } );
     }
+
 
     @Override
     public void initialize() {
+
+
 
         // This
         setSize( 300, 300 );
@@ -150,7 +183,7 @@ public class Window extends MyGuiComps.MyFrame {
         mainPanel.add( monthLbl );
 
         monthField = new MyGuiComps.MyTextField( );
-        monthField.setText( "11" );
+        monthField.setText( "03" );
         monthField.setXY( monthLbl.getX( ), monthLbl.getY( ) + monthLbl.getHeight( ) + 5 );
         mainPanel.add( monthField );
 
@@ -160,7 +193,7 @@ public class Window extends MyGuiComps.MyFrame {
         mainPanel.add( yearLbl );
 
         yearField = new MyGuiComps.MyTextField( );
-        yearField.setText( "2020" );
+        yearField.setText( "2021" );
         yearField.setXY( yearLbl.getX( ), yearLbl.getY( ) + yearLbl.getHeight( ) + 5 );
         mainPanel.add( yearField );
 
@@ -175,6 +208,12 @@ public class Window extends MyGuiComps.MyFrame {
         deltaChartBtn.setXY( chartBtn.getX( ), chartBtn.getY( ) + chartBtn.getHeight( ) + 5 );
         deltaChartBtn.setWidth( 150 );
         mainPanel.add( deltaChartBtn );
+
+        // Op avg index bid ask counter index btn
+        op_counter_index_btn = new MyGuiComps.MyButton( "Avg / counter" );
+        op_counter_index_btn.setXY( deltaChartBtn.getX( ), deltaChartBtn.getY( ) + deltaChartBtn.getHeight( ) + 5 );
+        op_counter_index_btn.setWidth( 150 );
+        mainPanel.add( op_counter_index_btn );
 
     }
 }

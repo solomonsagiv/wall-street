@@ -1,9 +1,6 @@
 package tws;
 
 import com.ib.client.Contract;
-import locals.IJson;
-import myJson.MyJson;
-import options.JsonStrings;
 
 enum MyContractEnum {
     ID,
@@ -16,7 +13,7 @@ enum MyContractEnum {
     INCLUDE_EXPIRED
 }
 
-public class MyContract extends Contract implements IJson {
+public class MyContract extends Contract {
 
     private int myId;
     private boolean requested;
@@ -56,39 +53,6 @@ public class MyContract extends Contract implements IJson {
                 ", requested=" + requested +
                 ", type=" + type +
                 '}';
-    }
-
-    @Override
-    public MyJson getAsJson() {
-        MyJson object = new MyJson();
-        object.put(JsonStrings.id.toString(), getMyId());
-        object.put(JsonStrings.secType.toString(), secType());
-        object.put(JsonStrings.currency.toString(), currency());
-        object.put(JsonStrings.exchange.toString(), exchange());
-        object.put(JsonStrings.tradingClass.toString(), tradingClass());
-        object.put(JsonStrings.multiplier.toString(), multiplier());
-        object.put(JsonStrings.symbol.toString(), symbol());
-        object.put(JsonStrings.includeExpired.toString(), includeExpired());
-        object.put(JsonStrings.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
-        return object;
-    }
-
-    @Override
-    public void loadFromJson(MyJson json) {
-        setMyId(json.getInt(JsonStrings.id.toString()));
-        secType(json.getString(JsonStrings.secType.toString()));
-        currency(json.getString(JsonStrings.currency.toString()));
-        exchange(json.getString(JsonStrings.exchange.toString()));
-        tradingClass(json.getString(JsonStrings.tradingClass.toString()));
-        multiplier(json.getString(JsonStrings.multiplier.toString()));
-        symbol(json.getString(JsonStrings.symbol.toString()));
-        includeExpired(json.getBoolean(JsonStrings.includeExpired.toString()));
-        lastTradeDateOrContractMonth(json.getString(JsonStrings.lastTradingDateOrContractMonth.toString()));
-    }
-
-    @Override
-    public MyJson getResetJson() {
-        return getAsJson();
     }
 
     public int getMyId() {

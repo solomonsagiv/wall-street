@@ -1,11 +1,13 @@
 package backTestChart;
 
+import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySql;
 import myJson.MyJson;
 import options.JsonStrings;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +23,62 @@ public class GetDataFromDB {
         this.query = query;
     }
 
+    public GetDataFromDB() {
+
+    }
+
+
     ArrayList< LocalTime > timeList;
 
     public ArrayList< LocalTime > getTimeList() {
         return timeList;
     }
+
+
+    public void loadSeries( String query, MyTimeSeries series ) {
+
+        ResultSet rs = MySql.select( query );
+
+        while ( true ) {
+            try {
+                if ( !rs.next( ) ) break;
+
+                double value = rs.getDouble( "value" );
+                Timestamp timestamp = rs.getTimestamp( "time" );
+                series.add( timestamp.toLocalDateTime( ), value );
+
+            } catch ( SQLException throwables ) {
+                throwables.printStackTrace( );
+            }
+        }
+    }
+
+
+    public void loadSeriesAgg( String query, MyTimeSeries series ) {
+
+        ResultSet rs = MySql.select( query );
+
+        double valCount = 0;
+
+        while ( true ) {
+            try {
+                if ( !rs.next( ) ) break;
+
+                double value = rs.getDouble( "value" );
+                
+                valCount += value;
+
+                Timestamp timestamp = rs.getTimestamp( "time" );
+                series.add( timestamp.toLocalDateTime( ), valCount );
+
+                System.out.println( timestamp.toLocalDateTime() );
+
+            } catch ( SQLException throwables ) {
+                throwables.printStackTrace( );
+            }
+        }
+    }
+
 
     public Map< String, ArrayList< Double > > getDataFromDb( String[] cols ) {
 

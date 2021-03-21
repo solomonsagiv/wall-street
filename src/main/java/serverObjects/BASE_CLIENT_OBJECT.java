@@ -12,16 +12,15 @@ import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
 import lists.ListsService;
-import locals.IJson;
 import locals.L;
 import locals.LocalHandler;
 import logic.LogicService;
-import myJson.MyJson;
 import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -29,7 +28,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
+public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     private int lastTick = -1;
 
@@ -71,7 +70,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
     MyTimeSeries indBidAskMarginSeries;
-    MyTimeSeries indCounterSeries;
+    MyTimeSeries indexRacesSeries;
 
     private double startStrike;
     private double endStrike;
@@ -191,7 +190,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
                 return client.getBidAskMarginCounter( );
             }
         };
-        indCounterSeries = new MyTimeSeries( "ind counter", this ) {
+        indexRacesSeries = new MyTimeSeries( "ind counter", this ) {
             @Override
             public double getData() throws UnknownHostException {
                 return client.getIndexSum();
@@ -666,8 +665,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
         return indexScaledSeries;
     }
 
-    public MyTimeSeries getIndCounterSeries() {
-        return indCounterSeries;
+    public MyTimeSeries getIndexRacesSeries() {
+        return indexRacesSeries;
     }
 
     public LogicService getLogicService() {
@@ -681,11 +680,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient, IJson {
 
     public void setLogicService( LogicService logicService ) {
         this.logicService = logicService;
-    }
-
-    @Override
-    public MyJson getAsJson() {
-        return null;
     }
 
     @Override
