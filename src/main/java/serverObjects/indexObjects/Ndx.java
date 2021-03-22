@@ -7,7 +7,7 @@ import api.Manifest;
 import baskets.BasketFinder;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -33,12 +33,12 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime( LocalTime.of( 22, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 22, 15, 0 ) );
         setLogicService( new LogicService( this, ExpStrings.week ) );
-        setMySqlService( new MySqlService( this, new DataBaseHandler_Dax( this ) ) );
+        setMySqlService( new MySqlService( this, new DataBaseHandler_Ndx( this ) ) );
         setBasketFinder( new BasketFinder( this, 80, 3000 ) );
         setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Ndx" ) );
         roll( );
     }
-
+    
     // get instance
     public static Ndx getInstance() {
         if ( client == null ) {

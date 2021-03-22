@@ -60,7 +60,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Basket finder
     private BasketFinder basketFinder;
-
+    
     // Services
     ListsService listsService;
     MySqlService mySqlService;

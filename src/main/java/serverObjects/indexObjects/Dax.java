@@ -32,7 +32,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 10, 0, 0 ) );
         setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.week ) );
+        setLogicService( new LogicService( this, ExpStrings.e1 ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_Dax( this ) ) );
         setBasketFinder( new BasketFinder( this, 24, 3000 ) );
         setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Dax" ) );
@@ -46,7 +46,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         }
         return client;
     }
-
+    
     @Override
     public void initExpHandler() {
         // Add to

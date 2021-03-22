@@ -134,7 +134,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Update count
         sleep_count += sleep;
     }
-    
+
     @Override
     public void loadData() {
 //        loadSerieData( DATA_SCHEME, "spx500_index", client.getIndexSeries( ) );
