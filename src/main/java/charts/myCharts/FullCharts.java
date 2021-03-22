@@ -44,7 +44,7 @@ public class FullCharts extends MyChartCreator {
         propsWithMarker.setProp(ChartPropsEnum.MARKER, marker);
         propsWithMarker.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
-        Exp e1 = client.getExps().getExp(ExpStrings.e1);
+        Exp e1 = client.getExps().getExp(ExpStrings.q1 );
 
         // --------- OpAvgFuture 15 ---------- //
         MyProps opAvgFutureProps = (MyProps) props.clone();

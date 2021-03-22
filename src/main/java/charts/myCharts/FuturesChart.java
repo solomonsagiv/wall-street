@@ -4,7 +4,9 @@ import charts.myChart.*;
 import exp.Exp;
 import exp.Exps;
 import locals.Themes;
+import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class FuturesChart extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries( "Ind", client ) {
+        MyTimeSeries index = new MyTimeSeries( "Index", client ) {
             @Override
             public double getData() {
                 return client.getIndex( );
@@ -48,7 +50,7 @@ public class FuturesChart extends MyChartCreator {
         index.setStokeSize( 2.25f );
 
         // Bid
-        MyTimeSeries bid = new MyTimeSeries( "Ind bid", client ) {
+        MyTimeSeries bid = new MyTimeSeries( "Index bid", client ) {
             @Override
             public double getData() {
                 return client.getIndexBid( );
@@ -58,7 +60,7 @@ public class FuturesChart extends MyChartCreator {
         bid.setStokeSize( 2.25f );
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries( "Ind ask", client ) {
+        MyTimeSeries ask = new MyTimeSeries( "Index ask", client ) {
             @Override
             public double getData() {
                 return client.getIndexAsk( );
@@ -68,11 +70,18 @@ public class FuturesChart extends MyChartCreator {
         ask.setStokeSize( 2.25f );
         
         // Futures
-        Color green = Themes.DARK_GREEN;
+        ArrayList<Color> greens = new ArrayList<>();
+        greens.add( Themes.DARK_GREEN );
+        greens.add( Themes.GREEN );
+        greens.add( Themes.GREEN_LIGHT );
+        greens.add( Themes.GREEN_LIGHT_2 );
+        greens.add( Themes.GREEN_LIGHT_3 );
+
+        int i = 0;
 
         for ( Exp exp: exps.getExpList() ) {
 
-            MyTimeSeries myTimeSerie = new MyTimeSeries( "Fut " + exp.getName(), client ) {
+            MyTimeSeries myTimeSerie = new MyTimeSeries( StringUtils.capitalize(exp.getName()) , client ) {
                 @Override
                 public double getData() throws UnknownHostException {
                     return exp.getFuture();
@@ -80,9 +89,8 @@ public class FuturesChart extends MyChartCreator {
             };
 
             myTimeSerie.setStokeSize( 2.25f );
-            myTimeSerie.setColor( green );
-            green = green.brighter();
-
+            myTimeSerie.setColor( greens.get( i ) );
+            i++;
             myTimeSeries.add( myTimeSerie );
 
         }

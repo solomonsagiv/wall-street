@@ -3,6 +3,7 @@ package charts.myChart;
 import charts.myCharts.FuturesChart;
 import gui.MyGuiComps;
 import locals.Themes;
+import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -105,7 +106,7 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
             this.serie = serie;
             this.myChart = myChart;
             setSelected( serie.isVisible() );
-            setText( serie.getName( ) );
+            setText( StringUtils.capitalize(serie.getName( )));
             init();
         }
 

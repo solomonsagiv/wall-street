@@ -1,5 +1,6 @@
 package gui.index;
 
+import baskets.BasketFinder;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import locals.L;
@@ -25,9 +26,14 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField downField;
     MyGuiComps.MyTextField sumField;
 
+    MyGuiComps.MyLabel changesLbl;
+    MyGuiComps.MyTextField changesField;
+    BasketFinder basketFinder;
+
     public BasketsPanel( BASE_CLIENT_OBJECT client ) {
         super( );
         this.client = client;
+        this.basketFinder = client.getBasketFinder( );
         initsialize( );
     }
 
@@ -64,7 +70,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // Down
         downLbl = new MyGuiComps.MyLabel( "Down" );
-        downLbl.setXY( 0, upLbl.getY( ) + upLbl.getHeight( ) + 2 );
+        downLbl.setXY( 0, upLbl.getY( ) + upLbl.getHeight( ) + 1 );
         downLbl.setWidth( 40 );
         body.add( downLbl );
 
@@ -76,7 +82,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // Sum
         sumLbl = new MyGuiComps.MyLabel( "Sum" );
-        sumLbl.setXY( 0, downLbl.getY( ) + downLbl.getHeight( ) + 2 );
+        sumLbl.setXY( 0, downLbl.getY( ) + downLbl.getHeight( ) + 1 );
         sumLbl.setWidth( 40 );
         body.add( sumLbl );
 
@@ -84,6 +90,18 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
         sumField.setWidth( 40 );
         sumField.setXY( sumLbl.getX( ) + sumLbl.getWidth( ) + 3, sumLbl.getY( ) );
         body.add( sumField );
+
+        // Changes
+        changesLbl = new MyGuiComps.MyLabel( "Chs" );
+        changesLbl.setWidth( 40 );
+        changesLbl.setXY( sumLbl.getX( ), sumLbl.getY( ) + ((sumLbl.getHeight( ) + 1) * 2) );
+        body.add( changesLbl );
+
+        changesField = new MyGuiComps.MyTextField( );
+        changesField.setWidth( 40 );
+        changesField.setXY( changesLbl.getX( ) + changesLbl.getWidth( ) + 3, changesLbl.getY( ) );
+        body.add( changesField );
+
     }
 
     int basket_up_0 = 0;
@@ -114,14 +132,15 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
             }
 
             // Update text
-            upField.setText( L.str( client.getBasketFinder( ).getBasketUp( ) ) );
-            downField.setText( L.str( client.getBasketFinder( ).getBasketDown( ) ) );
-            sumField.colorForge( client.getBasketFinder( ).getBaskets( ) );
+            upField.setText( L.str( basketFinder.getBasketUp( ) ) );
+            downField.setText( L.str( basketFinder.getBasketDown( ) ) );
+            sumField.colorForge( basketFinder.getBaskets( ) );
+
+            changesField.setText( L.str( basketFinder.getChangesCount( ) ) );
 
             // Update pre
             basket_up_0 = basketUp;
             basket_down_0 = basketDown;
-
 
         }
     }

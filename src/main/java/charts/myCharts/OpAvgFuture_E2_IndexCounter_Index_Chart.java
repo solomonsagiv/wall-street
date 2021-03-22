@@ -35,7 +35,7 @@ public class OpAvgFuture_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true);
 
-        Exp e1 = client.getExps().getExp(ExpStrings.e1);
+        Exp e1 = client.getExps().getExp(ExpStrings.q1 );
 
         // --------- OpAvgFuture 1 ---------- //
 

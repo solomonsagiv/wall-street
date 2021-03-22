@@ -59,12 +59,12 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
         // Ind
         indLbl = new MyGuiComps.MyLabel( "Ind" );
         indLbl.setWidth( 40 );
-        indLbl.setXY( futLbl.getX(), futLbl.getY() + futLbl.getHeight() + 3 );
+        indLbl.setXY( futLbl.getX(), futLbl.getY() + futLbl.getHeight() + 1 );
         body.add( indLbl );
 
         indField = new MyGuiComps.MyTextField(  );
         indField.setWidth( 40 );
-        indField.setXY( futField.getX(), futField.getY() + futField.getHeight() + 3 );
+        indField.setXY( futField.getX(), futField.getY() + futField.getHeight() + 1 );
         body.add( indField );
     }
 

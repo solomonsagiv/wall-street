@@ -14,7 +14,7 @@ public class BasketFinder extends MyBaseService {
     // Variables
     private BASE_CLIENT_OBJECT client;
     StocksHandler stocksHandler;
-    private int targetChanges = 26;
+    private int targetChanges = 0;
     private int changesCount = 0;
     private ArrayList< MiniStock > stocksChanges = new ArrayList<>( );
     private int basketUp = 0;
@@ -84,6 +84,10 @@ public class BasketFinder extends MyBaseService {
         // Set pre ind price
         preLastPrice = lastPrice;
 
+    }
+
+    public int getChangesCount() {
+        return changesCount;
     }
 
     public MyTimeSeries getBasketsSeries() {

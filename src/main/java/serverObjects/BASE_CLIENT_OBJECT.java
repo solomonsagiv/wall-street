@@ -60,7 +60,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Basket finder
     private BasketFinder basketFinder;
-
+    
     // Services
     ListsService listsService;
     MySqlService mySqlService;
@@ -205,8 +205,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         exps.addExp( new ExpReg( this, ExpStrings.day ) );
         exps.addExp( new ExpReg( this, ExpStrings.week ) );
         exps.addExp( new ExpReg( this, ExpStrings.month ) );
-        exps.addExp( new E( this, ExpStrings.e1 ) );
-        exps.addExp( new E( this, ExpStrings.e2 ) );
+        exps.addExp( new E( this, ExpStrings.q1 ) );
+        exps.addExp( new E( this, ExpStrings.q2 ) );
         exps.setMainExp( exps.getExp( ExpStrings.day ) );
         setExps( exps );
     }

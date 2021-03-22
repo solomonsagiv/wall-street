@@ -1,13 +1,13 @@
 package serverObjects.indexObjects;
 
 import IDDE.DDEHandler;
-import IDDE.DDEReader_B;
-import IDDE.DDEWriter_B;
+import IDDE.DDEReader_Ndx;
+import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -18,6 +18,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
+
 import java.time.LocalTime;
 
 public class Ndx extends INDEX_CLIENT_OBJECT {
@@ -32,10 +33,10 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 15, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 22, 0, 0 ) );
         setFutureEndTime( LocalTime.of( 22, 15, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.week ) );
-        setMySqlService( new MySqlService( this, new DataBaseHandler_Dax( this ) ) );
+        setLogicService( new LogicService( this, ExpStrings.q1 ) );
+        setMySqlService( new MySqlService( this, new DataBaseHandler_Ndx( this ) ) );
         setBasketFinder( new BasketFinder( this, 80, 3000 ) );
-        setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Ndx" ) );
+        setDdeHandler( new DDEHandler( this, new DDEReader_Ndx( this ), new DDEWriter_Ndx( this ), "C:/Users/user/Desktop/[SPX.xlsx]Ndx" ) );
         roll( );
     }
 
@@ -50,7 +51,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     private void roll() {
         rollHandler = new RollHandler( this );
 
-        Roll quarter_quarterFar = new Roll( this, ExpStrings.e1, ExpStrings.e2, RollPriceEnum.FUTURE );
+        Roll quarter_quarterFar = new Roll( this, ExpStrings.q1, ExpStrings.q2, RollPriceEnum.FUTURE );
         rollHandler.addRoll( RollEnum.E1_E2, quarter_quarterFar );
     }
 
@@ -58,11 +59,12 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public void initExpHandler() {
         // Add to
         Exps exps = new Exps( this );
+        exps.addExp( new ExpReg( this, ExpStrings.day ) );
         exps.addExp( new ExpReg( this, ExpStrings.week ) );
         exps.addExp( new ExpReg( this, ExpStrings.month ) );
-        exps.addExp( new E( this, ExpStrings.e1 ) );
-        exps.addExp( new E( this, ExpStrings.e2 ) );
-        exps.setMainExp( exps.getExp( ExpStrings.week ) );
+        exps.addExp( new E( this, ExpStrings.q1 ) );
+        exps.addExp( new E( this, ExpStrings.q2 ) );
+        exps.setMainExp( exps.getExp( ExpStrings.q1 ) );
         setExps( exps );
     }
 

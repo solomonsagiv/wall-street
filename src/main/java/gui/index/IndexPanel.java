@@ -73,19 +73,19 @@ public class IndexPanel extends JPanel implements IMyPanel {
         tickerPanel.setXY( 0, 0 );
         add( tickerPanel );
 
-        // ---------- Races and roll ---------- //
-        racesPanel = new RacesPanel(client);
-        racesPanel.setXY( tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY() );
-        add( racesPanel );
-
         // ---------- Basket panel -------------//
         basketsPanel = new BasketsPanel(client);
-        basketsPanel.setXY( racesPanel.getX() + racesPanel.getWidth() + 1, racesPanel.getY());
+        basketsPanel.setXY( tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
         add( basketsPanel );
+
+        // ---------- Races and roll ---------- //
+        racesPanel = new RacesPanel(client);
+        racesPanel.setXY( basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getY() );
+        add( racesPanel );
 
         // --------------- Exp --------------- //
         expPanel = new ExpSumPanel( client );
-        expPanel.setXY( basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getX() );
+        expPanel.setXY( racesPanel.getX() + racesPanel.getWidth() + 1, racesPanel.getX() );
         add( expPanel );
 
     }

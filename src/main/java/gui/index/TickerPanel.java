@@ -5,7 +5,10 @@ import exp.Exps;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import locals.L;
+import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -33,6 +36,10 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField lowPresentField;
     MyGuiComps.MyTextField highField;
     MyGuiComps.MyTextField highPresentField;
+
+    public static void main( String[] args ) {
+        IndexWindow window = new IndexWindow( "Dax", Dax.getInstance( ) );
+    }
 
     public TickerPanel( BASE_CLIENT_OBJECT client ) {
         super( );
@@ -72,57 +79,57 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // ------- Body ------- //
         bodyPanel = new MyGuiComps.MyPanel( );
-        bodyPanel.setXY( headerPanel.getX( ), headerPanel.getY( ) + headerPanel.getHeight( ) + 2 );
+        bodyPanel.setXY( headerPanel.getX( ), headerPanel.getY( ) + headerPanel.getHeight( ) + 1 );
         bodyPanel.setSize( 500, 350 );
         add( bodyPanel );
 
         // Open
         openField = new MyGuiComps.MyTextField( );
-        openField.setXY( openLbl.getX( ), 6 );
+        openField.setXY( openLbl.getX( ), 5 );
         bodyPanel.add( openField );
 
         openPresentField = new MyGuiComps.MyTextField( );
         openPresentField.setForeground( Color.WHITE );
         openPresentField.setFont( openPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        openPresentField.setXY( openField.getX( ), openField.getY( ) + openField.getHeight( ) + 3 );
+        openPresentField.setXY( openField.getX( ), openField.getY( ) + openField.getHeight( ) + 1 );
         bodyPanel.add( openPresentField );
 
         // Last
         lastField = new MyGuiComps.MyTextField( );
-        lastField.setXY( lastLbl.getX( ), 6 );
+        lastField.setXY( lastLbl.getX( ), 5 );
         bodyPanel.add( lastField );
 
         lastPresentField = new MyGuiComps.MyTextField( );
         lastPresentField.setForeground( Color.WHITE );
         lastPresentField.setFont( lastPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        lastPresentField.setXY( lastField.getX( ), lastField.getY( ) + lastField.getHeight( ) + 3 );
+        lastPresentField.setXY( lastField.getX( ), lastField.getY( ) + lastField.getHeight( ) + 1 );
         bodyPanel.add( lastPresentField );
 
         // Low
         lowField = new MyGuiComps.MyTextField( );
-        lowField.setXY( lowLbl.getX( ), 6 );
+        lowField.setXY( lowLbl.getX( ), 5 );
         bodyPanel.add( lowField );
 
         lowPresentField = new MyGuiComps.MyTextField( );
         lowPresentField.setForeground( Color.WHITE );
         lowPresentField.setFont( lowPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        lowPresentField.setXY( lowField.getX( ), lowField.getY( ) + lowField.getHeight( ) + 3 );
+        lowPresentField.setXY( lowField.getX( ), lowField.getY( ) + lowField.getHeight( ) + 1 );
         bodyPanel.add( lowPresentField );
 
         // High
         highField = new MyGuiComps.MyTextField( );
-        highField.setXY( highLbl.getX( ), 6 );
+        highField.setXY( highLbl.getX( ), 5 );
         bodyPanel.add( highField );
 
         highPresentField = new MyGuiComps.MyTextField( );
         highPresentField.setForeground( Color.WHITE );
         highPresentField.setFont( highPresentField.getFont( ).deriveFont( Font.BOLD ) );
-        highPresentField.setXY( highField.getX( ), highField.getY( ) + highField.getHeight( ) + 3 );
+        highPresentField.setXY( highField.getX( ), highField.getY( ) + highField.getHeight( ) + 1 );
         bodyPanel.add( highPresentField );
 
         // Exps
         expsPanel = new ExpsPanel( exps );
-        expsPanel.setXY( openPresentField.getX( ), openPresentField.getY( ) + openPresentField.getHeight( ) + 6 );
+        expsPanel.setXY( openPresentField.getX( ), openPresentField.getY( ) + openPresentField.getHeight( ) + 1 );
         bodyPanel.add( expsPanel );
 
     }
@@ -169,7 +176,7 @@ class ExpsPanel extends MyGuiComps.MyPanel implements IMyPanel {
             miniPanels.add( expMiniPanel );
             expMiniPanel.setXY( 0, y );
             add( expMiniPanel );
-            y += expMiniPanel.getHeight( ) + 3;
+            y += expMiniPanel.getHeight( ) + 1;
         }
     }
 
@@ -200,10 +207,10 @@ class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     private void initsialize() {
 
-        setSize( 300, 28 );
+        setSize( 300, 26 );
 
         // Name
-        expNameLbl = new MyGuiComps.MyLabel( exp.getName( ) );
+        expNameLbl = new MyGuiComps.MyLabel( StringUtils.capitalize( exp.getName( ) ) );
         expNameLbl.setXY( 5, 0 );
         add( expNameLbl );
 
@@ -226,7 +233,7 @@ class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
     @Override
     public void updateText() {
         try {
-            futField.setText( L.str( L.floor( exp.getFuture( ) ,10) ) );
+            futField.setText( L.str( L.floor( exp.getFuture( ), 10 ) ) );
             opField.colorBack( exp.getOpFuture( ), L.format10( ) );
 
             if ( exp.getOpFutList( ).size( ) > 0 ) {

@@ -118,7 +118,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
+        double fut_e1 = exps.getExp( ExpStrings.q1 ).getFuture( );
 
         if ( fut_e1 != fut_e1_0 ) {
             fut_e1_0 = fut_e1;
@@ -126,7 +126,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp( ExpStrings.e2 ).getFuture( );
+        double fut_e2 = exps.getExp( ExpStrings.q2 ).getFuture( );
 
         if ( fut_e2 != fut_e2_0 ) {
             fut_e2_0 = fut_e2;

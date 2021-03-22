@@ -44,10 +44,10 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                             exp = client.getExps().getExp(ExpStrings.month);
                             break;
                         case "e1":
-                            exp = client.getExps().getExp(ExpStrings.e1);
+                            exp = client.getExps().getExp(ExpStrings.q1 );
                             break;
                         case "e2":
-                            exp = client.getExps().getExp(ExpStrings.e2);
+                            exp = client.getExps().getExp(ExpStrings.q2 );
                             break;
                         case "MAIN":
                             exp = client.getExps().getMainExp();

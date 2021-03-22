@@ -67,7 +67,7 @@ public class FiveLineChart extends MyChartCreator {
             @Override
             public double getData() {
                 try {
-                    Exp exp = client.getExps().getExp(ExpStrings.e1);
+                    Exp exp = client.getExps().getExp(ExpStrings.q1 );
                     return exp.getFuture() - exp.getOpAvgFut();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -82,7 +82,7 @@ public class FiveLineChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries("Future", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.e1).getFuture();
+                return client.getExps().getExp(ExpStrings.q1 ).getFuture();
             }
         };
 

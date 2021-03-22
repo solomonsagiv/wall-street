@@ -10,11 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Exp  {
+public abstract class Exp {
 
     // Variables
     protected BASE_CLIENT_OBJECT client;
-    protected LocalDate toDay = LocalDate.now( );
     protected LocalDate expDate;
     protected double future = 0;
     protected double futureBid = 0;
@@ -24,6 +23,9 @@ public abstract class Exp  {
     ExpData expData;
     List< Double > opFutList = new ArrayList<>( );
     List< Double > futList = new ArrayList<>( );
+
+    protected double op_avg_sum = 0;
+    protected int op_avg_sum_count = 0;
 
     MyTimeSeries opAvgFutSeries;
     MyTimeSeries opAvg15FutSeries;
@@ -64,9 +66,18 @@ public abstract class Exp  {
         futSeries = new MyTimeSeries( "futSeries", client ) {
             @Override
             public double getData() throws UnknownHostException {
-                return getFuture();
+                return getFuture( );
             }
         };
+    }
+
+    public void add_op( double op ) {
+        op_avg_sum += op;
+        op_avg_sum_count++;
+    }
+    
+    public double get_op_avg() {
+        return op_avg_sum / ( double ) op_avg_sum_count;
     }
 
     // Functions
@@ -154,7 +165,7 @@ public abstract class Exp  {
         futureAskForCheck = this.futureAsk;
 
     }
-    
+
     public double getFutureAsk() {
         return futureAsk;
     }
@@ -191,9 +202,6 @@ public abstract class Exp  {
     public MyTimeSeries getOpAvg15FutSeries() {
         return opAvg15FutSeries;
     }
-
-
-
 
 
     public MyTimeSeries getOpAvgFutSeries() {

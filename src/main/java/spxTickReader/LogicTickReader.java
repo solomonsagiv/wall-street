@@ -31,7 +31,7 @@ public class LogicTickReader extends MyThread implements Runnable {
 
     public LogicTickReader( BASE_CLIENT_OBJECT client ) {
         this.client = client;
-        this.e1 = ( E ) client.getExps( ).getExp( ExpStrings.e1 );
+        this.e1 = ( E ) client.getExps( ).getExp( ExpStrings.q1 );
         this.iddeReaderUpdater = iddeReaderUpdater;
         conversation = ddeConnection.createNewConversation( FILE_LOCATION );
     }

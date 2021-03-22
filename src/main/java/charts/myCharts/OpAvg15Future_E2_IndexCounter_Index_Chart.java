@@ -45,7 +45,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         MyProps props_3 = ( MyProps ) props.clone( );
         props_3.setProp( ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false );
 
-        Exp e1 = client.getExps( ).getExp( ExpStrings.e1 );
+        Exp e1 = client.getExps( ).getExp( ExpStrings.q1 );
 
         // --------- OpAvgFuture 1 ---------- //
         MyTimeSeries opAvgFuture = e1.getOpAvg15FutSeries( );

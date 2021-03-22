@@ -93,7 +93,7 @@ public class MyChartContainer extends JFrame {
     }
 
     private void mouseListener( MyChartPanel chartPanel, MyChart myChart ) {
-
+        
         // 2 Clicks
         chartPanel.addMouseListener( new MouseAdapter( ) {
             @Override

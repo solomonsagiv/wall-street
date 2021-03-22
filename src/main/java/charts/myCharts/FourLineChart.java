@@ -65,7 +65,7 @@ public class FourLineChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries("Future", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.e1).getFuture();
+                return client.getExps().getExp(ExpStrings.q1 ).getFuture();
             }
         };
 

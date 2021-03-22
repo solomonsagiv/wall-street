@@ -1,9 +1,12 @@
 package dataBase.mySql.dataUpdaters;
 
+import dataBase.mySql.MySql;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -63,7 +66,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
+        double fut_e1 = exps.getExp( ExpStrings.q1 ).getFuture( );
 
         if ( fut_e1 != fut_e1_0 ) {
             fut_e1_0 = fut_e1;
@@ -71,7 +74,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp( ExpStrings.e2 ).getFuture( );
+        double fut_e2 = exps.getExp( ExpStrings.q2 ).getFuture( );
 
         if ( fut_e2 != fut_e2_0 ) {
             fut_e2_0 = fut_e2;
@@ -79,12 +82,22 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Races ind counter
-        double ind_counter = client.getIndexSum();
+        double ind_counter = client.getIndexSum( );
         if ( ind_counter != ind_counter_0 ) {
             double change = ind_counter - ind_counter_0;
             ind_counter_0 = ind_counter;
             ind_counter_timestamp.add( new MyTimeStampObject( Instant.now( ), change ) );
         }
+
+        // --------------- Raw data --------------- //
+        // Fut e1
+//        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
+//
+//        if ( fut_e1 != fut_e1_0 ) {
+//            fut_e1_0 = fut_e1;
+//            fut_e1_timeStamp.add( new MyTimeStampObject( Instant.now( ), fut_e1_0 ) );
+//        }
+
 
         // Update count
         sleep_count += sleep;
@@ -98,6 +111,23 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 //        loadSerieData( DATA_SCHEME, "dax_fut_gx1", client.getExps( ).getExp( ExpStrings.e1 ).getOpAvg15FutSeries( ) );
 //        loadSerieData( DATA_SCHEME, "dax_fut_gx2", client.getExps( ).getExp( ExpStrings.e2 ).getOpAvg15FutSeries( ) );
 //        loadSerieData( SAGIV_SCHEME, "dax_index_races", client.getIndexRacesSeries( ) );
+        loadDDeCells( );
+
+    }
+
+    private void loadDDeCells() {
+        String query = "SELECT * FROM sagiv.dde_cells;";
+
+        ResultSet rs = MySql.select( query );
+
+        while ( true ) {
+            try {
+                if ( !rs.next() ) break;
+
+            } catch ( SQLException throwables ) {
+                throwables.printStackTrace( );
+            }
+        }
     }
 
     private void updateListsRetro() {

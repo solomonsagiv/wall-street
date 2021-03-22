@@ -1,8 +1,8 @@
 package serverObjects.indexObjects;
 
 import IDDE.DDEHandler;
-import IDDE.DDEReader_A;
-import IDDE.DDEWriter_A;
+import IDDE.DDEReader_Spx;
+import IDDE.DDEWriter_Spx;
 import api.Manifest;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
@@ -29,8 +29,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 15, 31, 0 ) );
         setIndexEndTime( LocalTime.of( 22,0, 0 ) );
         setFutureEndTime( LocalTime.of( 22, 15, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.day ) );
-        setDdeHandler( new DDEHandler( this, new DDEReader_A( this ), new DDEWriter_A( this ), "C:/Users/user/Desktop/[SPX.xlsx]Spx" ) );
+        setLogicService( new LogicService( this, ExpStrings.q1 ) );
+        setDdeHandler( new DDEHandler( this, new DDEReader_Spx( this ), new DDEWriter_Spx( this ), "C:/Users/user/Desktop/[SPX.xlsx]Spx" ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_Spx( this ) ) );
         roll( );
     }
@@ -46,7 +46,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     private void roll() {
         rollHandler = new RollHandler( this );
 
-        Roll quarter_quarterFar = new Roll( this, ExpStrings.e1, ExpStrings.e2, RollPriceEnum.FUTURE );
+        Roll quarter_quarterFar = new Roll( this, ExpStrings.q1, ExpStrings.q2, RollPriceEnum.FUTURE );
         rollHandler.addRoll( RollEnum.E1_E2, quarter_quarterFar );
     }
 

@@ -66,7 +66,7 @@ public class IndexVsQuarterLiveChart extends MyChartCreator {
         MyTimeSeries future = new MyTimeSeries("Index", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.e1).getFuture();
+                return client.getExps().getExp(ExpStrings.q1 ).getFuture();
             }
         };
 

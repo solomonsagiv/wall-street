@@ -111,10 +111,10 @@ public class DetailsWindow {
                         exp = client.getExps().getExp(ExpStrings.month);
                         break;
                     case "quarter":
-                        exp = client.getExps().getExp(ExpStrings.e1);
+                        exp = client.getExps().getExp(ExpStrings.q1 );
                         break;
                     case "quarter_far":
-                        exp = client.getExps().getExp(ExpStrings.e2);
+                        exp = client.getExps().getExp(ExpStrings.q2 );
                         break;
                     case "main":
                         exp = client.getExps().getMainExp();

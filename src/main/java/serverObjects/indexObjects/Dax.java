@@ -1,8 +1,8 @@
 package serverObjects.indexObjects;
 
 import IDDE.DDEHandler;
-import IDDE.DDEReader_B;
-import IDDE.DDEWriter_B;
+import IDDE.DDEReader_Dax;
+import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder;
 import charts.myCharts.FuturesChart;
@@ -32,10 +32,10 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexStartTime( LocalTime.of( 10, 0, 0 ) );
         setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
         setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
-        setLogicService( new LogicService( this, ExpStrings.week ) );
+        setLogicService( new LogicService( this, ExpStrings.q1 ) );
         setMySqlService( new MySqlService( this, new DataBaseHandler_Dax( this ) ) );
         setBasketFinder( new BasketFinder( this, 24, 3000 ) );
-        setDdeHandler( new DDEHandler( this, new DDEReader_B( this ), new DDEWriter_B( this ), "C:/Users/user/Desktop/[SPX.xlsx]Dax" ) );
+        setDdeHandler( new DDEHandler( this, new DDEReader_Dax( this ), new DDEWriter_Dax( this ), "C:/Users/user/Desktop/[SPX.xlsx]Dax" ) );
         roll( );
     }
 
@@ -46,16 +46,16 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         }
         return client;
     }
-
+    
     @Override
     public void initExpHandler() {
         // Add to
         Exps exps = new Exps( this );
         exps.addExp( new ExpReg( this, ExpStrings.week ) );
         exps.addExp( new ExpReg( this, ExpStrings.month ) );
-        exps.addExp( new E( this, ExpStrings.e1 ) );
-        exps.addExp( new E( this, ExpStrings.e2 ) );
-        exps.setMainExp( exps.getExp( ExpStrings.e1 ) );
+        exps.addExp( new E( this, ExpStrings.q1 ) );
+        exps.addExp( new E( this, ExpStrings.q2 ) );
+        exps.setMainExp( exps.getExp( ExpStrings.q1 ) );
         setExps( exps );
     }
 
