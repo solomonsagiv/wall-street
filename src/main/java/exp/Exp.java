@@ -1,6 +1,5 @@
 package exp;
 
-import charts.myChart.MyTimeSeries;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
@@ -27,11 +26,6 @@ public abstract class Exp {
     protected double op_avg_sum = 0;
     protected int op_avg_sum_count = 0;
 
-    MyTimeSeries opAvgFutSeries;
-    MyTimeSeries opAvg15FutSeries;
-    MyTimeSeries futBidAskCounterSeries;
-    MyTimeSeries futSeries;
-
     String expName;
     TwsContractsEnum twsContractsEnum;
     private double futureAskForCheck = 0;
@@ -41,34 +35,6 @@ public abstract class Exp {
         this.client = client;
         this.expName = expName;
         this.expData = new ExpData( expName, client );
-        initSeries( );
-    }
-
-    public void initSeries() {
-        opAvgFutSeries = new MyTimeSeries( "OpAvgFuture", client ) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return getOpAvgFut( );
-            }
-        };
-        opAvg15FutSeries = new MyTimeSeries( "OpAvg15Future", client ) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return getOpAvgFut( 900 );
-            }
-        };
-        futBidAskCounterSeries = new MyTimeSeries( "futBidAskCounter", client ) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return getFutBidAskCounter( );
-            }
-        };
-        futSeries = new MyTimeSeries( "futSeries", client ) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return getFuture( );
-            }
-        };
     }
 
     public void add_op( double op ) {
@@ -80,10 +46,10 @@ public abstract class Exp {
         return op_avg_sum / ( double ) op_avg_sum_count;
     }
 
-    // Functions
     public double getFutureOp() {
         return future - client.getIndex( );
     }
+
 
     public double getOpAvgFut() throws UnknownHostException {
         double sum = 0;
@@ -193,19 +159,6 @@ public abstract class Exp {
 
     public double getFutDelta() {
         return futDelta;
-    }
-
-    public MyTimeSeries getFutBidAskCounterSeries() {
-        return futBidAskCounterSeries;
-    }
-
-    public MyTimeSeries getOpAvg15FutSeries() {
-        return opAvg15FutSeries;
-    }
-
-
-    public MyTimeSeries getOpAvgFutSeries() {
-        return opAvgFutSeries;
     }
 
     public List< Double > getOpFutList() {
