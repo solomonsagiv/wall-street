@@ -14,53 +14,53 @@ public class DDEReader extends MyThread implements Runnable {
     // Variables
     int sleep = 100;
     DDEClientConversation conversation;
-    private DDEConnection ddeConnection = new DDEConnection( );
+    private DDEConnection ddeConnection = new DDEConnection();
     IDDEReader iddeReaderUpdater;
 
     // Constructor
-    public DDEReader( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public DDEReader(BASE_CLIENT_OBJECT client) {
+        super(client);
         this.iddeReaderUpdater = client.getDdeHandler().getIddeReader();
-        this.conversation = ddeConnection.createNewConversation( client.getDdeHandler().getPath() );
+        this.conversation = ddeConnection.createNewConversation(client.getDdeHandler().getPath());
     }
 
     @Override
     public void initRunnable() {
-        setRunnable( this );
+        setRunnable(this);
     }
 
     @Override
     public void run() {
 
-        while ( isRun( ) ) {
+        while (isRun()) {
             try {
 
                 // Sleep
-                Thread.sleep( sleep );
+                Thread.sleep(sleep);
 
                 // DDE
-                read( );
+                read();
 
-            } catch ( InterruptedException e ) {
+            } catch (InterruptedException e) {
                 break;
-            } catch ( DDEException e ) {
+            } catch (DDEException e) {
                 // TODO
-                e.printStackTrace( );
-            } catch ( Exception e ) {
-                e.printStackTrace( );
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
     private void read() throws DDEException {
-        for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            if ( client.getApi( ) == ApiEnum.DDE ) {
-                updateData( ( INDEX_CLIENT_OBJECT ) client );
+        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+            if (client.getApi() == ApiEnum.DDE) {
+                updateData((INDEX_CLIENT_OBJECT) client);
             }
         }
     }
 
-    private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
-        iddeReaderUpdater.updateData( conversation );
+    private void updateData(INDEX_CLIENT_OBJECT client) throws DDEException {
+        iddeReaderUpdater.updateData(conversation);
     }
 }

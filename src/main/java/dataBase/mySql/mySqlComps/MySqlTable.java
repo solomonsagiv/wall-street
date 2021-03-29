@@ -113,7 +113,7 @@ public abstract class MySqlTable implements IMyTableSql {
             }
             i++;
         }
-        
+
         String endQuery = String.format("WHERE `id`='%s';", 1);
 
         query.append(endQuery);
@@ -171,7 +171,7 @@ public abstract class MySqlTable implements IMyTableSql {
         for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
             MyLoadAbleColumn column = entry.getValue();
 
-            System.out.println( column );
+            System.out.println(column);
 
             if (i < loadAbleColumns.size() - 1) {
                 query.append("`" + column.getType().name() + "`='" + column.getResetObject() + "',");
@@ -185,7 +185,7 @@ public abstract class MySqlTable implements IMyTableSql {
 
         query.append(endQuery);
 
-        System.out.println( query );
+        System.out.println(query);
 
         MySql.update(query.toString());
     }

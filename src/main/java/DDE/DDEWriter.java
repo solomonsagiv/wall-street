@@ -10,42 +10,42 @@ import threads.MyThread;
 public class DDEWriter extends MyThread implements Runnable {
 
     private boolean run = true;
-    private DDEConnection ddeConnection = new DDEConnection( );
+    private DDEConnection ddeConnection = new DDEConnection();
     private DDEClientConversation conversation;
     Exps exps;
     BASE_CLIENT_OBJECT client;
     IDDEWriter iddeWriter;
 
     // Constructor
-    public DDEWriter( BASE_CLIENT_OBJECT client ) {
+    public DDEWriter(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        this.exps = client.getExps( );
-        this.iddeWriter = client.getDdeHandler( ).getIddeWriter( );
-        this.conversation = ddeConnection.createNewConversation( client.getDdeHandler().getPath() );
+        this.exps = client.getExps();
+        this.iddeWriter = client.getDdeHandler().getIddeWriter();
+        this.conversation = ddeConnection.createNewConversation(client.getDdeHandler().getPath());
     }
 
     @Override
     public void initRunnable() {
-        setName( "DDE Writer" );
-        setRunnable( this );
+        setName("DDE Writer");
+        setRunnable(this);
     }
 
     @Override
     public void run() {
 
-        while ( run ) {
+        while (run) {
             try {
 
                 // Sleep
-                Thread.sleep( 4000 );
+                Thread.sleep(4000);
 
-                if ( client.isStarted( ) ) {
+                if (client.isStarted()) {
                     // Write the data to the excel
-                    iddeWriter.write( conversation );
+                    iddeWriter.write(conversation);
                 }
 
-            } catch ( InterruptedException e ) {
-                close( );
+            } catch (InterruptedException e) {
+                close();
             }
         }
     }
@@ -53,10 +53,10 @@ public class DDEWriter extends MyThread implements Runnable {
     // Close
     public void close() {
         try {
-            conversation.disconnect( );
-        } catch ( DDEException e ) {
+            conversation.disconnect();
+        } catch (DDEException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace( );
+            e.printStackTrace();
         }
         run = false;
     }

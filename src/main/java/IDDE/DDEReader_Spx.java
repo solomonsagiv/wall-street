@@ -20,30 +20,30 @@ public class DDEReader_Spx extends IDDEReader {
     String e2Cell = "R13C10";
 
     // Constructor
-    public DDEReader_Spx( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public DDEReader_Spx(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override
-    public void updateData( DDEClientConversation conversation ) {
+    public void updateData(DDEClientConversation conversation) {
 
         // Index
-        client.setIndex( requestDouble( indCell, conversation ) );
-        client.setIndexBid( requestDouble( indBidCell, conversation ) );
-        client.setIndexAsk( requestDouble( indAskCell, conversation ) );
+        client.setIndex(requestDouble(indCell, conversation));
+        client.setIndexBid(requestDouble(indBidCell, conversation));
+        client.setIndexAsk(requestDouble(indAskCell, conversation));
 
         // Ticker
-        client.setOpen( requestDouble( openCell, conversation ) );
-        client.setHigh( requestDouble( highCell, conversation ) );
-        client.setLow( requestDouble( lowCell, conversation ) );
-        client.setBase( requestDouble( baseCell, conversation ) );
+        client.setOpen(requestDouble(openCell, conversation));
+        client.setHigh(requestDouble(highCell, conversation));
+        client.setLow(requestDouble(lowCell, conversation));
+        client.setBase(requestDouble(baseCell, conversation));
 
         // Exps
-        client.getExps( ).getExp( ExpStrings.day ).setFuture( requestDouble( futDayCell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.week ).setFuture( requestDouble( futWeekCell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.month ).setFuture( requestDouble( futMonthCell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.q1 ).setFuture( requestDouble( e1Cell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.q2 ).setFuture( requestDouble( e2Cell, conversation ) );
+        client.getExps().getExp(ExpStrings.day).setFuture(requestDouble(futDayCell, conversation));
+        client.getExps().getExp(ExpStrings.week).setFuture(requestDouble(futWeekCell, conversation));
+        client.getExps().getExp(ExpStrings.month).setFuture(requestDouble(futMonthCell, conversation));
+        client.getExps().getExp(ExpStrings.q1).setFuture(requestDouble(e1Cell, conversation));
+        client.getExps().getExp(ExpStrings.q2).setFuture(requestDouble(e2Cell, conversation));
 
     }
 }

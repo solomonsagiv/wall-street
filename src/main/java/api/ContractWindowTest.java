@@ -15,6 +15,7 @@ public class ContractWindowTest extends MyGuiComps.MyFrame {
     // Variables
     MyGuiComps.MyLabel spxLbl;
     MyGuiComps.MyLabel ndxLbl = new MyGuiComps.MyLabel("Ndx");
+
     // Constructor
     public ContractWindowTest(String title) throws HeadlessException {
         super(title);

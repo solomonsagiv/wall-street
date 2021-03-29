@@ -41,12 +41,12 @@ public class MyBoundsTable extends MySqlTable {
             Arik.getInstance().sendErrorMessage(e);
         }
     }
-    
+
     public void updateBoundOrCreateNewOne(String stockName, String name, int x, int y, int width, int height) {
         try {
             boolean exist = false;
 
-            String selectQuery = String.format( "SELECT * FROM bounds.bounds WHERE stockName='%s' and name='%s';", stockName, name);
+            String selectQuery = String.format("SELECT * FROM bounds.bounds WHERE stockName='%s' and name='%s';", stockName, name);
 
             ResultSet rs = MySql.select(selectQuery);
 

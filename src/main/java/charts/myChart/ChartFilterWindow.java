@@ -14,8 +14,8 @@ import java.awt.event.ItemListener;
 
 public class ChartFilterWindow extends MyGuiComps.MyFrame {
 
-    public static void main( String[] args ) {
-        FuturesChart chart = new FuturesChart( Spx.getInstance() );
+    public static void main(String[] args) {
+        FuturesChart chart = new FuturesChart(Spx.getInstance());
         chart.createChart();
     }
 
@@ -27,34 +27,34 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
     MyGuiComps.MyLabel titleLbl;
 
     // Constructors
-    public ChartFilterWindow( String title, BASE_CLIENT_OBJECT client ) throws HeadlessException {
-        super( title, client );
+    public ChartFilterWindow(String title, BASE_CLIENT_OBJECT client) throws HeadlessException {
+        super(title, client);
     }
 
     // Constructors
-    public ChartFilterWindow( String title, BASE_CLIENT_OBJECT client, MyChart myChart ) throws HeadlessException {
-        super( title, client );
+    public ChartFilterWindow(String title, BASE_CLIENT_OBJECT client, MyChart myChart) throws HeadlessException {
+        super(title, client);
         this.myChart = myChart;
-        initParams( myChart );
+        initParams(myChart);
     }
 
-    private void initParams( MyChart myChart ) {
+    private void initParams(MyChart myChart) {
 
         MyTimeSeries[] series = myChart.getSeries();
 
-        int x  = 10;
-        int y  = 40;
+        int x = 10;
+        int y = 40;
         int width = 150;
         int height = 30;
 
-        for ( MyTimeSeries serie: series) {
+        for (MyTimeSeries serie : series) {
 
             // Create
-            JCheckBox checkbox = new CheckBoxSeries( serie, myChart );
-            checkbox.setBounds( x, y, width, height );
+            JCheckBox checkbox = new CheckBoxSeries(serie, myChart);
+            checkbox.setBounds(x, y, width, height);
 
             // Append
-            mainPanel.add( checkbox );
+            mainPanel.add(checkbox);
 
             // Update y
             y += height;
@@ -64,7 +64,7 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initOnClose() {
-        setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     @Override
@@ -76,24 +76,24 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // This
-        setXY( 500, 400 );
-        setSize( 300, 350 );
-        setLayout( null );
+        setXY(500, 400);
+        setSize(300, 350);
+        setLayout(null);
 
         // Main panel
         mainPanel = new MyGuiComps.MyPanel();
-        mainPanel.setLayout( null );
-        mainPanel.setBounds( 0, 0, 300, 300 );
-        mainPanel.setBackground( Themes.GREY_VERY_LIGHT );
+        mainPanel.setLayout(null);
+        mainPanel.setBounds(0, 0, 300, 300);
+        mainPanel.setBackground(Themes.GREY_VERY_LIGHT);
 
-        add( mainPanel );
+        add(mainPanel);
 
         // Title
-        titleLbl = new MyGuiComps.MyLabel( "Filter" );
-        titleLbl.setXY( 10, 10 );
-        titleLbl.setForeground( Themes.BLUE );
-        titleLbl.setFont( Themes.ARIEL_BOLD_15 );
-        mainPanel.add( titleLbl );
+        titleLbl = new MyGuiComps.MyLabel("Filter");
+        titleLbl.setXY(10, 10);
+        titleLbl.setForeground(Themes.BLUE);
+        titleLbl.setFont(Themes.ARIEL_BOLD_15);
+        mainPanel.add(titleLbl);
     }
 
     private class CheckBoxSeries extends JCheckBox {
@@ -101,37 +101,37 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
         MyTimeSeries serie;
         MyChart myChart;
 
-        public CheckBoxSeries( MyTimeSeries serie, MyChart myChart ) {
+        public CheckBoxSeries(MyTimeSeries serie, MyChart myChart) {
             super();
             this.serie = serie;
             this.myChart = myChart;
-            setSelected( serie.isVisible() );
-            setText( StringUtils.capitalize(serie.getName( )));
+            setSelected(serie.isVisible());
+            setText(StringUtils.capitalize(serie.getName()));
             init();
         }
 
         private void init() {
 
             // This
-            setForeground( Themes.BLUE );
-            setBackground( Themes.GREY_VERY_LIGHT );
+            setForeground(Themes.BLUE);
+            setBackground(Themes.GREY_VERY_LIGHT);
 
-            addItemListener( new ItemListener( ) {
+            addItemListener(new ItemListener() {
                 @Override
-                public void itemStateChanged( ItemEvent itemEvent ) {
+                public void itemStateChanged(ItemEvent itemEvent) {
 
                     // taggle visibility
-                    if ( itemEvent.getStateChange() == ItemEvent.SELECTED ) {
-                        serie.setVisible( true );
+                    if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+                        serie.setVisible(true);
                     } else {
-                        serie.setVisible( false );
+                        serie.setVisible(false);
                     }
 
                     // Update the chart
                     myChart.updateSeriesVisibility();
                 }
 
-            } );
+            });
         }
 
 

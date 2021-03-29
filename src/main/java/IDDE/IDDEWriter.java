@@ -8,10 +8,10 @@ public abstract class IDDEWriter {
     protected BASE_CLIENT_OBJECT client;
 
     // Constructor
-    public IDDEWriter( BASE_CLIENT_OBJECT client ) {
+    public IDDEWriter(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 
-    public abstract void write( DDEClientConversation conversation );
+    public abstract void write(DDEClientConversation conversation);
 
 }

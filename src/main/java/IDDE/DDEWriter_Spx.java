@@ -12,19 +12,19 @@ public class DDEWriter_Spx extends IDDEWriter {
     String indexBidAskCounterCell = "R9C13";
     Exps exps;
 
-    public DDEWriter_Spx( BASE_CLIENT_OBJECT client ) {
-        super( client );
-        this.exps = client.getExps( );
+    public DDEWriter_Spx(BASE_CLIENT_OBJECT client) {
+        super(client);
+        this.exps = client.getExps();
     }
 
     @Override
-    public void write( DDEClientConversation conversation ) {
+    public void write(DDEClientConversation conversation) {
         try {
-            conversation.poke( indexBidAskCounterCell, L.str( client.getIndexBidAskCounter( ) ) );
-        } catch ( DDEException e ) {
-            System.out.println( "DDE request error on updateData()" );
-            Arik.getInstance( ).sendMessage( e.getStackTrace( ).toString( ) );
-            e.printStackTrace( );
+            conversation.poke(indexBidAskCounterCell, L.str(client.getIndexBidAskCounter()));
+        } catch (DDEException e) {
+            System.out.println("DDE request error on updateData()");
+            Arik.getInstance().sendMessage(e.getStackTrace().toString());
+            e.printStackTrace();
         }
     }
 

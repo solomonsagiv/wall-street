@@ -6,6 +6,7 @@ import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import threads.MyThread;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -33,66 +34,66 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     private Updater updater;
 
-    public IndexPanel( INDEX_CLIENT_OBJECT client ) {
+    public IndexPanel(INDEX_CLIENT_OBJECT client) {
         this.client = client;
-        client.getExps( );
+        client.getExps();
 
-        init( );
-        initListeners( );
+        init();
+        initListeners();
 
         // Updater
-        getUpdater( ).getHandler( ).start( );
+        getUpdater().getHandler().start();
 
     }
 
     private void initListeners() {
         // Right click
-        addMouseListener( new MouseAdapter( ) {
+        addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked( MouseEvent event ) {
-                if ( event.getModifiers( ) == MouseEvent.BUTTON3_MASK ) {
-                    showPopUpMenu( event );
+            public void mouseClicked(MouseEvent event) {
+                if (event.getModifiers() == MouseEvent.BUTTON3_MASK) {
+                    showPopUpMenu(event);
                 }
             }
-        } );
+        });
     }
 
-    public void showPopUpMenu( MouseEvent event ) {
-        JPopupMenu menu = PopupsMenuFactory.indexPanel( client );
+    public void showPopUpMenu(MouseEvent event) {
+        JPopupMenu menu = PopupsMenuFactory.indexPanel(client);
         // Show the menu
-        menu.show( event.getComponent( ), event.getX( ), event.getY( ) );
+        menu.show(event.getComponent(), event.getX(), event.getY());
     }
 
     private void init() {
 
-        setLayout( null );
-        setBounds( 0, 0, 0, height );
+        setLayout(null);
+        setBounds(0, 0, 0, height);
 
         // ---------- Ticker section ---------- //
         tickerPanel = new TickerPanel(client);
-        tickerPanel.setXY( 0, 0 );
-        add( tickerPanel );
+        tickerPanel.setXY(0, 0);
+        add(tickerPanel);
 
         // ---------- Basket panel -------------//
         basketsPanel = new BasketsPanel(client);
-        basketsPanel.setXY( tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
-        add( basketsPanel );
+        basketsPanel.setXY(tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
+        add(basketsPanel);
 
         // ---------- Races and roll ---------- //
         racesPanel = new RacesPanel(client);
-        racesPanel.setXY( basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getY() );
-        add( racesPanel );
+        racesPanel.setXY(basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getY());
+        add(racesPanel);
 
         // --------------- Exp --------------- //
-        expPanel = new ExpSumPanel( client );
-        expPanel.setXY( racesPanel.getX() + racesPanel.getWidth() + 1, racesPanel.getX() );
-        add( expPanel );
+        expPanel = new ExpSumPanel(client);
+        expPanel.setXY(racesPanel.getX() + racesPanel.getWidth() + 1, racesPanel.getX());
+        add(expPanel);
 
     }
 
     public Updater getUpdater() {
-        if ( updater == null ) {
-            updater = new Updater( client );
+        if (updater == null) {
+            updater = new Updater(client);
         }
         return updater;
     }
@@ -106,40 +107,40 @@ public class IndexPanel extends JPanel implements IMyPanel {
     }
 
     public void close() {
-        getUpdater( ).close( );
+        getUpdater().close();
     }
 
     public class Updater extends MyThread implements Runnable {
 
-        public Updater( BASE_CLIENT_OBJECT client ) {
-            super( client );
-            setName( "UPDATER" );
+        public Updater(BASE_CLIENT_OBJECT client) {
+            super(client);
+            setName("UPDATER");
         }
 
         @Override
         public void initRunnable() {
-            setRunnable( this );
+            setRunnable(this);
         }
 
         @Override
         public void run() {
 
-            setRun( true );
+            setRun(true);
 
-            while ( isRun( ) ) {
+            while (isRun()) {
                 try {
                     // Sleep
-                    Thread.sleep( 500 );
+                    Thread.sleep(500);
 
-                    updateText( );
-                } catch ( InterruptedException e ) {
+                    updateText();
+                } catch (InterruptedException e) {
                     break;
                 }
             }
         }
 
         public void close() {
-            setRun( false );
+            setRun(false);
         }
     }
 

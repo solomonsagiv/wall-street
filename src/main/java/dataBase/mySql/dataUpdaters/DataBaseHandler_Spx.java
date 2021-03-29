@@ -187,18 +187,29 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     public void loadData() {
 
-        MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_day", exps.getExp(ExpStrings.day));
+        // OP AVG
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_day"), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_week"), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_month"), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_e1"), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
 
+        // BID ASK COUNTER
+        load_data_agg(MySql.Queries.get_serie(DATA_SCHEME, "spx500_index_bid_ask_counter"), client, null, BID_ASK_COUNTER_TYPE);
 
-        loadSerieData(DATA_SCHEME, "spx500_index", client.getIndexSeries());
-        loadSerieDataAgg(DATA_SCHEME, "spx500_index_bid_ask_counter", client.getIndexBidAskCounterSeries());
-        load_op(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_day"), exps.getExp(ExpStrings.day));
-        load_op(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_week"), exps.getExp(ExpStrings.week));
-        load_op(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_month"), exps.getExp(ExpStrings.month));
-        load_op(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_e1"), exps.getExp(ExpStrings.q1));
-        load_op(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_e2"), exps.getExp(ExpStrings.q2));
+        //  RACES
+        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "spx500_index_races"), client, null, INDEX_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "spx500_fut_races"), client, null, FUT_RACES_TYPE);
 
+    }
 
+    @Override
+    public void initTablesNames() {
+        tablesNames.put(INDEX_TABLE, "data.spx500_index");
+        tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter");
+        tablesNames.put(INDEX_RACES_TABLE, "sagiv.spx500_index_races");
+        tablesNames.put(FUT_RACES_TABLE, "sagiv.spx500_fut_races");
+        tablesNames.put(BASKETS_TABLE, "data.spx500_baskets");
     }
 
     private void updateListsRetro() {

@@ -12,7 +12,7 @@ public class MySqlService extends MyBaseService {
     BASE_CLIENT_OBJECT client;
     IDataBaseHandler dataBaseHandler;
 
-    public MySqlService(BASE_CLIENT_OBJECT client, IDataBaseHandler dataBaseHandler ) {
+    public MySqlService(BASE_CLIENT_OBJECT client, IDataBaseHandler dataBaseHandler) {
         super(client);
         this.client = client;
         this.dataBaseHandler = dataBaseHandler;
@@ -29,7 +29,7 @@ public class MySqlService extends MyBaseService {
         if (Manifest.DB_RUNNER) {
 
             // Insert line
-            dataBaseHandler.insertData( getSleep() );
+            dataBaseHandler.insertData(getSleep());
 
             // Arrays
 

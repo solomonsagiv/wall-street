@@ -21,7 +21,7 @@ public class IndexWindow extends MyGuiComps.MyFrame {
     public static void main(String[] args) {
 
         Spx dax = Spx.getInstance();
-        new IndexWindow("Dax",dax);
+        new IndexWindow("Dax", dax);
     }
 
     @Override

@@ -44,10 +44,10 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
                             exp = client.getExps().getExp(ExpStrings.month);
                             break;
                         case "e1":
-                            exp = client.getExps().getExp(ExpStrings.q1 );
+                            exp = client.getExps().getExp(ExpStrings.q1);
                             break;
                         case "e2":
-                            exp = client.getExps().getExp(ExpStrings.q2 );
+                            exp = client.getExps().getExp(ExpStrings.q2);
                             break;
                         case "MAIN":
                             exp = client.getExps().getMainExp();
@@ -80,24 +80,24 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
         propsPanel = new PropsPanel(client);
         propsPanel.setXY(racesPanel.getX() + racesPanel.getWidth() + 1, 20);
         add(propsPanel);
-        
+
         // Executors
         executorsPanel = new ExecutorsPanel(client);
         executorsPanel.setXY(propsPanel.getX() + propsPanel.getWidth() + 1, propsPanel.getY());
         add(executorsPanel);
 
         // Combo options
-        comboBox = new JComboBox( getExpsNames() );
-        comboBox.setBounds( executorsPanel.getX() + executorsPanel.getWidth() + 5, executorsPanel.getY(), 60, 25);
-        add( comboBox );
+        comboBox = new JComboBox(getExpsNames());
+        comboBox.setBounds(executorsPanel.getX() + executorsPanel.getWidth() + 5, executorsPanel.getY(), 60, 25);
+        add(comboBox);
     }
 
     private String[] getExpsNames() {
         ArrayList<String> names = new ArrayList<>();
-        for ( Exp exp: client.getExps().getExpList() ) {
-            names.add( exp.getName() );
+        for (Exp exp : client.getExps().getExpList()) {
+            names.add(exp.getName());
         }
-        return  names.toArray(String[]::new);
+        return names.toArray(String[]::new);
     }
 
 

@@ -9,7 +9,7 @@ import java.awt.*;
 public class IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
-    public IndexCounter_Index_Chart( BASE_CLIENT_OBJECT client) {
+    public IndexCounter_Index_Chart(BASE_CLIENT_OBJECT client) {
         super(client);
     }
 
@@ -17,7 +17,7 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
     public void createChart() throws CloneNotSupportedException {
 
         MyTimeSeries[] series;
-        
+
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
@@ -38,8 +38,8 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
 
         // Index
         MyTimeSeries index = client.getIndexSeries();
-        index.setStokeSize( 1.5f );
-        index.setColor( Color.BLACK );
+        index.setStokeSize(1.5f);
+        index.setColor(Color.BLACK);
 
         series = new MyTimeSeries[1];
         series[0] = index;
@@ -50,8 +50,8 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
         // ---------- Chart 3 ---------- //
         // Index
         MyTimeSeries indexBidAskCounter = client.getIndexBidAskCounterSeries();
-        indexBidAskCounter.setColor( Themes.ORANGE );
-        indexBidAskCounter.setStokeSize( 1.5f );
+        indexBidAskCounter.setColor(Themes.ORANGE);
+        indexBidAskCounter.setStokeSize(1.5f);
 
         series = new MyTimeSeries[1];
         series[0] = indexBidAskCounter;

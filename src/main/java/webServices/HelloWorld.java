@@ -5,13 +5,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path( "/hello" )
+@Path("/hello")
 public class HelloWorld {
 
     @GET
-    @Produces( MediaType.TEXT_PLAIN )
+    @Produces(MediaType.TEXT_PLAIN)
     public String getClichedMessage() {
-        System.out.println( " Got itdskfdskfjsldfkjsdlkfjsdlk" );
+        System.out.println(" Got itdskfdskfjsldfkjsdlkfjsdlk");
         return "Hello World";
     }
 

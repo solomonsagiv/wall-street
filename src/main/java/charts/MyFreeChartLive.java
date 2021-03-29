@@ -1,8 +1,5 @@
 package charts;
 
-import arik.Arik;
-import dataBase.mySql.myBaseTables.MyBoundsTable;
-import dataBase.mySql.mySqlComps.TablesEnum;
 import locals.Themes;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
@@ -11,7 +8,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
-import java.sql.ResultSet;
 
 public class MyFreeChartLive extends JFrame {
 

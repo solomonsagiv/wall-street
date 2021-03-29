@@ -10,7 +10,7 @@ import java.awt.*;
 public class BidAskMarginChart extends MyChartCreator {
 
     // Constructor
-    public BidAskMarginChart( BASE_CLIENT_OBJECT client) {
+    public BidAskMarginChart(BASE_CLIENT_OBJECT client) {
         super(client);
     }
 
@@ -42,8 +42,8 @@ public class BidAskMarginChart extends MyChartCreator {
 
         // Index
         MyTimeSeries index = client.getIndBidAskMarginSeries();
-        index.setStokeSize( 1.5f );
-        index.setColor( Themes.DARK_GREEN );
+        index.setStokeSize(1.5f);
+        index.setColor(Themes.DARK_GREEN);
 
         series = new MyTimeSeries[1];
         series[0] = index;

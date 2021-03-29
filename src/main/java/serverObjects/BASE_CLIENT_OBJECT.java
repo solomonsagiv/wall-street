@@ -53,14 +53,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected double index = 0;
 
     // Table
-    DefaultTableModel model = new DefaultTableModel( );
+    DefaultTableModel model = new DefaultTableModel();
 
     // DDE Handler
     private DDEHandler ddeHandler;
 
     // Basket finder
     private BasketFinder basketFinder;
-    
+
     // Services
     ListsService listsService;
     MySqlService mySqlService;
@@ -81,8 +81,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime futureEndTime;
 
     // Position
-    private ArrayList< MyThread > threads = new ArrayList<>( );
-    private HashMap< String, Integer > ids = new HashMap<>( );
+    private ArrayList<MyThread> threads = new ArrayList<>();
+    private HashMap<String, Integer> ids = new HashMap<>();
     private boolean started = false;
 
     // Lists map
@@ -92,7 +92,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private StocksHandler stocksHandler;
 
     // MyService
-    private MyServiceHandler myServiceHandler = new MyServiceHandler( this );
+    private MyServiceHandler myServiceHandler = new MyServiceHandler(this);
     private double indexBid = 0;
     private double indexAsk = 0;
     private double open = 0;
@@ -118,97 +118,97 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public BASE_CLIENT_OBJECT() {
         try {
-            LocalHandler.clients.add( this );
+            LocalHandler.clients.add(this);
 
             // Call subClasses abstract functions
-            initSeries( );
+            initSeries();
 
             // MyServices
-            listsService = new ListsService( this );
-            stocksHandler = new StocksHandler( this );
+            listsService = new ListsService(this);
+            stocksHandler = new StocksHandler(this);
 
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     // Start all
     public void startAll() {
         // To start
-        if ( isLoadFromDb( ) ) {
-            myServiceHandler.getHandler( ).start( );
-            openChartsOnStart( );
-            setStarted( true );
+        if (isLoadFromDb()) {
+            myServiceHandler.getHandler().start();
+            openChartsOnStart();
+            setStarted(true);
         }
     }
 
     // Start all
     public void closeAll() {
-        getMyServiceHandler( ).getHandler( ).close( );
-        for ( MyThread myThread : getThreads( ) ) {
-            myThread.getHandler( ).close( );
+        getMyServiceHandler().getHandler().close();
+        for (MyThread myThread : getThreads()) {
+            myThread.getHandler().close();
         }
-        setStarted( false );
+        setStarted(false);
     }
 
     // ---------- basic functions ---------- //
     @Override
     public void initSeries() {
-        indexScaledSeries = new MyTimeSeries( "Index scaled", this, true ) {
+        indexScaledSeries = new MyTimeSeries("Index scaled", this, true) {
             @Override
             public double getData() {
-                return client.getIndex( );
+                return client.getIndex();
             }
         };
-        indexSeries = new MyTimeSeries( "Index", this ) {
+        indexSeries = new MyTimeSeries("Index", this) {
             @Override
             public double getData() {
-                return client.getIndex( );
+                return client.getIndex();
             }
         };
-        indexBidSeries = new MyTimeSeries( "Index bid", this ) {
+        indexBidSeries = new MyTimeSeries("Index bid", this) {
             @Override
             public double getData() {
-                return client.getIndexBid( );
+                return client.getIndexBid();
             }
         };
-        indexAskSeries = new MyTimeSeries( "Index ask", this ) {
+        indexAskSeries = new MyTimeSeries("Index ask", this) {
             @Override
             public double getData() {
-                return client.getIndexAsk( );
+                return client.getIndexAsk();
             }
         };
-        indexBidAskCounterSeries = new MyTimeSeries( "IndBidAskCounter", this ) {
+        indexBidAskCounterSeries = new MyTimeSeries("IndBidAskCounter", this) {
             @Override
             public double getData() {
-                return client.getIndexBidAskCounter( );
+                return client.getIndexBidAskCounter();
             }
         };
-        indBidAskMarginSeries = new MyTimeSeries( "Margin counter", this ) {
+        indBidAskMarginSeries = new MyTimeSeries("Margin counter", this) {
             @Override
             public double getData() throws UnknownHostException {
-                return client.getBidAskMarginCounter( );
+                return client.getBidAskMarginCounter();
             }
         };
-        indexRacesSeries = new MyTimeSeries( "ind counter", this ) {
+        indexRacesSeries = new MyTimeSeries("ind counter", this) {
             @Override
             public double getData() throws UnknownHostException {
                 return client.getIndexSum();
             }
         };
     }
-    
+
     @Override
     public void initExpHandler() {
         // Add to
-        Exps exps = new Exps( this );
-        exps.addExp( new ExpReg( this, ExpStrings.day ) );
-        exps.addExp( new ExpReg( this, ExpStrings.week ) );
-        exps.addExp( new ExpReg( this, ExpStrings.month ) );
-        exps.addExp( new E( this, ExpStrings.q1 ) );
-        exps.addExp( new E( this, ExpStrings.q2 ) );
-        exps.setMainExp( exps.getExp( ExpStrings.day ) );
-        setExps( exps );
+        Exps exps = new Exps(this);
+        exps.addExp(new ExpReg(this, ExpStrings.day));
+        exps.addExp(new ExpReg(this, ExpStrings.week));
+        exps.addExp(new ExpReg(this, ExpStrings.month));
+        exps.addExp(new E(this, ExpStrings.q1));
+        exps.addExp(new E(this, ExpStrings.q2));
+        exps.setMainExp(exps.getExp(ExpStrings.day));
+        setExps(exps);
     }
 
     public double getBidAskMarginCounter() {
@@ -221,19 +221,19 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // ---------- Getters and Setters ---------- //
 
-    public String str( Object o ) {
-        return String.valueOf( o );
+    public String str(Object o) {
+        return String.valueOf(o);
     }
 
-    public double floor( double d, int zeros ) {
-        return Math.floor( d * zeros ) / zeros;
+    public double floor(double d, int zeros) {
+        return Math.floor(d * zeros) / zeros;
     }
 
     public boolean isStarted() {
         return started;
     }
 
-    public void setStarted( boolean started ) {
+    public void setStarted(boolean started) {
         this.started = started;
     }
 
@@ -241,7 +241,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return conDown;
     }
 
-    public void setConDown( int future_down ) {
+    public void setConDown(int future_down) {
         this.conDown = future_down;
     }
 
@@ -249,7 +249,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexUp;
     }
 
-    public void setIndexUp( int index_up ) {
+    public void setIndexUp(int index_up) {
         this.indexUp = index_up;
     }
 
@@ -257,7 +257,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexDown;
     }
 
-    public void setIndexDown( int index_down ) {
+    public void setIndexDown(int index_down) {
         this.indexDown = index_down;
     }
 
@@ -265,7 +265,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return startStrike;
     }
 
-    public void setStartStrike( double startStrike ) {
+    public void setStartStrike(double startStrike) {
         this.startStrike = startStrike;
     }
 
@@ -273,7 +273,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return endStrike;
     }
 
-    public void setEndStrike( double endStrike ) {
+    public void setEndStrike(double endStrike) {
         this.endStrike = endStrike;
     }
 
@@ -285,57 +285,57 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return model;
     }
 
-    public void setModel( DefaultTableModel model ) {
+    public void setModel(DefaultTableModel model) {
         this.model = model;
     }
 
-    public HashMap< String, Integer > getIds() {
+    public HashMap<String, Integer> getIds() {
         return ids;
     }
 
-    public void setIds( HashMap< String, Integer > ids ) {
+    public void setIds(HashMap<String, Integer> ids) {
         this.ids = ids;
     }
 
     public String toStringPretty() {
-        String originalToString = toString( );
-        String newTostring = originalToString.replaceAll( ", ", "\n" );
+        String originalToString = toString();
+        String newTostring = originalToString.replaceAll(", ", "\n");
         return newTostring;
     }
 
     public String getArikSumLine() throws UnknownHostException {
         String text = "";
-        text += "***** " + getName( ).toUpperCase( ) + " *****" + "\n";
-        text += "Date: " + LocalDate.now( ).minusDays( 1 ) + "\n";
+        text += "***** " + getName().toUpperCase() + " *****" + "\n";
+        text += "Date: " + LocalDate.now().minusDays(1) + "\n";
         text += "Open: " + open + "\n";
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100( getExps( ).getMainExp( ).getOpAvgFut( ) ) + "\n";
-        text += "Ind bidAskCounter: " + getIndexBidAskCounter( ) + "\n";
+        text += "OP avg: " + L.format100(getExps().getMainExp().getOpAvgFut()) + "\n";
+        text += "Ind bidAskCounter: " + getIndexBidAskCounter() + "\n";
         try {
-            text += "Roll: " + L.floor( getRollHandler( ).getRoll( RollEnum.E1_E2 ).getAvg( ), 100 ) + "\n";
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            text += "Roll: " + L.floor(getRollHandler().getRoll(RollEnum.E1_E2).getAvg(), 100) + "\n";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return text;
     }
 
     public boolean isLoadFromDb() {
 
-        if ( loadFromDb ) {
+        if (loadFromDb) {
             return true;
         }
 
-        if ( !Manifest.DB ) {
-            setLoadFromDb( true );
+        if (!Manifest.DB) {
+            setLoadFromDb(true);
             return true;
         }
 
         return true;
     }
 
-    public void setLoadFromDb( boolean loadFromDb ) {
+    public void setLoadFromDb(boolean loadFromDb) {
         this.loadFromDb = loadFromDb;
     }
 
@@ -343,43 +343,43 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return conUp;
     }
 
-    public void setConUp( int conUp ) {
+    public void setConUp(int conUp) {
         this.conUp = conUp;
     }
 
     public void conUpPlus() {
         conUp++;
-        setConUpChanged( true );
+        setConUpChanged(true);
     }
 
     public void conDownPlus() {
         conDown++;
-        setConDownChanged( true );
+        setConDownChanged(true);
     }
 
     public void indUpPlus() {
         indexUp++;
-        setIndUpChanged( true );
+        setIndUpChanged(true);
     }
 
     public void indDownPlus() {
         indexDown++;
-        setIndDownChanged( true );
+        setIndDownChanged(true);
     }
 
     public boolean isDbRunning() {
         return dbRunning;
     }
 
-    public void setDbRunning( boolean dbRunning ) {
+    public void setDbRunning(boolean dbRunning) {
         this.dbRunning = dbRunning;
     }
 
-    public ArrayList< MyThread > getThreads() {
+    public ArrayList<MyThread> getThreads() {
         return threads;
     }
 
-    public void setThreads( ArrayList< MyThread > threads ) {
+    public void setThreads(ArrayList<MyThread> threads) {
         this.threads = threads;
     }
 
@@ -395,7 +395,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexBidAskMargin;
     }
 
-    public void setIndexBidAskMargin( double indexBidAskMargin ) {
+    public void setIndexBidAskMargin(double indexBidAskMargin) {
         this.indexBidAskMargin = indexBidAskMargin;
     }
 
@@ -403,7 +403,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return name;
     }
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -417,8 +417,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return index;
     }
 
-    public void setIndex( double index ) {
-        if ( index > 1 ) {
+    public void setIndex(double index) {
+        if (index > 1) {
             this.index = index;
         }
     }
@@ -427,14 +427,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexBid;
     }
 
-    public void setIndexBid( double indexBid ) {
-        if ( indexBid > 1 ) {
-            if ( indexBid > this.indexBid ) {
+    public void setIndexBid(double indexBid) {
+        if (indexBid > 1) {
+            if (indexBid > this.indexBid) {
                 indexBidAskCounter2++;
             }
 
             // If increment state
-            if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
+            if (indexBid > this.indexBid && indexAskForCheck == this.indexAsk) {
                 indexBidAskCounter++;
             }
             this.indexBid = indexBid;
@@ -458,14 +458,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexAsk;
     }
 
-    public void setIndexAsk( double indexAsk ) {
-        if ( indexAsk > 1 ) {
-            if ( indexAsk < this.indexAsk ) {
+    public void setIndexAsk(double indexAsk) {
+        if (indexAsk > 1) {
+            if (indexAsk < this.indexAsk) {
                 indexBidAskCounter2--;
             }
 
             // If increment state
-            if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
+            if (indexAsk < this.indexAsk && indexBidForCheck == indexBid) {
                 indexBidAskCounter--;
             }
             this.indexAsk = indexAsk;
@@ -481,8 +481,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return open;
     }
 
-    public void setOpen( double open ) {
-        if ( open > 1 ) {
+    public void setOpen(double open) {
+        if (open > 1) {
             this.open = open;
         }
     }
@@ -491,8 +491,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return high;
     }
 
-    public void setHigh( double high ) {
-        if ( high > 1 ) {
+    public void setHigh(double high) {
+        if (high > 1) {
             this.high = high;
         }
     }
@@ -501,8 +501,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return low;
     }
 
-    public void setLow( double low ) {
-        if ( low > 1 ) {
+    public void setLow(double low) {
+        if (low > 1) {
             this.low = low;
         }
     }
@@ -511,18 +511,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return base;
     }
 
-    public void setBase( double base ) {
-        if ( base > 1 ) {
+    public void setBase(double base) {
+        if (base > 1) {
             this.base = base;
         }
     }
 
     public double getStrikeMargin() {
-        if ( strikeMargin == 0 ) throw new NullPointerException( getName( ) + " Strike margin not set" );
+        if (strikeMargin == 0) throw new NullPointerException(getName() + " Strike margin not set");
         return strikeMargin;
     }
 
-    public void setStrikeMargin( double strikeMargin ) {
+    public void setStrikeMargin(double strikeMargin) {
         this.strikeMargin = strikeMargin;
     }
 
@@ -530,7 +530,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return listsService;
     }
 
-    public void setMySqlService( MySqlService mySqlService ) {
+    public void setMySqlService(MySqlService mySqlService) {
         this.mySqlService = mySqlService;
     }
 
@@ -542,18 +542,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexBidAskCounter2;
     }
 
-    public void setIndexBidAskCounter2( int indexBidAskCounter2 ) {
+    public void setIndexBidAskCounter2(int indexBidAskCounter2) {
         this.indexBidAskCounter2 = indexBidAskCounter2;
     }
 
     public Exps getExps() {
-        if ( exps == null ) {
-            initExpHandler( );
+        if (exps == null) {
+            initExpHandler();
         }
         return exps;
     }
 
-    public void setExps( Exps exps ) {
+    public void setExps(Exps exps) {
         this.exps = exps;
     }
 
@@ -561,7 +561,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexStartTime;
     }
 
-    public void setIndexStartTime( LocalTime indexStartTime ) {
+    public void setIndexStartTime(LocalTime indexStartTime) {
         this.indexStartTime = indexStartTime;
     }
 
@@ -569,7 +569,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexEndTime;
     }
 
-    public void setIndexEndTime( LocalTime indexEndTime ) {
+    public void setIndexEndTime(LocalTime indexEndTime) {
         this.indexEndTime = indexEndTime;
     }
 
@@ -577,7 +577,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return futureEndTime;
     }
 
-    public void setFutureEndTime( LocalTime futureEndTime ) {
+    public void setFutureEndTime(LocalTime futureEndTime) {
         this.futureEndTime = futureEndTime;
     }
 
@@ -585,7 +585,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return conUpChanged;
     }
 
-    public void setConUpChanged( boolean conUpChanged ) {
+    public void setConUpChanged(boolean conUpChanged) {
         this.conUpChanged = conUpChanged;
     }
 
@@ -593,7 +593,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return conDownChanged;
     }
 
-    public void setConDownChanged( boolean conDownChanged ) {
+    public void setConDownChanged(boolean conDownChanged) {
         this.conDownChanged = conDownChanged;
     }
 
@@ -601,7 +601,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indUpChanged;
     }
 
-    public void setIndUpChanged( boolean indUpChanged ) {
+    public void setIndUpChanged(boolean indUpChanged) {
         this.indUpChanged = indUpChanged;
     }
 
@@ -609,18 +609,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indDownChanged;
     }
 
-    public void setIndDownChanged( boolean indDownChanged ) {
+    public void setIndDownChanged(boolean indDownChanged) {
         this.indDownChanged = indDownChanged;
     }
 
     public DDECells getDdeCells() {
-        if ( ddeCells == null ) {
-            ddeCells = new DDECellsBloomberg( );
+        if (ddeCells == null) {
+            ddeCells = new DDECellsBloomberg();
         }
         return ddeCells;
     }
 
-    public void setDdeCells( DDECells ddeCells ) {
+    public void setDdeCells(DDECells ddeCells) {
         this.ddeCells = ddeCells;
     }
 
@@ -628,16 +628,16 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return indexBidAskCounter;
     }
 
-    public void setIndexBidAskCounter( int indexBidAskCounter ) {
+    public void setIndexBidAskCounter(int indexBidAskCounter) {
         this.indexBidAskCounter = indexBidAskCounter;
     }
 
     public RollHandler getRollHandler() {
-        if ( rollHandler == null ) throw new NullPointerException( getName( ) + " Roll inn't set" );
+        if (rollHandler == null) throw new NullPointerException(getName() + " Roll inn't set");
         return rollHandler;
     }
 
-    public void setRollHandler( RollHandler rollHandler ) {
+    public void setRollHandler(RollHandler rollHandler) {
         this.rollHandler = rollHandler;
     }
 
@@ -670,7 +670,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public LogicService getLogicService() {
-        if ( logicService == null ) throw new NullPointerException( getName( ) + " Logic not set" );
+        if (logicService == null) throw new NullPointerException(getName() + " Logic not set");
         return logicService;
     }
 
@@ -678,7 +678,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return PRE;
     }
 
-    public void setLogicService( LogicService logicService ) {
+    public void setLogicService(LogicService logicService) {
         this.logicService = logicService;
     }
 
@@ -694,7 +694,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return lastTick;
     }
 
-    public void setLastTick( int lastTick ) {
+    public void setLastTick(int lastTick) {
         this.lastTick = lastTick;
     }
 
@@ -706,15 +706,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return stocksHandler;
     }
 
-    public void setStocksHandler( StocksHandler stocksHandler ) {
+    public void setStocksHandler(StocksHandler stocksHandler) {
         this.stocksHandler = stocksHandler;
     }
 
-    public void setDdeHandler( DDEHandler ddeHandler ) {
+    public void setDdeHandler(DDEHandler ddeHandler) {
         this.ddeHandler = ddeHandler;
     }
 
-    public void setBasketFinder( BasketFinder basketFinder ) {
+    public void setBasketFinder(BasketFinder basketFinder) {
         this.basketFinder = basketFinder;
     }
 
@@ -722,10 +722,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", optionsHandler=" + exps.toString( ) +
-                ", startOfIndexTrading=" + getIndexStartTime( ) +
-                ", endOfIndexTrading=" + getIndexEndTime( ) +
-                ", endFutureTrading=" + getFutureEndTime( ) +
+                ", optionsHandler=" + exps.toString() +
+                ", startOfIndexTrading=" + getIndexStartTime() +
+                ", endOfIndexTrading=" + getIndexEndTime() +
+                ", endFutureTrading=" + getFutureEndTime() +
                 ", loadFromDb=" + loadFromDb +
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +
@@ -741,13 +741,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", indexBidAskMargin=" + indexBidAskMargin +
                 ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +
-                ", racesMargin=" + getRacesMargin( ) +
+                ", racesMargin=" + getRacesMargin() +
                 ", optimiPesimiMargin=" + optimiPesimiMargin +
                 ", conUp=" + conUp +
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
-                ", indexList=" + indexSeries.getItemCount( ) +
+                ", indexList=" + indexSeries.getItemCount() +
                 '}';
     }
 

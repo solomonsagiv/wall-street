@@ -9,19 +9,19 @@ public abstract class IDDEReader {
 
     protected BASE_CLIENT_OBJECT client;
 
-    public IDDEReader( BASE_CLIENT_OBJECT client ) {
+    public IDDEReader(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 
-    public abstract void updateData( DDEClientConversation conversation );
-    
-    public double requestDouble( String cell, DDEClientConversation conversation ) {
+    public abstract void updateData(DDEClientConversation conversation);
+
+    public double requestDouble(String cell, DDEClientConversation conversation) {
         double d = 0;
         try {
-            d = L.dbl( conversation.request( cell ) );
-        } catch ( NumberFormatException | DDEException e ) {
+            d = L.dbl(conversation.request(cell));
+        } catch (NumberFormatException | DDEException e) {
             // TODO
-            System.out.println( "Cell: " + cell );
+            System.out.println("Cell: " + cell);
             e.printStackTrace();
         } finally {
             return d;

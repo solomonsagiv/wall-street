@@ -4,13 +4,13 @@ import java.util.HashMap;
 
 public class MyDBConnections {
 
-    public static void main( String[] args ) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
 
         for (int i = 0; i < 30; i++) {
             Thread.sleep(200);
 
             new Thread(() -> {
-                MySql.insert( "INSERT INTO spx.index (time, value) VALUES ('now()', 5699)" );
+                MySql.insert("INSERT INTO spx.index (time, value) VALUES ('now()', 5699)");
             }).start();
 
         }
@@ -22,20 +22,21 @@ public class MyDBConnections {
     public static final int JIBE_POSTGRES = 2;
 
     // Variables
-    HashMap< Integer, DBConnectionType > map = new HashMap<>( );
+    HashMap<Integer, DBConnectionType> map = new HashMap<>();
 
     // Constructor
     public MyDBConnections() {
-        map.put( AMAZON_PARIS_SAGIV, new DBConnectionType( "jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/", "sagivMasterUser", "Solomonsagivawsmaster12" ) );
-        map.put( SLO_POSTGRES_LOCAL, new DBConnectionType( "jdbc:postgresql://localhost:5432/postgres", "postgres", "Solomonpostgres12" ) );
-        map.put( JIBE_POSTGRES, new DBConnectionType( "jdbc:postgresql://52.4.58.207:5432/jibe", "jibe_admin", "160633a0cd2ab5a9b82f088a77240cb68f9232a8" ) );
+        map.put(AMAZON_PARIS_SAGIV, new DBConnectionType("jdbc:mysql://parisdb.chuxlqcvlex2.eu-west-3.rds.amazonaws.com:3306/", "sagivMasterUser", "Solomonsagivawsmaster12"));
+        map.put(SLO_POSTGRES_LOCAL, new DBConnectionType("jdbc:postgresql://localhost:5432/postgres", "postgres", "Solomonpostgres12"));
+        map.put(JIBE_POSTGRES, new DBConnectionType("jdbc:postgresql://52.4.58.207:5432/jibe", "jibe_admin", "160633a0cd2ab5a9b82f088a77240cb68f9232a8"));
     }
 
-    public DBConnectionType getConnectionType( int type ) {
-        return map.get( type );
+    public DBConnectionType getConnectionType(int type) {
+        return map.get(type);
     }
 
 }
+
 // DB connection type class
 class DBConnectionType {
 
@@ -45,7 +46,7 @@ class DBConnectionType {
     private String password;
 
     // Constructor
-    public DBConnectionType( String url, String user, String password ) {
+    public DBConnectionType(String url, String user, String password) {
         this.url = url;
         this.user = user;
         this.password = password;

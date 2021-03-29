@@ -1,6 +1,5 @@
 package setting.clientSetting;
 
-import dataBase.mySql.mySqlComps.TablesEnum;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;

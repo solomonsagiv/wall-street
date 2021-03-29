@@ -8,6 +8,7 @@ import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesDataItem;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.text.ParseException;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 
 interface ITimeSeries {
     double getData() throws UnknownHostException;
+    void load_data();
 }
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
@@ -30,56 +32,55 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private float stokeSize;
     private boolean scaled = false;
     private boolean visible = true;
-
     MyDoubleList myValues;
 
     // Constructor
-    public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client ) {
-        super( name );
-        this.name = ( String ) name;
+    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
+        super(name);
+        this.name = (String) name;
         this.client = client;
-        myValues = new MyDoubleList( );
+        myValues = new MyDoubleList();
     }
 
     // Constructor
-    public MyTimeSeries( Comparable name, BASE_CLIENT_OBJECT client, boolean scaled ) {
-        this( name, client );
+    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client, boolean scaled) {
+        this(name, client);
         this.scaled = scaled;
     }
 
     public double getScaledData() {
-        return getMyValues( ).getLastValAsStd( );
+        return getMyValues().getLastValAsStd();
     }
 
-    public double getScaledData( RegularTimePeriod timePeriod ) {
-        double data = ( double ) getDataItem( timePeriod ).getValue( );
-        return myValues.scaled( data );
+    public double getScaledData(RegularTimePeriod timePeriod) {
+        double data = (double) getDataItem(timePeriod).getValue();
+        return myValues.scaled(data);
     }
 
-    public double getScaledData( int index ) {
-        double data = ( double ) getDataItem( index ).getValue( );
-        return myValues.scaled( data );
+    public double getScaledData(int index) {
+        double data = (double) getDataItem(index).getValue();
+        return myValues.scaled(data);
     }
 
     public TimeSeriesDataItem getLastItem() {
-        return getDataItem( getItemCount( ) - 1 );
+        return getDataItem(getItemCount() - 1);
     }
 
-    public void add( LocalDateTime time ) {
+    public void add(LocalDateTime time) {
         try {
 
-            Second second = new Second( time.getSecond( ), time.getMinute( ), time.getHour( ), time.getDayOfMonth( ), time.getMonthValue( ), time.getYear( ) );
-            double data = getData( );
-            getMyValues( ).add( data );
+            Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
+            double data = getData();
+            getMyValues().add(data);
 
-            if ( scaled ) {
-                data = getMyValues( ).getLastValAsStd( );
+            if (scaled) {
+                data = getMyValues().getLastValAsStd();
             }
 
-            addOrUpdate( second, data );
+            addOrUpdate(second, data);
 
-        } catch ( UnknownHostException e ) {
-            e.printStackTrace( );
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
     }
 
@@ -88,38 +89,38 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public MyJson getLastJson() throws ParseException {
-        TimeSeriesDataItem item = getLastItem( );
-        LocalDateTime localDateTime = LocalDateTime.now( );
-        MyJson json = new MyJson( );
-        json.put( JsonStrings.x, localDateTime );
-        json.put( JsonStrings.y, item.getValue( ) );
+        TimeSeriesDataItem item = getLastItem();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        MyJson json = new MyJson();
+        json.put(JsonStrings.x, localDateTime);
+        json.put(JsonStrings.y, item.getValue());
         return json;
     }
 
-    public void add( LocalDateTime dateTime, double value ) {
+    public void add(LocalDateTime dateTime, double value) {
         try {
-            lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth( ), dateTime.getMonthValue( ), dateTime.getYear( ) );
+            lastSeconde = new Second(dateTime.getSecond(), dateTime.getMinute(), dateTime.getHour(), dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear());
 
-            myValues.add( value );
-            addOrUpdate( lastSeconde, value );
-        } catch ( Exception e ) {
+            myValues.add(value);
+            addOrUpdate(lastSeconde, value);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void add( MyJson json ) {
+    public void add(MyJson json) {
         try {
-            if ( !json.getString( JsonStrings.x ).isEmpty( ) ) {
+            if (!json.getString(JsonStrings.x).isEmpty()) {
 
-                LocalDateTime dateTime = LocalDateTime.parse( json.getString( JsonStrings.x ) );
-                lastSeconde = new Second( dateTime.getSecond( ), dateTime.getMinute( ), dateTime.getHour( ), dateTime.getDayOfMonth( ), dateTime.getMonthValue( ), dateTime.getYear( ) );
-                
-                double data = json.getDouble( JsonStrings.y );
-                myValues.add( data );
-                addOrUpdate( lastSeconde, data );
+                LocalDateTime dateTime = LocalDateTime.parse(json.getString(JsonStrings.x));
+                lastSeconde = new Second(dateTime.getSecond(), dateTime.getMinute(), dateTime.getHour(), dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear());
+
+                double data = json.getDouble(JsonStrings.y);
+                myValues.add(data);
+                addOrUpdate(lastSeconde, data);
             }
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -127,26 +128,26 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         double data = 0;
         // live data
         try {
-            data = getData( );
-            myValues.add( data );
-            addOrUpdate( getLastSeconde( ), data );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            data = getData();
+            myValues.add(data);
+            addOrUpdate(getLastSeconde(), data);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        lastSeconde = ( Second ) lastSeconde.next( );
+        lastSeconde = (Second) lastSeconde.next();
         return data;
     }
 
-    public void remove( int index ) {
-        delete( index, index );
-        myValues.remove( index );
+    public void remove(int index) {
+        delete(index, index);
+        myValues.remove(index);
     }
 
     public Color getColor() {
         return color;
     }
 
-    public void setColor( Color color ) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -154,7 +155,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return stokeSize;
     }
 
-    public void setStokeSize( float stokeSize ) {
+    public void setStokeSize(float stokeSize) {
         this.stokeSize = stokeSize;
     }
 
@@ -166,13 +167,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return name;
     }
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
     public Second getLastSeconde() {
-        if ( lastSeconde == null ) {
-            lastSeconde = new Second( );
+        if (lastSeconde == null) {
+            lastSeconde = new Second();
         }
         return lastSeconde;
     }
@@ -181,11 +182,11 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         return visible;
     }
 
-    public void setVisible( boolean visible ) {
+    public void setVisible(boolean visible) {
         this.visible = visible;
     }
 
-    public void setId( int id ) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -64,7 +64,7 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
         MyTimeSeries quarter = new MyTimeSeries("Quarter", client) {
             @Override
             public double getData() {
-                return client.getExps().getExp(ExpStrings.q1 ).getFuture();
+                return client.getExps().getExp(ExpStrings.q1).getFuture();
             }
         };
 
@@ -75,7 +75,7 @@ public class IndexVsQuarterVSOpAvg15LiveChart extends MyChartCreator {
         MyTimeSeries opAvg = new MyTimeSeries("OpAvg15Future", client) {
             @Override
             public double getData() {
-                Exp exp = client.getExps().getExp(ExpStrings.q1 );
+                Exp exp = client.getExps().getExp(ExpStrings.q1);
                 return exp.getFuture() - exp.getOpAvgFut(900);
             }
         };

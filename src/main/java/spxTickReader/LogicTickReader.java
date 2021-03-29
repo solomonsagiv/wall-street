@@ -15,7 +15,7 @@ public class LogicTickReader extends MyThread implements Runnable {
     BASE_CLIENT_OBJECT client;
 
     DDEClientConversation conversation;
-    private DDEConnection ddeConnection = new DDEConnection( );
+    private DDEConnection ddeConnection = new DDEConnection();
     IDDEReader iddeReaderUpdater;
     final String FILE_LOCATION = "C:/Users/user/Desktop/Book1.xlsm";
 
@@ -29,33 +29,33 @@ public class LogicTickReader extends MyThread implements Runnable {
 
     boolean changed = false;
 
-    public LogicTickReader( BASE_CLIENT_OBJECT client ) {
+    public LogicTickReader(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        this.e1 = ( E ) client.getExps( ).getExp( ExpStrings.q1 );
+        this.e1 = (E) client.getExps().getExp(ExpStrings.q1);
         this.iddeReaderUpdater = iddeReaderUpdater;
-        conversation = ddeConnection.createNewConversation( FILE_LOCATION );
+        conversation = ddeConnection.createNewConversation(FILE_LOCATION);
     }
 
     @Override
     public void run() {
-        go( );
+        go();
     }
 
     public void go() {
 
-        while ( isRun( ) ) {
+        while (isRun()) {
             try {
                 // Sleep
-                Thread.sleep( 200 );
+                Thread.sleep(200);
 
                 // Read
-                read( );
+                read();
 
                 // Print
-                print( );
+                print();
 
-            } catch ( InterruptedException | DDEException e ) {
-                e.printStackTrace( );
+            } catch (InterruptedException | DDEException e) {
+                e.printStackTrace();
             }
         }
 
@@ -63,9 +63,9 @@ public class LogicTickReader extends MyThread implements Runnable {
 
     private void print() {
 
-        if ( changed ) {
+        if (changed) {
 //        System.out.println( LocalTime.now() );
-            System.out.println( +e1.getVolume( ) + " " + client.getLastTick( ) + " " + e1.getFutureBid( ) + " " + e1.getFuture( ) + " " + e1.getFutureAsk( ) + " " );
+            System.out.println(+e1.getVolume() + " " + client.getLastTick() + " " + e1.getFutureBid() + " " + e1.getFuture() + " " + e1.getFutureAsk() + " ");
         }
     }
 
@@ -73,23 +73,23 @@ public class LogicTickReader extends MyThread implements Runnable {
 
         changed = false;
 
-        double newVolume = L.dbl( conversation.request( volume ).replaceAll( "\\s+", "" ) );
+        double newVolume = L.dbl(conversation.request(volume).replaceAll("\\s+", ""));
 
-        if ( newVolume > e1.getVolume( ) ) {
+        if (newVolume > e1.getVolume()) {
 
             changed = true;
 
-            e1.setVolume( newVolume );
-            e1.setFuture( L.dbl( conversation.request( futLast ).replaceAll( "\\s+", "" ) ) );
-            e1.setFutureBid( L.dbl( conversation.request( futBid ).replaceAll( "\\s+", "" ) ) );
-            e1.setFutureAsk( L.dbl( conversation.request( futAsk ).replaceAll( "\\s+", "" ) ) );
-            client.setLastTick( L.INT( conversation.request( lastTick ).replaceAll( "\\s+", "" ) ) );
+            e1.setVolume(newVolume);
+            e1.setFuture(L.dbl(conversation.request(futLast).replaceAll("\\s+", "")));
+            e1.setFutureBid(L.dbl(conversation.request(futBid).replaceAll("\\s+", "")));
+            e1.setFutureAsk(L.dbl(conversation.request(futAsk).replaceAll("\\s+", "")));
+            client.setLastTick(L.INT(conversation.request(lastTick).replaceAll("\\s+", "")));
         }
 
     }
 
     @Override
     public void initRunnable() {
-        setRunnable( this );
+        setRunnable(this);
     }
 }

@@ -23,35 +23,35 @@ public class DDEReader_Ndx extends IDDEReader {
     String e2Cell = "R13C10";
 
     // Constructor
-    public DDEReader_Ndx( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
-    private void initStockCells( DDEClientConversation conversation ) {
+    private void initStockCells(DDEClientConversation conversation) {
 
         int nameCol = 26;
         int row = 2;
-        
-        while ( true ) {
+
+        while (true) {
             try {
-                String name = conversation.request( String.format( "R%sC%s", row, nameCol ) );
+                String name = conversation.request(String.format("R%sC%s", row, nameCol));
 
                 // End
-                if ( row > 500 ) {
+                if (row > 500) {
                     break;
                 }
 
                 // End
-                if ( name.replaceAll("\\s+","").equals( "0" ) ) {
+                if (name.replaceAll("\\s+", "").equals("0")) {
                     break;
                 }
 
                 // Add stock
-                client.getStocksHandler( ).addStock( name, row );
+                client.getStocksHandler().addStock(name, row);
                 row++;
 
-            } catch ( DDEException e ) {
-                e.printStackTrace( );
+            } catch (DDEException e) {
+                e.printStackTrace();
             }
         }
 
@@ -59,40 +59,40 @@ public class DDEReader_Ndx extends IDDEReader {
     }
 
     @Override
-    public void updateData( DDEClientConversation conversation ) {
+    public void updateData(DDEClientConversation conversation) {
 
-        if ( !initStocksCells ) {
-            initStockCells( conversation );
+        if (!initStocksCells) {
+            initStockCells(conversation);
         }
 
         // Index
-        client.setIndex( requestDouble( indCell, conversation ) );
+        client.setIndex(requestDouble(indCell, conversation));
 
         // Ticker
-        client.setOpen( requestDouble( openCell, conversation ) );
-        client.setHigh( requestDouble( highCell, conversation ) );
-        client.setLow( requestDouble( lowCell, conversation ) );
-        client.setBase( requestDouble( baseCell, conversation ) );
+        client.setOpen(requestDouble(openCell, conversation));
+        client.setHigh(requestDouble(highCell, conversation));
+        client.setLow(requestDouble(lowCell, conversation));
+        client.setBase(requestDouble(baseCell, conversation));
 
         // Exps
-        client.getExps( ).getExp( ExpStrings.day ).setFuture( requestDouble( futDayCell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.week ).setFuture( requestDouble( futWeekCell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.month ).setFuture( requestDouble( futMonthCell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.q1 ).setFuture( requestDouble( e1Cell, conversation ) );
-        client.getExps( ).getExp( ExpStrings.q2 ).setFuture( requestDouble( e2Cell, conversation ) );
+        client.getExps().getExp(ExpStrings.day).setFuture(requestDouble(futDayCell, conversation));
+        client.getExps().getExp(ExpStrings.week).setFuture(requestDouble(futWeekCell, conversation));
+        client.getExps().getExp(ExpStrings.month).setFuture(requestDouble(futMonthCell, conversation));
+        client.getExps().getExp(ExpStrings.q1).setFuture(requestDouble(e1Cell, conversation));
+        client.getExps().getExp(ExpStrings.q2).setFuture(requestDouble(e2Cell, conversation));
 
         // Stocks
-        updateStocks( conversation );
+        updateStocks(conversation);
 
     }
 
-    private void updateStocks( DDEClientConversation conversation ) {
-        for ( MiniStock stock : client.getStocksHandler( ).getStocks( ) ) {
+    private void updateStocks(DDEClientConversation conversation) {
+        for (MiniStock stock : client.getStocksHandler().getStocks()) {
             try {
-                stock.setLastPrice( L.dbl( conversation.request( stock.getDdeCells( ).getLastPriceCell( ) ) ) );
-                stock.setVolume( L.dbl( conversation.request( stock.getDdeCells( ).getVolumeCell( ) ) ) );
-            } catch ( Exception e ) {
-                e.printStackTrace( );
+                stock.setLastPrice(L.dbl(conversation.request(stock.getDdeCells().getLastPriceCell())));
+                stock.setVolume(L.dbl(conversation.request(stock.getDdeCells().getVolumeCell())));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

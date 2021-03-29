@@ -4,6 +4,7 @@ import dataBase.mySql.MySql;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -65,7 +66,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp(ExpStrings.e1).getFuture();
+        double fut_e1 = exps.getExp(ExpStrings.q1).getFuture();
 
         if (fut_e1 != fut_e1_0) {
             fut_e1_0 = fut_e1;
@@ -73,7 +74,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp(ExpStrings.e2).getFuture();
+        double fut_e2 = exps.getExp(ExpStrings.q2).getFuture();
 
         if (fut_e2 != fut_e2_0) {
             fut_e2_0 = fut_e2;
@@ -104,13 +105,18 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     @Override
     public void loadData() {
-//        loadSerieData( DATA_SCHEME, "dax_index", client.getIndexSeries( ) );
-//        loadSerieData( DATA_SCHEME, "dax_fut_week", client.getExps( ).getExp( ExpStrings.week ).getOpAvgFutSeries( ) );
-//        loadSerieData( DATA_SCHEME, "dax_fut_month", client.getExps( ).getExp( ExpStrings.month ).getOpAvg15FutSeries( ) );
-//        loadSerieData( DATA_SCHEME, "dax_fut_gx1", client.getExps( ).getExp( ExpStrings.e1 ).getOpAvg15FutSeries( ) );
-//        loadSerieData( DATA_SCHEME, "dax_fut_gx2", client.getExps( ).getExp( ExpStrings.e2 ).getOpAvg15FutSeries( ) );
-//        loadSerieData( SAGIV_SCHEME, "dax_index_races", client.getIndexRacesSeries( ) );
-        loadDDeCells();
+        // OP AVG
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "dax_index", "dax_fut_week"), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "dax_index", "dax_fut_month"), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "dax_index", "dax_fut_e1"), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "dax_index", "dax_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
+
+        // BASKETS
+        load_data_agg(MySql.Queries.get_serie(DATA_SCHEME, "dax_baskets"), client, null, BASKETS_TYPE);
+
+        //  RACES
+        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "dax_index_races"), client, null, INDEX_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "dax_fut_races"), client, null, FUT_RACES_TYPE);
     }
 
     private void loadDDeCells() {

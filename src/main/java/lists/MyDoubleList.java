@@ -36,21 +36,21 @@ public class MyDoubleList extends ArrayList<Double> {
     }
 
     public double getLastValAsStd() {
-        if ( size() > 1 ) {
-            return ( get( size( ) - 1 ) - getAvg( ) ) / getStd( );
+        if (size() > 1) {
+            return (get(size() - 1) - getAvg()) / getStd();
         } else {
             return 0;
         }
     }
 
-    public double scaled( double val ) {
+    public double scaled(double val) {
         return (val - getAvg()) / getStd();
     }
 
     public List<Double> scaledList() {
         List<Double> list = new ArrayList<>();
-        for ( double num: this ) {
-            list.add( (num - getAvg()) / getStd( ) );
+        for (double num : this) {
+            list.add((num - getAvg()) / getStd());
         }
         return list;
     }
@@ -60,11 +60,11 @@ public class MyDoubleList extends ArrayList<Double> {
         int length = this.size();
         double avg = getAvg();
 
-        for ( double num : this ) {
-            standardDeviation += Math.pow( num - avg, 2 );
+        for (double num : this) {
+            standardDeviation += Math.pow(num - avg, 2);
         }
 
-        return Math.sqrt( standardDeviation / length );
+        return Math.sqrt(standardDeviation / length);
     }
 
     @Override

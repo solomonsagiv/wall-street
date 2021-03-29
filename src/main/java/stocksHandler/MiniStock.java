@@ -8,14 +8,14 @@ public class MiniStock {
     private double volume = 0;
     private double volume_0 = 0;
     private MiniStockDDECells ddeCells;
-    
-    public MiniStock( String name ) {
+
+    public MiniStock(String name) {
         this.name = name;
     }
 
-    public MiniStock( String name, int row ) {
+    public MiniStock(String name, int row) {
         this.name = name;
-        this.ddeCells = new MiniStockDDECells( row );
+        this.ddeCells = new MiniStockDDECells(row);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MiniStock {
         return name;
     }
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -39,11 +39,11 @@ public class MiniStock {
         return lastPrice;
     }
 
-    public void setLastPrice( double lastPrice ) {
+    public void setLastPrice(double lastPrice) {
         this.lastPrice = lastPrice;
     }
 
-    public void setLastPrice_0( double lastPrice_0 ) {
+    public void setLastPrice_0(double lastPrice_0) {
         this.lastPrice_0 = lastPrice_0;
     }
 
@@ -51,7 +51,7 @@ public class MiniStock {
         return lastPrice_0;
     }
 
-    public void setVolume_0( double volume_0 ) {
+    public void setVolume_0(double volume_0) {
         this.volume_0 = volume_0;
     }
 
@@ -59,7 +59,7 @@ public class MiniStock {
         return volume;
     }
 
-    public void setVolume( double volume ) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 
@@ -81,11 +81,11 @@ public class MiniStock {
         private int row;
 
         // Constructor
-        public MiniStockDDECells( int row ) {
+        public MiniStockDDECells(int row) {
             this.row = row;
-            this.lastPriceCell = String.format( lastPriceCell, row );
-            this.volumeCell = String.format( volumeCell, row );
-            this.nameCell = String.format( nameCell, row );
+            this.lastPriceCell = String.format(lastPriceCell, row);
+            this.volumeCell = String.format(volumeCell, row);
+            this.nameCell = String.format(nameCell, row);
         }
 
         // Getters and Setters
@@ -93,7 +93,7 @@ public class MiniStock {
             return lastPriceCell;
         }
 
-        public void setLastPriceCell( String lastPriceCell ) {
+        public void setLastPriceCell(String lastPriceCell) {
             this.lastPriceCell = lastPriceCell;
         }
 
@@ -101,7 +101,7 @@ public class MiniStock {
             return volumeCell;
         }
 
-        public void setVolumeCell( String volumeCell ) {
+        public void setVolumeCell(String volumeCell) {
             this.volumeCell = volumeCell;
         }
 
@@ -109,7 +109,7 @@ public class MiniStock {
             return nameCell;
         }
 
-        public void setNameCell( String nameCell ) {
+        public void setNameCell(String nameCell) {
             this.nameCell = nameCell;
         }
 
@@ -117,7 +117,7 @@ public class MiniStock {
             return row;
         }
 
-        public void setRow( int row ) {
+        public void setRow(int row) {
             this.row = row;
         }
 

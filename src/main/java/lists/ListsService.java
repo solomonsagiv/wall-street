@@ -17,14 +17,14 @@ public class ListsService extends MyBaseService {
     BASE_CLIENT_OBJECT client;
 
     // Constructor
-    public ListsService( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public ListsService(BASE_CLIENT_OBJECT client) {
+        super(client);
         this.client = client;
     }
 
     @Override
     public void go() {
-        insert( );
+        insert();
     }
 
     @Override
@@ -44,49 +44,42 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        LocalDateTime time = LocalDateTime.now( );
+        LocalDateTime time = LocalDateTime.now();
 
         // List for charts
-        client.getIndexBidSeries( ).add( time );
-        client.getIndexAskSeries( ).add( time );
-        client.getIndexBidAskCounterSeries( ).add( time );
-        client.getIndexSeries( ).add( time );
-        client.getIndexScaledSeries( ).add( time );
-        client.getIndBidAskMarginSeries( ).add( time );
-        client.getIndexRacesSeries().add( time );
+        client.getIndexBidSeries().add(time);
+        client.getIndexAskSeries().add(time);
+        client.getIndexBidAskCounterSeries().add(time);
+        client.getIndexSeries().add(time);
+        client.getIndexScaledSeries().add(time);
+        client.getIndBidAskMarginSeries().add(time);
+        client.getIndexRacesSeries().add(time);
 
-        if ( client.getBasketFinder() != null ) {
-            client.getBasketFinder().getBasketsSeries().add( time );
+        if (client.getBasketFinder() != null) {
+            client.getBasketFinder().getBasketsSeries().add(time);
         }
 
         // Options lists
-        for ( Exp exp : client.getExps( ).getExpList( ) ) {
+        for (Exp exp : client.getExps().getExpList()) {
             try {
-                exp.getFutList( ).add( exp.getFuture( ) );
-                exp.getOpFutList( ).add( exp.getOpFuture( ) );
+                exp.getFutList().add(exp.getFuture());
+                exp.getOpFutList().add(exp.getOpFuture());
 
-                if ( exp.getFuture( ) > 1 ) {
-                    exp.getOpFutList( ).add( exp.getFuture( ) - client.getIndex( ) );
+                if (exp.getFuture() > 1) {
+                    exp.getOpFutList().add(exp.getFuture() - client.getIndex());
                 }
-                try {
-                    exp.getOpAvgFutSeries( ).add( time );
-                    exp.getOpAvg15FutSeries( ).add( time );
-                } catch ( Exception e ) {
-                    System.out.println( getClient( ).getName( ) + " OpAvgFutureList is empty" );
-                }
-            } catch ( NullPointerException e ) {
-                e.printStackTrace( );
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
-            exp.getFutBidAskCounterSeries( ).add( time );
         }
 
         // Roll lists
         try {
-            for ( Map.Entry< RollEnum, Roll > entry : getClient( ).getRollHandler( ).getRollMap( ).entrySet( ) ) {
-                Roll roll = entry.getValue( );
-                roll.addRoll( );
+            for (Map.Entry<RollEnum, Roll> entry : getClient().getRollHandler().getRollMap().entrySet()) {
+                Roll roll = entry.getValue();
+                roll.addRoll();
             }
-        } catch ( NullPointerException e ) {
+        } catch (NullPointerException e) {
         }
     }
 }

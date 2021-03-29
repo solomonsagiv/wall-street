@@ -8,13 +8,13 @@ public class DDEWriter_Ndx extends IDDEWriter {
 
     Exps exps;
 
-    public DDEWriter_Ndx( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public DDEWriter_Ndx(BASE_CLIENT_OBJECT client) {
+        super(client);
         this.exps = client.getExps();
     }
 
     @Override
-    public void write( DDEClientConversation conversation ) {
+    public void write(DDEClientConversation conversation) {
     }
 
     // Write the data to the excel

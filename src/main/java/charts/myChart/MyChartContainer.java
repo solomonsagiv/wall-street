@@ -23,11 +23,11 @@ public class MyChartContainer extends JFrame {
     BASE_CLIENT_OBJECT client;
     String name;
 
-    public MyChartContainer( BASE_CLIENT_OBJECT client, MyChart[] charts, String name ) {
+    public MyChartContainer(BASE_CLIENT_OBJECT client, MyChart[] charts, String name) {
         this.charts = charts;
         this.client = client;
         this.name = name;
-        init( );
+        init();
     }
 
     @Override
@@ -38,149 +38,149 @@ public class MyChartContainer extends JFrame {
     private void init() {
 
         // Load bounds
-        loadBounds( );
+        loadBounds();
 
         // On Close
-        addWindowListener( new java.awt.event.WindowAdapter( ) {
-            public void windowClosing( WindowEvent e ) {
-                onClose( e );
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onClose(e);
             }
-        } );
+        });
 
         // Layout
-        setLayout( new GridLayout( charts.length, 0 ) );
+        setLayout(new GridLayout(charts.length, 0));
 
         // Append charts
-        appendCharts( );
+        appendCharts();
 
     }
 
     public void create() {
-        pack( );
-        setVisible( true );
+        pack();
+        setVisible(true);
     }
 
     private void appendCharts() {
-        for ( MyChart myChart : charts ) {
-            MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) );
+        for (MyChart myChart : charts) {
+            MyChartPanel chartPanel = new MyChartPanel(myChart.chart, myChart.props.getBool(ChartPropsEnum.IS_INCLUDE_TICKER));
             myChart.chartPanel = chartPanel;
 
-            initProps( chartPanel );
-            addPan( chartPanel );
-            mouseListener( chartPanel, myChart );
-            mouseWheel( chartPanel, myChart );
-            add( chartPanel );
+            initProps(chartPanel);
+            addPan(chartPanel);
+            mouseListener(chartPanel, myChart);
+            mouseWheel(chartPanel, myChart);
+            add(chartPanel);
         }
     }
 
-    private void initProps( MyChartPanel chartPanel ) {
-        chartPanel.setMouseZoomable( true );
-        chartPanel.setMouseWheelEnabled( true );
-        chartPanel.setDomainZoomable( true );
-        chartPanel.setRangeZoomable( false );
-        chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
-        chartPanel.setFillZoomRectangle( true );
-        chartPanel.setZoomAroundAnchor( true );
+    private void initProps(MyChartPanel chartPanel) {
+        chartPanel.setMouseZoomable(true);
+        chartPanel.setMouseWheelEnabled(true);
+        chartPanel.setDomainZoomable(true);
+        chartPanel.setRangeZoomable(false);
+        chartPanel.setZoomTriggerDistance(Integer.MAX_VALUE);
+        chartPanel.setFillZoomRectangle(true);
+        chartPanel.setZoomAroundAnchor(true);
     }
 
-    private void mouseWheel( MyChartPanel chartPanel, MyChart myChart ) {
-        chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
+    private void mouseWheel(MyChartPanel chartPanel, MyChart myChart) {
+        chartPanel.addMouseWheelListener(new MouseWheelListener() {
             @Override
-            public void mouseWheelMoved( MouseWheelEvent e ) {
-                myChart.getUpdater( ).updateChartRange( );
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                myChart.getUpdater().updateChartRange();
             }
-        } );
+        });
     }
 
-    private void mouseListener( MyChartPanel chartPanel, MyChart myChart ) {
-        
-        // 2 Clicks
-        chartPanel.addMouseListener( new MouseAdapter( ) {
-            @Override
-            public void mouseClicked( MouseEvent e ) {
-                super.mouseClicked( e );
-                if ( e.getClickCount( ) == 2 ) {
-                    DateAxis axis = ( DateAxis ) myChart.plot.getDomainAxis( );
-                    NumberAxis rangeAxis = ( NumberAxis ) myChart.plot.getRangeAxis( );
+    private void mouseListener(MyChartPanel chartPanel, MyChart myChart) {
 
-                    rangeAxis.setAutoRange( true );
-                    axis.setAutoRange( true );
+        // 2 Clicks
+        chartPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2) {
+                    DateAxis axis = (DateAxis) myChart.plot.getDomainAxis();
+                    NumberAxis rangeAxis = (NumberAxis) myChart.plot.getRangeAxis();
+
+                    rangeAxis.setAutoRange(true);
+                    axis.setAutoRange(true);
                 }
             }
-        } );
+        });
 
         // Mouse release
-        chartPanel.addMouseListener( new MouseAdapter( ) {
+        chartPanel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseReleased( MouseEvent e ) {
-                super.mouseReleased( e );
-                System.out.println( "Mouse released" );
-                myChart.getUpdater( ).updateChartRange( );
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                System.out.println("Mouse released");
+                myChart.getUpdater().updateChartRange();
             }
-        } );
+        });
 
-        chartPanel.addMouseListener( new MouseAdapter( ) {
+        chartPanel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked( MouseEvent e ) {
-                super.mouseClicked( e );
-                if ( e.getButton( ) == MouseEvent.BUTTON3 ) {
-                    new ChartFilterWindow( "Filter", client, myChart );
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    new ChartFilterWindow("Filter", client, myChart);
                 }
             }
-        } );
+        });
     }
 
-    private void addPan( MyChartPanel chartPanel ) {
+    private void addPan(MyChartPanel chartPanel) {
         try {
-            Field mask = ChartPanel.class.getDeclaredField( "panMask" );
-            mask.setAccessible( true );
-            mask.set( chartPanel, 0 );
-        } catch ( NoSuchFieldException e ) {
-            e.printStackTrace( );
-        } catch ( IllegalAccessException e ) {
-            e.printStackTrace( );
+            Field mask = ChartPanel.class.getDeclaredField("panMask");
+            mask.setAccessible(true);
+            mask.set(chartPanel, 0);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
     }
 
     private void loadBounds() {
-        new Thread( () -> {
+        new Thread(() -> {
             try {
                 int width = 100, height = 100, x = 100, y = 100;
 
-                String query = String.format( "SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getName( ), getName( ) );
-                ResultSet rs = MySql.select( query );
+                String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getName(), getName());
+                ResultSet rs = MySql.select(query);
 
-                while ( rs.next( ) ) {
-                    x = rs.getInt( "x" );
-                    y = rs.getInt( "y" );
-                    width = rs.getInt( "width" );
-                    height = rs.getInt( "height" );
+                while (rs.next()) {
+                    x = rs.getInt("x");
+                    y = rs.getInt("y");
+                    width = rs.getInt("width");
+                    height = rs.getInt("height");
                 }
 
-                setPreferredSize( new Dimension( width, height ) );
-                setBounds( x, y, width, height );
-            } catch ( Exception e ) {
-                e.printStackTrace( );
+                setPreferredSize(new Dimension(width, height));
+                setBounds(x, y, width, height);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } ).start( );
+        }).start();
     }
 
-    public void onClose( WindowEvent e ) {
+    public void onClose(WindowEvent e) {
         // Update bound to database
-        insetOrUpdateBounds( );
+        insetOrUpdateBounds();
 
-        for ( MyChart myChart : charts ) {
-            myChart.getUpdater( ).getHandler( ).close( );
+        for (MyChart myChart : charts) {
+            myChart.getUpdater().getHandler().close();
         }
-        dispose( );
+        dispose();
     }
 
     private void insetOrUpdateBounds() {
         try {
-            String query = String.format( "SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName( ), getName( ), getX( ), getY( ), getWidth( ), getHeight( ) );
-            MySql.select( query );
-        } catch ( Exception e ) {
-            e.printStackTrace( );
+            String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName(), getName(), getX(), getY(), getWidth(), getHeight());
+            MySql.select(query);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -3,6 +3,7 @@ package exp;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
+
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public abstract class Exp {
         op_avg_sum_count++;
     }
 
-    public void set_op_avg( double sum, int sum_count ) {
+    public void set_op_avg(double sum, int sum_count) {
         op_avg_sum = sum;
         op_avg_sum_count = sum_count;
     }

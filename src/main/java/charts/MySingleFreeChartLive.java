@@ -16,6 +16,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.Layer;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

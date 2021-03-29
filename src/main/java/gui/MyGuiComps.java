@@ -216,7 +216,7 @@ public class MyGuiComps {
             init();
         }
 
-        public MyLabel(String text, boolean bold ) {
+        public MyLabel(String text, boolean bold) {
             super(text);
             this.bold = bold;
             init();
@@ -230,10 +230,10 @@ public class MyGuiComps {
             setHorizontalAlignment(JLabel.CENTER);
             setVerticalAlignment(JLabel.CENTER);
 
-            if ( bold ) {
-                setFont( Themes.VEDANA_12.deriveFont( Font.BOLD ) );
+            if (bold) {
+                setFont(Themes.VEDANA_12.deriveFont(Font.BOLD));
             } else {
-                setFont( Themes.VEDANA_12 );
+                setFont(Themes.VEDANA_12);
             }
 
         }

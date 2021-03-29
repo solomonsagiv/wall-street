@@ -8,12 +8,12 @@ public class DDEWriter_Dax extends IDDEWriter {
 
     Exps exps;
 
-    public DDEWriter_Dax( BASE_CLIENT_OBJECT client ) {
-        super( client );
-        this.exps = client.getExps( );
+    public DDEWriter_Dax(BASE_CLIENT_OBJECT client) {
+        super(client);
+        this.exps = client.getExps();
     }
 
     @Override
-    public void write( DDEClientConversation conversation ) {
+    public void write(DDEClientConversation conversation) {
     }
 }
