@@ -41,6 +41,11 @@ public abstract class Exp {
         op_avg_sum_count++;
     }
 
+    public void set_op_avg( double sum, int sum_count ) {
+        op_avg_sum = sum;
+        op_avg_sum_count = sum_count;
+    }
+
     public double get_op_avg() {
         return L.floor(op_avg_sum / (double) op_avg_sum_count, 100);
     }

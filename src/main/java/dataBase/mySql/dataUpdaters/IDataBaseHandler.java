@@ -2,7 +2,10 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySql;
+import exp.Exp;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -15,11 +18,11 @@ public abstract class IDataBaseHandler {
 
     BASE_CLIENT_OBJECT client;
 
-    public IDataBaseHandler( BASE_CLIENT_OBJECT client ) {
+    public IDataBaseHandler(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 
-    public abstract void insertData( int sleep );
+    public abstract void insertData(int sleep);
 
     public abstract void loadData();
 
@@ -59,6 +62,42 @@ public abstract class IDataBaseHandler {
                 throwables.printStackTrace();
             }
         }
+    }
+
+    protected void load_op(ResultSet rs, Exp exp) {
+        try {
+            double sum = rs.getDouble("avg");
+            int sum_count = rs.getInt("count");
+
+            exp.set_op_avg(sum, sum_count);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    protected void load_
+
+    protected void load_baskets( ResultSet rs, INDEX_CLIENT_OBJECT client ) {
+
+        while (true) {
+            try {
+                if (!rs.next()) break;
+
+                int value = rs.getInt("value");
+
+                if (value > 0) {
+                    client.getBasketFinder().add_basket_up();
+                }
+
+                if (value < 0) {
+                    client.getBasketFinder().add_basket_down();
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
     }
 
     protected void insertListRetro(ArrayList<MyTimeStampObject> list, String scheme, String tableName) {

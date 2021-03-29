@@ -86,6 +86,14 @@ public class BasketFinder extends MyBaseService {
 
     }
 
+    public void add_basket_up() {
+        basketUp++;
+    }
+
+    public void add_basket_down() {
+        basketDown++;
+    }
+
     public int getChangesCount() {
         return changesCount;
     }

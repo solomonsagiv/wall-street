@@ -121,4 +121,30 @@ public class MySql {
         }
         return pool;
     }
+
+
+    public static class Queries {
+
+        public static ResultSet get_op(String scheme, String index_table, String fut_table ) {
+                String query = String.format("select sum(f.value - i.value), count(f.value - i.value) " +
+                        "from %s.%s i " +
+                        "inner join %s.%s f " +
+                        "on i.time = f.time " +
+                        "where i.time::date = now()::date;", scheme, index_table, scheme, fut_table);
+
+                System.out.println(query);
+
+
+                return MySql.select(query);
+        }
+
+
+        public static ResultSet get_baskets( String scheme, String basket_table ) {
+            String query = String.format( "SELECT * FROM %s.%s", scheme, basket_table );
+            return MySql.select(query);
+        }
+
+    }
+
+
 }
