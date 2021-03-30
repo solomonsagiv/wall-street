@@ -112,11 +112,19 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "dax_index", "dax_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
 
         // BASKETS
-        load_data_agg(MySql.Queries.get_serie(DATA_SCHEME, "dax_baskets"), client, null, BASKETS_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(BASKETS_TABLE)), client, null, BASKETS_TYPE);
 
         //  RACES
-        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "dax_index_races"), client, null, INDEX_RACES_TYPE);
-        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "dax_fut_races"), client, null, FUT_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, FUT_RACES_TYPE);
+    }
+
+    @Override
+    public void initTablesNames() {
+        tablesNames.put(INDEX_TABLE, "data.spx500_index");
+        tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races");
+        tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races");
+        tablesNames.put(BASKETS_TABLE, "data.dax_baskets");
     }
 
     private void loadDDeCells() {

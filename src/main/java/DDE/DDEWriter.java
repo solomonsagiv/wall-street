@@ -33,11 +33,6 @@ public class DDEWriter extends MyThread implements Runnable {
     @Override
     public void run() {
 
-
-
-        dd
-
-
         while (run) {
             try {
 

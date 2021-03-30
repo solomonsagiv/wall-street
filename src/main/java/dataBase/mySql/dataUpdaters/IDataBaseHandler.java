@@ -49,9 +49,7 @@ public abstract class IDataBaseHandler {
 
     public abstract void initTablesNames();
 
-    protected void loadSerieDataAgg(String scheme, String table, MyTimeSeries timeSeries) {
-        String query = String.format("SELECT * FROM %s.%s WHERE time::date = now()::date;", scheme, table);
-        ResultSet rs = MySql.select(query);
+    public static MyTimeSeries loadSerieDataAgg(ResultSet rs, MyTimeSeries timeSeries) {
 
         double valAgg = 0;
 
@@ -67,11 +65,14 @@ public abstract class IDataBaseHandler {
                 throwables.printStackTrace();
             }
         }
+
+        return timeSeries;
     }
 
     public String get_table_loc(int target_table) {
         return tablesNames.get(target_table);
     }
+
 
     protected void load_data_agg(ResultSet rs, BASE_CLIENT_OBJECT client, Exp exp, int type) {
 
@@ -145,12 +146,7 @@ public abstract class IDataBaseHandler {
 
     }
 
-    protected void loadSerieData(String scheme, String table, MyTimeSeries timeSeries) {
-        String query = String.format("SELECT * FROM %s.%s WHERE time::date = now()::date;", scheme, table);
-
-        System.out.println(query);
-
-        ResultSet rs = MySql.select(query);
+    public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries) {
         while (true) {
             try {
                 if (!rs.next()) break;

@@ -45,6 +45,11 @@ public class FuturesChart extends MyChartCreator {
             public double getData() {
                 return client.getIndex();
             }
+
+            @Override
+            public void load_data() {
+
+            }
         };
         index.setColor(Color.BLACK);
         index.setStokeSize(2.25f);
@@ -55,6 +60,11 @@ public class FuturesChart extends MyChartCreator {
             public double getData() {
                 return client.getIndexBid();
             }
+
+            @Override
+            public void load_data() {
+
+            }
         };
         bid.setColor(Themes.BLUE);
         bid.setStokeSize(2.25f);
@@ -64,6 +74,11 @@ public class FuturesChart extends MyChartCreator {
             @Override
             public double getData() {
                 return client.getIndexAsk();
+            }
+
+            @Override
+            public void load_data() {
+
             }
         };
         ask.setColor(Themes.RED);
@@ -85,6 +100,11 @@ public class FuturesChart extends MyChartCreator {
                 @Override
                 public double getData() throws UnknownHostException {
                     return exp.getFuture();
+                }
+
+                @Override
+                public void load_data() {
+
                 }
             };
 

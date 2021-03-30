@@ -6,7 +6,9 @@ import IDDE.DDEHandler;
 import api.Manifest;
 import baskets.BasketFinder;
 import charts.myChart.MyTimeSeries;
+import dataBase.mySql.MySql;
 import dataBase.mySql.MySqlService;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -23,6 +25,7 @@ import threads.MyThread;
 
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -69,7 +72,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     MyTimeSeries indexBidSeries;
     MyTimeSeries indexAskSeries;
     MyTimeSeries indexBidAskCounterSeries;
-    MyTimeSeries indBidAskMarginSeries;
     MyTimeSeries indexRacesSeries;
 
     private double startStrike;
@@ -159,17 +161,33 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             public double getData() {
                 return client.getIndex();
             }
+
+            @Override
+            public void load_data() {
+            }
         };
         indexSeries = new MyTimeSeries("Index", this) {
             @Override
             public double getData() {
                 return client.getIndex();
             }
+
+            @Override
+            public void load_data() {
+                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE));
+                IDataBaseHandler.loadSerieData(rs, indexSeries);
+            }
+
         };
         indexBidSeries = new MyTimeSeries("Index bid", this) {
             @Override
             public double getData() {
                 return client.getIndexBid();
+            }
+
+            @Override
+            public void load_data() {
+
             }
         };
         indexAskSeries = new MyTimeSeries("Index ask", this) {
@@ -177,23 +195,34 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             public double getData() {
                 return client.getIndexAsk();
             }
+
+            @Override
+            public void load_data() {
+
+            }
         };
         indexBidAskCounterSeries = new MyTimeSeries("IndBidAskCounter", this) {
             @Override
             public double getData() {
                 return client.getIndexBidAskCounter();
             }
-        };
-        indBidAskMarginSeries = new MyTimeSeries("Margin counter", this) {
+
             @Override
-            public double getData() throws UnknownHostException {
-                return client.getBidAskMarginCounter();
+            public void load_data() {
+                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE));
+                IDataBaseHandler.loadSerieData(rs, indexBidAskCounterSeries);
             }
         };
         indexRacesSeries = new MyTimeSeries("ind counter", this) {
             @Override
             public double getData() throws UnknownHostException {
                 return client.getIndexSum();
+            }
+
+            @Override
+            public void load_data() {
+                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE));
+                IDataBaseHandler.loadSerieData(rs, indexRacesSeries);
             }
         };
     }
@@ -655,10 +684,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public MyTimeSeries getIndexBidSeries() {
         return indexBidSeries;
-    }
-
-    public MyTimeSeries getIndBidAskMarginSeries() {
-        return indBidAskMarginSeries;
     }
 
     public MyTimeSeries getIndexScaledSeries() {

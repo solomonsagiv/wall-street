@@ -195,11 +195,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "spx500_index", "spx500_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
 
         // BID ASK COUNTER
-        load_data_agg(MySql.Queries.get_serie(DATA_SCHEME, "spx500_index_bid_ask_counter"), client, null, BID_ASK_COUNTER_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(BID_ASK_COUNTER_TABLE)), client, null, BID_ASK_COUNTER_TYPE);
 
         //  RACES
-        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "spx500_index_races"), client, null, INDEX_RACES_TYPE);
-        load_data_agg(MySql.Queries.get_serie(SAGIV_SCHEME, "spx500_fut_races"), client, null, FUT_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, FUT_RACES_TYPE);
 
     }
 

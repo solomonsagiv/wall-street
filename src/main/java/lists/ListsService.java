@@ -52,7 +52,6 @@ public class ListsService extends MyBaseService {
         client.getIndexBidAskCounterSeries().add(time);
         client.getIndexSeries().add(time);
         client.getIndexScaledSeries().add(time);
-        client.getIndBidAskMarginSeries().add(time);
         client.getIndexRacesSeries().add(time);
 
         if (client.getBasketFinder() != null) {

@@ -60,18 +60,8 @@ public class Chart_opavg_indexbidaskcounter_index extends MyChartCreator {
 
         MyChart indexCounterChart = new MyChart(client, series, props);
 
-        // ---------- Chart 3 ---------- //
-        MyTimeSeries opavg15_series = client.getExps().getExp(ExpStrings.day).getOpAvg15FutSeries();
-        opavg15_series.setColor(Themes.PURPLE);
-        opavg15_series.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[1];
-        series[0] = opavg15_series;
-
-        MyChart opavg15_chart = new MyChart(client, series, props);
-
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, indexCounterChart, opavg15_chart};
+        MyChart[] charts = {indexChart, indexCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
