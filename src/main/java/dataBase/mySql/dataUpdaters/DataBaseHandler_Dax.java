@@ -30,13 +30,18 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
-        exps = client.getExps();
+        initTablesNames();
     }
 
     int sleep_count = 100;
 
     @Override
     public void insertData(int sleep) {
+
+        // Set exps
+        if (this.exps == null) {
+            this.exps = client.getExps();
+        }
 
         // Update lists retro
         if (sleep_count % 10000 == 0) {
@@ -106,10 +111,10 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     public void loadData() {
         // OP AVG
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "dax_index", "dax_fut_week"), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "dax_index", "dax_fut_month"), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "dax_index", "dax_fut_e1"), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "dax_index", "dax_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
 
         // BASKETS
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(BASKETS_TABLE)), client, null, BASKETS_TYPE);
@@ -125,6 +130,11 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races");
         tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races");
         tablesNames.put(BASKETS_TABLE, "data.dax_baskets");
+        tablesNames.put(FUT_WEEK_TABLE, "data.dax_fut_week");
+        tablesNames.put(FUT_MONTH_TABLE, "data.dax_fut_month");
+        tablesNames.put(FUT_Q1_TABLE, "data.dax_fut_gx1");
+        tablesNames.put(FUT_Q2_TABLE, "data.dax_fut_gx2");
+
     }
 
     private void loadDDeCells() {

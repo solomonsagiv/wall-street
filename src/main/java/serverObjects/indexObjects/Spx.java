@@ -26,12 +26,12 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setName("spx");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
-        setIndexStartTime(LocalTime.of(15, 31, 0));
-        setIndexEndTime(LocalTime.of(22, 0, 0));
-        setFutureEndTime(LocalTime.of(22, 15, 0));
-        setLogicService(new LogicService(this, ExpStrings.q1));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/user/Desktop/[SPX.xlsx]Spx"));
+        setIndexStartTime(LocalTime.of(16, 31, 0));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
+        setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/user/Desktop/[SPX.xlsx]Spx"));
+        setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
 

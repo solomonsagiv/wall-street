@@ -57,17 +57,13 @@ public abstract class IDataBaseHandler {
 
         if (target_table.equals(ExpStrings.day)) {
             return tablesNames.get(FUT_DAY_TABLE);
-        } else
-        if (target_table.equals(ExpStrings.week)) {
+        } else if (target_table.equals(ExpStrings.week)) {
             return tablesNames.get(FUT_WEEK_TABLE);
-        } else
-        if (target_table.equals(ExpStrings.month)) {
+        } else if (target_table.equals(ExpStrings.month)) {
             return tablesNames.get(FUT_MONTH_TABLE);
-        } else
-        if (target_table.equals(ExpStrings.q1)) {
+        } else if (target_table.equals(ExpStrings.q1)) {
             return tablesNames.get(FUT_Q1_TABLE);
-        } else
-        if (target_table.equals(ExpStrings.q2)) {
+        } else if (target_table.equals(ExpStrings.q2)) {
             return tablesNames.get(FUT_Q2_TABLE);
         }
 
@@ -102,8 +98,10 @@ public abstract class IDataBaseHandler {
         // BID ASK COUNTER
         if (type == BID_ASK_COUNTER_TYPE) {
             try {
-                int value = rs.getInt(2);
-                client.setIndexBidAskCounter(value);
+                if (rs.next()) {
+                    int value = rs.getInt(2);
+                    client.setIndexBidAskCounter(value);
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -134,17 +132,17 @@ public abstract class IDataBaseHandler {
         // OP AVG
         if (type == OP_AVG_TYPE) {
             try {
-                double sum = rs.getDouble("avg");
-                int sum_count = rs.getInt("count");
-
-                exp.set_op_avg(sum, sum_count);
+                if (rs.next()) {
+                    double sum = rs.getDouble(1);
+                    int sum_count = rs.getInt(2);
+                    exp.set_op_avg(sum, sum_count);
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries) {

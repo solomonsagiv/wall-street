@@ -62,13 +62,17 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
-        exps = client.getExps();
+        initTablesNames();
     }
 
     int sleep_count = 100;
 
     @Override
     public void insertData(int sleep) {
+
+        if (this.exps == null) {
+            this.exps = client.getExps();
+        }
 
         // Update lists retro
         if (sleep_count % 10000 == 0) {
@@ -188,11 +192,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     public void loadData() {
 
         // OP AVG
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "spx500_index", "spx500_fut_day"), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "spx500_index", "spx500_fut_week"), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "spx500_index", "spx500_fut_month"), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "spx500_index", "spx500_fut_e1"), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "spx500_index", "spx500_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_DAY_TABLE)), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
 
         // BID ASK COUNTER
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(BID_ASK_COUNTER_TABLE)), client, null, BID_ASK_COUNTER_TYPE);
@@ -209,7 +213,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter");
         tablesNames.put(INDEX_RACES_TABLE, "sagiv.spx500_index_races");
         tablesNames.put(FUT_RACES_TABLE, "sagiv.spx500_fut_races");
-        tablesNames.put(BASKETS_TABLE, "data.spx500_baskets");
+        tablesNames.put(FUT_DAY_TABLE, "data.spx500_fut_day");
+        tablesNames.put(FUT_WEEK_TABLE, "data.spx500_fut_week");
+        tablesNames.put(FUT_MONTH_TABLE, "data.spx500_fut_month");
+        tablesNames.put(FUT_Q1_TABLE, "data.spx500_fut_e1");
+        tablesNames.put(FUT_Q2_TABLE, "data.spx500_fut_e2");
     }
 
     private void updateListsRetro() {

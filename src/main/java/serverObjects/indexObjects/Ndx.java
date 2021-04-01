@@ -30,13 +30,13 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName("ndx");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
-        setIndexStartTime(LocalTime.of(15, 31, 0));
-        setIndexEndTime(LocalTime.of(22, 0, 0));
-        setFutureEndTime(LocalTime.of(22, 15, 0));
-        setLogicService(new LogicService(this, ExpStrings.q1));
+        setIndexStartTime(LocalTime.of(16, 31, 0));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
+        setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
         setBasketFinder(new BasketFinder(this, 80, 3000));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/user/Desktop/[SPX.xlsx]Ndx"));
+        setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
 

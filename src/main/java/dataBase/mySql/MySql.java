@@ -124,12 +124,12 @@ public class MySql {
 
     public static class Queries {
 
-        public static ResultSet op_query(String scheme, String index_table, String fut_table) {
+        public static ResultSet op_query(String index_table, String fut_table) {
             String query = String.format("select sum(f.value - i.value), count(f.value - i.value) " +
-                    "from %s.%s i " +
-                    "inner join %s.%s f " +
+                    "from %s i " +
+                    "inner join %s f " +
                     "on i.time = f.time " +
-                    "where i.time::date = now()::date;", scheme, index_table, scheme, fut_table);
+                    "where i.time::date = now()::date;", index_table, fut_table);
 
             System.out.println(query);
 

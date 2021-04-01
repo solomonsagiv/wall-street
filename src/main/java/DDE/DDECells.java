@@ -5,10 +5,6 @@ import java.util.Map;
 
 public abstract class DDECells {
 
-
-
-
-dddd
     public DDECells() {
         initCells();
     }
