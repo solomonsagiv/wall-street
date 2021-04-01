@@ -209,7 +209,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
             @Override
             public void load_data() {
-                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE));
+                ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
                 IDataBaseHandler.loadSerieData(rs, indexBidAskCounterSeries);
             }
         };
@@ -221,7 +221,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
             @Override
             public void load_data() {
-                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE));
+                ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE), "sum");
                 IDataBaseHandler.loadSerieData(rs, indexRacesSeries);
             }
         };

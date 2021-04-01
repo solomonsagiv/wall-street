@@ -1,7 +1,6 @@
 package dataBase.mySql;
 
 import arik.Arik;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -125,7 +124,7 @@ public class MySql {
 
     public static class Queries {
 
-        public static ResultSet get_op(String scheme, String index_table, String fut_table) {
+        public static ResultSet op_query(String scheme, String index_table, String fut_table) {
             String query = String.format("select sum(f.value - i.value), count(f.value - i.value) " +
                     "from %s.%s i " +
                     "inner join %s.%s f " +
@@ -133,6 +132,33 @@ public class MySql {
                     "where i.time::date = now()::date;", scheme, index_table, scheme, fut_table);
 
             System.out.println(query);
+
+            return MySql.select(query);
+        }
+
+        public static ResultSet op_avg_cumulative_query(String index_table, String fut_table) {
+            String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
+                    "from %s i " +
+                    "         inner join %s f " +
+                    "                    on i.time = f.time " +
+                    "where i.time::date = now()::date;", index_table, fut_table);
+
+            return MySql.select(query);
+        }
+
+        public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min ) {
+            String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) " +
+                    "        from %s i " +
+                    "        inner join %s f on i.time = f.time " +
+                    "        where i.time::date = now()::date;", min, index_table, fut_table);
+
+            return MySql.select(query);
+        }
+
+        public static ResultSet cumulative_query(String table_loc, String cumulative_type) {
+            String query = String.format("select * ,%s(value) over (order by time) as value " +
+                    "from %s " +
+                    "where time::date = now()::date and (value = 1 or value = -1);", cumulative_type, table_loc);
 
             return MySql.select(query);
         }

@@ -10,8 +10,6 @@ import stocksHandler.StocksHandler;
 
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class BasketFinder extends MyBaseService {
@@ -48,8 +46,8 @@ public class BasketFinder extends MyBaseService {
 
             @Override
             public void load_data() {
-                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BASKETS_TABLE));
-                IDataBaseHandler.loadSerieDataAgg(rs, basketsSeries);
+                ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BASKETS_TABLE), "sum");
+                IDataBaseHandler.loadSerieData(rs, basketsSeries);
             }
         };
     }

@@ -48,7 +48,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         Exp e1 = client.getExps().getExp(ExpStrings.q1);
 
         // --------- OpAvgFuture 1 ---------- //
-        MyTimeSeries opAvgFuture = e1.getOpAvg15FutSeries();
+        MyTimeSeries opAvgFuture = e1.getOp_avg_15_serie();
         opAvgFuture.setColor(Themes.PURPLE);
         opAvgFuture.setStokeSize(1.5f);
 

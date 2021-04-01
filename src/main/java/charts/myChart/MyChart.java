@@ -50,10 +50,22 @@ public class MyChart {
 
         // Init
         init(series, props);
+        load_data();
 
         // Start updater
         updater = new ChartUpdater(client, series);
         updater.getHandler().start();
+    }
+
+    private void load_data() {
+        try {
+            for (MyTimeSeries serie : series) {
+                serie.load_data();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getStackTrace());
+        }
+
     }
 
     private void init(MyTimeSeries[] series, MyProps props) {
@@ -194,19 +206,17 @@ public class MyChart {
 
         // Append data to series
         private void appendDataToSeries() {
-            if (props.getBool(ChartPropsEnum.IS_LIVE)) {
-                try {
-                    for (MyTimeSeries serie : series) {
-                        // If bigger then target Seconds
-                        if (serie.getItemCount() > props.getInt(ChartPropsEnum.SECONDS)) {
-                            serie.remove(0);
-                        }
-                        // Append data
-                        serie.add();
+            try {
+                for (MyTimeSeries serie : series) {
+                    // If bigger then target Seconds
+                    if (serie.getItemCount() > props.getInt(ChartPropsEnum.SECONDS)) {
+                        serie.remove(0);
                     }
-                } catch (IndexOutOfBoundsException e) {
-                    e.printStackTrace();
+                    // Append data
+                    serie.add();
                 }
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
             }
         }
 

@@ -1,10 +1,14 @@
 package exp;
 
+import charts.myChart.MyTimeSeries;
+import dataBase.mySql.MySql;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
 import java.net.UnknownHostException;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +35,50 @@ public abstract class Exp {
     private double futureAskForCheck = 0;
     private double futureBidForCheck = 0;
 
+    private MyTimeSeries op_avg_serie;
+    private MyTimeSeries op_avg_15_serie;
+
+    IDataBaseHandler dataBaseHandler;
+
     public Exp(BASE_CLIENT_OBJECT client, String expName) {
         this.client = client;
         this.expName = expName;
         this.expData = new ExpData(expName, client);
+        this.dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+        init_series();
+    }
+
+    protected void init_series() {
+        op_avg_serie = new MyTimeSeries("O/P avg", client) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return get_op_avg();
+            }
+
+            @Override
+            public void load_data() {
+
+                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                String fut_table = dataBaseHandler.get_table_loc(expName);
+                ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table);
+                IDataBaseHandler.loadSerieData(rs, op_avg_serie);
+            }
+        };
+
+        op_avg_15_serie = new MyTimeSeries("O/P avg 15", client) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getOpAvgFut(900);
+            }
+
+            @Override
+            public void load_data() {
+                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                String fut_table = dataBaseHandler.get_table_loc(expName);
+                ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 15);
+                IDataBaseHandler.loadSerieData(rs, op_avg_serie);
+            }
+        };
     }
 
     public void add_op(double op) {
@@ -152,6 +196,14 @@ public abstract class Exp {
         // Ask for bid change state
         futureBidForCheck = this.futureBid;
 
+    }
+
+    public MyTimeSeries getOp_avg_serie() {
+        return op_avg_serie;
+    }
+
+    public MyTimeSeries getOp_avg_15_serie() {
+        return op_avg_15_serie;
     }
 
     public int getFutBidAskCounter() {
