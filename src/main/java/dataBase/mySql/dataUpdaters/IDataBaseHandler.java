@@ -3,6 +3,7 @@ package dataBase.mySql.dataUpdaters;
 import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySql;
 import exp.Exp;
+import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
@@ -14,17 +15,16 @@ import java.util.Map;
 
 public abstract class IDataBaseHandler {
 
-
     public static final int INDEX_TABLE = 11;
     public static final int BASKETS_TABLE = 12;
     public static final int BID_ASK_COUNTER_TABLE = 13;
     public static final int INDEX_RACES_TABLE = 14;
     public static final int FUT_RACES_TABLE = 15;
-    public static final int FUT_DAY_OP_AVG_TABLE = 16;
-    public static final int FUT_WEEK_OP_AVG_TABLE = 17;
-    public static final int FUT_MONTH_OP_AVG_TABLE = 18;
-    public static final int FUT_Q1_OP_AVG_TABLE = 19;
-    public static final int FUT_Q2_OP_AVG_TABLE = 20;
+    public static final int FUT_DAY_TABLE = 16;
+    public static final int FUT_WEEK_TABLE = 17;
+    public static final int FUT_MONTH_TABLE = 18;
+    public static final int FUT_Q1_TABLE = 19;
+    public static final int FUT_Q2_TABLE = 20;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
@@ -49,28 +49,29 @@ public abstract class IDataBaseHandler {
 
     public abstract void initTablesNames();
 
-    public static MyTimeSeries loadSerieDataAgg(ResultSet rs, MyTimeSeries timeSeries) {
-
-        double valAgg = 0;
-
-        while (true) {
-            try {
-                if (!rs.next()) break;
-                Timestamp timestamp = rs.getTimestamp(1);
-                double value = rs.getDouble(2);
-                valAgg += value;
-
-                timeSeries.add(timestamp.toLocalDateTime(), valAgg);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-
-        return timeSeries;
-    }
-
     public String get_table_loc(int target_table) {
         return tablesNames.get(target_table);
+    }
+
+    public String get_table_loc(String target_table) {
+
+        if (target_table.equals(ExpStrings.day)) {
+            return tablesNames.get(FUT_DAY_TABLE);
+        } else
+        if (target_table.equals(ExpStrings.week)) {
+            return tablesNames.get(FUT_WEEK_TABLE);
+        } else
+        if (target_table.equals(ExpStrings.month)) {
+            return tablesNames.get(FUT_MONTH_TABLE);
+        } else
+        if (target_table.equals(ExpStrings.q1)) {
+            return tablesNames.get(FUT_Q1_TABLE);
+        } else
+        if (target_table.equals(ExpStrings.q2)) {
+            return tablesNames.get(FUT_Q2_TABLE);
+        }
+
+        return "No table call: " + target_table;
     }
 
 

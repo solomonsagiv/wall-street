@@ -52,7 +52,7 @@ public class FullCharts extends MyChartCreator {
         opAvgFutureProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
-        MyTimeSeries opAvgFuture15 = e1.getOpAvg15FutSeries();
+        MyTimeSeries opAvgFuture15 = e1.getOp_avg_15_serie();
         opAvgFuture15.setColor(Themes.PURPLE);
         opAvgFuture15.setStokeSize(1.5f);
 
@@ -64,7 +64,7 @@ public class FullCharts extends MyChartCreator {
 
         // --------- OpAvgFuture ---------- //
         // Index
-        MyTimeSeries opAvgFuture = e1.getOpAvgFutSeries();
+        MyTimeSeries opAvgFuture = e1.getOp_avg_serie();
         opAvgFuture.setColor(Themes.BLUE);
         opAvgFuture.setStokeSize(1.5f);
 

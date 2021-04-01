@@ -28,37 +28,11 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem opAvg = new JMenuItem("OpAvg Index B/A FutFarCounter Index");
-        opAvg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OpAvgFuture_E2_IndexCounter_Index_Chart chart = new OpAvgFuture_E2_IndexCounter_Index_Chart(client);
-                try {
-                    chart.createChart();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
-            }
-        });
-
         JMenuItem fullCharts = new JMenuItem("Full charts");
         fullCharts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FullCharts chart = new FullCharts(client);
-                try {
-                    chart.createChart();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
-            }
-        });
-
-        JMenuItem marginChart = new JMenuItem("Margin");
-        marginChart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BidAskMarginChart chart = new BidAskMarginChart(client);
                 try {
                     chart.createChart();
                 } catch (CloneNotSupportedException cloneNotSupportedException) {
@@ -77,15 +51,6 @@ public class PopupsMenuFactory {
                 } catch (CloneNotSupportedException cloneNotSupportedException) {
                     cloneNotSupportedException.printStackTrace();
                 }
-            }
-        });
-
-        JMenuItem indQuarterOpAvg15Future = new JMenuItem("indQuarterOpAvg15Future");
-        indQuarterOpAvg15Future.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                IndexVsQuarterVSOpAvg15LiveChart chart = new IndexVsQuarterVSOpAvg15LiveChart(client);
-                chart.createChart();
             }
         });
 
@@ -151,9 +116,6 @@ public class PopupsMenuFactory {
         charts.add(fullCharts);
         charts.add(baskets);
         charts.add(opAvg15);
-        charts.add(opAvg);
-        charts.add(marginChart);
-        charts.add(indQuarterOpAvg15Future);
 
         menu.add(details);
         menu.add(settingWindow);

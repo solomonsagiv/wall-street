@@ -139,11 +139,11 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     public void loadData() {
 
         // OP AVG
-        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "ndx_index", "ndx_fut_day"), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "ndx_index", "ndx_fut_week"), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "ndx_index", "ndx_fut_month"), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "ndx_index", "ndx_fut_e1"), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.get_op(DATA_SCHEME, "ndx_index", "ndx_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "ndx_index", "ndx_fut_day"), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "ndx_index", "ndx_fut_week"), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "ndx_index", "ndx_fut_month"), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "ndx_index", "ndx_fut_e1"), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(DATA_SCHEME, "ndx_index", "ndx_fut_e2"), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
 
         // BASKETS
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(BASKETS_TABLE)), client, null, BASKETS_TYPE);
