@@ -5,10 +5,7 @@ import DDE.DDECellsBloomberg;
 import IDDE.DDEHandler;
 import api.Manifest;
 import baskets.BasketFinder;
-import charts.myChart.MyTimeSeries;
-import dataBase.mySql.MySql;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -25,7 +22,6 @@ import threads.MyThread;
 
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
-import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -67,12 +63,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Services
     ListsService listsService;
     MySqlService mySqlService;
-    MyTimeSeries indexScaledSeries;
-    MyTimeSeries indexSeries;
-    MyTimeSeries indexBidSeries;
-    MyTimeSeries indexAskSeries;
-    MyTimeSeries indexBidAskCounterSeries;
-    MyTimeSeries indexRacesSeries;
 
     private double startStrike;
     private double endStrike;
@@ -156,75 +146,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // ---------- basic functions ---------- //
     @Override
     public void initSeries() {
-        indexScaledSeries = new MyTimeSeries("Index scaled", this, true) {
-            @Override
-            public double getData() {
-                return client.getIndex();
-            }
 
-            @Override
-            public void load_data() {
-            }
-        };
-        indexSeries = new MyTimeSeries("Index", this) {
-            @Override
-            public double getData() {
-                return client.getIndex();
-            }
-
-            @Override
-            public void load_data() {
-                ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE));
-                IDataBaseHandler.loadSerieData(rs, indexSeries);
-            }
-
-        };
-        indexBidSeries = new MyTimeSeries("Index bid", this) {
-            @Override
-            public double getData() {
-                return client.getIndexBid();
-            }
-
-            @Override
-            public void load_data() {
-
-            }
-        };
-        indexAskSeries = new MyTimeSeries("Index ask", this) {
-            @Override
-            public double getData() {
-                return client.getIndexAsk();
-            }
-
-            @Override
-            public void load_data() {
-
-            }
-        };
-        indexBidAskCounterSeries = new MyTimeSeries("IndBidAskCounter", this) {
-            @Override
-            public double getData() {
-                return client.getIndexBidAskCounter();
-            }
-
-            @Override
-            public void load_data() {
-                ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
-                IDataBaseHandler.loadSerieData(rs, indexBidAskCounterSeries);
-            }
-        };
-        indexRacesSeries = new MyTimeSeries("ind counter", this) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return client.getIndexSum();
-            }
-
-            @Override
-            public void load_data() {
-                ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE), "sum");
-                IDataBaseHandler.loadSerieData(rs, indexRacesSeries);
-            }
-        };
     }
 
     @Override
@@ -340,7 +262,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100(getExps().getMainExp().getOpAvgFut()) + "\n";
+        text += "OP avg: " + L.format100(getExps().getMainExp().get_op_avg()) + "\n";
         text += "Ind bidAskCounter: " + getIndexBidAskCounter() + "\n";
         try {
             text += "Roll: " + L.floor(getRollHandler().getRoll(RollEnum.E1_E2).getAvg(), 100) + "\n";
@@ -670,30 +592,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.rollHandler = rollHandler;
     }
 
-    public MyTimeSeries getIndexSeries() {
-        return indexSeries;
-    }
-
-    public MyTimeSeries getIndexBidAskCounterSeries() {
-        return indexBidAskCounterSeries;
-    }
-
-    public MyTimeSeries getIndexAskSeries() {
-        return indexAskSeries;
-    }
-
-    public MyTimeSeries getIndexBidSeries() {
-        return indexBidSeries;
-    }
-
-    public MyTimeSeries getIndexScaledSeries() {
-        return indexScaledSeries;
-    }
-
-    public MyTimeSeries getIndexRacesSeries() {
-        return indexRacesSeries;
-    }
-
     public LogicService getLogicService() {
         if (logicService == null) throw new NullPointerException(getName() + " Logic not set");
         return logicService;
@@ -772,7 +670,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", conDown=" + conDown +
                 ", indexUp=" + indexUp +
                 ", indexDown=" + indexDown +
-                ", indexList=" + indexSeries.getItemCount() +
                 '}';
     }
 

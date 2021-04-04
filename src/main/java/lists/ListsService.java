@@ -1,8 +1,10 @@
 package lists;
 
+import exp.Exp;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import service.ServiceEnum;
+
 import java.time.LocalDateTime;
 
 // Regular list updater
@@ -42,37 +44,16 @@ public class ListsService extends MyBaseService {
         LocalDateTime time = LocalDateTime.now();
 
         // List for charts
-//        client.getIndexBidSeries().add(time);
-//        client.getIndexAskSeries().add(time);
-//        client.getIndexBidAskCounterSeries().add(time);
-//        client.getIndexSeries().add(time);
-//        client.getIndexScaledSeries().add(time);
-//        client.getIndexRacesSeries().add(time);
-//
-//        if (client.getBasketFinder() != null) {
-//            client.getBasketFinder().getBasketsSeries().add(time);
-//        }
-//         Options lists
-//        for (Exp exp : client.getExps().getExpList()) {
-//            try {
-//                exp.getFutList().add(exp.getFuture());
-//                exp.getOpFutList().add(exp.getOpFuture());
-//
-//                if (exp.getFuture() > 1) {
-//                    exp.getOpFutList().add(exp.getFuture() - client.getIndex());
-//                }
-//            } catch (NullPointerException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        // Roll lists
-//        try {
-//            for (Map.Entry<RollEnum, Roll> entry : getClient().getRollHandler().getRollMap().entrySet()) {
-//                Roll roll = entry.getValue();
-//                roll.addRoll();
-//            }
-//        } catch (NullPointerException e) {
-//        }
+        for (Exp exp : client.getExps().getExpList()) {
+            try {
+                exp.getOpFutList().add(exp.get_op());
+
+                if (exp.get_future() > 1) {
+                    exp.getOpFutList().add(exp.get_future() - client.getIndex());
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

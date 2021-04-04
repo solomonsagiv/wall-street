@@ -35,7 +35,7 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     double opAvg = L.dbl(opAvgField.getText());
-                    OptionsPanel.exp.setOpAvgFuture(opAvg);
+                    OptionsPanel.exp.set_op_avg(opAvg);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }

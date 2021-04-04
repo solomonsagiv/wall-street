@@ -1,15 +1,10 @@
 package baskets;
 
-import charts.myChart.MyTimeSeries;
-import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 import stocksHandler.MiniStock;
 import stocksHandler.StocksHandler;
 
-import java.net.UnknownHostException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class BasketFinder extends MyBaseService {
@@ -25,7 +20,6 @@ public class BasketFinder extends MyBaseService {
     private double preLastPrice = 0;
     private int sleep = 0;
 
-    MyTimeSeries basketsSeries;
 
     public BasketFinder(BASE_CLIENT_OBJECT client, int targetChanges, int sleep) {
         super(client);
@@ -33,23 +27,6 @@ public class BasketFinder extends MyBaseService {
         this.targetChanges = targetChanges;
         this.sleep = sleep;
         this.stocksHandler = client.getStocksHandler();
-
-        initSeries();
-    }
-
-    private void initSeries() {
-        basketsSeries = new MyTimeSeries("Baskets", client) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return client.getBasketFinder().getBaskets();
-            }
-
-            @Override
-            public void load_data() {
-                ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BASKETS_TABLE), "sum");
-                IDataBaseHandler.loadSerieData(rs, basketsSeries);
-            }
-        };
     }
 
     @Override
@@ -105,10 +82,6 @@ public class BasketFinder extends MyBaseService {
 
     public int getChangesCount() {
         return changesCount;
-    }
-
-    public MyTimeSeries getBasketsSeries() {
-        return basketsSeries;
     }
 
     public int getBasketUp() {

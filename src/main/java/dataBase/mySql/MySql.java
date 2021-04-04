@@ -125,7 +125,7 @@ public class MySql {
     public static class Queries {
 
         public static ResultSet op_query(String index_table, String fut_table) {
-            String query = String.format("select sum(f.value - i.value), count(f.value - i.value) " +
+            String query = String.format("select sum(f.value - i.value), count(f.value - i.value) as value " +
                     "from %s i " +
                     "inner join %s f " +
                     "on i.time = f.time " +
@@ -137,7 +137,7 @@ public class MySql {
         }
 
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table) {
-            String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
+            String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as cumu " +
                     "from %s i " +
                     "         inner join %s f " +
                     "                    on i.time = f.time " +
@@ -147,7 +147,7 @@ public class MySql {
         }
 
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min ) {
-            String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) " +
+            String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as cumu " +
                     "        from %s i " +
                     "        inner join %s f on i.time = f.time " +
                     "        where i.time::date = now()::date;", min, index_table, fut_table);
@@ -156,7 +156,7 @@ public class MySql {
         }
 
         public static ResultSet cumulative_query(String table_loc, String cumulative_type) {
-            String query = String.format("select * ,%s(value) over (order by time) as value " +
+            String query = String.format("select * ,%s(value) over (order by time) as cumu " +
                     "from %s " +
                     "where time::date = now()::date and (value = 1 or value = -1);", cumulative_type, table_loc);
 

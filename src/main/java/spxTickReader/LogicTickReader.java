@@ -65,7 +65,7 @@ public class LogicTickReader extends MyThread implements Runnable {
 
         if (changed) {
 //        System.out.println( LocalTime.now() );
-            System.out.println(+e1.getVolume() + " " + client.getLastTick() + " " + e1.getFutureBid() + " " + e1.getFuture() + " " + e1.getFutureAsk() + " ");
+            System.out.println(+e1.getVolume() + " " + client.getLastTick() + " " + e1.getFutureBid() + " " + e1.get_future() + " " + e1.getFutureAsk() + " ");
         }
     }
 
@@ -80,7 +80,7 @@ public class LogicTickReader extends MyThread implements Runnable {
             changed = true;
 
             e1.setVolume(newVolume);
-            e1.setFuture(L.dbl(conversation.request(futLast).replaceAll("\\s+", "")));
+            e1.set_future(L.dbl(conversation.request(futLast).replaceAll("\\s+", "")));
             e1.setFutureBid(L.dbl(conversation.request(futBid).replaceAll("\\s+", "")));
             e1.setFutureAsk(L.dbl(conversation.request(futAsk).replaceAll("\\s+", "")));
             client.setLastTick(L.INT(conversation.request(lastTick).replaceAll("\\s+", "")));

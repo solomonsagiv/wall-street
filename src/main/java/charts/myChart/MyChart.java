@@ -1,6 +1,7 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
+import charts.timeSeries.MyTimeSeries;
 import locals.L;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;

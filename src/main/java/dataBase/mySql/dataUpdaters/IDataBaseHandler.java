@@ -1,6 +1,6 @@
 package dataBase.mySql.dataUpdaters;
 
-import charts.myChart.MyTimeSeries;
+import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
 import exp.Exp;
 import exp.ExpStrings;
@@ -145,12 +145,12 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries) {
+    public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries, String value_col_name) {
         while (true) {
             try {
                 if (!rs.next()) break;
                 Timestamp timestamp = rs.getTimestamp(1);
-                double value = rs.getDouble(2);
+                double value = rs.getDouble(value_col_name);
                 timeSeries.add(timestamp.toLocalDateTime(), value);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

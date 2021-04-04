@@ -1,5 +1,6 @@
-package charts.myChart;
+package charts.timeSeries;
 
+import charts.myChart.MyProps;
 import lists.MyDoubleList;
 import myJson.MyJson;
 import options.JsonStrings;

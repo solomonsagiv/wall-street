@@ -1,36 +1,13 @@
 package dataBase.mySql.dataUpdaters;
 
-import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySql;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Ndx extends IDataBaseHandler {
-
-    public static void main(String[] args) throws ParseException, SQLException {
-
-        String query = "select * from spx.snp500_index where time::date = '2021-02-03'::date;";
-
-        ResultSet rs = MySql.select(query);
-
-        MyTimeSeries index = Spx.getInstance().getIndexAskSeries();
-
-        while (rs.next()) {
-            Timestamp ts = rs.getTimestamp("time");
-            double value = rs.getDouble(2);
-
-            index.add(ts.toLocalDateTime(), value);
-        }
-    }
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_day_timeStamp = new ArrayList<>();
@@ -40,6 +17,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> ind_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_day_0 = 0;
@@ -49,6 +27,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double ind_races_0 = 0;
     double fut_races_0 = 0;
+    double baskets_0 = 0;
 
     Exps exps;
 
@@ -78,7 +57,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut day
-        double fut_day = exps.getExp(ExpStrings.day).getFuture();
+        double fut_day = exps.getExp(ExpStrings.day).get_future();
 
         if (fut_day != fut_day_0) {
             fut_day_0 = fut_day;
@@ -86,7 +65,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut week
-        double fut_week = exps.getExp(ExpStrings.week).getFuture();
+        double fut_week = exps.getExp(ExpStrings.week).get_future();
 
         if (fut_week != fut_week_0) {
             fut_week_0 = fut_week;
@@ -94,7 +73,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut month
-        double fut_month = exps.getExp(ExpStrings.month).getFuture();
+        double fut_month = exps.getExp(ExpStrings.month).get_future();
 
         if (fut_month != fut_month_0) {
             fut_month_0 = fut_month;
@@ -102,7 +81,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp(ExpStrings.q1).getFuture();
+        double fut_e1 = exps.getExp(ExpStrings.q1).get_future();
 
         if (fut_e1 != fut_e1_0) {
             fut_e1_0 = fut_e1;
@@ -110,7 +89,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp(ExpStrings.q2).getFuture();
+        double fut_e2 = exps.getExp(ExpStrings.q2).get_future();
 
         if (fut_e2 != fut_e2_0) {
             fut_e2_0 = fut_e2;
@@ -133,6 +112,15 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             double last_count = fut_races - fut_races_0;
             fut_races_0 = fut_races;
             fut_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
+        // Baskets
+        int basket = client.getBasketFinder().getBaskets();
+
+        if ( basket != baskets_0 ) {
+            double last_count = basket - baskets_0;
+            baskets_0 = basket;
+            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
         // Update count
@@ -180,5 +168,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insertListRetro(fut_e2_timeStamp, DATA_SCHEME, "ndx_fut_e2");
         insertListRetro(ind_races_timestamp, SAGIV_SCHEME, "ndx_index_races");
         insertListRetro(fut_races_timestamp, SAGIV_SCHEME, "ndx_fut_races");
+        insertListRetro(baskets_timestamp, DATA_SCHEME,"ndx_baskets");
     }
 }

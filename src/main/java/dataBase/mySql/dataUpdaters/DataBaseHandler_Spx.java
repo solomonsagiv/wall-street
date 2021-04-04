@@ -1,36 +1,15 @@
 package dataBase.mySql.dataUpdaters;
 
-import charts.myChart.MyTimeSeries;
 import dataBase.mySql.MySql;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Spx extends IDataBaseHandler {
 
-    public static void main(String[] args) throws ParseException, SQLException {
-
-        String query = "select * from spx.snp500_index where time::date = '2021-02-03'::date;";
-
-        ResultSet rs = MySql.select(query);
-
-        MyTimeSeries index = Spx.getInstance().getIndexAskSeries();
-
-        while (rs.next()) {
-            Timestamp ts = rs.getTimestamp("time");
-            double value = rs.getDouble(2);
-
-            index.add(ts.toLocalDateTime(), value);
-        }
-    }
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
@@ -98,7 +77,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut day
-        double fut_day = exps.getExp(ExpStrings.day).getFuture();
+        double fut_day = exps.getExp(ExpStrings.day).get_future();
 
         if (fut_day != fut_day_0) {
             fut_day_0 = fut_day;
@@ -106,7 +85,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut week
-        double fut_week = exps.getExp(ExpStrings.week).getFuture();
+        double fut_week = exps.getExp(ExpStrings.week).get_future();
 
         if (fut_week != fut_week_0) {
             fut_week_0 = fut_week;
@@ -114,7 +93,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut month
-        double fut_month = exps.getExp(ExpStrings.month).getFuture();
+        double fut_month = exps.getExp(ExpStrings.month).get_future();
 
         if (fut_month != fut_month_0) {
             fut_month_0 = fut_month;
@@ -122,7 +101,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp(ExpStrings.q1).getFuture();
+        double fut_e1 = exps.getExp(ExpStrings.q1).get_future();
 
         if (fut_e1 != fut_e1_0) {
             fut_e1_0 = fut_e1;
@@ -130,7 +109,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp(ExpStrings.q2).getFuture();
+        double fut_e2 = exps.getExp(ExpStrings.q2).get_future();
 
         if (fut_e2 != fut_e2_0) {
             fut_e2_0 = fut_e2;
@@ -171,19 +150,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             }
         }
 
-        // Op avg day
-        if (sleep_count % 3000 == 0) {
-            try {
-                double op_avg_15_day = exps.getExp(ExpStrings.day).getOpAvgFut(900);
-                op_avg_fut_day_15_timestamp.add(new MyTimeStampObject(Instant.now(), op_avg_15_day));
-
-                double op_avg_day = exps.getExp(ExpStrings.day).getOpAvgFut();
-                op_avg_fut_day_timestamp.add(new MyTimeStampObject(Instant.now(), op_avg_day));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         // Update count
         sleep_count += sleep;
     }

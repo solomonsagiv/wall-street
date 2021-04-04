@@ -1,6 +1,7 @@
 package backTestChart;
 
 import charts.myChart.*;
+import charts.timeSeries.MyTimeSeries;
 import org.jfree.data.time.Second;
 import serverObjects.BASE_CLIENT_OBJECT;
 

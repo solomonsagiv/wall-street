@@ -74,7 +74,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
-
+        
         // Index bid ask counter
         indexBidAskCounterField.addActionListener(new ActionListener() {
             @Override

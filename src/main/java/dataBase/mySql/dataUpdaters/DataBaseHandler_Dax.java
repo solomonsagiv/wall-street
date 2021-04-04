@@ -18,6 +18,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> ind_counter_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_week_0 = 0;
@@ -25,6 +27,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double ind_counter_0;
+    double fut_races_0 = 0;
+    double baskets_0 = 0;
 
     Exps exps;
 
@@ -55,7 +59,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut week
-        double fut_week = exps.getExp(ExpStrings.week).getFuture();
+        double fut_week = exps.getExp(ExpStrings.week).get_future();
 
         if (fut_week != fut_week_0) {
             fut_week_0 = fut_week;
@@ -63,7 +67,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut month
-        double fut_month = exps.getExp(ExpStrings.month).getFuture();
+        double fut_month = exps.getExp(ExpStrings.month).get_future();
 
         if (fut_month != fut_month_0) {
             fut_month_0 = fut_month;
@@ -71,7 +75,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp(ExpStrings.q1).getFuture();
+        double fut_e1 = exps.getExp(ExpStrings.q1).get_future();
 
         if (fut_e1 != fut_e1_0) {
             fut_e1_0 = fut_e1;
@@ -79,7 +83,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp(ExpStrings.q2).getFuture();
+        double fut_e2 = exps.getExp(ExpStrings.q2).get_future();
 
         if (fut_e2 != fut_e2_0) {
             fut_e2_0 = fut_e2;
@@ -92,6 +96,24 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             double change = ind_counter - ind_counter_0;
             ind_counter_0 = ind_counter;
             ind_counter_timestamp.add(new MyTimeStampObject(Instant.now(), change));
+        }
+
+        // Races fut counter
+        int fut_races = client.getFutSum();
+
+        if (fut_races != fut_races_0) {
+            double last_count = fut_races - fut_races_0;
+            fut_races_0 = fut_races;
+            fut_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
+        // Baskets
+        int basket = client.getBasketFinder().getBaskets();
+
+        if ( basket != baskets_0 ) {
+            double last_count = basket - baskets_0;
+            baskets_0 = basket;
+            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
         // --------------- Raw data --------------- //
@@ -134,7 +156,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         tablesNames.put(FUT_MONTH_TABLE, "data.dax_fut_month");
         tablesNames.put(FUT_Q1_TABLE, "data.dax_fut_gx1");
         tablesNames.put(FUT_Q2_TABLE, "data.dax_fut_gx2");
-
     }
 
     private void loadDDeCells() {
@@ -159,5 +180,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insertListRetro(fut_e1_timeStamp, DATA_SCHEME, "dax_fut_gx1");
         insertListRetro(fut_e2_timeStamp, DATA_SCHEME, "dax_fut_gx2");
         insertListRetro(ind_counter_timestamp, SAGIV_SCHEME, "dax_index_races");
+        insertListRetro(fut_races_timestamp, SAGIV_SCHEME, "dax_fut_races");
+        insertListRetro(baskets_timestamp, DATA_SCHEME, "dax_baskets");
     }
 }

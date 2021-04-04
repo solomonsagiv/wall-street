@@ -1,6 +1,7 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import charts.timeSeries.MyTimeSeries;
 import exp.Exp;
 import exp.Exps;
 import locals.Themes;
@@ -27,7 +28,7 @@ public class FuturesChart extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, 150);
+        props.setProp(ChartPropsEnum.SECONDS, 200);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
         props.setProp(ChartPropsEnum.MARGIN, .17);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
@@ -99,7 +100,7 @@ public class FuturesChart extends MyChartCreator {
             MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client) {
                 @Override
                 public double getData() throws UnknownHostException {
-                    return exp.getFuture();
+                    return exp.get_future();
                 }
 
                 @Override

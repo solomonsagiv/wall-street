@@ -52,7 +52,7 @@ public class LogicService extends MyBaseService {
     public void go() {
 
         index = getClient().getIndex();
-        future = exp.getFuture();
+        future = exp.get_future();
 
         // Margin
         if (margin == 0) {

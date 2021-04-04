@@ -1,7 +1,8 @@
 package backTestChart;
 
 import charts.myChart.*;
-import exp.ExpStrings;
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -39,7 +40,7 @@ public class Chart_opavg_indexbidaskcounter_index extends MyChartCreator {
 
         // --------- Chart 1 ---------- //
         // Index
-        MyTimeSeries index = client.getIndexSeries();
+        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
         index.setStokeSize(1.5f);
         index.setColor(Color.BLACK);
 
@@ -51,7 +52,7 @@ public class Chart_opavg_indexbidaskcounter_index extends MyChartCreator {
 
         // ---------- Chart 2 ---------- //
         // Index
-        MyTimeSeries indexBidAskCounter = client.getIndexBidAskCounterSeries();
+        MyTimeSeries indexBidAskCounter = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
         indexBidAskCounter.setColor(Themes.ORANGE);
         indexBidAskCounter.setStokeSize(1.5f);
 

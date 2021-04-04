@@ -1,6 +1,8 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -37,7 +39,7 @@ public class Index_baskets_chart extends MyChartCreator {
         newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
-        MyTimeSeries index = client.getIndexSeries();
+        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
         index.setStokeSize(1.5f);
         index.setColor(Color.BLACK);
 
@@ -49,7 +51,7 @@ public class Index_baskets_chart extends MyChartCreator {
 
         // ---------- Baskets ---------- //
         // Index
-        MyTimeSeries baskets = client.getBasketFinder().getBasketsSeries();
+        MyTimeSeries baskets = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_SERIES, client, null);
         baskets.setColor(Themes.PURPLE);
         baskets.setStokeSize(1.5f);
 

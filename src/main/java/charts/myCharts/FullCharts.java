@@ -1,6 +1,8 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
 import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
@@ -52,7 +54,7 @@ public class FullCharts extends MyChartCreator {
         opAvgFutureProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
-        MyTimeSeries opAvgFuture15 = e1.getOp_avg_15_serie();
+        MyTimeSeries opAvgFuture15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, e1);
         opAvgFuture15.setColor(Themes.PURPLE);
         opAvgFuture15.setStokeSize(1.5f);
 
@@ -64,7 +66,7 @@ public class FullCharts extends MyChartCreator {
 
         // --------- OpAvgFuture ---------- //
         // Index
-        MyTimeSeries opAvgFuture = e1.getOp_avg_serie();
+        MyTimeSeries opAvgFuture = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_SERIES, client, e1);;
         opAvgFuture.setColor(Themes.BLUE);
         opAvgFuture.setStokeSize(1.5f);
 
@@ -76,7 +78,7 @@ public class FullCharts extends MyChartCreator {
 
         // --------- Index Bid Ask Counter ---------- //
         // Index
-        MyTimeSeries indexBidAskCounterSeries = client.getIndexBidAskCounterSeries();
+        MyTimeSeries indexBidAskCounterSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
         indexBidAskCounterSeries.setColor(Themes.ORANGE);
         indexBidAskCounterSeries.setStokeSize(1.5f);
 
@@ -91,7 +93,7 @@ public class FullCharts extends MyChartCreator {
         newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
-        MyTimeSeries indexSeries = client.getIndexSeries();
+        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
         indexSeries.setColor(Color.BLACK);
         indexSeries.setStokeSize(1.5f);
 

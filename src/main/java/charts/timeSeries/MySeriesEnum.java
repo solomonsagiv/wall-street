@@ -1,4 +1,4 @@
-package charts.myChart;
+package charts.timeSeries;
 
 public enum MySeriesEnum {
     INDEX,

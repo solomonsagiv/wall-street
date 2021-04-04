@@ -1,6 +1,7 @@
 package charts.myChart;
 
 import charts.myCharts.FuturesChart;
+import charts.timeSeries.MyTimeSeries;
 import gui.MyGuiComps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;

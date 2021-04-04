@@ -74,10 +74,10 @@ public class DDEReader_Dax extends IDDEReader {
         client.setBase(requestDouble(baseCell, conversation));
 
         // Exps
-        client.getExps().getExp(ExpStrings.week).setFuture(requestDouble(futWeekCell, conversation));
-        client.getExps().getExp(ExpStrings.month).setFuture(requestDouble(futMonthCell, conversation));
-        client.getExps().getExp(ExpStrings.q1).setFuture(requestDouble(e1Cell, conversation));
-        client.getExps().getExp(ExpStrings.q2).setFuture(requestDouble(e2Cell, conversation));
+        client.getExps().getExp(ExpStrings.week).set_future(requestDouble(futWeekCell, conversation));
+        client.getExps().getExp(ExpStrings.month).set_future(requestDouble(futMonthCell, conversation));
+        client.getExps().getExp(ExpStrings.q1).set_future(requestDouble(e1Cell, conversation));
+        client.getExps().getExp(ExpStrings.q2).set_future(requestDouble(e2Cell, conversation));
 
         // Stocks
         updateStocks(conversation);

@@ -233,11 +233,11 @@ class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
     @Override
     public void updateText() {
         try {
-            futField.setText(L.str(L.floor(exp.getFuture(), 10)));
-            opField.colorBack(exp.getOpFuture(), L.format10());
+            futField.setText(L.str(L.floor(exp.get_future(), 10)));
+            opField.colorBack(exp.get_op(), L.format10());
 
             if (exp.getOpFutList().size() > 0) {
-                opAvgField.colorForge(exp.getOpAvgFut(), L.format100());
+                opAvgField.colorForge(exp.get_op_avg(), L.format100());
             }
 
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package backTestChart;
 
-import exp.ExpStrings;
+import charts.timeSeries.TimeSeriesFactory;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
@@ -135,8 +135,8 @@ public class Window extends MyGuiComps.MyFrame {
                 String year = yearField.getText();
 
                 GetDataFromDB data = new GetDataFromDB();
-                data.loadSeries(String.format("SELECT * FROM data.spx500_index i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day), client.getIndexSeries());
-                data.loadSeriesAgg(String.format("SELECT * FROM data.spx500_index_bid_ask_counter i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day), client.getIndexBidAskCounterSeries());
+                data.loadSeries(String.format("SELECT * FROM data.spx500_index i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day), TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null));
+                data.loadSeriesAgg(String.format("SELECT * FROM data.spx500_index_bid_ask_counter i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day), TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null));
 //                data.loadSeries(String.format("SELECT * FROM sagiv.spx500_op_avg_15_day i WHERE i.time::date = date'%s-%s-%s' order by time; ", year, month, day), client.getExps().getExp(ExpStrings.day).getOpAvg15FutSeries());
 
                 System.out.println("------------------------------------ Loaded ---------------------------------------------");

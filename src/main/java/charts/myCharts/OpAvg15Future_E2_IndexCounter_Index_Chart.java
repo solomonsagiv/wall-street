@@ -1,6 +1,8 @@
 package charts.myCharts;
 
 import charts.myChart.*;
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
 import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
@@ -48,17 +50,17 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         Exp e1 = client.getExps().getExp(ExpStrings.q1);
 
         // --------- OpAvgFuture 1 ---------- //
-        MyTimeSeries opAvgFuture = e1.getOp_avg_15_serie();
-        opAvgFuture.setColor(Themes.PURPLE);
-        opAvgFuture.setStokeSize(1.5f);
+        MyTimeSeries op_avg_15_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, e1);
+        op_avg_15_serie.setColor(Themes.PURPLE);
+        op_avg_15_serie.setStokeSize(1.5f);
 
         series = new MyTimeSeries[1];
-        series[0] = opAvgFuture;
+        series[0] = op_avg_15_serie;
 
         MyChart opAvgFutureChart = new MyChart(client, series, props_2);
 
         // --------- Index ---------- //
-        MyTimeSeries indexSeries = client.getIndexSeries();
+        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
         indexSeries.setColor(Color.BLACK);
         indexSeries.setStokeSize(1.5f);
 
@@ -69,7 +71,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
 
         // --------- Index races counter ---------- //
-        MyTimeSeries indRacesSeries = client.getIndexRacesSeries();
+        MyTimeSeries indRacesSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_SERIES, client, null);
         indRacesSeries.setColor(Themes.BROWN);
         indRacesSeries.setStokeSize(1.5f);
 
@@ -79,7 +81,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         MyChart indRacesChart = new MyChart(client, series, props_3);
 
         // -------- Index bid ask counter -------- //
-        MyTimeSeries indBidAskCounterSeries = client.getIndexBidAskCounterSeries();
+        MyTimeSeries indBidAskCounterSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
         indBidAskCounterSeries.setColor(Themes.BINANCE_ORANGE);
         indBidAskCounterSeries.setStokeSize(1.5f);
 

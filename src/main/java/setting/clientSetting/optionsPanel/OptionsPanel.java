@@ -1,12 +1,10 @@
 package setting.clientSetting.optionsPanel;
 
 import exp.Exp;
-import exp.ExpStrings;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import setting.clientSetting.RacesPanel;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
@@ -36,25 +34,7 @@ public class OptionsPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    switch (comboBox.getSelectedItem().toString()) {
-                        case "week":
-                            exp = client.getExps().getExp(ExpStrings.week);
-                            break;
-                        case "month":
-                            exp = client.getExps().getExp(ExpStrings.month);
-                            break;
-                        case "e1":
-                            exp = client.getExps().getExp(ExpStrings.q1);
-                            break;
-                        case "e2":
-                            exp = client.getExps().getExp(ExpStrings.q2);
-                            break;
-                        case "MAIN":
-                            exp = client.getExps().getMainExp();
-                            break;
-                        default:
-                            break;
-                    }
+                    exp = client.getExps().getExp(comboBox.getSelectedItem().toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

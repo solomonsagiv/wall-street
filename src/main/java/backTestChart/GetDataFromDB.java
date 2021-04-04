@@ -1,6 +1,6 @@
 package backTestChart;
 
-import charts.myChart.MyTimeSeries;
+import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
 import myJson.MyJson;
 import options.JsonStrings;

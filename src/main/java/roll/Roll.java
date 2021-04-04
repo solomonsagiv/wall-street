@@ -44,7 +44,7 @@ public class Roll {
         double price = 0;
         try {
             if (priceEnum == RollPriceEnum.FUTURE) {
-                price = exp.getFuture();
+                price = exp.get_future();
             }
             return price;
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package charts.myCharts;
 
-import charts.myChart.MyTimeSeries;
+import charts.timeSeries.MyTimeSeries;
 
 public class MyTimeSeriesBuilder {
 
