@@ -35,11 +35,11 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
         setBasketFinder(new BasketFinder(this, 80, 3000));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/user/Desktop/[SPX.xlsx]Ndx"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Ndx"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
-
+    
     // get instance
     public static Ndx getInstance() {
         if (client == null) {
@@ -57,7 +57,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() {
-        // Add to
+
         Exps exps = new Exps(this);
         exps.addExp(new ExpReg(this, ExpStrings.day));
         exps.addExp(new ExpReg(this, ExpStrings.week));

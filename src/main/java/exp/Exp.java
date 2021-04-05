@@ -29,7 +29,6 @@ public abstract class Exp {
     private double futureAskForCheck = 0;
     private double futureBidForCheck = 0;
 
-
     public Exp(BASE_CLIENT_OBJECT client, String expName) {
         this.client = client;
         this.expName = expName;
