@@ -48,6 +48,8 @@ public class ListsService extends MyBaseService {
             try {
                 exp.getOpFutList().add(exp.get_op());
 
+                exp.add_op();
+
                 if (exp.get_future() > 1) {
                     exp.getOpFutList().add(exp.get_future() - client.getIndex());
                 }

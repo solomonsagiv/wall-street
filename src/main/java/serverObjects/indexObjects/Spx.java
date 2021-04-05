@@ -30,7 +30,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/user/Desktop/[SPX.xlsx]Spx"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Spx"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
