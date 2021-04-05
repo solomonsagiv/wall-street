@@ -39,7 +39,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
-
+    
     // get instance
     public static Ndx getInstance() {
         if (client == null) {
@@ -57,7 +57,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initExpHandler() {
-        // Add to
+
         Exps exps = new Exps(this);
         exps.addExp(new ExpReg(this, ExpStrings.day));
         exps.addExp(new ExpReg(this, ExpStrings.week));
