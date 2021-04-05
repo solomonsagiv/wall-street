@@ -54,7 +54,6 @@ public abstract class IDataBaseHandler {
     }
 
     public String get_table_loc(String target_table) {
-
         if (target_table.equals(ExpStrings.day)) {
             return tablesNames.get(FUT_DAY_TABLE);
         } else if (target_table.equals(ExpStrings.week)) {
@@ -66,9 +65,10 @@ public abstract class IDataBaseHandler {
         } else if (target_table.equals(ExpStrings.q2)) {
             return tablesNames.get(FUT_Q2_TABLE);
         }
-
         return "No table call: " + target_table;
     }
+
+
 
 
     protected void load_data_agg(ResultSet rs, BASE_CLIENT_OBJECT client, Exp exp, int type) {
