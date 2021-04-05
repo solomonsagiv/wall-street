@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -121,7 +122,6 @@ public class MySql {
         return pool;
     }
 
-
     public static class Queries {
 
         public static ResultSet op_query(String index_table, String fut_table) {
@@ -130,9 +130,6 @@ public class MySql {
                     "inner join %s f " +
                     "on i.time = f.time " +
                     "where i.time::date = now()::date;", index_table, fut_table);
-
-            System.out.println(query);
-
             return MySql.select(query);
         }
 
@@ -142,16 +139,14 @@ public class MySql {
                     "         inner join %s f " +
                     "                    on i.time = f.time " +
                     "where i.time::date = now()::date;", index_table, fut_table);
-
             return MySql.select(query);
         }
 
-        public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min ) {
+        public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
             String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as cumu " +
                     "        from %s i " +
                     "        inner join %s f on i.time = f.time " +
                     "        where i.time::date = now()::date;", min, index_table, fut_table);
-
             return MySql.select(query);
         }
 
@@ -159,7 +154,6 @@ public class MySql {
             String query = String.format("select * ,%s(value) over (order by time) as cumu " +
                     "from %s " +
                     "where time::date = now()::date and (value = 1 or value = -1);", cumulative_type, table_loc);
-
             return MySql.select(query);
         }
 
@@ -168,8 +162,6 @@ public class MySql {
             return MySql.select(query);
         }
 
-
     }
-
 
 }

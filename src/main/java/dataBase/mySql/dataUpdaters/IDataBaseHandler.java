@@ -113,14 +113,14 @@ public abstract class IDataBaseHandler {
                 try {
                     if (!rs.next()) break;
 
-                    int value = rs.getInt(2);
+                    int value = rs.getInt("value");
 
                     if (value > 0) {
-                        client.setIndexUp(value);
+                        client.setIndexUp(client.getIndexUp() + 1);
                     }
 
                     if (value < 0) {
-                        client.setIndexDown(value);
+                        client.setIndexDown(client.getIndexDown() + 1);
                     }
 
                 } catch (SQLException throwables) {
@@ -128,6 +128,30 @@ public abstract class IDataBaseHandler {
                 }
             }
         }
+
+        // FUT RACES
+        if (type == FUT_RACES_TYPE) {
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+
+                    int value = rs.getInt("value");
+
+                    if (value == 1) {
+                        client.setConUp(client.getConUp() + 1);
+                    }
+
+                    if (value == -1) {
+                        client.setConDown(client.getConDown() + 1);
+                    }
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
+
+
 
         // OP AVG
         if (type == OP_AVG_TYPE) {

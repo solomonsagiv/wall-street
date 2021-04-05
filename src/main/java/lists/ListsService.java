@@ -41,13 +41,10 @@ public class ListsService extends MyBaseService {
 
     private void insert() {
 
-        LocalDateTime time = LocalDateTime.now();
-
         // List for charts
         for (Exp exp : client.getExps().getExpList()) {
             try {
                 exp.getOpFutList().add(exp.get_op());
-
                 exp.add_op();
 
                 if (exp.get_future() > 1) {
