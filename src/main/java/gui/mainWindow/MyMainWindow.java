@@ -44,7 +44,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     // Main
     public static void main(String[] args) {
         MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println(mainWindow.getWidth());
+        System.out.println();
     }
 
     private void appendClients() {
