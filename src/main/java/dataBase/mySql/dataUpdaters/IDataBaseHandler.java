@@ -4,7 +4,6 @@ import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
 import exp.Exp;
 import exp.ExpStrings;
-import locals.L;
 import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -210,85 +209,32 @@ public abstract class IDataBaseHandler {
 
     }
 
-
     protected void update_props_to_db() {
-        //
-    }
 
-
-    protected void load_props() {
         String query = String.format("SELECT * FROM data.props WHERE name = '%s';", client.getName());
         ResultSet rs = MySql.select(query);
 
         while (true) {
             try {
-                if (!!rs.next()) break;
+                if (!rs.next()) break;
 
                 String prop = rs.getString("prop");
-                String name = rs.getString("stock_id");
-                MyJson data = new MyJson(rs.getString("data"));
+                String data = rs.getString("data");
 
-                // INDEX_BID_ASK_MARGIN
-                if (prop.equals(EProps.INDEX_BID_ASK_MARGIN.toString())) {
-                    double value = data.getDouble("value");
-                    client.setIndexBidAskMargin(value);
+                if (  ) {
+
                 }
 
-                // STRIKE_MARGIN
-                if (prop.equals(EProps.STRIKE_MARGIN.toString())) {
-                    double value = data.getDouble("value");
-                    client.setIndexBidAskMargin(value);
-                }
 
-                // TIME
-                if (prop.equals(EProps.TIME.toString())) {
-                    client.setIndexStartTime(LocalTime.parse(data.getString("index_start_time")));
-                    client.setIndexEndTime(LocalTime.parse(data.getString("index_end_time")));
-                    client.setFutureEndTime(LocalTime.parse(data.getString("fut_start_time")));
-                }
-
-                // OPEN_CHART_ON_START
-                if (prop.equals(EProps.OPEN_CHART_ON_START)) {
-                    open_chart_on_start();
-                }
-
-                // DDE
-                if (prop.equals(EProps.DDE)) {
-                    String value = data.getString("value");
-                    client.getDdeHandler().setPath(value);
-                }
-
-                // BASKETS
-                if (prop.equals(EProps.BASKETS)) {
-                    int target_changes = data.getInt("basket_target_changes");
-                    int sleep = data.getInt("basket_sleep");
-                    client.getBasketFinder().setSleep(sleep);
-                    client.getBasketFinder().setTargetChanges(target_changes);
-                }
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            break;
         }
 
     }
 
     protected abstract void open_chart_on_start();
 
-
-    enum EProps {
-        INDEX_BID_ASK_MARGIN,
-        STRIKE_MARGIN,
-        TIME,
-        OPEN_CHART_ON_START,
-        DDE,
-        MYSQL,
-        DDE_CELLS,
-        EXPS,
-        CHARTS,
-        BASKETS,
-        RACES
-    }
 
 }

@@ -14,4 +14,7 @@ public abstract class MyChartCreator implements IChartCreator {
         this.client = client;
     }
 
+    public MyProps getProps() {
+        return props;
+    }
 }

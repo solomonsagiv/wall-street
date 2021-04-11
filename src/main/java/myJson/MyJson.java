@@ -23,6 +23,10 @@ public class MyJson extends JSONObject {
     public MyJson() {
     }
 
+    public void putValue( Object o) {
+        put("value", o);
+    }
+
     @Override
     public int getInt(String key) throws JSONException {
         try {

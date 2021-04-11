@@ -1,5 +1,6 @@
 package charts.myChart;
 
+import myJson.MyJson;
 import org.jfree.chart.plot.Marker;
 
 import java.util.Properties;
@@ -61,6 +62,13 @@ public class MyProps implements Cloneable {
             return (boolean) properties.get(e);
         } catch (NullPointerException exception) {
             return false;
+        }
+    }
+
+    public  MyProps(MyJson props) {
+        for (String key : props.keySet()) {
+            Object value = props.get(key);
+            properties.put(key, value);
         }
     }
 
