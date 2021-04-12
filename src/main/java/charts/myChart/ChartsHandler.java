@@ -3,9 +3,9 @@ package charts.myChart;
 import charts.timeSeries.MyTimeSeries;
 import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.awt.*;
 import java.net.UnknownHostException;
-import java.util.Locale;
 import java.util.Map;
 
 public class ChartsHandler {
@@ -17,19 +17,32 @@ public class ChartsHandler {
     public static final String G_CHART = "g";
 
     BASE_CLIENT_OBJECT client;
-    Map<String, MyChartCreator> charts;
+    Map<String, MyChartCreator> charts_map;
 
     public ChartsHandler(BASE_CLIENT_OBJECT client) {
         this.client = client;
     }
 
-    public void load_charts(MyJson json) {
 
-
-
+    public void load_charts(MyJson json_charts) {
+        get_my_chart_container_arr(json_charts);
     }
 
-    private MyChart[] get_my_chart_arr( MyJson json_charts ) {
+    public void get_my_chart_container_arr(MyJson json_chart_containers) {
+        for (String key : json_chart_containers.keySet()) {
+
+            MyChart[] charts_arr = get_my_chart_arr(json_chart_containers.getMyJson(key));
+
+            // Create the chart container
+            MyChartContainer_2 chartContainer = new MyChartContainer_2(client, charts_arr, key);
+
+            // Append chart to map
+            charts_map.put(key, new MyChartCreator(client, chartContainer));
+
+        }
+    }
+
+    private MyChart[] get_my_chart_arr(MyJson json_charts) {
 
         MyChart[] charts_arr = new MyChart[json_charts.keySet().size()];
 
@@ -37,7 +50,6 @@ public class ChartsHandler {
 
         for (String chart_key : json_charts.keySet()) {
             try {
-
                 MyJson json_chart = new MyJson(chart_key);
                 MyProps props = new MyProps(new MyJson(json_chart.getMyJson("props")));
 
@@ -51,11 +63,10 @@ public class ChartsHandler {
                 e.printStackTrace();
             }
         }
-
+        return charts_arr;
     }
 
-
-    private MyTimeSeries[] get_series_arr( MyJson series_json ) {
+    private MyTimeSeries[] get_series_arr(MyJson series_json) {
 
         MyTimeSeries[] timeSeries_arr = new MyTimeSeries[series_json.keySet().size()];
 
@@ -78,7 +89,6 @@ public class ChartsHandler {
         return timeSeries_arr;
     }
 
-
     private MyTimeSeries create_time_timeserie(String name, Color color, double size) {
 
         MyTimeSeries timeSeries = new MyTimeSeries(name, client) {
@@ -96,8 +106,9 @@ public class ChartsHandler {
         timeSeries.setStokeSize((float) size);
 
         return timeSeries;
-
-
     }
+
+    public MyJson getJson
+
 
 }

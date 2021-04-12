@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class FuturesChart extends MyChartCreator {
 
     // Constructor
-    public FuturesChart(BASE_CLIENT_OBJECT client) {
-        super(client);
+    public FuturesChart(BASE_CLIENT_OBJECT client, MyChartContainer_2 myChartContainer_2) {
+        super(client, myChartContainer_2);
     }
 
     ArrayList<MyTimeSeries> myTimeSeries = new ArrayList<>();

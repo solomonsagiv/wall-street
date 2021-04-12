@@ -72,6 +72,8 @@ public class MyProps implements Cloneable {
         }
     }
 
+    public  MyProps() {}
+
     public float getFloat(Enum e) {
         return (float) properties.get(e);
     }
