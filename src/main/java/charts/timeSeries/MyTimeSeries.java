@@ -34,6 +34,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private boolean scaled = false;
     private boolean visible = true;
     MyDoubleList myValues;
+    private String series_type;
 
     // Constructor
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
@@ -61,6 +62,14 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public double getScaledData(int index) {
         double data = (double) getDataItem(index).getValue();
         return myValues.scaled(data);
+    }
+
+    public MyProps getProps() {
+        return props;
+    }
+
+    public String getSeries_type() {
+        return series_type;
     }
 
     public TimeSeriesDataItem getLastItem() {

@@ -15,11 +15,14 @@ import java.util.ArrayList;
 public class FuturesChart extends MyChartCreator {
 
     // Constructor
-    public FuturesChart(BASE_CLIENT_OBJECT client, MyChartContainer_2 myChartContainer_2) {
+    public FuturesChart(BASE_CLIENT_OBJECT client, MyChartContainer_2 myChartContainer_2, MyChart[] charts ) {
         super(client, myChartContainer_2);
     }
 
     ArrayList<MyTimeSeries> myTimeSeries = new ArrayList<>();
+
+    MyChart[] charts;
+
 
     @Override
     public void createChart() {
@@ -29,12 +32,12 @@ public class FuturesChart extends MyChartCreator {
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, 200);
-        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, .17);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
-        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, false);
-        props.setProp(ChartPropsEnum.IS_LOAD_DB, false);
-        props.setProp(ChartPropsEnum.IS_LIVE, true);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, -1);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, -1);
+        props.setProp(ChartPropsEnum.IS_LIVE, 1);
         props.setProp(ChartPropsEnum.SLEEP, 100);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
@@ -132,6 +135,10 @@ public class FuturesChart extends MyChartCreator {
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
+    }
+
+    private MyChart[] getCharts() {
+        return charts;
     }
 
     private MyTimeSeries[] toArray() {

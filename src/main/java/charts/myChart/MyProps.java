@@ -1,9 +1,10 @@
 package charts.myChart;
 
+import locals.L;
 import myJson.MyJson;
 import org.jfree.chart.plot.Marker;
 
-import java.util.Properties;
+import java.util.*;
 
 interface IChartProps {
 
@@ -35,65 +36,20 @@ interface IChartProps {
 
 public class MyProps implements Cloneable {
 
-    private Properties properties = new Properties();
+    public static final double p_null = -10000.0;
 
-    public void setProp(Enum e, Object o) {
-        properties.put(e, o);
+    Map<String , Double> map = new HashMap<>();
+
+    public double getProp(String key) {
+        return map.getOrDefault(key, p_null);
     }
 
-    public Object get(Enum e) {
-        return properties.get(e);
+    public boolean getBool(String key) {
+        return getProp(key) == 1;
     }
 
-    public double getDouble(Enum e) {
-        return (double) properties.get(e);
+    public void setProp(String key, double value) {
+        map.put(key, value);
     }
 
-    public int getInt(Enum e) {
-        return (int) properties.get(e);
-    }
-
-    public String getString(Enum e) {
-        return (String) properties.get(e);
-    }
-
-    public boolean getBool(Enum e) {
-        try {
-            return (boolean) properties.get(e);
-        } catch (NullPointerException exception) {
-            return false;
-        }
-    }
-
-    public  MyProps(MyJson props) {
-        for (String key : props.keySet()) {
-            Object value = props.get(key);
-            properties.put(key, value);
-        }
-    }
-
-    public  MyProps() {}
-
-    public float getFloat(Enum e) {
-        return (float) properties.get(e);
-    }
-
-
-    private void setProperties(Properties properties) {
-        this.properties = properties;
-    }
-
-    @Override
-    public String toString() {
-        return "MyProps{" +
-                "properties=" + properties +
-                '}';
-    }
-
-    @Override
-    public Object clone() {
-        MyProps props = new MyProps();
-        props.setProperties((Properties) this.properties.clone());
-        return props;
-    }
 }

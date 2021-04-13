@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
 
-
     public static final String INDEX_SERIES = "INDEX";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
@@ -21,11 +20,10 @@ public class TimeSeriesFactory {
     public static final String BASKETS_SERIES = "BASKETS";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
-        System.out.println(series_type + " " + client.getName());
         switch (series_type.toUpperCase()) {
 
             case "INDEX":
-                return new MyTimeSeries("Index", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() {
                         return client.getIndex();
@@ -39,7 +37,7 @@ public class TimeSeriesFactory {
 
                 };
             case "INDEX_BID":
-                return new MyTimeSeries("Index bid", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() {
                         return client.getIndexBid();
@@ -51,7 +49,7 @@ public class TimeSeriesFactory {
 
                 };
             case "INDEX_ASK":
-                return new MyTimeSeries("Index ask", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() {
                         return client.getIndexAsk();
@@ -64,7 +62,7 @@ public class TimeSeriesFactory {
                 };
 
             case "INDEX_BID_ASK_COUNTER":
-                return new MyTimeSeries("Ind bid ask counter", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() {
                         return client.getIndexBidAskCounter();
@@ -79,7 +77,7 @@ public class TimeSeriesFactory {
 
                 };
             case "INDEX_RACES":
-                return new MyTimeSeries("ind counter", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() throws UnknownHostException {
                         return client.getIndexSum();
@@ -93,7 +91,7 @@ public class TimeSeriesFactory {
                 };
 
             case "OP_AVG":
-                return new MyTimeSeries("O/P avg", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() throws UnknownHostException {
                         return exp.get_op_avg();
@@ -111,7 +109,7 @@ public class TimeSeriesFactory {
                 };
 
             case "OP_AVG_15":
-                return new MyTimeSeries("O/P avg 15", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() throws UnknownHostException {
                         return exp.get_op_avg(900);
@@ -128,7 +126,7 @@ public class TimeSeriesFactory {
                     }
                 };
             case "BASKETS":
-                return new MyTimeSeries("Baskets", client) {
+                return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() throws UnknownHostException {
                         return client.getBasketFinder().getBaskets();

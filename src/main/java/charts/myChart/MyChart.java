@@ -8,6 +8,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.Marker;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.DateRange;
@@ -37,7 +38,7 @@ public class MyChart {
     double[] oldVals;
     JFreeChart chart;
     MyChartPanel chartPanel;
-    MyTimeSeries[] series;
+    private MyTimeSeries[] series;
     MyProps props;
     boolean load = false;
     XYLineAndShapeRenderer renderer;
@@ -69,6 +70,7 @@ public class MyChart {
 
     }
 
+
     private void init(MyTimeSeries[] series, MyProps props) {
 
         // Series
@@ -77,6 +79,27 @@ public class MyChart {
         // Create the chart
         chart = ChartFactory.createTimeSeriesChart(null, null, null, data, false, true, false);
 
+        // plot style
+        plot_style();
+
+        // Date axis
+        date_axis();
+
+        // Number axis
+        number_axis();
+
+        // Marker
+        marker();
+
+        // Range margin
+        range_margin();
+
+        // Renderer (Style series)
+        renderer(data);
+
+    }
+
+    private void plot_style() {
         plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
         plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_GRID_VISIBLE));
@@ -85,31 +108,26 @@ public class MyChart {
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
         plot.getDomainAxis().setVisible(props.getBool(ChartPropsEnum.INCLUDE_DOMAIN_AXIS));
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
+        plot.setDomainPannable(false);
+        plot.setRangePannable(false);
         plot.getRangeAxis().setLabelPaint(Themes.BLUE_DARK);
         plot.getRangeAxis().setLabelFont(Themes.ARIEL_15);
+    }
 
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
-        axis.setAutoRange(true);
-        axis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
-
+    private void number_axis() {
         NumberAxis numberAxis = (NumberAxis) plot.getRangeAxis();
         DecimalFormat df = new DecimalFormat("#0000.00");
         df.setNegativePrefix("-");
         numberAxis.setNumberFormatOverride(df);
+    }
 
-        // Marker
-        if (props.get(ChartPropsEnum.MARKER) != null) {
-            plot.addRangeMarker((Marker) props.get(ChartPropsEnum.MARKER), Layer.BACKGROUND);
-        }
+    private void date_axis() {
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
+        axis.setAutoRange(true);
+        axis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
+    }
 
-        // Range unit
-        if (props.getDouble(ChartPropsEnum.RANGE_MARGIN) > 0) {
-            ValueAxis range = plot.getRangeAxis();
-            ((NumberAxis) range).setTickUnit(new NumberTickUnit(props.getDouble(ChartPropsEnum.RANGE_MARGIN)));
-        }
-
+    private void renderer(TimeSeriesCollection data) {
         // Style lines
         renderer = new XYLineAndShapeRenderer();
         renderer.setShapesVisible(false);
@@ -129,7 +147,24 @@ public class MyChart {
 
             i++;
         }
+    }
 
+    private void range_margin() {
+        // Range unit
+        if (props.getProp(ChartPropsEnum.RANGE_MARGIN) > 0) {
+            ValueAxis range = plot.getRangeAxis();
+            ((NumberAxis) range).setTickUnit(new NumberTickUnit(props.getProp(ChartPropsEnum.RANGE_MARGIN)));
+        }
+    }
+
+    private void marker() {
+        // Marker
+        if (props.getProp(ChartPropsEnum.MARKER) != MyProps.p_null) {
+            ValueMarker marker = new ValueMarker(props.getProp(ChartPropsEnum.MARKER));
+            marker.setStroke(new BasicStroke(2f));
+            marker.setPaint(Color.BLACK);
+            plot.addRangeMarker(marker, Layer.BACKGROUND);
+        }
     }
 
     public MyTimeSeries[] getSeries() {
@@ -177,7 +212,7 @@ public class MyChart {
                             load = true;
                         }
                         // Sleep
-                        Thread.sleep(props.getInt(ChartPropsEnum.SLEEP));
+                        Thread.sleep((long) props.getProp(ChartPropsEnum.SLEEP));
 
                         if (props.getBool(ChartPropsEnum.IS_LIVE)) {
                             if (isDataChanged()) {
@@ -210,7 +245,7 @@ public class MyChart {
             try {
                 for (MyTimeSeries serie : series) {
                     // If bigger then target Seconds
-                    if (serie.getItemCount() > props.getInt(ChartPropsEnum.SECONDS)) {
+                    if (serie.getItemCount() > props.getProp(ChartPropsEnum.SECONDS)) {
                         serie.remove(0);
                     }
                     // Append data
@@ -331,15 +366,15 @@ public class MyChart {
                     }
                 }
 
-                double min = Collections.min(dots) - props.getDouble(ChartPropsEnum.MARGIN);
-                double max = Collections.max(dots) + props.getDouble(ChartPropsEnum.MARGIN);
+                double min = Collections.min(dots) - props.getProp(ChartPropsEnum.MARGIN);
+                double max = Collections.max(dots) + props.getProp(ChartPropsEnum.MARGIN);
 
-                if (dots.size() > series.length * props.getInt(ChartPropsEnum.SECONDS_ON_MESS)) {
+                if (dots.size() > series.length * props.getProp(ChartPropsEnum.SECONDS_ON_MESS)) {
                     // If need to rearrange
-                    if (max - min > props.getInt(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS)) {
+                    if (max - min > props.getProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS)) {
                         // For each serie
                         for (MyTimeSeries serie : series) {
-                            for (int i = 0; i < serie.getItemCount() - props.getInt(ChartPropsEnum.SECONDS_ON_MESS) - 1; i++) {
+                            for (int i = 0; i < serie.getItemCount() - props.getProp(ChartPropsEnum.SECONDS_ON_MESS) - 1; i++) {
                                 serie.remove(i);
                             }
                         }

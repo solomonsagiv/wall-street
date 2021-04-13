@@ -6,6 +6,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.Map;
 
 public class ChartsHandler {
@@ -108,7 +109,34 @@ public class ChartsHandler {
         return timeSeries;
     }
 
-    public MyJson getJson
+    public MyJson getJsonData() {
+
+        MyJson creator_json = new MyJson();
+
+        // Each Chart creator
+        for (MyChartCreator chart_creator : charts_map.values()) {
+
+            MyJson charts_json = new MyJson();
+
+            // Each Chart
+            for (MyChart chart: chart_creator.getCharts_arr()) {
+
+                MyJson chart_json = new MyJson();
+
+                // Each Series
+                for ( MyTimeSeries timeseries : chart.getSeries() ) {
+
+                    String series_type = timeseries.getSeries_type();
+                    MyProps props = timeseries.getProps();
+
+                }
+
+            }
+
+        }
+
+
+    }
 
 
 }

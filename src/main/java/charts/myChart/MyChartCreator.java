@@ -7,11 +7,13 @@ public class MyChartCreator {
     public final int INFINITE = 10000000;
     protected BASE_CLIENT_OBJECT client;
     protected MyProps props;
-    protected MyChartContainer_2 chartContainer;
+    private MyChart[] charts_arr;
+    private String name;
 
-    public MyChartCreator(BASE_CLIENT_OBJECT client, MyChartContainer_2 chartContainer) {
+    public MyChartCreator(BASE_CLIENT_OBJECT client, MyChart[] charts_arr, String name ) {
         this.client = client;
-        this.chartContainer = chartContainer;
+        this.charts_arr = charts_arr;
+        this.name = name;
     }
 
     public MyProps getProps() {
@@ -19,6 +21,15 @@ public class MyChartCreator {
     }
 
     public void createChart() {
-        chartContainer.create();
+        MyChartContainer_2 chartContainer_2 = new MyChartContainer_2(client, charts_arr, name);
+        chartContainer_2.create();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public MyChart[] getCharts_arr() {
+        return charts_arr;
     }
 }
