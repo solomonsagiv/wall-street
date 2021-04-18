@@ -26,9 +26,16 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField downField;
     MyGuiComps.MyTextField sumField;
 
+    MyGuiComps.MyTextField upField_2;
+    MyGuiComps.MyTextField downField_2;
+    MyGuiComps.MyTextField sumField_2;
+
     MyGuiComps.MyLabel changesLbl;
     MyGuiComps.MyTextField changesField;
     BasketFinder basketFinder;
+
+    int width  = 140;
+    int height = 300;
 
     public BasketsPanel(BASE_CLIENT_OBJECT client) {
         super();
@@ -38,11 +45,11 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
     }
 
     private void initsialize() {
-        setSize(90, 300);
+        setSize(width, height);
 
         // ------ Head ------ //
         header = new MyGuiComps.MyPanel();
-        header.setSize(90, 25);
+        header.setSize(width, 25);
         header.setXY(0, 0);
         add(header);
 
@@ -53,7 +60,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
         // Body
         body = new MyGuiComps.MyPanel();
         body.setXY(0, header.getY() + header.getHeight() + 1);
-        body.setSize(90, 300);
+        body.setSize(width, height);
         add(body);
 
         // Up
@@ -90,6 +97,27 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
         sumField.setWidth(40);
         sumField.setXY(sumLbl.getX() + sumLbl.getWidth() + 3, sumLbl.getY());
         body.add(sumField);
+
+        // Up 2
+        upField_2 = new MyGuiComps.MyTextField();
+        upField_2.setForeground(Themes.GREEN);
+        upField_2.setWidth(40);
+        upField_2.setXY(upField.getX() + upField.getWidth() + 3, upField.getY());
+        body.add(upField_2);
+
+        // Down 2
+        downField_2 = new MyGuiComps.MyTextField();
+        downField_2.setForeground(Themes.GREEN);
+        downField_2.setWidth(40);
+        downField_2.setXY(downField.getX() + downField.getWidth() + 3, downField.getY());
+        body.add(downField_2);
+
+        // Sum 2
+        sumField_2 = new MyGuiComps.MyTextField();
+        sumField_2.setForeground(Themes.GREEN);
+        sumField_2.setWidth(40);
+        sumField_2.setXY(sumField.getX() + sumField.getWidth() + 3, sumField.getY());
+        body.add(sumField_2);
 
         // Changes
         changesLbl = new MyGuiComps.MyLabel("Chs");

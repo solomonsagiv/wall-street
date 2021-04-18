@@ -14,10 +14,8 @@ import java.util.Map;
 
 public class ChartsHandler {
 
-
     public static void main(String[] args) {
         ChartsHandler chartsHandler = new ChartsHandler(Spx.getInstance());
-
 
         System.out.println(chartsHandler.getJsonData().toString(4));
     }
@@ -38,25 +36,7 @@ public class ChartsHandler {
         charts_map.put("INDEX_COUNTER", new IndexCounter_Index_Chart(client));
     }
 
-    private MyTimeSeries create_time_timeserie(String name, Color color, double size) {
-
-        MyTimeSeries timeSeries = new MyTimeSeries(name, client) {
-            @Override
-            public double getData() throws UnknownHostException {
-                return 0;
-            }
-
-            @Override
-            public void load_data() {
-
-            }
-        };
-        timeSeries.setColor(color);
-        timeSeries.setStokeSize((float) size);
-
-        return timeSeries;
-    }
-
+    // Load
     public MyJson getJsonData() {
 
         MyJson creator_json = new MyJson();
@@ -91,7 +71,6 @@ public class ChartsHandler {
         return creator_json;
 
     }
-
     private MyJson get_series_arr_json( MyTimeSeries[] timeseries_arr ) {
 
         MyJson series_arr_json = new MyJson();
@@ -114,6 +93,9 @@ public class ChartsHandler {
         return series_arr_json;
 
     }
+
+
+    // Update chart
 
 
 }

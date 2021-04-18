@@ -3,6 +3,7 @@ package charts.timeSeries;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
+import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.net.UnknownHostException;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 public class TimeSeriesFactory {
 
     public static final String INDEX_SERIES = "INDEX";
+    public static final String FUTURE_BID_ASK_COUNTER = "FUTURE_BID_ASK_COUNTER";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String INDEX_BID_ASK_COUNTER_SERIES = "INDEX_BID_ASK_COUNTER";
@@ -73,8 +75,20 @@ public class TimeSeriesFactory {
                         ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
+                };
+            case "FUTURE_BID_ASK_COUNTER":
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public double getData() {
+                        return client.getExps().getExp(ExpStrings.q1).getFutBidAskCounter();
+                    }
 
-
+                    @Override
+                    public void load_data() {
+                        // TODO
+//                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
+//                        IDataBaseHandler.loadSerieData(rs, this, "cumu");
+                    }
                 };
             case "INDEX_RACES":
                 return new MyTimeSeries(series_type, client) {

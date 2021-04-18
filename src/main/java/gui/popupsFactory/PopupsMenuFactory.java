@@ -32,16 +32,7 @@ public class PopupsMenuFactory {
         fullCharts.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FullCharts chart = new FullCharts(client);
-                    chart.createChart();
-            }
-        });
-
-        JMenuItem opAvg15 = new JMenuItem("OpAvg 15 -- Index B/A -- Ind races -- Index");
-        opAvg15.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OpAvg15Future_E2_IndexCounter_Index_Chart chart = new OpAvg15Future_E2_IndexCounter_Index_Chart(client);
+                Full_Charts chart = new Full_Charts(client);
                     chart.createChart();
             }
         });
@@ -103,7 +94,6 @@ public class PopupsMenuFactory {
         charts.add(threeFut);
         charts.add(fullCharts);
         charts.add(baskets);
-        charts.add(opAvg15);
 
         menu.add(details);
         menu.add(settingWindow);

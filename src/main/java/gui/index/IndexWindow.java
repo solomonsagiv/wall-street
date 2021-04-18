@@ -43,7 +43,7 @@ public class IndexWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // This
-        setPreferredSize(new Dimension(492, 222));
+        setPreferredSize(new Dimension(542, 222));
         setLayout(null);
 
         // Index panel

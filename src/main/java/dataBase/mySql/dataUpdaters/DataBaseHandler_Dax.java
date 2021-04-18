@@ -148,7 +148,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     @Override
     public void initTablesNames() {
-        tablesNames.put(INDEX_TABLE, "data.spx500_index");
+        tablesNames.put(INDEX_TABLE, "data.dax_index");
         tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races");
         tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races");
         tablesNames.put(BASKETS_TABLE, "data.dax_baskets");

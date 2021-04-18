@@ -5,6 +5,8 @@ import gui.popupsFactory.PopupsMenuFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
 import javax.swing.*;
@@ -13,6 +15,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class IndexPanel extends JPanel implements IMyPanel {
+
+    public static void main(String[] args) {
+        IndexWindow indexPanel = new IndexWindow("Ndx", Ndx.getInstance());
+
+    }
 
     // Ticker
     TickerPanel tickerPanel;

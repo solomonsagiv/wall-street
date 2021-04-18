@@ -11,10 +11,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
+public class Full_Charts extends MyChartCreator {
 
     // Constructor
-    public OpAvg15Future_E2_IndexCounter_Index_Chart(BASE_CLIENT_OBJECT client) {
+    public Full_Charts(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -64,16 +64,15 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
         MyChart indexChart = new MyChart(client, series, props);
 
-
-        // --------- Index races counter ---------- //
-        MyTimeSeries indRacesSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_SERIES, client, null);
-        indRacesSeries.setColor(Themes.BROWN);
-        indRacesSeries.setStokeSize(1.5f);
+        // --------- Future bid ask counter ---------- //
+        MyTimeSeries future_counter_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.FUTURE_BID_ASK_COUNTER, client, null);
+        indexSeries.setColor(Themes.GREEN);
+        indexSeries.setStokeSize(1.5f);
 
         series = new MyTimeSeries[1];
-        series[0] = indRacesSeries;
+        series[0] = future_counter_series;
 
-        MyChart indRacesChart = new MyChart(client, series, props);
+        MyChart future_counter_Chart = new MyChart(client, series, props);
 
         // -------- Index bid ask counter -------- //
         MyTimeSeries indBidAskCounterSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
@@ -88,7 +87,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, opAvgFutureChart, indRacesChart, indexBidAskCounterChart,};
+        MyChart[] charts = {indexChart, opAvgFutureChart, future_counter_Chart, indexBidAskCounterChart,};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
