@@ -33,11 +33,7 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FullCharts chart = new FullCharts(client);
-                try {
                     chart.createChart();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
             }
         });
 
@@ -46,11 +42,7 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 OpAvg15Future_E2_IndexCounter_Index_Chart chart = new OpAvg15Future_E2_IndexCounter_Index_Chart(client);
-                try {
                     chart.createChart();
-                } catch (CloneNotSupportedException cloneNotSupportedException) {
-                    cloneNotSupportedException.printStackTrace();
-                }
             }
         });
 
@@ -59,12 +51,8 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (client.getBasketFinder() != null) {
-                    try {
                         Index_baskets_chart chart = new Index_baskets_chart(client);
                         chart.createChart();
-                    } catch (CloneNotSupportedException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         });
@@ -73,7 +61,7 @@ public class PopupsMenuFactory {
         threeFut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FuturesChart chart = new FuturesChart(client);
+                FuturesChart chart = new FuturesChart(client, null, null);
                 chart.createChart();
             }
         });

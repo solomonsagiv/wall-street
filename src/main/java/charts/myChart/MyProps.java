@@ -1,10 +1,10 @@
 package charts.myChart;
 
-import locals.L;
 import myJson.MyJson;
 import org.jfree.chart.plot.Marker;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 interface IChartProps {
 
@@ -50,6 +50,15 @@ public class MyProps implements Cloneable {
 
     public void setProp(String key, double value) {
         map.put(key, value);
+    }
+
+
+    public MyJson getAsJson() {
+        MyJson json = new MyJson();
+        for (Map.Entry<String, Double> entry: map.entrySet()) {
+            json.put(entry.getKey(), entry.getValue());
+        }
+        return json;
     }
 
 }

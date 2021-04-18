@@ -15,7 +15,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
     public OpAvg15Future_E2_IndexCounter_Index_Chart(BASE_CLIENT_OBJECT client) {
-        super(client);
+        super(client, null, null);
     }
 
     @Override
@@ -37,15 +37,10 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
 
-        MyProps props_2 = (MyProps) props.clone();
         ValueMarker marker = new ValueMarker(0);
         marker.setPaint(Color.BLACK);
         marker.setStroke(new BasicStroke(2f));
-        props_2.setProp(ChartPropsEnum.MARKER, marker);
-        props_2.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, -1);
 
-        MyProps props_3 = (MyProps) props.clone();
-        props_3.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, -1);
 
         Exp e1 = client.getExps().getExp(ExpStrings.q1);
 
@@ -57,7 +52,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         series = new MyTimeSeries[1];
         series[0] = op_avg_15_serie;
 
-        MyChart opAvgFutureChart = new MyChart(client, series, props_2);
+        MyChart opAvgFutureChart = new MyChart(client, series, props);
 
         // --------- Index ---------- //
         MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
@@ -67,7 +62,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         series = new MyTimeSeries[1];
         series[0] = indexSeries;
 
-        MyChart indexChart = new MyChart(client, series, props_3);
+        MyChart indexChart = new MyChart(client, series, props);
 
 
         // --------- Index races counter ---------- //
@@ -78,7 +73,7 @@ public class OpAvg15Future_E2_IndexCounter_Index_Chart extends MyChartCreator {
         series = new MyTimeSeries[1];
         series[0] = indRacesSeries;
 
-        MyChart indRacesChart = new MyChart(client, series, props_3);
+        MyChart indRacesChart = new MyChart(client, series, props);
 
         // -------- Index bid ask counter -------- //
         MyTimeSeries indBidAskCounterSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);

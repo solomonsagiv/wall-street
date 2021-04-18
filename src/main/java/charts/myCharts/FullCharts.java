@@ -15,43 +15,36 @@ public class FullCharts extends MyChartCreator {
 
     // Constructor
     public FullCharts(BASE_CLIENT_OBJECT client) {
-        super(client);
+        super(client, null, null);
     }
 
     @Override
-    public void createChart() throws CloneNotSupportedException {
+    public void createChart() {
 
         MyTimeSeries[] series;
 
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
-        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
-        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, true);
-        props.setProp(ChartPropsEnum.IS_LOAD_DB, true);
-        props.setProp(ChartPropsEnum.IS_LIVE, false);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, 1);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
+        props.setProp(ChartPropsEnum.IS_LIVE, -1);
         props.setProp(ChartPropsEnum.SLEEP, 1000);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
-        props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true);
+        props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
 
         // Marker
         ValueMarker marker = new ValueMarker(0);
         marker.setPaint(Color.BLACK);
         marker.setStroke(new BasicStroke(2f));
 
-        MyProps propsWithMarker = (MyProps) props.clone();
-        propsWithMarker.setProp(ChartPropsEnum.MARKER, marker);
-        propsWithMarker.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
-
         Exp e1 = client.getExps().getExp(ExpStrings.q1);
 
         // --------- OpAvgFuture 15 ---------- //
-        MyProps opAvgFutureProps = (MyProps) props.clone();
-        opAvgFutureProps.setProp(ChartPropsEnum.MARKER, marker);
-        opAvgFutureProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
         MyTimeSeries opAvgFuture15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, e1);
@@ -62,7 +55,7 @@ public class FullCharts extends MyChartCreator {
         series[0] = opAvgFuture15;
 
         // Chart
-        MyChart opAvgFuture15Chart = new MyChart(client, series, opAvgFutureProps);
+        MyChart opAvgFuture15Chart = new MyChart(client, series, props);
 
         // --------- OpAvgFuture ---------- //
         // Index
@@ -74,7 +67,7 @@ public class FullCharts extends MyChartCreator {
         series[0] = opAvgFuture;
 
         // Chart
-        MyChart opAvgFutureChart = new MyChart(client, series, opAvgFutureProps);
+        MyChart opAvgFutureChart = new MyChart(client, series, props);
 
         // --------- Index Bid Ask Counter ---------- //
         // Index
@@ -89,8 +82,6 @@ public class FullCharts extends MyChartCreator {
         MyChart indexBidAskCounterChart = new MyChart(client, series, props);
 
         // --------- Index 2 ---------- //
-        MyProps newProps = (MyProps) props.clone();
-        newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, false);
 
         // Index
         MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
@@ -101,7 +92,7 @@ public class FullCharts extends MyChartCreator {
         series[0] = indexSeries;
 
         // Chart
-        MyChart indexChart = new MyChart(client, series, newProps);
+        MyChart indexChart = new MyChart(client, series, props);
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //

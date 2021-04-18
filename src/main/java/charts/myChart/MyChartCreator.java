@@ -7,8 +7,8 @@ public class MyChartCreator {
     public final int INFINITE = 10000000;
     protected BASE_CLIENT_OBJECT client;
     protected MyProps props;
-    private MyChart[] charts_arr;
-    private String name;
+    protected MyChart[] charts_arr;
+    protected String name;
 
     public MyChartCreator(BASE_CLIENT_OBJECT client, MyChart[] charts_arr, String name ) {
         this.client = client;
@@ -18,6 +18,10 @@ public class MyChartCreator {
 
     public MyProps getProps() {
         return props;
+    }
+
+    public void init() {
+
     }
 
     public void createChart() {

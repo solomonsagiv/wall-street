@@ -108,7 +108,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChart chart = new FuturesChart(this);
+            FuturesChart chart = new FuturesChart(this, null, null);
             chart.createChart();
         }
     }

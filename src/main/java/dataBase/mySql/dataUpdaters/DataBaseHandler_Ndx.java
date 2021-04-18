@@ -159,6 +159,11 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.ndx_fut_e2");
     }
 
+    @Override
+    protected void open_chart_on_start() {
+        // todo
+    }
+
     private void updateListsRetro() {
         insertListRetro(index_timestamp, DATA_SCHEME, "ndx_index");
         insertListRetro(fut_day_timeStamp, DATA_SCHEME, "ndx_fut_day");

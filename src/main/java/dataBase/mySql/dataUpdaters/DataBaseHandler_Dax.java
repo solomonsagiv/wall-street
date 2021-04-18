@@ -158,6 +158,11 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.dax_fut_gx2");
     }
 
+    @Override
+    protected void open_chart_on_start() {
+        //todo
+    }
+
     private void loadDDeCells() {
         String query = "SELECT * FROM sagiv.dde_cells;";
 

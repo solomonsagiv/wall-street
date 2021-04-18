@@ -16,7 +16,7 @@ public class FuturesChart extends MyChartCreator {
 
     // Constructor
     public FuturesChart(BASE_CLIENT_OBJECT client, MyChartContainer_2 myChartContainer_2, MyChart[] charts ) {
-        super(client, myChartContainer_2);
+        super(client, charts, null);
     }
 
     ArrayList<MyTimeSeries> myTimeSeries = new ArrayList<>();

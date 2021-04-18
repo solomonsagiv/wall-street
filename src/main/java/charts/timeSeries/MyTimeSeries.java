@@ -40,6 +40,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
         super(name);
         this.name = (String) name;
+        this.series_type = (String) name;
         this.client = client;
         myValues = new MyDoubleList();
     }
@@ -62,6 +63,14 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public double getScaledData(int index) {
         double data = (double) getDataItem(index).getValue();
         return myValues.scaled(data);
+    }
+
+    public MyJson getColorJson() {
+        MyJson myJson = new MyJson();
+        myJson.put("r", color.getRed());
+        myJson.put("g", color.getGreen());
+        myJson.put("b", color.getBlue());
+        return myJson;
     }
 
     public MyProps getProps() {

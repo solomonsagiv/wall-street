@@ -7,7 +7,6 @@ import locals.Themes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.*;
-import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -39,7 +38,7 @@ public class MyChart {
     JFreeChart chart;
     MyChartPanel chartPanel;
     private MyTimeSeries[] series;
-    MyProps props;
+    private MyProps props;
     boolean load = false;
     XYLineAndShapeRenderer renderer;
 
@@ -155,6 +154,10 @@ public class MyChart {
             ValueAxis range = plot.getRangeAxis();
             ((NumberAxis) range).setTickUnit(new NumberTickUnit(props.getProp(ChartPropsEnum.RANGE_MARGIN)));
         }
+    }
+
+    public MyProps getProps() {
+        return props;
     }
 
     private void marker() {

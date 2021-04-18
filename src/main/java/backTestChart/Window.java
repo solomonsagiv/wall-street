@@ -78,11 +78,7 @@ public class Window extends MyGuiComps.MyFrame {
 
                 TheChart chart = new TheChart(Spx.getInstance(), year, month, day, map, colors, dataFromDB.getTimeList(), cols);
 
-                try {
-                    chart.createChart();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
+                chart.createChart();
                 chartBtn.setEnabled(true);
             }
         });
@@ -91,7 +87,6 @@ public class Window extends MyGuiComps.MyFrame {
         deltaChartBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                try {
                     deltaChartBtn.setEnabled(false);
 
                     // Date
@@ -114,15 +109,8 @@ public class Window extends MyGuiComps.MyFrame {
                     GetDataFromDB dataFromDB = new GetDataFromDB(query);
                     Map<String, ArrayList<Double>> map = dataFromDB.getDataFromDb(cols);
 
-                    // Chart
-                    DeltaChartBackTest deltaChartBackTest = new DeltaChartBackTest(Spx.getInstance(), year, month, day, map, colors, dataFromDB.getTimeList(), cols);
-                    deltaChartBackTest.createChart();
-
 
                     deltaChartBtn.setEnabled(true);
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -142,11 +130,7 @@ public class Window extends MyGuiComps.MyFrame {
                 System.out.println("------------------------------------ Loaded ---------------------------------------------");
 
                 Chart_opavg_indexbidaskcounter_index chart = new Chart_opavg_indexbidaskcounter_index(client);
-                try {
                     chart.createChart();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
 
             }
         });

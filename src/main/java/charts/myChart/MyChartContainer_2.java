@@ -62,7 +62,7 @@ public class MyChartContainer_2 extends JFrame {
 
     private void appendCharts() {
         for (MyChart myChart : charts) {
-            MyChartPanel chartPanel = new MyChartPanel(myChart.chart, myChart.props.getBool(ChartPropsEnum.IS_INCLUDE_TICKER));
+            MyChartPanel chartPanel = new MyChartPanel(myChart.chart, myChart.getProps().getBool(ChartPropsEnum.IS_INCLUDE_TICKER));
             myChart.chartPanel = chartPanel;
 
             initProps(chartPanel);

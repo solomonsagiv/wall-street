@@ -4,13 +4,11 @@ import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
 import exp.Exp;
 import exp.ExpStrings;
-import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -221,9 +219,9 @@ public abstract class IDataBaseHandler {
                 String prop = rs.getString("prop");
                 String data = rs.getString("data");
 
-                if (  ) {
-
-                }
+//                if (  ) {
+//
+//                }
 
 
 

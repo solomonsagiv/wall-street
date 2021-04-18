@@ -186,6 +186,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.spx500_fut_e2");
     }
 
+    @Override
+    protected void open_chart_on_start() {
+        // todo
+    }
+
     private void updateListsRetro() {
         insertListRetro(index_timestamp, DATA_SCHEME, "spx500_index");
         insertListRetro(index_bid_timestamp, DATA_SCHEME, "spx500_index_bid");

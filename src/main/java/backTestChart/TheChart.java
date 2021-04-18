@@ -26,7 +26,7 @@ public class TheChart extends MyChartCreator {
 
     // Constructor
     public TheChart(BASE_CLIENT_OBJECT client, int year, int month, int day, Map<String, ArrayList<Double>> dataMap, Color[] colors, ArrayList<LocalTime> dateTimeArray, String[] chartsNames) {
-        super(client);
+        super(client, null, null);
         this.dataMap = dataMap;
         this.year = year;
         this.month = month;
@@ -75,23 +75,23 @@ public class TheChart extends MyChartCreator {
     }
 
     @Override
-    public void createChart() throws CloneNotSupportedException {
+    public void createChart() {
 
         MyTimeSeries[] series;
 
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
-        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, false);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, .17);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
-        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, false);
-        props.setProp(ChartPropsEnum.IS_LOAD_DB, true);
-        props.setProp(ChartPropsEnum.IS_LIVE, false);
+        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, -1);
+        props.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
+        props.setProp(ChartPropsEnum.IS_LIVE, -1);
         props.setProp(ChartPropsEnum.SLEEP, INFINITE);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
-        props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, true);
+        props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
 
         // Series
         series = new MyTimeSeries[seriesMap.size()];

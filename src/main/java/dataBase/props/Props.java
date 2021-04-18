@@ -90,7 +90,7 @@ public class Props {
         });
 
         // CHARTS
-        addProp(new Prop(client, " CHARTS") {s
+        addProp(new Prop(client, " CHARTS") {
             @Override
             public void setData(String json_text) {
                 MyJson json = new MyJson(json_text);

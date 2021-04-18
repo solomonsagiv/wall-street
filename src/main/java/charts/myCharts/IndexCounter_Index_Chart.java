@@ -12,11 +12,12 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
 
     // Constructor
     public IndexCounter_Index_Chart(BASE_CLIENT_OBJECT client) {
-        super(client);
+        super(client, null, "Index_counter");
+        init();
     }
 
     @Override
-    public void createChart() {
+    public void init() {
 
         MyTimeSeries[] series;
 
@@ -35,8 +36,8 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
 
         // --------- Chart 1 ---------- //
-        MyProps newProps = (MyProps) props.clone();
-        newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, -1);
+//        MyProps newProps = (MyProps) props.clone();
+//        newProps.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, -1);
 
         // Index
         MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
@@ -47,7 +48,7 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
         series[0] = index;
 
         // Chart
-        MyChart indexChart = new MyChart(client, series, newProps);
+        MyChart indexChart = new MyChart(client, series, props);
 
         // ---------- Chart 3 ---------- //
         // Index
@@ -61,12 +62,7 @@ public class IndexCounter_Index_Chart extends MyChartCreator {
         MyChart indexCounterChart = new MyChart(client, series, props);
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, indexCounterChart};
-
-        // ----- Container ----- //
-        MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
-        chartContainer.create();
-
+        charts_arr = new MyChart[]{indexChart, indexCounterChart};
     }
 
 }

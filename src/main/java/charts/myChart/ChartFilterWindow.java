@@ -1,12 +1,10 @@
 package charts.myChart;
 
-import charts.myCharts.FuturesChart;
 import charts.timeSeries.MyTimeSeries;
 import gui.MyGuiComps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +14,6 @@ import java.awt.event.ItemListener;
 public class ChartFilterWindow extends MyGuiComps.MyFrame {
 
     public static void main(String[] args) {
-        FuturesChart chart = new FuturesChart(Spx.getInstance());
-        chart.createChart();
     }
 
     // Variables from constructor

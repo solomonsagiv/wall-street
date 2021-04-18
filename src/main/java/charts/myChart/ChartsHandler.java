@@ -1,15 +1,26 @@
 package charts.myChart;
 
+import charts.myCharts.IndexCounter_Index_Chart;
 import charts.timeSeries.MyTimeSeries;
+import locals.L;
 import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 import java.net.UnknownHostException;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ChartsHandler {
+
+
+    public static void main(String[] args) {
+        ChartsHandler chartsHandler = new ChartsHandler(Spx.getInstance());
+
+
+        System.out.println(chartsHandler.getJsonData().toString(4));
+    }
 
     public static final String SIZE_CHART = "size";
     public static final String COLOR_CHART = "color";
@@ -22,72 +33,9 @@ public class ChartsHandler {
 
     public ChartsHandler(BASE_CLIENT_OBJECT client) {
         this.client = client;
-    }
+        charts_map = new HashMap<>();
 
-
-    public void load_charts(MyJson json_charts) {
-        get_my_chart_container_arr(json_charts);
-    }
-
-    public void get_my_chart_container_arr(MyJson json_chart_containers) {
-        for (String key : json_chart_containers.keySet()) {
-
-            MyChart[] charts_arr = get_my_chart_arr(json_chart_containers.getMyJson(key));
-
-            // Create the chart container
-            MyChartContainer_2 chartContainer = new MyChartContainer_2(client, charts_arr, key);
-
-            // Append chart to map
-            charts_map.put(key, new MyChartCreator(client, chartContainer));
-
-        }
-    }
-
-    private MyChart[] get_my_chart_arr(MyJson json_charts) {
-
-        MyChart[] charts_arr = new MyChart[json_charts.keySet().size()];
-
-        int i = 0;
-
-        for (String chart_key : json_charts.keySet()) {
-            try {
-                MyJson json_chart = new MyJson(chart_key);
-                MyProps props = new MyProps(new MyJson(json_chart.getMyJson("props")));
-
-                // NOT PROPS
-                if (!chart_key.toLowerCase().equals("props")) {
-                    MyTimeSeries[] series = get_series_arr(new MyJson(chart_key));
-                    charts_arr[i] = new MyChart(client, series, props);
-                    i++;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return charts_arr;
-    }
-
-    private MyTimeSeries[] get_series_arr(MyJson series_json) {
-
-        MyTimeSeries[] timeSeries_arr = new MyTimeSeries[series_json.keySet().size()];
-
-        int i = 0;
-        for (String serie_key : series_json.keySet()) {
-            MyJson serie_json = new MyJson(serie_key);
-            MyJson color_json = new MyJson(serie_json.getJSONObject(COLOR_CHART));
-
-            int r = color_json.getInt(R_CHART);
-            int b = color_json.getInt(B_CHART);
-            int g = color_json.getInt(G_CHART);
-
-            Color color = new Color(r, b, g);
-            double size = serie_json.getDouble(SIZE_CHART);
-
-            // Create the time series
-            timeSeries_arr[i] = create_time_timeserie(serie_key, color, size);
-            i++;
-        }
-        return timeSeries_arr;
+        charts_map.put("INDEX_COUNTER", new IndexCounter_Index_Chart(client));
     }
 
     private MyTimeSeries create_time_timeserie(String name, Color color, double size) {
@@ -121,20 +69,49 @@ public class ChartsHandler {
             // Each Chart
             for (MyChart chart: chart_creator.getCharts_arr()) {
 
+                // Chart json
                 MyJson chart_json = new MyJson();
 
-                // Each Series
-                for ( MyTimeSeries timeseries : chart.getSeries() ) {
+                // Params
+                MyJson props = chart.getProps().getAsJson();
+                MyJson series_arr_json = get_series_arr_json(chart.getSeries());
 
-                    String series_type = timeseries.getSeries_type();
-                    MyProps props = timeseries.getProps();
+                // Set data
+                chart_json.put("props", props);
+                chart_json.put("series", series_arr_json);
 
-                }
-
+                // Set chart to charts
+                charts_json.put(L.str(chart.hashCode()), chart_json);
             }
 
+            // Set charts to creator
+            creator_json.put("charts", charts_json);
+
+        }
+        return creator_json;
+
+    }
+
+    private MyJson get_series_arr_json( MyTimeSeries[] timeseries_arr ) {
+
+        MyJson series_arr_json = new MyJson();
+
+        // Each Series
+        for ( MyTimeSeries timeseries : timeseries_arr ) {
+            MyJson serie_json = new MyJson();
+            String series_type = timeseries.getSeries_type();
+            MyJson color_json = timeseries.getColorJson();
+            float stroke_size = timeseries.getStokeSize();
+
+            // Put series data
+            serie_json.put("color", color_json);
+            serie_json.put("stroke", stroke_size);
+
+            // Put in series json
+            series_arr_json.put(series_type, serie_json);
         }
 
+        return series_arr_json;
 
     }
 
