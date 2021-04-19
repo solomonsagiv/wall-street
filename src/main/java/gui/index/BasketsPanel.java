@@ -1,6 +1,7 @@
 package gui.index;
 
 import baskets.BasketFinder;
+import baskets.BasketFinder_2;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import locals.L;
@@ -33,6 +34,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel changesLbl;
     MyGuiComps.MyTextField changesField;
     BasketFinder basketFinder;
+    BasketFinder_2 basketFinder_2;
 
     int width  = 140;
     int height = 300;
@@ -41,6 +43,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
         super();
         this.client = client;
         this.basketFinder = client.getBasketFinder();
+        this.basketFinder_2 = client.getBasketFinde_2();
         initsialize();
     }
 
@@ -107,7 +110,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // Down 2
         downField_2 = new MyGuiComps.MyTextField();
-        downField_2.setForeground(Themes.GREEN);
+        downField_2.setForeground(Themes.RED);
         downField_2.setWidth(40);
         downField_2.setXY(downField.getX() + downField.getWidth() + 3, downField.getY());
         body.add(downField_2);
@@ -163,6 +166,15 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
             upField.setText(L.str(basketFinder.getBasketUp()));
             downField.setText(L.str(basketFinder.getBasketDown()));
             sumField.colorForge(basketFinder.getBaskets());
+
+
+                // 2
+            upField_2.setText(L.str(basketFinder_2.getBasketUp()));
+            downField_2.setText(L.str(basketFinder_2.getBasketDown()));
+            sumField_2.colorForge(basketFinder_2.getBaskets());
+
+
+
 
             changesField.setText(L.str(basketFinder.getChangesCount()));
 

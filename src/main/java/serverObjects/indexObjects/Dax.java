@@ -54,6 +54,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void initExpHandler() {
         // Add to
         Exps exps = new Exps(this);
+        
         exps.addExp(new ExpReg(this, ExpStrings.week));
         exps.addExp(new ExpReg(this, ExpStrings.month));
         exps.addExp(new E(this, ExpStrings.q1));
