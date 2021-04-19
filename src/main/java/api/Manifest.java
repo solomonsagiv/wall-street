@@ -19,7 +19,7 @@ public class Manifest {
 
     // GATEWAY
     public static int GATEWAY_PORT = 4001;
-    
+
     // SELECTED ACCOUNT
     public static boolean DB = false;
     public static boolean DB_RUNNER = false;

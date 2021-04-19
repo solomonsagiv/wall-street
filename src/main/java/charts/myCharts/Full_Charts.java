@@ -41,7 +41,6 @@ public class Full_Charts extends MyChartCreator {
         marker.setPaint(Color.BLACK);
         marker.setStroke(new BasicStroke(2f));
 
-
         Exp e1 = client.getExps().getExp(ExpStrings.q1);
 
         // --------- OpAvgFuture 1 ---------- //
@@ -87,11 +86,12 @@ public class Full_Charts extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, opAvgFutureChart, future_counter_Chart, indexBidAskCounterChart,};
+        MyChart[] charts = {indexChart, opAvgFutureChart, future_counter_Chart, indexBidAskCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
+
 
     }
 

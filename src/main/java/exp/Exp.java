@@ -11,6 +11,10 @@ import java.util.List;
 public abstract class Exp {
 
     // Variables
+    private double dividend = 0;
+    private double interest = 0;
+    private double days_to_exp = -1;
+
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate expDate;
     protected double future = 0;
@@ -137,6 +141,30 @@ public abstract class Exp {
         // Ask for bid change state
         futureBidForCheck = this.futureBid;
 
+    }
+
+    public double getDividend() {
+        return dividend;
+    }
+
+    public void setDividend(double dividend) {
+        this.dividend = dividend;
+    }
+
+    public double getInterest() {
+        return interest;
+    }
+
+    public void setInterest(double interest) {
+        this.interest = interest;
+    }
+
+    public double getDays_to_exp() {
+        return days_to_exp;
+    }
+
+    public void setDays_to_exp(double days_to_exp) {
+        this.days_to_exp = days_to_exp;
     }
 
     public int getFutBidAskCounter() {

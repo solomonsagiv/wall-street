@@ -162,6 +162,12 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_serie(String table_loc) {
+            String query = String.format("SELECT * FROM %s WHERE time::date = now()::date order by time;", table_loc);
+            return MySql.select(query);
+        }
+
+
     }
 
 }

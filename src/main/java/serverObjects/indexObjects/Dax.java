@@ -31,12 +31,12 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setName("dax");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
-        setIndexStartTime(LocalTime.of(10, 0, 0));
+        setIndexStartTime(LocalTime.of(10, 2, 0));
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setBasketFinder(new BasketFinder(this, 24, 3000));
-        setBasketFinde_2(new BasketFinder_2(this, 24, 2000));
+        setBasketFinde_2(new BasketFinder_2(this, 24, 3000));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Dax"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();

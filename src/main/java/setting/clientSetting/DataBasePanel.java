@@ -19,6 +19,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton updateBtn;
     MyGuiComps.MyButton loadBtn;
     MyGuiComps.MyButton sumBtn;
+    MyGuiComps.MyButton updateRatesBtn;
 
     // Constructor
     public DataBasePanel(BASE_CLIENT_OBJECT client) {
@@ -83,7 +84,16 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             }
         });
 
+        // Update rates
+        updateRatesBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                client.getMyServiceHandler().
+                updateRatesBtn.complete();
+            }
+        });
     }
+
 
     private void initialize() {
 
@@ -146,6 +156,11 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         sumBtn.setBackground(Themes.BLUE);
         sumBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(sumBtn);
+
+        // Update rates
+        updateRatesBtn = new MyGuiComps.MyButton("Update rates");
+        updateRatesBtn.setXY(sumBtn.getX() + sumBtn.getWidth() + 5, sumBtn.getY());
+        add(updateRatesBtn);
 
     }
 }
