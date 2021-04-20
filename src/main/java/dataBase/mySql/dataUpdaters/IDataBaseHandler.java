@@ -83,11 +83,11 @@ public abstract class IDataBaseHandler {
                     int value = rs.getInt("value");
 
                     if (value > 0) {
-                        client.getBasketFinder().add_basket_up();
+                        client.getBasketFinde_2().add_basket_up();
                     }
 
                     if (value < 0) {
-                        client.getBasketFinder().add_basket_down();
+                        client.getBasketFinde_2().add_basket_down();
                     }
 
                 } catch (SQLException throwables) {
@@ -235,4 +235,5 @@ public abstract class IDataBaseHandler {
     protected abstract void open_chart_on_start();
 
 
+    public abstract void updateInterests();
 }

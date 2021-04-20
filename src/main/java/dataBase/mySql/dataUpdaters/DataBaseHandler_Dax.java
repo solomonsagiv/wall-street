@@ -108,7 +108,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Baskets
-        int basket = client.getBasketFinder().getBaskets();
+        int basket = client.getBasketFinde_2().getBaskets();
 
         if ( basket != baskets_0 ) {
             double last_count = basket - baskets_0;
@@ -161,6 +161,11 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     protected void open_chart_on_start() {
         //todo
+    }
+
+    @Override
+    public void updateInterests() {
+
     }
 
     private void loadDDeCells() {

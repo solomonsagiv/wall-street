@@ -59,6 +59,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initOnClose() {
+        super.initOnClose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

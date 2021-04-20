@@ -15,7 +15,7 @@ public abstract class IDDEReader {
 
     public abstract void updateData(DDEClientConversation conversation);
 
-    public abstract void init_rates(DDEClientConversation conversation);
+    public abstract void init_rates();
 
     public double requestDouble(String cell, DDEClientConversation conversation) {
         double d = 0;

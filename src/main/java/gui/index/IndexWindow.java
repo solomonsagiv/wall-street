@@ -5,8 +5,6 @@ import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class IndexWindow extends MyGuiComps.MyFrame {
 
@@ -26,12 +24,8 @@ public class IndexWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initOnClose() {
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                indexPanel.close();
-            }
-        });
+        super.initOnClose();
+        indexPanel.close();
     }
 
     @Override

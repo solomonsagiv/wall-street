@@ -52,6 +52,10 @@ public class DDEReader extends MyThread implements Runnable {
         }
     }
 
+    public DDEClientConversation getConversation() {
+        return conversation;
+    }
+
     private void read() throws DDEException {
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             if (client.getApi() == ApiEnum.DDE) {

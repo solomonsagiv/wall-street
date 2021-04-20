@@ -46,7 +46,6 @@ public class BasketFinder_2 extends MyBaseService {
             look_for_basket();
             sleep_count = 0;
         }
-
     }
 
     private double pre_index_price = 0;
@@ -63,7 +62,6 @@ public class BasketFinder_2 extends MyBaseService {
             // Update pre index price
             pre_index_price = last_index_price;
         }
-
     }
 
     private void look_for_basket() {
@@ -185,6 +183,7 @@ public class BasketFinder_2 extends MyBaseService {
         str.append("BasketUp= " + basketUp + "\n");
         str.append("BasketDown= " + basketDown + "\n");
         str.append("Biggest change= " + L.floor(biggest_change, 100));
+        str.append("Stoocks= " + stocksHandler.toString());
         return str.toString();
     }
 }

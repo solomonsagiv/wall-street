@@ -88,12 +88,13 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         updateRatesBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.getMyServiceHandler().
+                //
+                client.getDdeHandler().getIddeReader().init_rates();
+                client.getMySqlService().getDataBaseHandler().updateInterests();
                 updateRatesBtn.complete();
             }
         });
     }
-
 
     private void initialize() {
 

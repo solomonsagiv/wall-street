@@ -25,6 +25,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initOnClose() {
+        super.initOnClose();
     }
 
     @Override

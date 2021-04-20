@@ -35,7 +35,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinder(new BasketFinder(this, 80, 3000));
         setBasketFinde_2( new BasketFinder_2(this, 80, 3000));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Ndx"));
         setLogicService(new LogicService(this, ExpStrings.q1));
@@ -124,7 +123,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(super.toString());
-        str.append("Baskets= " + getBasketFinder().toString());
         str.append("Baskets 2= " + getBasketFinde_2().toString());
         return str.toString();
     }

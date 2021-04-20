@@ -1,6 +1,8 @@
 package gui.popupsFactory;
 
-import charts.myCharts.*;
+import charts.myCharts.Full_Charts;
+import charts.myCharts.FuturesChart;
+import charts.myCharts.Index_baskets_chart;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import setting.clientSetting.SettingWindow;
@@ -33,7 +35,7 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Full_Charts chart = new Full_Charts(client);
-                    chart.createChart();
+                chart.createChart();
             }
         });
 
@@ -41,9 +43,9 @@ public class PopupsMenuFactory {
         baskets.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (client.getBasketFinder() != null) {
-                        Index_baskets_chart chart = new Index_baskets_chart(client);
-                        chart.createChart();
+                if (client.getBasketFinde_2() != null) {
+                    Index_baskets_chart chart = new Index_baskets_chart(client);
+                    chart.createChart();
                 }
             }
         });

@@ -1,11 +1,16 @@
 package gui;
 
+import charts.myChart.MyChart;
+import dataBase.mySql.MySql;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
 import java.text.DecimalFormat;
 
 public class MyGuiComps {
@@ -35,6 +40,7 @@ public class MyGuiComps {
 
         private void packAndFinish() {
             pack();
+            loadBounds();
             setVisible(true);
         }
 
@@ -43,6 +49,53 @@ public class MyGuiComps {
             setBackground(Themes.GREY_LIGHT);
             getContentPane().setLayout(null);
             setLayout(null);
+        }
+
+        protected void loadBounds() {
+            new Thread(() -> {
+                try {
+                    int width = 100, height = 100, x = 100, y = 100;
+
+                    String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", "MAIN", getName());
+                    ResultSet rs = MySql.select(query);
+
+                    while (rs.next()) {
+                        x = rs.getInt("x");
+                        y = rs.getInt("y");
+                        width = rs.getInt("width");
+                        height = rs.getInt("height");
+                    }
+
+                    setPreferredSize(new Dimension(width, height));
+                    setBounds(x, y, width, height);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+        protected void insetOrUpdateBounds() {
+            try {
+                String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName(), getName(), getX(), getY(), getWidth(), getHeight());
+                MySql.select(query);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void initOnClose() {
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e);
+                    onClose();
+                }
+            });
+        }
+
+        private void onClose() {
+            insetOrUpdateBounds();
+            dispose();
         }
 
         public void setXY(int x, int y) {
@@ -61,7 +114,7 @@ public class MyGuiComps {
             setPreferredSize(new Dimension(width, height));
         }
 
-        public abstract void initOnClose();
+
 
         public abstract void initListeners();
 

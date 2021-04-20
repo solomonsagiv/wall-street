@@ -4,7 +4,6 @@ import DDE.DDECells;
 import DDE.DDECellsBloomberg;
 import IDDE.DDEHandler;
 import api.Manifest;
-import baskets.BasketFinder;
 import baskets.BasketFinder_2;
 import dataBase.mySql.MySqlService;
 import exp.E;
@@ -20,7 +19,6 @@ import roll.RollHandler;
 import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
 import threads.MyThread;
-
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -59,7 +57,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private DDEHandler ddeHandler;
 
     // Basket finder
-    private BasketFinder basketFinder;
     private BasketFinder_2 basketFinde_2;
 
     // Services
@@ -599,6 +596,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return logicService;
     }
 
+
+
     public static int getPRE() {
         return PRE;
     }
@@ -609,10 +608,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     @Override
     public void openChartsOnStart() {
-    }
-
-    public BasketFinder getBasketFinder() {
-        return basketFinder;
     }
 
     public int getLastTick() {
@@ -638,11 +633,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public void setDdeHandler(DDEHandler ddeHandler) {
         this.ddeHandler = ddeHandler;
     }
-
-    public void setBasketFinder(BasketFinder basketFinder) {
-        this.basketFinder = basketFinder;
-    }
-
 
     public BasketFinder_2 getBasketFinde_2() {
         return basketFinde_2;

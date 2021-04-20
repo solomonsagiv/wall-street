@@ -35,9 +35,6 @@ public class ChartBuilderWindow extends MyGuiComps.MyFrame {
         rightPanel = new RightPanel();
         rightPanel.setXY(500, 0);
         add(rightPanel);
-
-
-
     }
 
 
@@ -47,9 +44,6 @@ public class ChartBuilderWindow extends MyGuiComps.MyFrame {
     public void initialize() {
         // This
         setSize(500, 500);
-
-
-
 
 
     }
