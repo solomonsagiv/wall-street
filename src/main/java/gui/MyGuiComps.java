@@ -83,7 +83,7 @@ public class MyGuiComps {
             }
         }
 
-        public void initOnClose() {
+        private void initOnClose() {
             addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
@@ -93,7 +93,7 @@ public class MyGuiComps {
             });
         }
 
-        private void onClose() {
+        public void onClose() {
             insetOrUpdateBounds();
             dispose();
         }
@@ -113,8 +113,6 @@ public class MyGuiComps {
         public void setSize(int width, int height) {
             setPreferredSize(new Dimension(width, height));
         }
-
-
 
         public abstract void initListeners();
 

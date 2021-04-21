@@ -98,27 +98,6 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
         sumField.setXY(sumLbl.getX() + sumLbl.getWidth() + 3, sumLbl.getY());
         body.add(sumField);
 
-        // Up 2
-        upField_2 = new MyGuiComps.MyTextField();
-        upField_2.setForeground(Themes.GREEN);
-        upField_2.setWidth(40);
-        upField_2.setXY(upField.getX() + upField.getWidth() + 3, upField.getY());
-        body.add(upField_2);
-
-        // Down 2
-        downField_2 = new MyGuiComps.MyTextField();
-        downField_2.setForeground(Themes.RED);
-        downField_2.setWidth(40);
-        downField_2.setXY(downField.getX() + downField.getWidth() + 3, downField.getY());
-        body.add(downField_2);
-
-        // Sum 2
-        sumField_2 = new MyGuiComps.MyTextField();
-        sumField_2.setForeground(Themes.GREEN);
-        sumField_2.setWidth(40);
-        sumField_2.setXY(sumField.getX() + sumField.getWidth() + 3, sumField.getY());
-        body.add(sumField_2);
-
         // Changes
         changesLbl = new MyGuiComps.MyLabel("Chs");
         changesLbl.setWidth(40);
@@ -138,38 +117,41 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
     @Override
     public void updateText() {
         if (client.getBasketFinde_2() != null) {
-
-            int basketUp = 0;
-            int basketDown = 0;
             try {
-                // Get current
-                basketUp = L.INT(upField.getText());
-                basketDown = L.INT(downField.getText());
+                int basketUp = 0;
+                int basketDown = 0;
+                try {
+                    // Get current
+                    basketUp = L.INT(upField.getText());
+                    basketDown = L.INT(downField.getText());
+                } catch (Exception e) {
+                    System.out.println("First basket");
+                }
+
+                // Up
+                if (basketUp > basket_up_0) {
+                    nois(upField);
+                }
+
+                // Down
+                if (basketDown > basket_down_0) {
+                    nois(downField);
+                }
+
+                // Update text
+                upField.setText(L.str(basketFinder_2.getBasketUp()));
+                downField.setText(L.str(basketFinder_2.getBasketDown()));
+                sumField.colorForge(basketFinder_2.getBaskets());
+
+                changesField.setText(L.str(basketFinder_2.getChangesCount()));
+
+                // Update pre
+                basket_up_0 = basketUp;
+                basket_down_0 = basketDown;
+
             } catch (Exception e) {
-                System.out.println("First basket");
+                e.printStackTrace();
             }
-
-            // Up
-            if (basketUp > basket_up_0) {
-                nois(upField);
-            }
-
-            // Down
-            if (basketDown > basket_down_0) {
-                nois(downField);
-            }
-
-            // Update text
-            upField.setText(L.str(basketFinder_2.getBasketUp()));
-            downField.setText(L.str(basketFinder_2.getBasketDown()));
-            sumField.colorForge(basketFinder_2.getBaskets());
-
-            changesField.setText(L.str(basketFinder_2.getChangesCount()));
-
-            // Update pre
-            basket_up_0 = basketUp;
-            basket_down_0 = basketDown;
-
         }
     }
 

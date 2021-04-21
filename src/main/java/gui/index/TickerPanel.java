@@ -136,21 +136,24 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        try {
+            // Raw
+            openField.setText(L.str(client.getOpen()));
+            lastField.setText(L.str(client.getIndex()));
+            lowField.setText(L.str(client.getLow()));
+            highField.setText(L.str(client.getHigh()));
 
-        // Raw
-        openField.setText(L.str(client.getOpen()));
-        lastField.setText(L.str(client.getIndex()));
-        lowField.setText(L.str(client.getLow()));
-        highField.setText(L.str(client.getHigh()));
+            // Present
+            openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
+            lastPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
+            lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
+            highPresentField.colorBack(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
 
-        // Present
-        openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
-        lastPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
-        lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
-        highPresentField.colorBack(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
-
-        // Exps mini panels
-        expsPanel.updateText();
+            // Exps mini panels
+            expsPanel.updateText();
+        } catch ( Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

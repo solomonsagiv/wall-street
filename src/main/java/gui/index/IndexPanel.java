@@ -107,10 +107,16 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     @Override
     public void updateText() {
-        tickerPanel.updateText();
-        racesPanel.updateText();
-        basketsPanel.updateText();
-        expPanel.updateText();
+        try {
+            System.out.println("Update !!!!!!!!!!");
+
+            tickerPanel.updateText();
+            racesPanel.updateText();
+            basketsPanel.updateText();
+            expPanel.updateText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void close() {
@@ -141,6 +147,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
                     updateText();
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                     break;
                 }
             }

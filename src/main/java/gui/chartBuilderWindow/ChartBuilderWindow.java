@@ -24,8 +24,9 @@ public class ChartBuilderWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void initOnClose() {
-
+    public void onClose() {
+        super.onClose();
+        // TODO
     }
 
     @Override
@@ -36,9 +37,6 @@ public class ChartBuilderWindow extends MyGuiComps.MyFrame {
         rightPanel.setXY(500, 0);
         add(rightPanel);
     }
-
-
-
 
     @Override
     public void initialize() {

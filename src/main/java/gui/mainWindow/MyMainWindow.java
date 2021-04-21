@@ -57,10 +57,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 //        LocalHandler.clients.add(microsoft);
     }
 
+
     @Override
-    public void initOnClose() {
-        super.initOnClose();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public void onClose() {
+        super.onClose();
+        System.exit(0);
     }
 
     @Override

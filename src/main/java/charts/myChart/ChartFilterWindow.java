@@ -60,7 +60,8 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void initOnClose() {
+    public void onClose() {
+        super.onClose();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 

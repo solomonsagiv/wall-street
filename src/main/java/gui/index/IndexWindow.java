@@ -17,14 +17,13 @@ public class IndexWindow extends MyGuiComps.MyFrame {
     }
 
     public static void main(String[] args) {
-
         Spx dax = Spx.getInstance();
         new IndexWindow("Dax", dax);
     }
 
     @Override
-    public void initOnClose() {
-        super.initOnClose();
+    public void onClose() {
+        super.onClose();
         indexPanel.close();
     }
 

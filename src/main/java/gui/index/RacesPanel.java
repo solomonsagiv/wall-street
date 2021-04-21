@@ -70,7 +70,11 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
-        futField.colorForge(client.getFutSum());
-        indField.colorForge(client.getIndexSum());
+        try {
+            futField.colorForge(client.getFutSum());
+            indField.colorForge(client.getIndexSum());
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
     }
 }

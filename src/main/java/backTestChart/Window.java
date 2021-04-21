@@ -40,14 +40,9 @@ public class Window extends MyGuiComps.MyFrame {
     }
 
     @Override
-    public void initOnClose() {
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                super.windowClosed(e);
-                System.exit(0);
-            }
-        });
+    public void onClose() {
+        super.onClose();
+        System.exit(0);
     }
 
     @Override
