@@ -164,6 +164,11 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // todo
     }
 
+    @Override
+    public void updateInterests() {
+        // TODO
+    }
+
     private void updateListsRetro() {
         insertListRetro(index_timestamp, DATA_SCHEME, "ndx_index");
         insertListRetro(fut_day_timeStamp, DATA_SCHEME, "ndx_fut_day");

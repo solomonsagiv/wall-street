@@ -191,6 +191,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // todo
     }
 
+    @Override
+    public void updateInterests() {
+        // TODO
+    }
+
     private void updateListsRetro() {
         insertListRetro(index_timestamp, DATA_SCHEME, "spx500_index");
         insertListRetro(index_bid_timestamp, DATA_SCHEME, "spx500_index_bid");
