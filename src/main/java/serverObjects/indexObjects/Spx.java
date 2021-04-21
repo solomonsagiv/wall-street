@@ -24,6 +24,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     // Constructor
     public Spx() {
         setName("spx");
+        setId_name("spx500");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
         setIndexStartTime(LocalTime.of(16, 31, 0));

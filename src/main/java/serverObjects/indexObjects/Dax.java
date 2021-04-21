@@ -29,6 +29,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     // Constructor
     public Dax() {
         setName("dax");
+        setId_name("dax");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
         setIndexStartTime(LocalTime.of(10, 2, 0));

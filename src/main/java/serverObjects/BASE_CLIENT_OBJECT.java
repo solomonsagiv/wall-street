@@ -78,6 +78,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Lists map
     private String name = null;
+    private String id_name = null;
 
     // Stocks
     private StocksHandler stocksHandler;
@@ -193,6 +194,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setConDown(int future_down) {
         this.conDown = future_down;
+    }
+
+    public void setId_name(String id_name) {
+        this.id_name = id_name;
     }
 
     public int getIndexUp() {

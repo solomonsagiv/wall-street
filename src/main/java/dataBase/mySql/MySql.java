@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+import com.ib.client.EClient;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -161,6 +162,13 @@ public class MySql {
             String query = String.format("SELECT * FROM %s WHERE time::date = now()::date order by time;", table_loc);
             return MySql.select(query);
         }
+
+        public static ResultSet update_rates_query(String id_name, ) {
+            String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);", );
+            return MySql.select(query);
+        }
+
+        dsds
 
     }
 

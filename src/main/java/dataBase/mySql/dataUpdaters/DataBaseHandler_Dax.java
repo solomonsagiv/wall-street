@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
+import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -110,7 +111,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Baskets
         int basket = client.getBasketFinde_2().getBaskets();
 
-        if ( basket != baskets_0 ) {
+        if (basket != baskets_0) {
             double last_count = basket - baskets_0;
             baskets_0 = basket;
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
@@ -166,6 +167,14 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     public void updateInterests() {
 
+
+
+        for (Exp exp : client.getExps().getExpList()) {
+
+
+
+        }
+
     }
 
     private void loadDDeCells() {
@@ -176,7 +185,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         while (true) {
             try {
                 if (!rs.next()) break;
-
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

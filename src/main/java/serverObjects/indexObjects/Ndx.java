@@ -29,6 +29,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     // Constructor
     public Ndx() {
         setName("ndx");
+        setId_name("ndx");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
         setIndexStartTime(LocalTime.of(16, 31, 0));
