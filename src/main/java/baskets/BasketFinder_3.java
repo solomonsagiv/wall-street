@@ -6,68 +6,69 @@ import service.MyBaseService;
 import stocksHandler.MiniStock;
 import stocksHandler.StocksHandler;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class BasketFinder_2 extends MyBaseService {
+public class BasketFinder_3 extends MyBaseService {
 
     // Variables
     private BASE_CLIENT_OBJECT client;
     StocksHandler stocksHandler;
     private int targetChanges = 0;
-    private int changesCount = 0;
     private int basketUp = 0;
     private int basketDown = 0;
     private int sleep_for_basket = 0;
-    private ArrayList<Double> index_changed_list;
+    private ArrayList<IndexFrame> index_frames;
+    private ArrayList<BasketFrame> frames;
     private int sleep_count = 0;
     private double biggest_change = 0;
-     
-    public BasketFinder_2(BASE_CLIENT_OBJECT client, int targetChanges, int sleep_for_basket) {
+    private int sleep_between_frames = 1000;
+
+    public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int sleep_for_basket) {
         super(client);
         this.client = client;
         this.targetChanges = targetChanges;
         this.sleep_for_basket = sleep_for_basket;
         this.stocksHandler = client.getStocksHandler();
-        index_changed_list = new ArrayList<>();
+        index_frames = new ArrayList<>();
+        frames = new ArrayList<>();
     }
 
     @Override
     public void go() {
-
         // Handle sleep
         sleep_count += getSleep();
 
         // Collect index changes
-        collect_index_changes();
+        // 100 millis
+        append_index_changed();
+
+        // Append frame (volume)
+        // 1000 millis
+        if (sleep_count % sleep_for_basket == 0) {
+            append_frame();
+        }
 
         // Look for basket
+        // 1000 millis
         if (sleep_count % sleep_for_basket == 0) {
             look_for_basket();
             sleep_count = 0;
         }
     }
 
-    private double pre_index_price = 0;
-    private void collect_index_changes() {
-
-        double last_index_price = client.getIndex();
-
-        // If changed
-        if ( last_index_price != pre_index_price ) {
-
-            // Append to changes list
-            index_changed_list.add(last_index_price  - pre_index_price);
-
-            // Update pre index price
-            pre_index_price = last_index_price;
-        }
-    }
-
     private void look_for_basket() {
 
+        for (:
+             ) {
+            
+        }
+        
+    }
+
+    private int get_changed_count() {
         // Reset params
-        changesCount = 0;
+        int changesCount = 0;
 
         // Look for changes
         for (MiniStock stock : stocksHandler.getStocks()) {
@@ -85,32 +86,55 @@ public class BasketFinder_2 extends MyBaseService {
                 e.printStackTrace();
             }
         }
-
-        // Got basket
-        if (changesCount >= targetChanges) {
-
-            double max = Collections.max(index_changed_list);
-            double min = Collections.min(index_changed_list);
-
-            // Up
-            if ( max > L.abs(min) ) {
-                biggest_change = max;
-                add_basket_up();
-            }
-
-            // Down
-            if (L.abs(min) > max) {
-                biggest_change = min;
-                add_basket_down();
-            }
-        }
-
-        // Reset variables
-        reset_variables();
+        return changesCount;
     }
 
-    private void reset_variables() {
-        index_changed_list.clear();
+    private double pre_index_price = 0;
+
+    private void append_index_changed() {
+        double last_index_price = client.getIndex();
+
+        // If changed
+        if (last_index_price != pre_index_price) {
+
+            // Append to changes list
+            index_frames.add(new IndexFrame(LocalTime.now(), last_index_price - pre_index_price));
+
+            // Update pre index price
+            pre_index_price = last_index_price;
+        }
+    }
+
+    private void append_frame() {
+        // Handle size of frame list
+        if (frames.size() >= 3) {
+            frames.remove(0);
+        }
+        // Append frame
+        frames.add(new BasketFrame(LocalTime.now(), get_changed_count(), client.getIndex()));
+    }
+
+    private class IndexFrame {
+
+        LocalTime time;
+        double change;
+
+        public IndexFrame(LocalTime time, double change) {
+            this.time = time;
+            this.change = change;
+        }
+    }
+
+    private class BasketFrame {
+        LocalTime time;
+        double volume;
+        double index;
+
+        public BasketFrame(LocalTime time, double volume, double index) {
+            this.time = time;
+            this.volume = volume;
+            this.index = index;
+        }
     }
 
     public void add_basket_up() {

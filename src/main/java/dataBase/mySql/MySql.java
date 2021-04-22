@@ -163,12 +163,11 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet update_rates_query(String id_name, ) {
-            String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);", );
-            return MySql.select(query);
-        }
+//        public static ResultSet update_rates_query(String id_name, ) {
+//            String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);", );
+//            return MySql.select(query);
+//        }
 
-        dsds
 
     }
 

@@ -54,9 +54,9 @@ public class MyGuiComps {
         protected void loadBounds() {
             new Thread(() -> {
                 try {
-                    int width = 100, height = 100, x = 100, y = 100;
+                    int width = 300, height = 300, x = 100, y = 100;
 
-                    String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", "MAIN", getName());
+                    String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getName(), getTitle());
                     ResultSet rs = MySql.select(query);
 
                     while (rs.next()) {
@@ -76,7 +76,7 @@ public class MyGuiComps {
 
         protected void insetOrUpdateBounds() {
             try {
-                String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName(), getName(), getX(), getY(), getWidth(), getHeight());
+                String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName(), getTitle(), getX(), getY(), getWidth(), getHeight());
                 MySql.select(query);
             } catch (Exception e) {
                 e.printStackTrace();

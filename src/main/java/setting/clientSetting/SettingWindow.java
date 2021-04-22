@@ -34,8 +34,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
         setXY(200, 200);
         setLayout(null);
         setSize(800, 450);
-        setResizable(false);
-
+        
         // Ticker
         tickerPanel = new TickerPanel(client);
         tickerPanel.setBounds(0, 0, (int) getPreferredSize().getWidth(), 125);

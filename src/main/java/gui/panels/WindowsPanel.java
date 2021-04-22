@@ -40,13 +40,13 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
 
                 switch (selected) {
                     case "SPX":
-                        new IndexWindow("Spx", Spx.getInstance());
+                        new IndexWindow("Spx window", Spx.getInstance());
                         break;
                     case "DAX":
-                        new IndexWindow("Dax", Dax.getInstance());
+                        new IndexWindow("Dax window", Dax.getInstance());
                         break;
                     case "NDX":
-                        new IndexWindow("Ndx", Ndx.getInstance());
+                        new IndexWindow("Ndx window", Ndx.getInstance());
                         break;
                     default:
                         break;
