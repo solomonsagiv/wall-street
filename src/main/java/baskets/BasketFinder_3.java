@@ -13,25 +13,26 @@ public class BasketFinder_3 extends MyBaseService {
 
     // Variables
     private BASE_CLIENT_OBJECT client;
+    private int changesCount = 0;
     StocksHandler stocksHandler;
     private int targetChanges = 0;
     private int basketUp = 0;
     private int basketDown = 0;
-    private int sleep_for_basket = 0;
-    private ArrayList<IndexFrame> index_frames;
-    private ArrayList<BasketFrame> frames;
+    private int time_frame_for_basket = 0;
+    private BigFrame bigFrame;
     private int sleep_count = 0;
     private double biggest_change = 0;
     private int sleep_between_frames = 1000;
+    private int big_frame_time_in_secondes;
 
-    public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int sleep_for_basket) {
+    public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int time_frame_for_basket, int big_frame_time_in_secondes) {
         super(client);
         this.client = client;
         this.targetChanges = targetChanges;
-        this.sleep_for_basket = sleep_for_basket;
+        this.time_frame_for_basket = time_frame_for_basket;
+        this.big_frame_time_in_secondes = big_frame_time_in_secondes;
         this.stocksHandler = client.getStocksHandler();
-        index_frames = new ArrayList<>();
-        frames = new ArrayList<>();
+        this.bigFrame = new BigFrame();
     }
 
     @Override
@@ -45,25 +46,57 @@ public class BasketFinder_3 extends MyBaseService {
 
         // Append frame (volume)
         // 1000 millis
-        if (sleep_count % sleep_for_basket == 0) {
-            append_frame();
+        if (sleep_count % sleep_between_frames == 0) {
+            append_volume_frame();
         }
 
         // Look for basket
         // 1000 millis
-        if (sleep_count % sleep_for_basket == 0) {
+        if (sleep_count % sleep_between_frames == 0) {
             look_for_basket();
             sleep_count = 0;
         }
     }
 
-    private void look_for_basket() {
+    private void append_volume_frame() {
+        changesCount = find_volume_change_count();
+        bigFrame.append_volume(LocalTime.now(),changesCount);
+    }
 
-        for (:
-             ) {
-            
+    private int find_volume_change_count() {
+        // Reset params
+        int changesCount = 0;
+
+        // Look for changes
+        for (MiniStock stock : stocksHandler.getStocks()) {
+            try {
+
+                // If changed
+                if (stock.getVolume() > stock.getVol_0() && stock.getVolume() > 0 && stock.getVol_0() > 0) {
+                    changesCount++;
+                }
+
+                // Update pre volume
+                stock.setVolume_0(stock.getVolume());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        
+
+        return changesCount;
+    }
+
+    private void look_for_basket() {
+        // If got enough changes
+        if (bigFrame.get_volume_sum() >= targetChanges) {
+            // Basket up or down
+            if (bigFrame.is_index_up()) {
+                add_basket_up();
+            } else {
+                add_basket_down();
+            }
+        }
     }
 
     private int get_changed_count() {
@@ -98,24 +131,14 @@ public class BasketFinder_3 extends MyBaseService {
         if (last_index_price != pre_index_price) {
 
             // Append to changes list
-            index_frames.add(new IndexFrame(LocalTime.now(), last_index_price - pre_index_price));
+            bigFrame.append_change_frame(LocalTime.now(), last_index_price - pre_index_price);
 
             // Update pre index price
             pre_index_price = last_index_price;
         }
     }
 
-    private void append_frame() {
-        // Handle size of frame list
-        if (frames.size() >= 3) {
-            frames.remove(0);
-        }
-        // Append frame
-        frames.add(new BasketFrame(LocalTime.now(), get_changed_count(), client.getIndex()));
-    }
-
     private class IndexFrame {
-
         LocalTime time;
         double change;
 
@@ -125,16 +148,72 @@ public class BasketFinder_3 extends MyBaseService {
         }
     }
 
-    private class BasketFrame {
+    private class VolumeFrame {
         LocalTime time;
         double volume;
-        double index;
 
-        public BasketFrame(LocalTime time, double volume, double index) {
+        public VolumeFrame(LocalTime time, double volume) {
             this.time = time;
             this.volume = volume;
-            this.index = index;
         }
+    }
+
+    private class BigFrame {
+
+        private LocalTime start_time;
+        private LocalTime end_time;
+
+        private ArrayList<IndexFrame> indexFrames;
+        private ArrayList<VolumeFrame> volumeFrames;
+
+        public BigFrame() {
+            indexFrames = new ArrayList<>();
+            volumeFrames = new ArrayList<>();
+        }
+
+        public void append_change_frame(LocalTime time, double value) {
+            indexFrames.add(new IndexFrame(time, value));
+
+            // Remove data before last sec
+            if (indexFrames.get(0).time.isBefore(time.minusSeconds(big_frame_time_in_secondes))) {
+                indexFrames.remove(0);
+            }
+        }
+
+        public void append_volume(LocalTime time, double value) {
+            volumeFrames.add(new VolumeFrame(time, value));
+
+            // Remove data before last 5 sec
+            if (volumeFrames.get(0).time.isBefore(time.minusSeconds(big_frame_time_in_secondes))) {
+                volumeFrames.remove(0);
+            }
+        }
+
+        public boolean is_index_up() {
+            double change = 0;
+            double change_abs = 0;
+            for (IndexFrame index_frame : indexFrames) {
+                // If time is between start and end (Frame)
+                // Set biggest change if new got one
+                if (L.abs(index_frame.change) > change_abs) {
+                    change = index_frame.change;
+                    change_abs = L.abs(index_frame.change);
+                }
+            }
+            
+            // Up or down
+            return change > 0;
+        }
+
+        public double get_volume_sum() {
+            double sum = 0;
+
+            for (int i = 0; i < volumeFrames.size() - 1; i++) {
+                sum += volumeFrames.get(i).volume;
+            }
+            return sum;
+        }
+
     }
 
     public void add_basket_up() {
@@ -177,16 +256,16 @@ public class BasketFinder_3 extends MyBaseService {
         this.basketDown = basketDown;
     }
 
-    public int getSleep_for_basket() {
-        return sleep_for_basket;
+    public int getTime_frame_for_basket() {
+        return time_frame_for_basket;
     }
 
     public double getBiggest_change() {
         return biggest_change;
     }
 
-    public void setSleep_for_basket(int sleep_for_basket) {
-        this.sleep_for_basket = sleep_for_basket;
+    public void setTime_frame_for_basket(int time_frame_for_basket) {
+        this.time_frame_for_basket = time_frame_for_basket;
     }
 
     @Override

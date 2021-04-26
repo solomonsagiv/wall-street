@@ -143,7 +143,6 @@ public class DDEReader_Dax extends IDDEReader {
             e.printStackTrace();
         }
 
-
     }
 
     private void updateStocks(DDEClientConversation conversation) {
