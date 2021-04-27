@@ -143,7 +143,7 @@ public class TimeSeriesFactory {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public double getData() throws UnknownHostException {
-                        return client.getBasketFinde_2().getBaskets();
+                        return client.getBasketFinder().getBaskets();
                     }
 
                     @Override

@@ -43,7 +43,7 @@ public class PopupsMenuFactory {
         baskets.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (client.getBasketFinde_2() != null) {
+                if (client.getBasketFinder() != null) {
                     Index_baskets_chart chart = new Index_baskets_chart(client);
                     chart.createChart();
                 }

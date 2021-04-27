@@ -86,15 +86,24 @@ public class BasketFinder_3 extends MyBaseService {
     }
 
     private void look_for_basket() {
+
+        int volume_sum = (int) bigFrame.get_volume_sum();
+        System.out.println("Sum changes " + volume_sum);
         // If got enough changes
-        if (bigFrame.get_volume_sum() >= targetChanges) {
+        if (volume_sum >= targetChanges) {
             // Basket up or down
             if (bigFrame.is_index_up()) {
                 add_basket_up();
+                reset_data_after_basket();
             } else {
                 add_basket_down();
+                reset_data_after_basket();
             }
         }
+    }
+
+    private void reset_data_after_basket() {
+        bigFrame.reset_data_after_basket();
     }
 
     private int get_changed_count() {
@@ -172,8 +181,11 @@ public class BasketFinder_3 extends MyBaseService {
         public void append_change_frame(LocalTime time, double value) {
             indexFrames.add(new IndexFrame(time, value));
 
+            LocalTime time_0 = indexFrames.get(0).time;
+            LocalTime time_minus = time.minusSeconds(big_frame_time_in_secondes);
+
             // Remove data before last sec
-            if (indexFrames.get(0).time.isBefore(time.minusSeconds(big_frame_time_in_secondes))) {
+            if (time_0.isBefore(time_minus) || time_0 == time_minus) {
                 indexFrames.remove(0);
             }
         }
@@ -181,7 +193,7 @@ public class BasketFinder_3 extends MyBaseService {
         public void append_volume(LocalTime time, double value) {
             volumeFrames.add(new VolumeFrame(time, value));
 
-            // Remove data before last 5 sec
+            // Remove data before last sec
             if (volumeFrames.get(0).time.isBefore(time.minusSeconds(big_frame_time_in_secondes))) {
                 volumeFrames.remove(0);
             }
@@ -205,13 +217,38 @@ public class BasketFinder_3 extends MyBaseService {
 
         public double get_volume_sum() {
             double sum = 0;
+            int size;
 
-            for (int i = 0; i < volumeFrames.size() - 1; i++) {
+            if (volumeFrames.size() < big_frame_time_in_secondes) {
+                size = volumeFrames.size();
+            } else {
+                size = volumeFrames.size() - 1;
+            }
+
+            for (int i = 0; i < size; i++) {
                 sum += volumeFrames.get(i).volume;
             }
             return sum;
         }
 
+        public void reset_data_after_basket() {
+            LocalTime end_time = volumeFrames.get(volumeFrames.size() - 1).time;
+
+            for (int i = 0; i < volumeFrames.size() -1; i++) {
+                volumeFrames.clear();
+            }
+
+            for (IndexFrame index_frame: indexFrames) {
+                if ( index_frame.time.isBefore(end_time) ) {
+                    indexFrames.remove(index_frame);
+                }
+            }
+
+        }
+    }
+
+    public void setBig_frame_time_in_secondes(int big_frame_time_in_secondes) {
+        this.big_frame_time_in_secondes = big_frame_time_in_secondes;
     }
 
     public void add_basket_up() {

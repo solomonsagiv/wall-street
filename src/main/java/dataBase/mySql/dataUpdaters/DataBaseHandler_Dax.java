@@ -109,7 +109,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
         // Baskets
-        int basket = client.getBasketFinde_2().getBaskets();
+        int basket = client.getBasketFinder().getBaskets();
 
         if (basket != baskets_0) {
             double last_count = basket - baskets_0;

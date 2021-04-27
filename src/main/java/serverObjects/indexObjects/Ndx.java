@@ -6,6 +6,7 @@ import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder;
 import baskets.BasketFinder_2;
+import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
@@ -36,7 +37,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinde_2( new BasketFinder_2(this, 80, 3000));
+        setBasketFinder( new BasketFinder_3(this, 80, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Ndx"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
@@ -124,7 +125,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(super.toString());
-        str.append("Baskets 2= " + getBasketFinde_2().toString());
+        str.append("Baskets 2= " + getBasketFinder().toString());
         return str.toString();
     }
 

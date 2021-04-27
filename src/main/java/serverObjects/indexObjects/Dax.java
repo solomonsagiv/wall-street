@@ -37,7 +37,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
-        setBasketFinder(new BasketFinder_3(client, 24, 4000));
+        setBasketFinder(new BasketFinder_3(this, 24, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Dax"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();

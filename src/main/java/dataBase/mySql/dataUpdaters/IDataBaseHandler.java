@@ -83,11 +83,11 @@ public abstract class IDataBaseHandler {
                     int value = rs.getInt("value");
 
                     if (value > 0) {
-                        client.getBasketFinde_2().add_basket_up();
+                        client.getBasketFinder().add_basket_up();
                     }
 
                     if (value < 0) {
-                        client.getBasketFinde_2().add_basket_down();
+                        client.getBasketFinder().add_basket_down();
                     }
 
                 } catch (SQLException throwables) {

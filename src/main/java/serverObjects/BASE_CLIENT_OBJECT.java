@@ -600,9 +600,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         if (logicService == null) throw new NullPointerException(getName() + " Logic not set");
         return logicService;
     }
-
-
-
+    
     public static int getPRE() {
         return PRE;
     }
