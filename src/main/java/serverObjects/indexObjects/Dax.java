@@ -6,6 +6,7 @@ import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder;
 import baskets.BasketFinder_2;
+import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -36,12 +37,12 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
-        setBasketFinde_2(new BasketFinder_2(this, 24, 3000));
+        setBasketFinder(new BasketFinder_3(client, 24, 4000));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Dax"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
-    
+
     // get instance
     public static Dax getInstance() {
         if (client == null) {
@@ -124,7 +125,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(super.toString());
-        str.append("Baskets 2= " + getBasketFinde_2().toString());
+        str.append("Baskets 2= " + getBasketFinder().toString());
         return str.toString();
     }
 }

@@ -18,18 +18,16 @@ public class BasketFinder_3 extends MyBaseService {
     private int targetChanges = 0;
     private int basketUp = 0;
     private int basketDown = 0;
-    private int time_frame_for_basket = 0;
     private BigFrame bigFrame;
     private int sleep_count = 0;
     private double biggest_change = 0;
     private int sleep_between_frames = 1000;
     private int big_frame_time_in_secondes;
 
-    public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int time_frame_for_basket, int big_frame_time_in_secondes) {
+    public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int big_frame_time_in_secondes) {
         super(client);
         this.client = client;
         this.targetChanges = targetChanges;
-        this.time_frame_for_basket = time_frame_for_basket;
         this.big_frame_time_in_secondes = big_frame_time_in_secondes;
         this.stocksHandler = client.getStocksHandler();
         this.bigFrame = new BigFrame();
@@ -256,16 +254,8 @@ public class BasketFinder_3 extends MyBaseService {
         this.basketDown = basketDown;
     }
 
-    public int getTime_frame_for_basket() {
-        return time_frame_for_basket;
-    }
-
     public double getBiggest_change() {
         return biggest_change;
-    }
-
-    public void setTime_frame_for_basket(int time_frame_for_basket) {
-        this.time_frame_for_basket = time_frame_for_basket;
     }
 
     @Override

@@ -4,7 +4,7 @@ import DDE.DDECells;
 import DDE.DDECellsBloomberg;
 import IDDE.DDEHandler;
 import api.Manifest;
-import baskets.BasketFinder_2;
+import baskets.BasketFinder_3;
 import dataBase.mySql.MySqlService;
 import exp.E;
 import exp.ExpReg;
@@ -57,7 +57,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private DDEHandler ddeHandler;
 
     // Basket finder
-    private BasketFinder_2 basketFinde_2;
+    private BasketFinder_3 basketFinder;
 
     // Services
     ListsService listsService;
@@ -639,12 +639,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.ddeHandler = ddeHandler;
     }
 
-    public BasketFinder_2 getBasketFinde_2() {
-        return basketFinde_2;
+    public BasketFinder_3 getBasketFinder() {
+        return basketFinder;
     }
 
-    public void setBasketFinde_2(BasketFinder_2 basketFinde_2) {
-        this.basketFinde_2 = basketFinde_2;
+    public void setBasketFinder(BasketFinder_3 basketFinder) {
+        this.basketFinder = basketFinder;
     }
 
     @Override
