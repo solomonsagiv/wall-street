@@ -92,7 +92,6 @@ public class Full_Charts extends MyChartCreator {
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
 
-
     }
 
 }

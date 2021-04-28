@@ -42,7 +42,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
-
+    
     // get instance
     public static Dax getInstance() {
         if (client == null) {

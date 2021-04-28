@@ -57,8 +57,8 @@ public class BasketFinder_3 extends MyBaseService {
     }
 
     private void append_volume_frame() {
-        changesCount = find_volume_change_count();
-        bigFrame.append_volume(LocalTime.now(),changesCount);
+        int last_change_count = find_volume_change_count();
+        bigFrame.append_volume(LocalTime.now(),last_change_count);
     }
 
     private int find_volume_change_count() {
@@ -86,9 +86,8 @@ public class BasketFinder_3 extends MyBaseService {
     }
 
     private void look_for_basket() {
-
         int volume_sum = (int) bigFrame.get_volume_sum();
-        System.out.println("Sum changes " + volume_sum);
+
         // If got enough changes
         if (volume_sum >= targetChanges) {
             // Basket up or down

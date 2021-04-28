@@ -19,7 +19,7 @@ public class BasketFinder extends MyBaseService {
     private int basketDown = 0;
     private double preLastPrice = 0;
     private int sleep = 0;
-
+    
     public BasketFinder(BASE_CLIENT_OBJECT client, int targetChanges, int sleep) {
         super(client);
         this.client = client;
