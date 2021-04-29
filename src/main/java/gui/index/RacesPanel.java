@@ -16,9 +16,12 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel body;
     MyGuiComps.MyLabel futLbl;
     MyGuiComps.MyLabel indLbl;
+    MyGuiComps.MyLabel bidAskCounterLbl;
 
     MyGuiComps.MyTextField futField;
     MyGuiComps.MyTextField indField;
+
+    MyGuiComps.MyTextField bidAskCounterField;
 
     public RacesPanel(BASE_CLIENT_OBJECT client) {
         super();
@@ -66,6 +69,18 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
         indField.setWidth(40);
         indField.setXY(futField.getX(), futField.getY() + futField.getHeight() + 1);
         body.add(indField);
+
+        // Bid Ask counter
+        bidAskCounterLbl = new MyGuiComps.MyLabel("B/A");
+        bidAskCounterLbl.setWidth(40);
+        bidAskCounterLbl.setXY(indLbl.getX(), indLbl.getY() + indLbl.getHeight());
+        body.add(bidAskCounterLbl);
+
+        bidAskCounterField = new MyGuiComps.MyTextField();
+        bidAskCounterField.setWidth(40);
+        bidAskCounterField.setXY(indField.getX(), indField.getY() + indField.getHeight());
+        body.add(bidAskCounterField);
+
     }
 
     @Override
@@ -73,6 +88,7 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
         try {
             futField.colorForge(client.getFutSum());
             indField.colorForge(client.getIndexSum());
+            bidAskCounterField.colorForge(client.getIndexBidAskCounter());
         } catch (Exception e ) {
             e.printStackTrace();
         }
