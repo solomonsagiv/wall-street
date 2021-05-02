@@ -28,6 +28,10 @@ public abstract class IDataBaseHandler {
     public static final int FUT_MONTH_TABLE = 18;
     public static final int FUT_Q1_TABLE = 19;
     public static final int FUT_Q2_TABLE = 20;
+    public static final int INDEX_BID_TABLE = 21;
+    public static final int INDEX_ASK_TABLE = 22;
+    public static final int OP_AVG_DAY_TABLE = 23;
+    public static final int OP_AVG_15_DAY_TABLE = 24;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
@@ -182,7 +186,7 @@ public abstract class IDataBaseHandler {
     }
 
 
-    protected void insertListRetro(ArrayList<MyTimeStampObject> list, String scheme, String tableName) {
+    protected void insertListRetro(ArrayList<MyTimeStampObject> list, String table_location) {
         if (list.size() > 0) {
 
             // Create the query
@@ -196,7 +200,7 @@ public abstract class IDataBaseHandler {
             }
             queryBuiler.append(";");
 
-            String q = String.format(queryBuiler.toString(), scheme, tableName);
+            String q = String.format(queryBuiler.toString(), table_location);
 
             // Insert
             MySql.insert(q, true);

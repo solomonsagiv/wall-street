@@ -1,7 +1,6 @@
 package dataBase.mySql;
 
 import arik.Arik;
-import com.ib.client.EClient;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -163,10 +162,11 @@ public class MySql {
             return MySql.select(query);
         }
 
-//        public static ResultSet update_rates_query(String id_name, ) {
-//            String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);", );
-//            return MySql.select(query);
-//        }
+        public static ResultSet update_rates_query(String id_name, String exp_name, double interest, double dividend, double day_to_exp, double base) {
+            String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);",
+                    id_name, exp_name, interest, dividend, day_to_exp, base);
+            return MySql.select(query);
+        }
 
 
     }

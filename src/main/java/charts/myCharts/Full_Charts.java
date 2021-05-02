@@ -63,16 +63,6 @@ public class Full_Charts extends MyChartCreator {
 
         MyChart indexChart = new MyChart(client, series, props);
 
-        // --------- Future bid ask counter ---------- //
-        MyTimeSeries future_counter_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.FUTURE_BID_ASK_COUNTER, client, null);
-        indexSeries.setColor(Themes.GREEN);
-        indexSeries.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[1];
-        series[0] = future_counter_series;
-
-        MyChart future_counter_Chart = new MyChart(client, series, props);
-
         // -------- Index bid ask counter -------- //
         MyTimeSeries indBidAskCounterSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
         indBidAskCounterSeries.setColor(Themes.BINANCE_ORANGE);
@@ -86,7 +76,7 @@ public class Full_Charts extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, opAvgFutureChart, future_counter_Chart, indexBidAskCounterChart};
+        MyChart[] charts = {indexChart, opAvgFutureChart, indexBidAskCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

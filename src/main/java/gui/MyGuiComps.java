@@ -1,6 +1,5 @@
 package gui;
 
-import charts.myChart.MyChart;
 import dataBase.mySql.MySql;
 import locals.L;
 import locals.Themes;
@@ -447,6 +446,21 @@ public class MyGuiComps {
     }
 
 
+
+    public static void color_on_complete(JButton button) {
+        Color original = button.getBackground();
+        Color complete = Themes.BLUE_LIGHT_2;
+
+        new Thread(() ->{
+            try {
+                button.setBackground(complete);
+                Thread.sleep(1000);
+                button.setBackground(original);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }
 
 

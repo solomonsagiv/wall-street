@@ -150,9 +150,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.dax_index");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races");
-        tablesNames.put(BASKETS_TABLE, "data.dax_baskets");
+        tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races_cdf");
+        tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races_cdf");
+        tablesNames.put(BASKETS_TABLE, "data.dax_baskets_cdf");
         tablesNames.put(FUT_WEEK_TABLE, "data.dax_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.dax_fut_month");
         tablesNames.put(FUT_Q1_TABLE, "data.dax_fut_gx1");
@@ -166,13 +166,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     @Override
     public void updateInterests() {
-
-
-
         for (Exp exp : client.getExps().getExpList()) {
-
-
-
+            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
+                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
         }
 
     }
@@ -192,13 +188,13 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_timestamp, DATA_SCHEME, "dax_index");
-        insertListRetro(fut_week_timeStamp, DATA_SCHEME, "dax_fut_week");
-        insertListRetro(fut_month_timeStamp, DATA_SCHEME, "dax_fut_month");
-        insertListRetro(fut_e1_timeStamp, DATA_SCHEME, "dax_fut_gx1");
-        insertListRetro(fut_e2_timeStamp, DATA_SCHEME, "dax_fut_gx2");
-        insertListRetro(ind_counter_timestamp, SAGIV_SCHEME, "dax_index_races");
-        insertListRetro(fut_races_timestamp, SAGIV_SCHEME, "dax_fut_races");
-        insertListRetro(baskets_timestamp, DATA_SCHEME, "dax_baskets");
+        insertListRetro(index_timestamp, tablesNames.get(INDEX_TABLE));
+        insertListRetro(fut_week_timeStamp, tablesNames.get(FUT_WEEK_TABLE));
+        insertListRetro(fut_month_timeStamp, tablesNames.get(FUT_MONTH_TABLE));
+        insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
+        insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
+        insertListRetro(ind_counter_timestamp, tablesNames.get(INDEX_RACES_TABLE));
+        insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
+        insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
     }
 }

@@ -146,7 +146,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
-
+        
         // Baskets sleep
         basketsSleepField.addActionListener(new ActionListener() {
             @Override

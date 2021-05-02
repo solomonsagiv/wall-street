@@ -1,10 +1,10 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
+import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -176,9 +176,13 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.spx500_index");
-        tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.spx500_index_races");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.spx500_fut_races");
+        tablesNames.put(INDEX_BID_TABLE, "data.spx500_index_bid");
+        tablesNames.put(INDEX_ASK_TABLE, "data.spx500_index_ask");
+        tablesNames.put(OP_AVG_DAY_TABLE, "sagiv.spx500_op_avg_day");
+        tablesNames.put(OP_AVG_15_DAY_TABLE, "sagiv.spx500_op_avg_15_day");
+        tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter_cdf");
+        tablesNames.put(INDEX_RACES_TABLE, "sagiv.spx500_index_races_cdf");
+        tablesNames.put(FUT_RACES_TABLE, "sagiv.spx500_fut_races_cdf");
         tablesNames.put(FUT_DAY_TABLE, "data.spx500_fut_day");
         tablesNames.put(FUT_WEEK_TABLE, "data.spx500_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.spx500_fut_month");
@@ -193,22 +197,25 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     @Override
     public void updateInterests() {
-        // TODO
+        for (Exp exp : client.getExps().getExpList()) {
+            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
+                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
+        }
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_timestamp, DATA_SCHEME, "spx500_index");
-        insertListRetro(index_bid_timestamp, DATA_SCHEME, "spx500_index_bid");
-        insertListRetro(index_ask_timestamp, DATA_SCHEME, "spx500_index_ask");
-        insertListRetro(fut_day_timeStamp, DATA_SCHEME, "spx500_fut_day");
-        insertListRetro(fut_week_timeStamp, DATA_SCHEME, "spx500_fut_week");
-        insertListRetro(fut_month_timeStamp, DATA_SCHEME, "spx500_fut_month");
-        insertListRetro(fut_e1_timeStamp, DATA_SCHEME, "spx500_fut_e1");
-        insertListRetro(fut_e2_timeStamp, DATA_SCHEME, "spx500_fut_e2");
-        insertListRetro(ind_bid_ask_counter_timestamp, DATA_SCHEME, "spx500_index_bid_ask_counter");
-        insertListRetro(op_avg_fut_day_timestamp, SAGIV_SCHEME, "spx500_op_avg_day");
-        insertListRetro(op_avg_fut_day_15_timestamp, SAGIV_SCHEME, "spx500_op_avg_15_day");
-        insertListRetro(ind_races_timestamp, SAGIV_SCHEME, "spx500_index_races");
-        insertListRetro(fut_races_timestamp, SAGIV_SCHEME, "spx500_fut_races");
+        insertListRetro(index_timestamp, tablesNames.get(INDEX_TABLE));
+        insertListRetro(index_bid_timestamp, tablesNames.get(INDEX_BID_TABLE));
+        insertListRetro(index_ask_timestamp, tablesNames.get(INDEX_ASK_TABLE));
+        insertListRetro(fut_day_timeStamp, tablesNames.get(FUT_DAY_TABLE));
+        insertListRetro(fut_week_timeStamp, tablesNames.get(FUT_WEEK_TABLE));
+        insertListRetro(fut_month_timeStamp, tablesNames.get(FUT_MONTH_TABLE));
+        insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
+        insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
+        insertListRetro(ind_bid_ask_counter_timestamp, tablesNames.get(BID_ASK_COUNTER_TABLE));
+        insertListRetro(op_avg_fut_day_timestamp, tablesNames.get(OP_AVG_DAY_TABLE));
+        insertListRetro(op_avg_fut_day_15_timestamp, tablesNames.get(OP_AVG_15_DAY_TABLE));
+        insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
+        insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
     }
 }

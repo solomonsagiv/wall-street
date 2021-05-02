@@ -6,9 +6,6 @@ import locals.L;
 import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
-import java.awt.*;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +13,6 @@ public class ChartsHandler {
 
     public static void main(String[] args) {
         ChartsHandler chartsHandler = new ChartsHandler(Spx.getInstance());
-
         System.out.println(chartsHandler.getJsonData().toString(4));
     }
 
@@ -89,7 +85,6 @@ public class ChartsHandler {
             // Put in series json
             series_arr_json.put(series_type, serie_json);
         }
-
         return series_arr_json;
 
     }

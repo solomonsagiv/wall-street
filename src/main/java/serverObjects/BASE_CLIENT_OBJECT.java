@@ -200,6 +200,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.id_name = id_name;
     }
 
+    public String getId_name() {
+        return id_name;
+    }
+
     public int getIndexUp() {
         return indexUp;
     }

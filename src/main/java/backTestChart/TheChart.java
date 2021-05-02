@@ -4,7 +4,6 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import org.jfree.data.time.Second;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.time.LocalTime;
@@ -37,7 +36,7 @@ public class TheChart extends MyChartCreator {
         this.chartsNames = chartsNames;
         crateSeries();
     }
-
+    
     private void crateSeries() {
 
         for (int i = 0; i < chartsNames.length; i++) {
@@ -70,7 +69,6 @@ public class TheChart extends MyChartCreator {
                 serie.addOrUpdate(second, list.get(j));
             }
         }
-
 
     }
 

@@ -87,6 +87,7 @@ public class BasketFinder_3 extends MyBaseService {
 
     private void look_for_basket() {
         int volume_sum = (int) bigFrame.get_volume_sum();
+        changesCount = volume_sum;
 
         // If got enough changes
         if (volume_sum >= targetChanges) {
@@ -103,29 +104,6 @@ public class BasketFinder_3 extends MyBaseService {
 
     private void reset_data_after_basket() {
         bigFrame.reset_data_after_basket();
-    }
-
-    private int get_changed_count() {
-        // Reset params
-        int changesCount = 0;
-
-        // Look for changes
-        for (MiniStock stock : stocksHandler.getStocks()) {
-            try {
-
-                // If changed
-                if (stock.getVolume() > stock.getVol_0() && stock.getVolume() > 0 && stock.getVol_0() > 0) {
-                    changesCount++;
-                }
-
-                // Update pre volume
-                stock.setVolume_0(stock.getVolume());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return changesCount;
     }
 
     private double pre_index_price = 0;
@@ -165,9 +143,6 @@ public class BasketFinder_3 extends MyBaseService {
     }
 
     private class BigFrame {
-
-        private LocalTime start_time;
-        private LocalTime end_time;
 
         private ArrayList<IndexFrame> indexFrames;
         private ArrayList<VolumeFrame> volumeFrames;

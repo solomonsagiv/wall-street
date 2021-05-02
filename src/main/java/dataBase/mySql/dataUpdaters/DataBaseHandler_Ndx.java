@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
+import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -149,9 +150,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.ndx_index");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.ndx_index_races");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.ndx_fut_races");
-        tablesNames.put(BASKETS_TABLE, "data.ndx_baskets");
+        tablesNames.put(INDEX_RACES_TABLE, "sagiv.ndx_index_races_cdf");
+        tablesNames.put(FUT_RACES_TABLE, "sagiv.ndx_fut_races_cdf");
+        tablesNames.put(BASKETS_TABLE, "data.ndx_baskets_cdf");
         tablesNames.put(FUT_DAY_TABLE, "data.ndx_fut_day");
         tablesNames.put(FUT_WEEK_TABLE, "data.ndx_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.ndx_fut_month");
@@ -166,18 +167,21 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     @Override
     public void updateInterests() {
-        // TODO
+        for (Exp exp : client.getExps().getExpList()) {
+            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
+                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
+        }
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_timestamp, DATA_SCHEME, "ndx_index");
-        insertListRetro(fut_day_timeStamp, DATA_SCHEME, "ndx_fut_day");
-        insertListRetro(fut_week_timeStamp, DATA_SCHEME, "ndx_fut_week");
-        insertListRetro(fut_month_timeStamp, DATA_SCHEME, "ndx_fut_month");
-        insertListRetro(fut_e1_timeStamp, DATA_SCHEME, "ndx_fut_e1");
-        insertListRetro(fut_e2_timeStamp, DATA_SCHEME, "ndx_fut_e2");
-        insertListRetro(ind_races_timestamp, SAGIV_SCHEME, "ndx_index_races");
-        insertListRetro(fut_races_timestamp, SAGIV_SCHEME, "ndx_fut_races");
-        insertListRetro(baskets_timestamp, DATA_SCHEME,"ndx_baskets");
+        insertListRetro(index_timestamp,tablesNames.get(INDEX_TABLE));
+        insertListRetro(fut_day_timeStamp, tablesNames.get(FUT_DAY_TABLE));
+        insertListRetro(fut_week_timeStamp, tablesNames.get(FUT_WEEK_TABLE));
+        insertListRetro(fut_month_timeStamp,tablesNames.get(FUT_MONTH_TABLE));
+        insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
+        insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
+        insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
+        insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
+        insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
     }
 }

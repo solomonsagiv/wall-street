@@ -26,7 +26,7 @@ public class StocksHandler {
         stocks.add(new MiniStock(name, row));
 
     }
-
+    
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
