@@ -24,7 +24,6 @@ public class StocksHandler {
     public void addStock(String name, int row) {
         System.out.println("Stock added " + name);
         stocks.add(new MiniStock(name, row));
-
     }
     
     @Override

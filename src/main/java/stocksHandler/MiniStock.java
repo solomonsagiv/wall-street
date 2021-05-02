@@ -1,12 +1,20 @@
 package stocksHandler;
 
+import jxl.StringFormulaCell;
+
 public class MiniStock {
 
     private String name;
     private double lastPrice = 0;
     private double lastPrice_0 = 0;
+    private double bid = 0;
+    private double bid_0 = 0;
+    private double ask = 0;
+    private double ask_0 = 0;
     private double volume = 0;
     private double volume_0 = 0;
+    private double weight = 0;
+    private double delta = 0;
     private MiniStockDDECells ddeCells;
 
     public MiniStock(String name) {
@@ -24,6 +32,9 @@ public class MiniStock {
                 "name='" + name + '\'' +
                 ", lastPrice=" + lastPrice +
                 ", volume=" + volume +
+                ", bid=" + bid +
+                ", ask=" + ask +
+                ", weight=" + weight +
                 '}';
     }
 
@@ -67,8 +78,56 @@ public class MiniStock {
         return volume_0;
     }
 
+    public double getBid() {
+        return bid;
+    }
+
+    public void setBid(double bid) {
+        this.bid = bid;
+    }
+
+    public double getBid_0() {
+        return bid_0;
+    }
+
+    public void setBid_0(double bid_0) {
+        this.bid_0 = bid_0;
+    }
+
+    public double getAsk() {
+        return ask;
+    }
+
+    public void setAsk(double ask) {
+        this.ask = ask;
+    }
+
+    public double getAsk_0() {
+        return ask_0;
+    }
+
+    public void setAsk_0(double ask_0) {
+        this.ask_0 = ask_0;
+    }
+
+    public double getVolume_0() {
+        return volume_0;
+    }
+
     public MiniStockDDECells getDdeCells() {
         return ddeCells;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void append_delta(double delta) {
+        this.delta += delta;
     }
 
     // Cells
@@ -78,6 +137,9 @@ public class MiniStock {
         private String lastPriceCell = "R%sC27";
         private String volumeCell = "R%sC28";
         private String nameCell = "R%sC26";
+        private String bidCell = "R%sC29";
+        private String askCell = "R%sC30";
+        private String weightCell = "R%sC31";
         private int row;
 
         // Constructor
@@ -86,11 +148,22 @@ public class MiniStock {
             this.lastPriceCell = String.format(lastPriceCell, row);
             this.volumeCell = String.format(volumeCell, row);
             this.nameCell = String.format(nameCell, row);
+            this.bidCell = String.format(bidCell, row);
+            this.askCell = String.format(askCell, row);
+            this.weightCell = String.format(weightCell, row);
         }
 
         // Getters and Setters
         public String getLastPriceCell() {
             return lastPriceCell;
+        }
+
+        public String getBidCell() {
+            return bidCell;
+        }
+
+        public String getAskCell() {
+            return askCell;
         }
 
         public void setLastPriceCell(String lastPriceCell) {
@@ -119,6 +192,10 @@ public class MiniStock {
 
         public void setRow(int row) {
             this.row = row;
+        }
+
+        public String getWeightCell() {
+            return weightCell;
         }
 
     }

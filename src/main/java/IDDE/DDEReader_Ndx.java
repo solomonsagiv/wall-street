@@ -156,6 +156,8 @@ public class DDEReader_Ndx extends IDDEReader {
         for (MiniStock stock : client.getStocksHandler().getStocks()) {
             try {
                 stock.setLastPrice(L.dbl(conversation.request(stock.getDdeCells().getLastPriceCell())));
+                stock.setBid(L.dbl(conversation.request(stock.getDdeCells().getBidCell())));
+                stock.setAsk(L.dbl(conversation.request(stock.getDdeCells().getAskCell())));
                 stock.setVolume(L.dbl(conversation.request(stock.getDdeCells().getVolumeCell())));
             } catch (Exception e) {
                 e.printStackTrace();

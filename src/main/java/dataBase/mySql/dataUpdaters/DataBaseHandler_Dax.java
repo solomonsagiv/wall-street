@@ -170,7 +170,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
                     exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
         }
-
     }
 
     private void loadDDeCells() {

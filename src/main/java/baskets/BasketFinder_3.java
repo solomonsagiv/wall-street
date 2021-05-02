@@ -35,6 +35,7 @@ public class BasketFinder_3 extends MyBaseService {
 
     @Override
     public void go() {
+
         // Handle sleep
         sleep_count += getSleep();
 
@@ -58,7 +59,7 @@ public class BasketFinder_3 extends MyBaseService {
 
     private void append_volume_frame() {
         int last_change_count = find_volume_change_count();
-        bigFrame.append_volume(LocalTime.now(),last_change_count);
+        bigFrame.append_volume(LocalTime.now(), last_change_count);
     }
 
     private int find_volume_change_count() {
@@ -184,7 +185,7 @@ public class BasketFinder_3 extends MyBaseService {
                     change_abs = L.abs(index_frame.change);
                 }
             }
-            
+
             // Up or down
             return change > 0;
         }
@@ -208,12 +209,12 @@ public class BasketFinder_3 extends MyBaseService {
         public void reset_data_after_basket() {
             LocalTime end_time = volumeFrames.get(volumeFrames.size() - 1).time;
 
-            for (int i = 0; i < volumeFrames.size() -1; i++) {
+            for (int i = 0; i < volumeFrames.size() - 1; i++) {
                 volumeFrames.clear();
             }
 
-            for (IndexFrame index_frame: indexFrames) {
-                if ( index_frame.time.isBefore(end_time) ) {
+            for (IndexFrame index_frame : indexFrames) {
+                if (index_frame.time.isBefore(end_time)) {
                     indexFrames.remove(index_frame);
                 }
             }
