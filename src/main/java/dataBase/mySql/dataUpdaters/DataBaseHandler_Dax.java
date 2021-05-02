@@ -21,7 +21,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> ind_counter_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
-
+    
     double index_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;

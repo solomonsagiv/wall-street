@@ -16,6 +16,7 @@ public class TimeSeriesFactory {
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String INDEX_BID_ASK_COUNTER_SERIES = "INDEX_BID_ASK_COUNTER";
+    public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
     public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
     public static final String OP_AVG_15_SERIES = "OP_AVG_15";
@@ -139,6 +140,21 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
                 };
+
+            case "STOCKS_DELTA":
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public double getData() {
+                        return client.getStocksHandler().getDelta();
+                    }
+
+                    @Override
+                    public void load_data() {
+                        // TODO
+                    }
+
+                };
+
             case "BASKETS":
                 return new MyTimeSeries(series_type, client) {
                     @Override

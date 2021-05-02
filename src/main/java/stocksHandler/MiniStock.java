@@ -1,7 +1,5 @@
 package stocksHandler;
 
-import jxl.StringFormulaCell;
-
 public class MiniStock {
 
     private String name;
@@ -12,7 +10,8 @@ public class MiniStock {
     private double ask = 0;
     private double ask_0 = 0;
     private double volume = 0;
-    private double volume_0 = 0;
+    private double volume_0_for_baskets = 0;
+    private double volume_0_for_delta = 0;
     private double weight = 0;
     private double delta = 0;
     private MiniStockDDECells ddeCells;
@@ -62,8 +61,8 @@ public class MiniStock {
         return lastPrice_0;
     }
 
-    public void setVolume_0(double volume_0) {
-        this.volume_0 = volume_0;
+    public void setVolume_0_for_baskets(double volume_0_for_baskets) {
+        this.volume_0_for_baskets = volume_0_for_baskets;
     }
 
     public double getVolume() {
@@ -75,7 +74,7 @@ public class MiniStock {
     }
 
     public double getVol_0() {
-        return volume_0;
+        return volume_0_for_baskets;
     }
 
     public double getBid() {
@@ -110,8 +109,17 @@ public class MiniStock {
         this.ask_0 = ask_0;
     }
 
-    public double getVolume_0() {
-        return volume_0;
+    public double getVolume_0_for_baskets() {
+        return volume_0_for_baskets;
+    }
+
+
+    public double getVolume_0_for_delta() {
+        return volume_0_for_delta;
+    }
+
+    public double getDelta() {
+        return delta;
     }
 
     public MiniStockDDECells getDdeCells() {
@@ -124,6 +132,10 @@ public class MiniStock {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public void setVolume_0_for_delta(double volume_0_for_delta) {
+        this.volume_0_for_delta = volume_0_for_delta;
     }
 
     public void append_delta(double delta) {
@@ -197,6 +209,8 @@ public class MiniStock {
         public String getWeightCell() {
             return weightCell;
         }
+
+
 
     }
 

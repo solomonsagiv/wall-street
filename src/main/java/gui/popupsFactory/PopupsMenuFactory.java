@@ -3,6 +3,7 @@ package gui.popupsFactory;
 import charts.myCharts.Full_Charts;
 import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
+import charts.myCharts.StocksDeltaChart;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import setting.clientSetting.SettingWindow;
@@ -59,6 +60,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem stocks_delta_itam = new JMenuItem("Stocks delta");
+        stocks_delta_itam.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StocksDeltaChart chart = new StocksDeltaChart(client);
+                chart.createChart();
+            }
+        });
+
         // Export menu
         JMenu export = new JMenu("Export");
 
@@ -96,6 +106,7 @@ public class PopupsMenuFactory {
         charts.add(threeFut);
         charts.add(fullCharts);
         charts.add(baskets);
+        charts.add(stocks_delta_itam);
 
         menu.add(details);
         menu.add(settingWindow);

@@ -25,7 +25,15 @@ public class StocksHandler {
         System.out.println("Stock added " + name);
         stocks.add(new MiniStock(name, row));
     }
-    
+
+    public double getDelta() {
+        double delta = 0;
+        for (MiniStock stock : getStocks() ) {
+            delta += stock.getDelta();
+        }
+        return delta;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

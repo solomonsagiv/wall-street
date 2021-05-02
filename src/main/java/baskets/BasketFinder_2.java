@@ -79,7 +79,7 @@ public class BasketFinder_2 extends MyBaseService {
                 }
 
                 // Update pre volume
-                stock.setVolume_0(stock.getVolume());
+                stock.setVolume_0_for_baskets(stock.getVolume());
 
             } catch (Exception e) {
                 e.printStackTrace();

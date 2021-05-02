@@ -76,7 +76,7 @@ public class BasketFinder_3 extends MyBaseService {
                 }
 
                 // Update pre volume
-                stock.setVolume_0(stock.getVolume());
+                stock.setVolume_0_for_baskets(stock.getVolume());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -102,7 +102,6 @@ public class BasketFinder_3 extends MyBaseService {
             }
         }
     }
-
     private void reset_data_after_basket() {
         bigFrame.reset_data_after_basket();
     }
