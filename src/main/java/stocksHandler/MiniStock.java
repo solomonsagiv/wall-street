@@ -210,8 +210,6 @@ public class MiniStock {
             return weightCell;
         }
 
-
-
     }
 
 }
