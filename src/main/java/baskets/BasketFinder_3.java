@@ -102,6 +102,7 @@ public class BasketFinder_3 extends MyBaseService {
             }
         }
     }
+
     private void reset_data_after_basket() {
         bigFrame.reset_data_after_basket();
     }

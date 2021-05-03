@@ -43,7 +43,6 @@ public class DDEReader_Dax extends IDDEReader {
     String q1_days_cell = "R40C7";
     String q2_days_cell = "R41C7";
 
-
     // Constructor
     public DDEReader_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -105,7 +104,6 @@ public class DDEReader_Dax extends IDDEReader {
 
         // Stocks
         updateStocks(conversation);
-
     }
 
     @Override
@@ -142,7 +140,6 @@ public class DDEReader_Dax extends IDDEReader {
         } catch (DDEException e) {
             e.printStackTrace();
         }
-
     }
 
     private void updateStocks(DDEClientConversation conversation) {

@@ -190,7 +190,7 @@ public abstract class IDataBaseHandler {
         if (list.size() > 0) {
 
             // Create the query
-            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s.%s (time, value) VALUES ");
+            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value) VALUES ");
             int last_item_id = list.get(list.size() - 1).hashCode();
             for (MyTimeStampObject row : list) {
                 queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", row.getInstant(), row.getValue()));
