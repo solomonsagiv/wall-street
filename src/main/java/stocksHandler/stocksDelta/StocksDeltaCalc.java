@@ -22,10 +22,6 @@ public class StocksDeltaCalc extends MyBaseService {
             // For each stock
             for (MiniStock stock : stocksHandler.getStocks()) {
 
-                if (stock.getVolume_0_for_delta() == 0) {
-                    stock.setVolume_0_for_delta(stock.getVolume());
-                }
-
                 // Check volume
                 double volume_quantity = stock.getVolume() - stock.getVolume_0_for_delta();
                 if (volume_quantity > 0) {
