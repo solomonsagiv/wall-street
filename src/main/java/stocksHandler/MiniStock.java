@@ -115,7 +115,7 @@ public class MiniStock {
 
 
     public double getVolume_0_for_delta() {
-        return volume_0_for_delta;
+        return volume_0_for_delta == 0 ? volume : volume_0_for_delta;
     }
 
     public double getDelta() {
@@ -209,8 +209,6 @@ public class MiniStock {
         public String getWeightCell() {
             return weightCell;
         }
-
-
 
     }
 

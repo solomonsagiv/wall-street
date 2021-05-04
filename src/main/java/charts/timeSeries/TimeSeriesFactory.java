@@ -87,8 +87,8 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_data() {
                         // TODO
-//                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
-//                        IDataBaseHandler.loadSerieData(rs, this, "cumu");
+                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
+                        IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
                 };
             case "INDEX_RACES":

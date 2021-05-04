@@ -32,6 +32,7 @@ public abstract class IDataBaseHandler {
     public static final int INDEX_ASK_TABLE = 22;
     public static final int OP_AVG_DAY_TABLE = 23;
     public static final int OP_AVG_15_DAY_TABLE = 24;
+    public static final int INDEX_DELTA_TABLE = 25;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
@@ -40,6 +41,7 @@ public abstract class IDataBaseHandler {
     public static final int FUT_RACES_TYPE = 3;
     public static final int BASKETS_TYPE = 4;
     public static final int OP_AVG_TYPE = 5;
+    public static final int INDEX_DELTA_TYPE = 6;
 
     final String DATA_SCHEME = "data";
     final String SAGIV_SCHEME = "sagiv";
@@ -156,6 +158,23 @@ public abstract class IDataBaseHandler {
             }
         }
 
+        // FUT RACES
+        if (type == INDEX_DELTA_TYPE) {
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+
+                    int value = rs.getInt(2);
+                    client.setIndexBidAskCounter(value);
+
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
+
+
         // OP AVG
         if (type == OP_AVG_TYPE) {
             try {
@@ -226,7 +245,6 @@ public abstract class IDataBaseHandler {
 //                if (  ) {
 //
 //                }
-
 
 
             } catch (SQLException throwables) {
