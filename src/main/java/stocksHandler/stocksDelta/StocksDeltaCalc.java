@@ -28,12 +28,17 @@ public class StocksDeltaCalc extends MyBaseService {
                     double delta = 0;
                     // Buy
                     if (stock.getLastPrice() >= stock.getAsk_0()) {
-                        delta = volume_quantity * stock.getWeight();
+                        double stockWorth = client.getIndex() * stock.getWeight();
+                        double money = (volume_quantity * stock.getLastPrice());
+                        delta = (money / stockWorth) * stock.getWeight();
                     }
 
                     // Sell
                     if (stock.getLastPrice() <= stock.getBid_0()) {
-                        delta = volume_quantity * stock.getWeight() * -1;
+                        double stockWorth = client.getIndex() * stock.getWeight();
+                        double money = (volume_quantity * stock.getLastPrice());
+                        delta = (money / stockWorth) * stock.getWeight();
+                        delta *= -1;
                     }
 
                     // Append delta
