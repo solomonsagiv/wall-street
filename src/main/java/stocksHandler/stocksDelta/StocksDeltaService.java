@@ -47,6 +47,11 @@ public class StocksDeltaService extends MyBaseService {
 //                    System.out.println(stock.getName().replace("\\s+",""));
 
                     if (stock.getName().replace("\\s+","").contains("SAP GY Equity")) {
+
+
+                        ddd
+
+
                         System.out.println();
                         System.out.println(LocalTime.now());
                         System.out.println("Last " + stock.getLastPrice());
