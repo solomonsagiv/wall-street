@@ -5,12 +5,14 @@ import service.MyBaseService;
 import stocksHandler.MiniStock;
 import stocksHandler.StocksHandler;
 
-public class StocksDeltaCalc extends MyBaseService {
+import java.time.LocalTime;
+
+public class StocksDeltaService extends MyBaseService {
 
     BASE_CLIENT_OBJECT client;
     StocksHandler stocksHandler;
 
-    public StocksDeltaCalc(BASE_CLIENT_OBJECT client) {
+    public StocksDeltaService(BASE_CLIENT_OBJECT client) {
         super(client);
         this.client = client;
         this.stocksHandler = client.getStocksHandler();
@@ -21,31 +23,46 @@ public class StocksDeltaCalc extends MyBaseService {
         try {
             // For each stock
             for (MiniStock stock : stocksHandler.getStocks()) {
-
                 // Check volume
                 double volume_quantity = stock.getVolume() - stock.getVolume_0_for_delta();
                 if (volume_quantity > 0) {
                     double delta = 0;
                     // Buy
-                    if (stock.getLastPrice() >= stock.getAsk_0()) {
-                        double stockWorth = client.getIndex() * stock.getWeight();
-                        double money = (volume_quantity * stock.getLastPrice());
-                        delta = (money / stockWorth) * stock.getWeight();
+                    if (stock.getLastPrice() >= stock.getAsk_0_for_delta()) {
+                        delta = volume_quantity * stock.getWeight();
                     }
-
+                                                                                                
                     // Sell
-                    if (stock.getLastPrice() <= stock.getBid_0()) {
-                        double stockWorth = client.getIndex() * stock.getWeight();
-                        double money = (volume_quantity * stock.getLastPrice());
-                        delta = (money / stockWorth) * stock.getWeight();
-                        delta *= -1;
+                    if (stock.getLastPrice() <= stock.getBid_0_for_delta()) {
+                        delta = volume_quantity * stock.getWeight() * -1;
                     }
 
                     // Append delta
                     stock.append_delta(delta);
                     stock.setVolume_0_for_delta(stock.getVolume());
-                    stock.setBid_0(stock.getBid());
-                    stock.setAsk_0(stock.getAsk());
+                    stock.setBid_0_for_delta(stock.getBid());
+                    stock.setAsk_0_for_delta(stock.getAsk());
+
+
+//                    System.out.println(stock.getName().replace("\\s+",""));
+
+                    if (stock.getName().replace("\\s+","").contains("SAP GY Equity")) {
+
+
+                        ddd
+
+
+                        System.out.println();
+                        System.out.println(LocalTime.now());
+                        System.out.println("Last " + stock.getLastPrice());
+                        System.out.println("Bid " + stock.getBid_0_for_delta());
+                        System.out.println("Ask " + stock.getAsk_0_for_delta());
+                        System.out.println("Q  " + volume_quantity);
+                        System.out.println("Delta " + delta);
+                    }
+
+
+
                 }
             }
         } catch (Exception e) {
