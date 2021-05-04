@@ -29,12 +29,17 @@ public class StocksDeltaService extends MyBaseService {
                     double delta = 0;
                     // Buy
                     if (stock.getLastPrice() >= stock.getAsk_0_for_delta()) {
-                        delta = volume_quantity * stock.getWeight();
+                        double stockWorth= client.getIndex() * 100 * stock.getWeight();
+                        double money = (volume_quantity * stock.getLastPrice());
+                        delta = (money / stockWorth) * stock.getWeight();
                     }
                                                                                                 
                     // Sell
                     if (stock.getLastPrice() <= stock.getBid_0_for_delta()) {
-                        delta = volume_quantity * stock.getWeight() * -1;
+                        double stockWorth= client.getIndex() * 100 * stock.getWeight();
+                        double money = (volume_quantity * stock.getLastPrice());
+                        delta = (money / stockWorth) * stock.getWeight();
+                        delta *= -1;
                     }
 
                     // Append delta
@@ -47,10 +52,6 @@ public class StocksDeltaService extends MyBaseService {
 //                    System.out.println(stock.getName().replace("\\s+",""));
 
                     if (stock.getName().replace("\\s+","").contains("SAP GY Equity")) {
-
-
-                        ddd
-
 
                         System.out.println();
                         System.out.println(LocalTime.now());
