@@ -18,6 +18,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
+import stocksHandler.stocksDelta.StocksDeltaService;
 import threads.MyThread;
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
@@ -40,6 +41,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     protected double indBidMarginCounter = 0;
     protected double indAskMarginCounter = 0;
+
+    // Stocks delta
+    StocksDeltaService stocksDeltaService;
 
     // Roll
     protected RollHandler rollHandler;
@@ -577,6 +581,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             ddeCells = new DDECellsBloomberg();
         }
         return ddeCells;
+    }
+
+    public StocksDeltaService getStocksDeltaService() {
+        return stocksDeltaService;
+    }
+
+    public void setStocksDeltaService(StocksDeltaService stocksDeltaService) {
+        this.stocksDeltaService = stocksDeltaService;
     }
 
     public void setDdeCells(DDECells ddeCells) {
