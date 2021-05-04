@@ -6,9 +6,9 @@ public class MiniStock {
     private double lastPrice = 0;
     private double lastPrice_0 = 0;
     private double bid = 0;
-    private double bid_0 = 0;
+    private double bid_0_for_delta = 0;
     private double ask = 0;
-    private double ask_0 = 0;
+    private double ask_0_for_delta = 0;
     private double volume = 0;
     private double volume_0_for_baskets = 0;
     private double volume_0_for_delta = 0;
@@ -85,12 +85,12 @@ public class MiniStock {
         this.bid = bid;
     }
 
-    public double getBid_0() {
-        return bid_0;
+    public double getBid_0_for_delta() {
+        return bid_0_for_delta;
     }
 
-    public void setBid_0(double bid_0) {
-        this.bid_0 = bid_0;
+    public void setBid_0_for_delta(double bid_0_for_delta) {
+        this.bid_0_for_delta = bid_0_for_delta;
     }
 
     public double getAsk() {
@@ -101,12 +101,12 @@ public class MiniStock {
         this.ask = ask;
     }
 
-    public double getAsk_0() {
-        return ask_0;
+    public double getAsk_0_for_delta() {
+        return ask_0_for_delta;
     }
 
-    public void setAsk_0(double ask_0) {
-        this.ask_0 = ask_0;
+    public void setAsk_0_for_delta(double ask_0_for_delta) {
+        this.ask_0_for_delta = ask_0_for_delta;
     }
 
     public double getVolume_0_for_baskets() {

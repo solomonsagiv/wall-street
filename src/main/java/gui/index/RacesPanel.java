@@ -80,7 +80,6 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
         bidAskCounterField.setWidth(40);
         bidAskCounterField.setXY(indField.getX(), indField.getY() + indField.getHeight());
         body.add(bidAskCounterField);
-
     }
 
     @Override
