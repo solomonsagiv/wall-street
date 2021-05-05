@@ -142,6 +142,7 @@ public abstract class IDataBaseHandler {
                 try {
                     if (!rs.next()) break;
 
+                    d
                     int value = rs.getInt("value");
 
                     if (value == 1) {
