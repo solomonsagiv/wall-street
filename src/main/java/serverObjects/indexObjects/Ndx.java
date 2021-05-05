@@ -8,6 +8,7 @@ import baskets.BasketFinder;
 import baskets.BasketFinder_2;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
+import charts.myCharts.Index_baskets_chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.E;
@@ -113,6 +114,9 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         if (Manifest.OPEN_CHARTS) {
             FuturesChart chart = new FuturesChart(this, null, null);
             chart.createChart();
+
+            Index_baskets_chart basketsChart = new Index_baskets_chart(this);
+            basketsChart.createChart();
         }
     }
 

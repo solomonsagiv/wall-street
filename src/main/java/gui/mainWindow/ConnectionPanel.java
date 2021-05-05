@@ -11,6 +11,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+import serverObjects.indexObjects.StockX;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,11 +102,13 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     case "NDX":
                         client = Ndx.getInstance();
                         break;
+                    case "STOCKX":
+                        client = StockX.getInstance();
+                        break;
                     default:
                         client = Spx.getInstance();
                         break;
                 }
-
                 excelLocationField.setText(client.getDdeHandler().getPath());
             }
         });
@@ -120,7 +123,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
-
     }
 
     public void connectAll() {

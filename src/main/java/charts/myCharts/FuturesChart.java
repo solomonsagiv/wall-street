@@ -23,7 +23,6 @@ public class FuturesChart extends MyChartCreator {
 
     MyChart[] charts;
 
-
     @Override
     public void createChart() {
 
@@ -90,10 +89,10 @@ public class FuturesChart extends MyChartCreator {
 
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
-        greens.add(Themes.DARK_GREEN);
+        greens.add(Themes.GREEN_LIGHT_4);
+        greens.add(Themes.GREEN_LIGHT_3);
         greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN_LIGHT);
-        greens.add(Themes.GREEN_LIGHT_2);
+        greens.add(Themes.GREEN);
         greens.add(Themes.GREEN_LIGHT_3);
 
         int i = 0;
@@ -107,9 +106,7 @@ public class FuturesChart extends MyChartCreator {
                 }
 
                 @Override
-                public void load_data() {
-
-                }
+                public void load_data() {}
             };
 
             myTimeSerie.setStokeSize(2.25f);
@@ -148,6 +145,5 @@ public class FuturesChart extends MyChartCreator {
         }
         return arr;
     }
-
 
 }

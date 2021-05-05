@@ -1,17 +1,12 @@
 package serverObjects.indexObjects;
 
-import IDDE.DDEHandler;
-import IDDE.DDEReader_Dax;
-import IDDE.DDEWriter_Dax;
+import IDDE.*;
 import api.Manifest;
-import baskets.BasketFinder;
-import baskets.BasketFinder_2;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
-import charts.myCharts.StocksDeltaChart;
 import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
+import dataBase.mySql.dataUpdaters.DataBaseHandler_StockX;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
@@ -26,31 +21,31 @@ import stocksHandler.stocksDelta.StocksDeltaService;
 
 import java.time.LocalTime;
 
-public class Dax extends INDEX_CLIENT_OBJECT {
+public class StockX extends INDEX_CLIENT_OBJECT {
 
-    static Dax client = null;
+    static StockX client = null;
 
     // Constructor
-    public Dax() {
-        setName("dax");
-        setId_name("dax");
+    public StockX() {
+        setName("stockX");
+        setId_name("stockX");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
         setIndexStartTime(LocalTime.of(10, 0, 20));
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
-        setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
+        setMySqlService(new MySqlService(this, new DataBaseHandler_StockX(this)));
         setStocksDeltaService(new StocksDeltaService(this));
-        setBasketFinder(new BasketFinder_3(this, 24, 3));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Dax"));
+        setBasketFinder(new BasketFinder_3(this, 40, 3));
+        setDdeHandler(new DDEHandler(this, new DDEReader_StockX(this), new DDEWriter_StockX(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]StockX"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
 
     // get instance
-    public static Dax getInstance() {
+    public static StockX getInstance() {
         if (client == null) {
-            client = new Dax();
+            client = new StockX();
         }
         return client;
     }
@@ -118,11 +113,8 @@ public class Dax extends INDEX_CLIENT_OBJECT {
             FuturesChart chart = new FuturesChart(this, null, null);
             chart.createChart();
 
-            Index_baskets_chart basketsChart = new Index_baskets_chart(this);
+            Index_baskets_chart basketsChart =  new Index_baskets_chart(this);
             basketsChart.createChart();
-
-            StocksDeltaChart stocksDeltaChart = new StocksDeltaChart(this);
-            stocksDeltaChart.createChart();
         }
     }
 

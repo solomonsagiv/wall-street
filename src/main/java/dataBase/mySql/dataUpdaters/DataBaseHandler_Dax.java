@@ -21,7 +21,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> ind_counter_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
-    
+    ArrayList<MyTimeStampObject> index_delta_timestamp = new ArrayList<>();
+
     double index_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;
@@ -30,6 +31,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double ind_counter_0;
     double fut_races_0 = 0;
     double baskets_0 = 0;
+    double index_delta_0 = 0;
 
     Exps exps;
 
@@ -117,6 +119,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
+        // Index delta
+        double index_delta = client.getStocksHandler().getDelta();
+
+        if (index_delta != index_delta_0) {
+            double last_count = index_delta - index_delta_0;
+            index_delta_0 = index_delta;
+            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
         // --------------- Raw data --------------- //
         // Fut e1
 //        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
@@ -125,7 +136,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 //            fut_e1_0 = fut_e1;
 //            fut_e1_timeStamp.add( new MyTimeStampObject( Instant.now( ), fut_e1_0 ) );
 //        }
-
 
         // Update count
         sleep_count += sleep;
@@ -153,6 +163,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races_cdf");
         tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races_cdf");
         tablesNames.put(BASKETS_TABLE, "data.dax_baskets_cdf");
+        tablesNames.put(INDEX_DELTA_TABLE, "data.dax_index_delta_cdf");
         tablesNames.put(FUT_WEEK_TABLE, "data.dax_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.dax_fut_month");
         tablesNames.put(FUT_Q1_TABLE, "data.dax_fut_gx1");
@@ -195,5 +206,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insertListRetro(ind_counter_timestamp, tablesNames.get(INDEX_RACES_TABLE));
         insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
+        insertListRetro(index_delta_timestamp, tablesNames.get(INDEX_DELTA_TABLE));
     }
 }

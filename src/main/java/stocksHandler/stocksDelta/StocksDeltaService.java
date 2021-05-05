@@ -12,6 +12,8 @@ public class StocksDeltaService extends MyBaseService {
     BASE_CLIENT_OBJECT client;
     StocksHandler stocksHandler;
 
+
+
     public StocksDeltaService(BASE_CLIENT_OBJECT client) {
         super(client);
         this.client = client;
@@ -61,9 +63,6 @@ public class StocksDeltaService extends MyBaseService {
                         System.out.println("Q  " + volume_quantity);
                         System.out.println("Delta " + delta);
                     }
-
-
-
                 }
             }
         } catch (Exception e) {

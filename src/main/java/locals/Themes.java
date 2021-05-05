@@ -31,11 +31,11 @@ public class Themes {
     public static Color BLUE = new Color(0, 51, 102);
     public static Color LIGHT_BLUE = new Color(176, 196, 222);
     public static Color VERY_LIGHT_BLUE = new Color(235, 228, 235);
-    public static Color DARK_GREEN = new Color(41, 114, 25);
+    public static Color GREEN_LIGHT_4 = new Color(118, 163, 105);
     public static Color GREEN = new Color(59, 147, 82);
-    public static Color GREEN_LIGHT = new Color(33, 160, 18);
-    public static Color GREEN_LIGHT_2 = new Color(56, 160, 34);
-    public static Color GREEN_LIGHT_3 = new Color(35, 189, 53);
+    public static Color GREEN_LIGHT = new Color(59, 161, 45);
+    public static Color GREEN_LIGHT_2 = new Color(114, 187, 104);
+    public static Color GREEN_LIGHT_3 = new Color(144, 182, 150);
     public static Color RED = new Color(229, 19, 0);
     public static Color PINK_LIGHT = new Color(255, 124, 176);
 

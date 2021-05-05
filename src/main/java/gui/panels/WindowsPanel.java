@@ -8,6 +8,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+import serverObjects.indexObjects.StockX;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,12 +49,14 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "NDX":
                         new IndexWindow("Ndx window", Ndx.getInstance());
                         break;
+                    case "STOCKX":
+                        new IndexWindow("StockX window", StockX.getInstance());
+                        break;
                     default:
                         break;
                 }
             }
         });
-
     }
 
     private void initialize() {

@@ -8,10 +8,10 @@ import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.StockX;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
@@ -19,16 +19,13 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Spx spx;
     static Dax dax;
     static Ndx ndx;
+    static StockX stockX;
     
     static {
         dax = Dax.getInstance();
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
-
-//        apple = Apple.getInstance();
-//        amazon = Amazon.getInstance();
-//        netflix = Netflix.getInstance();
-//        microsoft = Microsoft.getInstance();
+        stockX = StockX.getInstance();
     }
 
     // Variables
@@ -43,20 +40,15 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     // Main
     public static void main(String[] args) {
-        MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println();
+        new MyMainWindow("My main window");
     }
 
     private void appendClients() {
         LocalHandler.clients.add(dax);
         LocalHandler.clients.add(spx);
-//        LocalHandler.clients.add( ndx );
-//        LocalHandler.clients.add(apple);
-//        LocalHandler.clients.add(amazon);
-//        LocalHandler.clients.add(netflix);
-//        LocalHandler.clients.add(microsoft);
+        LocalHandler.clients.add( ndx );
+        LocalHandler.clients.add(stockX);
     }
-
 
     @Override
     public void onClose() {
