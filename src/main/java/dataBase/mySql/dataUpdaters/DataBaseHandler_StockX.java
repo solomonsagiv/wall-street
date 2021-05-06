@@ -158,7 +158,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.stockx_fut_q2");
     }
 
-    @Override
+    @Override1
     protected void open_chart_on_start() {
         //todo
     }

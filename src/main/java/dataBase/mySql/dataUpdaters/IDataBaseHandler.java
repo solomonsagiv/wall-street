@@ -142,7 +142,6 @@ public abstract class IDataBaseHandler {
                 try {
                     if (!rs.next()) break;
 
-                    d
                     int value = rs.getInt("value");
 
                     if (value == 1) {
@@ -168,13 +167,11 @@ public abstract class IDataBaseHandler {
                     int value = rs.getInt(2);
                     client.setIndexBidAskCounter(value);
 
-
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
         }
-
 
         // OP AVG
         if (type == OP_AVG_TYPE) {
