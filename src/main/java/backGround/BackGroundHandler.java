@@ -48,9 +48,11 @@ public class BackGroundHandler {
     private class BackRunner extends MyThread implements Runnable {
 
         boolean run = true;
-        double last_0 = client.getIndex();
+        double last_0 = 0;
         boolean runnersClosed = false;
         LocalTime now;
+
+        int lastChangeCountToStart = 0;
 
         public BackRunner(BASE_CLIENT_OBJECT client) {
             super(client);
@@ -69,8 +71,13 @@ public class BackGroundHandler {
 
                     double last = client.getIndex();
 
+                    if (last != last_0) {
+                        last_0 = last;
+                        lastChangeCountToStart++;
+                    }
+
                     // Index start time
-                    if (now.isAfter(client.getIndexStartTime()) && !client.isStarted() && last_0 != last) {
+                    if (now.isAfter(client.getIndexStartTime()) && !client.isStarted() && lastChangeCountToStart >= 2) {
                         if (client.getOpen() == 0) {
                             client.setOpen(last);
                         }

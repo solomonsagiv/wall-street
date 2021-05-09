@@ -27,11 +27,11 @@ public class StockX extends INDEX_CLIENT_OBJECT {
 
     // Constructor
     public StockX() {
-        setName("stockX");
-        setId_name("stockX");
+        setName("stockx");
+        setId_name("stockx");
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
-        setIndexStartTime(LocalTime.of(10, 0, 20));
+        setIndexStartTime(LocalTime.of(10, 0, 10));
         setIndexEndTime(LocalTime.of(18, 30, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_StockX(this)));

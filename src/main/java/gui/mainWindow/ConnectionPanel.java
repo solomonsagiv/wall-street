@@ -145,6 +145,9 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             }  // Ndx
             else if (clientComboBox.getSelectedItem().equals("NDX")) {
                 registerClient(Ndx.getInstance());
+            }  // Stockx
+            else if (clientComboBox.getSelectedItem().equals("STOCKX")) {
+                registerClient(StockX.getInstance());
             }
 
             ddeStatusLbl.setForeground(Themes.GREEN);

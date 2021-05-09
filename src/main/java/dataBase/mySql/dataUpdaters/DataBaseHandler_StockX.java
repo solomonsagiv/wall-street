@@ -18,7 +18,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> ind_counter_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> ind_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
     double fut_month_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-    double ind_counter_0;
+    double ind_races_0;
     double fut_races_0 = 0;
     double baskets_0 = 0;
 
@@ -93,10 +93,10 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
 
         // Races ind counter
         double ind_counter = client.getIndexSum();
-        if (ind_counter != ind_counter_0) {
-            double change = ind_counter - ind_counter_0;
-            ind_counter_0 = ind_counter;
-            ind_counter_timestamp.add(new MyTimeStampObject(Instant.now(), change));
+        if (ind_counter != ind_races_0) {
+            double change = ind_counter - ind_races_0;
+            ind_races_0 = ind_counter;
+            ind_races_timestamp.add(new MyTimeStampObject(Instant.now(), change));
         }
 
         // Races fut counter
@@ -191,7 +191,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
         insertListRetro(fut_month_timeStamp, tablesNames.get(FUT_MONTH_TABLE));
         insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
-        insertListRetro(ind_counter_timestamp, tablesNames.get(INDEX_RACES_TABLE));
+        insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
         insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
     }

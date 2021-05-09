@@ -108,8 +108,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
     @Override
     public void updateText() {
         try {
-            System.out.println("Update !!!!!!!!!!");
-
             tickerPanel.updateText();
             racesPanel.updateText();
             basketsPanel.updateText();

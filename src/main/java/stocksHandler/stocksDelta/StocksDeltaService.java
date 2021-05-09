@@ -37,7 +37,7 @@ public class StocksDeltaService extends MyBaseService {
                         double money = (volume_quantity * stock.getLastPrice());
                         delta = (money / stockWorth) * stock.getWeight();
                     }
-                                                                                                
+
                     // Sell
                     if (stock.getLastPrice() <= stock.getBid_0_for_delta()) {
                         double stockWorth= client.getIndex() * 100 * stock.getWeight();
