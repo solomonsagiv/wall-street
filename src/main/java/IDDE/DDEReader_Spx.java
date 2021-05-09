@@ -58,6 +58,7 @@ public class DDEReader_Spx extends IDDEReader {
         client.setIndexAsk(requestDouble(indAskCell, conversation));
 
         // Ticker
+        client.setOpen(requestDouble(openCell, conversation));
         client.setHigh(requestDouble(highCell, conversation));
         client.setLow(requestDouble(lowCell, conversation));
         client.setBase(requestDouble(baseCell, conversation));
@@ -106,7 +107,6 @@ public class DDEReader_Spx extends IDDEReader {
             q2.setInterest(requestDouble(q2_interest_cell, conversation));
             q2.setDividend(requestDouble(q2_div_cell, conversation));
             q2.setDays_to_exp(requestDouble(q2_days_cell, conversation));
-
 
             conversation.disconnect();
         } catch (DDEException e) {
