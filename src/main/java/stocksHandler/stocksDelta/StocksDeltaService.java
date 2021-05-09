@@ -5,12 +5,10 @@ import service.MyBaseService;
 import stocksHandler.MiniStock;
 import stocksHandler.StocksHandler;
 
-import java.time.LocalTime;
-
 public class StocksDeltaService extends MyBaseService {
 
-    BASE_CLIENT_OBJECT client;
-    StocksHandler stocksHandler;
+    private BASE_CLIENT_OBJECT client;
+    private StocksHandler stocksHandler;
 
 
 
@@ -23,8 +21,12 @@ public class StocksDeltaService extends MyBaseService {
     @Override
     public void go() {
         try {
+
+            double sum_delta = 0;
+
             // For each stock
             for (MiniStock stock : stocksHandler.getStocks()) {
+
                 // Check volume
                 double volume_quantity = stock.getVolume() - stock.getVolume_0_for_delta();
                 if (volume_quantity > 0) {
@@ -46,25 +48,29 @@ public class StocksDeltaService extends MyBaseService {
 
                     // Append delta
                     stock.append_delta(delta);
+
                     stock.setVolume_0_for_delta(stock.getVolume());
                     stock.setBid_0_for_delta(stock.getBid());
                     stock.setAsk_0_for_delta(stock.getAsk());
 
-
+                    sum_delta += delta;
 //                    System.out.println(stock.getName().replace("\\s+",""));
 
-                    if (stock.getName().replace("\\s+","").contains("SAP GY Equity")) {
-
-                        System.out.println();
-                        System.out.println(LocalTime.now());
-                        System.out.println("Last " + stock.getLastPrice());
-                        System.out.println("Bid " + stock.getBid_0_for_delta());
-                        System.out.println("Ask " + stock.getAsk_0_for_delta());
-                        System.out.println("Q  " + volume_quantity);
-                        System.out.println("Delta " + delta);
-                    }
+//                    if (stock.getName().replace("\\s+","").contains("SAP GY Equity")) {
+//
+//                        System.out.println();
+//                        System.out.println(LocalTime.now());
+//                        System.out.println("Last " + stock.getLastPrice());
+//                        System.out.println("Bid " + stock.getBid_0_for_delta());
+//                        System.out.println("Ask " + stock.getAsk_0_for_delta());
+//                        System.out.println("Q  " + volume_quantity);
+//                        System.out.println("Delta " + delta);
+//                    }
                 }
             }
+
+            // Append delta
+            stocksHandler.append_delta(sum_delta);
         } catch (Exception e) {
             e.printStackTrace();
         }

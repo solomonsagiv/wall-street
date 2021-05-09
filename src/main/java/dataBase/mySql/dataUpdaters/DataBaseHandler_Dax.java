@@ -125,8 +125,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         if (index_delta != index_delta_0) {
             double last_count = index_delta - index_delta_0;
             index_delta_0 = index_delta;
-            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            index_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
+
 
         // --------------- Raw data --------------- //
         // Fut e1
@@ -154,12 +155,17 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         //  RACES
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
-        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, FUT_RACES_TYPE);
+
+
+        // INDEX DELTA
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_DELTA_TABLE)), client, null, INDEX_DELTA_TYPE);
     }
 
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.dax_index");
+        tablesNames.put(INDEX_DELTA_TABLE, "data.dax_index_delta");
         tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races_cdf");
         tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races_cdf");
         tablesNames.put(BASKETS_TABLE, "data.dax_baskets_cdf");

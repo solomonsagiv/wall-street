@@ -5,7 +5,6 @@ import dataBase.mySql.MySql;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -158,14 +157,14 @@ public abstract class IDataBaseHandler {
             }
         }
 
-        // FUT RACES
+        // INDEX DELTA
         if (type == INDEX_DELTA_TYPE) {
             while (true) {
                 try {
                     if (!rs.next()) break;
 
                     int value = rs.getInt(2);
-                    client.setIndexBidAskCounter(value);
+                    client.getStocksHandler().setDelta(value);
 
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();

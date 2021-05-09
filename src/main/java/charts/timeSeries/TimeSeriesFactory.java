@@ -150,7 +150,8 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load_data() {
-                        // TODO
+                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_DELTA_TABLE), "sum");
+                        IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
 
                 };

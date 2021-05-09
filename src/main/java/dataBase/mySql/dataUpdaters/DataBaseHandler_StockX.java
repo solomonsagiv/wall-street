@@ -43,80 +43,80 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
     @Override
     public void insertData(int sleep) {
 
-//        // Set exps
-//        if (this.exps == null) {
-//            this.exps = client.getExps();
-//        }
-//
-//        // Update lists retro
-//        if (sleep_count % 10000 == 0) {
-//            updateListsRetro();
-//        }
-//
-//        // Index
-//        if (client.getIndex() != index_0) {
-//            index_0 = client.getIndex();
-//            index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
-//        }
-//
-//        // Fut week
-//        double fut_week = exps.getExp(ExpStrings.week).get_future();
-//
-//        if (fut_week != fut_week_0) {
-//            fut_week_0 = fut_week;
-//            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-//        }
-//
-//        // Fut month
-//        double fut_month = exps.getExp(ExpStrings.month).get_future();
-//
-//        if (fut_month != fut_month_0) {
-//            fut_month_0 = fut_month;
-//            fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
-//        }
-//
-//        // Fut e1
-//        double fut_e1 = exps.getExp(ExpStrings.q1).get_future();
-//
-//        if (fut_e1 != fut_e1_0) {
-//            fut_e1_0 = fut_e1;
-//            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-//        }
-//
-//        // Fut e2
-//        double fut_e2 = exps.getExp(ExpStrings.q2).get_future();
-//
-//        if (fut_e2 != fut_e2_0) {
-//            fut_e2_0 = fut_e2;
-//            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-//        }
-//
-//        // Races ind counter
-//        double ind_counter = client.getIndexSum();
-//        if (ind_counter != ind_counter_0) {
-//            double change = ind_counter - ind_counter_0;
-//            ind_counter_0 = ind_counter;
-//            ind_counter_timestamp.add(new MyTimeStampObject(Instant.now(), change));
-//        }
-//
-//        // Races fut counter
-//        int fut_races = client.getFutSum();
-//
-//        if (fut_races != fut_races_0) {
-//            double last_count = fut_races - fut_races_0;
-//            fut_races_0 = fut_races;
-//            fut_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-//        }
-//
-//        // Baskets
-//        int basket = client.getBasketFinder().getBaskets();
-//
-//        if (basket != baskets_0) {
-//            double last_count = basket - baskets_0;
-//            baskets_0 = basket;
-//            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-//        }
+        // Set exps
+        if (this.exps == null) {
+            this.exps = client.getExps();
+        }
 
+        // Update lists retro
+        if (sleep_count % 10000 == 0) {
+            updateListsRetro();
+        }
+
+        // Index
+        if (client.getIndex() != index_0) {
+            index_0 = client.getIndex();
+            index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+        }
+
+        // Fut week
+        double fut_week = exps.getExp(ExpStrings.week).get_future();
+
+        if (fut_week != fut_week_0) {
+            fut_week_0 = fut_week;
+            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+        }
+
+        // Fut month
+        double fut_month = exps.getExp(ExpStrings.month).get_future();
+
+        if (fut_month != fut_month_0) {
+            fut_month_0 = fut_month;
+            fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
+        }
+
+        // Fut e1
+        double fut_e1 = exps.getExp(ExpStrings.q1).get_future();
+
+        if (fut_e1 != fut_e1_0) {
+            fut_e1_0 = fut_e1;
+            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+        }
+
+        // Fut e2
+        double fut_e2 = exps.getExp(ExpStrings.q2).get_future();
+
+        if (fut_e2 != fut_e2_0) {
+            fut_e2_0 = fut_e2;
+            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+        }
+
+        // Races ind counter
+        double ind_counter = client.getIndexSum();
+        if (ind_counter != ind_counter_0) {
+            double change = ind_counter - ind_counter_0;
+            ind_counter_0 = ind_counter;
+            ind_counter_timestamp.add(new MyTimeStampObject(Instant.now(), change));
+        }
+
+        // Races fut counter
+        int fut_races = client.getFutSum();
+
+        if (fut_races != fut_races_0) {
+            double last_count = fut_races - fut_races_0;
+            fut_races_0 = fut_races;
+            fut_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
+        // Baskets
+        int basket = client.getBasketFinder().getBaskets();
+
+        if (basket != baskets_0) {
+            double last_count = basket - baskets_0;
+            baskets_0 = basket;
+            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+//
         // --------------- Raw data --------------- //
         // Fut e1
 //        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
@@ -132,25 +132,25 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
 
     @Override
     public void loadData() {
-//        // OP AVG
-//        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
-//        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
-//        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
-//        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
-//
-//        // BASKETS
-//        load_data_agg(MySql.Queries.get_serie(tablesNames.get(BASKETS_TABLE)), client, null, BASKETS_TYPE);
-//
-//        //  RACES
-//        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
-//        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
+        // OP AVG
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
+        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
+
+        // BASKETS
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(BASKETS_TABLE)), client, null, BASKETS_TYPE);
+
+        //  RACES
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
+        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
     }
 
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.stockx_index");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races_cdf");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races_cdf");
+        tablesNames.put(INDEX_RACES_TABLE, "data.stockx_index_races_cdf");
+        tablesNames.put(FUT_RACES_TABLE, "data.stockx_fut_races_cdf");
         tablesNames.put(BASKETS_TABLE, "data.stockx_baskets_cdf");
         tablesNames.put(FUT_WEEK_TABLE, "data.stockx_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.stockx_fut_month");
@@ -158,7 +158,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.stockx_fut_q2");
     }
 
-    @Override1
+    @Override
     protected void open_chart_on_start() {
         //todo
     }
