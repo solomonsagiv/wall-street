@@ -8,10 +8,8 @@ import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
-import serverObjects.indexObjects.StockX;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
@@ -19,13 +17,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Spx spx;
     static Dax dax;
     static Ndx ndx;
-    static StockX stockX;
-    
+
     static {
         dax = Dax.getInstance();
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
-        stockX = StockX.getInstance();
     }
 
     // Variables
@@ -46,8 +42,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void appendClients() {
         LocalHandler.clients.add(dax);
         LocalHandler.clients.add(spx);
-        LocalHandler.clients.add( ndx );
-        LocalHandler.clients.add(stockX);
+        LocalHandler.clients.add(ndx);
     }
 
     @Override
