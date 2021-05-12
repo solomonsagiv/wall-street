@@ -116,7 +116,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
             baskets_0 = basket;
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
-//
+
         // --------------- Raw data --------------- //
         // Fut e1
 //        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
@@ -160,7 +160,7 @@ public class DataBaseHandler_StockX extends IDataBaseHandler {
 
     @Override
     protected void open_chart_on_start() {
-        //todo
+        // TODO
     }
 
     @Override

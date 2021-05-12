@@ -156,7 +156,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             JOptionPane.showMessageDialog(null, e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     private void registerClient(BASE_CLIENT_OBJECT client) {
