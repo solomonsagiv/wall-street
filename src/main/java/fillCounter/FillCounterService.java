@@ -1,17 +1,11 @@
 package fillCounter;
 
 import exp.Exp;
-import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
 public class FillCounterService extends MyBaseService {
-
-    public static void main(String[] args) {
-
-
-    }
-
+    
     // Variables
     private int sleep = 100;
     private String name = "Fill counter";
@@ -27,9 +21,15 @@ public class FillCounterService extends MyBaseService {
     private double optimi_pesimi_cumu = 0;
 
     private boolean fut_up = false;
+
+    private double future_in_race_move = 0;
+    private double index_in_race_move = 0;
+
     private boolean fut_down = false;
 
     private Exp exp;
+
+    private Race race;
 
     // Constructor
     public FillCounterService(BASE_CLIENT_OBJECT client, Exp exp) {
@@ -64,6 +64,7 @@ public class FillCounterService extends MyBaseService {
         // Optimi
         op_fut_up();
 
+
     }
 
     private void op_fut_up() {
@@ -71,11 +72,26 @@ public class FillCounterService extends MyBaseService {
     }
 
     private void step_one() {
-        // Future races
-        future_race();
 
-        // Index races 
-        index_races();
+        // Future open race
+        future_open_race();
+
+        // Index open race
+
+        // Future close race
+
+        // Index close race
+
+
+    }
+
+    private void future_open_race() {
+
+        // Up race
+        if (future_change > 0) {
+            race = new Race(future - index_change, Race.FUT_UP, future_change);
+        }
+
     }
 
     private void index_races() {
@@ -88,13 +104,11 @@ public class FillCounterService extends MyBaseService {
 
     private void future_race() {
 
-        if (future_change != 0) {
-
-            // Index change
-            double margin = future_change - index_change;
-
-            move_cumu += margin * -1;
+        if (future_change > 0) {
+            fut_up = true;
+            future_in_race_move += future_change;
         }
+
     }
 
     private void update_pre_data() {
@@ -116,6 +130,24 @@ public class FillCounterService extends MyBaseService {
         index_change = index - index_0;
         future_change = future - future_0;
 
+    }
+
+    private class Race {
+
+        public static final int FUT_UP = 1;
+        public static final int FUT_DOWN = 2;
+        public static final int IND_UP = 3;
+        public static final int IND_DOWN = 4;
+
+        double optimi_pesimi;
+        int type;
+        double move;
+
+        public Race(double optimi_pesimi, int type, double move) {
+            this.optimi_pesimi = optimi_pesimi;
+            this.type = type;
+            this.move = move;
+        }
 
     }
 
