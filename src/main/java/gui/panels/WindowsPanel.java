@@ -5,10 +5,7 @@ import gui.index.IndexWindow;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
-import serverObjects.indexObjects.Ndx;
-import serverObjects.indexObjects.Spx;
-import serverObjects.indexObjects.StockX;
+import serverObjects.indexObjects.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,6 +48,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                         break;
                     case "STOCKX":
                         new IndexWindow("StockX window", StockX.getInstance());
+                        break;
+                    case "APPLE":
+                        new IndexWindow("Apple window", Apple.getInstance());
                         break;
                     default:
                         break;

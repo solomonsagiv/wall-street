@@ -56,6 +56,7 @@ public class FillCounterService extends MyBaseService {
         // Update pre
         update_pre_data();
 
+        
     }
 
     private void logic() {
@@ -97,9 +98,8 @@ public class FillCounterService extends MyBaseService {
                 // index move in race
                 index_move_in_race();
             } else {
-
-
-
+                // Close race and update grade
+                close_race_and_append_data_and_grades(race);
             }
         }
     }
@@ -146,15 +146,23 @@ public class FillCounterService extends MyBaseService {
         if (future_change < 0 && index_change > 0) {
             race = new Race(optimi_pesimi, Race.FUT_DOWN_IND_UP, future_change, index_change);
         }
-
-
     }
 
     private void close_race_and_append_data_and_grades(Race race) {
-        races.add(race);
-        move_cumu += race.get_grade();
-        this.race = null;
+        // Validate can close race
+        if (race.future_move != 0 && race.index_move != 0) {
+
+            // Add race to list
+            races.add(race);
+
+            // Append grade to move cumu
+            move_cumu += race.get_grade();
+
+            // Delete race
+            this.race = null;
+        }
     }
+
 
     private void index_move_in_race() {
         // Last change Up
@@ -163,7 +171,6 @@ public class FillCounterService extends MyBaseService {
             if (race.type == Race.FUT_UP || race.type == Race.FUT_DOWN) {
                 race.index_move = index_change;
             }
-
         }
     }
 
@@ -246,7 +253,12 @@ public class FillCounterService extends MyBaseService {
 
         index_change = 0;
         future_change = 0;
+    }
 
+    private double get_grade(Race race) {
+        double grade = 0;
+
+        return grade;
     }
 
     private void update_new_data() {
