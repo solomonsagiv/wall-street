@@ -26,7 +26,6 @@ public class FillCounterService extends MyBaseService {
 
     private boolean fut_up = false;
 
-
     private ArrayList<Race> races = new ArrayList<>();
 
     private double future_in_race_move = 0;
@@ -56,7 +55,6 @@ public class FillCounterService extends MyBaseService {
         // Update pre
         update_pre_data();
 
-        
     }
 
     private void logic() {
@@ -68,11 +66,8 @@ public class FillCounterService extends MyBaseService {
     }
 
     private void step_two() {
-
         // Optimi
         op_fut_up();
-
-
     }
 
     private void op_fut_up() {
@@ -80,7 +75,7 @@ public class FillCounterService extends MyBaseService {
     }
 
     private void step_one() {
-       // Open race
+        // Open race
         open_race();
 
         // Close race
@@ -124,8 +119,6 @@ public class FillCounterService extends MyBaseService {
         // Index
         if (index_change != 0) {
             index_open_race();
-
-
         }
     }
 
@@ -156,13 +149,12 @@ public class FillCounterService extends MyBaseService {
             races.add(race);
 
             // Append grade to move cumu
-            move_cumu += race.get_grade();
+            move_cumu += get_move_grade(race);
 
             // Delete race
             this.race = null;
         }
     }
-
 
     private void index_move_in_race() {
         // Last change Up
@@ -239,12 +231,10 @@ public class FillCounterService extends MyBaseService {
     }
 
     private void future_race() {
-
         if (future_change > 0) {
             fut_up = true;
             future_in_race_move += future_change;
         }
-
     }
 
     private void update_pre_data() {
@@ -255,9 +245,34 @@ public class FillCounterService extends MyBaseService {
         future_change = 0;
     }
 
-    private double get_grade(Race race) {
+    private double get_move_grade(Race race) {
+
+        double index_move = race.index_move;
+        double future_move = race.future_move;
+
         double grade = 0;
 
+        // Validate race can be close
+        if (index_move != 0) {
+            // Both up
+            if (future_move > 0 && index_move > 0) {
+                double move_margin = future_move - index_move;
+                grade += move_margin * -1;
+            }
+            // Both down
+            if (future_move < 0 && index_move < 0) {
+                double move_margin = L.abs(future_move) - L.abs(index_move);
+                grade += move_margin;
+            }
+            // Future up Index down
+            if (future_move > 0 && index_move < 0) {
+                grade += index_move;
+            }
+            // Future down Index up
+            if (future_move < 0 && index_move > 0) {
+                grade += index_move;
+            }
+        }
         return grade;
     }
 
@@ -271,7 +286,6 @@ public class FillCounterService extends MyBaseService {
         future_change = future - future_0;
 
         optimi_pesimi = future - index;
-
     }
 
     private class Race {
@@ -295,18 +309,6 @@ public class FillCounterService extends MyBaseService {
             this.type = type;
             this.future_move = future_move;
             this.index_move = index_move;
-        }
-
-        public double get_grade() {
-
-            double grade = 0;
-
-            // Validate future and index got change
-            if (future_change != 0 && index_change != 0) {
-                return 0;
-            }
-
-            return grade;
         }
     }
 
