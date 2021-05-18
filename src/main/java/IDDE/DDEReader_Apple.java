@@ -14,10 +14,10 @@ public class DDEReader_Apple extends IDDEReader {
     boolean initStocksCells = false;
 
     String indCell = "R2C3";
-    String openCell = "R12C4";
-    String highCell = "R12C1";
-    String lowCell = "R12C2";
-    String baseCell = "R10C5";
+    String openCell = "R13C4";
+    String highCell = "R13C1";
+    String lowCell = "R13C2";
+    String baseCell = "R11C5";
 
     // Future
     String futWeekCell = "R9C10";
@@ -26,7 +26,7 @@ public class DDEReader_Apple extends IDDEReader {
     // Interest
     String week_interest_cell = "R38C5";
     String month_interest_cell = "R39C5";
-
+    
     // Div
     String week_div_cell = "R38C6";
     String month_div_cell = "R39C6";
@@ -100,8 +100,6 @@ public class DDEReader_Apple extends IDDEReader {
 
             Exp week = client.getExps().getExp(ExpStrings.week);
             Exp month = client.getExps().getExp(ExpStrings.month);
-            Exp q1 = client.getExps().getExp(ExpStrings.q1);
-            Exp q2 = client.getExps().getExp(ExpStrings.q2);
 
             // Week
             week.setInterest(requestDouble(week_interest_cell, conversation));
