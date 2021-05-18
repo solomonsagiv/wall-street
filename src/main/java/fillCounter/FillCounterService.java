@@ -1,11 +1,14 @@
 package fillCounter;
 
 import exp.Exp;
+import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
+import java.util.ArrayList;
+
 public class FillCounterService extends MyBaseService {
-    
+
     // Variables
     private int sleep = 100;
     private String name = "Fill counter";
@@ -19,8 +22,12 @@ public class FillCounterService extends MyBaseService {
 
     private double move_cumu = 0;
     private double optimi_pesimi_cumu = 0;
+    private double optimi_pesimi = 0;
 
     private boolean fut_up = false;
+
+
+    private ArrayList<Race> races = new ArrayList<>();
 
     private double future_in_race_move = 0;
     private double index_in_race_move = 0;
@@ -72,34 +79,156 @@ public class FillCounterService extends MyBaseService {
     }
 
     private void step_one() {
+       // Open race
+        open_race();
 
-        // Future open race
-        future_open_race();
+        // Close race
+        close_race();
+    }
 
-        // Index open race
+    private void close_race() {
+        // Close race if in race
+        if (race != null) {
+            // If future race
+            if (race.type == Race.FUT_UP || race.type == Race.FUT_DOWN) {
+                // Future move in race
+                future_move_in_race();
 
-        // Future close race
+                // index move in race
+                index_move_in_race();
+            } else {
 
-        // Index close race
 
 
+            }
+        }
+    }
+
+    private void open_race() {
+        // If no race open
+        if (race == null) {
+            // Who moved first
+            find_who_open_race_first();
+        }
+    }
+
+    private void find_who_open_race_first() {
+        // Both
+        if (future_change != 0 && index_change != 0) {
+            both_open_race();
+        }
+        // Future
+        if (future_change != 0) {
+            future_open_race();
+        }
+        // Index
+        if (index_change != 0) {
+            index_open_race();
+
+
+        }
+    }
+
+    private void both_open_race() {
+        // Both up
+        if (future_change > 0 && index_change > 0) {
+            race = new Race(optimi_pesimi, Race.BOTH_UP, future_change, index_change);
+        }
+        // Both down
+        if (future_change < 0 && index_change < 0) {
+            race = new Race(optimi_pesimi, Race.BOTH_DOWN, future_change, index_change);
+        }
+        // Future up index down
+        if (future_change > 0 && index_change < 0) {
+            race = new Race(optimi_pesimi, Race.FUT_UP_IND_DOWN, future_change, index_change);
+        }
+        // Future down index up
+        if (future_change < 0 && index_change > 0) {
+            race = new Race(optimi_pesimi, Race.FUT_DOWN_IND_UP, future_change, index_change);
+        }
+
+
+    }
+
+    private void close_race_and_append_data_and_grades(Race race) {
+        races.add(race);
+        move_cumu += race.get_grade();
+        this.race = null;
+    }
+
+    private void index_move_in_race() {
+        // Last change Up
+        if (index_change != 0) {
+            // In fut up race
+            if (race.type == Race.FUT_UP || race.type == Race.FUT_DOWN) {
+                race.index_move = index_change;
+            }
+
+        }
+    }
+
+    private void future_move_in_race() {
+        // Last change Up
+        if (future_change > 0) {
+            // Race is future up
+            if (race.type == Race.FUT_UP) {
+                race.future_move += future_change;
+            }
+            // Race is future down
+            if (race.type == Race.FUT_DOWN) {
+                // Close race if change bigger then open race move
+                if (L.abs(future_change) > L.abs(race.future_move)) {
+                    race = null;
+                } else {
+                    race.future_move += future_change;
+                }
+            }
+        }
+
+        // Last change Down
+        if (future_change < 0) {
+            // Race is up
+            if (race.type == Race.FUT_UP) {
+                // Close race if change bigger then open race move
+                if (L.abs(future_change) > L.abs(race.future_move)) {
+                    race = null;
+                } else {
+                    race.future_move -= future_change;
+                }
+            }
+            // Race is down
+            if (race.type == Race.FUT_DOWN) {
+                race.future_move -= future_change;
+            }
+        }
+    }
+
+    private void index_open_race() {
+        // Up race
+        if (index_change > 0) {
+            race = new Race(optimi_pesimi, Race.IND_UP, future_change, index_change);
+        }
+        // Down race
+        if (index_change < 0) {
+            race = new Race(optimi_pesimi, Race.IND_DOWN, future_change, index_change);
+        }
     }
 
     private void future_open_race() {
-
         // Up race
         if (future_change > 0) {
-            race = new Race(future - index_change, Race.FUT_UP, future_change);
+            race = new Race(optimi_pesimi, Race.FUT_UP, future_change, index_change);
         }
-
+        // Down race
+        if (future_change < 0) {
+            race = new Race(optimi_pesimi, Race.FUT_DOWN, future_change, index_change);
+        }
     }
 
     private void index_races() {
-
         if (index_change != 0) {
             move_cumu += index_change;
         }
-
     }
 
     private void future_race() {
@@ -122,13 +251,14 @@ public class FillCounterService extends MyBaseService {
 
     private void update_new_data() {
 
-
         index = getClient().getIndex();
         future = exp.get_future();
         bid_ask_margin = getClient().getIndexAsk() - getClient().getIndexBid();
 
         index_change = index - index_0;
         future_change = future - future_0;
+
+        optimi_pesimi = future - index;
 
     }
 
@@ -138,17 +268,34 @@ public class FillCounterService extends MyBaseService {
         public static final int FUT_DOWN = 2;
         public static final int IND_UP = 3;
         public static final int IND_DOWN = 4;
+        public static final int BOTH_UP = 5;
+        public static final int BOTH_DOWN = 6;
+        public static final int FUT_UP_IND_DOWN = 7;
+        public static final int FUT_DOWN_IND_UP = 8;
 
         double optimi_pesimi;
         int type;
-        double move;
+        double future_move;
+        double index_move;
 
-        public Race(double optimi_pesimi, int type, double move) {
+        public Race(double optimi_pesimi, int type, double future_move, double index_move) {
             this.optimi_pesimi = optimi_pesimi;
             this.type = type;
-            this.move = move;
+            this.future_move = future_move;
+            this.index_move = index_move;
         }
 
+        public double get_grade() {
+
+            double grade = 0;
+
+            // Validate future and index got change
+            if (future_change != 0 && index_change != 0) {
+                return 0;
+            }
+
+            return grade;
+        }
     }
 
     @Override
