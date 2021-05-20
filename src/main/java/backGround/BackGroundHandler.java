@@ -68,7 +68,7 @@ public class BackGroundHandler {
                     Thread.sleep(2000);
 
                     now = LocalTime.now();
-                    System.out.println("Background");
+                    System.out.println("Background " + lastChangeCountToStart + " " + client.getName());
 
                     double last = client.getIndex();
 
@@ -76,6 +76,7 @@ public class BackGroundHandler {
                         last_0 = last;
                         lastChangeCountToStart++;
                     }
+
 
                     // Index start time
                     if (now.isAfter(client.getIndexStartTime()) && !client.isStarted() && lastChangeCountToStart >= 2) {

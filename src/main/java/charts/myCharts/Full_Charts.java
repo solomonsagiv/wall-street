@@ -41,10 +41,14 @@ public class Full_Charts extends MyChartCreator {
         marker.setPaint(Color.BLACK);
         marker.setStroke(new BasicStroke(2f));
 
-        Exp e1 = client.getExps().getExp(ExpStrings.q1);
+        Exp exp = client.getExps().getExp(ExpStrings.q1);
+
+        if (exp == null) {
+            exp = client.getExps().getExpList().get(0);
+        }
 
         // --------- OpAvgFuture 1 ---------- //
-        MyTimeSeries op_avg_15_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, e1);
+        MyTimeSeries op_avg_15_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, exp);
         op_avg_15_serie.setColor(Themes.PURPLE);
         op_avg_15_serie.setStokeSize(1.5f);
 

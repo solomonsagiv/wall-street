@@ -103,11 +103,13 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                     // Load data from database
                     client.getMySqlService().getDataBaseHandler().loadData();
 
-                    // Start back runner
-                    BackGroundHandler.getInstance().createNewRunner(client);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                // Start back runner
+                BackGroundHandler.getInstance().createNewRunner(client);
+
             }).start();
         }
     }

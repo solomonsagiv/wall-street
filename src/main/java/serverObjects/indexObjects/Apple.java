@@ -114,7 +114,6 @@ public class Apple extends INDEX_CLIENT_OBJECT {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(super.toString());
-        str.append("Baskets 2= " + getBasketFinder().toString());
         return str.toString();
     }
 }

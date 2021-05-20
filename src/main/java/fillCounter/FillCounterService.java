@@ -274,7 +274,7 @@ public class FillCounterService extends MyBaseService {
 
     private void update_new_data() {
         index = getClient().getIndex();
-        future = exp.get_future();
+        //future = exp.get_future();
         bid_ask_margin = getClient().getIndexAsk() - getClient().getIndexBid();
 
         index_change = index - index_0;
