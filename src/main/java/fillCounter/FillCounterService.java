@@ -77,7 +77,7 @@ public class FillCounterService extends MyBaseService {
         // Close race
         close_race();
     }
-
+    
     private void close_race() {
         // Close race if in race
         if (race != null) {

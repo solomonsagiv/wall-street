@@ -1,8 +1,6 @@
 package fillCounter;
 
 import dataBase.mySql.MySql;
-import exp.E;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;

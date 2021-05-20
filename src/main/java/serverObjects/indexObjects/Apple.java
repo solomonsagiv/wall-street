@@ -1,14 +1,10 @@
 package serverObjects.indexObjects;
 
-import IDDE.*;
+import IDDE.DDEHandler;
+import IDDE.DDEReader_Apple;
+import IDDE.DDEWriter_Apple;
 import api.Manifest;
-import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
-import charts.myCharts.Index_baskets_chart;
-import dataBase.mySql.MySqlService;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_Apple;
-import dataBase.mySql.dataUpdaters.DataBaseHandler_StockX;
-import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
@@ -18,8 +14,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-import stocksHandler.stocksDelta.StocksDeltaService;
-
 import java.time.LocalTime;
 
 public class Apple extends INDEX_CLIENT_OBJECT {
@@ -33,9 +27,8 @@ public class Apple extends INDEX_CLIENT_OBJECT {
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
         setIndexStartTime(LocalTime.of(16, 31, 0));
-        setIndexEndTime(LocalTime.of(16, 31, 0));
-        setFutureEndTime(LocalTime.of(23, 0, 0));
-        setMySqlService(new MySqlService(this, new DataBaseHandler_Apple(this)));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
+        setFutureEndTime(LocalTime.of(23, 15, 0));
         setDdeHandler(new DDEHandler(this, new DDEReader_Apple(this), new DDEWriter_Apple(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Aapl"));
         setLogicService(new LogicService(this, ExpStrings.week));
         roll();
