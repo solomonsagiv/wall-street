@@ -1,6 +1,5 @@
 package fillCounter;
 
-import exp.Exp;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
@@ -19,28 +18,25 @@ public class FillCounterService extends MyBaseService {
     private double index_change = 0;
     private double future_change = 0;
     private double bid_ask_margin = 0;
-
     private double move_cumu = 0;
     private double optimi_pesimi_cumu = 0;
     private double optimi_pesimi = 0;
-
     private boolean fut_up = false;
 
     private ArrayList<Race> races = new ArrayList<>();
+    private ArrayList<ArrayList<MySerie>> arrays;
 
     private double future_in_race_move = 0;
     private double index_in_race_move = 0;
 
     private boolean fut_down = false;
 
-    private Exp exp;
-
     private Race race;
 
     // Constructor
-    public FillCounterService(BASE_CLIENT_OBJECT client, Exp exp) {
+    public FillCounterService(BASE_CLIENT_OBJECT client, ArrayList<ArrayList<MySerie>> arrays) {
         super(client);
-        this.exp = exp;
+        this.arrays = arrays;
     }
 
     @Override
@@ -277,7 +273,6 @@ public class FillCounterService extends MyBaseService {
     }
 
     private void update_new_data() {
-
         index = getClient().getIndex();
         future = exp.get_future();
         bid_ask_margin = getClient().getIndexAsk() - getClient().getIndexBid();
