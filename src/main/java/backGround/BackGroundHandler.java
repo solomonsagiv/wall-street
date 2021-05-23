@@ -68,7 +68,6 @@ public class BackGroundHandler {
                     Thread.sleep(2000);
 
                     now = LocalTime.now();
-                    System.out.println("Background " + lastChangeCountToStart + " " + client.getName());
 
                     double last = client.getIndex();
 

@@ -1,17 +1,17 @@
 package fillCounter;
 
 import locals.L;
-import serverObjects.BASE_CLIENT_OBJECT;
-import service.MyBaseService;
 
 import java.util.ArrayList;
 
-public class FillCounterService extends MyBaseService {
+public class FillCounterService {
 
     // Variables
     private int sleep = 100;
     private String name = "Fill counter";
     private double index = 0;
+    private double index_bid = 0;
+    private double index_ask = 0;
     private double future = 0;
     private double index_0 = 0;
     private double future_0 = 0;
@@ -21,44 +21,45 @@ public class FillCounterService extends MyBaseService {
     private double move_cumu = 0;
     private double optimi_pesimi_cumu = 0;
     private double optimi_pesimi = 0;
-    private boolean fut_up = false;
 
     private ArrayList<Race> races = new ArrayList<>();
     private ArrayList<ArrayList<MySerie>> arrays;
 
-    private double future_in_race_move = 0;
-    private double index_in_race_move = 0;
-
-    private boolean fut_down = false;
+    private int ind_serie_index;
+    int fut_serie_index;
 
     private Race race;
 
     // Constructor
-    public FillCounterService(BASE_CLIENT_OBJECT client, ArrayList<ArrayList<MySerie>> arrays) {
-        super(client);
+    public FillCounterService(ArrayList<ArrayList<MySerie>> arrays) {
         this.arrays = arrays;
     }
 
-    @Override
-    public void go() {
+    public void run(double index, double index_bid, double index_ask, double future) {
 
-        // Update new data
-        update_new_data();
+        for (int i = 0; i < arrays.get(0).size(); i++) {
+            // Update new data
+            update_new_data(index, index_bid, index_ask, future);
 
-        // Logic
-        logic();
+            // Logic
+            logic();
 
-        // Update pre
-        update_pre_data();
+            // Update pre
+            update_pre_data();
+        }
+
+
 
     }
 
     private void logic() {
-        // Step 1
-        step_one();
+        if (index_0 != 0 && future_0 != 0) {
+            // Step 1
+            step_one();
 
-        // Step 2
-        step_two();
+            // Step 2
+            step_two();
+        }
     }
 
     private void step_two() {
@@ -77,7 +78,7 @@ public class FillCounterService extends MyBaseService {
         // Close race
         close_race();
     }
-    
+
     private void close_race() {
         // Close race if in race
         if (race != null) {
@@ -122,18 +123,22 @@ public class FillCounterService extends MyBaseService {
         // Both up
         if (future_change > 0 && index_change > 0) {
             race = new Race(optimi_pesimi, Race.BOTH_UP, future_change, index_change);
+            return;
         }
         // Both down
         if (future_change < 0 && index_change < 0) {
             race = new Race(optimi_pesimi, Race.BOTH_DOWN, future_change, index_change);
+            return;
         }
         // Future up index down
         if (future_change > 0 && index_change < 0) {
             race = new Race(optimi_pesimi, Race.FUT_UP_IND_DOWN, future_change, index_change);
+            return;
         }
         // Future down index up
         if (future_change < 0 && index_change > 0) {
             race = new Race(optimi_pesimi, Race.FUT_DOWN_IND_UP, future_change, index_change);
+            return;
         }
     }
 
@@ -149,6 +154,7 @@ public class FillCounterService extends MyBaseService {
 
             // Delete race
             this.race = null;
+            return;
         }
     }
 
@@ -187,6 +193,7 @@ public class FillCounterService extends MyBaseService {
                 // Close race if change bigger then open race move
                 if (L.abs(future_change) > L.abs(race.future_move)) {
                     race = null;
+                    return;
                 } else {
                     race.future_move -= future_change;
                 }
@@ -202,10 +209,12 @@ public class FillCounterService extends MyBaseService {
         // Up race
         if (index_change > 0) {
             race = new Race(optimi_pesimi, Race.IND_UP, future_change, index_change);
+            return;
         }
         // Down race
         if (index_change < 0) {
             race = new Race(optimi_pesimi, Race.IND_DOWN, future_change, index_change);
+            return;
         }
     }
 
@@ -213,23 +222,12 @@ public class FillCounterService extends MyBaseService {
         // Up race
         if (future_change > 0) {
             race = new Race(optimi_pesimi, Race.FUT_UP, future_change, index_change);
+            return;
         }
         // Down race
         if (future_change < 0) {
             race = new Race(optimi_pesimi, Race.FUT_DOWN, future_change, index_change);
-        }
-    }
-
-    private void index_races() {
-        if (index_change != 0) {
-            move_cumu += index_change;
-        }
-    }
-
-    private void future_race() {
-        if (future_change > 0) {
-            fut_up = true;
-            future_in_race_move += future_change;
+            return;
         }
     }
 
@@ -272,15 +270,19 @@ public class FillCounterService extends MyBaseService {
         return grade;
     }
 
-    private void update_new_data() {
-        index = getClient().getIndex();
+    private void update_new_data(double index, double index_bid, double index_ask, double future) {
+        this.index = index;
+        this.future = future;
+        this.index_bid = index_bid;
+        this.index_ask = index_ask;
+
         //future = exp.get_future();
-        bid_ask_margin = getClient().getIndexAsk() - getClient().getIndexBid();
+        bid_ask_margin = index_ask - index_bid;
 
-        index_change = index - index_0;
-        future_change = future - future_0;
+        index_change = this.index - index_0;
+        future_change = this.future - future_0;
 
-        optimi_pesimi = future - index;
+        optimi_pesimi = this.future - this.index;
     }
 
     private class Race {
@@ -304,20 +306,27 @@ public class FillCounterService extends MyBaseService {
             this.type = type;
             this.future_move = future_move;
             this.index_move = index_move;
+            System.out.println(toString());
+        }
+
+        @Override
+        public String toString() {
+            return "Race{" +
+                    "optimi_pesimi=" + optimi_pesimi +
+                    ", type=" + type +
+                    ", future_move=" + future_move +
+                    ", index_move=" + index_move +
+                    '}';
         }
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getSleep() {
-        return sleep;
+    public double getMove_cumu() {
+        return move_cumu;
     }
 
     public void setSleep(int sleep) {
         this.sleep = sleep;
     }
+
+
 }

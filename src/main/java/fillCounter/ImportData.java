@@ -10,6 +10,11 @@ public class ImportData {
 
     String date;
 
+    public static final int INDEX_I = 0;
+    public static final int INDEX_BID_I = 1;
+    public static final int INDEX_ASK_I = 2;
+    public static final int FUT_I = 3;
+
     String[] tables = {"spx500_index", "spx500_index_bid", "spx500_index_ask", "spx500_fut_day"};
     private ArrayList<ArrayList<MySerie>> arrays;
 
@@ -28,12 +33,16 @@ public class ImportData {
     }
 
     private void print() {
-        for (int row = 0; row < arrays.get(0).size(); row++) {
-            for (ArrayList<MySerie> series: arrays) {
-                MySerie serie = series.get(row);
-                System.out.print(serie.dateTime + " " + serie.value + " , ");
+        try {
+            for (int row = 0; row < arrays.get(0).size(); row++) {
+                for (ArrayList<MySerie> series : arrays) {
+                    MySerie serie = series.get(row);
+                    System.out.print(serie.dateTime + " " + serie.value + " , ");
+                }
+                System.out.println();
             }
-            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -85,7 +94,7 @@ public class ImportData {
     }
 
     private void import_data() {
-        String query = "SELECT * FROM data.%s WHERE time::date = date'%s' order by time;";
+        String query = "SELECT * FROM data.%s WHERE time::date = date'%s' and time::time < time'16:33:00' order by time;";
         for (String s : tables) {
             arrays.add(getSerieObject(String.format(query, s, date)));
         }
