@@ -10,7 +10,6 @@ public class MainFillCounter {
         mainFillCounter.run();
     }
 
-
     public void run() {
         ImportData importData = new ImportData();
         FillCounterService fillCounterService = new FillCounterService();

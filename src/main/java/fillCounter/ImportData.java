@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ImportData {
 
     String date;
-
+    
     public static final int INDEX_I = 0;
     public static final int INDEX_BID_I = 1;
     public static final int INDEX_ASK_I = 2;
