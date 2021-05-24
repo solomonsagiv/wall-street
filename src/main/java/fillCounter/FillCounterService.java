@@ -21,12 +21,7 @@ public class FillCounterService {
     private double move_cumu = 0;
     private double optimi_pesimi_cumu = 0;
     private double optimi_pesimi = 0;
-
     private ArrayList<Race> races = new ArrayList<>();
-
-    private int ind_serie_index;
-    int fut_serie_index;
-
     private Race race;
 
     // Constructor
@@ -39,6 +34,9 @@ public class FillCounterService {
 
         // Logic
         logic();
+
+        // Check if there is done race
+        close_race_and_append_data_and_grades(race);
 
         // Update pre
         update_pre_data();
@@ -101,77 +99,96 @@ public class FillCounterService {
 
             // ------------ RACE ------------ //
             if (race != null) {
-                // IF FUTURE RACE
-                if (race.type == Race.FUT_UP || race.type == Race.FUT_DOWN) {
-                    // ---------- FUTURE MOVE IN RACE ----------- //
+
+                // IF FUTURE UP RACE
+                if (race.type == Race.FUT_UP) {
+                    // BOTH CHANGED
+                    if (future_change != 0 && index_change != 0) {
+                        race.future_move += future_change;
+                        race.index_move += index_change;
+                        // todo Set race type again
+                        return;
+                    }
+
                     // FUTURE UP
                     if (future_change > 0) {
-                        // RACE IS FUTURE UP
-                        if (race.type == Race.FUT_UP) {
-                            race.future_move += future_change;
-                        }
-                        // RACE IS FUTURE DOWN
-                        if (race.type == Race.FUT_DOWN) {
-                            // CLOSE RACE IF CHANGE IS BIGGER THAN MOVE
-                            if (L.abs(future_change) > L.abs(race.future_move)) {
-                                race = null;
-                                return;
-                            } else {
-                                race.future_move += future_change;
-                            }
-                        }
+                        race.future_move += future_change;
+                        return;
                     }
 
                     // FUTURE DOWN
                     if (future_change < 0) {
-                        // RACE IS UP
-                        if (race.type == Race.FUT_UP) {
-                            // CLOSE RACE IF CHANGE IS BIGGER THAN MOVE
-                            if (L.abs(future_change) > L.abs(race.future_move)) {
-                                race = null;
-                                return;
-                            } else {
-                                race.future_move -= future_change;
-                            }
+                        // NEW CHANGE BIGGER THAN RACE CHANGE TO THE OPPOSITE SIDE
+                        if (L.abs(future_change) > race.future_move) {
+                            race.type = Race.FUT_DOWN;
                         }
-                        // RACE IS DOWN
-                        if (race.type == Race.FUT_DOWN) {
-                            race.future_move -= future_change;
-                        }
+                        race.future_move += future_change;
+                        return;
                     }
 
-                    // ---------- INDEX MOVE IN RACE ----------- //
                     // INDEX UP
                     if (index_change != 0) {
-                        race.index_move = index_change;
+                        race.index_move += index_change;
+                        return;
                     }
                 }
-            } else {
-                // CLOSE RACE. APPEND DATA, GRADES
-                close_race_and_append_data_and_grades(race);
+
+                // IF FUTURE DOWN RACE
+                if (race.type == Race.FUT_DOWN) {
+                    // BOTH CHANGED
+                    if (future_change != 0 && index_change != 0) {
+                        race.future_move += future_change;
+                        race.index_move += index_change;
+                        //todo Set race type again
+                        return;
+                    }
+
+                    // FUTURE UP
+                    if (future_change > 0) {
+                        // NEW CHANGE BIGGER THAN RACE CHANGE TO THE OPPOSITE SIDE
+                        if (future_change > L.abs(race.future_move)) {
+                            race.type = Race.FUT_UP;
+                        }
+                        race.future_move += future_change;
+                        return;
+                    }
+
+                    // FUTURE DOWN
+                    if (future_change < 0) {
+                        race.future_move += future_change;
+                        return;
+                    }
+
+                    // INDEX UP
+                    if (index_change != 0) {
+                        race.index_move += index_change;
+                        return;
+                    }
+                }
             }
         }
     }
 
 
     private void close_race_and_append_data_and_grades(Race race) {
-        // VALIDATE CAN CLOSE RACE
-        if (race.future_move != 0 && race.index_move != 0) {
 
-            // ADD RACE TO LIST
-            races.add(race);
+        // IS GOT RACE
+        if (race != null) {
 
-            // Append grade to move cumu
-            move_cumu += get_move_grade(race);
+            // VALIDATE CAN CLOSE RACE
+            if (race.future_move != 0 && race.index_move != 0) {
 
-            // Delete race
-            this.race = null;
-            return;
+                // ADD RACE TO LIST
+                races.add(race);
+
+                // Append grade to move cumu
+                move_cumu += get_move_grade(race);
+
+                // Delete race
+                this.race = null;
+                return;
+            }
         }
-    }
-
-    private void future_move_in_race() {
-
     }
 
     private void update_pre_data() {
