@@ -19,16 +19,13 @@ public class MainFillCounter {
 
         // Run the fillCounter in loop
         for (int i = 0; i < arrays.get(0).size(); i++) {
-
             double index = arrays.get(ImportData.INDEX_I).get(i).value;
             double index_bid = arrays.get(ImportData.INDEX_BID_I).get(i).value;
             double index_ask = arrays.get(ImportData.INDEX_ASK_I).get(i).value;
             double future = arrays.get(ImportData.FUT_I).get(i).value;
 
             fillCounterService.run(index, index_bid, index_ask, future);
-
             System.out.println(fillCounterService.getMove_cumu());
         }
     }
-
 }
