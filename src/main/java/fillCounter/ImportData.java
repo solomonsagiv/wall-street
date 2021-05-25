@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 public class ImportData {
 
-    String date;
-    
+    String date = "2021-05-12";
+    String time = "23:00:00";
+
     public static final int INDEX_I = 0;
     public static final int INDEX_BID_I = 1;
     public static final int INDEX_ASK_I = 2;
@@ -19,7 +20,7 @@ public class ImportData {
     private ArrayList<ArrayList<MySerie>> arrays;
 
     public ImportData() {
-        date = "2021-05-19";
+
         arrays = new ArrayList<>();
 
         // Import data
@@ -29,7 +30,7 @@ public class ImportData {
         research();
 
         // Print 
-        print();
+//        print();
     }
 
     private void print() {
@@ -50,10 +51,13 @@ public class ImportData {
         LocalDateTime min_time = null;
         int row = 0;
 
-        boolean break_loop = false;
-
         // For each row
         while (true) {
+
+            if (row >= arrays.get(0).size()) {
+                break;
+            }
+
             // For each series
             for (ArrayList<MySerie> series : arrays) {
                 try {
@@ -65,12 +69,8 @@ public class ImportData {
                         series.add(row, new MySerie(min_time, series.get(row - 1).value));
                     }
                 } catch (Exception e) {
-                    break_loop = true;
                     break;
                 }
-            }
-            if (break_loop) {
-                break;
             }
             row++;
         }
@@ -94,9 +94,9 @@ public class ImportData {
     }
 
     private void import_data() {
-        String query = "SELECT * FROM data.%s WHERE time::date = date'%s' and time::time < time'16:33:00' order by time;";
+        String query = "SELECT * FROM data.%s WHERE time::date = date'%s' and time::time < time'%s' order by time;";
         for (String s : tables) {
-            arrays.add(getSerieObject(String.format(query, s, date)));
+            arrays.add(getSerieObject(String.format(query, s, date, time)));
         }
     }
 
