@@ -1,6 +1,7 @@
 package fillCounter;
 
 import dataBase.mySql.MySql;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class ImportData {
 
-    String date = "2021-05-12";
+    String date = "2021-05-21";
     String time = "23:00:00";
 
     public static final int INDEX_I = 0;
@@ -33,7 +34,7 @@ public class ImportData {
 //        print();
     }
 
-    private void print() {
+    public void print() {
         try {
             for (int row = 0; row < arrays.get(0).size(); row++) {
                 for (ArrayList<MySerie> series : arrays) {
@@ -87,7 +88,7 @@ public class ImportData {
                     dateTime = serie.dateTime;
                 }
             } catch (Exception e) {
-                System.out.println("Find min time func ");
+//                System.out.println("Find min time func ");
             }
         }
         return dateTime;
@@ -115,6 +116,29 @@ public class ImportData {
             }
         }
         return series_list;
+    }
+
+    protected void insertListRetro(ArrayList<Race> races, String table_location) {
+        if (races.size() > 0) {
+
+            // Create the query
+            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value) VALUES ");
+            int last_item_id = races.get(races.size() - 1).hashCode();
+            for (Race race : races) {
+                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", race.dateTime, race.grade));
+                if (race.hashCode() != last_item_id) {
+                    queryBuiler.append(",");
+                }
+            }
+            queryBuiler.append(";");
+
+            String q = String.format(queryBuiler.toString(), table_location);
+
+            // Insert
+            MySql.insert(q, true);
+
+        }
+
     }
 
     public ArrayList<ArrayList<MySerie>> getArrays() {

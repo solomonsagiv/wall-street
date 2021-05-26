@@ -1,5 +1,8 @@
 package fillCounter;
 
+import grades.GRADES;
+import grades.GradesHandler;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -12,26 +15,45 @@ public class MainFillCounter {
     }
 
     public void run() {
-        ImportData importData = new ImportData();
-        FillCounterService fillCounterService = new FillCounterService();
 
-        // Get the arrays of data
+        // ATTRIBUTES
+        GRADES grades = new GradesHandler().getMove_cumu_1();
+
+        // IMPORT DATA
+        ImportData importData = new ImportData();
+        // PRINT ARRAYS
+        importData.print();
+
+
+        // CREATE FILL COUNTER INSTANCE
+        FillCounterService fillCounterService = new FillCounterService(grades);
+
+        // GET ARRAYS DATA
         ArrayList<ArrayList<MySerie>> arrays = importData.getArrays();
 
-        // Run the fillCounter in loop
+        // RUN FILL COUNTER IN LOOP
         for (int i = 0; i < arrays.get(0).size(); i++) {
+            try {
+                LocalDateTime dateTime = arrays.get(0).get(i).dateTime;
+                double index = arrays.get(ImportData.INDEX_I).get(i).value;
+                double index_bid = arrays.get(ImportData.INDEX_BID_I).get(i).value;
+                double index_ask = arrays.get(ImportData.INDEX_ASK_I).get(i).value;
+                double future = arrays.get(ImportData.FUT_I).get(i).value;
 
-
-            LocalDateTime dateTime = arrays.get(0).get(0).dateTime;
-            double index = arrays.get(ImportData.INDEX_I).get(i).value;
-            double index_bid = arrays.get(ImportData.INDEX_BID_I).get(i).value;
-            double index_ask = arrays.get(ImportData.INDEX_ASK_I).get(i).value;
-            double future = arrays.get(ImportData.FUT_I).get(i).value;
-
-            fillCounterService.run(dateTime, index, index_bid, index_ask, future);
-
-            System.out.println(fillCounterService.getMove_cumu());
+                fillCounterService.run(dateTime, index, index_bid, index_ask, future);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        // PRINT RACES
+        System.out.println();
+        System.out.println("---------- RACES ----------");
+        fillCounterService.print_races();
+
+        // INSERT TO DATABASE
+        importData.insertListRetro(fillCounterService.getRaces(), "data.spx500_sagiv_function_cdf");
+
     }
 
 }

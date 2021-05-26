@@ -1,5 +1,7 @@
 package fillCounter;
 
+import java.time.LocalDateTime;
+
 public class Race {
 
     public static final int FUT_UP = 1;
@@ -11,28 +13,17 @@ public class Race {
     public static final int FUT_UP_IND_DOWN = 7;
     public static final int FUT_DOWN_IND_UP = 8;
 
+    double optimi_pesimi = 0;
+    int type = 0;
+    public double future_move = 0;
+    public double index_move = 0;
+    public double index_bid = 0;
+    public double index_ask = 0;
     boolean open = false;
-    double optimi_pesimi;
-    int type;
-    double future_move;
-    double index_move;
+    LocalDateTime dateTime = null;
+    double grade = 0;
 
     public Race() {}
-
-    public void clone_race(Race status_race) {
-        this.optimi_pesimi = status_race.optimi_pesimi;
-        this.type = status_race.type;
-        this.future_move = status_race.future_move;
-        this.index_move = status_race.index_move;
-    }
-
-    public void reset_race() {
-        this.optimi_pesimi = 0;
-        this.type = 0;
-        this.future_move = 0;
-        this.index_move = 0;
-        this.open = false;
-    }
 
     public void open(double optimi_pesimi, int type, double future_move, double index_move) {
         this.optimi_pesimi = optimi_pesimi;
@@ -42,6 +33,22 @@ public class Race {
         this.open = true;
     }
 
+    public void clone_race(Race status_race) {
+        this.optimi_pesimi = status_race.optimi_pesimi;
+        this.type = status_race.type;
+        this.future_move = status_race.future_move;
+        this.index_move = status_race.index_move;
+        this.open = status_race.open;
+    }
+
+    public void reset() {
+        this.optimi_pesimi = 0;
+        this.type = 0;
+        this.future_move = 0;
+        this.index_move = 0;
+        this.open = false;
+    }
+
     @Override
     public String toString() {
         return "Race{" +
@@ -49,6 +56,7 @@ public class Race {
                 ", type=" + type +
                 ", future_move=" + future_move +
                 ", index_move=" + index_move +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
