@@ -2,6 +2,7 @@ package fillCounter;
 
 import locals.L;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FillCounterService {
@@ -24,13 +25,15 @@ public class FillCounterService {
     private ArrayList<Race> races = new ArrayList<>();
     private Race race;
 
+    LocalDateTime dateTime;
+
     // Constructor
     public FillCounterService() {
     }
 
-    public void run(double index, double index_bid, double index_ask, double future) {
+    public void run(LocalDateTime dateTime, double index, double index_bid, double index_ask, double future) {
         // Update new data
-        update_new_data(index, index_bid, index_ask, future);
+        update_new_data(dateTime, index, index_bid, index_ask, future);
 
         // Logic
         logic();
@@ -230,7 +233,8 @@ public class FillCounterService {
         return grade;
     }
 
-    private void update_new_data(double index, double index_bid, double index_ask, double future) {
+    private void update_new_data(LocalDateTime dateTime, double index, double index_bid, double index_ask, double future) {
+        this.dateTime = dateTime;
         this.index = index;
         this.future = future;
         this.index_bid = index_bid;
