@@ -9,9 +9,6 @@ import java.util.ArrayList;
 
 public class ImportData {
 
-    String date = "2021-05-21";
-    String time = "23:00:00";
-
     public static final int INDEX_I = 0;
     public static final int INDEX_BID_I = 1;
     public static final int INDEX_ASK_I = 2;
@@ -20,8 +17,12 @@ public class ImportData {
     String[] tables = {"spx500_index", "spx500_index_bid", "spx500_index_ask", "spx500_fut_day"};
     private ArrayList<ArrayList<MySerie>> arrays;
 
-    public ImportData() {
+    String date;
+    String time;
 
+    public ImportData(String date, String time) {
+        this.date = date;
+        this.time = time;
         arrays = new ArrayList<>();
 
         // Import data
@@ -125,7 +126,7 @@ public class ImportData {
             StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value) VALUES ");
             int last_item_id = races.get(races.size() - 1).hashCode();
             for (Race race : races) {
-                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", race.dateTime, race.grade));
+                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", race.dateTime, race.op_grade));
                 if (race.hashCode() != last_item_id) {
                     queryBuiler.append(",");
                 }

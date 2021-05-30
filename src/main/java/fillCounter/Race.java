@@ -13,23 +13,28 @@ public class Race {
     public static final int FUT_UP_IND_DOWN = 7;
     public static final int FUT_DOWN_IND_UP = 8;
 
-    double optimi_pesimi = 0;
+    public double optimi_pesimi = 0;
     int type = 0;
     public double future_move = 0;
     public double index_move = 0;
     public double index_bid = 0;
     public double index_ask = 0;
+    public double future = 0;
+    public double index = 0;
     boolean open = false;
     LocalDateTime dateTime = null;
-    double grade = 0;
+    public double move_grade = 0;
+    public double op_grade = 0;
 
     public Race() {}
 
-    public void open(double optimi_pesimi, int type, double future_move, double index_move) {
-        this.optimi_pesimi = optimi_pesimi;
+    public void open(double future, double index, int type, double future_move, double index_move) {
         this.type = type;
         this.future_move = future_move;
         this.index_move = index_move;
+        this.index = index;
+        this.future = future;
+        this.optimi_pesimi = future - index;
         this.open = true;
     }
 
@@ -39,6 +44,10 @@ public class Race {
         this.future_move = status_race.future_move;
         this.index_move = status_race.index_move;
         this.open = status_race.open;
+        this.future = status_race.future;
+        this.index = status_race.index;
+        this.index_bid = status_race.index_bid;
+        this.index_ask = status_race.index_ask;
     }
 
     public void reset() {
@@ -46,6 +55,10 @@ public class Race {
         this.type = 0;
         this.future_move = 0;
         this.index_move = 0;
+        this.index_bid = 0;
+        this.index_ask = 0;
+        this.future = 0;
+        this.index = 0;
         this.open = false;
     }
 

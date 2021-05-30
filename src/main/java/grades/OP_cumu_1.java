@@ -1,7 +1,6 @@
 package grades;
 
 import fillCounter.Race;
-import locals.L;
 
 public class OP_cumu_1 extends GRADES {
 
@@ -9,43 +8,33 @@ public class OP_cumu_1 extends GRADES {
     public double get_grade(Race race) {
 
         double index_move = race.index_move;
-        double future_move = race.future_move;
-
         double grade = 0;
 
-        // VALIDATE RACE CAN BE CLOSE
-        if (index_move != 0) {
-            // BOTH UP
-            if (future_move > 0 && index_move > 0) {
-                double move_margin = future_move - index_move;
-                grade += move_margin * -1;
-                return grade;
-            }
-            // BOTH DOWN
-            if (future_move < 0 && index_move < 0) {
-                double move_margin = L.abs(future_move) - L.abs(index_move);
-                grade += move_margin;
-                return grade;
-            }
-            // FUTURE UP INDEX DOWN
-            if (future_move > 0 && index_move < 0) {
-                double margin  = L.abs(future_move) + L.abs(index_move);
-                grade -= margin;
-                return grade;
-            }
-            // FUTURE DOWN INDEX UP
-            if (future_move < 0 && index_move > 0) {
-                double margin  = L.abs(future_move) + L.abs(index_move);
-                grade += margin;
-                return grade;
-            }
-            // IF INDEX MOVED
-            if (index_move != 0) {
-                grade += index_move;
-                return grade;
-            }
+        // INDEX_UP
+        if (index_move > 0) {
+            grade = index_move * (1 - calc_future_margin_between_bid_ask_present(race));
+            return grade;
         }
+
+        // INDEX DOWN
+        if (index_move < 0) {
+            grade = index_move * calc_future_margin_between_bid_ask_present(race);
+            return grade;
+        }
+
         return grade;
+    }
+
+
+    private double calc_future_margin_between_bid_ask_present(Race race) {
+        double index_bid = race.index_bid;
+        double index_ask = race.index_ask;
+        double bid_ask_margin = index_ask - index_bid;
+        double future = race.future;
+        double future_from_index_bid_margin = future - index_bid;
+
+        double present = (future_from_index_bid_margin / bid_ask_margin);
+        return present;
     }
 
     /**
