@@ -1,7 +1,6 @@
 package dataBase.mySql;
 
 import arik.Arik;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

@@ -9,8 +9,6 @@ import java.util.ArrayList;
 public class FillCounterService {
 
     // Variables
-    private int sleep = 100;
-    private String name = "Fill counter";
     private double index = 0;
     private double index_bid = 0;
     private double index_ask = 0;
@@ -19,10 +17,8 @@ public class FillCounterService {
     private double future_0 = 0;
     private double index_change = 0;
     private double future_change = 0;
-    private double bid_ask_margin = 0;
     private double move_grade_cumu = 0;
     private double op_grade_cumu = 0;
-    private double optimi_pesimi = 0;
     private ArrayList<Race> races = new ArrayList<>();
     private Race status_race;
     LocalDateTime dateTime;
@@ -62,46 +58,46 @@ public class FillCounterService {
             if (future_change != 0 && index_change != 0) {
                 // BOTH UP
                 if (future_change > 0 && index_change > 0) {
-                    status_race.open(future, index, Race.BOTH_UP, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.BOTH_UP, future_change, index_change);
                     return;
                 }
                 // BOTH DOWN
                 if (future_change < 0 && index_change < 0) {
-                    status_race.open(future, index, Race.BOTH_DOWN, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.BOTH_DOWN, future_change, index_change);
                     return;
                 }
                 // FUTURE UP INDEX DOWN
                 if (future_change > 0 && index_change < 0) {
-                    status_race.open(future, index, Race.FUT_UP_IND_DOWN, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.FUT_UP_IND_DOWN, future_change, index_change);
                     return;
                 }
                 // FUTURE DOWN INDEX UP
                 if (future_change < 0 && index_change > 0) {
-                    status_race.open(future, index, Race.FUT_DOWN_IND_UP, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.FUT_DOWN_IND_UP, future_change, index_change);
                     return;
                 }
                 // FUTURE CHANGE
             } else if (future_change != 0) {
                 // FUTURE UP
                 if (future_change > 0) {
-                    status_race.open(future, index, Race.FUT_UP, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.FUT_UP, future_change, index_change);
                     return;
                 }
                 // FUTURE DOWN
                 if (future_change < 0) {
-                    status_race.open(future, index, Race.FUT_DOWN, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.FUT_DOWN, future_change, index_change);
                     return;
                 }
                 // INDEX CHANGE
             } else if (index_change != 0) {
                 // INDEX UP
                 if (index_change > 0) {
-                    status_race.open(future, index, Race.IND_UP, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.IND_UP, future_change, index_change);
                     return;
                 }
                 // INDEX DOWN
                 if (index_change < 0) {
-                    status_race.open(future, index, Race.IND_DOWN, future_change, index_change);
+                    status_race.open(future, index,index_bid, index_ask, Race.IND_DOWN, future_change, index_change);
                     return;
                 }
             }
@@ -186,29 +182,30 @@ public class FillCounterService {
             // VALIDATE CAN CLOSE RACE
             if (status_race.index_move != 0) {
 
+                System.out.println(move_grade_cumu);
+
+                // APPEND MOVE GRADE
+                double move_grade = move_grade_giver.get_grade(status_race);
+                status_race.move_grade = move_grade;
+                move_grade_cumu += move_grade;
+
+                System.out.println(move_grade_cumu);
+
+                // APPEND OP GRADE
+                double op_grade = op_grade_giver.get_grade(status_race);
+                status_race.op_grade = op_grade;
+                op_grade_cumu += op_grade;
+
                 // CLONE RACE
                 Race race = new Race();
                 race.clone_race(status_race);
                 race.dateTime = this.dateTime;
-                race.index_bid = this.index_bid;
-                race.index_ask = this.index_ask;
 
                 // ADD RACE TO LIST
                 races.add(race);
 
                 // RESET STATUS RACE
                 status_race.reset();
-
-                // APPEND MOVE GRADE
-                double move_grade = move_grade_giver.get_grade(race);
-                race.move_grade = move_grade;
-                move_grade_cumu += move_grade;
-
-                // APPEND OP GRADE
-                double op_grade = op_grade_giver.get_grade(race);
-                race.op_grade += op_grade;
-                op_grade_cumu += op_grade;
-
                 return;
             }
         }
@@ -235,12 +232,8 @@ public class FillCounterService {
         this.index_bid = index_bid;
         this.index_ask = index_ask;
 
-        bid_ask_margin = index_ask - index_bid;
-
         index_change = this.index - index_0;
         future_change = this.future - future_0;
-
-        optimi_pesimi = this.future - this.index;
     }
 
     public ArrayList<Race> getRaces() {

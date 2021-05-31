@@ -28,11 +28,13 @@ public class Race {
 
     public Race() {}
 
-    public void open(double future, double index, int type, double future_move, double index_move) {
+    public void open(double future, double index,double index_bid, double index_ask, int type, double future_move, double index_move) {
         this.type = type;
         this.future_move = future_move;
         this.index_move = index_move;
         this.index = index;
+        this.index_bid = index_bid;
+        this.index_ask = index_ask;
         this.future = future;
         this.optimi_pesimi = future - index;
         this.open = true;
@@ -48,6 +50,9 @@ public class Race {
         this.index = status_race.index;
         this.index_bid = status_race.index_bid;
         this.index_ask = status_race.index_ask;
+        this.move_grade = status_race.move_grade;
+        this.op_grade = status_race.op_grade;
+        this.dateTime = status_race.dateTime;
     }
 
     public void reset() {
@@ -59,7 +64,10 @@ public class Race {
         this.index_ask = 0;
         this.future = 0;
         this.index = 0;
+        this.move_grade = 0;
+        this.op_grade = 0;
         this.open = false;
+        this.dateTime = null;
     }
 
     @Override

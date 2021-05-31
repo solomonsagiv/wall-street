@@ -4,7 +4,6 @@ import dataBase.mySql.MyDBConnections;
 
 public class Manifest {
 
-    ;
     // REAL ACCOUNT
     public static int REAL_PORT = 4343;
     public static int CLIENT_ID = 999;
@@ -22,7 +21,7 @@ public class Manifest {
     public static int GATEWAY_PORT = 4001;
 
     // SELECTED ACCOUNT
-    public static final int POOL_SIZE = 5;
+    public static final int POOL_SIZE = 20;
     public static boolean DB = false;
     public static boolean DB_RUNNER = false;
     public static boolean DB_UPDATER = false;

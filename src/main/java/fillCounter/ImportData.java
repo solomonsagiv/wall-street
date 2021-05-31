@@ -1,6 +1,9 @@
 package fillCounter;
 
 import dataBase.mySql.MySql;
+import grades.GRADES;
+import grades.Move_cumu_1;
+import grades.OP_cumu_1;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,14 +122,21 @@ public class ImportData {
         return series_list;
     }
 
-    protected void insertListRetro(ArrayList<Race> races, String table_location) {
+    protected void insertListRetro(ArrayList<Race> races, String table_location, GRADES grades) {
         if (races.size() > 0) {
-
             // Create the query
             StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value) VALUES ");
             int last_item_id = races.get(races.size() - 1).hashCode();
             for (Race race : races) {
-                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", race.dateTime, race.op_grade));
+
+                // Witch grade giver use
+                double value = 0;
+                if (grades instanceof Move_cumu_1) {
+                    value = race.move_grade;
+                } else if (grades instanceof OP_cumu_1) {
+                    value = race.op_grade;
+                }
+                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", race.dateTime, value));
                 if (race.hashCode() != last_item_id) {
                     queryBuiler.append(",");
                 }
@@ -145,5 +155,4 @@ public class ImportData {
     public ArrayList<ArrayList<MySerie>> getArrays() {
         return arrays;
     }
-
 }

@@ -2,14 +2,14 @@ package fillCounter;
 
 import grades.GRADES;
 import grades.GradesHandler;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MainFillCounter {
 
-    public static String DATE = "2021-05-21";
+    LocalDate date = LocalDate.of(2021, 1, 19);
+    LocalDate end_date = LocalDate.of(2021, 1, 20);
     public static String TIME = "23:00:00";
 
     // Main
@@ -19,22 +19,15 @@ public class MainFillCounter {
     }
 
     public void run_multy_days() {
-
-        LocalDate date = LocalDate.of(2021, 1, 19);
-        LocalDate end_date = LocalDate.of(2021, 5, 29);
-
         while (date.isBefore(end_date)) {
-
             // NOT SATURDAY OR SUNDAY
             if (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7) {
                 System.out.println();
                 System.out.println("---------- " + date + " -----------");
                 run_sungle_day(date.toString(), MainFillCounter.TIME);
             }
-
             date = date.plusDays(1);
         }
-
     }
 
     public void run_sungle_day(String date, String time) {
@@ -48,7 +41,6 @@ public class MainFillCounter {
         ImportData importData = new ImportData(date, time);
         // PRINT ARRAYS
         importData.print();
-
 
         // CREATE FILL COUNTER INSTANCE
         FillCounterService fillCounterService = new FillCounterService(move_grade_giver, op_grade_giver);
@@ -66,10 +58,9 @@ public class MainFillCounter {
                 double future = arrays.get(ImportData.FUT_I).get(i).value;
 
                 fillCounterService.run(dateTime, index, index_bid, index_ask, future);
-                System.out.println(fillCounterService.getOp_grade_cumu());
-
+                System.out.println(fillCounterService.getMove_grade_cumu());
             } catch (Exception e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
 
@@ -79,9 +70,7 @@ public class MainFillCounter {
 //        fillCounterService.print_races();
 
         // INSERT TO DATABASE
-//        importData.insertListRetro(fillCounterService.getRaces(), "data.spx500_sagiv_function_cdf");
-//        importData.insertListRetro(fillCounterService.getRaces(), "data.spx500_sagiv_op_1_function_cdf");
+//        importData.insertListRetro(fillCounterService.getRaces(), "data.spx500_sagiv_move_1_function_cdf", move_grade_giver);
+//        importData.insertListRetro(fillCounterService.getRaces(), "data.spx500_sagiv_op_1_function_cdf", op_grade_giver);
     }
-
-
 }
