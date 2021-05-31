@@ -149,16 +149,15 @@ public class DDEReader_Ndx extends IDDEReader {
         } catch (DDEException e) {
             e.printStackTrace();
         }
-
     }
 
     private void updateStocks(DDEClientConversation conversation) {
         for (MiniStock stock : client.getStocksHandler().getStocks()) {
             try {
-                stock.setLastPrice(L.dbl(conversation.request(stock.getDdeCells().getLastPriceCell())));
-                stock.setBid(L.dbl(conversation.request(stock.getDdeCells().getBidCell())));
-                stock.setAsk(L.dbl(conversation.request(stock.getDdeCells().getAskCell())));
-                stock.setVolume(L.dbl(conversation.request(stock.getDdeCells().getVolumeCell())));
+                stock.setLastPrice(requestDouble(stock.getDdeCells().getLastPriceCell(), conversation));
+                stock.setBid(requestDouble(stock.getDdeCells().getBidCell(), conversation));
+                stock.setAsk(requestDouble(stock.getDdeCells().getAskCell(), conversation));
+                stock.setVolume(requestDouble(stock.getDdeCells().getVolumeCell(), conversation));
             } catch (Exception e) {
                 e.printStackTrace();
             }

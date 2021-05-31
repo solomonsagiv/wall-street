@@ -63,7 +63,7 @@ public class DDEReader_Dax extends IDDEReader {
                 }
 
                 // End
-                if (name.replaceAll("\\s+", "").equals("0")) {
+                if (name.replaceAll("\\s+", "").equals("0") || name.replaceAll("\\s+", "").equals("")) {
                     break;
                 }
 
@@ -145,12 +145,13 @@ public class DDEReader_Dax extends IDDEReader {
     private void updateStocks(DDEClientConversation conversation) {
         for (MiniStock stock : client.getStocksHandler().getStocks()) {
             try {
-                stock.setLastPrice(L.dbl(conversation.request(stock.getDdeCells().getLastPriceCell())));
-                stock.setBid(L.dbl(conversation.request(stock.getDdeCells().getBidCell())));
-                stock.setAsk(L.dbl(conversation.request(stock.getDdeCells().getAskCell())));
-                stock.setVolume(L.dbl(conversation.request(stock.getDdeCells().getVolumeCell())));
-                stock.setWeight(L.dbl(conversation.request(stock.getDdeCells().getWeightCell())));
+                stock.setLastPrice(requestDouble(stock.getDdeCells().getLastPriceCell(), conversation));
+                stock.setBid(requestDouble(stock.getDdeCells().getBidCell(), conversation));
+                stock.setAsk(requestDouble(stock.getDdeCells().getAskCell(), conversation));
+                stock.setVolume(requestDouble(stock.getDdeCells().getVolumeCell(), conversation));
+                stock.setWeight(requestDouble(stock.getDdeCells().getWeightCell(), conversation));
             } catch (Exception e) {
+                System.out.println(stock.getDdeCells().getLastPriceCell());
                 e.printStackTrace();
             }
         }

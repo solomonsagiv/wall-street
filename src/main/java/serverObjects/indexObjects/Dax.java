@@ -42,7 +42,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setStocksDeltaService(new StocksDeltaService(this));
         setBasketFinder(new BasketFinder_3(this, 24, 3));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Dax"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/[bbg index.xlsm]Dax"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }

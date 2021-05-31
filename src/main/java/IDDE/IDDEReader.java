@@ -21,7 +21,7 @@ public abstract class IDDEReader {
         double d = 0;
         try {
             d = L.dbl(conversation.request(cell));
-        } catch (NumberFormatException | DDEException e) {
+        } catch (Exception e) {
             // TODO
             System.out.println("Cell: " + cell);
             e.printStackTrace();
