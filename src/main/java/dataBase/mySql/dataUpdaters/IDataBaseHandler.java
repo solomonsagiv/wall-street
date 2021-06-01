@@ -76,6 +76,27 @@ public abstract class IDataBaseHandler {
         return "No table call: " + target_table;
     }
 
+    private void load_properties() {
+
+        String q = "SELECT * FROM sagiv.props WHERE stock_id = %s;";
+        String query = String.format(q, client.getId_name());
+
+        ResultSet rs = MySql.select(query);
+
+        while (true) {
+            try {
+                if (!rs.next()) break;
+
+
+
+
+
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
 
     protected void load_data_agg(ResultSet rs, BASE_CLIENT_OBJECT client, Exp exp, int type) {
 

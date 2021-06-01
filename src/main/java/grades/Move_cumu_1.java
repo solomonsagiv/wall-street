@@ -7,7 +7,6 @@ public class Move_cumu_1 extends GRADES {
 
     @Override
     public double get_grade(Race race) {
-
         double index_move = race.index_move;
         double future_move = race.future_move;
 
@@ -47,10 +46,8 @@ public class Move_cumu_1 extends GRADES {
         }
         return grade;
     }
-
     /**
      * First move cumu
      *
      */
-
 }

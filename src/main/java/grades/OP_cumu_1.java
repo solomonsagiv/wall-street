@@ -25,7 +25,6 @@ public class OP_cumu_1 extends GRADES {
         return grade;
     }
 
-
     private double calc_future_margin_between_bid_ask_present(Race race) {
         double index_bid = race.index_bid;
         double index_ask = race.index_ask;

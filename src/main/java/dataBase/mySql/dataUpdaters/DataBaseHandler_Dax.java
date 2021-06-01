@@ -145,6 +145,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, FUT_RACES_TYPE);
 
+        // LOAD PROPERTIES
+        load_properties();
     }
 
     @Override

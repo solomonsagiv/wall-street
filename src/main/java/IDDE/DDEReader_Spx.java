@@ -58,7 +58,6 @@ public class DDEReader_Spx extends IDDEReader {
         client.setIndexAsk(requestDouble(indAskCell, conversation));
 
         // Ticker
-        client.setOpen(requestDouble(openCell, conversation));
         client.setHigh(requestDouble(highCell, conversation));
         client.setLow(requestDouble(lowCell, conversation));
         client.setBase(requestDouble(baseCell, conversation));

@@ -32,7 +32,7 @@ public class MainFillCounter {
 
     public void run_sungle_day(String date, String time) {
         GradesHandler gradesHandler = new GradesHandler();
-        
+
         // ATTRIBUTES
         GRADES move_grade_giver = gradesHandler.getMove_cumu_1();
         GRADES op_grade_giver = gradesHandler.getOp_cumu_1();
