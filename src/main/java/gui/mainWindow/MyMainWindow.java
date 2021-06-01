@@ -61,7 +61,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     @Override
     public void initialize() {
-
         // Append clients
         appendClients();
 
@@ -87,11 +86,9 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         windowsPanel = new WindowsPanel();
         windowsPanel.setXY(0, connectionPanel.getY() + connectionPanel.getHeight() + 1);
         add(windowsPanel);
-
     }
 
     private void loadOnStartUp() {
-
         // Connect to db
         ConnectionPool.getConnectionsPoolInstance();
 
@@ -99,10 +96,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
                 try {
-
                     // Load data from database
                     client.getMySqlService().getDataBaseHandler().loadData();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -104,12 +104,5 @@ public class Props {
                 return new MyJson();
             }
         });
-
-
-
     }
-
-
-
-
 }
