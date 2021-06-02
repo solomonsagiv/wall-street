@@ -87,8 +87,12 @@ public abstract class IDataBaseHandler {
             try {
                 if (!rs.next()) break;
 
+                String props_name = rs.getString("prop");
 
+                switch (props_name) {
+                    case k
 
+                }
 
 
 

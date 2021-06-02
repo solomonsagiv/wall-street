@@ -76,7 +76,6 @@ public class BackGroundHandler {
                         lastChangeCountToStart++;
                     }
 
-
                     // Index start time
                     if (now.isAfter(client.getIndexStartTime()) && !client.isStarted() && lastChangeCountToStart >= 2) {
                         if (client.getOpen() == 0) {
