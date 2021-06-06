@@ -89,12 +89,6 @@ public abstract class IDataBaseHandler {
 
                 String props_name = rs.getString("prop");
 
-                switch (props_name) {
-                    case k
-
-                }
-
-
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -249,7 +243,6 @@ public abstract class IDataBaseHandler {
             // Clear the list
             list.clear();
         }
-
     }
 
     protected void update_props_to_db() {
@@ -262,11 +255,13 @@ public abstract class IDataBaseHandler {
                 if (!rs.next()) break;
 
                 String prop = rs.getString("prop");
-                String data = rs.getString("data");
 
-//                if (  ) {
-//
-//                }
+
+                
+
+
+
+
 
 
             } catch (SQLException throwables) {

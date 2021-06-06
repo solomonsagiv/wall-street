@@ -8,6 +8,19 @@ import java.time.LocalTime;
 
 public class MySql {
 
+
+    public static void main(String[] args) {
+
+
+
+
+
+
+
+    }
+
+
+
     private static ConnectionPool pool;
 
     // Insert

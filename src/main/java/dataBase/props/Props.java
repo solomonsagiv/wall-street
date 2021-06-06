@@ -1,9 +1,7 @@
 package dataBase.props;
 
-import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +17,7 @@ public class Props {
     public static final String EXCEL_FILE_LOCATION = "EXCEL_FILE_LOCATION";
     public static final String MAIN_EXP = "MAIN_EXP";
 
-    public Props( BASE_CLIENT_OBJECT client ) {
+    public Props(BASE_CLIENT_OBJECT client) {
         this.client = client;
         map = new HashMap<>();
         init();
@@ -33,8 +31,5 @@ public class Props {
         map.put(EXCEL_FILE_LOCATION, EXCEL_FILE_LOCATION);
         map.put(MAIN_EXP, MAIN_EXP);
     }
-
-
-
 
 }
