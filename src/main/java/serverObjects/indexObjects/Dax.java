@@ -4,8 +4,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
-import baskets.BasketFinder;
-import baskets.BasketFinder_2;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
@@ -23,7 +21,6 @@ import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import stocksHandler.stocksDelta.StocksDeltaService;
-
 import java.time.LocalTime;
 
 public class Dax extends INDEX_CLIENT_OBJECT {
@@ -37,12 +34,12 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setIndexBidAskMargin(.5);
         setStrikeMargin(5);
         setIndexStartTime(LocalTime.of(10, 0, 10));
-        setIndexEndTime(LocalTime.of(18, 30, 0));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(18, 45, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setStocksDeltaService(new StocksDeltaService(this));
         setBasketFinder(new BasketFinder_3(this, 24, 3));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/OneDrive/Desktop/[bbg index.xlsm]Dax"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this), "C:/Users/yosef/Desktop/[bbg index.xlsm]Dax"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }

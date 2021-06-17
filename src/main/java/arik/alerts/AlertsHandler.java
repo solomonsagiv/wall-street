@@ -1,92 +1,59 @@
 package arik.alerts;
 
-import arik.locals.Emojis;
-import com.pengrad.telegrambot.model.Update;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-
+import threads.MyThread;
 import java.util.ArrayList;
 
-public class AlertsHandler {
+public class AlertsHandler extends MyThread implements Runnable {
 
-    // The alert handler instance
-    private static AlertsHandler alertsHandler;
-    private int id = 0;
-    // Variables
-    private ArrayList<Alert> alerts = new ArrayList<>();
+    private String speed_table_name = "data.research_spx500_501_speed_900";
+    private String acc_table_name = "data.research_spx500_501_speed2_900";
+    private ArrayList<Alert> alerts;
+    private int sleep = 10000;
 
-    // Private constructor
-    private AlertsHandler() {
+    public AlertsHandler() {
+        this.alerts = new ArrayList<>();
     }
 
-    // Get instance
-    public static AlertsHandler getInstance() {
-        if (alertsHandler == null) {
-            alertsHandler = new AlertsHandler();
-        }
-        return alertsHandler;
-    }
+    @Override
+    public void run() {
+        while (isRun()) {
+            try {
+                // Sleep
+                Thread.sleep(sleep);
 
-    // Kill all alerts
-    public void killAllAlerts() {
-        for (Alert alert : alerts) {
-            alert.getAlertsThread().close();
-        }
-        alerts.clear();
-    }
+                // Logic
+                logic();
 
-    // Show all alerts
-    public String show_alerts() {
-        String s = "";
-        if (alerts.size() > 0) {
-            for (Alert alert : alerts) {
-                s += "Alert - " + alert.getId() + " Target - " + alert.getTarget() + " \n";
-            }
-        } else {
-            s = "There are no alerts open " + Emojis.no_mouth;
-        }
-        return s;
-    }
-
-
-    // Kill thread
-    public String kill(int id) {
-        String s = "There are no alerts with this name " + Emojis.open_mouth;
-        // Iterate over set to find yours
-
-        for (Alert alert : alerts) {
-            if (alert.getId() == id) {
-                s = "Alert - " + alert.getId() + " is dead " + Emojis.check_mark;
-                alert.getAlertsThread().setRun(false);
-                alerts.remove(alert);
-                return s;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        return s;
     }
 
-    // Create new alert
-    public Alert newAlert(INDEX_CLIENT_OBJECT stockObject, double target, Update update) {
-        Alert alert = new Alert(id, stockObject, target, update);
-        alert.startAlertRunner();
-        id++;
-        return alert;
+    private void logic() {
+
+
+
     }
 
-    // ---------- Getters and Setters ---------- //
-    public ArrayList<Alert> getAlerts() {
-        return alerts;
+    @Override
+    public void initRunnable() {
+        setRunnable(this);
     }
 
-    public void setAlerts(ArrayList<Alert> alerts) {
-        this.alerts = alerts;
+//    public Alert create_alert() {
+//        Alert alert = new Alert();
+//        alerts.add(alert);
+//        return alert;
+//    }
+
+    public void add_alert(Alert alert) {
+        alerts.add(alert);
     }
 
-    public int getId() {
-        return id;
+    public void kill_alert(Alert alert) {
+        alert.getHandler().close();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
 }

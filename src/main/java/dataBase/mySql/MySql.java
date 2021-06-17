@@ -8,19 +8,6 @@ import java.time.LocalTime;
 
 public class MySql {
 
-
-    public static void main(String[] args) {
-
-
-
-
-
-
-
-    }
-
-
-
     private static ConnectionPool pool;
 
     // Insert
@@ -171,6 +158,12 @@ public class MySql {
 
         public static ResultSet get_serie(String table_loc) {
             String query = String.format("SELECT * FROM %s WHERE time::date = now()::date order by time;", table_loc);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet get_last_record(String table_location) {
+            String query = "SELECT * FROM % ORDER BY TIME DESC LIMIT 1";
             return MySql.select(query);
         }
 

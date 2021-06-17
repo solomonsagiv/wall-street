@@ -13,9 +13,11 @@ public abstract class ArikCase {
     protected Update update;
     protected boolean used = false;
     private Keyboard keyboard;
+    private String name;
 
     // Constructor
-    public ArikCase() {
+    public ArikCase(String name) {
+        this.name = name;
     }
 
     public abstract boolean doCase(Update update);
@@ -36,5 +38,13 @@ public abstract class ArikCase {
     public void setKeyboard(Keyboard keyboard) {
         if (keyboard == null) throw new NullPointerException(getClass().getName() + " Keyboard isn't set");
         this.keyboard = keyboard;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

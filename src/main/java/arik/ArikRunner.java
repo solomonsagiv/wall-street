@@ -1,8 +1,8 @@
 package arik;
 
-import arik.cases.ChooseStockCase;
-import arik.cases.DataCase;
+import arik.cases.ChooseAlertCase;
 import arik.cases.DontKnowCaes;
+import arik.cases.SpeedCase;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
@@ -20,14 +20,16 @@ public class ArikRunner extends Thread {
     int sagiv_id = 365117561;
     Arik arik;
     CasesHandler casesHandler;
+    long date = 0;
 
     // Constructor
     public ArikRunner(Arik arik) {
         this.arik = arik;
         casesHandler = new CasesHandler();
-
-        casesHandler.addCase(new DataCase());
-        casesHandler.addCase(new ChooseStockCase());
+        casesHandler.addCase(new ChooseAlertCase("/Alerts"));
+        casesHandler.addCase(new SpeedCase("/Speed+-5000"));
+//        casesHandler.addCase(new AccCase("/Acc+-0"));
+//        casesHandler.addCase(new );
     }
 
     // Run
@@ -45,14 +47,13 @@ public class ArikRunner extends Thread {
 
     // Loop
     private void loop() throws InterruptedException {
-        long date = 0;
         int alert_count = 1;
 
         try {
             while (run) {
                 // BackGround
                 // Get updates
-                getUpdates(date, alert_count);
+                getUpdates(alert_count);
                 sleep(1000);
             }
         } catch (Exception e) {
@@ -63,14 +64,14 @@ public class ArikRunner extends Thread {
     }
 
     // Get upadtes
-    private void getUpdates(long date, int alert_count) {
+    private void getUpdates(int alert_count) {
         GetUpdatesResponse updatesResponse = arik.getBot()
                 .execute(new GetUpdates().limit(1000).offset(arik.getUpdateId()).timeout(5));
         List<Update> updates = updatesResponse.updates();
         if (updates.size() > 0) {
             for (Update update : updates) {
                 if (update.message().date() > date) {
-                    date = update.message().date();
+                    this.date = update.message().date();
                     // Validate user
                     if (is_allowed(allowed, update.message().from().id())) {
                         try {
@@ -86,7 +87,7 @@ public class ArikRunner extends Thread {
                             arik.sendMessage(update, e.getMessage(), null);
                         }
                     } else {
-                        arik.sendMessage(update, " Sorry can't talk with you ", null);
+                        arik.sendMessage(update, "Fuck you", null);
 
                         // Notice me
                         arik.sendMessage(
@@ -94,7 +95,6 @@ public class ArikRunner extends Thread {
                                         + "\n His name is: " + update.message().from().firstName() + "\n" + "id: "
                                         + update.message().from().id()
                         );
-
                         break;
                     }
                 }
@@ -108,24 +108,26 @@ public class ArikRunner extends Thread {
 
         for (ArikCase arikCase : casesHandler.getCases()) {
 
-            if (statusCase == arikCase) {
-                arikCase.doCase(update);
-                return;
-            }
-
-//            if ( arikCase.getMyMessage( ).toLowerCase( ).equals( update.message( ).text( ) ) ) {
-//                executorService.submit( new Runnable( ) {
-//                    @Override
-//                    public void run() {
-//                        arikCase.doCase( update );
-//                        statusCase = arikCase;
-//                    }
-//                } );
+//            if (statusCase == arikCase) {
+//                arikCase.doCase(update);
 //                return;
 //            }
 
+            // Get the clean text
+            String text = update.message().text().toLowerCase();
+
+            if (arikCase.getName().toLowerCase().equals(text)) {
+                executorService.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        arikCase.doCase(update);
+//                        statusCase = arikCase;
+                    }
+                });
+                return;
+            }
         }
-        new DontKnowCaes().doCase(update);
+        new DontKnowCaes("").doCase(update);
     }
 
     // Is allowed

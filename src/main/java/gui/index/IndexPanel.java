@@ -6,7 +6,6 @@ import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
-import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
 import javax.swing.*;

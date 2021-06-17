@@ -4,8 +4,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
-import baskets.BasketFinder;
-import baskets.BasketFinder_2;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
@@ -15,6 +13,9 @@ import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
+import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
+import jibeDataGraber.DecisionsFuncHandler;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
@@ -23,6 +24,8 @@ import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Ndx extends INDEX_CLIENT_OBJECT {
 
@@ -38,8 +41,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinder( new BasketFinder_3(this, 80, 3));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/yosef/OneDrive/Desktop/[bbg index.xlsm]Ndx"));
+        setBasketFinder(new BasketFinder_3(this, 80, 3));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/yosef/Desktop/[bbg index.xlsm]Ndx"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
@@ -97,6 +100,18 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         if (marginOfMarings > 0 && marginOfMarings < 5) {
             indAskMarginCounter += marginOfMarings;
         }
+    }
+
+    @Override
+    public DecisionsFuncHandler getDecisionsFuncHandler() {
+        if (decisionsFuncHandler == null) {
+            Map<String, DecisionsFunc> map = new HashMap<>();
+            map.put(DecisionsFuncFactory.NDX_SPEED_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.NDX_SPEED_900));
+            map.put(DecisionsFuncFactory.NDX_ACC_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.NDX_ACC_900));
+            map.put(DecisionsFuncFactory.NDX_ACC_300, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.NDX_ACC_300));
+            decisionsFuncHandler = new DecisionsFuncHandler(map);
+        }
+        return decisionsFuncHandler;
     }
 
     @Override

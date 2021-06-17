@@ -6,7 +6,7 @@ public abstract class MyBaseService implements IMyService {
 
     protected int sleepCount = 0;
 
-    BASE_CLIENT_OBJECT client;
+    protected BASE_CLIENT_OBJECT client;
     ServiceEnum type;
 
     public MyBaseService(BASE_CLIENT_OBJECT client) {
@@ -23,13 +23,14 @@ public abstract class MyBaseService implements IMyService {
             try {
                 go();
             } catch (Exception e) {
-                System.out.println(getClient() + " " + getName());
+                System.out.println(client + " " + getName());
                 e.printStackTrace();
             }
         }
     }
 
     // --------- Getters and setters --------- //
+
     public BASE_CLIENT_OBJECT getClient() {
         return client;
     }

@@ -6,10 +6,13 @@ import IDDE.DDEHandler;
 import api.Manifest;
 import baskets.BasketFinder_3;
 import dataBase.mySql.MySqlService;
+import dataBase.props.Props;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
+import jibeDataGraber.DecisionFuncDataGraberService;
+import jibeDataGraber.DecisionsFuncHandler;
 import lists.ListsService;
 import locals.L;
 import locals.LocalHandler;
@@ -38,6 +41,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected Exps exps;
     protected DDECells ddeCells;
     protected double strikeMargin = 0;
+    protected Props props;
 
     protected double indBidMarginCounter = 0;
     protected double indAskMarginCounter = 0;
@@ -45,11 +49,17 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Stocks delta
     StocksDeltaService stocksDeltaService;
 
+    // Decision funcs service
+    DecisionFuncDataGraberService decisionFuncDataGraberService;
+
     // Roll
     protected RollHandler rollHandler;
 
     // TablesHandler
     protected LogicService logicService;
+
+    // Decision func handler
+    protected DecisionsFuncHandler decisionsFuncHandler;
 
     // Basic
     protected double index = 0;
@@ -121,6 +131,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
             // MyServices
             listsService = new ListsService(this);
+            decisionFuncDataGraberService = new DecisionFuncDataGraberService(this);
             stocksHandler = new StocksHandler(this);
 
         } catch (Exception e) {
@@ -296,6 +307,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         }
 
         return true;
+    }
+
+    public DecisionsFuncHandler getDecisionsFuncHandler() {
+        return decisionsFuncHandler;
     }
 
     public void setLoadFromDb(boolean loadFromDb) {
@@ -516,6 +531,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return exps;
     }
 
+    public DecisionFuncDataGraberService getDecisionFuncDataGraberService() {
+        if (decisionFuncDataGraberService == null) {
+            decisionFuncDataGraberService = new DecisionFuncDataGraberService(this);
+        }
+        return decisionFuncDataGraberService;
+    }
+
     public void setExps(Exps exps) {
         this.exps = exps;
     }
@@ -643,6 +665,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public StocksHandler getStocksHandler() {
         return stocksHandler;
+    }
+
+    public Props getProps() {
+        if (props == null) {
+            props = new Props(this);
+        }
+        return props;
     }
 
     public void setStocksHandler(StocksHandler stocksHandler) {

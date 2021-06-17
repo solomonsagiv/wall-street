@@ -9,6 +9,9 @@ import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import exp.ExpStrings;
+import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
+import jibeDataGraber.DecisionsFuncHandler;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
@@ -17,6 +20,8 @@ import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
@@ -32,7 +37,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/yosef/OneDrive/Desktop/[bbg index.xlsm]Spx"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/yosef/Desktop/[bbg index.xlsm]Spx"));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
@@ -77,6 +82,18 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         if (marginOfMarings > 0 && marginOfMarings < 5) {
             indAskMarginCounter += marginOfMarings;
         }
+    }
+
+    @Override
+    public DecisionsFuncHandler getDecisionsFuncHandler() {
+        if (decisionsFuncHandler == null) {
+            Map<String, DecisionsFunc> map = new HashMap<>();
+            map.put(DecisionsFuncFactory.SPX_SPEED_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_SPEED_900));
+            map.put(DecisionsFuncFactory.SPX_ACC_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_ACC_900));
+            map.put(DecisionsFuncFactory.SPX_ACC_300, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_ACC_300));
+            decisionsFuncHandler = new DecisionsFuncHandler(map);
+        }
+        return decisionsFuncHandler;
     }
 
     @Override

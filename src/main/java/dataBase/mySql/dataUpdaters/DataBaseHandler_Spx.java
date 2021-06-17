@@ -171,6 +171,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
 
+        // Load props
+//        load_properties();
+
     }
 
     @Override

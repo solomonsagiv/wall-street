@@ -17,7 +17,7 @@ public class MainFillCounter {
         MainFillCounter mainFillCounter = new MainFillCounter();
         mainFillCounter.run_multy_days();
     }
-
+    
     public void run_multy_days() {
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY

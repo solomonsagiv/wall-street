@@ -2,6 +2,7 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
+import dataBase.props.Prop;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -13,9 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class IDataBaseHandler {
-
-    // Props
-    protected Map<String, String> propsMap = new HashMap<>();
 
     public static final int INDEX_TABLE = 11;
     public static final int BASKETS_TABLE = 12;
@@ -76,9 +74,9 @@ public abstract class IDataBaseHandler {
         return "No table call: " + target_table;
     }
 
-    private void load_properties() {
+    void load_properties() {
 
-        String q = "SELECT * FROM sagiv.props WHERE stock_id = %s;";
+        String q = "SELECT * FROM sagiv.props WHERE stock_id = '%s';";
         String query = String.format(q, client.getId_name());
 
         ResultSet rs = MySql.select(query);
@@ -86,9 +84,10 @@ public abstract class IDataBaseHandler {
         while (true) {
             try {
                 if (!rs.next()) break;
-
                 String props_name = rs.getString("prop");
+                Object data = rs.getObject("data");
 
+                client.getProps().getMap().get(props_name).setData(data);
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -96,7 +95,39 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    protected void load_data_agg(ResultSet rs, BASE_CLIENT_OBJECT client, Exp exp, int type) {
+    void insert_properties() {
+        // Query
+        String q = "INSERT INTO sagiv.props (stock_id, prop, data) VALUES ('%s', '%s', '%s');";
+
+        // Get query map
+        HashMap<String, Prop> map = (HashMap<String, Prop>) client.getProps().getMap();
+
+        // For each prop
+        for (Map.Entry<String, Prop> entry : map.entrySet()) {
+            Prop prop = entry.getValue();
+            String query = String.format(q, client.getId_name(), prop.getName(), prop.getData());
+            System.out.println(query);
+            MySql.insert(query);
+        }
+    }
+
+    void update_properties() {
+
+        // Query
+        String q = "UPDATE sagiv.props SET data = '%s' WHERE stock_id LIKE '%s' AND prop LIKE '%s';";
+
+        // Get query map
+        HashMap<String, Prop> map = (HashMap<String, Prop>) client.getProps().getMap();
+
+        // For each prop
+        for (Map.Entry<String, Prop> entry : map.entrySet()) {
+            Prop prop = entry.getValue();
+            String query = String.format(q, prop.getData(), client.getId_name(), prop.getName());
+            MySql.update(query);
+        }
+    }
+
+    void load_data_agg(ResultSet rs, BASE_CLIENT_OBJECT client, Exp exp, int type) {
 
         // BASKETS
         if (type == BASKETS_TYPE) {
@@ -220,8 +251,7 @@ public abstract class IDataBaseHandler {
         }
     }
 
-
-    protected void insertListRetro(ArrayList<MyTimeStampObject> list, String table_location) {
+    void insertListRetro(ArrayList<MyTimeStampObject> list, String table_location) {
         if (list.size() > 0) {
 
             // Create the query
@@ -245,7 +275,7 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    protected void update_props_to_db() {
+    void update_props_to_db() {
 
         String query = String.format("SELECT * FROM data.props WHERE name = '%s';", client.getName());
         ResultSet rs = MySql.select(query);
@@ -255,13 +285,6 @@ public abstract class IDataBaseHandler {
                 if (!rs.next()) break;
 
                 String prop = rs.getString("prop");
-
-
-                
-
-
-
-
 
 
             } catch (SQLException throwables) {

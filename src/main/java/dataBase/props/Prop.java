@@ -1,6 +1,5 @@
 package dataBase.props;
 
-import myJson.MyJson;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public abstract class Prop {
@@ -13,8 +12,8 @@ public abstract class Prop {
         this.name = name;
     }
 
-    public abstract void setData(String json_text);
-    public abstract MyJson getData();
+    public abstract void setData(Object json_text);
+    public abstract Object getData();
 
     public void setName(String name) {
         this.name = name;

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-    private static final int MAX_POOL_SIZE = 100;
+    private static final int MAX_POOL_SIZE = 50;
 
     // Instance
     private static ConnectionPool connectionPool;
@@ -49,7 +49,11 @@ public class ConnectionPool implements IConnectionPool {
             for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
                 new Thread(() -> {
                     try {
+                        System.out.println(dbConnectionType.getUrl());
+                        System.out.println(dbConnectionType.getUser());
+                        System.out.println(dbConnectionType.getPassword());
                         pool.add(createConnection(dbConnectionType.getUrl(), dbConnectionType.getUser(), dbConnectionType.getPassword()));
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

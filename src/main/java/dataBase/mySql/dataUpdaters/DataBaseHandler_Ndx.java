@@ -130,7 +130,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     @Override
     public void loadData() {
-
         // OP AVG
         load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_DAY_TABLE)), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
         load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
@@ -145,6 +144,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
 
+        // Props
+//        load_properties();
     }
 
     @Override

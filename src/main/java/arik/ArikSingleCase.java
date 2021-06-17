@@ -6,6 +6,7 @@ public abstract class ArikSingleCase extends ArikCase {
 
     // Constructor
     public ArikSingleCase(String message) {
+        super(message);
         this.message = message;
     }
 

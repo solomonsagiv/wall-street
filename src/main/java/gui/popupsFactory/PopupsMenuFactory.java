@@ -1,13 +1,9 @@
 package gui.popupsFactory;
 
-import charts.myCharts.Full_Charts;
-import charts.myCharts.FuturesChart;
-import charts.myCharts.Index_baskets_chart;
-import charts.myCharts.StocksDeltaChart;
+import charts.myCharts.*;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import setting.clientSetting.SettingWindow;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +32,15 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Full_Charts chart = new Full_Charts(client);
+                chart.createChart();
+            }
+        });
+
+        JMenuItem dec_funcs = new JMenuItem("Dec funcs");
+        dec_funcs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DecisionsFuncChart chart = new DecisionsFuncChart(client);
                 chart.createChart();
             }
         });
@@ -91,7 +96,6 @@ public class PopupsMenuFactory {
             }
         });
 
-
         JMenuItem details = new JMenuItem("Details");
         details.addActionListener(new ActionListener() {
             @Override
@@ -105,6 +109,7 @@ public class PopupsMenuFactory {
         export.add(export_to_excel);
         charts.add(threeFut);
         charts.add(fullCharts);
+        charts.add(dec_funcs);
         charts.add(baskets);
         charts.add(stocks_delta_itam);
 
