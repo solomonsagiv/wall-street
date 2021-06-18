@@ -5,10 +5,16 @@ import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.util.ArrayList;
 
 public class DecisionsFuncChart extends MyChartCreator {
+
+    public static void main(String[] args) {
+        DecisionsFuncChart chart = new DecisionsFuncChart(Spx.getInstance());
+        chart.createChart();
+    }
 
     // Constructor
     public DecisionsFuncChart(BASE_CLIENT_OBJECT client ) {
@@ -34,6 +40,8 @@ public class DecisionsFuncChart extends MyChartCreator {
         props.setProp(ChartPropsEnum.SLEEP, 10000);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
+        props.setProp(ChartPropsEnum.MARKER, 0);
+        props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
 
         // ----- Chart 1 ----- //
         // Speed 900

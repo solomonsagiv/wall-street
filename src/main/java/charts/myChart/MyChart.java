@@ -109,8 +109,10 @@ public class MyChart {
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
         plot.setDomainPannable(false);
         plot.setRangePannable(false);
-        plot.getRangeAxis().setLabelPaint(Themes.BLUE_DARK);
-        plot.getRangeAxis().setLabelFont(Themes.ARIEL_15);
+        plot.getRangeAxis().setAutoRange(true);
+        plot.getRangeAxis().setTickLabelPaint(Themes.BINANCE_GREY);
+        plot.getRangeAxis().setTickLabelFont(Themes.ARIEL_BOLD_15);
+
     }
 
     private void number_axis() {
@@ -164,7 +166,7 @@ public class MyChart {
         // Marker
         if (props.getProp(ChartPropsEnum.MARKER) != MyProps.p_null) {
             ValueMarker marker = new ValueMarker(props.getProp(ChartPropsEnum.MARKER));
-            marker.setStroke(new BasicStroke(2f));
+            marker.setStroke(new BasicStroke(1.2f));
             marker.setPaint(Color.BLACK);
             plot.addRangeMarker(marker, Layer.BACKGROUND);
         }
