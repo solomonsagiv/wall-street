@@ -64,6 +64,7 @@ public class MyChart {
                 for (MyTimeSeries serie : series) {
                     serie.load_data();
                 }
+                load = true;
             }).start();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getStackTrace());
@@ -111,8 +112,7 @@ public class MyChart {
         plot.setRangePannable(false);
         plot.getRangeAxis().setAutoRange(true);
         plot.getRangeAxis().setTickLabelPaint(Themes.BINANCE_GREY);
-        plot.getRangeAxis().setTickLabelFont(Themes.ARIEL_BOLD_15);
-
+        plot.getRangeAxis().setTickLabelFont(Themes.VEDANA_BOLD_15);
     }
 
     private void number_axis() {
@@ -213,11 +213,14 @@ public class MyChart {
             while (isRun()) {
                 try {
                     if (client.isStarted()) {
-                        if (!load) {
-                            load = true;
-                        }
+
                         // Sleep
                         Thread.sleep((long) props.getProp(ChartPropsEnum.SLEEP));
+
+                        // Is load
+                        if (!load) {
+                            continue;
+                        }
 
                         if (props.getBool(ChartPropsEnum.IS_LIVE)) {
                             if (isDataChanged()) {

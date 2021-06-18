@@ -37,7 +37,7 @@ public class DecisionsFuncChart extends MyChartCreator {
         props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, -1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, -1);
         props.setProp(ChartPropsEnum.IS_LIVE, 1);
-        props.setProp(ChartPropsEnum.SLEEP, 10000);
+        props.setProp(ChartPropsEnum.SLEEP, 5000);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
         props.setProp(ChartPropsEnum.MARKER, 0);
@@ -45,17 +45,17 @@ public class DecisionsFuncChart extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Speed 900
-        MyTimeSeries speed_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.SPX_SPEED_900, client, null);
+        MyTimeSeries speed_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.SPEED_900, client, null);
         speed_900.setColor(Themes.BINANCE_GREEN);
         speed_900.setStokeSize(2.25f);
 
         // Acc 900
-        MyTimeSeries acc_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.SPX_ACC_900, client, null);
+        MyTimeSeries acc_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ACC_900, client, null);
         acc_900.setColor(Themes.RED);
         acc_900.setStokeSize(2.25f);
 
         // Acc 300
-        MyTimeSeries acc_300 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.SPX_ACC_300, client, null);
+        MyTimeSeries acc_300 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ACC_300, client, null);
         acc_300.setColor(Themes.PINK_LIGHT);
         acc_300.setStokeSize(2.25f);
 

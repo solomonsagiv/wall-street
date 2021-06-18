@@ -151,7 +151,6 @@ public class DDEReader_Dax extends IDDEReader {
                 stock.setVolume(requestDouble(stock.getDdeCells().getVolumeCell(), conversation));
                 stock.setWeight(requestDouble(stock.getDdeCells().getWeightCell(), conversation));
             } catch (Exception e) {
-                System.out.println(stock.getDdeCells().getLastPriceCell());
                 e.printStackTrace();
             }
         }

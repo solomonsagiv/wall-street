@@ -19,28 +19,31 @@ public class DecisionFuncDataGraberService extends MyBaseService {
 
     @Override
     public void go() {
+        try {
+            this.map = client.getDecisionsFuncHandler().getMap();
 
-        this.map = client.getDecisionsFuncHandler().getMap();
+            String q = "SELECT time, value FROM %s ORDER BY time DESC LIMIT 1;";
 
-        String q = "SELECT time, value FROM %s ORDER BY time DESC LIMIT 1;";
+            for (Map.Entry<String, DecisionsFunc> entry : map.entrySet()) {
+                DecisionsFunc func = entry.getValue();
 
-        for (Map.Entry<String, DecisionsFunc> entry : map.entrySet()) {
-            DecisionsFunc func = entry.getValue();
+                String query = String.format(q, func.getTable_location());
+                ResultSet rs = MySql.select(query);
 
-            String query = String.format(q, func.getTable_location());
-            ResultSet rs = MySql.select(query);
+                while (true) {
+                    try {
+                        if (!rs.next()) break;
+                        LocalDateTime dateTime = rs.getTimestamp("time").toLocalDateTime();
+                        double value = rs.getDouble("value");
 
-            while (true) {
-                try {
-                    if (!rs.next()) break;
-                    LocalDateTime dateTime = rs.getTimestamp("time").toLocalDateTime();
-                    double value = rs.getDouble("value");
-
-                    func.setValue(value);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                        func.setValue(value);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -51,6 +54,6 @@ public class DecisionFuncDataGraberService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 10000;
+        return 5000;
     }
 }
