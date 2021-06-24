@@ -35,7 +35,7 @@ interface IChartProps {
 }
 
 public class MyProps implements Cloneable {
-
+    
     public static final double p_null = -10000.0;
 
     Map<String , Double> map = new HashMap<>();

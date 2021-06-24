@@ -2,6 +2,7 @@ package charts.myChart;
 
 import charts.MyChartPanel;
 import charts.timeSeries.MyTimeSeries;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import locals.L;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
@@ -212,17 +213,25 @@ public class MyChart {
             // While loop
             while (isRun()) {
                 try {
+                    System.out.println(client.isStarted());
                     if (client.isStarted()) {
                         if (!load) {
                             load = true;
                         }
+
+                        System.out.println(props.getProp(ChartPropsEnum.SLEEP));
+
                         // Sleep
                         Thread.sleep((long) props.getProp(ChartPropsEnum.SLEEP));
+
+
 
                         if (props.getBool(ChartPropsEnum.IS_LIVE)) {
                             if (isDataChanged()) {
                                 append();
                             }
+                        } else if (props.getProp(ChartPropsEnum.RETRO_MINS) > 0) {
+                           append_retro();
                         } else {
                             append();
                         }
@@ -231,7 +240,25 @@ public class MyChart {
                         Thread.sleep(1000);
                     }
                 } catch (InterruptedException e) {
+                    System.out.println("Breakkkkkkkkk");
                     break;
+                }
+            }
+        }
+
+        private void append_retro() {
+            int minuts = (int) props.getProp(ChartPropsEnum.RETRO_MINS);
+
+            System.out.println(minuts + "  updateeeeè");
+
+            if (minuts > 0) {
+                // Sdd
+                for (MyTimeSeries serie : series) {
+
+                    new Thread(()  -> {
+                        serie.clear_data();
+                        IDataBaseHandler.loadSerieData(serie.load_last_x_time(minuts), serie, "value");
+                    }).start();
                 }
             }
         }

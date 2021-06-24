@@ -33,6 +33,14 @@ public class TimeSeriesFactory {
         switch (series_type.toUpperCase()) {
             case SPX_SPEED_900:
                 return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_SPEED_900).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
                     @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPX_SPEED_900).getValue();
@@ -46,6 +54,13 @@ public class TimeSeriesFactory {
             case SPX_ACC_900:
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_ACC_900).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
+                    @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPX_ACC_900).getValue();
                     }
@@ -57,6 +72,13 @@ public class TimeSeriesFactory {
                 };
             case SPX_ACC_300:
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_ACC_300).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
                     @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPX_ACC_300).getValue();
@@ -70,6 +92,13 @@ public class TimeSeriesFactory {
             case NDX_SPEED_900:
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.NDX_SPEED_900).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
+                    @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.NDX_SPEED_900).getValue();
                     }
@@ -81,6 +110,13 @@ public class TimeSeriesFactory {
                 };
             case NDX_ACC_900:
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.NDX_ACC_900).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
                     @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.NDX_ACC_900).getValue();
@@ -94,6 +130,13 @@ public class TimeSeriesFactory {
             case NDX_ACC_300:
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.NDX_ACC_300).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
+                    @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.NDX_ACC_300).getValue();
                     }
@@ -105,6 +148,11 @@ public class TimeSeriesFactory {
                 };
             case "INDEX":
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
                     @Override
                     public double getData() {
                         return client.getIndex();
@@ -119,6 +167,11 @@ public class TimeSeriesFactory {
             case "INDEX_BID":
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
                     public double getData() {
                         return client.getIndexBid();
                     }
@@ -129,6 +182,11 @@ public class TimeSeriesFactory {
                 };
             case "INDEX_ASK":
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
                     @Override
                     public double getData() {
                         return client.getIndexAsk();
@@ -142,6 +200,11 @@ public class TimeSeriesFactory {
             case "INDEX_BID_ASK_COUNTER":
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
                     public double getData() {
                         return client.getIndexBidAskCounter();
                     }
@@ -154,6 +217,11 @@ public class TimeSeriesFactory {
                 };
             case "FUTURE_BID_ASK_COUNTER":
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
                     @Override
                     public double getData() {
                         return client.getExps().getExp(ExpStrings.q1).getFutBidAskCounter();
@@ -169,6 +237,11 @@ public class TimeSeriesFactory {
             case "INDEX_RACES":
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
                     public double getData() throws UnknownHostException {
                         return client.getIndexSum();
                     }
@@ -182,6 +255,11 @@ public class TimeSeriesFactory {
 
             case "OP_AVG":
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
                     @Override
                     public double getData() throws UnknownHostException {
                         return exp.get_op_avg();
@@ -201,6 +279,11 @@ public class TimeSeriesFactory {
             case "OP_AVG_15":
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
                     public double getData() throws UnknownHostException {
                         return exp.get_op_avg(900);
                     }
@@ -219,6 +302,11 @@ public class TimeSeriesFactory {
             case "STOCKS_DELTA":
                 return new MyTimeSeries(series_type, client) {
                     @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
                     public double getData() {
                         return client.getStocksHandler().getDelta();
                     }
@@ -233,6 +321,11 @@ public class TimeSeriesFactory {
 
             case "BASKETS":
                 return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
                     @Override
                     public double getData() throws UnknownHostException {
                         return client.getBasketFinder().getBaskets();

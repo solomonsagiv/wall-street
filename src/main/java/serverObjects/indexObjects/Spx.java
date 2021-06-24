@@ -27,12 +27,25 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
+
+    public static void main(String[] args) {
+        double index = 4236.45;
+         index = (int)(index / 10) * 10;
+
+        System.out.println(index);
+    }
+
+    @Override
+    public double get_strike_in_money() {
+        return 0;
+    }
+
     // Constructor
     public Spx() {
         setName("spx");
         setId_name("spx500");
         setIndexBidAskMargin(.5);
-        setStrikeMargin(5);
+        setStrikeMargin(25);
         setIndexStartTime(LocalTime.of(16, 31, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));

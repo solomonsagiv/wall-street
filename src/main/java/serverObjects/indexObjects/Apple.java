@@ -20,6 +20,11 @@ public class Apple extends INDEX_CLIENT_OBJECT {
 
     static Apple client = null;
 
+    @Override
+    public double get_strike_in_money() {
+        return 0;
+    }
+
     // Constructor
     public Apple() {
         setName("apple");

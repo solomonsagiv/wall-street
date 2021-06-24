@@ -6,6 +6,7 @@ import org.jfree.data.time.Second;
 import serverObjects.BASE_CLIENT_OBJECT;
 import java.awt.*;
 import java.net.UnknownHostException;
+import java.sql.ResultSet;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,11 @@ public class TheChart extends MyChartCreator {
             ArrayList<Double> list = dataMap.get(chartName);
 
             MyTimeSeries serie = new MyTimeSeries(chartName, null) {
+                @Override
+                public ResultSet load_last_x_time(int minuts) {
+                    return null;
+                }
+
                 @Override
                 public double getData() throws UnknownHostException {
                     return 0;

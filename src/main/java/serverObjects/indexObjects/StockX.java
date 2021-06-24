@@ -25,6 +25,12 @@ public class StockX extends INDEX_CLIENT_OBJECT {
 
     static StockX client = null;
 
+    @Override
+    public double get_strike_in_money() {
+        
+        return 0;
+    }
+
     // Constructor
     public StockX() {
         setName("stockx");

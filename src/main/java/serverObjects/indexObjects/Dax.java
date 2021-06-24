@@ -27,6 +27,11 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     static Dax client = null;
 
+    @Override
+    public double get_strike_in_money() {
+        return 0;
+    }
+
     // Constructor
     public Dax() {
         setName("dax");

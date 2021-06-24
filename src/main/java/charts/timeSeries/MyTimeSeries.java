@@ -12,6 +12,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 import java.net.UnknownHostException;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
@@ -35,6 +36,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private boolean visible = true;
     MyDoubleList myValues;
     private String series_type;
+
 
     // Constructor
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
@@ -64,6 +66,8 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         double data = (double) getDataItem(index).getValue();
         return myValues.scaled(data);
     }
+
+    public abstract ResultSet load_last_x_time(int minuts);
 
     public MyJson getColorJson() {
         MyJson myJson = new MyJson();
@@ -114,6 +118,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         json.put(JsonStrings.x, localDateTime);
         json.put(JsonStrings.y, item.getValue());
         return json;
+    }
+
+    public void clear_data() {
+        if (myValues.size()  > 2) {
+            data.clear();
+            myValues.clear();
+        }
     }
 
     public void add(LocalDateTime dateTime, double value) {

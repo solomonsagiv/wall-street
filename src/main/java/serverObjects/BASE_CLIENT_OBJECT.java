@@ -85,6 +85,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
 
+    protected double current_strike_in_money;
+    public abstract double get_strike_in_money();
+
     // Position
     private ArrayList<MyThread> threads = new ArrayList<>();
     private HashMap<String, Integer> ids = new HashMap<>();

@@ -31,6 +31,11 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     static Ndx client = null;
 
+    @Override
+    public double get_strike_in_money() {
+        return 0;
+    }
+
     // Constructor
     public Ndx() {
         setName("ndx");

@@ -141,6 +141,12 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_last_x_time_of_series( String table_name, int minuts) {
+            //
+            String query = String.format("select * from %s where time > now() - interval '%s min' order by time;", table_name, minuts);
+            return MySql.select(query);
+        }
+
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
             String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as cumu " +
                     "        from %s i " +
