@@ -4,7 +4,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
-import apidemo.Chart;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
@@ -25,6 +24,7 @@ import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import stocksHandler.stocksDelta.StocksDeltaService;
+
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +86,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.SPX_SPEED_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPEED_900));
+            map.put(DecisionsFuncFactory.SPEED_900, DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.SPEED_900));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

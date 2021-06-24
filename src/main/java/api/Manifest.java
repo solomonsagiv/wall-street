@@ -3,6 +3,7 @@ package api;
 import dataBase.mySql.MyDBConnections;
 
 public class Manifest {
+
     // REAL ACCOUNT
     public static int REAL_PORT = 4343;
     public static int CLIENT_ID = 999;
@@ -21,10 +22,10 @@ public class Manifest {
 
     // SELECTED ACCOUNT
     public static final int POOL_SIZE = 20;
-    public static boolean DB = true;
-    public static boolean DB_RUNNER = true;
-    public static boolean DB_UPDATER = true;
-    public static boolean OPEN_CHARTS = true;
+    public static boolean DB = false;
+    public static boolean DB_RUNNER = false;
+    public static boolean DB_UPDATER = false;
+    public static boolean OPEN_CHARTS = false;
     public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_POSTGRES;
     public static String ACCOUNT = SNUPPI_ACCOUNT;
     public static int PORT = GATEWAY_PORT;
