@@ -101,9 +101,9 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.SPX_SPEED_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_SPEED_900));
-            map.put(DecisionsFuncFactory.SPX_ACC_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_ACC_900));
-            map.put(DecisionsFuncFactory.SPX_ACC_300, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPX_ACC_300));
+            map.put(DecisionsFuncFactory.SPEED_900, new DecisionsFunc(DecisionsFuncFactory.SPEED_900, "data.research_spx500_501_speed_900"));
+            map.put(DecisionsFuncFactory.ACC_900, new DecisionsFunc(DecisionsFuncFactory.ACC_900, "data.research_spx500_501_speed2_900"));
+            map.put(DecisionsFuncFactory.ACC_300, new DecisionsFunc(DecisionsFuncFactory.ACC_300, "data.research_spx500_501_speed2_300"));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

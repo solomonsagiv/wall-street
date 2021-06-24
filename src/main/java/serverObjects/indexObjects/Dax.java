@@ -4,6 +4,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
+import apidemo.Chart;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
@@ -14,6 +15,9 @@ import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
+import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
+import jibeDataGraber.DecisionsFuncHandler;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
@@ -22,6 +26,8 @@ import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import stocksHandler.stocksDelta.StocksDeltaService;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Dax extends INDEX_CLIENT_OBJECT {
 
@@ -77,6 +83,16 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
+    public DecisionsFuncHandler getDecisionsFuncHandler() {
+        if (decisionsFuncHandler == null) {
+            Map<String, DecisionsFunc> map = new HashMap<>();
+            map.put(DecisionsFuncFactory.SPX_SPEED_900, DecisionsFuncFactory.get_decision_func(DecisionsFuncFactory.SPEED_900));
+            decisionsFuncHandler = new DecisionsFuncHandler(map);
+        }
+        return decisionsFuncHandler;
+    }
+
+    @Override
     public void setIndexBid(double indexBid) {
         super.setIndexBid(indexBid);
 
@@ -117,6 +133,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
+
             FuturesChart chart = new FuturesChart(this, null, null);
             chart.createChart();
 

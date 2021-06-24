@@ -6,6 +6,8 @@ import exp.Exp;
 import exp.ExpStrings;
 import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
@@ -22,16 +24,15 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_SERIES = "OP_AVG";
     public static final String OP_AVG_15_SERIES = "OP_AVG_15";
     public static final String BASKETS_SERIES = "BASKETS";
-    public static final String SPX_SPEED_900 = "SPX_SPEED_900";
-    public static final String SPX_ACC_900 = "SPX_ACC_900";
-    public static final String SPX_ACC_300 = "SPX_ACC_300";
-    public static final String NDX_SPEED_900 = "NDX_SPEED_900";
-    public static final String NDX_ACC_900 = "NDX_ACC_900";
-    public static final String NDX_ACC_300 = "NDX_ACC_300";
+    public static final String SPEED_900 = "SPEED_900";
+    public static final String ACC_900 = "ACC_900";
+    public static final String ACC_300 = "ACC_300";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
-        switch (series_type.toUpperCase()) {
-            case SPX_SPEED_900:
+
+        if (client instanceof Spx) {
+
+            if (series_type.toUpperCase().equals(SPEED_900)) {
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -43,7 +44,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPX_SPEED_900).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getValue();
                     }
 
                     @Override
@@ -51,7 +52,9 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            case SPX_ACC_900:
+            }
+
+            if (series_type.toUpperCase().equals(ACC_900)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -62,7 +65,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPX_ACC_900).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_900).getValue();
                     }
 
                     @Override
@@ -70,7 +73,8 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            case SPX_ACC_300:
+            }
+            if (series_type.toUpperCase().equals(ACC_300)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -81,7 +85,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPX_ACC_300).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getValue();
                     }
 
                     @Override
@@ -89,7 +93,13 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            case NDX_SPEED_900:
+            }
+
+
+        }
+
+        if (client instanceof Ndx) {
+            if (series_type.toUpperCase().equals(SPEED_900)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -100,7 +110,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.NDX_SPEED_900).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getValue();
                     }
 
                     @Override
@@ -108,7 +118,9 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            case NDX_ACC_900:
+            }
+
+            if (series_type.toUpperCase().equals(ACC_900)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -119,7 +131,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.NDX_ACC_900).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_900).getValue();
                     }
 
                     @Override
@@ -127,7 +139,8 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            case NDX_ACC_300:
+            }
+            if (series_type.toUpperCase().equals(ACC_300)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -138,7 +151,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.NDX_ACC_300).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getValue();
                     }
 
                     @Override
@@ -146,6 +159,11 @@ public class TimeSeriesFactory {
 
                     }
                 };
+            }
+        }
+
+        switch (series_type.toUpperCase()) {
+
             case "INDEX":
                 return new MyTimeSeries(series_type, client) {
                     @Override
