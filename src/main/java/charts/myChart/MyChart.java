@@ -219,12 +219,8 @@ public class MyChart {
                             load = true;
                         }
 
-                        System.out.println(props.getProp(ChartPropsEnum.SLEEP));
-
                         // Sleep
                         Thread.sleep((long) props.getProp(ChartPropsEnum.SLEEP));
-
-
 
                         if (props.getBool(ChartPropsEnum.IS_LIVE)) {
                             if (isDataChanged()) {
@@ -252,9 +248,7 @@ public class MyChart {
             System.out.println(minuts + "  updateeeeè");
 
             if (minuts > 0) {
-                // Sdd
                 for (MyTimeSeries serie : series) {
-
                     new Thread(()  -> {
                         serie.clear_data();
                         IDataBaseHandler.loadSerieData(serie.load_last_x_time(minuts), serie, "value");

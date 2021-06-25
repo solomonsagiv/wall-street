@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.MyTimeSeries;
+import dataBase.MyTick;
 import dataBase.mySql.MySql;
 import dataBase.props.Prop;
 import exp.Exp;
@@ -248,6 +249,30 @@ public abstract class IDataBaseHandler {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        }
+    }
+
+    public static void insert_batch_data(ArrayList<MyTick> list, String table_location) {
+        if (list.size() > 0) {
+
+            // Create the query
+            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value) VALUES ");
+            int last_item_id = list.get(list.size() - 1).hashCode();
+            for (MyTick row : list) {
+                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", row.time, row.value));
+                if (row.hashCode() != last_item_id) {
+                    queryBuiler.append(",");
+                }
+            }
+            queryBuiler.append(";");
+
+            String q = String.format(queryBuiler.toString(), table_location);
+
+            // Insert
+            MySql.insert(q, true);
+
+            // Clear the list
+            list.clear();
         }
     }
 

@@ -121,7 +121,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public void clear_data() {
-        if (myValues.size()  > 2) {
+        if (myValues.size() > 2) {
             data.clear();
             myValues.clear();
         }
@@ -130,7 +130,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public void add(LocalDateTime dateTime, double value) {
         try {
             lastSeconde = new Second(dateTime.getSecond(), dateTime.getMinute(), dateTime.getHour(), dateTime.getDayOfMonth(), dateTime.getMonthValue(), dateTime.getYear());
-
             myValues.add(value);
             addOrUpdate(lastSeconde, value);
         } catch (Exception e) {

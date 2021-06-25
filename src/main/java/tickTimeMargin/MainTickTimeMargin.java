@@ -1,6 +1,9 @@
 package tickTimeMargin;
 
+import dataBase.MyTick;
 import dataBase.mySql.MySql;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -12,50 +15,72 @@ public class MainTickTimeMargin {
 
     public static void main(String[] args) {
         MainTickTimeMargin mainTickTimeMargin = new MainTickTimeMargin();
-        mainTickTimeMargin.run();
+        mainTickTimeMargin.run_muilty_days();
     }
 
-    String table_location = "data.spx500_fut_e1";
-    LocalDate date = LocalDate.of(2021, 5, 1);
+    public void run_muilty_days() {
 
-    ArrayList<LocalDateTime> times = new ArrayList<>();
-    ArrayList<Long> millis = new ArrayList<>();
+        LocalDate date = LocalDate.of(2021, 6, 25);
+        LocalDate end_date = LocalDate.of(2021, 6, 26);
 
-    public void run() {
+        while (date.isBefore(end_date)) {
+            // NOT SATURDAY OR SUNDAY
+            if (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7) {
+                System.out.println();
+                System.out.println("---------- " + date + " -----------");
+                run_single_day(date);
+            }
+            date = date.plusDays(1);
+        }
+    }
+
+    public void run_single_day(LocalDate date) {
+        String table_location = "data.spx500_fut_e1";
+        String speed_table_location = "data.spx500_fut_e1_tick_speed";
+
         // Import data
-        import_data();
+        ArrayList<LocalDateTime> times = import_data(table_location, date);
+
+        System.out.println("Got data");
 
         // Logic
-        logic();
+        ArrayList<MyTick> myTicks = logic(times);
 
-        // Print
-        print();
+        System.out.println("Calced");
+
+        // Insert
+        insert_data(myTicks, speed_table_location);
+
+        System.out.println("Done");
+
     }
 
-    private void print() {
-        double sum = 0;
-        for (Long l: millis) {
-            sum += l;
-        }
-        System.out.println(sum / millis.size());
+    private void insert_data(ArrayList<MyTick> myTicks, String speed_table_location) {
+        IDataBaseHandler.insert_batch_data(myTicks, speed_table_location);
     }
 
-    private void logic() {
-        for (int i = 1; i < 2; i++) {
+    private ArrayList<MyTick> logic(ArrayList<LocalDateTime> times) {
+        ArrayList<MyTick> myTicks = new ArrayList<>();
+
+        for (int i = 1; i < times.size(); i++) {
+
             long pre_time = Timestamp.valueOf(times.get(i -1)).getTime();
             long curr_time = Timestamp.valueOf(times.get(i)).getTime();
             long mill = curr_time - pre_time;
-            millis.add(mill);
+
+            // Add tick to tick list
+            myTicks.add(new MyTick(times.get(i), mill));
         }
+        return myTicks;
     }
 
-    private void import_data() {
+    private ArrayList<LocalDateTime> import_data(String table_location, LocalDate date) {
         String q = "SELECT * FROM %s WHERE time::date = date'%s' ORDER BY time;";
         String query = String.format(q, table_location, date.toString());
 
-        System.out.println(query);
+        ResultSet rs = MySql.select(query);
 
-        ResultSet rs  = MySql.select(query);
+        ArrayList<LocalDateTime> times = new ArrayList<>();
 
         while (true) {
             try {
@@ -63,14 +88,17 @@ public class MainTickTimeMargin {
 
                 Timestamp timestamp = rs.getTimestamp("time");
                 LocalDateTime dateTime = LocalDateTime.parse(timestamp.toLocalDateTime().toString());
+
                 times.add(dateTime);
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
+
+        return times;
+
     }
 
-
-
 }
+

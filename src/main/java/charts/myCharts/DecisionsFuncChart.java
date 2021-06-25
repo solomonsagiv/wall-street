@@ -46,7 +46,7 @@ public class DecisionsFuncChart extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
         props.setProp(ChartPropsEnum.MARKER, 0);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-        props.setProp(ChartPropsEnum.RETRO_MINS, 20);
+        props.setProp(ChartPropsEnum.RETRO_MINS, 15);
 
         // ----- Chart 1 ----- //
         // Speed 900

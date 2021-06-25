@@ -25,7 +25,7 @@ public class DecisionsFuncFactory {
                     break;
             }
         }
-
+        
         if (client instanceof Ndx) {
             // Switch case
             switch (decision_func_name.toUpperCase()) {
@@ -34,7 +34,7 @@ public class DecisionsFuncFactory {
                 case ACC_900:
                     return new DecisionsFunc(ACC_900, "data.research_ndx_speed2_900");
                 case ACC_300:
-                    return new DecisionsFunc(ACC_300, "data.research_ndx_speed2_900");
+                    return new DecisionsFunc(ACC_300, "data.research_ndx_speed2_300");
                 default:
                     break;
             }
