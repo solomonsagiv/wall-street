@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class DataBaseHandler_Spx extends IDataBaseHandler {
 
-
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_ask_timestamp = new ArrayList<>();
@@ -36,7 +35,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double index_bid_ask_counter_0 = 0;
     double ind_races_0 = 0;
     double fut_races_0 = 0;
-
+    
     Exps exps;
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
@@ -56,6 +55,13 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Update lists retro
         if (sleep_count % 10000 == 0) {
             updateListsRetro();
+        }
+
+        // Insert tick speed
+        if (sleep_count % 60000 == 0) {
+            String fut_table_location = tablesNames.get(FUT_Q1_TABLE);
+            String fut_tick_speed_table_location = tablesNames.get(FUT_E1_TICK_SPEED);
+            insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
 
         // Index
@@ -179,6 +185,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.spx500_index");
+        tablesNames.put(FUT_E1_TICK_SPEED, "data.spx500_fut_e1_tick_speed");
         tablesNames.put(INDEX_BID_TABLE, "data.spx500_index_bid");
         tablesNames.put(INDEX_ASK_TABLE, "data.spx500_index_ask");
         tablesNames.put(OP_AVG_DAY_TABLE, "sagiv.spx500_op_avg_day");

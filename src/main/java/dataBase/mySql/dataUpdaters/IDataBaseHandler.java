@@ -7,9 +7,11 @@ import dataBase.props.Prop;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +33,7 @@ public abstract class IDataBaseHandler {
     public static final int OP_AVG_DAY_TABLE = 23;
     public static final int OP_AVG_15_DAY_TABLE = 24;
     public static final int INDEX_DELTA_TABLE = 25;
+    public static final int FUT_E1_TICK_SPEED = 26;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
@@ -317,6 +320,50 @@ public abstract class IDataBaseHandler {
             }
         }
 
+    }
+
+    protected ArrayList<LocalDateTime> load_uncalced_tick_speed_time (String fut_table_location, String tick_speed_table_location) {
+
+        ArrayList<LocalDateTime> times = new ArrayList<>();
+
+        String q = "select * " +
+                "from %s " +
+                "where time > (select time  from %s order by time desc limit 1);";
+        String query = String.format(q, fut_table_location, tick_speed_table_location);
+        ResultSet rs = MySql.select(query);
+
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                Timestamp timestamp = rs.getTimestamp("time");
+                LocalDateTime dateTime = LocalDateTime.parse(timestamp.toLocalDateTime().toString());
+                times.add(dateTime);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+
+        return times;
+    }
+
+    private void insert_data(ArrayList<MyTick> myTicks, String speed_table_location) {
+        IDataBaseHandler.insert_batch_data(myTicks, speed_table_location);
+    }
+
+    protected ArrayList<MyTick> tick_logic(ArrayList<LocalDateTime> times) {
+        ArrayList<MyTick> myTicks = new ArrayList<>();
+
+        for (int i = 1; i < times.size(); i++) {
+
+            long pre_time = Timestamp.valueOf(times.get(i -1)).getTime();
+            long curr_time = Timestamp.valueOf(times.get(i)).getTime();
+            long mill = curr_time - pre_time;
+
+            // Add tick to tick list
+            myTicks.add(new MyTick(times.get(i), mill));
+        }
+        return myTicks;
     }
 
     protected abstract void open_chart_on_start();

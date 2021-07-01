@@ -16,7 +16,7 @@ public class Props {
     Prop future_end_time;
     Prop excel_path;
     Prop main_exp;
-
+    
     public static final String INDEX_START_TIME = "INDEX_START_TIME";
     public static final String INDEX_END_TIME = "INDEX_END_TIME";
     public static final String FUT_END_TIME = "FUT_END_TIME";

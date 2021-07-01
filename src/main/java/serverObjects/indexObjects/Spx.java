@@ -27,7 +27,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
-
     public static void main(String[] args) {
         double index = 4236.45;
          index = (int)(index / 10) * 10;
