@@ -5,7 +5,6 @@ import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import exp.Exp;
 import exp.ExpStrings;
-import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import stocksHandler.MiniStock;
 
@@ -109,7 +108,7 @@ public class DDEReader_Dax extends IDDEReader {
     @Override
     public void init_rates() {
         try {
-            DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getDdeHandler().getPath());
+            DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getExcel_path());
 
             Exp week = client.getExps().getExp(ExpStrings.week);
             Exp month = client.getExps().getExp(ExpStrings.month);

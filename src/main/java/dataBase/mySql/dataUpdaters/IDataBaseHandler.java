@@ -7,7 +7,6 @@ import dataBase.props.Prop;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -328,9 +327,11 @@ public abstract class IDataBaseHandler {
 
         String q = "select * " +
                 "from %s " +
-                "where time > (select time  from %s order by time desc limit 1);";
+                "where time > (select time from %s order by time desc limit 1) order by time;";
         String query = String.format(q, fut_table_location, tick_speed_table_location);
         ResultSet rs = MySql.select(query);
+
+        System.out.println(q);
 
         while (true) {
             try {
@@ -351,7 +352,7 @@ public abstract class IDataBaseHandler {
         IDataBaseHandler.insert_batch_data(myTicks, speed_table_location);
     }
 
-    protected ArrayList<MyTick> tick_logic(ArrayList<LocalDateTime> times) {
+    public static ArrayList<MyTick> tick_logic(ArrayList<LocalDateTime> times) {
         ArrayList<MyTick> myTicks = new ArrayList<>();
 
         for (int i = 1; i < times.size(); i++) {

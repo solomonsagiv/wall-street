@@ -11,7 +11,7 @@ import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
-import jibeDataGraber.DecisionFuncDataGraberService;
+import jibeDataGraber.TickSpeedService;
 import jibeDataGraber.DecisionsFuncHandler;
 import lists.ListsService;
 import locals.L;
@@ -46,11 +46,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected double indBidMarginCounter = 0;
     protected double indAskMarginCounter = 0;
 
+    public String excel_path = "";
+
     // Stocks delta
     StocksDeltaService stocksDeltaService;
 
     // Decision funcs service
-    DecisionFuncDataGraberService decisionFuncDataGraberService;
+    protected TickSpeedService tickSpeedService;
 
     // Roll
     protected RollHandler rollHandler;
@@ -81,6 +83,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double endStrike;
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
+    private LocalTime index_pre_start_time;
+
+
+
+
+
     private LocalTime indexStartTime;
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
@@ -134,9 +142,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
             // MyServices
             listsService = new ListsService(this);
-            decisionFuncDataGraberService = new DecisionFuncDataGraberService(this);
             stocksHandler = new StocksHandler(this);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -534,19 +540,16 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return exps;
     }
 
-    public DecisionFuncDataGraberService getDecisionFuncDataGraberService() {
-        if (decisionFuncDataGraberService == null) {
-            decisionFuncDataGraberService = new DecisionFuncDataGraberService(this);
-        }
-        return decisionFuncDataGraberService;
-    }
-
     public void setExps(Exps exps) {
         this.exps = exps;
     }
 
     public LocalTime getIndexStartTime() {
         return indexStartTime;
+    }
+
+    public LocalTime getIndex_pre_start_time() {
+        return index_pre_start_time;
     }
 
     public void setIndexStartTime(LocalTime indexStartTime) {
@@ -677,6 +680,22 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return props;
     }
 
+    public void setIndex_pre_start_time(LocalTime index_pre_start_time) {
+        this.index_pre_start_time = index_pre_start_time;
+    }
+
+    public TickSpeedService getTickSpeedService() {
+        return tickSpeedService;
+    }
+
+    public String getExcel_path() {
+        return excel_path;
+    }
+
+    public void setExcel_path(String excel_path) {
+        this.excel_path = excel_path;
+    }
+
     public void setStocksHandler(StocksHandler stocksHandler) {
         this.stocksHandler = stocksHandler;
     }
@@ -697,6 +716,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
                 ", optionsHandler=" + exps.toString() +
+                ", preStartIndexTrading=" + getIndex_pre_start_time() +
                 ", startOfIndexTrading=" + getIndexStartTime() +
                 ", endOfIndexTrading=" + getIndexEndTime() +
                 ", endFutureTrading=" + getFutureEndTime() +

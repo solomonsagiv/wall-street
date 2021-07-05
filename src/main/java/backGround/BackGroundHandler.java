@@ -76,10 +76,18 @@ public class BackGroundHandler {
                         lastChangeCountToStart++;
                     }
 
+                    // If spx
+                    if (client instanceof Spx) {
+                        // Spx pre start time of open
+                        if (now.isAfter(client.getIndex_pre_start_time()) && lastChangeCountToStart >= 2 && client.getOpen() == 0) {
+                            client.setOpen(client.getIndex());
+                        }
+                    }
+
                     // Index start time
                     if (now.isAfter(client.getIndexStartTime()) && !client.isStarted() && lastChangeCountToStart >= 2) {
                         if (client.getOpen() == 0) {
-                            client.setOpen(last);
+                            client.setOpen(client.getIndex());
                         }
                         client.startAll();
                     }

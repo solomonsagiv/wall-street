@@ -19,7 +19,6 @@ import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
-
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -245,8 +244,6 @@ public class MyChart {
         private void append_retro() {
             int minuts = (int) props.getProp(ChartPropsEnum.RETRO_MINS);
 
-            System.out.println(minuts + "  updateeeeè");
-
             if (minuts > 0) {
                 for (MyTimeSeries serie : series) {
                     new Thread(()  -> {
@@ -429,11 +426,6 @@ public class MyChart {
                     change = false;
                     break;
                 }
-
-//                // If 0
-//                if ( newVal == 0 ) {
-//                    break;
-//                }
 
                 // If new val
                 if (newVal != oldVal) {

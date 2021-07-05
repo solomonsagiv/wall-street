@@ -74,7 +74,7 @@ public class DDEReader_Spx extends IDDEReader {
     @Override
     public void init_rates() {
         try {
-            DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getDdeHandler().getPath());
+            DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getExcel_path());
 
             Exp day = client.getExps().getExp(ExpStrings.day);
             Exp week = client.getExps().getExp(ExpStrings.week);

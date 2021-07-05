@@ -8,7 +8,10 @@ import gui.MyGuiComps;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.*;
+import serverObjects.indexObjects.Apple;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,9 +102,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     case "NDX":
                         client = Ndx.getInstance();
                         break;
-                    case "STOCKX":
-                        client = StockX.getInstance();
-                        break;
                     case "APPLE":
                         client = Apple.getInstance();
                         break;
@@ -109,7 +109,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         client = Spx.getInstance();
                         break;
                 }
-                excelLocationField.setText(client.getDdeHandler().getPath());
+                excelLocationField.setText(client.getExcel_path());
             }
         });
 
@@ -117,7 +117,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    client.getDdeHandler().setPath(excelLocationField.getText());
+                    client.setExcel_path(excelLocationField.getText());
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getStackTrace());
                 }
@@ -145,9 +145,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             }  // Ndx
             else if (clientComboBox.getSelectedItem().equals("NDX")) {
                 registerClient(Ndx.getInstance());
-            }  // Stockx
-            else if (clientComboBox.getSelectedItem().equals("STOCKX")) {
-                registerClient(StockX.getInstance());
             }
             // Apple
             else if (clientComboBox.getSelectedItem().equals("APPLE")) {

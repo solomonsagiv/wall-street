@@ -26,13 +26,13 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField downField;
     MyGuiComps.MyTextField sumField;
 
-    MyGuiComps.MyTextField upField_2;
-    MyGuiComps.MyTextField downField_2;
-    MyGuiComps.MyTextField sumField_2;
-
     MyGuiComps.MyLabel changesLbl;
     MyGuiComps.MyTextField changesField;
     BasketFinder_3 basketFinder;
+
+    MyGuiComps.MyLabel tick_speed_label;
+    MyGuiComps.MyTextField tick_speed_field;
+
 
     int width = 90;
     int height = 300;
@@ -109,6 +109,17 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
         changesField.setXY(changesLbl.getX() + changesLbl.getWidth() + 3, changesLbl.getY());
         body.add(changesField);
 
+        // Tick speed
+        tick_speed_label = new MyGuiComps.MyLabel("Speed");
+        tick_speed_label.setXY(changesLbl.getX(), changesLbl.getY() + changesLbl.getHeight() + 1);
+        tick_speed_label.setWidth(40);
+        body.add(tick_speed_label);
+
+        tick_speed_field = new MyGuiComps.MyTextField();
+        tick_speed_field.setXY(changesField.getX(), changesField.getY() + changesField.getHeight() + 1);
+        tick_speed_field.setWidth(40);
+        body.add(tick_speed_field);
+
     }
 
     int basket_up_0 = 0;
@@ -116,6 +127,7 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        // Baskets
         if (client.getBasketFinder() != null) {
             try {
                 int basketUp = 0;
@@ -152,6 +164,11 @@ public class BasketsPanel extends MyGuiComps.MyPanel implements IMyPanel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        // Tick speed
+        if (client.getTickSpeedService() != null) {
+            tick_speed_field.setText(L.str((int) client.getTickSpeedService().tick_speed_hour));
         }
     }
 

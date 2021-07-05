@@ -8,18 +8,18 @@ import charts.myCharts.Full_Charts;
 import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.ExpStrings;
 import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
 import jibeDataGraber.DecisionsFuncHandler;
+import jibeDataGraber.TickSpeedService;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
         System.out.println(index);
     }
-
+    
     @Override
     public double get_strike_in_money() {
         return 0;
@@ -43,15 +43,17 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public Spx() {
         setName("spx");
         setId_name("spx500");
-        setIndexBidAskMargin(.5);
-        setStrikeMargin(25);
-        setIndexStartTime(LocalTime.of(16, 31, 0));
-        setIndexEndTime(LocalTime.of(23, 0, 0));
-        setFutureEndTime(LocalTime.of(23, 15, 0));
+//        setIndexBidAskMargin(.5);
+//        setStrikeMargin(25);
+//        setIndexStartTime(LocalTime.of(16, 31, 0));
+//        setIndexEndTime(LocalTime.of(23, 0, 0));
+//        setFutureEndTime(LocalTime.of(23, 15, 0));
+//        setExcel_path("C:/Users/yosef/Desktop/[bbg index.xlsm]Spx");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this), "C:/Users/yosef/Desktop/[bbg index.xlsm]Spx"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
+        tickSpeedService = new TickSpeedService(this, getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_E1_TICK_SPEED));
     }
 
     // get instance

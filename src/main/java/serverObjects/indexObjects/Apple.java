@@ -34,7 +34,7 @@ public class Apple extends INDEX_CLIENT_OBJECT {
         setIndexStartTime(LocalTime.of(16, 31, 0));
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Apple(this), new DDEWriter_Apple(this), "C:/Users/yosef/OneDrive/Desktop/Wall Street/[SPX.xlsx]Aapl"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Apple(this), new DDEWriter_Apple(this)));
         setLogicService(new LogicService(this, ExpStrings.week));
         roll();
     }

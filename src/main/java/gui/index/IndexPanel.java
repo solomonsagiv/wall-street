@@ -17,7 +17,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     public static void main(String[] args) {
         IndexWindow indexPanel = new IndexWindow("Ndx", Ndx.getInstance());
-
     }
 
     // Ticker

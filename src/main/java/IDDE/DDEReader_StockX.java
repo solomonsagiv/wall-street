@@ -109,7 +109,7 @@ public class DDEReader_StockX extends IDDEReader {
     @Override
     public void init_rates() {
         try {
-            DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getDdeHandler().getPath());
+            DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getExcel_path());
 
             Exp week = client.getExps().getExp(ExpStrings.week);
             Exp month = client.getExps().getExp(ExpStrings.month);

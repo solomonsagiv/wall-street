@@ -135,6 +135,13 @@ public class FuturesChart extends MyChartCreator {
             i++;
             myTimeSeries.add(myTimeSerie);
 
+            // Is main exp set visible
+            if (client.getExps().getMainExp().getName().equals(exp.getName())) {
+                myTimeSerie.setVisible(true);
+            } else {
+                myTimeSerie.setVisible(false);
+            }
+
         }
 
         myTimeSeries.add(index);

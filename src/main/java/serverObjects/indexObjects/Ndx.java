@@ -9,10 +9,7 @@ import charts.myCharts.FuturesChart;
 import charts.myCharts.Index_baskets_chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
-import exp.E;
-import exp.ExpReg;
 import exp.ExpStrings;
-import exp.Exps;
 import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
 import jibeDataGraber.DecisionsFuncHandler;
@@ -23,7 +20,6 @@ import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,14 +36,14 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public Ndx() {
         setName("ndx");
         setId_name("ndx");
-        setIndexBidAskMargin(.5);
-        setStrikeMargin(5);
-        setIndexStartTime(LocalTime.of(16, 31, 0));
-        setIndexEndTime(LocalTime.of(23, 0, 0));
-        setFutureEndTime(LocalTime.of(23, 15, 0));
+//        setIndexBidAskMargin(.5);
+//        setStrikeMargin(5);
+//        setIndexStartTime(LocalTime.of(16, 31, 0));
+//        setIndexEndTime(LocalTime.of(23, 0, 0));
+//        setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
         setBasketFinder(new BasketFinder_3(this, 80, 3));
-        setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this), "C:/Users/yosef/Desktop/[bbg index.xlsm]Ndx"));
+        setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
@@ -65,19 +61,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
         Roll quarter_quarterFar = new Roll(this, ExpStrings.q1, ExpStrings.q2, RollPriceEnum.FUTURE);
         rollHandler.addRoll(RollEnum.E1_E2, quarter_quarterFar);
-    }
-
-    @Override
-    public void initExpHandler() {
-
-        Exps exps = new Exps(this);
-        exps.addExp(new ExpReg(this, ExpStrings.day));
-        exps.addExp(new ExpReg(this, ExpStrings.week));
-        exps.addExp(new ExpReg(this, ExpStrings.month));
-        exps.addExp(new E(this, ExpStrings.q1));
-        exps.addExp(new E(this, ExpStrings.q2));
-        exps.setMainExp(exps.getExp(ExpStrings.q1));
-        setExps(exps);
     }
 
     @Override

@@ -11,12 +11,14 @@ public class Props {
 
     BASE_CLIENT_OBJECT client;
     private Map<String, Prop> map;
+    Prop index_pre_start_time;
     Prop index_start_time;
     Prop index_end_time;
     Prop future_end_time;
     Prop excel_path;
     Prop main_exp;
-    
+
+    public static final String INDEX_PRE_START_TIME = "INDEX_PRE_START_TIME";
     public static final String INDEX_START_TIME = "INDEX_START_TIME";
     public static final String INDEX_END_TIME = "INDEX_END_TIME";
     public static final String FUT_END_TIME = "FUT_END_TIME";
@@ -32,6 +34,26 @@ public class Props {
     }
 
     private void init_props() {
+
+        // ------------ INDEX PRE START TIME -------------- //
+        index_pre_start_time = new Prop(client, INDEX_PRE_START_TIME) {
+            @Override
+            public void setData(Object data) {
+                LocalTime time = LocalTime.parse(data.toString());
+                client.setIndex_pre_start_time(time);
+            }
+
+            @Override
+            public Object getData() {
+                LocalTime time = null;
+                try {
+                    time = client.getIndex_pre_start_time();
+                } catch (Exception e) {
+                }
+                return time;
+            }
+        };
+
         // ------------ INDEX START TIME -------------- //
         index_start_time = new Prop(client, INDEX_START_TIME) {
             @Override
@@ -94,14 +116,14 @@ public class Props {
             @Override
             public void setData(Object data) {
                 String path = data.toString();
-                client.getDdeHandler().setPath(path);
+                client.setExcel_path(path);
             }
 
             @Override
             public Object getData() {
                 String path = "";
                 try {
-                    path = client.getDdeHandler().getPath();
+                    path = client.getExcel_path();
                 } catch (Exception e) {
                 }
                 return path;
@@ -132,9 +154,9 @@ public class Props {
         map.put(INDEX_START_TIME, index_start_time);
         map.put(INDEX_END_TIME, index_end_time);
         map.put(FUT_END_TIME, future_end_time);
-//        map.put(CHARTS, CHARTS);
         map.put(EXCEL_FILE_LOCATION, excel_path);
         map.put(MAIN_EXP, main_exp);
+        map.put(INDEX_PRE_START_TIME, index_pre_start_time);
     }
 
     public Map<String, Prop> getMap() {

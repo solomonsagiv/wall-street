@@ -145,7 +145,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
 
         // Props
-//        load_properties();
+        load_properties();
     }
 
     @Override

@@ -5,10 +5,18 @@ import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Spx extends IDataBaseHandler {
+
+
+    public static void main(String[] args) {
+        IDataBaseHandler dataBaseHandler = new DataBaseHandler_Spx(Spx.getInstance());
+        dataBaseHandler.insert_batch_data(dataBaseHandler.tick_logic(dataBaseHandler.load_uncalced_tick_speed_time("data.spx500_fut_e1", "data.spx500_fut_e1_tick_speed")), "data.spx500_fut_e1_tick_speed");
+    }
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
@@ -35,7 +43,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double index_bid_ask_counter_0 = 0;
     double ind_races_0 = 0;
     double fut_races_0 = 0;
-    
+
     Exps exps;
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
@@ -178,7 +186,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
 
         // Load props
-//        load_properties();
+        load_properties();
 
     }
 

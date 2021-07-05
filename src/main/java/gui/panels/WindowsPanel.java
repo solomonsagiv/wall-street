@@ -46,9 +46,6 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "NDX":
                         new IndexWindow("Ndx window", Ndx.getInstance());
                         break;
-                    case "STOCKX":
-                        new IndexWindow("StockX window", StockX.getInstance());
-                        break;
                     case "APPLE":
                         new IndexWindow("Apple window", Apple.getInstance());
                         break;

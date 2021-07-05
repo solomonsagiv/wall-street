@@ -21,7 +21,7 @@ public class DDEReader extends MyThread implements Runnable {
     public DDEReader(BASE_CLIENT_OBJECT client) {
         super(client);
         this.iddeReaderUpdater = client.getDdeHandler().getIddeReader();
-        this.conversation = ddeConnection.createNewConversation(client.getDdeHandler().getPath());
+        this.conversation = ddeConnection.createNewConversation(client.getExcel_path());
     }
 
     @Override

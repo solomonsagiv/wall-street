@@ -7,21 +7,11 @@ public class DDEHandler {
     private BASE_CLIENT_OBJECT client;
     private IDDEReader iddeReader;
     private IDDEWriter iddeWriter;
-    private String path;
 
-    public DDEHandler(BASE_CLIENT_OBJECT client, IDDEReader iddeReader, IDDEWriter iddeWriter, String path) {
+    public DDEHandler(BASE_CLIENT_OBJECT client, IDDEReader iddeReader, IDDEWriter iddeWriter) {
         this.client = client;
         this.iddeReader = iddeReader;
         this.iddeWriter = iddeWriter;
-        this.path = path;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public BASE_CLIENT_OBJECT getClient() {
