@@ -75,13 +75,13 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
 
         // This
         setXY(500, 400);
-        setSize(300, 350);
+        setSize(300, 500);
         setLayout(null);
 
         // Main panel
         mainPanel = new MyGuiComps.MyPanel();
         mainPanel.setLayout(null);
-        mainPanel.setBounds(0, 0, 300, 300);
+        mainPanel.setBounds(0, 0, 300, 500);
         mainPanel.setBackground(Themes.GREY_VERY_LIGHT);
 
         add(mainPanel);
@@ -109,9 +109,7 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
         }
 
         private void init() {
-
             // This
-            setPreferredSize(new Dimension(300, 20));
             setForeground(Themes.BLUE);
             setBackground(Themes.GREY_VERY_LIGHT);
 
