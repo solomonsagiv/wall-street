@@ -141,7 +141,6 @@ public class FuturesChart extends MyChartCreator {
             } else {
                 myTimeSerie.setVisible(false);
             }
-
         }
 
         myTimeSeries.add(index);

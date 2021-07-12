@@ -4,14 +4,19 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import exp.Exp;
-import exp.ExpStrings;
 import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
 public class FullCharts extends MyChartCreator {
+
+    public static void main(String[] args) {
+        FullCharts fullCharts = new FullCharts(Spx.getInstance());
+        fullCharts.createChart();
+    }
 
     // Constructor
     public FullCharts(BASE_CLIENT_OBJECT client) {
@@ -42,32 +47,43 @@ public class FullCharts extends MyChartCreator {
         marker.setPaint(Color.BLACK);
         marker.setStroke(new BasicStroke(2f));
 
-        Exp e1 = client.getExps().getExp(ExpStrings.q1);
-
         // --------- OpAvgFuture 15 ---------- //
 
-        // Index
-        MyTimeSeries opAvgFuture15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, e1);
-        opAvgFuture15.setColor(Themes.PURPLE);
-        opAvgFuture15.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
-        series[0] = opAvgFuture15;
+        int size = client.getExps().getExpList().size() * 2;
+        series = new MyTimeSeries[size];
+
+        int i = 0;
+        // For each exp
+        for (Exp exp : client.getExps().getExpList()) {
+            // Index
+            MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_HOUR_SERIES, client, exp);
+            op_avg_60.setColor(Themes.BROWN);
+            op_avg_60.setStokeSize(1.5f);
+
+            // Index
+            MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, exp);
+            op_avg_15.setColor(Themes.PURPLE);
+            op_avg_15.setStokeSize(1.5f);
+
+            series[i] = op_avg_15;
+            i++;
+            series[i] = op_avg_60;
+            i++;
+
+            // If main
+            if (exp.getName().equals(client.getExps().getMainExp().getName())) {
+                op_avg_60.setVisible(true);
+                op_avg_15.setVisible(true);
+            } else {
+                op_avg_60.setVisible(false);
+                op_avg_15.setVisible(false);
+            }
+        }
+
 
         // Chart
-        MyChart opAvgFuture15Chart = new MyChart(client, series, props);
-
-        // --------- OpAvgFuture ---------- //
-        // Index
-        MyTimeSeries opAvgFuture = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_SERIES, client, e1);;
-        opAvgFuture.setColor(Themes.BLUE);
-        opAvgFuture.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[1];
-        series[0] = opAvgFuture;
-
-        // Chart
-        MyChart opAvgFutureChart = new MyChart(client, series, props);
+        MyChart op_avg_all_exps_chart = new MyChart(client, series, props);
 
         // --------- Index Bid Ask Counter ---------- //
         // Index
@@ -96,7 +112,7 @@ public class FullCharts extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, opAvgFuture15Chart, opAvgFutureChart, indexBidAskCounterChart};
+        MyChart[] charts = {indexChart, op_avg_all_exps_chart, indexBidAskCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

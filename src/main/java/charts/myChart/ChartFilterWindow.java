@@ -41,7 +41,7 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
 
         int x = 10;
         int y = 40;
-        int width = 150;
+        int width = 300;
         int height = 30;
 
         for (MyTimeSeries serie : series) {
@@ -111,6 +111,7 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
         private void init() {
 
             // This
+            setPreferredSize(new Dimension(300, 20));
             setForeground(Themes.BLUE);
             setBackground(Themes.GREY_VERY_LIGHT);
 

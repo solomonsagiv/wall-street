@@ -96,6 +96,8 @@ public class MyChart {
         // Renderer (Style series)
         renderer(data);
 
+        // Update visibility
+        updateSeriesVisibility();
     }
 
     private void plot_style() {
@@ -112,7 +114,6 @@ public class MyChart {
         plot.getRangeAxis().setAutoRange(true);
         plot.getRangeAxis().setTickLabelPaint(Themes.BINANCE_GREY);
         plot.getRangeAxis().setTickLabelFont(Themes.ARIEL_BOLD_15);
-
     }
 
     private void number_axis() {

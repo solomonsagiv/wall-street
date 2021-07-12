@@ -36,6 +36,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem fullCharts_2 = new JMenuItem("Full charts 2");
+        fullCharts_2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FullCharts chart = new FullCharts(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem dec_funcs = new JMenuItem("Dec funcs");
         dec_funcs.addActionListener(new ActionListener() {
             @Override
@@ -109,6 +118,7 @@ public class PopupsMenuFactory {
         export.add(export_to_excel);
         charts.add(threeFut);
         charts.add(fullCharts);
+        charts.add(fullCharts_2);
         charts.add(dec_funcs);
         charts.add(baskets);
         charts.add(stocks_delta_itam);

@@ -4,7 +4,6 @@ import dataBase.mySql.MySql;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,7 +16,7 @@ public class TickSpeedService extends MyBaseService {
         super(client);
         this.table_location = table_location;
     }
-
+    
     @Override
     public void go() {
         String q = "select avg(value) as value " +

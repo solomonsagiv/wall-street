@@ -8,7 +8,6 @@ import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
@@ -23,6 +22,7 @@ public class TimeSeriesFactory {
     public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
     public static final String OP_AVG_15_SERIES = "OP_AVG_15";
+    public static final String OP_AVG_HOUR_SERIES = "OP_AVG_HOUR";
     public static final String BASKETS_SERIES = "BASKETS";
     public static final String SPEED_900 = "SPEED_900";
     public static final String ACC_900 = "ACC_900";
@@ -161,8 +161,7 @@ public class TimeSeriesFactory {
         }
 
         switch (series_type.toUpperCase()) {
-
-            case "INDEX":
+            case INDEX_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -180,7 +179,7 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this, "value");
                     }
                 };
-            case "INDEX_BID":
+            case INDEX_BID_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -196,7 +195,7 @@ public class TimeSeriesFactory {
                     public void load_data() {
                     }
                 };
-            case "INDEX_ASK":
+            case INDEX_ASK_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -212,8 +211,7 @@ public class TimeSeriesFactory {
                     public void load_data() {
                     }
                 };
-
-            case "INDEX_BID_ASK_COUNTER":
+            case INDEX_BID_ASK_COUNTER_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -231,7 +229,7 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
                 };
-            case "FUTURE_BID_ASK_COUNTER":
+            case FUTURE_BID_ASK_COUNTER:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -250,7 +248,7 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
                 };
-            case "INDEX_RACES":
+            case INDEX_RACES_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -269,8 +267,8 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case "OP_AVG":
-                return new MyTimeSeries(series_type, client) {
+            case OP_AVG_SERIES:
+                return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
                         return null;
@@ -292,8 +290,8 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case "OP_AVG_15":
-                return new MyTimeSeries(series_type, client) {
+            case OP_AVG_15_SERIES:
+                return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
                         return null;
@@ -314,8 +312,30 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
                 };
+            case OP_AVG_HOUR_SERIES:
+                return new MyTimeSeries(series_type  + "_" + exp.getName().toUpperCase(), client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
 
-            case "STOCKS_DELTA":
+                    @Override
+                    public double getData() throws UnknownHostException {
+                        return exp.get_op_avg(3600);
+                    }
+
+                    @Override
+                    public void load_data() {
+                        IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+
+                        String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_table = dataBaseHandler.get_table_loc(exp.getName());
+                        ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 60);
+                        IDataBaseHandler.loadSerieData(rs, this, "cumu");
+                    }
+                };
+
+            case STOCKS_DELTA_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -335,7 +355,7 @@ public class TimeSeriesFactory {
 
                 };
 
-            case "BASKETS":
+            case BASKETS_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
