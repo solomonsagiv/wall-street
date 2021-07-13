@@ -103,8 +103,8 @@ public class MyChart {
     private void plot_style() {
         plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
-        plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_GRID_VISIBLE));
-        plot.setDomainGridlinesVisible(props.getBool(ChartPropsEnum.IS_GRID_VISIBLE));
+        plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_RANGE_GRID_VISIBLE));
+        plot.setDomainGridlinesVisible(props.getBool(ChartPropsEnum.IS_DOMAIN_GRID_VISIBLE));
         plot.setRangeGridlinePaint(Color.BLACK);
         plot.setDomainGridlinePaint(Color.BLACK);
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);

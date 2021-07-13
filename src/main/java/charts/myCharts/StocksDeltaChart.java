@@ -3,8 +3,6 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import exp.Exp;
-import exp.ExpStrings;
 import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -29,7 +27,7 @@ public class StocksDeltaChart extends MyChartCreator {
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
-        props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, 1);
+        props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, 1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
         props.setProp(ChartPropsEnum.IS_LIVE, -1);
         props.setProp(ChartPropsEnum.SLEEP, 1000);
