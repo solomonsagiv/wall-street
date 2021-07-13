@@ -11,15 +11,15 @@ import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
-public class FullCharts extends MyChartCreator {
+public class Full_Chart_2 extends MyChartCreator {
 
     public static void main(String[] args) {
-        FullCharts fullCharts = new FullCharts(Spx.getInstance());
-        fullCharts.createChart();
+        Full_Chart_2 fullChart2 = new Full_Chart_2(Spx.getInstance());
+        fullChart2.createChart();
     }
 
     // Constructor
-    public FullCharts(BASE_CLIENT_OBJECT client) {
+    public Full_Chart_2(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -31,7 +31,7 @@ public class FullCharts extends MyChartCreator {
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
-        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, 1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
         props.setProp(ChartPropsEnum.IS_GRID_VISIBLE, 1);
@@ -47,8 +47,7 @@ public class FullCharts extends MyChartCreator {
         marker.setPaint(Color.BLACK);
         marker.setStroke(new BasicStroke(2f));
 
-        // --------- OpAvgFuture 15 ---------- //
-
+        // --------- Op avg ---------- //
 
         int size = client.getExps().getExpList().size() * 2;
         series = new MyTimeSeries[size];

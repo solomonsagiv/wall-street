@@ -20,6 +20,20 @@ public class SingleDayLogicFactory {
     }
 
 
+    public static void bid_ask_counter_avg(String table_location, LocalDate date) {
+        String q = "insert into %s " +
+                "select  time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "from ( " +
+                "         select time, sum(counter.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "         from data.spx500_index_bid_ask_counter_cdf counter " +
+                "         where time::date = '%s') sum;";
+
+        String query = String.format(q, table_location, date);
+
+        MySql.insert(query);
+    }
+
+
     public static void one_hour_tick_speed_avg_logic(LocalDate date) {
         String q = "insert into data.spx500_tick_speed_avg_1_hour " +
                 "select time, " +

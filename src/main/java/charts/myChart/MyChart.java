@@ -104,8 +104,9 @@ public class MyChart {
         plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.WHITE);
         plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_GRID_VISIBLE));
-        plot.setDomainGridlinesVisible(false);
+        plot.setDomainGridlinesVisible(props.getBool(ChartPropsEnum.IS_GRID_VISIBLE));
         plot.setRangeGridlinePaint(Color.BLACK);
+        plot.setDomainGridlinePaint(Color.BLACK);
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
         plot.getDomainAxis().setVisible(props.getBool(ChartPropsEnum.INCLUDE_DOMAIN_AXIS));
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
@@ -236,7 +237,6 @@ public class MyChart {
                         Thread.sleep(1000);
                     }
                 } catch (InterruptedException e) {
-                    System.out.println("Breakkkkkkkkk");
                     break;
                 }
             }

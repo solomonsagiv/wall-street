@@ -21,11 +21,11 @@ public class MainTickTimeMargin {
     public void run_muilty_days() {
 
         LocalDate date = LocalDate.of(2021, 3, 2);
-        LocalDate end_date = LocalDate.of(2021, 7, 10);
+        LocalDate end_date = LocalDate.of(2021, 7, 12);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
-            if (date.getDayOfWeek().getValue() != 5 && date.getDayOfWeek().getValue() != 6) {
+            if (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7) {
                 System.out.println();
                 System.out.println("---------- " + date + " -----------");
                 run_single_day(date);
@@ -36,11 +36,11 @@ public class MainTickTimeMargin {
 
     public void run_single_day(LocalDate date) {
 
-        String table_to_insert  = "data.spx500_op_avg_e1_60";
+        String table_to_insert  = "data.spx500_bid_ask_counter_avg";
         String fut_table_to_calc_op = "data.spx500_fut_e1";
         int min = 60;
 
-        SingleDayLogicFactory.op_avg_ta35(date);
+        SingleDayLogicFactory.bid_ask_counter_avg(table_to_insert, date);
     }
 
     private void tick_logic(LocalDate date) {

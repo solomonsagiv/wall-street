@@ -41,6 +41,10 @@ public class Exps {
         return getExpMap().get(name);
     }
 
+    public Exp getExp(int index) {
+        return getExpList().get(index);
+    }
+
     // Getters and setters
     public HashMap<String, Exp> getExpMap() {
         return expMap;
