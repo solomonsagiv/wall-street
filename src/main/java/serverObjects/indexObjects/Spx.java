@@ -10,10 +10,7 @@ import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.ExpStrings;
-import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
-import jibeDataGraber.DecisionsFuncHandler;
-import jibeDataGraber.TickSpeedService;
+import jibeDataGraber.*;
 import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
@@ -54,6 +51,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
         tickSpeedService = new TickSpeedService(this, getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_E1_TICK_SPEED));
+        bidAskCounterGrabberService = new BidAskCounterGrabberService(this);
+
     }
 
     // get instance

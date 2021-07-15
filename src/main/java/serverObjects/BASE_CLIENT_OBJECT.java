@@ -11,6 +11,7 @@ import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
+import jibeDataGraber.BidAskCounterGrabberService;
 import jibeDataGraber.TickSpeedService;
 import jibeDataGraber.DecisionsFuncHandler;
 import lists.ListsService;
@@ -46,6 +47,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected double indBidMarginCounter = 0;
     protected double indAskMarginCounter = 0;
 
+    protected ArrayList<Integer> bid_ask_counter_list;
+
     public String excel_path = "";
 
     // Stocks delta
@@ -53,6 +56,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Decision funcs service
     protected TickSpeedService tickSpeedService;
+    protected BidAskCounterGrabberService bidAskCounterGrabberService;
 
     // Roll
     protected RollHandler rollHandler;
@@ -135,6 +139,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public BASE_CLIENT_OBJECT() {
         try {
+            bid_ask_counter_list = new ArrayList<>();
             LocalHandler.clients.add(this);
 
             // Call subClasses abstract functions
@@ -507,6 +512,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public double getStrikeMargin() {
         if (strikeMargin == 0) throw new NullPointerException(getName() + " Strike margin not set");
         return strikeMargin;
+    }
+
+    public BidAskCounterGrabberService getBidAskCounterGrabberService() {
+        return bidAskCounterGrabberService;
     }
 
     public void setStrikeMargin(double strikeMargin) {

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class MainFillCounter {
 
-    LocalDate date = LocalDate.of(2021, 1, 19);
-    LocalDate end_date = LocalDate.of(2021, 1, 20);
+    LocalDate date = LocalDate.of(2021, 7, 12);
+    LocalDate end_date = LocalDate.of(2021, 7, 14);
     public static String TIME = "23:00:00";
 
     // Main

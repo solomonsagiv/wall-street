@@ -33,7 +33,6 @@ public class SingleDayLogicFactory {
         MySql.insert(query);
     }
 
-
     public static void one_hour_tick_speed_avg_logic(LocalDate date) {
         String q = "insert into data.spx500_tick_speed_avg_1_hour " +
                 "select time, " +
@@ -45,7 +44,6 @@ public class SingleDayLogicFactory {
 
         MySql.insert(query);
     }
-
 
     public static void op_avg_ta35(LocalDate date) {
         String q = "insert into data.ta35_op_avg_month_60 " +

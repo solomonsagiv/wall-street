@@ -31,7 +31,7 @@ public class Full_Chart_2 extends MyChartCreator {
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
-        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, 1);
+        props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, 1);
@@ -80,18 +80,35 @@ public class Full_Chart_2 extends MyChartCreator {
             }
         }
 
-
         // Chart
         MyChart op_avg_all_exps_chart = new MyChart(client, series, props);
 
         // --------- Index Bid Ask Counter ---------- //
-        // Index
-        MyTimeSeries indexBidAskCounterSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
-        indexBidAskCounterSeries.setColor(Themes.ORANGE);
-        indexBidAskCounterSeries.setStokeSize(1.5f);
+        // 5
+        MyTimeSeries counter_avg_5 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES_5, client, null);
+        counter_avg_5.setColor(Themes.PURPLE);
+        counter_avg_5.setStokeSize(1f);
 
-        series = new MyTimeSeries[1];
-        series[0] = indexBidAskCounterSeries;
+        // 15
+        MyTimeSeries counter_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES_15, client, null);
+        counter_avg_15.setColor(Themes.GREEN);
+        counter_avg_15.setStokeSize(1f);
+
+        // 45
+        MyTimeSeries counter_avg_45 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES_45, client, null);
+        counter_avg_45.setColor(Themes.BROWN);
+        counter_avg_45.setStokeSize(1f);
+
+        // Day
+        MyTimeSeries counter_avg_day = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES_DAY, client, null);
+        counter_avg_day.setColor(Themes.RED_2);
+        counter_avg_day.setStokeSize(1f);
+
+        series = new MyTimeSeries[4];
+        series[0] = counter_avg_5;
+        series[1] = counter_avg_15;
+        series[2] = counter_avg_45;
+        series[3] = counter_avg_day;
 
         // Chart
         MyChart indexBidAskCounterChart = new MyChart(client, series, props);

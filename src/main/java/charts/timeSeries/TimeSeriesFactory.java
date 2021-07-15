@@ -18,6 +18,10 @@ public class TimeSeriesFactory {
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String INDEX_BID_ASK_COUNTER_SERIES = "INDEX_BID_ASK_COUNTER";
+    public static final String INDEX_BID_ASK_COUNTER_SERIES_5 = "INDEX_BID_ASK_COUNTER_5";
+    public static final String INDEX_BID_ASK_COUNTER_SERIES_15 = "INDEX_BID_ASK_COUNTER_15";
+    public static final String INDEX_BID_ASK_COUNTER_SERIES_45 = "INDEX_BID_ASK_COUNTER_45";
+    public static final String INDEX_BID_ASK_COUNTER_SERIES_DAY = "INDEX_BID_ASK_COUNTER_DAY";
     public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
     public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
@@ -86,6 +90,86 @@ public class TimeSeriesFactory {
                     @Override
                     public double getData() {
                         return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getValue();
+                    }
+
+                    @Override
+                    public void load_data() {
+
+                    }
+                };
+            }
+
+            // BID ASK COUNTER AVG 5
+            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_5)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getBidAskCounterGrabberService().avg_5;
+                    }
+
+                    @Override
+                    public void load_data() {
+
+                    }
+                };
+            }
+
+            // BID ASK COUNTER AVG 5
+            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_15)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getBidAskCounterGrabberService().avg_15;
+                    }
+
+                    @Override
+                    public void load_data() {
+
+                    }
+                };
+            }
+
+            // BID ASK COUNTER AVG 5
+            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_45)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getBidAskCounterGrabberService().avg_45;
+                    }
+
+                    @Override
+                    public void load_data() {
+
+                    }
+                };
+            }
+
+            // BID ASK COUNTER AVG DAY
+            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_DAY)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getBidAskCounterGrabberService().avg_day;
                     }
 
                     @Override
