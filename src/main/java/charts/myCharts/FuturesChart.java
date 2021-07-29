@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class FuturesChart extends MyChartCreator {
 
     // Constructor
-    public FuturesChart(BASE_CLIENT_OBJECT client, MyChartContainer_2 myChartContainer_2, MyChart[] charts ) {
-        super(client, charts, null);
+    public FuturesChart(BASE_CLIENT_OBJECT client ) {
+        super(client, null, null);
     }
 
     ArrayList<MyTimeSeries> myTimeSeries = new ArrayList<>();
@@ -56,7 +56,7 @@ public class FuturesChart extends MyChartCreator {
             }
 
             @Override
-            public void load_data() {
+            public void load() {
 
             }
         };
@@ -76,7 +76,7 @@ public class FuturesChart extends MyChartCreator {
             }
 
             @Override
-            public void load_data() {
+            public void load() {
 
             }
         };
@@ -96,7 +96,7 @@ public class FuturesChart extends MyChartCreator {
             }
 
             @Override
-            public void load_data() {
+            public void load() {
 
             }
         };
@@ -127,7 +127,7 @@ public class FuturesChart extends MyChartCreator {
                 }
 
                 @Override
-                public void load_data() {}
+                public void load() {}
             };
 
             myTimeSerie.setStokeSize(2.25f);

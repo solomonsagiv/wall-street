@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 
 interface ITimeSeries {
     double getData() throws UnknownHostException;
-    void load_data();
+    void load();
 }
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
@@ -36,6 +36,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     private boolean visible = true;
     MyDoubleList myValues;
     private String series_type;
+    private boolean load = false;
 
     // Constructor
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
@@ -44,6 +45,15 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         this.series_type = (String) name;
         this.client = client;
         myValues = new MyDoubleList();
+    }
+
+    public void load_data() {
+        try {
+            load();
+            setLoad(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Constructor
@@ -90,7 +100,6 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void add(LocalDateTime time) {
         try {
-
             Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
             double data = getData();
             getMyValues().add(data);
@@ -204,6 +213,14 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             lastSeconde = new Second();
         }
         return lastSeconde;
+    }
+
+    public boolean isLoad() {
+        return load;
+    }
+
+    public void setLoad(boolean load) {
+        this.load = load;
     }
 
     public boolean isVisible() {

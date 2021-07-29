@@ -8,7 +8,6 @@ import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class Full_Chart_2 extends MyChartCreator {
@@ -57,13 +56,13 @@ public class Full_Chart_2 extends MyChartCreator {
         for (Exp exp : client.getExps().getExpList()) {
             // Index
             MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_HOUR_SERIES, client, exp);
-            op_avg_60.setColor(Themes.BROWN);
-            op_avg_60.setStokeSize(1.5f);
+            op_avg_60.setColor(Themes.BLUE);
+            op_avg_60.setStokeSize(1.2f);
 
             // Index
             MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, exp);
-            op_avg_15.setColor(Themes.PURPLE);
-            op_avg_15.setStokeSize(1.5f);
+            op_avg_15.setColor(Themes.PINK_LIGHT);
+            op_avg_15.setStokeSize(1.2f);
 
             series[i] = op_avg_15;
             i++;
@@ -104,11 +103,17 @@ public class Full_Chart_2 extends MyChartCreator {
         counter_avg_day.setColor(Themes.RED_2);
         counter_avg_day.setStokeSize(1f);
 
-        series = new MyTimeSeries[4];
+        // Cunter
+        MyTimeSeries counter = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
+        counter.setColor(Themes.BINANCE_ORANGE);
+        counter.setStokeSize(1f);
+
+        series = new MyTimeSeries[5];
         series[0] = counter_avg_5;
         series[1] = counter_avg_15;
         series[2] = counter_avg_45;
         series[3] = counter_avg_day;
+        series[4] = counter;
 
         // Chart
         MyChart indexBidAskCounterChart = new MyChart(client, series, props);
@@ -133,7 +138,6 @@ public class Full_Chart_2 extends MyChartCreator {
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
         chartContainer.create();
-
     }
 
 }

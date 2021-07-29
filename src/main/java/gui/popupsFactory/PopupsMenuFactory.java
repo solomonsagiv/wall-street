@@ -36,6 +36,16 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem only_futures_chart = new JMenuItem("Only futures");
+        only_futures_chart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OnlyFuturesChart chart = new OnlyFuturesChart(client);
+                chart.createChart();
+            }
+        });
+
+
         JMenuItem fullCharts_2 = new JMenuItem("Full charts 2");
         fullCharts_2.addActionListener(new ActionListener() {
             @Override
@@ -79,7 +89,7 @@ public class PopupsMenuFactory {
         threeFut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FuturesChart chart = new FuturesChart(client, null, null);
+                FuturesChart chart = new FuturesChart(client);
                 chart.createChart();
             }
         });
@@ -133,6 +143,7 @@ public class PopupsMenuFactory {
         charts.add(dec_funcs);
         charts.add(baskets);
         charts.add(stocks_delta_itam);
+        charts.add(only_futures_chart);
 
         menu.add(details);
         menu.add(settingWindow);

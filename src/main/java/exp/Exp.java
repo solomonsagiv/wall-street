@@ -140,7 +140,6 @@ public abstract class Exp {
 
         // Ask for bid change state
         futureBidForCheck = this.futureBid;
-
     }
 
     public double getDividend() {

@@ -12,15 +12,11 @@ public abstract class MyThread {
     private Runnable runnable;
 
     public MyThread(BASE_CLIENT_OBJECT client) {
-
         this.client = client;
-
         client.getThreads().add(this);
-
         initRunnable();
-
     }
-
+    
     public MyThread() {
         initRunnable();
     }

@@ -52,7 +52,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -73,7 +73,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -93,7 +93,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -113,13 +113,18 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
+
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
+
+                        ResultSet rs = MySql.Queries.bid_ask_counter_avg_cumu(table_location, 5);
+                        IDataBaseHandler.loadSerieData(rs, this, "value");
 
                     }
                 };
             }
 
-            // BID ASK COUNTER AVG 5
+            // BID ASK COUNTER AVG 15
             if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_15)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -133,13 +138,16 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
 
+                        ResultSet rs = MySql.Queries.bid_ask_counter_avg_cumu(table_location, 15);
+                        IDataBaseHandler.loadSerieData(rs, this, "value");
                     }
                 };
             }
 
-            // BID ASK COUNTER AVG 5
+            // BID ASK COUNTER AVG 45
             if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_45)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -153,8 +161,11 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
 
+                        ResultSet rs = MySql.Queries.bid_ask_counter_avg_cumu(table_location, 45);
+                        IDataBaseHandler.loadSerieData(rs, this, "value");
                     }
                 };
             }
@@ -173,7 +184,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -196,7 +207,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -217,7 +228,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -237,7 +248,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
 
                     }
                 };
@@ -258,7 +269,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this, "value");
                     }
@@ -276,7 +287,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                     }
                 };
             case INDEX_ASK_SERIES:
@@ -292,7 +303,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                     }
                 };
             case INDEX_BID_ASK_COUNTER_SERIES:
@@ -308,7 +319,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
@@ -326,7 +337,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         // TODO
                         ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
@@ -345,7 +356,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE), "sum");
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
@@ -364,7 +375,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
 
                         String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
@@ -387,7 +398,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
 
                         String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
@@ -409,7 +420,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
 
                         String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
@@ -432,7 +443,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_DELTA_TABLE), "sum");
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }
@@ -452,7 +463,7 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load_data() {
+                    public void load() {
                         ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BASKETS_TABLE), "sum");
                         IDataBaseHandler.loadSerieData(rs, this, "cumu");
                     }

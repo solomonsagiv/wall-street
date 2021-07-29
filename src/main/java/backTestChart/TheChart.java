@@ -57,7 +57,7 @@ public class TheChart extends MyChartCreator {
                 }
 
                 @Override
-                public void load_data() {
+                public void load() {
 
                 }
             };

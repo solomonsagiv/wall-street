@@ -6,7 +6,6 @@ import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChart;
-import charts.myCharts.Index_baskets_chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.ExpStrings;
@@ -115,11 +114,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChart chart = new FuturesChart(this, null, null);
+            FuturesChart chart = new FuturesChart(this);
             chart.createChart();
-
-            Index_baskets_chart basketsChart = new Index_baskets_chart(this);
-            basketsChart.createChart();
         }
     }
 

@@ -27,7 +27,6 @@ public class GetDataFromDB {
 
     }
 
-
     ArrayList<LocalTime> timeList;
 
     public ArrayList<LocalTime> getTimeList() {

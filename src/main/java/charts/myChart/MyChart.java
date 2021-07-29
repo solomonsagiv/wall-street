@@ -19,6 +19,7 @@ import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
+
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -39,7 +40,6 @@ public class MyChart {
     MyChartPanel chartPanel;
     private MyTimeSeries[] series;
     private MyProps props;
-    boolean load = false;
     XYLineAndShapeRenderer renderer;
 
     // Constructor
@@ -60,11 +60,11 @@ public class MyChart {
 
     private void load_data() {
         try {
-            new Thread(() ->{
-                for (MyTimeSeries serie : series) {
+            for (MyTimeSeries serie : series) {
+                new Thread(() -> {
                     serie.load_data();
-                }
-            }).start();
+                }).start();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getStackTrace());
         }
@@ -204,6 +204,39 @@ public class MyChart {
             initListeners();
         }
 
+        private void can_i_start() {
+            // Should load
+            if (props.getBool(ChartPropsEnum.IS_LOAD_DB)) {
+                // Load each serie
+                for (MyTimeSeries serie : series) {
+                    new Thread(() -> {
+                        serie.load_data();
+                    }).start();
+                }
+
+                while (true) {
+                    try {
+                        // Sleep
+                        Thread.sleep(500);
+                        boolean loaded = true;
+
+                        // Is load each serie
+                        for (MyTimeSeries serie : series) {
+                            if (!serie.isLoad()) {
+                                loaded = false;
+                            }
+                        }
+                        // On Done
+                        if (loaded) {
+                            return;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
         private void initListeners() {
 
         }
@@ -211,15 +244,13 @@ public class MyChart {
         @Override
         public void run() {
 
+            // Can start data updating
+            can_i_start();
+
             // While loop
             while (isRun()) {
                 try {
-                    System.out.println(client.isStarted());
                     if (client.isStarted()) {
-                        if (!load) {
-                            load = true;
-                        }
-
                         // Sleep
                         Thread.sleep((long) props.getProp(ChartPropsEnum.SLEEP));
 
@@ -228,7 +259,7 @@ public class MyChart {
                                 append();
                             }
                         } else if (props.getProp(ChartPropsEnum.RETRO_MINS) > 0) {
-                           append_retro();
+                            append_retro();
                         } else {
                             append();
                         }
@@ -247,7 +278,7 @@ public class MyChart {
 
             if (minuts > 0) {
                 for (MyTimeSeries serie : series) {
-                    new Thread(()  -> {
+                    new Thread(() -> {
                         serie.clear_data();
                         IDataBaseHandler.loadSerieData(serie.load_last_x_time(minuts), serie, "value");
                     }).start();

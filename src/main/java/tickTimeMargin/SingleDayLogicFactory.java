@@ -74,4 +74,23 @@ public class SingleDayLogicFactory {
     }
 
 
+    public static void op_avg(String table_to_insert, String fut_table_to_calc_op, LocalDate date) {
+        String q = "insert into %s" +
+                " select i.time,  avg(f.value - i.value) over (ORDER BY i.time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "    from %s f " +
+                "    inner join data.spx500_index i on f.time = i.time " +
+                "    where i.time::date = date'%s';";
+
+        String query = String.format(q, table_to_insert, fut_table_to_calc_op, date);
+
+
+        System.out.println(query);
+
+        MySql.insert(query);
+    }
+
+
+
+
+
 }
