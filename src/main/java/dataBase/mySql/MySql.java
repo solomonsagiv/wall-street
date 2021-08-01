@@ -179,7 +179,7 @@ public class MySql {
         }
 
         public static ResultSet bid_ask_counter_avg_cumu(String counter_table_location, int min) {
-            String q = "select sum.time, avg(sum.sum) as value over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) " +
+            String q = "select sum.time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
                     "from ( " +
                     "select time, sum(counter.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
                     "from %s counter " +

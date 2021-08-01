@@ -190,7 +190,7 @@ public class TimeSeriesFactory {
                 };
             }
         }
-
+        
         if (client instanceof Ndx) {
             if (series_type.toUpperCase().equals(SPEED_900)) {
                 return new MyTimeSeries(series_type, client) {

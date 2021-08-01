@@ -50,7 +50,7 @@ public class MyChart {
         oldVals = new double[series.length];
 
         // Init
-        init(series, props);
+        init();
         load_data();
 
         // Start updater
@@ -70,7 +70,7 @@ public class MyChart {
         }
     }
 
-    private void init(MyTimeSeries[] series, MyProps props) {
+    private void init() {
 
         // Series
         TimeSeriesCollection data = new TimeSeriesCollection();
