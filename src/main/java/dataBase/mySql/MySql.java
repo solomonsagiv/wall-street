@@ -1,12 +1,18 @@
 package dataBase.mySql;
 
 import arik.Arik;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalTime;
 
 public class MySql {
+
+
+    public static void main(String[] args) {
+        MySql.Queries.bid_ask_counter_avg_cumu("data.spx500_index_bid_ask_counter_cdf", 15);
+    }
 
     private static ConnectionPool pool;
 
@@ -180,11 +186,10 @@ public class MySql {
 
         public static ResultSet bid_ask_counter_avg_cumu(String counter_table_location, int min) {
             String q = "select sum.time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
-                    "from ( " +
+                    "from (" +
                     "select time, sum(counter.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
                     "from %s counter " +
-                    "where time::date = now()::date') sum;";
-
+                    "where time::date = now()::date) sum;";
             String query = String.format(q, min, counter_table_location);
 
             return MySql.select(query);

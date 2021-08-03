@@ -164,13 +164,14 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         // Reader
         DDEReader ddeReader = new DDEReader(client);
         ddeReader.getHandler().start();
+        client.getDdeHandler().setDdeReaderThread(ddeReader);
         ddeReaders.put(client.getName(), ddeReader);
 
         // Writer
         DDEWriter ddeWriter = new DDEWriter(client);
         ddeWriter.getHandler().start();
+        client.getDdeHandler().setDdeWriterThread(ddeWriter);
         ddeWriters.put(client.getName(), ddeWriter);
-
     }
 
     private void initialize() {
