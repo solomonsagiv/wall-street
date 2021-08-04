@@ -94,6 +94,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem futures_real_time_long = new JMenuItem("Futures real time long");
+        futures_real_time_long.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FuturesChartLong chart = new FuturesChartLong(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem stocks_delta_itam = new JMenuItem("Stocks delta");
         stocks_delta_itam.addActionListener(new ActionListener() {
             @Override
@@ -144,6 +153,7 @@ public class PopupsMenuFactory {
         charts.add(baskets);
         charts.add(stocks_delta_itam);
         charts.add(only_futures_chart);
+        charts.add(futures_real_time_long);
 
         menu.add(details);
         menu.add(settingWindow);
