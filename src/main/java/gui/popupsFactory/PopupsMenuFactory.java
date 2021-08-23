@@ -64,7 +64,7 @@ public class PopupsMenuFactory {
                 chart.createChart();
             }
         });
-
+        
         JMenuItem dec_funcs = new JMenuItem("Dec funcs");
         dec_funcs.addActionListener(new ActionListener() {
             @Override
@@ -73,7 +73,7 @@ public class PopupsMenuFactory {
                 chart.createChart();
             }
         });
-
+        
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override

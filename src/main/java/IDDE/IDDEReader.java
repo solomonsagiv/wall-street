@@ -1,6 +1,5 @@
 package IDDE;
 
-import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;

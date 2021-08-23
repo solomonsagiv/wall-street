@@ -25,7 +25,7 @@ public class DecisionsFuncFactory {
                     break;
             }
         }
-        
+
         if (client instanceof Ndx) {
             // Switch case
             switch (decision_func_name.toUpperCase()) {
@@ -39,7 +39,6 @@ public class DecisionsFuncFactory {
                     break;
             }
         }
-
 
         return null;
     }

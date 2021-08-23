@@ -41,7 +41,7 @@ public class DecisionsFuncChart extends MyChartCreator {
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, -1);
         props.setProp(ChartPropsEnum.IS_LIVE, -1);
-        props.setProp(ChartPropsEnum.SLEEP, 20000);
+        props.setProp(ChartPropsEnum.SLEEP, 15000);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
         props.setProp(ChartPropsEnum.MARKER, 0);
