@@ -22,7 +22,7 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
     // Constructor
     MyGuiComps.MyPanel mainPanel;
     MyGuiComps.MyLabel titleLbl;
-
+    
     // Constructors
     public ChartFilterWindow(String title, BASE_CLIENT_OBJECT client) throws HeadlessException {
         super(title, client);

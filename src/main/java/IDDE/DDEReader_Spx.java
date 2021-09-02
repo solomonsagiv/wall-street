@@ -3,11 +3,20 @@ package IDDE;
 import DDE.DDEConnection;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public class DDEReader_Spx extends IDDEReader {
+
+    Exp day;
+    Exp week;
+    Exp month;
+    E q1;
+    E q2;
+
+    private boolean init_exp = false;
 
     String indCell = "R2C3";
     String indBidCell = "R2C2";
@@ -21,6 +30,10 @@ public class DDEReader_Spx extends IDDEReader {
     String futMonthCell = "R11C10";
     String e1Cell = "R12C10";
     String e2Cell = "R13C10";
+    String naked_future_cell = "R32C13";
+    String naked_future_bid_cell = "R33C13";
+    String naked_future_ask_cell = "R31C13";
+    String naked_future_volume_cell = "R38C13";
 
     // Interest
     String day_interest_cell = "R38C5";
@@ -43,7 +56,6 @@ public class DDEReader_Spx extends IDDEReader {
     String q1_days_cell = "R41C7";
     String q2_days_cell = "R42C7";
 
-
     // Constructor
     public DDEReader_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -51,6 +63,16 @@ public class DDEReader_Spx extends IDDEReader {
 
     @Override
     public void updateData(DDEClientConversation conversation) {
+
+        if (!init_exp) {
+            init_exps();
+        }
+
+        // Naked future and volume (Delta calc)
+        q1.setNaked_future(requestDouble(naked_future_cell, conversation));
+        q1.setNaked_future_bid(requestDouble(naked_future_bid_cell, conversation));
+        q1.setNaked_future_ask(requestDouble(naked_future_ask_cell, conversation));
+        q1.setVolume((int) requestDouble(naked_future_volume_cell, conversation));
 
         // Index
         client.setIndex(requestDouble(indCell, conversation));
@@ -63,12 +85,21 @@ public class DDEReader_Spx extends IDDEReader {
         client.setBase(requestDouble(baseCell, conversation));
 
         // Exps
-        client.getExps().getExp(ExpStrings.day).set_future(requestDouble(futDayCell, conversation));
-        client.getExps().getExp(ExpStrings.week).set_future(requestDouble(futWeekCell, conversation));
-        client.getExps().getExp(ExpStrings.month).set_future(requestDouble(futMonthCell, conversation));
-        client.getExps().getExp(ExpStrings.q1).set_future(requestDouble(e1Cell, conversation));
-        client.getExps().getExp(ExpStrings.q2).set_future(requestDouble(e2Cell, conversation));
+        day.set_future(requestDouble(futDayCell, conversation));
+        week.set_future(requestDouble(futWeekCell, conversation));
+        month.set_future(requestDouble(futMonthCell, conversation));
+        q1.set_future(requestDouble(e1Cell, conversation));
+        q2.set_future(requestDouble(e2Cell, conversation));
 
+    }
+
+    private void init_exps() {
+        day = client.getExps().getExp(ExpStrings.day);
+        week = client.getExps().getExp(ExpStrings.week);
+        month = client.getExps().getExp(ExpStrings.month);
+        q1 = (E) client.getExps().getExp(ExpStrings.q1);
+        q2 = (E) client.getExps().getExp(ExpStrings.q2);
+        init_exp = true;
     }
 
     @Override

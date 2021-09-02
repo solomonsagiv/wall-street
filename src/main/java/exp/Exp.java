@@ -18,10 +18,12 @@ public abstract class Exp {
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate expDate;
     protected double future = 0;
-    protected double futureBid = 0;
-    protected double futureAsk = 0;
-    protected int futBidAskCounter = 0;
-    protected double futDelta = 0;
+    protected double future_bid = 0;
+    protected double future_ask = 0;
+    protected int fut_bid_ask_counter = 0;
+
+
+    protected int last_deal_quantity = 0;
     ExpData expData;
     List<Double> opFutList = new ArrayList<>();
 
@@ -30,8 +32,6 @@ public abstract class Exp {
 
     String expName;
     TwsContractsEnum twsContractsEnum;
-    private double futureAskForCheck = 0;
-    private double futureBidForCheck = 0;
 
     public Exp(BASE_CLIENT_OBJECT client, String expName) {
         this.client = client;
@@ -109,37 +109,22 @@ public abstract class Exp {
         }
     }
 
-    public double getFutureBid() {
-        return futureBid;
+    public double getFuture_bid() {
+        return future_bid;
     }
 
-    public void setFutureBid(double futureBid) {
-
-        // If increment state
-        if (futureBid > this.futureBid && futureAskForCheck == this.futureAsk && client.isStarted()) {
-            futBidAskCounter++;
-        }
-        this.futureBid = futureBid;
-
-        // Ask for bid change state
-        futureAskForCheck = this.futureAsk;
-
+    public void setFuture_bid(double future_bid) {
+            this.future_bid = future_bid;
     }
 
-    public double getFutureAsk() {
-        return futureAsk;
+
+
+    public double getFuture_ask() {
+        return future_ask;
     }
 
-    public void setFutureAsk(double futureAsk) {
-
-        // If increment state
-        if (futureAsk < this.futureAsk && futureBidForCheck == this.futureBid && client.isStarted()) {
-            futBidAskCounter--;
-        }
-        this.futureAsk = futureAsk;
-
-        // Ask for bid change state
-        futureBidForCheck = this.futureBid;
+    public void setFuture_ask(double future_ask) {
+            this.future_ask = future_ask;
     }
 
     public double getDividend() {
@@ -166,16 +151,12 @@ public abstract class Exp {
         this.days_to_exp = days_to_exp;
     }
 
-    public int getFutBidAskCounter() {
-        return futBidAskCounter;
+    public int getFut_bid_ask_counter() {
+        return fut_bid_ask_counter;
     }
 
-    public void setFutBidAskCounter(int futBidAskCounter) {
-        this.futBidAskCounter = futBidAskCounter;
-    }
-
-    public double getFutDelta() {
-        return futDelta;
+    public void setFut_bid_ask_counter(int fut_bid_ask_counter) {
+        this.fut_bid_ask_counter = fut_bid_ask_counter;
     }
 
     public List<Double> getOpFutList() {

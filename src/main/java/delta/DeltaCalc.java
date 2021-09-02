@@ -1,31 +1,38 @@
 package delta;
 
+import exp.E;
+import exp.ExpStrings;
+import serverObjects.BASE_CLIENT_OBJECT;
+
 public class DeltaCalc {
 
-    public static double calc(int quantity, double last, double preBid, double preAsk) {
+    E exp;
+
+    public DeltaCalc(BASE_CLIENT_OBJECT client) {
+        this.exp = (E) client.getExps().getExp(ExpStrings.q1);
+    }
+
+    public static double calc(int quantity, double last, double bid, double ask) {
 
         double delta = 0;
 
-        if (last > 0 && preBid > 0 && preAsk > 0) {
-
-            // Buy ( Last == pre ask )
-            if (last >= preAsk) {
-                delta = quantity;
-            }
-
-            // Sell ( Last == pre bid )
-            if (last <= preBid) {
-                delta = quantity * -1;
-            }
-
-//            System.out.println( );
-//            System.out.println( "Q " + quantity );
-//            System.out.println( "pre Bid: " + preBid );
-//            System.out.println( "Last " + last );
-//            System.out.println( "pre ask: " + preAsk );
-//            System.out.println( "Delta: " + delta );
-
+        // Buy
+        if (last == ask) {
+            delta = quantity;
         }
+
+        // Sell
+        if (last == bid) {
+            delta = quantity * -1;
+        }
+
+        System.out.println();
+        System.out.println("Bid " + bid);
+        System.out.println("Last " + last);
+        System.out.println("Ask " + ask);
+        System.out.println("Quantity " + quantity);
+        System.out.println("Delta " + delta);
+
         return delta;
     }
 

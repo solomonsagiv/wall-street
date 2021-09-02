@@ -19,7 +19,6 @@ public class SingleDayLogicFactory {
         MySql.insert(query);
     }
 
-
     public static void bid_ask_counter_avg(String table_location, LocalDate date) {
         String q = "insert into %s " +
                 "select  time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
@@ -29,6 +28,32 @@ public class SingleDayLogicFactory {
                 "         where time::date = '%s') sum;";
 
         String query = String.format(q, table_location, date);
+
+        MySql.insert(query);
+    }
+
+    public static void ta35_bid_ask_counter_avg(String insert_to_table, String table_to_calc_from, LocalDate date, int min) {
+        String q = "insert into %s " +
+                "select  time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) " +
+                "from ( " +
+                "         select time, sum(counter.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "         from %s counter " +
+                "         where time::date = '%s') sum;";
+
+        String query = String.format(q, insert_to_table,min, table_to_calc_from, date);
+
+        MySql.insert(query);
+    }
+
+    public static void ta35_bid_ask_counter_avg(String insert_to_table, String table_to_calc_from, LocalDate date) {
+        String q = "insert into %s " +
+                "select  time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "from ( " +
+                "         select time, sum(counter.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "         from %s counter " +
+                "         where time::date = '%s') sum;";
+
+        String query = String.format(q, insert_to_table, table_to_calc_from, date);
 
         MySql.insert(query);
     }
@@ -45,17 +70,28 @@ public class SingleDayLogicFactory {
         MySql.insert(query);
     }
 
-    public static void op_avg_ta35(LocalDate date) {
-        String q = "insert into data.ta35_op_avg_month_60 " +
-                "select i.time, avg(f.futures - i.index) over (ORDER BY i.time RANGE BETWEEN INTERVAL '60 min' PRECEDING AND CURRENT ROW) " +
+    public static void op_avg_ta35(String table_to_insert, String table_to_calc, LocalDate date, int min) {
+        String q = "insert into %s " +
+                "select i.time, avg(f.futures - i.index) over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) " +
                 "from data.ta35_index i " +
-                "         inner join data.ta35_futures f on i.time = f.time " +
+                "         inner join %s f on i.time = f.time " +
                 "where i.time::date = '%s';";
 
-        String query = String.format(q, date);
+        String query = String.format(q, table_to_insert, min, table_to_calc, date);
         MySql.insert(query);
     }
 
+
+    public static void op_avg_ta35(String table_to_insert, String table_to_calc, LocalDate date) {
+        String q = "insert into %s " +
+                "select i.time, avg(f.futures - i.index) over (ORDER BY i.time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                "from data.ta35_index i " +
+                "         inner join %s f on i.time = f.time " +
+                "where i.time::date = '%s';";
+
+        String query = String.format(q, table_to_insert, table_to_calc, date);
+        MySql.insert(query);
+    }
 
     public static void op_avg(String table_to_insert, String fut_table_to_calc_op, int min, LocalDate date) {
         String q = "insert into %s " +

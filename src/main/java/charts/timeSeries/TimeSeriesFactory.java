@@ -333,7 +333,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getExps().getExp(ExpStrings.q1).getFutBidAskCounter();
+                        return client.getExps().getExp(ExpStrings.q1).getFut_bid_ask_counter();
                     }
 
                     @Override

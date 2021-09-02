@@ -25,13 +25,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
-    public static void main(String[] args) {
-        double index = 4236.45;
-         index = (int)(index / 10) * 10;
-
-        System.out.println(index);
-    }
-    
     @Override
     public double get_strike_in_money() {
         return 0;
@@ -41,19 +34,12 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public Spx() {
         setName("spx");
         setId_name("spx500");
-//        setIndexBidAskMargin(.5);
-//        setStrikeMargin(25);
-//        setIndexStartTime(LocalTime.of(16, 31, 0));
-//        setIndexEndTime(LocalTime.of(23, 0, 0));
-//        setFutureEndTime(LocalTime.of(23, 15, 0));
-//        setExcel_path("C:/Users/yosef/Desktop/[bbg index.xlsm]Spx");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
         setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
         tickSpeedService = new TickSpeedService(this, getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_E1_TICK_SPEED));
         bidAskCounterGrabberService = new BidAskCounterGrabberService(this);
-
     }
 
     // get instance
@@ -131,7 +117,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
             Full_Chart_2 full_chart_2 = new Full_Chart_2(this);
             full_chart_2.createChart();
-
         }
     }
 
@@ -139,5 +124,4 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public double getTheoAvgMargin() {
         return 0.05;
     }
-
 }

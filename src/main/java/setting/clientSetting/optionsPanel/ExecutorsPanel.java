@@ -48,7 +48,7 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     int counter = L.INT(futBidAskCounterField.getText());
-                    OptionsPanel.exp.setFutBidAskCounter(counter);
+                    OptionsPanel.exp.setFut_bid_ask_counter(counter);
                 } catch (Exception e) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(null, e.getCause());
