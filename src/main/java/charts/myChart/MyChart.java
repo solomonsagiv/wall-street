@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class MyChart {
-
+    
     public XYPlot plot;
     public ChartUpdater updater;
     // Variables

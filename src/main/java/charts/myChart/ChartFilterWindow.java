@@ -56,7 +56,6 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
             // Update y
             y += height;
         }
-
     }
 
     @Override
