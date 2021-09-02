@@ -34,7 +34,6 @@ public class FuturesChartLong extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS, 1000);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.003);
-        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, -1);
         props.setProp(ChartPropsEnum.IS_LIVE, 1);

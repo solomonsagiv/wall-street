@@ -2,6 +2,7 @@ package charts.timeSeries;
 
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import jibeDataGraber.DecisionsFuncFactory;
@@ -31,11 +32,11 @@ public class TimeSeriesFactory {
     public static final String SPEED_900 = "SPEED_900";
     public static final String ACC_900 = "ACC_900";
     public static final String ACC_300 = "ACC_300";
+    public static final String FUTURE_DELTA = "FUTURE_DELTA";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
 
         if (client instanceof Spx) {
-
             if (series_type.toUpperCase().equals(SPEED_900)) {
                 return new MyTimeSeries(series_type, client) {
 
@@ -57,7 +58,6 @@ public class TimeSeriesFactory {
                     }
                 };
             }
-
             if (series_type.toUpperCase().equals(ACC_900)) {
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -98,7 +98,6 @@ public class TimeSeriesFactory {
                     }
                 };
             }
-
             // BID ASK COUNTER AVG 5
             if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_5)) {
                 return new MyTimeSeries(series_type, client) {
@@ -123,7 +122,6 @@ public class TimeSeriesFactory {
                     }
                 };
             }
-
             // BID ASK COUNTER AVG 15
             if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_15)) {
                 return new MyTimeSeries(series_type, client) {
@@ -146,7 +144,6 @@ public class TimeSeriesFactory {
                     }
                 };
             }
-
             // BID ASK COUNTER AVG 45
             if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_45)) {
                 return new MyTimeSeries(series_type, client) {
@@ -169,7 +166,6 @@ public class TimeSeriesFactory {
                     }
                 };
             }
-
             // BID ASK COUNTER AVG DAY
             if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_DAY)) {
                 return new MyTimeSeries(series_type, client) {
@@ -189,8 +185,29 @@ public class TimeSeriesFactory {
                     }
                 };
             }
+            // Q1 DELTA
+            if (series_type.toUpperCase().equals(FUTURE_DELTA)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        E e  = (E) exp;
+                        return e.getDelta();
+                    }
+
+                    @Override
+                    public void load() {
+//                        ResultSet rs = MySql.Queries.get_serie(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE));
+//                        IDataBaseHandler.loadSerieData(rs, this, "value");
+                    }
+                };
+            }
         }
-        
+
         if (client instanceof Ndx) {
             if (series_type.toUpperCase().equals(SPEED_900)) {
                 return new MyTimeSeries(series_type, client) {

@@ -12,7 +12,7 @@ public class E extends Exp {
     protected double naked_future_bid = 0;
     protected double naked_future_ask = 0;
     protected double naked_future = 0;
-    
+
     public E(BASE_CLIENT_OBJECT client, String expEnum) {
         super(client, expEnum);
     }
@@ -23,11 +23,11 @@ public class E extends Exp {
 
     public void setVolume(int volume) {
         int quantity = volume - this.volume;
-        if (quantity > 0) {
+        if (quantity > 0 && this.volume > 0 && client.isStarted()) {
             last_deal_quantity = quantity;
-            this.volume = volume;
             calc_delta();
         }
+        this.volume = volume;
     }
 
     private void calc_delta() {

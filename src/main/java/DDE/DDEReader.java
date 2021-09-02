@@ -34,13 +34,11 @@ public class DDEReader extends MyThread implements Runnable {
 
         while (isRun()) {
             try {
-
                 // Sleep
                 Thread.sleep(sleep);
 
                 // DDE
                 read();
-
             } catch (InterruptedException e) {
                 break;
             } catch (DDEException e) {
@@ -57,14 +55,10 @@ public class DDEReader extends MyThread implements Runnable {
     }
 
     private void read() throws DDEException {
-        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-            if (client.getApi() == ApiEnum.DDE) {
-                updateData((INDEX_CLIENT_OBJECT) client);
-            }
-        }
+        updateData();
     }
 
-    private void updateData(INDEX_CLIENT_OBJECT client) throws DDEException {
+    private void updateData() throws DDEException {
         iddeReaderUpdater.updateData(conversation);
     }
 }

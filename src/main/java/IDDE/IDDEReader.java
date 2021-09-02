@@ -22,7 +22,7 @@ public abstract class IDDEReader {
             d = L.dbl(conversation.request(cell));
         } catch (Exception e) {
             // TODO
-            System.out.println("Cell: " + cell);
+//            System.out.println("Cell: " + cell);
             e.printStackTrace();
         } finally {
             return d;

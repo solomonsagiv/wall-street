@@ -79,7 +79,6 @@ public class LogicTickReader extends MyThread implements Runnable {
 
             changed = true;
 
-            e1.setVolume(newVolume);
             e1.set_future(L.dbl(conversation.request(futLast).replaceAll("\\s+", "")));
             e1.setFuture_bid(L.dbl(conversation.request(futBid).replaceAll("\\s+", "")));
             e1.setFuture_ask(L.dbl(conversation.request(futAsk).replaceAll("\\s+", "")));

@@ -4,6 +4,7 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import exp.Exp;
+import exp.ExpStrings;
 import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -32,8 +33,7 @@ public class Full_Chart_2 extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
-        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
-        props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, 1);
+        props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
         props.setProp(ChartPropsEnum.IS_LIVE, -1);
         props.setProp(ChartPropsEnum.SLEEP, 1000);
@@ -130,10 +130,24 @@ public class Full_Chart_2 extends MyChartCreator {
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
+
+        // --------- Delta  ---------- //
+
+        // Delta
+        MyTimeSeries deltaSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.FUTURE_DELTA, client, client.getExps().getExp(ExpStrings.q1));
+        deltaSeries.setColor(Themes.LIFGT_BLUE_2);
+        deltaSeries.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[1];
+        series[0] = deltaSeries;
+
+        // Chart
+        MyChart deltaChart = new MyChart(client, series, props);
+
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_all_exps_chart, indexBidAskCounterChart};
+        MyChart[] charts = {indexChart, op_avg_all_exps_chart, deltaChart, indexBidAskCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

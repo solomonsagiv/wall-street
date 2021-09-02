@@ -90,9 +90,6 @@ public class MyChart {
         // Marker
         marker();
 
-        // Range margin
-        range_margin();
-
         // Renderer (Style series)
         renderer(data);
 
@@ -152,13 +149,6 @@ public class MyChart {
         }
     }
 
-    private void range_margin() {
-        // Range unit
-        if (props.getProp(ChartPropsEnum.RANGE_MARGIN) > 0) {
-            ValueAxis range = plot.getRangeAxis();
-            ((NumberAxis) range).setTickUnit(new NumberTickUnit(props.getProp(ChartPropsEnum.RANGE_MARGIN)));
-        }
-    }
 
     public MyProps getProps() {
         return props;
@@ -421,8 +411,12 @@ public class MyChart {
                     }
                 }
 
-                double min = Collections.min(dots) - props.getProp(ChartPropsEnum.MARGIN);
-                double max = Collections.max(dots) + props.getProp(ChartPropsEnum.MARGIN);
+                double min = Collections.min(dots);
+                double max = Collections.max(dots);
+
+                double range = (max - min) * 0.2;
+                min -= range;
+                max += range;
 
                 if (dots.size() > series.length * props.getProp(ChartPropsEnum.SECONDS_ON_MESS)) {
                     // If need to rearrange

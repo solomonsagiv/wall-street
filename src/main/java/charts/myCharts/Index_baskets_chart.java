@@ -25,7 +25,6 @@ public class Index_baskets_chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, .17);
-        props.setProp(ChartPropsEnum.RANGE_MARGIN, 0.0);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, 1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
         props.setProp(ChartPropsEnum.IS_LIVE, -1);

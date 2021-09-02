@@ -8,6 +8,8 @@ import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import java.time.LocalTime;
+
 public class DDEReader_Spx extends IDDEReader {
 
     Exp day;
@@ -91,6 +93,7 @@ public class DDEReader_Spx extends IDDEReader {
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
 
+        System.out.println(LocalTime.now());
     }
 
     private void init_exps() {
@@ -143,5 +146,4 @@ public class DDEReader_Spx extends IDDEReader {
             e.printStackTrace();
         }
     }
-
 }
