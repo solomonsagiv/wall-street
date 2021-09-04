@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
@@ -29,8 +30,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> ind_bid_ask_counter_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> op_avg_fut_day_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> op_avg_fut_day_15_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> ind_races_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double index_bid_0 = 0;
@@ -41,14 +41,15 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double index_bid_ask_counter_0 = 0;
-    double ind_races_0 = 0;
-    double fut_races_0 = 0;
+    double fut_delta_0 = 0;
 
     Exps exps;
+    E q1;
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
+        q1 = (E) client.getExps().getExp(ExpStrings.q1);
     }
 
     int sleep_count = 100;
@@ -141,27 +142,13 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             }
         }
 
-        // Races ind counter
-        int ind_races = client.getIndexSum();
+        // Delta
+        double fut_delta = q1.getDelta();
 
-        if (ind_races != ind_races_0) {
-            double last_count = ind_races - ind_races_0;
-            ind_races_0 = ind_races;
-            if (last_count <= 1 || last_count >= -1) {
-                ind_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
-        }
-
-        // Races fut counter
-        int fut_races = client.getFutSum();
-
-        if (fut_races != fut_races_0) {
-            double last_count = fut_races - fut_races_0;
-            fut_races_0 = fut_races;
-
-            if (last_count <= 1 || last_count >= -1) {
-                fut_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
+        if (fut_delta != fut_delta_0) {
+            double last_count = fut_delta - fut_delta_0;
+            fut_delta_0 = fut_delta;
+            fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
         // Update count
@@ -181,9 +168,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // BID ASK COUNTER
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(BID_ASK_COUNTER_TABLE)), client, null, BID_ASK_COUNTER_TYPE);
 
-        //  RACES
-        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
-        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
+        //  FUT DELTA
+        load_data_agg(MySql.Queries.get_sum(tablesNames.get(FUT_DELTA_TABLE)), client, q1, FUT_DELTA_TYPE);
 
         // Load props
         load_properties();
@@ -199,13 +185,12 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(OP_AVG_DAY_TABLE, "sagiv.spx500_op_avg_day");
         tablesNames.put(OP_AVG_15_DAY_TABLE, "sagiv.spx500_op_avg_15_day");
         tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter_cdf");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.spx500_index_races_cdf");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.spx500_fut_races_cdf");
         tablesNames.put(FUT_DAY_TABLE, "data.spx500_fut_day");
         tablesNames.put(FUT_WEEK_TABLE, "data.spx500_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.spx500_fut_month");
         tablesNames.put(FUT_Q1_TABLE, "data.spx500_fut_e1");
         tablesNames.put(FUT_Q2_TABLE, "data.spx500_fut_e2");
+        tablesNames.put(FUT_DELTA_TABLE, "data.spx500_fut_delta_cdf");
     }
 
     @Override
@@ -233,7 +218,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insertListRetro(ind_bid_ask_counter_timestamp, tablesNames.get(BID_ASK_COUNTER_TABLE));
         insertListRetro(op_avg_fut_day_timestamp, tablesNames.get(OP_AVG_DAY_TABLE));
         insertListRetro(op_avg_fut_day_15_timestamp, tablesNames.get(OP_AVG_15_DAY_TABLE));
-        insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
-        insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
+        insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
     }
 }

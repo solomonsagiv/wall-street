@@ -270,7 +270,7 @@ public class MyChart {
                 for (MyTimeSeries serie : series) {
                     new Thread(() -> {
                         serie.clear_data();
-                        IDataBaseHandler.loadSerieData(serie.load_last_x_time(minuts), serie, "value");
+                        IDataBaseHandler.loadSerieData(serie.load_last_x_time(minuts), serie);
                     }).start();
                 }
             }

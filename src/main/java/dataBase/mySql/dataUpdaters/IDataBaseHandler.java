@@ -4,9 +4,11 @@ import charts.timeSeries.MyTimeSeries;
 import dataBase.MyTick;
 import dataBase.mySql.MySql;
 import dataBase.props.Prop;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -33,6 +35,8 @@ public abstract class IDataBaseHandler {
     public static final int OP_AVG_15_DAY_TABLE = 24;
     public static final int INDEX_DELTA_TABLE = 25;
     public static final int FUT_E1_TICK_SPEED = 26;
+    public static final int FUT_DELTA_TABLE = 27;
+
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
@@ -42,6 +46,7 @@ public abstract class IDataBaseHandler {
     public static final int BASKETS_TYPE = 4;
     public static final int OP_AVG_TYPE = 5;
     public static final int INDEX_DELTA_TYPE = 6;
+    public static final int FUT_DELTA_TYPE = 7;
 
     final String DATA_SCHEME = "data";
     final String SAGIV_SCHEME = "sagiv";
@@ -115,7 +120,6 @@ public abstract class IDataBaseHandler {
     }
 
     void update_properties() {
-
         // Query
         String q = "UPDATE sagiv.props SET data = '%s' WHERE stock_id LIKE '%s' AND prop LIKE '%s';";
 
@@ -147,7 +151,21 @@ public abstract class IDataBaseHandler {
                     if (value < 0) {
                         client.getBasketFinder().add_basket_down();
                     }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
 
+        // FUT DELTA
+        if (type == FUT_DELTA_TYPE) {
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+
+                    int delta = (int) rs.getDouble("value");
+                    E e = (E) exp;
+                    e.setDelta(delta);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -203,7 +221,6 @@ public abstract class IDataBaseHandler {
                     if (value == -1) {
                         client.setConDown(client.getConDown() + 1);
                     }
-
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -241,12 +258,12 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries, String value_col_name) {
+    public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries) {
         while (true) {
             try {
                 if (!rs.next()) break;
                 Timestamp timestamp = rs.getTimestamp(1);
-                double value = rs.getDouble(value_col_name);
+                double value = rs.getDouble("value");
                 timeSeries.add(timestamp.toLocalDateTime(), value);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -318,10 +335,9 @@ public abstract class IDataBaseHandler {
                 throwables.printStackTrace();
             }
         }
-
     }
 
-    protected ArrayList<LocalDateTime> load_uncalced_tick_speed_time (String fut_table_location, String tick_speed_table_location) {
+    protected ArrayList<LocalDateTime> load_uncalced_tick_speed_time(String fut_table_location, String tick_speed_table_location) {
 
         ArrayList<LocalDateTime> times = new ArrayList<>();
 
@@ -357,7 +373,7 @@ public abstract class IDataBaseHandler {
 
         for (int i = 1; i < times.size(); i++) {
 
-            long pre_time = Timestamp.valueOf(times.get(i -1)).getTime();
+            long pre_time = Timestamp.valueOf(times.get(i - 1)).getTime();
             long curr_time = Timestamp.valueOf(times.get(i)).getTime();
             long mill = curr_time - pre_time;
 

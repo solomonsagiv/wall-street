@@ -1,5 +1,7 @@
 package gui.index;
 
+import exp.E;
+import exp.ExpStrings;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -12,21 +14,25 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     MyGuiComps.MyPanel header;
     MyGuiComps.MyLabel headerLbl;
-
     MyGuiComps.MyPanel body;
     MyGuiComps.MyLabel futLbl;
     MyGuiComps.MyLabel indLbl;
     MyGuiComps.MyLabel bidAskCounterLbl;
+    MyGuiComps.MyLabel fut_deltaLbl;
 
     MyGuiComps.MyTextField futField;
     MyGuiComps.MyTextField indField;
+    MyGuiComps.MyTextField fut_delta_field;
 
     MyGuiComps.MyTextField bidAskCounterField;
+
+    E q1;
 
     public RacesPanel(BASE_CLIENT_OBJECT client) {
         super();
         this.client = client;
         initsialize();
+        q1 = (E) client.getExps().getExp(ExpStrings.q1);
     }
 
     private void initsialize() {
@@ -73,13 +79,24 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
         // Bid Ask counter
         bidAskCounterLbl = new MyGuiComps.MyLabel("B/A");
         bidAskCounterLbl.setWidth(40);
-        bidAskCounterLbl.setXY(indLbl.getX(), indLbl.getY() + indLbl.getHeight());
+        bidAskCounterLbl.setXY(indLbl.getX(), indLbl.getY() + indLbl.getHeight() + 1);
         body.add(bidAskCounterLbl);
 
         bidAskCounterField = new MyGuiComps.MyTextField();
         bidAskCounterField.setWidth(40);
-        bidAskCounterField.setXY(indField.getX(), indField.getY() + indField.getHeight());
+        bidAskCounterField.setXY(bidAskCounterLbl.getX() + bidAskCounterLbl.getWidth(), bidAskCounterLbl.getY());
         body.add(bidAskCounterField);
+
+        // Fut delta
+        fut_deltaLbl = new MyGuiComps.MyLabel("Del");
+        fut_deltaLbl.setWidth(40);
+        fut_deltaLbl.setXY(bidAskCounterLbl.getX(), bidAskCounterLbl.getY() + bidAskCounterLbl.getHeight() + 1);
+        body.add(fut_deltaLbl);
+
+        fut_delta_field = new MyGuiComps.MyTextField();
+        fut_delta_field.setWidth(40);
+        fut_delta_field.setXY(fut_deltaLbl.getX() + fut_deltaLbl.getWidth(), fut_deltaLbl.getY());
+        body.add(fut_delta_field);
     }
 
     @Override
@@ -88,6 +105,7 @@ public class RacesPanel extends MyGuiComps.MyPanel implements IMyPanel {
             futField.colorForge(client.getFutSum());
             indField.colorForge(client.getIndexSum());
             bidAskCounterField.colorForge(client.getIndexBidAskCounter());
+            fut_delta_field.colorForge(q1.getDelta());
         } catch (Exception e ) {
             e.printStackTrace();
         }

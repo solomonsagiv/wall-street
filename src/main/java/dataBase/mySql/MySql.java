@@ -1,7 +1,6 @@
 package dataBase.mySql;
 
 import arik.Arik;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -138,7 +137,7 @@ public class MySql {
         }
 
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table) {
-            String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as cumu " +
+            String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
                     "from %s i " +
                     "inner join %s f " +
                     "on i.time = f.time " +
@@ -153,7 +152,7 @@ public class MySql {
         }
 
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
-            String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as cumu " +
+            String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as value " +
                     "from %s i " +
                     "inner join %s f on i.time = f.time " +
                     "where i.time::date = now()::date;", min, index_table, fut_table);
@@ -161,7 +160,7 @@ public class MySql {
         }
 
         public static ResultSet cumulative_query(String table_loc, String cumulative_type) {
-            String query = String.format("select * ,%s(value) over (order by time) as cumu " +
+            String query = String.format("select * ,%s(value) over (order by time) as value " +
                     "from %s " +
                     "where time::date = now()::date and (value = 1 or value = -1);", cumulative_type, table_loc);
             return MySql.select(query);
@@ -180,6 +179,19 @@ public class MySql {
         public static ResultSet update_rates_query(String id_name, String exp_name, double interest, double dividend, double day_to_exp, double base) {
             String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);",
                     id_name, exp_name, interest, dividend, day_to_exp, base);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet get_sum(String table_location) {
+            String q = "SELECT sum(value) as value FROM %s WHERE time::date = now()::date";
+            String query = String.format(q, table_location);
+            return MySql.select(query);
+        }
+
+        public static ResultSet get_avg(String table_location) {
+            String q = "SELECT avg(value) as value FROM %s WHERE time::date = now()::date";
+            String query = String.format(q, table_location);
             return MySql.select(query);
         }
 
