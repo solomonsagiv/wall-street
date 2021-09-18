@@ -4,7 +4,6 @@ import dataBase.mySql.MySql;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;

@@ -9,6 +9,7 @@ import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
@@ -116,7 +117,7 @@ public class TimeSeriesFactory {
 
                         String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
 
-                        ResultSet rs = MySql.Queries.bid_ask_counter_avg_cumu(table_location, 5);
+                        ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 5);
                         IDataBaseHandler.loadSerieData(rs, this);
 
                     }
@@ -139,7 +140,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
 
-                        ResultSet rs = MySql.Queries.bid_ask_counter_avg_cumu(table_location, 15);
+                        ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 15);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -161,7 +162,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
 
-                        ResultSet rs = MySql.Queries.bid_ask_counter_avg_cumu(table_location, 45);
+                        ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 45);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -202,7 +203,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DELTA_TABLE);
-                        ResultSet rs = MySql.Queries.cumulative_query(table_location, "sum");
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -271,6 +272,29 @@ public class TimeSeriesFactory {
                     }
                 };
             }
+
+            if (series_type.toUpperCase().equals(FUTURE_DELTA)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        E e = (E) exp;
+                        return e.getDelta();
+                    }
+
+                    @Override
+                    public void load() {
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DELTA_TABLE);
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+            }
+
         }
 
         switch (series_type.toUpperCase()) {
@@ -338,7 +362,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -357,7 +381,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         // TODO
-                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE), "sum");
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -375,7 +399,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE), "sum");
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -462,7 +486,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_DELTA_TABLE), "sum");
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_DELTA_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -482,13 +506,12 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        ResultSet rs = MySql.Queries.cumulative_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BASKETS_TABLE), "sum");
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BASKETS_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
             default:
                 return null;
         }
-
     }
 }

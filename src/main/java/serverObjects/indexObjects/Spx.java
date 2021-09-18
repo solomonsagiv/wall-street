@@ -5,8 +5,8 @@ import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
 import charts.myCharts.Full_Chart_2;
-import charts.myCharts.Full_Charts;
-import charts.myCharts.FuturesChart;
+import charts.myCharts.Full_Chart_3;
+import charts.myCharts.FuturesChartLong;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
@@ -109,11 +109,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChart chart = new FuturesChart(this);
+            FuturesChartLong chart = new FuturesChartLong(this);
             chart.createChart();
 
-            Full_Charts full_charts = new Full_Charts(this);
-            full_charts.createChart();
+            Full_Chart_3 full_charts_3 = new Full_Chart_3(this);
+            full_charts_3.createChart();
 
             Full_Chart_2 full_chart_2 = new Full_Chart_2(this);
             full_chart_2.createChart();

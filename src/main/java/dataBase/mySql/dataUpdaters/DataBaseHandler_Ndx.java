@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
@@ -19,6 +20,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> ind_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_day_0 = 0;
@@ -29,12 +31,15 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double ind_races_0 = 0;
     double fut_races_0 = 0;
     double baskets_0 = 0;
+    double fut_delta_0 = 0;
 
     Exps exps;
+    E q1;
 
     public DataBaseHandler_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
+        q1 = (E) client.getExps().getExp(ExpStrings.q1);
     }
 
     int sleep_count = 100;
@@ -124,6 +129,17 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
+        // Baskets
+        // Delta
+        double fut_delta = q1.getDelta();
+
+        if (fut_delta != fut_delta_0) {
+            double last_count = fut_delta - fut_delta_0;
+            fut_delta_0 = fut_delta;
+            fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
+
         // Update count
         sleep_count += sleep;
     }
@@ -144,6 +160,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
         load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
 
+        //  FUT DELTA
+        load_data_agg(MySql.Queries.get_sum(tablesNames.get(FUT_DELTA_TABLE)), client, q1, FUT_DELTA_TYPE);
+
         // Props
         load_properties();
     }
@@ -159,6 +178,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         tablesNames.put(FUT_MONTH_TABLE, "data.ndx_fut_month");
         tablesNames.put(FUT_Q1_TABLE, "data.ndx_fut_e1");
         tablesNames.put(FUT_Q2_TABLE, "data.ndx_fut_e2");
+        tablesNames.put(FUT_DELTA_TABLE, "data.ndx_fut_delta_cdf");
     }
 
     @Override
@@ -184,5 +204,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
         insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
+        insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
     }
 }

@@ -4,7 +4,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Apple;
 import IDDE.DDEWriter_Apple;
 import api.Manifest;
-import charts.myCharts.FuturesChart;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
@@ -105,8 +104,7 @@ public class Apple extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChart chart = new FuturesChart(this);
-            chart.createChart();
+            // TODO
         }
     }
 

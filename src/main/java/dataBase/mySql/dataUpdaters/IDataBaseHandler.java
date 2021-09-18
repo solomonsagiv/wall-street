@@ -262,7 +262,7 @@ public abstract class IDataBaseHandler {
         while (true) {
             try {
                 if (!rs.next()) break;
-                Timestamp timestamp = rs.getTimestamp(1);
+                Timestamp timestamp = rs.getTimestamp("time");
                 double value = rs.getDouble("value");
                 timeSeries.add(timestamp.toLocalDateTime(), value);
             } catch (SQLException throwables) {

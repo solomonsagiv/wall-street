@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class MySql {
 
     public static void main(String[] args) {
-        MySql.Queries.bid_ask_counter_avg_cumu("data.spx500_index_bid_ask_counter_cdf", 15);
+        MySql.Queries.cumulative_avg_from_cdf("data.spx500_index_bid_ask_counter_cdf", 15);
     }
 
     private static ConnectionPool pool;
@@ -146,8 +146,8 @@ public class MySql {
         }
 
         public static ResultSet get_last_x_time_of_series(String table_name, int minuts) {
-            //
-            String query = String.format("select * from %s where time > now() - interval '%s min' order by time;", table_name, minuts);
+            String q = "select * from %s where time > now() - interval '%s min' %s;";
+            String query = String.format(q, table_name, minuts, Filters.ORDER_BY_TIME);
             return MySql.select(query);
         }
 
@@ -159,20 +159,28 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet cumulative_query(String table_loc, String cumulative_type) {
-            String query = String.format("select * ,%s(value) over (order by time) as value " +
-                    "from %s " +
-                    "where time::date = now()::date and (value = 1 or value = -1);", cumulative_type, table_loc);
+        public static ResultSet cumulative_avg_query(String table_loc) {
+            String q = "select time, avg(value) over (order by time) as value from %s " +
+                    " where %s;";
+            String query = String.format(q, table_loc, Filters.TODAY);
+            return MySql.select(query);
+        }
+
+        public static ResultSet cumulative_sum_query(String table_loc) {
+            String query = String.format("select time, sum(value) over (order by time) as value from %s " +
+                    "where %s;", table_loc, Filters.TODAY);
             return MySql.select(query);
         }
 
         public static ResultSet get_serie(String table_loc) {
-            String query = String.format("SELECT * FROM %s WHERE time::date = now()::date order by time;", table_loc);
+            String q = "select * from %s where %s %s;";
+            String query = String.format(q, table_loc, Filters.TODAY, Filters.ORDER_BY_TIME);
             return MySql.select(query);
         }
 
         public static ResultSet get_last_record(String table_location) {
-            String query = "SELECT * FROM % ORDER BY TIME DESC LIMIT 1";
+            String q = "select * from %s %s";
+            String query = String.format(q, table_location, Filters.ORDER_BY_TIME_DESC_LIMIT_1);
             return MySql.select(query);
         }
 
@@ -182,28 +190,32 @@ public class MySql {
             return MySql.select(query);
         }
 
-
         public static ResultSet get_sum(String table_location) {
-            String q = "SELECT sum(value) as value FROM %s WHERE time::date = now()::date";
-            String query = String.format(q, table_location);
+            String q = "select sum(value) as value from %s where %s;";
+            String query = String.format(q, table_location, Filters.TODAY);
             return MySql.select(query);
         }
 
-        public static ResultSet get_avg(String table_location) {
-            String q = "SELECT avg(value) as value FROM %s WHERE time::date = now()::date";
-            String query = String.format(q, table_location);
-            return MySql.select(query);
-        }
-
-        public static ResultSet bid_ask_counter_avg_cumu(String counter_table_location, int min) {
+        public static ResultSet cumulative_avg_from_cdf(String counter_table_location, int min) {
             String q = "select sum.time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
                     "from (" +
-                    "select time, sum(counter.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
-                    "from %s counter " +
-                    "where time::date = now()::date) sum;";
-            String query = String.format(q, min, counter_table_location);
+                    "select time, sum(t.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
+                    "from %s t " +
+                    "where %s') sum;";
+            String query = String.format(q, min, counter_table_location, Filters.TODAY);
             return MySql.select(query);
         }
     }
 
+
+    public static class Filters {
+
+        public static final String ONE_OR_MINUS_ONE = "(value = 1 or value = -1)";
+        public static final String BIGGER_OR_SMALLER_10K = "(value < 10000 or value > -10000)";
+        public static final String TODAY = "time::date = now()::date";
+        public static final String ORDER_BY_TIME = "order by time";
+        public static final String ORDER_BY_TIME_DESC = "order by time desc";
+        public static final String ORDER_BY_TIME_DESC_LIMIT_1 = "order by time desc limit 1";
+
+    }
 }

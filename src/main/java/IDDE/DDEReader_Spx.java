@@ -8,8 +8,6 @@ import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-import java.time.LocalTime;
-
 public class DDEReader_Spx extends IDDEReader {
 
     Exp day;
@@ -32,6 +30,8 @@ public class DDEReader_Spx extends IDDEReader {
     String futMonthCell = "R11C10";
     String e1Cell = "R12C10";
     String e2Cell = "R13C10";
+
+    // Naked future for delta
     String naked_future_cell = "R32C13";
     String naked_future_bid_cell = "R33C13";
     String naked_future_ask_cell = "R31C13";
@@ -92,8 +92,6 @@ public class DDEReader_Spx extends IDDEReader {
         month.set_future(requestDouble(futMonthCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
-
-        System.out.println(LocalTime.now());
     }
 
     private void init_exps() {
