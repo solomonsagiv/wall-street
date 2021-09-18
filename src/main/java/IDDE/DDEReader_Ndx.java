@@ -32,9 +32,9 @@ public class DDEReader_Ndx extends IDDEReader {
     String e2Cell = "R13C10";
 
     // Naked future for delta
-    String naked_future_cell = "R32C13";
-    String naked_future_bid_cell = "R33C13";
-    String naked_future_ask_cell = "R31C13";
+    String naked_future_cell = "R30C13";
+    String naked_future_bid_cell = "R31C13";
+    String naked_future_ask_cell = "R29C13";
     String naked_future_volume_cell = "R38C13";
 
     // Interest
