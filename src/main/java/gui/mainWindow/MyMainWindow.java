@@ -7,8 +7,6 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Apple;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import java.awt.*;
@@ -16,15 +14,11 @@ import java.awt.*;
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static Spx spx;
-    static Dax dax;
     static Ndx ndx;
-    static Apple apple;
 
     static {
-        dax = Dax.getInstance();
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
-        apple = Apple.getInstance();
     }
 
     // Variables
@@ -43,10 +37,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     }
 
     private void appendClients() {
-        LocalHandler.clients.add(dax);
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(ndx);
-        LocalHandler.clients.add(apple);
     }
 
     @Override

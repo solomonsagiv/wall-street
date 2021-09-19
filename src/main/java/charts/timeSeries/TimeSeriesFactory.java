@@ -294,7 +294,6 @@ public class TimeSeriesFactory {
                     }
                 };
             }
-
         }
 
         switch (series_type.toUpperCase()) {

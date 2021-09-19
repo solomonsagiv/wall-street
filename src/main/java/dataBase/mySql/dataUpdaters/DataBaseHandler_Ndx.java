@@ -4,8 +4,8 @@ import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
-import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -33,13 +33,12 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double baskets_0 = 0;
     double fut_delta_0 = 0;
 
-    Exps exps;
     E q1;
 
     public DataBaseHandler_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
-        q1 = (E) client.getExps().getExp(ExpStrings.q1);
+        q1 = (E) exps.getExp(ExpStrings.q1);
     }
 
     int sleep_count = 100;
@@ -147,21 +146,20 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     @Override
     public void loadData() {
         // OP AVG
-        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_DAY_TABLE)), client, client.getExps().getExp(ExpStrings.day), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)), client, client.getExps().getExp(ExpStrings.week), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)), client, client.getExps().getExp(ExpStrings.month), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)), client, client.getExps().getExp(ExpStrings.q1), OP_AVG_TYPE);
-        load_data_agg(MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)), client, client.getExps().getExp(ExpStrings.q2), OP_AVG_TYPE);
+        Exp day = exps.getExp(ExpStrings.day);
+        Exp week = exps.getExp(ExpStrings.week);
+        Exp month = exps.getExp(ExpStrings.month);
+        Exp q1 = exps.getExp(ExpStrings.q1);
+        Exp q2 = exps.getExp(ExpStrings.q2);
 
-        // BASKETS
-        load_data_agg(MySql.Queries.get_serie(tablesNames.get(BASKETS_TABLE)), client, null, BASKETS_TYPE);
-
-        //  RACES
-        load_data_agg(MySql.Queries.get_serie(tablesNames.get(INDEX_RACES_TABLE)), client, null, INDEX_RACES_TYPE);
-        load_data_agg(MySql.Queries.get_serie(tablesNames.get(FUT_RACES_TABLE)), client, null, INDEX_DELTA_TYPE);
+        load_op_avg(day, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_DAY_TABLE)));
+        load_op_avg(week, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)));
+        load_op_avg(month, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)));
+        load_op_avg(q1, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)));
+        load_op_avg(q2, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)));
 
         //  FUT DELTA
-        load_data_agg(MySql.Queries.get_sum(tablesNames.get(FUT_DELTA_TABLE)), client, q1, FUT_DELTA_TYPE);
+        load_fut_delta(q1, MySql.Queries.get_sum(tablesNames.get(FUT_DELTA_TABLE)));
 
         // Props
         load_properties();

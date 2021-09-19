@@ -7,6 +7,7 @@ import dataBase.props.Prop;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
+import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
@@ -51,10 +52,12 @@ public abstract class IDataBaseHandler {
     final String DATA_SCHEME = "data";
     final String SAGIV_SCHEME = "sagiv";
 
-    BASE_CLIENT_OBJECT client;
+    protected BASE_CLIENT_OBJECT client;
+    protected Exps exps;
 
     public IDataBaseHandler(BASE_CLIENT_OBJECT client) {
         this.client = client;
+        exps = client.getExps();
     }
 
     public abstract void insertData(int sleep);
@@ -80,6 +83,79 @@ public abstract class IDataBaseHandler {
             return tablesNames.get(FUT_Q2_TABLE);
         }
         return "No table call: " + target_table;
+    }
+
+    public void load_op_avg(Exp exp, ResultSet rs) {
+        // Day
+        try {
+            if (rs.next()) {
+                double sum = rs.getDouble(1);
+                int sum_count = rs.getInt(2);
+                exp.set_op_avg(sum, sum_count);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void load_bid_ask_counter(ResultSet rs) {
+        try {
+            if (rs.next()) {
+                int value = (int) rs.getDouble("value");
+                client.setIndexBidAskCounter(value);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void load_fut_delta(Exp exp, ResultSet rs) {
+        while (true) {
+            try {
+                if (!rs.next()) break;
+
+                int delta = (int) rs.getDouble("value");
+                E e = (E) exp;
+                e.setDelta(delta);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+
+    public void load_index_delta(ResultSet rs) {
+        while (true) {
+            try {
+                if (!rs.next()) break;
+
+                int value = rs.getInt(2);
+                client.getStocksHandler().setDelta(value);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+
+    public void load_baskets(ResultSet rs) {
+
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                double value = rs.getDouble("value");
+                if (value > 0) {
+                    client.getBasketFinder().add_basket_up();
+                } else if (value < 0) {
+                    client.getBasketFinder().add_basket_down();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     void load_properties() {
@@ -131,130 +207,6 @@ public abstract class IDataBaseHandler {
             Prop prop = entry.getValue();
             String query = String.format(q, prop.getData(), client.getId_name(), prop.getName());
             MySql.update(query);
-        }
-    }
-
-    void load_data_agg(ResultSet rs, BASE_CLIENT_OBJECT client, Exp exp, int type) {
-
-        // BASKETS
-        if (type == BASKETS_TYPE) {
-            while (true) {
-                try {
-                    if (!rs.next()) break;
-
-                    int value = rs.getInt("value");
-
-                    if (value > 0) {
-                        client.getBasketFinder().add_basket_up();
-                    }
-
-                    if (value < 0) {
-                        client.getBasketFinder().add_basket_down();
-                    }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        }
-
-        // FUT DELTA
-        if (type == FUT_DELTA_TYPE) {
-            while (true) {
-                try {
-                    if (!rs.next()) break;
-
-                    int delta = (int) rs.getDouble("value");
-                    E e = (E) exp;
-                    e.setDelta(delta);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        }
-
-        // BID ASK COUNTER
-        if (type == BID_ASK_COUNTER_TYPE) {
-            try {
-                if (rs.next()) {
-                    int value = rs.getInt(2);
-                    client.setIndexBidAskCounter(value);
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-
-        // INDEX RACES
-        if (type == INDEX_RACES_TYPE) {
-            while (true) {
-                try {
-                    if (!rs.next()) break;
-
-                    int value = rs.getInt("value");
-
-                    if (value > 0) {
-                        client.setIndexUp(client.getIndexUp() + 1);
-                    }
-
-                    if (value < 0) {
-                        client.setIndexDown(client.getIndexDown() + 1);
-                    }
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        }
-
-        // FUT RACES
-        if (type == FUT_RACES_TYPE) {
-            while (true) {
-                try {
-                    if (!rs.next()) break;
-
-                    int value = rs.getInt("value");
-
-                    if (value == 1) {
-                        client.setConUp(client.getConUp() + 1);
-                    }
-
-                    if (value == -1) {
-                        client.setConDown(client.getConDown() + 1);
-                    }
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        }
-
-        // INDEX DELTA
-        if (type == INDEX_DELTA_TYPE) {
-            while (true) {
-                try {
-                    if (!rs.next()) break;
-
-                    int value = rs.getInt(2);
-                    client.getStocksHandler().setDelta(value);
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-        }
-
-        // OP AVG
-        if (type == OP_AVG_TYPE) {
-            try {
-                if (rs.next()) {
-                    double sum = rs.getDouble(1);
-                    int sum_count = rs.getInt(2);
-                    exp.set_op_avg(sum, sum_count);
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
