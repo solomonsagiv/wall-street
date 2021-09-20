@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class MyChart {
-    
+
     public XYPlot plot;
     public ChartUpdater updater;
     // Variables
@@ -199,9 +199,7 @@ public class MyChart {
             if (props.getBool(ChartPropsEnum.IS_LOAD_DB)) {
                 // Load each serie
                 for (MyTimeSeries serie : series) {
-                    new Thread(() -> {
-                        serie.load_data();
-                    }).start();
+                    serie.load_data();
                 }
 
                 while (true) {
