@@ -235,8 +235,6 @@ public class DetailsWindow {
             list.add("MySql: " + client.getMyServiceHandler().isExist(client.getMySqlService()));
             list.add("\n");
             list.add("Exp date: " + exp.getExpDate());
-            list.add("Start strike: " + client.getStartStrike());
-            list.add("End strike: " + client.getEndStrike());
             list.add("");
             list.add("Tws Contract");
             list.add("");

@@ -7,7 +7,6 @@ import api.Manifest;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
-import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -19,11 +18,6 @@ public class Apple extends INDEX_CLIENT_OBJECT {
 
     static Apple client = null;
 
-    @Override
-    public double get_strike_in_money() {
-        return 0;
-    }
-
     // Constructor
     public Apple() {
         setName("apple");
@@ -34,7 +28,6 @@ public class Apple extends INDEX_CLIENT_OBJECT {
         setIndexEndTime(LocalTime.of(23, 0, 0));
         setFutureEndTime(LocalTime.of(23, 15, 0));
         setDdeHandler(new DDEHandler(this, new DDEReader_Apple(this), new DDEWriter_Apple(this)));
-        setLogicService(new LogicService(this, ExpStrings.week));
         roll();
     }
 

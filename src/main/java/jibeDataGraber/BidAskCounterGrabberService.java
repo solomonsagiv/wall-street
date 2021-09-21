@@ -80,6 +80,6 @@ public class BidAskCounterGrabberService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 10000;
+        return 15000;
     }
 }

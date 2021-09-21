@@ -13,13 +13,11 @@ import exp.ExpStrings;
 import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
 import jibeDataGraber.DecisionsFuncHandler;
-import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,24 +25,13 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
     static Ndx client = null;
 
-    @Override
-    public double get_strike_in_money() {
-        return 0;
-    }
-
     // Constructor
     public Ndx() {
         setName("ndx");
         setId_name("ndx");
-//        setIndexBidAskMargin(.5);
-//        setStrikeMargin(5);
-//        setIndexStartTime(LocalTime.of(16, 31, 0));
-//        setIndexEndTime(LocalTime.of(23, 0, 0));
-//        setFutureEndTime(LocalTime.of(23, 15, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
         setBasketFinder(new BasketFinder_3(this, 80, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
-        setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
 

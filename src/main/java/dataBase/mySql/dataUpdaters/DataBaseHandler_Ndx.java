@@ -17,8 +17,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> ind_races_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_races_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
 
@@ -28,8 +26,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_month_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-    double ind_races_0 = 0;
-    double fut_races_0 = 0;
     double baskets_0 = 0;
     double fut_delta_0 = 0;
 
@@ -101,24 +97,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
         }
 
-        // Races ind counter
-        int ind_races = client.getIndexSum();
-
-        if (ind_races != ind_races_0) {
-            double change = ind_races - ind_races_0;
-            ind_races_0 = ind_races;
-            ind_races_timestamp.add(new MyTimeStampObject(Instant.now(), change));
-        }
-
-        // Races fut counter
-        int fut_races = client.getFutSum();
-
-        if (fut_races != fut_races_0) {
-            double last_count = fut_races - fut_races_0;
-            fut_races_0 = fut_races;
-            fut_races_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-        }
-
         // Baskets
         int basket = client.getBasketFinder().getBaskets();
 
@@ -163,6 +141,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // Props
         load_properties();
+
+        // Set load true
+        client.setLoadFromDb(true);
     }
 
     @Override
@@ -199,8 +180,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insertListRetro(fut_month_timeStamp,tablesNames.get(FUT_MONTH_TABLE));
         insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
-        insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
-        insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
         insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
     }

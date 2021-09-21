@@ -4,7 +4,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Full_Chart_2;
 import charts.myCharts.Full_Chart_3;
 import charts.myCharts.FuturesChartLong;
 import dataBase.mySql.MySqlService;
@@ -12,12 +11,12 @@ import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.ExpStrings;
 import jibeDataGraber.*;
-import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,18 +24,12 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
-    @Override
-    public double get_strike_in_money() {
-        return 0;
-    }
-
     // Constructor
     public Spx() {
         setName("spx");
         setId_name("spx500");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
-        setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
         tickSpeedService = new TickSpeedService(this, getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_E1_TICK_SPEED));
         bidAskCounterGrabberService = new BidAskCounterGrabberService(this);
@@ -114,9 +107,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
             Full_Chart_3 full_charts_3 = new Full_Chart_3(this);
             full_charts_3.createChart();
-
-            Full_Chart_2 full_chart_2 = new Full_Chart_2(this);
-            full_chart_2.createChart();
         }
     }
 

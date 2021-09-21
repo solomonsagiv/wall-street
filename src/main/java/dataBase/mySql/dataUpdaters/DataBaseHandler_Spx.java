@@ -5,18 +5,10 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Spx extends IDataBaseHandler {
-
-
-    public static void main(String[] args) {
-        IDataBaseHandler dataBaseHandler = new DataBaseHandler_Spx(Spx.getInstance());
-        dataBaseHandler.insert_batch_data(dataBaseHandler.tick_logic(dataBaseHandler.load_uncalced_tick_speed_time("data.spx500_fut_e1", "data.spx500_fut_e1_tick_speed")), "data.spx500_fut_e1_tick_speed");
-    }
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
@@ -60,7 +52,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // Update lists retro
-        if (sleep_count % 10000 == 0) {
+        if (sleep_count % 15000 == 0) {
             updateListsRetro();
         }
 
@@ -176,6 +168,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // Load props
         load_properties();
+
+        // Set load
+        client.setLoadFromDb(true);
     }
 
     @Override

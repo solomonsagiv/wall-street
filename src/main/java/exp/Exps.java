@@ -1,6 +1,5 @@
 package exp;
 
-import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.util.ArrayList;
@@ -24,17 +23,13 @@ public class Exps {
         expMap.put(exp.getName(), exp);
     }
 
-    private void initStartEndStrikes(double future) {
-
-        double last = L.modulu(future);
-        double margin = client.getStrikeMargin();
-
-        double startStrike = last - (margin * 10);
-        double endStrike = last + (margin * 10);
-
-        client.setStartStrike(startStrike);
-        client.setEndStrike(endStrike);
-
+    public boolean contains_exp(String exp_name) {
+        for (Exp exp : expList) {
+            if (exp.getName().equals(exp_name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Exp getExp(String name) {

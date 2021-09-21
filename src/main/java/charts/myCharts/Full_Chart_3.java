@@ -62,34 +62,43 @@ public class Full_Chart_3 extends MyChartCreator {
 
 
         // ------------------------- Op avg --------------------------------- //
-        int size = client.getExps().getExpList().size() * 2;
+        int size;
+        if (client.getExps().contains_exp(ExpStrings.day)) {
+            size = 4;
+        } else {
+            size = 2;
+        }
         series = new MyTimeSeries[size];
 
         int i = 0;
         // For each exp
         for (Exp exp : client.getExps().getExpList()) {
-            // Index
-            MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_HOUR_SERIES, client, exp);
-            op_avg_60.setColor(Themes.BLUE);
-            op_avg_60.setStokeSize(1.2f);
 
-            // Index
-            MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, exp);
-            op_avg_15.setColor(Themes.PINK_LIGHT);
-            op_avg_15.setStokeSize(1.2f);
+            // Filter fut day / q1
+            if (exp.getName().equals(ExpStrings.day) || exp.getName().equals(ExpStrings.q1)) {
+                // Index
+                MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_HOUR_SERIES, client, exp);
+                op_avg_60.setColor(Themes.BLUE);
+                op_avg_60.setStokeSize(1.2f);
 
-            series[i] = op_avg_15;
-            i++;
-            series[i] = op_avg_60;
-            i++;
+                // Index
+                MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_SERIES, client, exp);
+                op_avg_15.setColor(Themes.PINK_LIGHT);
+                op_avg_15.setStokeSize(1.2f);
 
-            // If main
-            if (exp.getName().equals(client.getExps().getMainExp().getName())) {
-                op_avg_60.setVisible(true);
-                op_avg_15.setVisible(true);
-            } else {
-                op_avg_60.setVisible(false);
-                op_avg_15.setVisible(false);
+                series[i] = op_avg_15;
+                i++;
+                series[i] = op_avg_60;
+                i++;
+
+                // If main
+                if (exp.getName().equals(client.getExps().getMainExp().getName())) {
+                    op_avg_60.setVisible(true);
+                    op_avg_15.setVisible(true);
+                } else {
+                    op_avg_60.setVisible(false);
+                    op_avg_15.setVisible(false);
+                }
             }
         }
 

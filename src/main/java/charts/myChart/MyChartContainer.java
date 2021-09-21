@@ -1,12 +1,12 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
+import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -53,6 +53,18 @@ public class MyChartContainer extends JFrame {
         // Append charts
         appendCharts();
 
+        // Load data
+        load_data();
+
+    }
+
+    private void load_data() {
+        // Load each serie
+        for (MyChart chart: charts) {
+            for (MyTimeSeries serie : chart.getSeries()) {
+                serie.load_data();
+            }
+        }
     }
 
     public void create() {

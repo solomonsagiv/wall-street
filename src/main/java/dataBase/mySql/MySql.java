@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -58,6 +59,7 @@ public class MySql {
             // Execute
             stmt.executeUpdate(query);
         } catch (Exception e) {
+            e.printStackTrace();
             Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Update");
         } finally {
             // Release connection
@@ -84,6 +86,7 @@ public class MySql {
             System.out.println(query);
 
         } catch (Exception e) {
+            e.printStackTrace();
             Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Select");
         } finally {
             // Release connection
@@ -108,6 +111,7 @@ public class MySql {
             st.executeUpdate(query);
 
         } catch (Exception e) {
+            e.printStackTrace();
             Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Trunticate");
         } finally {
             // Release connection
@@ -152,7 +156,7 @@ public class MySql {
         }
 
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
-            String query = String.format("select i.time, f.value - i.value,avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as value " +
+            String query = String.format("select i.time as time, avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as value " +
                     "from %s i " +
                     "inner join %s f on i.time = f.time " +
                     "where i.time::date = now()::date;", min, index_table, fut_table);
@@ -197,11 +201,11 @@ public class MySql {
         }
 
         public static ResultSet cumulative_avg_from_cdf(String counter_table_location, int min) {
-            String q = "select sum.time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
+            String q = "select sum.time as time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
                     "from (" +
                     "select time, sum(t.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
                     "from %s t " +
-                    "where %s') sum;";
+                    "where %s) sum;";
             String query = String.format(q, min, counter_table_location, Filters.TODAY);
             return MySql.select(query);
         }

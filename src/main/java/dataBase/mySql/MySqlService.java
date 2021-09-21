@@ -20,19 +20,9 @@ public class MySqlService extends MyBaseService {
 
     @Override
     public void go() {
-        // Updater
-        if (Manifest.DB_UPDATER) {
-            // TODO
-        }
-
         // DB runner
         if (Manifest.DB_RUNNER) {
-
-            // Insert line
             dataBaseHandler.insertData(getSleep());
-
-            // Arrays
-
         }
     }
 

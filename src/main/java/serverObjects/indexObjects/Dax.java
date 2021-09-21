@@ -14,7 +14,6 @@ import exp.Exps;
 import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
 import jibeDataGraber.DecisionsFuncHandler;
-import logic.LogicService;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -28,25 +27,14 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     static Dax client = null;
 
-    @Override
-    public double get_strike_in_money() {
-        return 0;
-    }
-
     // Constructor
     public Dax() {
         setName("dax");
         setId_name("dax");
-//        setIndexBidAskMargin(.5);
-//        setStrikeMargin(5);
-//        setIndexStartTime(LocalTime.of(10, 0, 10));
-//        setIndexEndTime(LocalTime.of(23, 0, 0));
-//        setFutureEndTime(LocalTime.of(18, 45, 0));
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setStocksDeltaService(new StocksDeltaService(this));
         setBasketFinder(new BasketFinder_3(this, 24, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
-        setLogicService(new LogicService(this, ExpStrings.q1));
         roll();
     }
 

@@ -5,9 +5,8 @@ import gui.popupsFactory.PopupsMenuFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import threads.MyThread;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -16,14 +15,14 @@ import java.awt.event.MouseEvent;
 public class IndexPanel extends JPanel implements IMyPanel {
 
     public static void main(String[] args) {
-        IndexWindow indexPanel = new IndexWindow("Ndx", Ndx.getInstance());
+        IndexWindow indexPanel = new IndexWindow("Spx", Spx.getInstance());
     }
 
     // Ticker
     TickerPanel tickerPanel;
 
     // Races
-    RacesPanel racesPanel;
+    CountersPanel countersPanel;
 
     // Exp
     ExpSumPanel expPanel;
@@ -85,13 +84,13 @@ public class IndexPanel extends JPanel implements IMyPanel {
         add(basketsPanel);
 
         // ---------- Races and roll ---------- //
-        racesPanel = new RacesPanel(client);
-        racesPanel.setXY(basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getY());
-        add(racesPanel);
+        countersPanel = new CountersPanel(client);
+        countersPanel.setXY(basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getY());
+        add(countersPanel);
 
         // --------------- Exp --------------- //
         expPanel = new ExpSumPanel(client);
-        expPanel.setXY(racesPanel.getX() + racesPanel.getWidth() + 1, racesPanel.getX());
+        expPanel.setXY(countersPanel.getX() + countersPanel.getWidth() + 1, countersPanel.getX());
         add(expPanel);
 
     }
@@ -107,7 +106,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
     public void updateText() {
         try {
             tickerPanel.updateText();
-            racesPanel.updateText();
+            countersPanel.updateText();
             basketsPanel.updateText();
             expPanel.updateText();
         } catch (Exception e) {

@@ -12,12 +12,11 @@ import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
 import jibeDataGraber.BidAskCounterGrabberService;
-import jibeDataGraber.TickSpeedService;
 import jibeDataGraber.DecisionsFuncHandler;
+import jibeDataGraber.TickSpeedService;
 import lists.ListsService;
 import locals.L;
 import locals.LocalHandler;
-import logic.LogicService;
 import roll.RollEnum;
 import roll.RollHandler;
 import service.MyServiceHandler;
@@ -61,9 +60,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Roll
     protected RollHandler rollHandler;
 
-    // TablesHandler
-    protected LogicService logicService;
-
     // Decision func handler
     protected DecisionsFuncHandler decisionsFuncHandler;
 
@@ -83,22 +79,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     ListsService listsService;
     MySqlService mySqlService;
 
-    private double startStrike;
-    private double endStrike;
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
     private LocalTime index_pre_start_time;
 
-
-
-
-
     private LocalTime indexStartTime;
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
-
-    protected double current_strike_in_money;
-    public abstract double get_strike_in_money();
 
     // Position
     private ArrayList<MyThread> threads = new ArrayList<>();
@@ -247,22 +234,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setIndexDown(int index_down) {
         this.indexDown = index_down;
-    }
-
-    public double getStartStrike() {
-        return startStrike;
-    }
-
-    public void setStartStrike(double startStrike) {
-        this.startStrike = startStrike;
-    }
-
-    public double getEndStrike() {
-        return endStrike;
-    }
-
-    public void setEndStrike(double endStrike) {
-        this.endStrike = endStrike;
     }
 
     public double getRacesMargin() {
@@ -649,17 +620,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.rollHandler = rollHandler;
     }
 
-    public LogicService getLogicService() {
-        if (logicService == null) throw new NullPointerException(getName() + " Logic not set");
-        return logicService;
-    }
-    
     public static int getPRE() {
         return PRE;
-    }
-
-    public void setLogicService(LogicService logicService) {
-        this.logicService = logicService;
     }
 
     @Override

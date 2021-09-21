@@ -51,23 +51,10 @@ public class MyChart {
 
         // Init
         init();
-        load_data();
 
         // Start updater
         updater = new ChartUpdater(client, series);
         updater.getHandler().start();
-    }
-
-    private void load_data() {
-        try {
-            for (MyTimeSeries serie : series) {
-                new Thread(() -> {
-                    serie.load_data();
-                }).start();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getStackTrace());
-        }
     }
 
     private void init() {
@@ -193,47 +180,13 @@ public class MyChart {
             this.series = series;
             initListeners();
         }
-
-        private void can_i_start() {
-            // Should load
-            if (props.getBool(ChartPropsEnum.IS_LOAD_DB)) {
-                // Load each serie
-                for (MyTimeSeries serie : series) {
-                    serie.load_data();
-                }
-
-                while (true) {
-                    try {
-                        // Sleep
-                        Thread.sleep(500);
-                        boolean loaded = true;
-
-                        // Is load each serie
-                        for (MyTimeSeries serie : series) {
-                            if (!serie.isLoad()) {
-                                loaded = false;
-                            }
-                        }
-                        // On Done
-                        if (loaded) {
-                            return;
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-
+        
         private void initListeners() {
 
         }
 
         @Override
         public void run() {
-
-            // Can start data updating
-            can_i_start();
 
             // While loop
             while (isRun()) {
