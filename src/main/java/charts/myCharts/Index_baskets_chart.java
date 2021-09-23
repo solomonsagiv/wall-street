@@ -16,7 +16,7 @@ public class Index_baskets_chart extends MyChartCreator {
     }
 
     @Override
-    public void createChart() {
+    public void init() {
 
         MyTimeSeries[] series;
 

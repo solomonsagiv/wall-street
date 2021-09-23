@@ -2,7 +2,7 @@ package charts.myChart;
 
 import serverObjects.BASE_CLIENT_OBJECT;
 
-public class MyChartCreator {
+public abstract class MyChartCreator {
 
     public final int INFINITE = 10000000;
     protected BASE_CLIENT_OBJECT client;
@@ -20,14 +20,11 @@ public class MyChartCreator {
         return props;
     }
 
-    public void init() {
-
-    }
-
     public void createChart() {
-        MyChartContainer_2 chartContainer_2 = new MyChartContainer_2(client, charts_arr, name);
-        chartContainer_2.create();
+        new Thread(this::init).start();
     }
+
+    public abstract void init();
 
     public String getName() {
         return name;

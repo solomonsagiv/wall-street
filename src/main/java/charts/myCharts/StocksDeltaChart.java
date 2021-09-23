@@ -17,7 +17,7 @@ public class StocksDeltaChart extends MyChartCreator {
     }
     
     @Override
-    public void createChart() {
+    public void init() {
 
         MyTimeSeries[] series;
 

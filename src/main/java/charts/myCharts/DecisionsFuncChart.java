@@ -30,7 +30,7 @@ public class DecisionsFuncChart extends MyChartCreator {
     MyChart[] charts;
 
     @Override
-    public void createChart() {
+    public void init() {
 
         // Props
         props = new MyProps();

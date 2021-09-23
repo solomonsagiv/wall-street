@@ -79,7 +79,7 @@ public class TheChart extends MyChartCreator {
     }
 
     @Override
-    public void createChart() {
+    public void init() {
 
         MyTimeSeries[] series;
 

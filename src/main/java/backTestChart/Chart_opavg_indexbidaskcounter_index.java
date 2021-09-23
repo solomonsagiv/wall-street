@@ -21,7 +21,7 @@ public class Chart_opavg_indexbidaskcounter_index extends MyChartCreator {
     }
 
     @Override
-    public void createChart() {
+    public void init() {
         MyTimeSeries[] series;
 
         // Props

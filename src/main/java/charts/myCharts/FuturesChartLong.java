@@ -25,7 +25,7 @@ public class FuturesChartLong extends MyChartCreator {
     MyChart[] charts;
 
     @Override
-    public void createChart() {
+    public void init() {
 
         Exps exps = client.getExps();
 

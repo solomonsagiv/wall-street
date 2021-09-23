@@ -24,7 +24,7 @@ public class Full_Chart_2 extends MyChartCreator {
     }
 
     @Override
-    public void createChart() {
+    public void init() {
 
         MyTimeSeries[] series;
 
