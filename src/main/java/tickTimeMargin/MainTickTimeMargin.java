@@ -28,8 +28,8 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 9, 3);
-        LocalDate end_date = LocalDate.of(2021, 9, 17);
+        LocalDate date = LocalDate.of(2021, 3, 23);
+        LocalDate end_date = LocalDate.of(2021, 10, 2);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
@@ -43,7 +43,7 @@ public class MainTickTimeMargin {
     }
 
     public void run_single_day(LocalDate date) {
-        spx500(date);
+        ndx(date);
     }
 
     private void ta35(LocalDate date) {
@@ -62,15 +62,19 @@ public class MainTickTimeMargin {
 
     private void spx500(LocalDate date) {
         SingleDayLogicFactory.op_avg("data.spx500_op_avg_day", "data.spx500_fut_day", date);
-        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_15", "data.spx500_fut_day", 15, date);
-        SingleDayLogicFactory.op_avg("data.spx500_op_avg_week_60", "data.spx500_fut_week", 60, date);
+        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_15","data.spx500_index", "data.spx500_fut_day", 15, date);
+        SingleDayLogicFactory.op_avg("data.spx500_op_avg_week_60","data.spx500_index", "data.spx500_fut_day", 60, date);
 
-        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg", date);
-        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_5", 5, date);
-        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_15", 15, date);
-        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_45", 45, date);
+//        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg", date);
+//        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_5", 5, date);
+//        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_15", 15, date);
+//        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_45", 45, date);
     }
 
+    private void ndx(LocalDate date) {
+        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15","data.ndx_index", "data.ndx_fut_day", 15, date);
+        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60","data.ndx_index", "data.ndx_fut_day", 60, date);
+    }
 
     private void tick_logic(LocalDate date) {
 
