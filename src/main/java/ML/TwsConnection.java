@@ -16,9 +16,9 @@ public class TwsConnection extends Thread implements EWrapper {
 
     LoadedData data;
 
-    int PORT = 3333;
-    int CLIENT_ID = 123;
-    String ACCOUNT = "DU1293791";
+    int PORT = 0;
+    int CLIENT_ID = 0;
+    String ACCOUNT = "SSS333";
 
     int NextOrderId = -1;
     int contract_id = 100;
@@ -116,9 +116,9 @@ public class TwsConnection extends Thread implements EWrapper {
         // Request
         reqMktData(700, indexOptionsContract);
 
-        client.reqAutoOpenOrders(true);
-        client.reqPositions();
-        client.reqAccountUpdates(true, ACCOUNT);
+//        client.reqAutoOpenOrders(true);
+//        client.reqPositions();
+//        client.reqAccountUpdates(true, ACCOUNT);
 
         try {
             System.in.read();

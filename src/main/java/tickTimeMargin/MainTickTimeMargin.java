@@ -3,7 +3,6 @@ package tickTimeMargin;
 import dataBase.MyTick;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -28,8 +27,8 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 3, 23);
-        LocalDate end_date = LocalDate.of(2021, 10, 2);
+        LocalDate date = LocalDate.of(2021, 9, 23);
+        LocalDate end_date = LocalDate.of(2021, 10, 7);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
@@ -43,7 +42,7 @@ public class MainTickTimeMargin {
     }
 
     public void run_single_day(LocalDate date) {
-        ndx(date);
+        ndx_avg_delta_index(date);
     }
 
     private void ta35(LocalDate date) {
@@ -65,7 +64,7 @@ public class MainTickTimeMargin {
         SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_15","data.spx500_index", "data.spx500_fut_day", 15, date);
         SingleDayLogicFactory.op_avg("data.spx500_op_avg_week_60","data.spx500_index", "data.spx500_fut_day", 60, date);
 
-//        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg", date);
+        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg", date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_5", 5, date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_15", 15, date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_45", 45, date);
@@ -74,6 +73,31 @@ public class MainTickTimeMargin {
     private void ndx(LocalDate date) {
         SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15","data.ndx_index", "data.ndx_fut_day", 15, date);
         SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60","data.ndx_index", "data.ndx_fut_day", 60, date);
+    }
+
+
+    private void spx_avg_delta_index(LocalDate date) {
+
+        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_5", "data.spx500_index", 5, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_15", "data.spx500_index", 15, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_30", "data.spx500_index", 30, date);
+
+        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_5", "data.spx500_fut_delta_cdf", 5, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_15", "data.spx500_fut_delta_cdf", 15, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_30", "data.spx500_fut_delta_cdf", 15, date);
+
+    }
+
+    private void ndx_avg_delta_index(LocalDate date) {
+
+        SingleDayLogicFactory.cumulative_avg_timeserie("data.ndx_index_avg_5", "data.ndx_index", 5, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie("data.ndx_index_avg_15", "data.ndx_index", 15, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie("data.ndx_index_avg_30", "data.ndx_index", 30, date);
+
+        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.ndx_fut_delta_avg_5", "data.ndx_fut_delta_cdf", 5, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.ndx_fut_delta_avg_15", "data.ndx_fut_delta_cdf", 15, date);
+        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.ndx_fut_delta_avg_30", "data.ndx_fut_delta_cdf", 15, date);
+
     }
 
     private void tick_logic(LocalDate date) {
