@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Dax extends INDEX_CLIENT_OBJECT {
-
+    
     static Dax client = null;
 
     // Constructor

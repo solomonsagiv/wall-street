@@ -34,6 +34,7 @@ public class TimeSeriesFactory {
     public static final String ACC_900 = "ACC_900";
     public static final String ACC_300 = "ACC_300";
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
+    public static final String SESSION_4_VERSION_601 = "SESSION_4_VERSION_601";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
 
@@ -291,6 +292,27 @@ public class TimeSeriesFactory {
                         String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DELTA_TABLE);
                         ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
                         IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+            }
+
+            if (series_type.toUpperCase().equals(SESSION_4_VERSION_601)) {
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.SESSION_4_VERSION_601).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_from_dec_func_cumulative(table_location, minuts, 4, 601);
+                        return rs;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SESSION_4_VERSION_601).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+
                     }
                 };
             }

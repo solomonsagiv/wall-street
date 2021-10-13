@@ -45,6 +45,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem delta_index_3600 = new JMenuItem("Delta 1800");
+        delta_index_3600.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Delta_Index_1800_Chart chart = new Delta_Index_1800_Chart(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem dec_funcs = new JMenuItem("Dec funcs");
         dec_funcs.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +92,7 @@ public class PopupsMenuFactory {
             }
         });
 
+        charts.add(delta_index_3600);
         charts.add(fullCharts_2);
         charts.add(fullCharts_3);
         charts.add(dec_funcs);

@@ -17,7 +17,7 @@ public class BidAskCounterGrabberService extends MyBaseService {
     public double avg_day = 0;
 
     String table_location;
-
+    
     public BidAskCounterGrabberService(BASE_CLIENT_OBJECT client) {
         super(client);
         this.table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
