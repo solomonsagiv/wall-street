@@ -14,17 +14,11 @@ public class TwsConnection extends Thread implements EWrapper {
     EJavaSignal m_signal;
     EClientSocket client;
 
-    LoadedData data;
 
     int PORT = 0;
     int CLIENT_ID = 0;
     String ACCOUNT = "SSS333";
-
     int NextOrderId = -1;
-    int contract_id = 100;
-    int bidField = 1;
-    int askField = 2;
-    int lastField = 4;
 
     // Constructor
     private TwsConnection() {
@@ -40,7 +34,6 @@ public class TwsConnection extends Thread implements EWrapper {
     @Override
     public void run() {
 
-        data = new LoadedData();
         client.eConnect("localhost", PORT, CLIENT_ID);
 
         final EReader reader = new EReader(client, m_signal);
@@ -75,50 +68,6 @@ public class TwsConnection extends Thread implements EWrapper {
                 e.printStackTrace();
             }
         }
-
-        // Request index example
-        // Create the contract
-        Contract indexContract = new Contract();
-        indexContract.symbol("SPX");
-        indexContract.secType("IND");
-        indexContract.currency("USD");
-        indexContract.exchange("CBOE");
-        indexContract.multiplier("50");
-
-        // Request
-        reqMktData(500, indexContract);
-
-        // Request future example
-        Contract futureContract = new Contract();
-        futureContract.symbol("ES");
-        futureContract.secType("FUT");
-        futureContract.currency("USD");
-        futureContract.lastTradeDateOrContractMonth("202003");
-        futureContract.exchange("GLOBEX");
-        futureContract.multiplier("50");
-
-        // Request
-        reqMktData(600, futureContract);
-
-        // Request options example
-        Contract indexOptionsContract = new Contract();
-        indexOptionsContract.secType("OPT");
-        indexOptionsContract.currency("USD");
-        indexOptionsContract.exchange("SMART");
-        indexOptionsContract.tradingClass("SPX");
-        indexOptionsContract.multiplier("100");
-        indexOptionsContract.symbol("SPX");
-        indexOptionsContract.includeExpired(true);
-        indexOptionsContract.strike(3200);
-        indexOptionsContract.right("C");
-        indexOptionsContract.lastTradeDateOrContractMonth("20200116");
-
-        // Request
-        reqMktData(700, indexOptionsContract);
-
-//        client.reqAutoOpenOrders(true);
-//        client.reqPositions();
-//        client.reqAccountUpdates(true, ACCOUNT);
 
         try {
             System.in.read();
@@ -164,56 +113,6 @@ public class TwsConnection extends Thread implements EWrapper {
 
     @Override
     public void tickPrice(int tickerId, int field, double price, TickAttr attribs) {
-
-        int futureId = 500;
-        int indexId = 600;
-        int optionId = 700;
-
-        // ------------------- SPX -------------------- //
-
-        // ----- Future ----- //
-        // Bid
-        if (tickerId == futureId) {
-
-            // Bid
-            if (field == bidField && price > 100) {
-                // init
-            }
-
-            // Ask
-            if (field == askField && price > 100) {
-                // init
-            }
-
-            // Last
-            if (field == lastField && price > 100) {
-                data.setFuture(price);
-            }
-
-        }
-
-        // ----- Index ----- //
-        // Last
-        if (tickerId == indexId) {
-
-            if (field == lastField && price > 100) {
-                data.setIndex(price);
-            }
-
-        }
-
-        // ----- Options ----- //
-        // Bid
-        if (tickerId == optionId) {
-
-            if (field == bidField && price > 0) {
-                data.setOption(price);
-            }
-
-            if (field == askField && price > 0) {
-
-            }
-        }
 
     }
 

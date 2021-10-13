@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class MyTick {
     public LocalDateTime time;
-    public long value;
+    public double value;
 
-    public MyTick(LocalDateTime time, long value) {
+    public MyTick(LocalDateTime time, double value) {
         this.time = time;
         this.value = value;
     }

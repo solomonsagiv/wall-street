@@ -5,6 +5,7 @@ import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder_3;
+import charts.myCharts.Full_Chart_3;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
 import exp.E;
@@ -116,7 +117,8 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            // TODO
+            Full_Chart_3 chart_3 = new Full_Chart_3(client);
+            chart_3.createChart();
         }
     }
 

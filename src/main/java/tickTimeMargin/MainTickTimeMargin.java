@@ -1,6 +1,7 @@
 package tickTimeMargin;
 
 import dataBase.MyTick;
+import dataBase.MyTickTimeSerie;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import java.sql.ResultSet;
@@ -27,8 +28,8 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 9, 23);
-        LocalDate end_date = LocalDate.of(2021, 10, 7);
+        LocalDate date = LocalDate.of(2021, 10, 5);
+        LocalDate end_date = LocalDate.of(2021, 10, 10);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
@@ -41,8 +42,9 @@ public class MainTickTimeMargin {
         }
     }
 
+    // Single day runner
     public void run_single_day(LocalDate date) {
-        ndx_avg_delta_index(date);
+        spx500(date);
     }
 
     private void ta35(LocalDate date) {
@@ -99,6 +101,21 @@ public class MainTickTimeMargin {
         SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.ndx_fut_delta_avg_30", "data.ndx_fut_delta_cdf", 15, date);
 
     }
+
+
+    private void import_series_time_sorted(ArrayList<String> tables_location_list, LocalDate date) {
+
+        ArrayList<MyTickTimeSerie> series_list = new ArrayList<>();
+
+        for (String table : tables_location_list) {
+//            IDataBaseHandler.loadSerieData(MySql.Queries.get_serie(table, date)) {
+
+        }
+
+    }
+
+
+
 
     private void tick_logic(LocalDate date) {
 

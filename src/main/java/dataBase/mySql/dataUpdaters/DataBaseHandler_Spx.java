@@ -19,8 +19,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> ind_bid_ask_counter_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> op_avg_fut_day_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> op_avg_fut_day_15_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
 
     double index_0 = 0;
@@ -213,8 +211,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
         insertListRetro(ind_bid_ask_counter_timestamp, tablesNames.get(BID_ASK_COUNTER_TABLE));
-        insertListRetro(op_avg_fut_day_timestamp, tablesNames.get(OP_AVG_DAY_TABLE));
-        insertListRetro(op_avg_fut_day_15_timestamp, tablesNames.get(OP_AVG_15_DAY_TABLE));
         insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
     }
 }

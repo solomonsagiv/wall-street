@@ -113,10 +113,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Races
     private double optimiPesimiMargin = 0;
-    private int conUp = 0;
-    private int conDown = 0;
-    private int indexUp = 0;
-    private int indexDown = 0;
     private boolean conUpChanged = false;
     private boolean conDownChanged = false;
     private boolean indUpChanged = false;
@@ -204,36 +200,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.started = started;
     }
 
-    public int getConDown() {
-        return conDown;
-    }
-
-    public void setConDown(int future_down) {
-        this.conDown = future_down;
-    }
-
     public void setId_name(String id_name) {
         this.id_name = id_name;
     }
 
     public String getId_name() {
         return id_name;
-    }
-
-    public int getIndexUp() {
-        return indexUp;
-    }
-
-    public void setIndexUp(int index_up) {
-        this.indexUp = index_up;
-    }
-
-    public int getIndexDown() {
-        return indexDown;
-    }
-
-    public void setIndexDown(int index_down) {
-        this.indexDown = index_down;
     }
 
     public double getRacesMargin() {
@@ -302,33 +274,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.loadFromDb = loadFromDb;
     }
 
-    public int getConUp() {
-        return conUp;
-    }
-
-    public void setConUp(int conUp) {
-        this.conUp = conUp;
-    }
-
-    public void conUpPlus() {
-        conUp++;
-        setConUpChanged(true);
-    }
-
-    public void conDownPlus() {
-        conDown++;
-        setConDownChanged(true);
-    }
-
-    public void indUpPlus() {
-        indexUp++;
-        setIndUpChanged(true);
-    }
-
-    public void indDownPlus() {
-        indexDown++;
-        setIndDownChanged(true);
-    }
 
     public boolean isDbRunning() {
         return dbRunning;
@@ -344,14 +289,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setThreads(ArrayList<MyThread> threads) {
         this.threads = threads;
-    }
-
-    public int getIndexSum() {
-        return indexUp - indexDown;
-    }
-
-    public int getFutSum() {
-        return conUp - conDown;
     }
 
     public double getIndexBidAskMargin() {
@@ -708,10 +645,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", mySqlService=" + mySqlService +
                 ", racesMargin=" + getRacesMargin() +
                 ", optimiPesimiMargin=" + optimiPesimiMargin +
-                ", conUp=" + conUp +
-                ", conDown=" + conDown +
-                ", indexUp=" + indexUp +
-                ", indexDown=" + indexDown +
                 '}';
     }
 

@@ -2,6 +2,7 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.MyTimeSeries;
 import dataBase.MyTick;
+import dataBase.MyTickTimeSerie;
 import dataBase.mySql.MySql;
 import dataBase.props.Prop;
 import exp.E;
@@ -221,6 +222,22 @@ public abstract class IDataBaseHandler {
                 throwables.printStackTrace();
             }
         }
+    }
+    
+    public static MyTickTimeSerie load_data_to_tick_list(ResultSet rs) {
+        MyTickTimeSerie list = new MyTickTimeSerie();
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                Timestamp timestamp = rs.getTimestamp("time");
+                double value = rs.getDouble("value");
+                MyTick tick = new MyTick(timestamp.toLocalDateTime(), value);
+                list.add(tick);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return list;
     }
 
     public static void insert_batch_data(ArrayList<MyTick> list, String table_location) {

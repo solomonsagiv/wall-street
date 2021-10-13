@@ -5,6 +5,7 @@ import arik.Arik;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class MySql {
@@ -187,6 +188,12 @@ public class MySql {
         public static ResultSet get_serie(String table_loc) {
             String q = "select * from %s where %s %s;";
             String query = String.format(q, table_loc, Filters.TODAY, Filters.ORDER_BY_TIME);
+            return MySql.select(query);
+        }
+
+        public static ResultSet get_serie(String table_loc, LocalDate date) {
+            String q = "select * from %s where %s %s;";
+            String query = String.format(q, table_loc, date, Filters.ORDER_BY_TIME);
             return MySql.select(query);
         }
 
