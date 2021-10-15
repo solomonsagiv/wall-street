@@ -10,6 +10,7 @@ import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -240,6 +241,19 @@ public abstract class IDataBaseHandler {
         return list;
     }
 
+    public static void main(String[] args) {
+        Spx.getInstance();
+
+        IDataBaseHandler.insert_interes_rates(Spx.getInstance());
+    }
+
+    public static void insert_interes_rates(BASE_CLIENT_OBJECT client) {
+        for (Exp exp : client.getExps().getExpList()) {
+            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getName());
+        }
+    }
+
+
     public static void insert_batch_data(ArrayList<MyTick> list, String table_location) {
         if (list.size() > 0) {
 
@@ -354,6 +368,4 @@ public abstract class IDataBaseHandler {
 
     protected abstract void open_chart_on_start();
 
-
-    public abstract void updateInterests();
 }

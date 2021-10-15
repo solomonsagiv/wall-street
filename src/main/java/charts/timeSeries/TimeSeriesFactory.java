@@ -406,25 +406,6 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            case INDEX_RACES_SERIES:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() throws UnknownHostException {
-                        return client.getIndexSum();
-                    }
-
-                    @Override
-                    public void load() {
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_RACES_TABLE));
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
             case OP_AVG_SERIES:
                 return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
                     @Override

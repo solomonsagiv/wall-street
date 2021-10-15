@@ -164,7 +164,7 @@ public class LogicService extends MyBaseService {
                         conUpDown = 0;
 
 //                        noisy( panel.conRacesField, Themes.GREEN );
-                        getClient().conUpPlus();
+//                        getClient().conUpPlus();
 //                        conRunnerUpCount = 1;
 
                         conRunner = future;
@@ -196,7 +196,7 @@ public class LogicService extends MyBaseService {
                         conCompetion = false;
                         conUpDown = 0;
 
-                        getClient().conDownPlus();
+//                        getClient().conDownPlus();
 //                        conRunnerDownCount = 1;
 //                        noisy( panel.conRacesField, Themes.RED );
                         conRunner = future;
@@ -230,7 +230,7 @@ public class LogicService extends MyBaseService {
                         indCompetition = false;
                         indUpDown = 0;
 
-                        getClient().indUpPlus();
+//                        getClient().indUpPlus();
 //                        indRunnerUpCount = 1;
 //                        noisy( panel.indRacesField, Themes.GREEN );
 
@@ -262,7 +262,7 @@ public class LogicService extends MyBaseService {
                         indCompetition = false;
                         indUpDown = 0;
 
-                        getClient().indDownPlus();
+//                        getClient().indDownPlus();
 //                        indRunnerDownCount = 1;
 //                        noisy( panel.indRacesField, Themes.RED );
 
@@ -383,10 +383,10 @@ public class LogicService extends MyBaseService {
 
     // SetText
     private void updateRaces() {
-        getClient().setConUp(getClient().getConUp() + conRunnerUpCount);
-        getClient().setConDown(getClient().getConDown() + conRunnerDownCount);
-        getClient().setIndexUp(getClient().getIndexUp() + indRunnerUpCount);
-        getClient().setIndexDown(getClient().getIndexDown() + indRunnerDownCount);
+//        getClient().setConUp(getClient().getConUp() + conRunnerUpCount);
+//        getClient().setConDown(getClient().getConDown() + conRunnerDownCount);
+//        getClient().setIndexUp(getClient().getIndexUp() + indRunnerUpCount);
+//        getClient().setIndexDown(getClient().getIndexDown() + indRunnerDownCount);
 
         // regular count
         conRunnerUpCount = 0;

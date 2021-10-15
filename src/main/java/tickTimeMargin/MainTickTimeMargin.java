@@ -28,8 +28,8 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 10, 5);
-        LocalDate end_date = LocalDate.of(2021, 10, 10);
+        LocalDate date = LocalDate.of(2021, 10, 11);
+        LocalDate end_date = LocalDate.of(2021, 10, 16);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY

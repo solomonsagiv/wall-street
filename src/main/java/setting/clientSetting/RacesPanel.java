@@ -36,7 +36,7 @@ public class RacesPanel extends MyGuiComps.MyPanel {
                 if (!conUpField.getText().isEmpty()) {
                     try {
                         int i = L.INT(conUpField.getText());
-                        client.setConUp(i);
+//                        client.setConUp(i);
                     } catch (Exception e) {
                     }
                 }
@@ -44,7 +44,7 @@ public class RacesPanel extends MyGuiComps.MyPanel {
                 if (!conDownField.getText().isEmpty()) {
                     try {
                         int i = L.INT(conDownField.getText());
-                        client.setConDown(i);
+//                        client.setConDown(i);
                     } catch (Exception e) {
                     }
                 }
@@ -52,7 +52,7 @@ public class RacesPanel extends MyGuiComps.MyPanel {
                 if (!indUpField.getText().isEmpty()) {
                     try {
                         int i = L.INT(indUpField.getText());
-                        client.setIndexUp(i);
+//                        client.setIndexUp(i);
                     } catch (Exception e) {
                     }
                 }
@@ -60,7 +60,7 @@ public class RacesPanel extends MyGuiComps.MyPanel {
                 if (!indDownField.getText().isEmpty()) {
                     try {
                         int i = L.INT(indDownField.getText());
-                        client.setIndexDown(i);
+//                        client.setIndexDown(i);
                     } catch (Exception e) {
                     }
                 }

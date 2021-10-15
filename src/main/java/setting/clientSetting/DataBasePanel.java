@@ -1,5 +1,6 @@
 package setting.clientSetting;
 
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -90,7 +91,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     client.getDdeHandler().getIddeReader().init_rates();
-                    client.getMySqlService().getDataBaseHandler().updateInterests();
+                    IDataBaseHandler.insert_interes_rates(client);
                     updateRatesBtn.complete();
                     MyGuiComps.color_on_complete(updateRatesBtn);
                 } catch (Exception exception) {
