@@ -46,7 +46,7 @@ public class Full_Chart_3 extends MyChartCreator {
         ValueMarker marker = new ValueMarker(0);
         marker.setPaint(Themes.GREY_2);
         marker.setStroke(new BasicStroke(2f));
-
+        
         // --------------------------- Index -------------------------------- //
 
         // Index
