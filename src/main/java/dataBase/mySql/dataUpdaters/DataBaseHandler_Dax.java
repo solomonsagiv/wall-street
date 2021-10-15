@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
+import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
@@ -19,6 +20,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_week_0 = 0;
@@ -26,12 +28,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double baskets_0 = 0;
+    double fut_delta_0;
 
     Exps exps;
+    E q1;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
+        q1 = (E) exps.getExp(ExpStrings.q1);
     }
 
     int sleep_count = 100;
@@ -96,14 +101,14 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
-        // --------------- Raw data --------------- //
-        // Fut e1
-//        double fut_e1 = exps.getExp( ExpStrings.e1 ).getFuture( );
-//
-//        if ( fut_e1 != fut_e1_0 ) {
-//            fut_e1_0 = fut_e1;
-//            fut_e1_timeStamp.add( new MyTimeStampObject( Instant.now( ), fut_e1_0 ) );
-//        }
+        // Delta
+        double fut_delta = q1.getDelta();
+
+        if (fut_delta != fut_delta_0) {
+            double last_count = fut_delta - fut_delta_0;
+            fut_delta_0 = fut_delta;
+            fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
 
         // Update count
         sleep_count += sleep;
@@ -123,33 +128,29 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         load_op_avg(q1, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)));
         load_op_avg(q2, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)));
 
+        load_fut_delta(q1, MySql.Queries.get_sum(tablesNames.get(FUT_DELTA_TABLE)));
+
         // LOAD PROPERTIES
         load_properties();
-    }
 
+        // Set load
+        client.setLoadFromDb(true);
+    }
+    
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.dax_index");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.dax_index_races_cdf");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.dax_fut_races_cdf");
         tablesNames.put(BASKETS_TABLE, "data.dax_baskets_cdf");
         tablesNames.put(FUT_WEEK_TABLE, "data.dax_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.dax_fut_month");
-        tablesNames.put(FUT_Q1_TABLE, "data.dax_fut_gx1");
-        tablesNames.put(FUT_Q2_TABLE, "data.dax_fut_gx2");
+        tablesNames.put(FUT_Q1_TABLE, "data.dax_fut_q1");
+        tablesNames.put(FUT_Q2_TABLE, "data.dax_fut_q2");
+        tablesNames.put(FUT_DELTA_TABLE, "data.dax_fut_delta_cdf");
     }
 
     @Override
     protected void open_chart_on_start() {
         //todo
-    }
-
-    @Override
-    public void updateInterests() {
-        for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
-                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
-        }
     }
 
     private void loadDDeCells() {
@@ -173,5 +174,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
+        insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
     }
 }

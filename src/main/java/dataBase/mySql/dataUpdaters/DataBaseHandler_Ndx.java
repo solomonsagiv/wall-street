@@ -165,14 +165,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // todo
     }
 
-    @Override
-    public void updateInterests() {
-        for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
-                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
-        }
-    }
-
     private void updateListsRetro() {
         insertListRetro(index_timestamp,tablesNames.get(INDEX_TABLE));
         insertListRetro(fut_day_timeStamp, tablesNames.get(FUT_DAY_TABLE));

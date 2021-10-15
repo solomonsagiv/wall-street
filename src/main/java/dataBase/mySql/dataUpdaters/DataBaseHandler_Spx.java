@@ -60,7 +60,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             String fut_tick_speed_table_location = tablesNames.get(FUT_E1_TICK_SPEED);
             insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
-
+        
         // Index
         if (client.getIndex() != index_0) {
             index_0 = client.getIndex();
@@ -191,14 +191,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     protected void open_chart_on_start() {
         // todo
-    }
-
-    @Override
-    public void updateInterests() {
-        for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
-                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
-        }
     }
 
     private void updateListsRetro() {
