@@ -38,25 +38,25 @@ public class DDEReader_Ndx extends IDDEReader {
     String naked_future_volume_cell = "R36C13";
 
     // Interest
-    String day_interest_cell = "R22C5";
-    String week_interest_cell = "R23C5";
-    String month_interest_cell = "R24C5";
-    String q1_interest_cell = "R25C5";
-    String q2_interest_cell = "R26C5";
+    String day_interest_cell = "R37C4";
+    String week_interest_cell = "R38C4";
+    String month_interest_cell = "R39C4";
+    String q1_interest_cell = "R40C4";
+    String q2_interest_cell = "R41C4";
 
     // Div
-    String day_div_cell = "R22C7";
-    String week_div_cell = "R23C7";
-    String month_div_cell = "R24C7";
-    String q1_div_cell = "R25C7";
-    String q2_div_cell = "R26C7";
+    String day_div_cell = "R37C5";
+    String week_div_cell = "R38C5";
+    String month_div_cell = "R39C5";
+    String q1_div_cell = "R40C5";
+    String q2_div_cell = "R41C5";
 
     // Day to exp
-    String day_days_cell = "R22C2";
-    String week_days_cell = "R23C2";
-    String month_days_cell = "R24C2";
-    String q1_days_cell = "R25C2";
-    String q2_days_cell = "R26C2";
+    String day_days_cell = "R37C6";
+    String week_days_cell = "R38C6";
+    String month_days_cell = "R39C6";
+    String q1_days_cell = "R40C6";
+    String q2_days_cell = "R41C6";
 
     // Constructor
     public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {
