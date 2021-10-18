@@ -1,14 +1,11 @@
 package dataBase.mySql.dataUpdaters;
 
 import dataBase.mySql.MySql;
-import exp.Exp;
-import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Apple extends IDataBaseHandler {
@@ -161,14 +158,6 @@ public class DataBaseHandler_Apple extends IDataBaseHandler {
     @Override
     protected void open_chart_on_start() {
         // TODO
-    }
-
-    @Override
-    public void updateInterests() {
-        for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.update_rates_query(client.getId_name(), exp.getName(),
-                    exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase());
-        }
     }
 
     private void loadDDeCells() {

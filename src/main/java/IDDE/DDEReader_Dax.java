@@ -33,10 +33,10 @@ public class DDEReader_Dax extends IDDEReader {
     String e2Cell = "R12C10";
 
     // Naked future for delta
-    String naked_future_cell = "R30C13";
-    String naked_future_bid_cell = "R31C13";
-    String naked_future_ask_cell = "R29C13";
-    String naked_future_volume_cell = "R36C13";
+    String naked_future_cell = "R32C13";
+    String naked_future_bid_cell = "R33C13";
+    String naked_future_ask_cell = "R31C13";
+    String naked_future_volume_cell = "R38C13";
 
     // Interest
     String week_interest_cell = "R38C5";
@@ -110,7 +110,6 @@ public class DDEReader_Dax extends IDDEReader {
         q1.setNaked_future_bid(requestDouble(naked_future_bid_cell, conversation));
         q1.setNaked_future_ask(requestDouble(naked_future_ask_cell, conversation));
         q1.setVolume((int) requestDouble(naked_future_volume_cell, conversation));
-
 
         // Index
         client.setIndex(requestDouble(indCell, conversation));

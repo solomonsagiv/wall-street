@@ -15,9 +15,9 @@ public class TwsConnection extends Thread implements EWrapper {
     EClientSocket client;
 
 
-    int PORT = 0;
-    int CLIENT_ID = 0;
-    String ACCOUNT = "SSS333";
+    int PORT = 7777;
+    int CLIENT_ID = 5;
+    String ACCOUNT = "U2177653";
     int NextOrderId = -1;
 
     // Constructor
@@ -61,6 +61,18 @@ public class TwsConnection extends Thread implements EWrapper {
             }
         }.start();
 
+        Contract contract = new Contract();
+        contract.currency("USD");
+        contract.multiplier("50");
+        contract.exchange("GLOBEX");
+        contract.tradingClass("ES");
+        contract.secType("FUT");
+        contract.symbol("ES");
+
+
+        client.reqContractDetails(7777, contract);
+
+
         if (NextOrderId < -10) {
             try {
                 sleep(1000);
@@ -74,6 +86,13 @@ public class TwsConnection extends Thread implements EWrapper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
+
+
+
+
     }
 
     // Parse double
