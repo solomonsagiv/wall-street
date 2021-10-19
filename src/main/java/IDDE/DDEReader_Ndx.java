@@ -141,11 +141,16 @@ public class DDEReader_Ndx extends IDDEReader {
         init_exp = true;
     }
 
-
     @Override
     public void init_rates() {
         try {
             DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getExcel_path());
+
+            day = client.getExps().getExp(ExpStrings.day);
+            week = client.getExps().getExp(ExpStrings.week);
+            month = client.getExps().getExp(ExpStrings.month);
+            q1 = (E) client.getExps().getExp(ExpStrings.q1);
+            q2 = (E) client.getExps().getExp(ExpStrings.q2);
 
 //             Day
             day.setInterest(requestDouble(day_interest_cell, conversation));

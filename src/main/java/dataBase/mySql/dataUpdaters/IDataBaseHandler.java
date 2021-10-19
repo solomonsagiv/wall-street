@@ -89,7 +89,7 @@ public abstract class IDataBaseHandler {
     public void load_op_avg(Exp exp, ResultSet rs) {
         // Day
         try {
-            if (rs.next()) {
+            if (  rs.next()) {
                 double sum = rs.getDouble(1);
                 int sum_count = rs.getInt(2);
                 exp.set_op_avg(sum, sum_count);

@@ -36,7 +36,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
-        q1 = (E) exps.getExp(ExpStrings.q1);
     }
 
     int sleep_count = 100;
@@ -45,8 +44,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     public void insertData(int sleep) {
 
         // Set exps
-        if (this.exps == null) {
+        if (this.exps == null || this.q1 == null) {
             this.exps = client.getExps();
+            this.q1 = (E) this.exps.getExp(ExpStrings.q1);
         }
 
         // Update lists retro
@@ -117,6 +117,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     public void loadData() {
 
+        this.exps = client.getExps();
+
         // OP AVG
         Exp week = exps.getExp(ExpStrings.week);
         Exp month = exps.getExp(ExpStrings.month);
@@ -136,7 +138,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Set load
         client.setLoadFromDb(true);
     }
-    
+
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.dax_index");

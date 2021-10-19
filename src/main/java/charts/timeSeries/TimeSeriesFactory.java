@@ -38,8 +38,9 @@ public class TimeSeriesFactory {
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
 
-        if (client instanceof Spx) {
-            if (series_type.toUpperCase().equals(SPEED_900)) {
+        switch (series_type.toUpperCase()) {
+
+            case SPEED_900:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -59,8 +60,8 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            }
-            if (series_type.toUpperCase().equals(ACC_900)) {
+
+            case ACC_900:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -79,8 +80,7 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            }
-            if (series_type.toUpperCase().equals(ACC_300)) {
+            case ACC_300:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -99,9 +99,8 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            }
             // BID ASK COUNTER AVG 5
-            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_5)) {
+            case INDEX_BID_ASK_COUNTER_SERIES_5:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -123,9 +122,8 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            }
             // BID ASK COUNTER AVG 15
-            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_15)) {
+            case INDEX_BID_ASK_COUNTER_SERIES_15:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -145,9 +143,8 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            }
             // BID ASK COUNTER AVG 45
-            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_45)) {
+            case INDEX_BID_ASK_COUNTER_SERIES_45:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -167,9 +164,8 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            }
             // BID ASK COUNTER AVG DAY
-            if (series_type.toUpperCase().equals(INDEX_BID_ASK_COUNTER_SERIES_DAY)) {
+            case INDEX_BID_ASK_COUNTER_SERIES_DAY:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -186,9 +182,8 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            }
             // Q1 DELTA
-            if (series_type.toUpperCase().equals(FUTURE_DELTA)) {
+            case FUTURE_DELTA:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -208,117 +203,7 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            }
-        }
 
-        if (client instanceof Ndx) {
-            if (series_type.toUpperCase().equals(SPEED_900)) {
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.SPEED_900).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-            }
-
-            if (series_type.toUpperCase().equals(ACC_900)) {
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.ACC_900).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_900).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-            }
-            if (series_type.toUpperCase().equals(ACC_300)) {
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.ACC_300).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-            }
-
-            if (series_type.toUpperCase().equals(FUTURE_DELTA)) {
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        E e = (E) exp;
-                        return e.getDelta();
-                    }
-
-                    @Override
-                    public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DELTA_TABLE);
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-            }
-
-            if (series_type.toUpperCase().equals(SESSION_4_VERSION_601)) {
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.SESSION_4_VERSION_601).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_from_dec_func_cumulative(table_location, minuts, 4, 601);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SESSION_4_VERSION_601).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-            }
-        }
-
-        switch (series_type.toUpperCase()) {
             case INDEX_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override

@@ -87,7 +87,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void loadOnStartUp() {
         // Connect to db
         ConnectionPool.getConnectionsPoolInstance();
-
         // Start back runners
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
@@ -97,10 +96,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 // Start back runner
                 BackGroundHandler.getInstance().createNewRunner(client);
-
             }).start();
         }
     }
