@@ -23,7 +23,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         ndx = Ndx.getInstance();
         dax = Dax.getInstance();
     }
-
+    
     // Variables
     HeadPanel headPanel;
     ConnectionPanel connectionPanel;
