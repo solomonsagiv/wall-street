@@ -5,8 +5,8 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -153,21 +153,11 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     }
 
     private void grab_decisions() {
-        DecisionsFunc df_n_5_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5);
-        DecisionsFunc df_5_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5);
-        DecisionsFunc df_n_15_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_15);
-        DecisionsFunc df_15_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_15);
-        DecisionsFunc df_n_60_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_60);
-        DecisionsFunc df_60_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_60);
-        DecisionsFunc df_n_day_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY);
-
-        df_n_5_func.setValue(handle_rs(MySql.Queries.get_sum(df_n_5_func.getTable_location())));
-        df_5_func.setValue(handle_rs(MySql.Queries.get_sum(df_5_func.getTable_location())));
-        df_n_15_func.setValue(handle_rs(MySql.Queries.get_sum(df_n_15_func.getTable_location())));
-        df_15_func.setValue(handle_rs(MySql.Queries.get_sum(df_15_func.getTable_location())));
-        df_n_60_func.setValue(handle_rs(MySql.Queries.get_sum(df_n_60_func.getTable_location())));
-        df_60_func.setValue(handle_rs(MySql.Queries.get_sum(df_60_func.getTable_location())));
-        df_n_day_func.setValue(handle_rs(MySql.Queries.get_sum(df_n_day_func.getTable_location())));
+        for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
+            new Thread(() -> {
+                df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
+            }).start();
+        }
     }
 
     @Override
