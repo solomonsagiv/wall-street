@@ -1,6 +1,7 @@
 package exp;
 
 import locals.L;
+import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
 
@@ -22,13 +23,14 @@ public abstract class Exp {
     protected double future_ask = 0;
     protected int fut_bid_ask_counter = 0;
 
-
     protected int last_deal_quantity = 0;
     ExpData expData;
     List<Double> opFutList = new ArrayList<>();
 
     protected double op_avg_sum = 0;
     protected int op_avg_sum_count = 0;
+
+    protected Options options;
 
     String expName;
     TwsContractsEnum twsContractsEnum;
@@ -37,6 +39,7 @@ public abstract class Exp {
         this.client = client;
         this.expName = expName;
         this.expData = new ExpData(expName, client);
+        this.options = new Options(client, this);
     }
 
     public void add_op(double op) {
@@ -116,8 +119,6 @@ public abstract class Exp {
     public void setFuture_bid(double future_bid) {
             this.future_bid = future_bid;
     }
-
-
 
     public double getFuture_ask() {
         return future_ask;

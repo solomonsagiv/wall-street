@@ -70,6 +70,7 @@ public class TwsConnection extends Thread implements EWrapper {
         contract.symbol("ES");
 
 
+        client.reqPositions();
         client.reqContractDetails(7777, contract);
 
 

@@ -28,7 +28,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
     ExpSumPanel expPanel;
 
     // Basket panel
-    BasketsPanel basketsPanel;
+    MachinePanel machinePanel;
 
     int height = 250;
 
@@ -79,13 +79,13 @@ public class IndexPanel extends JPanel implements IMyPanel {
         add(tickerPanel);
 
         // ---------- Basket panel -------------//
-        basketsPanel = new BasketsPanel(client);
-        basketsPanel.setXY(tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
-        add(basketsPanel);
+        machinePanel = new MachinePanel(client);
+        machinePanel.setXY(tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
+        add(machinePanel);
 
         // ---------- Races and roll ---------- //
         countersPanel = new CountersPanel(client);
-        countersPanel.setXY(basketsPanel.getX() + basketsPanel.getWidth() + 1, basketsPanel.getY());
+        countersPanel.setXY(machinePanel.getX() + machinePanel.getWidth() + 1, machinePanel.getY());
         add(countersPanel);
 
         // --------------- Exp --------------- //
@@ -107,7 +107,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         try {
             tickerPanel.updateText();
             countersPanel.updateText();
-            basketsPanel.updateText();
+            machinePanel.updateText();
             expPanel.updateText();
         } catch (Exception e) {
             e.printStackTrace();

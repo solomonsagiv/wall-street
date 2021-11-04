@@ -2,7 +2,7 @@ package jibeDataGraber;
 
 public class DecisionsFunc {
 
-    private double value;
+    private double value = 0;
     private String name;
     private String table_location;
 

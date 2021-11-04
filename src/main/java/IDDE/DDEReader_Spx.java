@@ -26,7 +26,17 @@ public class DDEReader_Spx extends IDDEReader {
     String lowCell = "R13C2";
     String baseCell = "R11C5";
     String futDayCell = "R9C10";
+    String futDayBidCell = "R9C9";
+    String futDayAskCell = "R9C11";
+    String put_day_bid_cell = "R61C8";
+    String put_day_ask_cell = "R61C6";
+    String call_day_bid_cell = "R61C2";
+    String call_day_ask_cell = "R61C4";
+
+
     String futWeekCell = "R10C10";
+    String futWeekBidCell = "R10C9";
+    String futWeekAskCell = "R10C11";
     String futMonthCell = "R11C10";
     String e1Cell = "R12C10";
     String e2Cell = "R13C10";
@@ -88,6 +98,8 @@ public class DDEReader_Spx extends IDDEReader {
 
         // Exps
         day.set_future(requestDouble(futDayCell, conversation));
+        day.setFuture_bid(requestDouble(futDayBidCell, conversation));
+        day.setFuture_ask(requestDouble(futDayAskCell, conversation));
         week.set_future(requestDouble(futWeekCell, conversation));
         month.set_future(requestDouble(futMonthCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));

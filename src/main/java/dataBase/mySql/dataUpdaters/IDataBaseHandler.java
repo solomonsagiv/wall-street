@@ -39,7 +39,6 @@ public abstract class IDataBaseHandler {
     public static final int FUT_E1_TICK_SPEED = 26;
     public static final int FUT_DELTA_TABLE = 27;
 
-
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
     public static final int BID_ASK_COUNTER_TYPE = 1;
@@ -318,6 +317,19 @@ public abstract class IDataBaseHandler {
             }
         }
     }
+
+    public static double handle_rs(ResultSet rs) {
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                return rs.getDouble("value");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
 
     protected ArrayList<LocalDateTime> load_uncalced_tick_speed_time(String fut_table_location, String tick_speed_table_location) {
 
