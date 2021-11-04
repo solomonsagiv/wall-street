@@ -214,6 +214,15 @@ public class MyGuiComps {
             setText(format.format(val) + sign);
         }
 
+        public void make_bold(double val_to_bold) {
+            double val = L.abs(L.dbl(getText()));
+            if (val > val_to_bold) {
+                setFont(getFont().deriveFont(Font.BOLD));
+            } else {
+                setFont(getFont().deriveFont(Font.PLAIN));
+            }
+        }
+
         public void colorForge(int val) {
             if (val >= 0) {
                 setForeground(Themes.GREEN);

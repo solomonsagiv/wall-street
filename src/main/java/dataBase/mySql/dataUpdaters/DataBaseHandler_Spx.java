@@ -50,7 +50,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         if (this.exps == null) {
             this.exps = client.getExps();
         }
-
+        
         // Update lists retro
         if (sleep_count % 15000 == 0) {
             updateListsRetro();
@@ -62,7 +62,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             String fut_tick_speed_table_location = tablesNames.get(FUT_E1_TICK_SPEED);
             insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
-        
+
         // Index
         if (client.getIndex() != index_0) {
             index_0 = client.getIndex();

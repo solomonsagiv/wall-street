@@ -5,6 +5,7 @@ import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
+import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -147,6 +148,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        double val_to_bold = 1000.0;
+
         df_n_5_field.colorForge((int) df_n_5_func.getValue());
         df_5_field.colorForge((int) df_5_func.getValue());
         df_n_15_field.colorForge((int) df_n_15_func.getValue());
@@ -154,6 +157,14 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_n_60_field.colorForge((int) df_n_60_func.getValue());
         df_60_field.colorForge((int) df_60_func.getValue());
         df_n_day_field.colorForge((int) df_n_day_func.getValue());
+
+        df_n_5_field.make_bold(val_to_bold);
+        df_5_field.make_bold(val_to_bold);
+        df_n_15_field.make_bold(val_to_bold);
+        df_15_field.make_bold(val_to_bold);
+        df_n_60_field.make_bold(val_to_bold);
+        df_60_field.make_bold(val_to_bold);
+        df_n_day_field.make_bold(val_to_bold);
     }
 
     private void nois(JTextField textField) {

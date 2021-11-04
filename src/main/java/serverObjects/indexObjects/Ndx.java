@@ -81,14 +81,18 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.SPEED_900, new DecisionsFunc(DecisionsFuncFactory.SPEED_900, "data.research_ndx_speed_900"));
-            map.put(DecisionsFuncFactory.ACC_900, new DecisionsFunc(DecisionsFuncFactory.ACC_900, "data.research_ndx_speed2_900"));
-            map.put(DecisionsFuncFactory.ACC_300, new DecisionsFunc(DecisionsFuncFactory.ACC_300, "data.research_ndx_speed2_300"));
+            map.put(DecisionsFuncFactory.DF_N_5, new DecisionsFunc(DecisionsFuncFactory.DF_N_5, "data.research_ndx_df_n_300_cdf"));
+            map.put(DecisionsFuncFactory.DF_5, new DecisionsFunc(DecisionsFuncFactory.DF_5, "data.research_ndx_df_300_cdf"));
+            map.put(DecisionsFuncFactory.DF_N_15, new DecisionsFunc(DecisionsFuncFactory.DF_N_15, "data.research_ndx_df_n_900_cdf"));
+            map.put(DecisionsFuncFactory.DF_15, new DecisionsFunc(DecisionsFuncFactory.DF_15, "data.research_ndx_df_900_cdf"));
+            map.put(DecisionsFuncFactory.DF_N_60, new DecisionsFunc(DecisionsFuncFactory.DF_N_60, "data.research_ndx_df_n_3600_cdf"));
+            map.put(DecisionsFuncFactory.DF_60, new DecisionsFunc(DecisionsFuncFactory.DF_60, "data.research_ndx_df_3600_cdf"));
+            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_ndx_day_mood_cdf"));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;
     }
-
+    
     @Override
     public void setIndex(double index) {
         super.setIndex(index);
