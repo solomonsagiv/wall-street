@@ -63,6 +63,20 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
 
+        // On changed data
+        on_change_data();
+
+        // Grab decisions
+        if (sleep_count % 20000 == 0) {
+            grab_decisions();
+        }
+
+        // Update count
+        sleep_count += sleep;
+    }
+
+
+    private void on_change_data() {
         // Index
         if (client.getIndex() != index_0) {
             index_0 = client.getIndex();
@@ -140,15 +154,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             fut_delta_0 = fut_delta;
             fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
-
-        // Grab decisions
-        if (sleep_count % 20000 == 0) {
-            grab_decisions();
-        }
-
-        // Update count
-        sleep_count += sleep;
     }
+
 
     @Override
     public void loadData() {
