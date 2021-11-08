@@ -62,7 +62,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // On changed data
-        on_change_data();
+//        on_change_data();
 
         // Grab decisions
         if (sleep_count % 20000 == 0) {
