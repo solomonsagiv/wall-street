@@ -9,6 +9,7 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
+import jibeDataGraber.DecisionsFunc;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import java.sql.ResultSet;
@@ -122,6 +123,15 @@ public abstract class IDataBaseHandler {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        }
+    }
+
+
+    protected void grab_decisions() {
+        for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
+            new Thread(() -> {
+                df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
+            }).start();
         }
     }
 
@@ -329,7 +339,6 @@ public abstract class IDataBaseHandler {
         }
         return 0;
     }
-
 
     protected ArrayList<LocalDateTime> load_uncalced_tick_speed_time(String fut_table_location, String tick_speed_table_location) {
 

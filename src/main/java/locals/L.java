@@ -19,7 +19,6 @@ public class L {
         return formatter.parse(string);
     }
 
-
     public static LocalDateTime toLocalDateTime(String timeStamp) {
         Timestamp ts = Timestamp.valueOf(timeStamp);
         return ts.toLocalDateTime();

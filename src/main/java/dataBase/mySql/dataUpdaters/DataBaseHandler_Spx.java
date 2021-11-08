@@ -4,9 +4,7 @@ import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
-import jibeDataGraber.DecisionsFunc;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -50,7 +48,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         if (this.exps == null) {
             this.exps = client.getExps();
         }
-        
+
         // Update lists retro
         if (sleep_count % 15000 == 0) {
             updateListsRetro();
@@ -183,14 +181,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // Set load
         client.setLoadFromDb(true);
-    }
-
-    private void grab_decisions() {
-        for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
-            new Thread(() -> {
-                df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
-            }).start();
-        }
     }
 
     @Override

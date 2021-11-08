@@ -44,6 +44,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     DecisionsFunc df_n_60_func;
     DecisionsFunc df_60_func;
     DecisionsFunc df_n_day_func;
+    DecisionsFunc df_day_func;
 
     public MachinePanel(BASE_CLIENT_OBJECT client) {
         super();
@@ -58,6 +59,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.df_n_60_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_60);
         this.df_60_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_60);
         this.df_n_day_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY);
+        this.df_day_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY);
     }
 
     private void initsialize() {
@@ -153,6 +155,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_n_60_field.colorForge((int) df_n_60_func.getValue());
         df_60_field.colorForge((int) df_60_func.getValue());
         df_n_day_field.colorForge((int) df_n_day_func.getValue());
+        df_day_field.colorForge((int) df_day_func.getValue());
     }
 
     private void nois(JTextField textField) {

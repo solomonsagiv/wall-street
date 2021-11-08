@@ -4,9 +4,7 @@ import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
-import jibeDataGraber.DecisionsFunc;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -52,6 +50,19 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             updateListsRetro();
         }
 
+        // On data changed
+        on_data_chage();
+
+        // Grab decisions
+        if (sleep_count % 20000 == 0) {
+            grab_decisions();
+        }
+
+        // Update count
+        sleep_count += sleep;
+    }
+
+    private void on_data_chage() {
         // Index
         if (client.getIndex() != index_0) {
             index_0 = client.getIndex();
@@ -116,16 +127,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             fut_delta_0 = fut_delta;
             fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
-
-        // Grab decisions
-        if (sleep_count % 20000 == 0) {
-            grab_decisions();
-        }
-
-
-        // Update count
-        sleep_count += sleep;
     }
+
 
     @Override
     public void loadData() {
@@ -150,14 +153,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // Set load true
         client.setLoadFromDb(true);
-    }
-
-    private void grab_decisions() {
-        for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
-            new Thread(() -> {
-                df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
-            }).start();
-        }
     }
 
     @Override

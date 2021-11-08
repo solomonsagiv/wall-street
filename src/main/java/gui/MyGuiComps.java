@@ -35,7 +35,7 @@ public class MyGuiComps {
             packAndFinish();
             initOnClose();
         }
-
+        
         private void packAndFinish() {
             pack();
             loadBounds();
