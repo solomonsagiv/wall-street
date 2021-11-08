@@ -39,10 +39,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     DecisionsFunc df_n_5_func;
     DecisionsFunc df_5_func;
-    DecisionsFunc df_n_15_func;
-    DecisionsFunc df_15_func;
-    DecisionsFunc df_n_60_func;
-    DecisionsFunc df_60_func;
     DecisionsFunc df_n_day_func;
     DecisionsFunc df_day_func;
 
@@ -54,10 +50,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         this.df_n_5_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5);
         this.df_5_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5);
-        this.df_n_15_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_15);
-        this.df_15_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_15);
-        this.df_n_60_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_60);
-        this.df_60_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_60);
         this.df_n_day_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY);
         this.df_day_func = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY);
     }
@@ -146,14 +138,36 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         body.add(df_day_field);
     }
 
+//    private class dec_panel extends MyGuiComps.MyPanel implements IMyPanel {
+//
+//        private DecisionsFunc df_n_func;
+//        private DecisionsFunc df_func;
+//        private MyGuiComps.MyLabel nameLbl;
+//        private MyGuiComps.MyTextField df_n_field;
+//        private MyGuiComps.MyTextField df_field;
+//
+//        public dec_panel(DecisionsFunc df_n_func, DecisionsFunc df_func) {
+//            this.df_n_func = df_n_func;
+//            this.df_func = df_func;
+//        }
+//
+//        @Override
+//        protected void init() {
+//            super.init();
+//
+//        }
+//
+//        @Override
+//        public void updateText() {
+//
+//        }
+//    }
+
+
     @Override
     public void updateText() {
         df_n_5_field.colorForge((int) df_n_5_func.getValue());
         df_5_field.colorForge((int) df_5_func.getValue());
-        df_n_15_field.colorForge((int) df_n_15_func.getValue());
-        df_15_field.colorForge((int) df_15_func.getValue());
-        df_n_60_field.colorForge((int) df_n_60_func.getValue());
-        df_60_field.colorForge((int) df_60_func.getValue());
         df_n_day_field.colorForge((int) df_n_day_func.getValue());
         df_day_field.colorForge((int) df_day_func.getValue());
     }
