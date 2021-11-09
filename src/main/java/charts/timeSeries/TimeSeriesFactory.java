@@ -7,9 +7,6 @@ import exp.Exp;
 import exp.ExpStrings;
 import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
-import serverObjects.indexObjects.Spx;
-
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
@@ -35,6 +32,9 @@ public class TimeSeriesFactory {
     public static final String ACC_300 = "ACC_300";
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
     public static final String SESSION_4_VERSION_601 = "SESSION_4_VERSION_601";
+    public static final String DF_5 = "DF_5";
+    public static final String DF_N_5 = "DF_N_5";
+
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
 
@@ -99,6 +99,51 @@ public class TimeSeriesFactory {
 
                     }
                 };
+
+                // DF 5
+            case DF_5:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.DF_5).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+
+                    }
+                };
+
+                // DF N 5
+            case DF_N_5:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.DF_N_5).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+
+                    }
+                };
+
             // BID ASK COUNTER AVG 5
             case INDEX_BID_ASK_COUNTER_SERIES_5:
                 return new MyTimeSeries(series_type, client) {

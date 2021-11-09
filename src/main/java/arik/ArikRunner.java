@@ -16,7 +16,7 @@ public class ArikRunner extends Thread {
 
     public static ArikCase statusCase;
     boolean run = true;
-    int[] allowed = {365117561, 948009529, 513323078};
+    int[] allowed = {365117561, 948009529, 513323078, 1009472578};
     int sagiv_id = 365117561;
     Arik arik;
     CasesHandler casesHandler;

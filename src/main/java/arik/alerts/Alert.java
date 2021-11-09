@@ -32,7 +32,7 @@ public class Alert extends MyThread implements Runnable {
         this.arik = Arik.getInstance();
 
         // Add alert
-        alertsHandler.add_alert(this);
+//        alertsHandler.add_alert(this);
     }
 
     @Override

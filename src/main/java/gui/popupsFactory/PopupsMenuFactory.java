@@ -62,6 +62,15 @@ public class PopupsMenuFactory {
                 chart.createChart();
             }
         });
+
+        JMenuItem dec_funcs_3 = new JMenuItem("Dec funcs 3 (Df 5)");
+        dec_funcs_3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DecisionsFuncChart3 chart = new DecisionsFuncChart3(client);
+                chart.createChart();
+            }
+        });
         
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
@@ -92,6 +101,7 @@ public class PopupsMenuFactory {
             }
         });
 
+        charts.add(dec_funcs_3);
         charts.add(delta_index_3600);
         charts.add(fullCharts_2);
         charts.add(fullCharts_3);

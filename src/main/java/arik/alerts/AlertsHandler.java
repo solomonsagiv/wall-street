@@ -1,59 +1,113 @@
 package arik.alerts;
 
-import threads.MyThread;
+import arik.Arik;
+import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
+import serverObjects.BASE_CLIENT_OBJECT;
+import service.MyBaseService;
 import java.util.ArrayList;
+import java.util.Map;
 
-public class AlertsHandler extends MyThread implements Runnable {
+public class AlertsHandler extends MyBaseService {
 
-    private String speed_table_name = "data.research_spx500_501_speed_900";
-    private String acc_table_name = "data.research_spx500_501_speed2_900";
-    private ArrayList<Alert> alerts;
-    private int sleep = 10000;
 
-    public AlertsHandler() {
-        this.alerts = new ArrayList<>();
+    public static void main(String[] args) {
+        Arik.getInstance().sendMessageToEveryOne("Test");
+        Arik.getInstance().close();
     }
 
+    boolean LONG = false;
+    boolean SHORT = false;
+    
+    ArrayList<DecisionsFunc> df_list;
+
+    BASE_CLIENT_OBJECT spx;
+    BASE_CLIENT_OBJECT ndx;
+
+    public AlertsHandler(BASE_CLIENT_OBJECT spx, BASE_CLIENT_OBJECT ndx) {
+        super(spx);
+        this.spx = spx;
+        this.ndx = ndx;
+        this.df_list = new ArrayList<>();
+
+        Map<String, DecisionsFunc> spx_list =  spx.getDecisionsFuncHandler().getMap();
+        Map<String, DecisionsFunc> ndx_list =  ndx.getDecisionsFuncHandler().getMap();
+
+        df_list.add(spx_list.get(DecisionsFuncFactory.DF_5));
+        df_list.add(spx_list.get(DecisionsFuncFactory.DF_N_5));
+        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_5));
+        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_N_5));
+    }
+
+    int target_price = 1000;
+
     @Override
-    public void run() {
-        while (isRun()) {
-            try {
-                // Sleep
-                Thread.sleep(sleep);
+    public void go() {
 
-                // Logic
-                logic();
+        // --------------- LONG --------------- //
+        // Enter long
+        if (!LONG) {
+            boolean b = true;
+            for (DecisionsFunc df : df_list) {
+                if (df.getValue() < target_price) {
+                    b = false;
+                    break;
+                }
+            }
+            LONG = b;
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (LONG) {
+                Arik.getInstance().sendMessageToEveryOne("LONG \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
+            }
+        }
+
+        // Exit long
+        if (LONG) {
+            for (DecisionsFunc df : df_list) {
+                if (df.getValue() < target_price) {
+                    LONG = false;
+                    Arik.getInstance().sendMessageToEveryOne("EXIT LONG \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
+                    break;
+                }
+            }
+        }
+
+        // --------------- SHORT --------------- //
+        // Enter short
+        if (!SHORT) {
+            boolean b = true;
+            for (DecisionsFunc df : df_list) {
+                if (df.getValue() > target_price * -1) {
+                    b = false;
+                    break;
+                }
+            }
+            SHORT = b;
+
+            if (SHORT) {
+                Arik.getInstance().sendMessageToEveryOne("SHORT \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
+            }
+        }
+
+        // Exit short
+        if (SHORT) {
+            for (DecisionsFunc df : df_list) {
+                if (df.getValue() > target_price * -1) {
+                    SHORT = false;
+                    Arik.getInstance().sendMessageToEveryOne("EXIT SHORT \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
+                    break;
+                }
             }
         }
     }
 
-    private void logic() {
-
-
-
+    @Override
+    public String getName() {
+        return "Alert service";
     }
 
     @Override
-    public void initRunnable() {
-        setRunnable(this);
+    public int getSleep() {
+        return 10000;
     }
-
-//    public Alert create_alert() {
-//        Alert alert = new Alert();
-//        alerts.add(alert);
-//        return alert;
-//    }
-
-    public void add_alert(Alert alert) {
-        alerts.add(alert);
-    }
-
-    public void kill_alert(Alert alert) {
-        alert.getHandler().close();
-    }
-
-
 }

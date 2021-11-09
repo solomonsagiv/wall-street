@@ -63,15 +63,12 @@ public class MyServiceHandler extends MyThread implements Runnable {
     }
 
     public boolean isExist(MyBaseService newService) {
-        boolean exist = false;
-
         for (MyBaseService service : servies) {
-            if (service.equals(newService)) {
-                exist = true;
-                break;
+            if (service.getName().equals(newService.getName())) {
+                return true;
             }
         }
-        return exist;
+        return false;
     }
 
     public void removeService(MyBaseService service) {

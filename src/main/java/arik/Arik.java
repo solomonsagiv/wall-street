@@ -13,7 +13,8 @@ public class Arik {
     public static int sagivID = 365117561;
     public static int yosiID = 948009529;
     public static int royID = 513323078;
-    public static int ronenID = 948009529;
+    public static int ronenID = 1556201214;
+    public static int motiID = 1009472578;
     private static Arik arik;
     private ArikRunner arikRunner;
     private boolean running = false;
@@ -21,7 +22,7 @@ public class Arik {
 
     private int updateId = 0;
 
-    private int[] accounts = {sagivID, yosiID, ronenID, royID};
+    private int[] accounts = {sagivID, yosiID, ronenID, royID, motiID};
     private int[] accountsForPositions = {nivosID};
 
     private Arik() {
