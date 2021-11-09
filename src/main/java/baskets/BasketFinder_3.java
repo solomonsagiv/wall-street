@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class BasketFinder_3 extends MyBaseService {
 
     // Variables
-    private BASE_CLIENT_OBJECT client;
     private int changesCount = 0;
     StocksHandler stocksHandler;
     private int targetChanges = 0;
@@ -26,7 +25,6 @@ public class BasketFinder_3 extends MyBaseService {
 
     public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int big_frame_time_in_secondes) {
         super(client);
-        this.client = client;
         this.targetChanges = targetChanges;
         this.big_frame_time_in_secondes = big_frame_time_in_secondes;
         this.stocksHandler = client.getStocksHandler();
