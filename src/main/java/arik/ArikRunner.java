@@ -1,8 +1,6 @@
 package arik;
 
-import arik.cases.ChooseAlertCase;
-import arik.cases.DontKnowCaes;
-import arik.cases.SpeedCase;
+import arik.cases.*;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
@@ -14,7 +12,6 @@ import java.util.concurrent.Executors;
 
 public class ArikRunner extends Thread {
 
-    public static ArikCase statusCase;
     boolean run = true;
     int[] allowed = {365117561, 948009529, 513323078, 1009472578};
     int sagiv_id = 365117561;
@@ -26,10 +23,10 @@ public class ArikRunner extends Thread {
     public ArikRunner(Arik arik) {
         this.arik = arik;
         casesHandler = new CasesHandler();
-        casesHandler.addCase(new ChooseAlertCase("/Alerts"));
-        casesHandler.addCase(new SpeedCase("/Speed+-5000"));
-//        casesHandler.addCase(new AccCase("/Acc+-0"));
-//        casesHandler.addCase(new );
+        casesHandler.addCase(new Main_Case("main"));
+        casesHandler.addCase(new Spx_Case("spx"));
+        casesHandler.addCase(new Ndx_Case("ndx"));
+        casesHandler.addCase(new Df_Case("df"));
     }
 
     // Run
@@ -70,33 +67,39 @@ public class ArikRunner extends Thread {
         List<Update> updates = updatesResponse.updates();
         if (updates.size() > 0) {
             for (Update update : updates) {
-                if (update.message().date() > date) {
-                    this.date = update.message().date();
-                    // Validate user
-                    if (is_allowed(allowed, update.message().from().id())) {
-                        try {
+                try {
+                    if (update.message() != null) {
+                        if (update.message().date() > date) {
+                            this.date = update.message().date();
+                            // Validate user
+                            if (is_allowed(allowed, update.message().from().id())) {
+                                try {
 
-                            // Get text from user
-                            String user_text = update.message().text();
-                            System.out.println(user_text);
+                                    // Get text from user
+                                    String user_text = update.message().text();
+                                    System.out.println(user_text);
 
-                            // Run cases
-                            runCases(update);
+                                    // Run cases
+                                    runCases(update);
 
-                        } catch (Exception e) {
-                            arik.sendMessage(update, e.getMessage(), null);
+                                } catch (Exception e) {
+                                    arik.sendMessage(update, e.getMessage(), null);
+                                }
+                            } else {
+                                arik.sendMessage(update, "Fuck you", null);
+
+                                // Notice me
+                                arik.sendMessage(
+                                        "Someone try to talk with me " + "\n He said: " + update.message().text()
+                                                + "\n His name is: " + update.message().from().firstName() + "\n" + "id: "
+                                                + update.message().from().id()
+                                );
+                                break;
+                            }
                         }
-                    } else {
-                        arik.sendMessage(update, "Fuck you", null);
-
-                        // Notice me
-                        arik.sendMessage(
-                                "Someone try to talk with me " + "\n He said: " + update.message().text()
-                                        + "\n His name is: " + update.message().from().firstName() + "\n" + "id: "
-                                        + update.message().from().id()
-                        );
-                        break;
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -108,11 +111,6 @@ public class ArikRunner extends Thread {
 
         for (ArikCase arikCase : casesHandler.getCases()) {
 
-//            if (statusCase == arikCase) {
-//                arikCase.doCase(update);
-//                return;
-//            }
-
             // Get the clean text
             String text = update.message().text().toLowerCase();
 
@@ -121,7 +119,6 @@ public class ArikRunner extends Thread {
                     @Override
                     public void run() {
                         arikCase.doCase(update);
-//                        statusCase = arikCase;
                     }
                 });
                 return;

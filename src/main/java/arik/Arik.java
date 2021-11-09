@@ -1,5 +1,6 @@
 package arik;
 
+import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
@@ -45,6 +46,9 @@ public class Arik {
         if (!running) {
             arikRunner = new ArikRunner(this);
             arikRunner.start();
+
+            ArikGrabData arikGrabData = new ArikGrabData();
+            arikGrabData.getHandler().start();
             running = true;
         }
     }

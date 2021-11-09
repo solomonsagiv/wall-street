@@ -9,9 +9,9 @@ public class KeyBoards {
      */
     // Main
     public static Keyboard main() {
-        Keyboard keyboard = new ReplyKeyboardMarkup(new KeyboardButton[]{new KeyboardButton("Dax"),
-                new KeyboardButton("Ndx"), new KeyboardButton("Spx")},
-                new KeyboardButton[]{new KeyboardButton("Dax")});
+        Keyboard keyboard = new ReplyKeyboardMarkup(new KeyboardButton[]{new KeyboardButton(ArikTextFactory.SPX),
+                new KeyboardButton(ArikTextFactory.NDX)},
+                new KeyboardButton[]{new KeyboardButton(ArikTextFactory.ALL_DF)});
         return keyboard;
     }
 

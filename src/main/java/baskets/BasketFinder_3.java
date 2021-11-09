@@ -22,7 +22,7 @@ public class BasketFinder_3 extends MyBaseService {
     private double biggest_change = 0;
     private int sleep_between_frames = 1000;
     private int big_frame_time_in_secondes;
-
+    
     public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int big_frame_time_in_secondes) {
         super(client);
         this.targetChanges = targetChanges;

@@ -141,6 +141,15 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet op_avg_query(String index_table, String fut_table) {
+            String query = String.format("select avg(f.value - i.value) as value " +
+                    "from %s i " +
+                    "inner join %s f " +
+                    "on i.time = f.time " +
+                    "where i.time::date = now()::date;", index_table, fut_table);
+            return MySql.select(query);
+        }
+
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table) {
             String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
                     "from %s i " +

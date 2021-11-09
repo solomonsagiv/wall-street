@@ -5,16 +5,17 @@ import arik.ArikCase;
 import arik.locals.KeyBoards;
 import com.pengrad.telegrambot.model.Update;
 
-public class DontKnowCaes extends ArikCase {
+public class Df_Case extends ArikCase {
 
-    public DontKnowCaes(String name) {
+    public Df_Case(String name) {
         super(name);
         setKeyboard(KeyBoards.main());
     }
 
     @Override
     public boolean doCase(Update update) {
-        Arik.getInstance().sendMessage(update, "Don't know what to do", getKeyboard());
+        String return_text = "DF price ndx , spx ";
+        Arik.getInstance().sendMessage(update, return_text, getKeyboard());
         return true;
     }
 }
