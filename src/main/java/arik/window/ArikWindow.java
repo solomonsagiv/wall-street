@@ -35,4 +35,10 @@ public class ArikWindow extends MyGuiComps.MyFrame {
         arikMainPanel.setHeight(500);
         add(arikMainPanel);
     }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+        System.exit(0);
+    }
 }

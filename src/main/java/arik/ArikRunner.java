@@ -18,7 +18,7 @@ public class ArikRunner extends Thread {
     Arik arik;
     CasesHandler casesHandler;
     long date = 0;
-
+    
     // Constructor
     public ArikRunner(Arik arik) {
         this.arik = arik;

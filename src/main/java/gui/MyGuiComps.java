@@ -117,7 +117,6 @@ public class MyGuiComps {
         public abstract void initialize();
     }
 
-
     // ---------- JPanel ---------- //
     public static class MyPanel extends JPanel {
 
@@ -143,9 +142,7 @@ public class MyGuiComps {
         public void setHeight(int height) {
             setBounds(getX(), getY(), getWidth(), height);
         }
-
     }
-
 
     // ---------- JTextField ---------- //
     public static class MyTextField extends JTextField {

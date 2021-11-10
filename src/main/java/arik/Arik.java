@@ -50,6 +50,8 @@ public class Arik {
             ArikGrabData arikGrabData = new ArikGrabData();
             arikGrabData.getHandler().start();
             running = true;
+
+            System.out.println("Running");
         }
     }
 

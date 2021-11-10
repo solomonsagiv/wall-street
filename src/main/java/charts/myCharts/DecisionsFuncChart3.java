@@ -43,18 +43,18 @@ public class DecisionsFuncChart3 extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
         props.setProp(ChartPropsEnum.MARKER, 0);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-        props.setProp(ChartPropsEnum.RETRO_MINS, 30);
+        props.setProp(ChartPropsEnum.RETRO_MINS, 15);
 
         // ----------------------------------------- Chart 1 ------------------------------------------- //
         // Df 5
         MyTimeSeries df_5_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_5, client, null);
-        df_5_serie.setColor(Themes.BINANCE_GREEN);
+        df_5_serie.setColor(Themes.GREEN);
         df_5_serie.setStokeSize(2.25f);
         myTimeSeries.add(df_5_serie);
 
         // Df n 5
         MyTimeSeries df_n_5_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_5, client, null);
-        df_n_5_serie.setColor(Themes.PURPLE);
+        df_n_5_serie.setColor(Themes.BLUE_2);
         df_n_5_serie.setStokeSize(2.25f);
         myTimeSeries.add(df_n_5_serie);
 

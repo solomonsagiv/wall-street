@@ -21,6 +21,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel body;
     BasketFinder_3 basketFinder;
 
+    Dec_panel df_panel_1;
+    Dec_panel df_panel_2;
+
     int width = 150;
     int height = 300;
 
@@ -36,9 +39,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY));
-
         initsialize();
-
     }
 
     private void initsialize() {
@@ -61,14 +62,14 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(body);
 
         // DF panels
-        Dec_panel df_panel_1 = new Dec_panel("5", df_list.get(0), df_list.get(1));
+        df_panel_1 = new Dec_panel("5", df_list.get(0), df_list.get(1));
         df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(150);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
         // DF panels
-        Dec_panel df_panel_2 = new Dec_panel("Day", df_list.get(2), df_list.get(3));
+        df_panel_2 = new Dec_panel("Day", df_list.get(2), df_list.get(3));
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(150);
         df_panel_2.setHeight(25);
@@ -126,6 +127,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        df_panel_1.updateText();
+        df_panel_2.updateText();
     }
 
     private void nois(JTextField textField) {

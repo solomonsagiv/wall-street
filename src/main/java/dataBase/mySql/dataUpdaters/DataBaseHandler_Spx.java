@@ -73,7 +73,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         sleep_count += sleep;
     }
 
-
     private void on_change_data() {
         // Index
         if (client.getIndex() != index_0) {

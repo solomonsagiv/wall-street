@@ -126,7 +126,6 @@ public abstract class IDataBaseHandler {
         }
     }
 
-
     protected void grab_decisions() {
         for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
             new Thread(() -> {
@@ -134,7 +133,6 @@ public abstract class IDataBaseHandler {
             }).start();
         }
     }
-
 
     public void load_index_delta(ResultSet rs) {
         while (true) {

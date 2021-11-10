@@ -14,9 +14,11 @@ public class DecisionsFunc {
     public double getValue() {
         return value;
     };
-
+    
     public void setValue(double value) {
-        this.value = value;
+        if (value != 0) {
+            this.value = value;
+        }
     };
 
     public String getName() {

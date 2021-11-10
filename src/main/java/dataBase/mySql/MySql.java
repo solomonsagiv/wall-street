@@ -165,6 +165,14 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_last_x_time_of_series_cumulative(String table_name, int minuts) {
+            String q = "select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value " +
+                    "from %s " +
+                    "where time::date = now()::date and time > now() - interval '%s min';";
+            String query = String.format(q, table_name, minuts, Filters.ORDER_BY_TIME);
+            return MySql.select(query);
+        }
+
         public static ResultSet get_last_x_time_from_dec_func_cumulative(String table_location, int min, int session_id, int version) {
             String q = "select time, sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value " +
                     "from %s " +

@@ -13,6 +13,7 @@ public class ArikGrabData extends MyThread implements Runnable {
     Spx spx;
     Ndx ndx;
 
+
     @Override
     public void run() {
         go();
@@ -44,6 +45,7 @@ public class ArikGrabData extends MyThread implements Runnable {
     }
 
     private void grab_data() {
+        spx = Spx.getInstance();
         // ---------------------------------- Spx ---------------------------------- //
         double spx_index = IDataBaseHandler.handle_rs(MySql.Queries.get_last_record("data.spx500_index"));
         double spx_df_5 = IDataBaseHandler.handle_rs(MySql.Queries.get_sum("data.research_spx500_df_300_cdf"));
@@ -57,6 +59,8 @@ public class ArikGrabData extends MyThread implements Runnable {
         spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).setValue(spx_df_day);
         spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).setValue(spx_df_n_day);
 
+
+        ndx = Ndx.getInstance();
         // ---------------------------------- Ndx ---------------------------------- //
         double ndx_index = IDataBaseHandler.handle_rs(MySql.Queries.get_last_record("data.ndx_index"));
         double ndx_df_5 = IDataBaseHandler.handle_rs(MySql.Queries.get_sum("data.research_ndx_df_300_cdf"));
