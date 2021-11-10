@@ -52,6 +52,11 @@ public class L {
         return df;
     }
 
+    public static String format_int(double val) {
+        DecimalFormat df = new DecimalFormat("#,##0;-#,##0");
+        df.setNegativePrefix("-");
+        return df.format(val);
+    }
 
     public static double present(double val, double base) {
         if (base != 0) {

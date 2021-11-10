@@ -138,10 +138,10 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     public void updateText() {
         try {
             // Raw
-            openField.setText(L.str(client.getOpen()));
-            lastField.setText(L.str(client.getIndex()));
-            lowField.setText(L.str(client.getLow()));
-            highField.setText(L.str(client.getHigh()));
+            openField.setText(L.format_int(client.getOpen()));
+            lastField.setText(L.format_int(client.getIndex()));
+            lowField.setText(L.format_int(client.getLow()));
+            highField.setText(L.format_int(client.getHigh()));
 
             // Present
             openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");

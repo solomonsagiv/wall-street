@@ -5,6 +5,7 @@ import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
+import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.*;
@@ -24,7 +25,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Dec_panel df_panel_1;
     Dec_panel df_panel_2;
 
-    int width = 150;
+    int width = 160;
     int height = 300;
 
     private ArrayList<DecisionsFunc> df_list;
@@ -53,6 +54,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         headerLbl = new MyGuiComps.MyLabel("Machine", true);
         headerLbl.setHorizontalAlignment(JLabel.CENTER);
+        headerLbl.setWidth(width);
         header.add(headerLbl);
 
         // Body
@@ -64,14 +66,14 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         // DF panels
         df_panel_1 = new Dec_panel("5", df_list.get(0), df_list.get(1));
         df_panel_1.setXY(3, 3);
-        df_panel_1.setWidth(150);
+        df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
         // DF panels
         df_panel_2 = new Dec_panel("Day", df_list.get(2), df_list.get(3));
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
-        df_panel_2.setWidth(150);
+        df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
         body.add(df_panel_2);
 
@@ -108,20 +110,20 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
             // Df N
             df_n_field = new MyGuiComps.MyTextField();
             df_n_field.setXY(nameLbl.getX() + nameLbl.getWidth() + 1, nameLbl.getY());
-            df_n_field.setWidth(50);
+            df_n_field.setWidth(60);
             add(df_n_field);
 
             // Df
             df_field = new MyGuiComps.MyTextField();
             df_field.setXY(df_n_field.getX() + df_n_field.getWidth() + 1, df_n_field.getY());
-            df_field.setWidth(50);
+            df_field.setWidth(60);
             add(df_field);
         }
 
         @Override
         public void updateText() {
-            df_n_field.colorForge((int) df_n_func.getValue());
-            df_field.colorForge((int) df_func.getValue());
+            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
+            df_field.colorForge((int) df_func.getValue(), L.format_int());
         }
     }
 
