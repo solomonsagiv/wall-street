@@ -13,7 +13,6 @@ public class ArikGrabData extends MyThread implements Runnable {
     Spx spx;
     Ndx ndx;
 
-
     @Override
     public void run() {
         go();
