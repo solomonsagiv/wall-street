@@ -39,8 +39,11 @@ public class ArikGrabData extends MyThread implements Runnable {
     }
 
     private void set_text() {
-
-        ArikMainPanel.textArea.setText(spx.toStringPretty());
+        try {
+            ArikMainPanel.textArea.setText(spx.toStringPretty());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void grab_data() {

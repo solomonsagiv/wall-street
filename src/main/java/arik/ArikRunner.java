@@ -11,9 +11,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ArikRunner extends Thread {
-
+    
     boolean run = true;
-    int[] allowed = {365117561, 948009529, 513323078, 1009472578};
+    int[] allowed = {365117561, 948009529, 513323078, 1009472578, 1424668560};
     int sagiv_id = 365117561;
     Arik arik;
     CasesHandler casesHandler;
