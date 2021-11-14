@@ -11,9 +11,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ArikRunner extends Thread {
-    
+
     boolean run = true;
-    int[] allowed = {365117561, 948009529, 513323078, 1009472578, 1424668560};
     int sagiv_id = 365117561;
     Arik arik;
     CasesHandler casesHandler;
@@ -72,7 +71,7 @@ public class ArikRunner extends Thread {
                         if (update.message().date() > date) {
                             this.date = update.message().date();
                             // Validate user
-                            if (is_allowed(allowed, update.message().from().id())) {
+                            if (is_allowed(Arik.accounts, update.message().from().id())) {
                                 try {
 
                                     // Get text from user

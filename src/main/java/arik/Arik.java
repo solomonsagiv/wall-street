@@ -24,11 +24,11 @@ public class Arik {
 
     private int updateId = 0;
 
-    private int[] accounts = {sagivID, yosiID, ronenID, royID, motiID, kobiID};
+    public static int[] accounts = {sagivID, yosiID, ronenID, royID, motiID, kobiID};
     private int[] accountsForPositions = {nivosID};
 
     private Arik() {
-        bot = TelegramBotAdapter.build("400524449:AAE4dPbl22dfI9lB1r17W4ivqz2lc4C1xUY");
+        bot = TelegramBotAdapter.build("400524449:AAHFddGoUjTo2fwAyDc-ocX927fb49Oahn0");
     }
 
     public static void main(String[] args) {
