@@ -8,7 +8,7 @@ import service.MyBaseService;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class AlertsHandler extends MyBaseService {
+public class ArikPositionsAlert extends MyBaseService {
 
 
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class AlertsHandler extends MyBaseService {
     BASE_CLIENT_OBJECT spx;
     BASE_CLIENT_OBJECT ndx;
 
-    public AlertsHandler(BASE_CLIENT_OBJECT spx, BASE_CLIENT_OBJECT ndx) {
+    public ArikPositionsAlert(BASE_CLIENT_OBJECT spx, BASE_CLIENT_OBJECT ndx) {
         super(spx);
         this.spx = spx;
         this.ndx = ndx;
@@ -39,7 +39,8 @@ public class AlertsHandler extends MyBaseService {
         df_list.add(ndx_list.get(DecisionsFuncFactory.DF_N_5));
     }
 
-    int target_price = 1000;
+    int target_enter_price = 1000;
+    int target_exit_price = 0;
 
     @Override
     public void go() {
@@ -49,7 +50,7 @@ public class AlertsHandler extends MyBaseService {
         if (!LONG) {
             boolean b = true;
             for (DecisionsFunc df : df_list) {
-                if (df.getValue() < target_price) {
+                if (df.getValue() < target_enter_price) {
                     b = false;
                     break;
                 }
@@ -64,7 +65,7 @@ public class AlertsHandler extends MyBaseService {
         // Exit long
         if (LONG) {
             for (DecisionsFunc df : df_list) {
-                if (df.getValue() < target_price) {
+                if (df.getValue() < target_exit_price) {
                     LONG = false;
                     Arik.getInstance().sendMessageToEveryOne("EXIT LONG \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
                     break;
@@ -77,7 +78,7 @@ public class AlertsHandler extends MyBaseService {
         if (!SHORT) {
             boolean b = true;
             for (DecisionsFunc df : df_list) {
-                if (df.getValue() > target_price * -1) {
+                if (df.getValue() > target_enter_price * -1) {
                     b = false;
                     break;
                 }
@@ -92,7 +93,7 @@ public class AlertsHandler extends MyBaseService {
         // Exit short
         if (SHORT) {
             for (DecisionsFunc df : df_list) {
-                if (df.getValue() > target_price * -1) {
+                if (df.getValue() > target_exit_price * -1) {
                     SHORT = false;
                     Arik.getInstance().sendMessageToEveryOne("EXIT SHORT \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
                     break;

@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,6 +27,7 @@ public class ArikRunner extends Thread {
         casesHandler.addCase(new Spx_Case("spx"));
         casesHandler.addCase(new Ndx_Case("ndx"));
         casesHandler.addCase(new Df_Case("df"));
+        casesHandler.addCase(new TA35_Case("ta35"));
     }
 
     // Run
@@ -127,7 +129,7 @@ public class ArikRunner extends Thread {
     }
 
     // Is allowed
-    public boolean is_allowed(int[] allowed, int id) {
+    public boolean is_allowed(ArrayList<Integer> allowed, int id) {
         for (int i : allowed) {
             if (id == i) {
                 return true;

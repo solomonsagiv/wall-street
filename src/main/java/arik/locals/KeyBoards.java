@@ -10,7 +10,7 @@ public class KeyBoards {
     // Main
     public static Keyboard main() {
         Keyboard keyboard = new ReplyKeyboardMarkup(new KeyboardButton[]{new KeyboardButton(ArikTextFactory.SPX),
-                new KeyboardButton(ArikTextFactory.NDX)},
+                new KeyboardButton(ArikTextFactory.NDX), new KeyboardButton(ArikTextFactory.TA35)},
                 new KeyboardButton[]{new KeyboardButton(ArikTextFactory.ALL_DF)});
         return keyboard;
     }

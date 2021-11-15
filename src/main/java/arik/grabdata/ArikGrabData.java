@@ -13,6 +13,12 @@ public class ArikGrabData extends MyThread implements Runnable {
     Spx spx;
     Ndx ndx;
 
+    public static double ta35_index = 0;
+    public static int ta35_v5 = 0;
+    public static int ta35_v6 = 0;
+
+    String ta35_dec_table = "data.ta35_decision_func";
+
     @Override
     public void run() {
         go();
@@ -40,15 +46,18 @@ public class ArikGrabData extends MyThread implements Runnable {
 
     private void set_text() {
         try {
-            ArikMainPanel.textArea.setText(spx.toStringPretty());
+            if (ArikMainPanel.textArea != null) {
+                ArikMainPanel.textArea.setText(spx.toStringPretty());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void grab_data() {
-        spx = Spx.getInstance();
+
         // ---------------------------------- Spx ---------------------------------- //
+        spx = Spx.getInstance();
         double spx_index = IDataBaseHandler.handle_rs(MySql.Queries.get_last_record("data.spx500_index"));
         double spx_df_5 = IDataBaseHandler.handle_rs(MySql.Queries.get_sum("data.research_spx500_df_300_cdf"));
         double spx_df_n_5 = IDataBaseHandler.handle_rs(MySql.Queries.get_sum("data.research_spx500_df_n_300_cdf"));
@@ -61,9 +70,8 @@ public class ArikGrabData extends MyThread implements Runnable {
         spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).setValue(spx_df_day);
         spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).setValue(spx_df_n_day);
 
-
-        ndx = Ndx.getInstance();
         // ---------------------------------- Ndx ---------------------------------- //
+        ndx = Ndx.getInstance();
         double ndx_index = IDataBaseHandler.handle_rs(MySql.Queries.get_last_record("data.ndx_index"));
         double ndx_df_5 = IDataBaseHandler.handle_rs(MySql.Queries.get_sum("data.research_ndx_df_300_cdf"));
         double ndx_df_n_5 = IDataBaseHandler.handle_rs(MySql.Queries.get_sum("data.research_ndx_df_n_300_cdf"));
@@ -75,6 +83,11 @@ public class ArikGrabData extends MyThread implements Runnable {
         ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).setValue(ndx_df_n_5);
         ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).setValue(ndx_df_day);
         ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).setValue(ndx_df_n_day);
+
+        // ---------------------------------- TA35 ---------------------------------- //
+        ta35_index = MySql.Queries.handle_rs(MySql.Queries.get_last_record("sagiv.ta35_index"));
+        ta35_v5 = (int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_from_decision_func(ta35_dec_table, 2, 5));
+        ta35_v6 = (int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_from_decision_func(ta35_dec_table, 2, 6));
     }
 
     @Override

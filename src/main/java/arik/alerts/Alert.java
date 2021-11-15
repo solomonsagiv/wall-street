@@ -18,14 +18,14 @@ public class Alert extends MyThread implements Runnable {
     private int sleep = 10000;
     private String table_location;
     private double value = Integer.MIN_VALUE;
-    AlertsHandler alertsHandler;
+    ArikPositionsAlert arikPositionsAlert;
     private boolean got_direction = false;
     private boolean target_hit = false;
     Arik arik;
 
     // Constructor
-    public Alert(AlertsHandler alertsHandler, int id, double target, String table_location) {
-        this.alertsHandler = alertsHandler;
+    public Alert(ArikPositionsAlert arikPositionsAlert, int id, double target, String table_location) {
+        this.arikPositionsAlert = arikPositionsAlert;
         this.id = id;
         this.target = target;
         this.table_location = table_location;

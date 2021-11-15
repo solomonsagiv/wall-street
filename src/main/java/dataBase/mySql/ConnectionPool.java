@@ -11,16 +11,23 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
+
+    public static void main(String[] args) {
+        ConnectionPool connectionPool = ConnectionPool.getConnectionsPoolInstance();
+    }
+
     private static final int MAX_POOL_SIZE = 50;
 
     // Instance
     private static ConnectionPool connectionPool;
-    private static int INITIAL_POOL_SIZE = Manifest.POOL_SIZE;
     private String url;
     private String user;
     private String password;
     private List<Connection> connections;
     private List<Connection> usedConnections = new ArrayList<>();
+
+
+    static boolean connected = false;
 
     // Constructor
     private ConnectionPool(String url, String user, String password, List<Connection> connections) {
@@ -30,12 +37,12 @@ public class ConnectionPool implements IConnectionPool {
         this.connections = connections;
     }
 
-    public static ConnectionPool getConnectionsPoolInstance() {
+    public static ConnectionPool getConnectionsPoolInstance(int connection_count) {
         if (connectionPool == null) {
             try {
                 MyDBConnections dbConnections = new MyDBConnections();
                 DBConnectionType connectionType = dbConnections.getConnectionType(Manifest.DB_CONNECTION_TYPE);
-                connectionPool = ConnectionPool.create(connectionType);
+                connectionPool = ConnectionPool.create(connectionType, connection_count);
             } catch (Exception e) {
                 Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
             }
@@ -43,17 +50,28 @@ public class ConnectionPool implements IConnectionPool {
         return connectionPool;
     }
 
-    public static ConnectionPool create(DBConnectionType dbConnectionType) throws SQLException {
+    public static ConnectionPool getConnectionsPoolInstance() {
+        if (connectionPool == null) {
+            try {
+                MyDBConnections dbConnections = new MyDBConnections();
+                DBConnectionType connectionType = dbConnections.getConnectionType(Manifest.DB_CONNECTION_TYPE);
+                connectionPool = ConnectionPool.create(connectionType, Manifest.POOL_SIZE);
+            } catch (Exception e) {
+                Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
+            }
+        }
+        return connectionPool;
+    }
+
+
+    public static ConnectionPool create(DBConnectionType dbConnectionType, int connection_count) throws SQLException {
         List<Connection> pool = new ArrayList<>();
         try {
-            for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+            for (int i = 0; i < connection_count; i++) {
                 new Thread(() -> {
                     try {
-                        System.out.println(dbConnectionType.getUrl());
-                        System.out.println(dbConnectionType.getUser());
-                        System.out.println(dbConnectionType.getPassword());
+                        System.out.println("Connection");
                         pool.add(createConnection(dbConnectionType.getUrl(), dbConnectionType.getUser(), dbConnectionType.getPassword()));
-
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

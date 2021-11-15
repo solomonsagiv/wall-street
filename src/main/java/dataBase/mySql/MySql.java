@@ -3,6 +3,7 @@ package dataBase.mySql;
 import arik.Arik;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -241,6 +242,15 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_last_record_from_decision_func(String table_location, int session, int version) {
+            String q = "select sum(delta) as value " +
+                    "from %s " +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and session_id = %s and version = %s;";
+
+            String query = String.format(q, table_location, session, version);
+            return MySql.select(query);
+        }
+
         public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, String exp_name) {
             String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, item)" +
                     " VALUES ('%s', %s, %s, %s, %s, %s, %s, '%s')";
@@ -251,7 +261,23 @@ public class MySql {
             System.out.println(query);
             MySql.insert(query);
         }
+
+
+        public static double handle_rs(ResultSet rs) {
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+                    return rs.getDouble("value");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            return 0;
+        }
     }
+
+
+
 
 
     public static class Filters {

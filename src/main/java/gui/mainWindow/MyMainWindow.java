@@ -1,5 +1,6 @@
 package gui.mainWindow;
 
+import arik.Arik;
 import backGround.BackGroundHandler;
 import dataBase.mySql.ConnectionPool;
 import gui.MyGuiComps;
@@ -7,9 +8,9 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
@@ -17,7 +18,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Spx spx;
     static Ndx ndx;
 //    static Dax dax;
-
+    
     static {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
@@ -87,6 +88,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void loadOnStartUp() {
         // Connect to db
         ConnectionPool.getConnectionsPoolInstance();
+
         // Start back runners
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
@@ -100,5 +102,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 BackGroundHandler.getInstance().createNewRunner(client);
             }).start();
         }
+
+        Arik.load_from_db();
     }
 }

@@ -1,13 +1,16 @@
 package arik.window;
 
+import dataBase.mySql.ConnectionPool;
 import gui.MyGuiComps;
 
 import java.awt.*;
+import java.sql.SQLException;
 
 public class ArikWindow extends MyGuiComps.MyFrame {
 
-    public static void main(String[] args) {
-        ArikWindow arikWindow = new ArikWindow("Arik window");
+    public static void main(String[] args) throws SQLException {
+        new ArikWindow("Arik window");
+         ConnectionPool.getConnectionsPoolInstance(5);
     }
 
     ArikMainPanel arikMainPanel;

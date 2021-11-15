@@ -7,16 +7,15 @@ import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
+import dataBase.mySql.MySql;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Arik {
 
-    public static final int nivosID = 540675119;
     public static int sagivID = 365117561;
-    public static int yosiID = 948009529;
-    public static int royID = 513323078;
-    public static int ronenID = 1556201214;
-    public static int motiID = 1009472578;
-    public static int kobiID = 1424668560;
     private static Arik arik;
     private ArikRunner arikRunner;
     private boolean running = false;
@@ -24,8 +23,7 @@ public class Arik {
 
     private int updateId = 0;
 
-    public static int[] accounts = {sagivID, yosiID, ronenID, royID, motiID, kobiID};
-    private int[] accountsForPositions = {nivosID};
+    public static ArrayList<Integer> accounts = new ArrayList<>();
 
     private Arik() {
         bot = TelegramBotAdapter.build("400524449:AAHFddGoUjTo2fwAyDc-ocX927fb49Oahn0");
@@ -45,6 +43,9 @@ public class Arik {
 
     public void start() {
         if (!running) {
+
+            load_from_db();
+
             arikRunner = new ArikRunner(this);
             arikRunner.start();
 
@@ -54,6 +55,20 @@ public class Arik {
 
             System.out.println("Running");
         }
+    }
+
+    public static void load_from_db() {
+       ResultSet rs =  MySql.select("select * from sagiv.arik_accounts;");
+       while (true){
+           try {
+               if (!rs.next()) break;
+               int id = rs.getInt("id");
+               accounts.add(id);
+               System.out.println(id);
+           } catch (SQLException throwables) {
+               throwables.printStackTrace();
+           }
+       }
     }
 
     public void close() {
@@ -120,7 +135,6 @@ public class Arik {
     }
 
     // ----------- Getters and Setters ---------- //
-
     public int getUpdateId() {
         return updateId;
     }

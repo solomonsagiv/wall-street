@@ -9,4 +9,5 @@ public class ArikTextFactory {
     public static final String INDEX = "INDEX";
     public static final String OP_AVG = "OP AVG";
     public static final String ALL_DF = "DF";
+    public static final String TA35 = "TA35";
 }
