@@ -28,8 +28,8 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 10, 15);
-        LocalDate end_date = LocalDate.of(2021, 10, 16);
+        LocalDate date = LocalDate.of(2021, 10, 16);
+        LocalDate end_date = LocalDate.of(2021, 11, 16);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
@@ -41,7 +41,7 @@ public class MainTickTimeMargin {
             date = date.plusDays(1);
         }
     }
-
+    
     // Single day runner
     public void run_single_day(LocalDate date) {
         spx500(date);
@@ -76,7 +76,6 @@ public class MainTickTimeMargin {
         SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15","data.ndx_index", "data.ndx_fut_day", 15, date);
         SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60","data.ndx_index", "data.ndx_fut_day", 60, date);
     }
-
 
     private void spx_avg_delta_index(LocalDate date) {
 
