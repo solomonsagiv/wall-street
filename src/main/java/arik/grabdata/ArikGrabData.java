@@ -86,8 +86,11 @@ public class ArikGrabData extends MyThread implements Runnable {
 
         // ---------------------------------- TA35 ---------------------------------- //
         ta35_index = MySql.Queries.handle_rs(MySql.Queries.get_last_record("sagiv.ta35_index"));
-        ta35_v5 = (int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_from_decision_func(ta35_dec_table, 2, 5));
-        ta35_v6 = (int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_from_decision_func(ta35_dec_table, 2, 6));
+
+        int v5 = (int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_from_decision_func(ta35_dec_table, 2, 5));
+        int v6 = (int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_from_decision_func(ta35_dec_table, 2, 6));
+        ta35_v5 = v5 != 0 ? v5 : ta35_v5;
+        ta35_v6 = v6 != 0 ? v6 : ta35_v6;
     }
 
     @Override
