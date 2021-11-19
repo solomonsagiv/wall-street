@@ -1,5 +1,7 @@
 package locals;
 
+import arik.Arik;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Timestamp;
@@ -17,6 +19,12 @@ public class L {
 
     public static Date toDate(String string) throws ParseException {
         return formatter.parse(string);
+    }
+
+
+    public static void main(String[] args) {
+        Arik.getInstance().sendMessageToEveryOne("Test");
+        System.out.println("done");
     }
 
     public static LocalDateTime toLocalDateTime(String timeStamp) {

@@ -1,6 +1,7 @@
 package arik;
 
 import arik.cases.*;
+import arik.locals.ArikTextFactory;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
@@ -23,11 +24,15 @@ public class ArikRunner extends Thread {
     public ArikRunner(Arik arik) {
         this.arik = arik;
         casesHandler = new CasesHandler();
-        casesHandler.addCase(new Main_Case("main"));
-        casesHandler.addCase(new Spx_Case("spx"));
-        casesHandler.addCase(new Ndx_Case("ndx"));
-        casesHandler.addCase(new Df_Case("df"));
-        casesHandler.addCase(new TA35_Case("ta35"));
+        casesHandler.addCase(new Main_Case(ArikTextFactory.MAIN));
+        casesHandler.addCase(new Spx_Case(ArikTextFactory.SPX));
+        casesHandler.addCase(new Ndx_Case(ArikTextFactory.NDX));
+        casesHandler.addCase(new Df_Case(ArikTextFactory.DF));
+        casesHandler.addCase(new Positions_Case(ArikTextFactory.POSITIONS));
+        casesHandler.addCase(new Long_Case(ArikTextFactory.LONG));
+        casesHandler.addCase(new ExitLong_Case(ArikTextFactory.EXIT_LONG));
+        casesHandler.addCase(new Short_Case(ArikTextFactory.SHORT));
+        casesHandler.addCase(new ExitShort_Case(ArikTextFactory.EXIT_SHORT));
     }
 
     // Run

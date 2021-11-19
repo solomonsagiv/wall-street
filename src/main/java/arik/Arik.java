@@ -24,6 +24,7 @@ public class Arik {
     private int updateId = 0;
 
     public static ArrayList<Integer> accounts = new ArrayList<>();
+    public static ArrayList<Integer> slo = new ArrayList<>();
 
     private Arik() {
         bot = TelegramBotAdapter.build("400524449:AAHFddGoUjTo2fwAyDc-ocX927fb49Oahn0");
@@ -58,17 +59,25 @@ public class Arik {
     }
 
     public static void load_from_db() {
-       ResultSet rs =  MySql.select("select * from sagiv.arik_accounts;");
-       while (true){
-           try {
-               if (!rs.next()) break;
-               int id = rs.getInt("id");
-               accounts.add(id);
-               System.out.println(id);
-           } catch (SQLException throwables) {
-               throwables.printStackTrace();
-           }
-       }
+        ResultSet rs = MySql.select("select * from sagiv.arik_accounts;");
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+
+                accounts.add(id);
+
+//                 Slo accounts
+                if (name.toLowerCase().equals("sagiv") ||
+                        name.toLowerCase().equals("yogi") ||
+                        name.toLowerCase().equals("moti")) {
+                    slo.add(id);
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     public void close() {
