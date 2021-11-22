@@ -11,7 +11,6 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-
     public static void main(String[] args) {
         ConnectionPool connectionPool = ConnectionPool.getConnectionsPoolInstance();
     }
@@ -61,7 +60,6 @@ public class ConnectionPool implements IConnectionPool {
         }
         return connectionPool;
     }
-
 
     public static ConnectionPool create(DBConnectionType dbConnectionType, int connection_count) throws SQLException {
         List<Connection> pool = new ArrayList<>();
