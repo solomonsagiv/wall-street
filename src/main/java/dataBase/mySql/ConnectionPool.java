@@ -26,7 +26,6 @@ public class ConnectionPool implements IConnectionPool {
     private List<Connection> connections;
     private List<Connection> usedConnections = new ArrayList<>();
 
-
     static boolean connected = false;
 
     // Constructor

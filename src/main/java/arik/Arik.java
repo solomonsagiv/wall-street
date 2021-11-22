@@ -30,7 +30,7 @@ public class Arik {
     public static ArrayList<Integer> slo = new ArrayList<>();
 
     private Arik() {
-        bot = TelegramBotAdapter.build("400524449:AAHFddGoUjTo2fwAyDc-ocX927fb49Oahn0");
+        bot = TelegramBotAdapter.build("400524449:AAE1nFANVNd6Vlj44DKhQLD0fdtlE7MZFj0");
     }
 
     public static void main(String[] args) {
