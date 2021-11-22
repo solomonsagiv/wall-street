@@ -51,7 +51,6 @@ public class ArikRunner extends Thread {
     // Loop
     private void loop() throws InterruptedException {
         int alert_count = 1;
-
         try {
             while (run) {
                 // BackGround

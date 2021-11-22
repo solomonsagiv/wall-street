@@ -45,7 +45,8 @@ public class TimeSeriesFactory {
 
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.SPEED_900).getTable_location();
+
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
                         return rs;
                     }
@@ -65,7 +66,7 @@ public class TimeSeriesFactory {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.ACC_900).getTable_location();
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_900).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
                         return rs;
                     }
@@ -84,7 +85,7 @@ public class TimeSeriesFactory {
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.ACC_300).getTable_location();
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
                         return rs;
                     }
@@ -106,7 +107,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.DF_5).getTable_location();
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series_cumulative(table_location, minuts);
                         return rs;
                     }
@@ -128,7 +129,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.DF_N_5).getTable_location();
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series_cumulative(table_location, minuts);
                         return rs;
                     }

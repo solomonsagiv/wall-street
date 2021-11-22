@@ -10,7 +10,6 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {

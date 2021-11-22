@@ -31,7 +31,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double index_bid_ask_counter_0 = 0;
     double fut_delta_0 = 0;
-
+    
     E q1;
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {

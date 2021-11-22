@@ -13,7 +13,6 @@ import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
 import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
 import jibeDataGraber.DecisionsFuncHandler;
 import roll.Roll;
 import roll.RollEnum;
@@ -21,6 +20,7 @@ import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import stocksHandler.stocksDelta.StocksDeltaService;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,7 +70,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.SPEED_900, DecisionsFuncFactory.get_decision_func(client, DecisionsFuncFactory.SPEED_900));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

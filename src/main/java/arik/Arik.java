@@ -1,5 +1,9 @@
 package arik;
 
+import arik.alerts.ArikAlgoAlert;
+import arik.alerts.ArikPositionsAlert;
+import arik.alerts.Spx_Ndx_1000_Algo;
+import arik.alerts.TA35_100000_Algo;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
@@ -8,7 +12,6 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,14 +48,25 @@ public class Arik {
     public void start() {
         if (!running) {
 
+            // Load from database
             load_from_db();
 
+            // Arik messages runner
             arikRunner = new ArikRunner(this);
             arikRunner.start();
 
+            // Arik data grabber
             ArikGrabData arikGrabData = new ArikGrabData();
             arikGrabData.getHandler().start();
             running = true;
+
+            // Positions alert
+            ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
+            algo_list.add(new Spx_Ndx_1000_Algo(1000));
+            algo_list.add(new TA35_100000_Algo(100000));
+
+            ArikPositionsAlert arikPositionsAlert = new ArikPositionsAlert(algo_list);
+            arikPositionsAlert.getHandler().start();
 
             System.out.println("Running");
         }
@@ -118,6 +132,17 @@ public class Arik {
         } else {
             getBot().execute(new SendMessage(update.message().from().id(), text));
             updateId = update.updateId() + 1;
+        }
+    }
+
+    // Send message
+    public void sendMessageToSlo(String text) {
+        try {
+            for (int person : slo) {
+                sendMessage(person, text, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

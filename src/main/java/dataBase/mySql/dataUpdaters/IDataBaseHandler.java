@@ -42,17 +42,6 @@ public abstract class IDataBaseHandler {
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
-    public static final int BID_ASK_COUNTER_TYPE = 1;
-    public static final int INDEX_RACES_TYPE = 2;
-    public static final int FUT_RACES_TYPE = 3;
-    public static final int BASKETS_TYPE = 4;
-    public static final int OP_AVG_TYPE = 5;
-    public static final int INDEX_DELTA_TYPE = 6;
-    public static final int FUT_DELTA_TYPE = 7;
-
-    final String DATA_SCHEME = "data";
-    final String SAGIV_SCHEME = "sagiv";
-
     protected BASE_CLIENT_OBJECT client;
     protected Exps exps;
 
@@ -129,7 +118,11 @@ public abstract class IDataBaseHandler {
     protected void grab_decisions() {
         for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
             new Thread(() -> {
-                df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
+                if (df.getSession_id() != 0 && df.getVersion() != 0) {
+                    df.setValue(handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id())));
+                } else {
+                    df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
+                }
             }).start();
         }
     }

@@ -2,9 +2,7 @@ package backGround;
 
 import api.Manifest;
 import arik.Arik;
-import arik.alerts.ArikPositionsAlert;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
@@ -91,12 +89,6 @@ public class BackGroundHandler {
                         if (client.getOpen() == 0) {
                             client.setOpen(client.getIndex());
                         }
-
-                        // Start arik
-                        if (client instanceof Spx) {
-                            new ArikPositionsAlert(Spx.getInstance(), Ndx.getInstance());
-                        }
-
                         client.startAll();
                     }
 

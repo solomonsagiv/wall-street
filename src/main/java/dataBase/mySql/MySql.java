@@ -181,6 +181,14 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_sum_from_df(String table_location, int version, int session_id) {
+            String q = "select sum(delta) as value " +
+                    "from %s " +
+                    "where version = %s and session_id = %s and time::date = %s;";
+            String query = String.format(q, table_location, session_id, version, Filters.TODAY);
+            return MySql.select(query);
+        }
+
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
             String query = String.format("select i.time as time, avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as value " +
                     "from %s i " +

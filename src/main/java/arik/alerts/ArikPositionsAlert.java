@@ -1,105 +1,48 @@
 package arik.alerts;
 
-import arik.Arik;
-import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
-import serverObjects.BASE_CLIENT_OBJECT;
-import service.MyBaseService;
+import threads.MyThread;
+
 import java.util.ArrayList;
-import java.util.Map;
 
-public class ArikPositionsAlert extends MyBaseService {
+public class ArikPositionsAlert extends MyThread implements Runnable {
 
+    ArrayList<ArikAlgoAlert> algo_list;
 
-    public static void main(String[] args) {
-        Arik.getInstance().sendMessageToEveryOne("Test");
-        Arik.getInstance().close();
+    public ArikPositionsAlert(ArrayList<ArikAlgoAlert> algo_list) {
+        super();
+        this.algo_list = algo_list;
     }
-
-    boolean LONG = false;
-    boolean SHORT = false;
-    
-    ArrayList<DecisionsFunc> df_list;
-
-    BASE_CLIENT_OBJECT spx;
-    BASE_CLIENT_OBJECT ndx;
-
-    public ArikPositionsAlert(BASE_CLIENT_OBJECT spx, BASE_CLIENT_OBJECT ndx) {
-        super(spx);
-        this.spx = spx;
-        this.ndx = ndx;
-        this.df_list = new ArrayList<>();
-
-        Map<String, DecisionsFunc> spx_list =  spx.getDecisionsFuncHandler().getMap();
-        Map<String, DecisionsFunc> ndx_list =  ndx.getDecisionsFuncHandler().getMap();
-
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_5));
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_N_5));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_5));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_N_5));
-    }
-
-    int target_enter_price = 1000;
-    int target_exit_price = 0;
 
     @Override
-    public void go() {
+    public void run() {
 
-        // --------------- LONG --------------- //
-        // Enter long
-        if (!LONG) {
-            boolean b = true;
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() < target_enter_price) {
-                    b = false;
-                    break;
-                }
-            }
-            LONG = b;
+        while (isRun()) {
+            try {
+                System.out.println(getName());
+                
+                // Sleep
+                Thread.sleep(15000);
 
-            if (LONG) {
-                Arik.getInstance().sendMessageToEveryOne("LONG \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
+                // Logic
+                logic();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
 
-        // Exit long
-        if (LONG) {
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() < target_exit_price) {
-                    LONG = false;
-                    Arik.getInstance().sendMessageToEveryOne("EXIT LONG \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
-                    break;
-                }
-            }
-        }
+    }
 
-        // --------------- SHORT --------------- //
-        // Enter short
-        if (!SHORT) {
-            boolean b = true;
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() > target_enter_price * -1) {
-                    b = false;
-                    break;
-                }
-            }
-            SHORT = b;
+    private void logic() {
+        for (ArikAlgoAlert algo : algo_list) {
+            algo.go();
 
-            if (SHORT) {
-                Arik.getInstance().sendMessageToEveryOne("SHORT \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
-            }
+            algo.getClass().getName();
         }
+    }
 
-        // Exit short
-        if (SHORT) {
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() > target_exit_price * -1) {
-                    SHORT = false;
-                    Arik.getInstance().sendMessageToEveryOne("EXIT SHORT \n" + spx.getName() + " " + spx.getIndex() + "\n" + ndx.getName() + " " + ndx.getIndex());
-                    break;
-                }
-            }
-        }
+    @Override
+    public void initRunnable() {
+        setRunnable(this);
     }
 
     @Override
@@ -107,8 +50,5 @@ public class ArikPositionsAlert extends MyBaseService {
         return "Alert service";
     }
 
-    @Override
-    public int getSleep() {
-        return 10000;
-    }
+
 }

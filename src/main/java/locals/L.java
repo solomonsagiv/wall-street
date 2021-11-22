@@ -21,7 +21,6 @@ public class L {
         return formatter.parse(string);
     }
 
-
     public static void main(String[] args) {
         Arik.getInstance().sendMessageToEveryOne("Test");
         System.out.println("done");
