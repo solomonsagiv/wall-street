@@ -184,8 +184,9 @@ public class MySql {
         public static ResultSet get_sum_from_df(String table_location, int version, int session_id) {
             String q = "select sum(delta) as value " +
                     "from %s " +
-                    "where version = %s and session_id = %s and time::date = %s;";
-            String query = String.format(q, table_location, session_id, version, Filters.TODAY);
+                    "where version = %s and session_id = %s and %s;";
+            String query = String.format(q, table_location, version, session_id, Filters.TODAY);
+            System.out.println(query);
             return MySql.select(query);
         }
 
