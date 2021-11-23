@@ -251,15 +251,6 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet get_last_record_from_decision_func(String table_location, int session, int version) {
-            String q = "select sum(delta) as value " +
-                    "from %s " +
-                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and session_id = %s and version = %s;";
-
-            String query = String.format(q, table_location, session, version);
-            return MySql.select(query);
-        }
-
         public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, String exp_name) {
             String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, item)" +
                     " VALUES ('%s', %s, %s, %s, %s, %s, %s, '%s')";
@@ -293,7 +284,7 @@ public class MySql {
 
         public static final String ONE_OR_MINUS_ONE = "(value = 1 or value = -1)";
         public static final String BIGGER_OR_SMALLER_10K = "(value < 10000 or value > -10000)";
-        public static final String TODAY = "time::date = now()::date";
+        public static final String TODAY = "time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)";
         public static final String ORDER_BY_TIME = "order by time";
         public static final String ORDER_BY_TIME_DESC = "order by time desc";
         public static final String ORDER_BY_TIME_DESC_LIMIT_1 = "order by time desc limit 1";
