@@ -60,10 +60,15 @@ public class Arik {
             arikGrabData.getHandler().start();
             running = true;
 
+
             // Positions alert
             ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
             algo_list.add(new Spx_Ndx_1000_Algo(1000));
-            algo_list.add(new TA35_100000_Algo(100000));
+
+            ArrayList<Double> targets = new ArrayList<>();
+            targets.add(30000.0);
+            targets.add(60000.0);
+            algo_list.add(new TA35_100000_Algo(100000, targets));
 
             ArikPositionsAlert arikPositionsAlert = new ArikPositionsAlert(algo_list);
             arikPositionsAlert.getHandler().start();

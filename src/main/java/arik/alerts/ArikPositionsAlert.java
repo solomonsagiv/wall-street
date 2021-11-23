@@ -35,8 +35,6 @@ public class ArikPositionsAlert extends MyThread implements Runnable {
     private void logic() {
         for (ArikAlgoAlert algo : algo_list) {
             algo.go();
-
-            algo.getClass().getName();
         }
     }
 

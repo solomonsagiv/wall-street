@@ -9,7 +9,7 @@ public abstract class ArikAlgoAlert {
 
     protected double target_price_for_position;
     protected double target_price_for_exit_position;
-    protected ArrayList<Double> targets = new ArrayList<>();
+    protected ArrayList<Double> targets;
 
     public ArikAlgoAlert(double target_price_for_position) {
         this.target_price_for_position = target_price_for_position;

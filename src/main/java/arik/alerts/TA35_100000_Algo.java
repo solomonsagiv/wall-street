@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class TA35_100000_Algo extends ArikAlgoAlert {
 
     // Constructor
-    public TA35_100000_Algo(double target_price_for_position) {
+    public TA35_100000_Algo(double target_price_for_position, ArrayList<Double> targets) {
         super(target_price_for_position);
+        this.targets = targets;
     }
 
     @Override

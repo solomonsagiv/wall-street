@@ -18,9 +18,8 @@ public class Ndx_Case extends ArikCase {
 
     @Override
     public boolean doCase(Update update) {
-
         Ndx client = Ndx.getInstance();
-
+        
         DecisionsFunc df_5 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5);
         DecisionsFunc df_n_5 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5);
         DecisionsFunc df_day = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY);
