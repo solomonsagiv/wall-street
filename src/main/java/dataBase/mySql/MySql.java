@@ -285,10 +285,6 @@ public class MySql {
         }
     }
 
-
-
-
-
     public static class Filters {
 
         public static final String ONE_OR_MINUS_ONE = "(value = 1 or value = -1)";
