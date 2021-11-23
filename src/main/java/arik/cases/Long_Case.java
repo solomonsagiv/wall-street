@@ -13,7 +13,7 @@ public class Long_Case extends ArikCase {
         super(name);
         setKeyboard(KeyBoards.positions());
     }
-
+    
     @Override
     public boolean doCase(Update update) {
         Spx spx = Spx.getInstance();

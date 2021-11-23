@@ -24,6 +24,7 @@ public class ArikRunner extends Thread {
     public ArikRunner(Arik arik) {
         this.arik = arik;
         casesHandler = new CasesHandler();
+        casesHandler.addCase(new TA35_Case(ArikTextFactory.TA35));
         casesHandler.addCase(new Main_Case(ArikTextFactory.MAIN));
         casesHandler.addCase(new Spx_Case(ArikTextFactory.SPX));
         casesHandler.addCase(new Ndx_Case(ArikTextFactory.NDX));

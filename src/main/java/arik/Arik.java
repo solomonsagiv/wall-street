@@ -90,7 +90,8 @@ public class Arik {
 //                 Slo accounts
                 if (name.toLowerCase().equals("sagiv") ||
                         name.toLowerCase().equals("yogi") ||
-                        name.toLowerCase().equals("moti")) {
+                        name.toLowerCase().equals("moti") ||
+                        name.toLowerCase().equals("guru")) {
                     slo.add(id);
                 }
             } catch (SQLException throwables) {
