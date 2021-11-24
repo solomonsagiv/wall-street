@@ -137,7 +137,7 @@ public class MySql {
                     "from %s i " +
                     "inner join %s f " +
                     "on i.time = f.time " +
-                    "where i.time::date = now()::date;", index_table, fut_table);
+                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
             return MySql.select(query);
         }
 
@@ -146,7 +146,7 @@ public class MySql {
                     "from %s i " +
                     "inner join %s f " +
                     "on i.time = f.time " +
-                    "where i.time::date = now()::date;", index_table, fut_table);
+                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
             return MySql.select(query);
         }
 
@@ -155,7 +155,7 @@ public class MySql {
                     "from %s i " +
                     "inner join %s f " +
                     "on i.time = f.time " +
-                    "where i.time::date = now()::date;", index_table, fut_table);
+                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
             return MySql.select(query);
         }
 
@@ -168,7 +168,7 @@ public class MySql {
         public static ResultSet get_last_x_time_of_series_cumulative(String table_name, int minuts) {
             String q = "select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value " +
                     "from %s " +
-                    "where time::date = now()::date and time > now() - interval '%s min';";
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and time > now() - interval '%s min';";
             String query = String.format(q, table_name, minuts, Filters.ORDER_BY_TIME);
             return MySql.select(query);
         }
@@ -176,7 +176,7 @@ public class MySql {
         public static ResultSet get_last_x_time_from_dec_func_cumulative(String table_location, int min, int session_id, int version) {
             String q = "select time, sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value " +
                     "from %s " +
-                    "where time::date = now()::date and time > now() - interval '%s min'  and session_id = %s and version = %s;";
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and time > now() - interval '%s min'  and session_id = %s and version = %s;";
             String query = String.format(q, table_location, min, session_id, version);
             return MySql.select(query);
         }
@@ -194,7 +194,7 @@ public class MySql {
             String query = String.format("select i.time as time, avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as value " +
                     "from %s i " +
                     "inner join %s f on i.time = f.time " +
-                    "where i.time::date = now()::date;", min, index_table, fut_table);
+                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", min, index_table, fut_table);
             return MySql.select(query);
         }
 

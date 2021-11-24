@@ -22,8 +22,7 @@ public class L {
     }
 
     public static void main(String[] args) {
-        Arik.getInstance().sendMessageToEveryOne("Test");
-        System.out.println("done");
+        System.out.println(L.format_int(-53535.56));
     }
 
     public static LocalDateTime toLocalDateTime(String timeStamp) {
@@ -54,14 +53,12 @@ public class L {
     }
 
     public static DecimalFormat format_int() {
-        DecimalFormat df = new DecimalFormat("#,##0;-#,##0");
-        df.setNegativePrefix("-");
+        DecimalFormat df = new DecimalFormat("#,##0;(#,##0)");
         return df;
     }
 
     public static String format_int(double val) {
-        DecimalFormat df = new DecimalFormat("#,##0;-#,##0");
-        df.setNegativePrefix("-");
+        DecimalFormat df = new DecimalFormat("#,##0;(#,##0)");
         return df.format(val);
     }
 

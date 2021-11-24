@@ -107,6 +107,14 @@ public class ArikGrabData extends MyThread implements Runnable {
 
     }
 
+    public static void update_pre_v5() {
+        ta35_pre_v5 = ta35_v5;
+    }
+
+    public static void update_pre_v6() {
+        ta35_pre_v6 = ta35_v6;
+    }
+
     @Override
     public void initRunnable() {
         setRunnable(this);

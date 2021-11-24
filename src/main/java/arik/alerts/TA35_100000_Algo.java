@@ -52,6 +52,9 @@ public class TA35_100000_Algo extends ArikAlgoAlert {
                     ((pre_v5 < target && v5 > target) || (pre_v5 > target && v5 < target)) ||
                             ((pre_v5 < target_minus && v5 > target_minus) || (pre_v5 > target_minus && v5 < target_minus))
             ) {
+                // Update pre data v5
+                ArikGrabData.update_pre_v5();
+
                 String text = String.format("TA35 index = %s \n V5 = %s \n V6 = %s", index, v5, v6);
                 Arik.getInstance().sendMessageToSlo(text);
             }
@@ -61,6 +64,9 @@ public class TA35_100000_Algo extends ArikAlgoAlert {
                     ((pre_v6 < target && v6 > target) || (pre_v6 > target && v6 < target)) ||
                             ((pre_v6 < target_minus && v6 > target_minus) || (pre_v6 > target_minus && v6 < target_minus))
             ) {
+                // Update pre data v6
+                ArikGrabData.update_pre_v6();
+
                 String text = String.format("TA35 index = %s \n V5 = %s \n V6 = %s", index, v5, v6);
                 Arik.getInstance().sendMessageToSlo(text);
             }
