@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -257,8 +258,6 @@ public class MySql {
             String today_date = "now()::date";
 
             String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, exp_name);
-
-            System.out.println(query);
             MySql.insert(query);
         }
 

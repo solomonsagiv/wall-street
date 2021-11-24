@@ -129,15 +129,15 @@ public class SingleDayLogicFactory {
         String query = String.format(q, table_to_insert, min, index_table, fut_table_to_calc_op, date);
         MySql.insert(query);
     }
-
-    public static void op_avg(String table_to_insert, String fut_table_to_calc_op, LocalDate date) {
+    
+    public static void op_avg(String table_to_insert, String fut_table_to_calc_op, String index_table, LocalDate date) {
         String q = "insert into %s" +
                 " select i.time,  avg(f.value - i.value) over (ORDER BY i.time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
                 "    from %s f " +
-                "    inner join data.spx500_index i on f.time = i.time " +
+                "    inner join %s i on f.time = i.time " +
                 "    where i.time::date = date'%s';";
 
-        String query = String.format(q, table_to_insert, fut_table_to_calc_op, date);
+        String query = String.format(q, table_to_insert, fut_table_to_calc_op, index_table, date);
         MySql.insert(query);
     }
 

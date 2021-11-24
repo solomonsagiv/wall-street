@@ -17,7 +17,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Spx spx;
     static Ndx ndx;
 //    static Dax dax;
-    
+
     static {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
