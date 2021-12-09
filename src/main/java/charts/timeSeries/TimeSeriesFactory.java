@@ -35,17 +35,13 @@ public class TimeSeriesFactory {
     public static final String DF_5 = "DF_5";
     public static final String DF_N_5 = "DF_N_5";
 
-
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
-
         switch (series_type.toUpperCase()) {
-
             case SPEED_900:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-
                         String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
                         return rs;
@@ -165,7 +161,6 @@ public class TimeSeriesFactory {
 
                         ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 5);
                         IDataBaseHandler.loadSerieData(rs, this);
-
                     }
                 };
             // BID ASK COUNTER AVG 15
@@ -404,7 +399,6 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-
             case STOCKS_DELTA_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -422,9 +416,7 @@ public class TimeSeriesFactory {
                         ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_DELTA_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
-
                 };
-
             case BASKETS_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override

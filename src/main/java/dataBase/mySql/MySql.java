@@ -262,6 +262,19 @@ public class MySql {
         }
 
 
+
+        public static ResultSet select_2_tables_on_same_time_no_millis(String index_table, String decsion_table, LocalDate date) {
+            String q = "select * " +
+                    "from %s df " +
+                    "inner join %s i " +
+                    "on date_trunc('second', df.time::timestamp) = date_trunc('second', i.time::timestamp) " +
+                    "where df.time::date = date'%s';";
+            String query = String.format(q, decsion_table, index_table, date);
+
+            return MySql.select(query);
+        }
+
+
         public static double handle_rs(ResultSet rs) {
             while (true) {
                 try {

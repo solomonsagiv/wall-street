@@ -37,6 +37,7 @@ public class DecisionsFuncChart3 extends MyChartCreator {
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
         props.setProp(ChartPropsEnum.IS_LOAD_DB, -1);
+        props.setProp(ChartPropsEnum.IS_DOMAIN_GRID_VISIBLE, 1);
         props.setProp(ChartPropsEnum.IS_LIVE, -1);
         props.setProp(ChartPropsEnum.SLEEP, 30000);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);

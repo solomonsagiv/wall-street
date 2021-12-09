@@ -41,12 +41,12 @@ public class MainTickTimeMargin {
             date = date.plusDays(1);
         }
     }
-
+    
     // Single day runner
     public void run_single_day(LocalDate date) {
         ndx(date);
     }
-
+    
     private void ta35(LocalDate date) {
         int min = 60;
 
@@ -59,6 +59,7 @@ public class MainTickTimeMargin {
         SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg", "data.ta35_delta_week", date);
         SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_month_avg_60", "data.ta35_delta_month", date, min);
         SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg_60", "data.ta35_delta_week", date, min);
+
     }
 
     private void spx500(LocalDate date) {
@@ -73,10 +74,21 @@ public class MainTickTimeMargin {
     }
 
     private void ndx(LocalDate date) {
-        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day", "data.ndx_index", "data.ndx_fut_day", date);
+        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day", "data.ndx_fut_day", "data.ndx_index", date);
 //        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15","data.ndx_index", "data.ndx_fut_day", 15, date);
 //        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60","data.ndx_index", "data.ndx_fut_day", 60, date);
     }
+
+
+
+    private void correltion(String index_table, String decision_table) {
+
+
+
+
+
+    }
+
 
     private void spx_avg_delta_index(LocalDate date) {
 
@@ -109,7 +121,6 @@ public class MainTickTimeMargin {
 
         for (String table : tables_location_list) {
 //            IDataBaseHandler.loadSerieData(MySql.Queries.get_serie(table, date)) {
-
         }
 
     }

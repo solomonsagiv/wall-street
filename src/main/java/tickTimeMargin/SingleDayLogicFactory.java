@@ -44,6 +44,7 @@ public class SingleDayLogicFactory {
 
     }
 
+
     public static void cumulative_avg_timeserie_cdf(String table_to_insert, String table_to_take_from, int min, LocalDate date) {
         String q = "insert into %s " +
                 "select  time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) " +
