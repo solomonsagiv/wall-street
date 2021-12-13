@@ -7,6 +7,7 @@ import exp.Exp;
 import exp.ExpStrings;
 import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
@@ -25,6 +26,8 @@ public class TimeSeriesFactory {
     public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
     public static final String OP_AVG_15_SERIES = "OP_AVG_15";
+    public static final String OP_AVG_5_SERIES = "OP_AVG_5";
+    public static final String OP_AVG_1_SERIES = "OP_AVG_1";
     public static final String OP_AVG_HOUR_SERIES = "OP_AVG_HOUR";
     public static final String BASKETS_SERIES = "BASKETS";
     public static final String SPEED_900 = "SPEED_900";
@@ -97,7 +100,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-                // DF 5
+            // DF 5
             case DF_5:
                 return new MyTimeSeries(series_type, client) {
 
@@ -119,7 +122,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-                // DF N 5
+            // DF N 5
             case DF_N_5:
                 return new MyTimeSeries(series_type, client) {
 
@@ -163,6 +166,8 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
+
+
             // BID ASK COUNTER AVG 15
             case INDEX_BID_ASK_COUNTER_SERIES_15:
                 return new MyTimeSeries(series_type, client) {
@@ -351,6 +356,50 @@ public class TimeSeriesFactory {
                         String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
                         String fut_table = dataBaseHandler.get_table_loc(exp.getName());
                         ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+            case OP_AVG_1_SERIES:
+                return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() throws UnknownHostException {
+                        return exp.get_op_avg(60);
+                    }
+
+                    @Override
+                    public void load() {
+                        IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+
+                        String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_table = dataBaseHandler.get_table_loc(exp.getName());
+                        ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 1);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+            case OP_AVG_5_SERIES:
+                return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() throws UnknownHostException {
+                        return exp.get_op_avg(300);
+                    }
+
+                    @Override
+                    public void load() {
+                        IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+
+                        String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_table = dataBaseHandler.get_table_loc(exp.getName());
+                        ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 5);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };

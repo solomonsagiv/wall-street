@@ -37,7 +37,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     MyDoubleList myValues;
     private String series_type;
     private boolean load = false;
-
+    
     // Constructor
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
         super(name);
