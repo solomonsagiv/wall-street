@@ -136,7 +136,6 @@ public class MyChart {
         }
     }
 
-
     public MyProps getProps() {
         return props;
     }

@@ -6,9 +6,9 @@ import charts.timeSeries.TimeSeriesFactory;
 import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
-import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 
 public class OpAvg_Index_Chart extends MyChartCreator {
@@ -30,7 +30,7 @@ public class OpAvg_Index_Chart extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS, 300);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
@@ -40,11 +40,7 @@ public class OpAvg_Index_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-
-        // Marker
-        ValueMarker marker = new ValueMarker(0);
-        marker.setPaint(Color.BLACK);
-        marker.setStroke(new BasicStroke(2f));
+        props.setProp(ChartPropsEnum.MARKER, 0);
 
         // Exp
         Exp day_exp = client.getExps().getExp(ExpStrings.day);
