@@ -1,5 +1,6 @@
 package gui;
 
+import api.Manifest;
 import dataBase.mySql.MySql;
 import locals.L;
 import locals.Themes;
@@ -38,7 +39,9 @@ public class MyGuiComps {
         
         private void packAndFinish() {
             pack();
-            loadBounds();
+            if (Manifest.DB) {
+                loadBounds();
+            }
             setVisible(true);
         }
 
@@ -92,10 +95,12 @@ public class MyGuiComps {
         }
 
         public void onClose() {
-            insetOrUpdateBounds();
+            if (Manifest.DB) {
+                insetOrUpdateBounds();
+            }
             dispose();
         }
-
+        
         public void setXY(int x, int y) {
             setBounds(x, y, getWidth(), getHeight());
         }

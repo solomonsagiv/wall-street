@@ -120,6 +120,8 @@ public abstract class IDataBaseHandler {
             new Thread(() -> {
                 if (df.getSession_id() != 0 && df.getVersion() != 0) {
                     df.setValue(handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id())));
+                } else if (df.getSingle_dec() != 0){
+                    df.setValue(handle_rs(MySql.Queries.get_last_record(df.getTable_location())));
                 } else {
                     df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
                 }
@@ -140,7 +142,6 @@ public abstract class IDataBaseHandler {
             }
         }
     }
-
 
     public void load_baskets(ResultSet rs) {
 

@@ -2,6 +2,7 @@ package serverObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsBloomberg;
+import DataUpdater.DataUpdaterService;
 import IDDE.DDEHandler;
 import api.Manifest;
 import baskets.BasketFinder_3;
@@ -78,6 +79,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Services
     ListsService listsService;
     MySqlService mySqlService;
+    DataUpdaterService dataUpdaterService;
 
     private boolean loadFromDb = false;
     private boolean dbRunning = false;
@@ -618,6 +620,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setBasketFinder(BasketFinder_3 basketFinder) {
         this.basketFinder = basketFinder;
+    }
+
+    public DataUpdaterService getDataUpdaterService() {
+        return dataUpdaterService;
+    }
+
+    public void setDataUpdaterService(DataUpdaterService dataUpdaterService) {
+        this.dataUpdaterService = dataUpdaterService;
     }
 
     @Override

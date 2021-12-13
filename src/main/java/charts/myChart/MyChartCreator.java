@@ -33,4 +33,5 @@ public abstract class MyChartCreator {
     public MyChart[] getCharts_arr() {
         return charts_arr;
     }
+
 }

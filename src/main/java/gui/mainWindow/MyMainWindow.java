@@ -1,5 +1,6 @@
 package gui.mainWindow;
 
+import api.Manifest;
 import arik.Arik;
 import backGround.BackGroundHandler;
 import dataBase.mySql.ConnectionPool;
@@ -13,7 +14,7 @@ import serverObjects.indexObjects.Spx;
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
-
+    
     static Spx spx;
     static Ndx ndx;
 //    static Dax dax;
@@ -61,8 +62,10 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         appendClients();
 
         // Load data from DB
-        loadOnStartUp();
-
+        if (Manifest.DB) {
+            loadOnStartUp();
+        }
+        
         // This
         setXY(100, 100);
         setSize(500, 420);
@@ -86,14 +89,19 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void loadOnStartUp() {
         // Connect to db
-        ConnectionPool.getConnectionsPoolInstance();
-
+        if (Manifest.DB) {
+            ConnectionPool.getConnectionsPoolInstance();
+        }
         // Start back runners
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
             new Thread(() -> {
                 try {
                     // Load data from database
-                    client.getMySqlService().getDataBaseHandler().loadData();
+                    if (Manifest.DB) {
+                        client.getMySqlService().getDataBaseHandler().loadData();
+                    } else {
+                        client.setLoadFromDb(true);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -101,7 +109,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 BackGroundHandler.getInstance().createNewRunner(client);
             }).start();
         }
-
-        Arik.load_from_db();
+        if (Manifest.DB) {
+            Arik.load_from_db();
+        }
     }
 }

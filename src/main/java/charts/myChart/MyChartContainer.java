@@ -1,5 +1,6 @@
 package charts.myChart;
 
+import api.Manifest;
 import charts.MyChartPanel;
 import charts.timeSeries.MyTimeSeries;
 import dataBase.mySql.MySql;
@@ -54,8 +55,9 @@ public class MyChartContainer extends JFrame {
         appendCharts();
 
         // Load data
-        load_data();
-
+        if (Manifest.DB) {
+            load_data();
+        }
     }
 
     private void load_data() {

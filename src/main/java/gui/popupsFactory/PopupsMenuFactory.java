@@ -101,6 +101,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem index_plus_opavg = new JMenuItem("Index + O/P avg");
+        index_plus_opavg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Index_plus_opAvg_Chart chart = new Index_plus_opAvg_Chart(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem details = new JMenuItem("Details");
         details.addActionListener(new ActionListener() {
             @Override
@@ -110,6 +119,7 @@ public class PopupsMenuFactory {
             }
         });
 
+        charts.add(index_plus_opavg);
         charts.add(dec_funcs_3);
         charts.add(delta_index_3600);
         charts.add(fullCharts_2);

@@ -352,7 +352,6 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
-
                         String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
                         String fut_table = dataBaseHandler.get_table_loc(exp.getName());
                         ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table);

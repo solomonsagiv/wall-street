@@ -51,7 +51,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // On data changed
-        on_data_chage();
+//        on_data_chage();
 
         // Grab decisions
         if (sleep_count % 20000 == 0) {

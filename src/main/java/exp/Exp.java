@@ -16,6 +16,11 @@ public abstract class Exp {
     private double interest = 0;
     private double days_to_exp = -1;
 
+    private double op_avg_1 = 0;
+    private double op_avg_5 = 0;
+    private double op_avg_15 = 0;
+    private double op_avg_60 = 0;
+
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate expDate;
     protected double future = 0;
@@ -172,4 +177,35 @@ public abstract class Exp {
         return expName;
     }
 
+    public double getOp_avg_1() {
+        return op_avg_1;
+    }
+
+    public void setOp_avg_1(double op_avg_1) {
+        this.op_avg_1 = op_avg_1;
+    }
+
+    public double getOp_avg_5() {
+        return op_avg_5;
+    }
+
+    public void setOp_avg_5(double op_avg_5) {
+        this.op_avg_5 = op_avg_5;
+    }
+
+    public double getOp_avg_15() {
+        return op_avg_15;
+    }
+
+    public void setOp_avg_15(double op_avg_15) {
+        this.op_avg_15 = op_avg_15;
+    }
+
+    public double getOp_avg_60() {
+        return op_avg_60;
+    }
+
+    public void setOp_avg_60(double op_avg_60) {
+        this.op_avg_60 = op_avg_60;
+    }
 }

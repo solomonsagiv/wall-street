@@ -7,6 +7,7 @@ public class DecisionsFunc {
     private String table_location;
     private int session_id = 0;
     private int version = 0;
+    private int single_dec = 0;
 
     public DecisionsFunc(String name, String table_location) {
         this.name = name;
@@ -19,7 +20,14 @@ public class DecisionsFunc {
         this.session_id = session_id;
         this.version = version;
     }
-    
+
+    public DecisionsFunc(String name, String table_location, int single_dec) {
+        this.name = name;
+        this.table_location = table_location;
+        this.single_dec = single_dec;
+    }
+
+
     public double getValue() {
         return value;
     };
@@ -29,6 +37,10 @@ public class DecisionsFunc {
             this.value = value;
         }
     };
+
+    public int getSingle_dec() {
+        return single_dec;
+    }
 
     public String getName() {
         return name;

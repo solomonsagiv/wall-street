@@ -1,5 +1,6 @@
 package serverObjects.indexObjects;
 
+import DataUpdater.DataUpdaterService;
 import IDDE.DDEHandler;
 import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
@@ -32,6 +33,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
         setBasketFinder(new BasketFinder_3(this, 80, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
+        setDataUpdaterService(new DataUpdaterService(this));
         roll();
     }
 
@@ -76,7 +78,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             indAskMarginCounter += marginOfMarings;
         }
     }
-
+    
     @Override
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
@@ -87,8 +89,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_15, new DecisionsFunc(DecisionsFuncFactory.DF_15, "data.research_ndx_df_900_cdf"));
             map.put(DecisionsFuncFactory.DF_N_60, new DecisionsFunc(DecisionsFuncFactory.DF_N_60, "data.research_ndx_df_n_3600_cdf"));
             map.put(DecisionsFuncFactory.DF_60, new DecisionsFunc(DecisionsFuncFactory.DF_60, "data.research_ndx_df_3600_cdf"));
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_ndx_df_n_300_speed_300"));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_ndx_df_300_speed_300"));
+            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_ndx_df_n_300_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_ndx_df_300_speed_300", 1));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

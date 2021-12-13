@@ -12,22 +12,6 @@ public class testMySql {
     private static Connection conn;
     private static Statement stmt;
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-        conn = ConnectionPool.getConnectionsPoolInstance().getConnection();
-        stmt = conn.createStatement();
-
-        System.out.println("Connected");
-        String sql = "INSERT INTO `stocks`.`spx_daily` ( `date`, `exp_name`, `open`, `high`, `low`, `close`, `con_up`, `con_down`, `index_up`, `index_down`, `op_avg`, `base`, `options`) VALUES ( '20', 'sd', '3434', '546', '7676', '878', '9', '78', '78', '97', '0.3', '4554', 'gmfg');";
-
-        for (int i = 0; i < 300; i++) {
-            stmt.execute(sql);
-        }
-
-        System.out.println("Done");
-
-    }
-
     public static Connection awsConn() throws ClassNotFoundException, SQLException {
 
         String url = "jdbc:mysql://sagivwork.test.us-east-1.rds.amazonaws.com:3306/";
@@ -39,7 +23,6 @@ public class testMySql {
         return DriverManager.getConnection(url + dbName, userName, password);
 
     }
-
 
     // Connect to DB
     public static Connection connectToDB() {

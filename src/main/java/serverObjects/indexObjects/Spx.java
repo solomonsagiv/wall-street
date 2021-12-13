@@ -1,5 +1,6 @@
 package serverObjects.indexObjects;
 
+import DataUpdater.DataUpdaterService;
 import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
@@ -29,6 +30,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setId_name("spx500");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
+        setDataUpdaterService(new DataUpdaterService(this));
+
         roll();
         tickSpeedService = new TickSpeedService(this, getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_E1_TICK_SPEED));
         bidAskCounterGrabberService = new BidAskCounterGrabberService(this);
@@ -86,8 +89,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_15, new DecisionsFunc(DecisionsFuncFactory.DF_15, "data.research_spx500_df_900_cdf"));
             map.put(DecisionsFuncFactory.DF_N_60, new DecisionsFunc(DecisionsFuncFactory.DF_N_60, "data.research_spx500_df_n_3600_cdf"));
             map.put(DecisionsFuncFactory.DF_60, new DecisionsFunc(DecisionsFuncFactory.DF_60, "data.research_spx500_df_3600_cdf"));
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_spx500_df_n_300_speed_300"));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_spx500_df_300_speed_300"));
+            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_spx500_df_n_300_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_spx500_df_300_speed_300", 1));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

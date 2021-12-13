@@ -16,7 +16,7 @@ public class Manifest {
     // TEST ACCOUNT
     public static String TEST_ACCOUNT = "DU1293791";
     public static int TEST_PORT = 3333;
-
+    
     // GATEWAY
     public static int GATEWAY_PORT = 4001;
 
