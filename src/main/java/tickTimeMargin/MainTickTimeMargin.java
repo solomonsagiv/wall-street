@@ -46,7 +46,9 @@ public class MainTickTimeMargin {
     public void run_single_day(LocalDate date) {
         spx500(date);
     }
-    
+
+
+
     private void ta35(LocalDate date) {
         int min = 60;
 
@@ -82,16 +84,7 @@ public class MainTickTimeMargin {
         SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60","data.ndx_index", "data.ndx_fut_day", 60, date);
     }
 
-
-
-    private void correltion(String index_table, String decision_table) {
-
-
-
-
-
-    }
-
+    private void correltion(String index_table, String decision_table) { }
 
     private void spx_avg_delta_index(LocalDate date) {
 

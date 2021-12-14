@@ -2,15 +2,11 @@ package charts.myCharts;
 
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
-import charts.timeSeries.TimeSeriesFactory;
-import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
