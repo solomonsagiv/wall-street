@@ -6,8 +6,8 @@ import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_3;
-import charts.myCharts.Full_Chart_3;
-import charts.myCharts.FuturesChartLong;
+import charts.myCharts.Index_plus_opAvg_Chart;
+import charts.myCharts.OpAvg_Index_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.ExpStrings;
@@ -109,10 +109,10 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChartLong chart = new FuturesChartLong(this);
+            Index_plus_opAvg_Chart chart = new Index_plus_opAvg_Chart(this);
             chart.createChart();
 
-            Full_Chart_3 chart_3 = new Full_Chart_3(this);
+            OpAvg_Index_Chart chart_3 = new OpAvg_Index_Chart(this);
             chart_3.createChart();
         }
     }

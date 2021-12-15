@@ -5,8 +5,8 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Full_Chart_3;
-import charts.myCharts.FuturesChartLong;
+import charts.myCharts.Index_plus_opAvg_Chart;
+import charts.myCharts.OpAvg_Index_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
@@ -17,6 +17,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,10 +110,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChartLong chart = new FuturesChartLong(this);
+            Index_plus_opAvg_Chart chart = new Index_plus_opAvg_Chart(this);
             chart.createChart();
 
-            Full_Chart_3 full_charts_3 = new Full_Chart_3(this);
+            OpAvg_Index_Chart full_charts_3 = new OpAvg_Index_Chart(this);
             full_charts_3.createChart();
         }
     }

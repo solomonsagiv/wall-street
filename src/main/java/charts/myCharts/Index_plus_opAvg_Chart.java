@@ -4,13 +4,10 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import exp.Exp;
 import exp.ExpStrings;
-import exp.Exps;
 import locals.Themes;
-import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
-import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -32,7 +29,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, 1000);
+        props.setProp(ChartPropsEnum.SECONDS, 300);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.003);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
@@ -102,6 +99,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
         };
         index_min_avg_5.setColor(Themes.GREEN);
         index_min_avg_5.setStokeSize(2.25f);
+        index_min_avg_5.setVisible(false);
 
         // Index avg 5
         MyTimeSeries index_min_avg_15 = new MyTimeSeries("Index avg 15", client) {
@@ -122,6 +120,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
         };
         index_min_avg_15.setColor(Themes.GREEN);
         index_min_avg_15.setStokeSize(2.25f);
+        index_min_avg_15.setVisible(false);
 
         // Index avg 60
         MyTimeSeries index_min_avg_60 = new MyTimeSeries("Index avg 60", client) {
@@ -142,6 +141,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
         };
         index_min_avg_60.setColor(Themes.GREEN);
         index_min_avg_60.setStokeSize(2.25f);
+        index_min_avg_60.setVisible(false);
 
         // Bid
         MyTimeSeries bid = new MyTimeSeries("Index bid", client) {

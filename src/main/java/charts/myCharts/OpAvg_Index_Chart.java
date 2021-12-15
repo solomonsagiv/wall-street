@@ -22,7 +22,7 @@ public class OpAvg_Index_Chart extends MyChartCreator {
     public OpAvg_Index_Chart(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
-
+    
     @Override
     public void init() {
 
@@ -63,6 +63,7 @@ public class OpAvg_Index_Chart extends MyChartCreator {
         };
         op_avg_1.setColor(Themes.PINK_LIGHT);
         op_avg_1.setStokeSize(1.2f);
+        op_avg_1.setVisible(false);
 
         MyTimeSeries op_avg_5 = new MyTimeSeries("O/P Avg Day 5", client) {
             @Override
@@ -80,6 +81,7 @@ public class OpAvg_Index_Chart extends MyChartCreator {
         };
         op_avg_5.setColor(Themes.RED_2);
         op_avg_5.setStokeSize(1.2f);
+        op_avg_5.setVisible(false);
 
         MyTimeSeries op_avg_15 = new MyTimeSeries("O/P Avg Day 15", client) {
             @Override
