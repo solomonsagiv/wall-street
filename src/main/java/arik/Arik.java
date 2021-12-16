@@ -1,9 +1,6 @@
 package arik;
 
-import arik.alerts.ArikAlgoAlert;
-import arik.alerts.ArikPositionsAlert;
-import arik.alerts.Spx_Ndx_1000_Algo;
-import arik.alerts.TA35_100000_Algo;
+import arik.alerts.*;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
@@ -12,11 +9,16 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Arik {
+
+    public static final boolean EVERYONE = false;
 
     public static int sagivID = 365117561;
     private static Arik arik;
@@ -63,7 +65,8 @@ public class Arik {
 
             // Positions alert
             ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
-            algo_list.add(new Spx_Ndx_1000_Algo(1000));
+            algo_list.add(new Plus_Minus_Algo(1000, Spx.getInstance()));
+            algo_list.add(new Plus_Minus_Algo(1000, Ndx.getInstance()));
 
             ArrayList<Double> targets = new ArrayList<>();
             targets.add(30000.0);
@@ -155,8 +158,14 @@ public class Arik {
     // Send message
     public void sendMessageToEveryOne(String text) {
         try {
-            for (int account : accounts) {
-                sendMessage(account, text, null);
+            if (EVERYONE) {
+                for (int account : accounts) {
+                    sendMessage(account, text, null);
+                }
+            } else {
+                for (int account : slo) {
+                    sendMessage(account, text, null);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
