@@ -5,6 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
+import charts.myCharts.FuturesChartLong;
 import charts.myCharts.Index_plus_opAvg_Chart;
 import charts.myCharts.OpAvg_Index_Chart;
 import dataBase.mySql.MySqlService;
@@ -90,8 +91,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_15, new DecisionsFunc(DecisionsFuncFactory.DF_15, "data.research_spx500_df_900_cdf"));
             map.put(DecisionsFuncFactory.DF_N_60, new DecisionsFunc(DecisionsFuncFactory.DF_N_60, "data.research_spx500_df_n_3600_cdf"));
             map.put(DecisionsFuncFactory.DF_60, new DecisionsFunc(DecisionsFuncFactory.DF_60, "data.research_spx500_df_3600_cdf"));
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_spx500_df_n_300_speed_300", 1));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_spx500_df_300_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_spx500_502_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_spx500_501_speed_300", 1));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;
@@ -110,10 +111,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            Index_plus_opAvg_Chart chart = new Index_plus_opAvg_Chart(this);
+            FuturesChartLong chart = new FuturesChartLong(this);
             chart.createChart();
 
-            OpAvg_Index_Chart full_charts_3 = new OpAvg_Index_Chart(this);
+            FuturesChartLong full_charts_3 = new FuturesChartLong(this);
             full_charts_3.createChart();
         }
     }
