@@ -110,7 +110,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
             }).start();
         }
         if (Manifest.DB) {
-            Arik.load_from_db();
+            try {
+                Arik.load_from_db();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

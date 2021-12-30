@@ -28,12 +28,12 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 12, 10);
-        LocalDate end_date = LocalDate.of(2021, 12, 11);
+        LocalDate date = LocalDate.of(2021, 10, 1);
+        LocalDate end_date = LocalDate.of(2021, 12, 28);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
-            if (date.getDayOfWeek().getValue() != SATURDAY && date.getDayOfWeek().getValue() != SUNDAY) {
+            if (date.getDayOfWeek().getValue() != FRIDAY && date.getDayOfWeek().getValue() != SATURDAY) {
                 System.out.println();
                 System.out.println("---------- " + date + " -----------");
                 run_single_day(date);
@@ -44,23 +44,25 @@ public class MainTickTimeMargin {
 
     // Single day runner
     public void run_single_day(LocalDate date) {
-        spx500(date);
+        ta35(date);
     }
 
 
 
     private void ta35(LocalDate date) {
-        int min = 60;
+        int min = 30;
 
-        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_month", "data.ta35_futures", date);
-        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_week", "data.ta35_futures_week", date);
-        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_month_60", "data.ta35_futures", date, min);
-        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_week_60", "data.ta35_futures_week", date, min);
+        SingleDayLogicFactory.op_avg_ta35_with_bid_ask("data.ta35_op_avg_with_bid_ask_30", "data.ta35_futures_week", date, min);
 
-        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_month_avg", "data.ta35_delta_month", date);
-        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg", "data.ta35_delta_week", date);
-        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_month_avg_60", "data.ta35_delta_month", date, min);
-        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg_60", "data.ta35_delta_week", date, min);
+//        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_month", "data.ta35_futures", date);
+//        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_week", "data.ta35_futures_week", date);
+//        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_month_60", "data.ta35_futures", date, min);
+//        SingleDayLogicFactory.op_avg_ta35("data.ta35_op_avg_week_60", "data.ta35_futures_week", date, min);
+//
+//        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_month_avg", "data.ta35_delta_month", date);
+//        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg", "data.ta35_delta_week", date);
+//        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_month_avg_60", "data.ta35_delta_month", date, min);
+//        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg_60", "data.ta35_delta_week", date, min);
 
     }
 

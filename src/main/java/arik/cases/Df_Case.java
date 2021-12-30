@@ -21,10 +21,10 @@ public class Df_Case extends ArikCase {
         Spx spx = Spx.getInstance();
         Ndx ndx = Ndx.getInstance();
 
-        String spx_df_5 = L.format_int(spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getValue());
-        String spx_df_n_5 = L.format_int(spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).getValue());
-        String ndx_df_5 = L.format_int(ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getValue());
-        String ndx_df_n_5 = L.format_int(ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).getValue());
+        String spx_df_5 = L.format_int(spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).getValue());
+        String spx_df_n_5 = L.format_int(spx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).getValue());
+        String ndx_df_5 = L.format_int(ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).getValue());
+        String ndx_df_n_5 = L.format_int(ndx.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).getValue());
 
         String return_text = "SPX DF_5 = %s \n" +
                 "SPX DF_N_5 = %s \n" +

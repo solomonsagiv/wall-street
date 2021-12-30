@@ -1,6 +1,9 @@
 package arik;
 
-import arik.alerts.*;
+import arik.alerts.ArikAlgoAlert;
+import arik.alerts.ArikPositionsAlert;
+import arik.alerts.Plus_Minus_Algo;
+import arik.alerts.TA35_100000_Algo;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
@@ -11,7 +14,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,37 +53,61 @@ public class Arik {
     public void start() {
         if (!running) {
 
-            // Load from database
-            load_from_db();
+            try {
+                // Load from database
+                load_from_db();
 
-            // Arik messages runner
-            arikRunner = new ArikRunner(this);
-            arikRunner.start();
+                // Arik messages runner
+                arik_runner();
 
-            // Arik data grabber
-            ArikGrabData arikGrabData = new ArikGrabData();
-            arikGrabData.getHandler().start();
-            running = true;
+                // Arik data grabber
+                data_grabber();
 
-
-            // Positions alert
-            ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
-            algo_list.add(new Plus_Minus_Algo(1000, Spx.getInstance()));
-            algo_list.add(new Plus_Minus_Algo(1000, Ndx.getInstance()));
-
-            ArrayList<Double> targets = new ArrayList<>();
-            targets.add(30000.0);
-            targets.add(60000.0);
-            algo_list.add(new TA35_100000_Algo(100000, targets));
-
-            ArikPositionsAlert arikPositionsAlert = new ArikPositionsAlert(algo_list);
-            arikPositionsAlert.getHandler().start();
-
-            System.out.println("Running");
+                // Position alerts
+                position_alerts();
+                
+                System.out.println("Running");
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         }
     }
 
-    public static void load_from_db() {
+    private void arik_runner() {
+        arikRunner = new ArikRunner(this);
+        arikRunner.start();
+    }
+
+    private void data_grabber() {
+        ArikGrabData arikGrabData = new ArikGrabData();
+        arikGrabData.getHandler().start();
+        running = true;
+    }
+
+    private ArrayList<ArikAlgoAlert> getArikAlgoAlerts() {
+        // Positions alert
+        ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
+        // Spx
+        algo_list.add(new Plus_Minus_Algo(1000, Spx.getInstance()));
+        // Ndx
+        algo_list.add(new Plus_Minus_Algo(1000, Ndx.getInstance()));
+
+        // TA 35
+        ArrayList<Double> targets = new ArrayList<>();
+        targets.add(30000.0);
+        targets.add(60000.0);
+        algo_list.add(new TA35_100000_Algo(100000, targets));
+        return algo_list;
+    }
+
+    private void position_alerts() {
+        ArikPositionsAlert arikPositionsAlert = new ArikPositionsAlert(getArikAlgoAlerts());
+        arikPositionsAlert.getHandler().start();
+    }
+
+
+    public static void load_from_db() throws Exception {
         ResultSet rs = MySql.select("select * from sagiv.arik_accounts;");
         while (true) {
             try {

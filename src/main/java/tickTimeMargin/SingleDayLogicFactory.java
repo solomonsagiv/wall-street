@@ -107,6 +107,17 @@ public class SingleDayLogicFactory {
         MySql.insert(query);
     }
 
+    public static void op_avg_ta35_with_bid_ask(String table_to_insert, String table_to_calc, LocalDate date, int min) {
+        String q = "insert into %s " +
+                "select i.time, avg(f.futures - ((i.ask + i.bid) / 2)) over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
+                "from data.ta35_index i " +
+                "inner join %s f on i.time = f.time " +
+                "where i.time between date_trunc('day', date'%s') and date_trunc('day', date'%s' + interval '1' day);";
+
+        String query = String.format(q, table_to_insert, min, table_to_calc, date, date);
+        MySql.insert(query);
+    }
+
 
     public static void op_avg_ta35(String table_to_insert, String table_to_calc, LocalDate date) {
         String q = "insert into %s " +

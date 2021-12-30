@@ -18,10 +18,6 @@ public class TimeSeriesFactory {
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String INDEX_BID_ASK_COUNTER_SERIES = "INDEX_BID_ASK_COUNTER";
-    public static final String INDEX_BID_ASK_COUNTER_SERIES_5 = "INDEX_BID_ASK_COUNTER_5";
-    public static final String INDEX_BID_ASK_COUNTER_SERIES_15 = "INDEX_BID_ASK_COUNTER_15";
-    public static final String INDEX_BID_ASK_COUNTER_SERIES_45 = "INDEX_BID_ASK_COUNTER_45";
-    public static final String INDEX_BID_ASK_COUNTER_SERIES_DAY = "INDEX_BID_ASK_COUNTER_DAY";
     public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
     public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
@@ -30,90 +26,28 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_1_SERIES = "OP_AVG_1";
     public static final String OP_AVG_HOUR_SERIES = "OP_AVG_HOUR";
     public static final String BASKETS_SERIES = "BASKETS";
-    public static final String SPEED_900 = "SPEED_900";
-    public static final String ACC_900 = "ACC_900";
-    public static final String ACC_300 = "ACC_300";
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
     public static final String SESSION_4_VERSION_601 = "SESSION_4_VERSION_601";
-    public static final String DF_5 = "DF_5";
-    public static final String DF_N_5 = "DF_N_5";
+    public static final String DF_N_DAY = "DF_N_DAY";
+    public static final String DF_DAY = "DF_DAY";
+    public static final String DF_N_DAY_SPEED = "DF_N_DAY_SPEED";
+    public static final String DF_DAY_SPEED = "DF_DAY_SPEED";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
-            case SPEED_900:
+            case DF_N_DAY:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.SPEED_900).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-
-            case ACC_900:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_900).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_900).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-            case ACC_300:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.ACC_300).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-
-            // DF 5
-            case DF_5:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getTable_location();
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series_cumulative(table_location, minuts);
                         return rs;
                     }
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).getValue();
                     }
 
                     @Override
@@ -122,20 +56,19 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            // DF N 5
-            case DF_N_5:
+            case DF_DAY:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).getTable_location();
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).getTable_location();
                         ResultSet rs = MySql.Queries.get_last_x_time_of_series_cumulative(table_location, minuts);
                         return rs;
                     }
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_5).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).getValue();
                     }
 
                     @Override
@@ -143,84 +76,38 @@ public class TimeSeriesFactory {
 
                     }
                 };
-
-            // BID ASK COUNTER AVG 5
-            case INDEX_BID_ASK_COUNTER_SERIES_5:
+            case DF_N_DAY_SPEED:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        return null;
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY_SPEED).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
                     }
 
                     @Override
                     public double getData() {
-                        return client.getBidAskCounterGrabberService().avg_5;
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY_SPEED).getValue();
                     }
 
                     @Override
                     public void load() {
 
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
-
-                        ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 5);
-                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
 
-
-            // BID ASK COUNTER AVG 15
-            case INDEX_BID_ASK_COUNTER_SERIES_15:
+            case DF_DAY_SPEED:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        return null;
+                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY_SPEED).getTable_location();
+                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
+                        return rs;
                     }
 
                     @Override
                     public double getData() {
-                        return client.getBidAskCounterGrabberService().avg_15;
-                    }
-
-                    @Override
-                    public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
-
-                        ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 15);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-            // BID ASK COUNTER AVG 45
-            case INDEX_BID_ASK_COUNTER_SERIES_45:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getBidAskCounterGrabberService().avg_45;
-                    }
-
-                    @Override
-                    public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE);
-
-                        ResultSet rs = MySql.Queries.cumulative_avg_from_cdf(table_location, 45);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-            // BID ASK COUNTER AVG DAY
-            case INDEX_BID_ASK_COUNTER_SERIES_DAY:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getBidAskCounterGrabberService().avg_day;
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY_SPEED).getValue();
                     }
 
                     @Override
@@ -228,7 +115,6 @@ public class TimeSeriesFactory {
 
                     }
                 };
-            // Q1 DELTA
             case FUTURE_DELTA:
                 return new MyTimeSeries(series_type, client) {
                     @Override

@@ -36,6 +36,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem df_speeds = new JMenuItem("DF & Speed");
+        df_speeds.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DF_SPEED_Chart chart = new DF_SPEED_Chart(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem fullCharts_3 = new JMenuItem("Full charts 3");
         fullCharts_3.addActionListener(new ActionListener() {
             @Override
@@ -63,24 +72,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem dec_funcs = new JMenuItem("Dec funcs");
-        dec_funcs.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DecisionsFuncChart chart = new DecisionsFuncChart(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem dec_funcs_3 = new JMenuItem("Dec funcs 3 (Df 5)");
-        dec_funcs_3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DecisionsFuncChart3 chart = new DecisionsFuncChart3(client);
-                chart.createChart();
-            }
-        });
-        
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override
@@ -120,14 +111,13 @@ public class PopupsMenuFactory {
         });
 
         charts.add(index_plus_opavg);
-        charts.add(dec_funcs_3);
         charts.add(delta_index_3600);
         charts.add(fullCharts_2);
         charts.add(fullCharts_3);
-        charts.add(dec_funcs);
         charts.add(baskets);
         charts.add(futures_real_time_long);
         charts.add(op_avg_chart);
+        charts.add(df_speeds);
 
         menu.add(details);
         menu.add(settingWindow);

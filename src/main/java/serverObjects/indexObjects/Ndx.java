@@ -7,7 +7,6 @@ import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_3;
 import charts.myCharts.FuturesChartLong;
-import charts.myCharts.Index_plus_opAvg_Chart;
 import charts.myCharts.OpAvg_Index_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
@@ -79,19 +78,15 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             indAskMarginCounter += marginOfMarings;
         }
     }
-    
+
     @Override
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.DF_N_5, new DecisionsFunc(DecisionsFuncFactory.DF_N_5, "data.ndx_decision_func", 4, 602));
-            map.put(DecisionsFuncFactory.DF_5, new DecisionsFunc(DecisionsFuncFactory.DF_5, "data.ndx_decision_func", 4, 601));
-            map.put(DecisionsFuncFactory.DF_N_15, new DecisionsFunc(DecisionsFuncFactory.DF_N_15, "data.research_ndx_df_n_900_cdf"));
-            map.put(DecisionsFuncFactory.DF_15, new DecisionsFunc(DecisionsFuncFactory.DF_15, "data.research_ndx_df_900_cdf"));
-            map.put(DecisionsFuncFactory.DF_N_60, new DecisionsFunc(DecisionsFuncFactory.DF_N_60, "data.research_ndx_df_n_3600_cdf"));
-            map.put(DecisionsFuncFactory.DF_60, new DecisionsFunc(DecisionsFuncFactory.DF_60, "data.research_ndx_df_3600_cdf"));
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.research_ndx_602_speed_300", 1));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.research_ndx_601_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.ndx_decision_func", 4, 602));
+            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.ndx_decision_func", 4, 601));
+            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY_SPEED, "data.research_ndx_602_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY_SPEED, "data.research_ndx_601_speed_300", 1));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

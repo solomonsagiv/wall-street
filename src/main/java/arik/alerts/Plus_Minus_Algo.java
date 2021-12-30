@@ -20,12 +20,15 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
 
         Map<String, DecisionsFunc> df_map = client.getDecisionsFuncHandler().getMap();
 
-        df_list.add(df_map.get(DecisionsFuncFactory.DF_5));
-        df_list.add(df_map.get(DecisionsFuncFactory.DF_N_5));
+        df_list.add(df_map.get(DecisionsFuncFactory.DF_DAY));
+        df_list.add(df_map.get(DecisionsFuncFactory.DF_N_DAY));
     }
 
     @Override
     public void go() {
+
+        System.out.println("Plus minus position algo running " + client.getName());
+
         // --------------- LONG --------------- //
         // Enter long
         if (!LONG) {

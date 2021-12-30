@@ -22,14 +22,14 @@ public class Spx_Ndx_1000_Algo extends ArikAlgoAlert {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
         this.df_list = new ArrayList<>();
-
+        
         Map<String, DecisionsFunc> spx_list =  spx.getDecisionsFuncHandler().getMap();
         Map<String, DecisionsFunc> ndx_list =  ndx.getDecisionsFuncHandler().getMap();
 
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_5));
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_N_5));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_5));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_N_5));
+        df_list.add(spx_list.get(DecisionsFuncFactory.DF_DAY));
+        df_list.add(spx_list.get(DecisionsFuncFactory.DF_N_DAY));
+        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_DAY));
+        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_N_DAY));
     }
 
     @Override
