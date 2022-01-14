@@ -44,7 +44,6 @@ public class SingleDayLogicFactory {
 
     }
 
-
     public static void cumulative_avg_timeserie_cdf(String table_to_insert, String table_to_take_from, int min, LocalDate date) {
         String q = "insert into %s " +
                 "select  time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) " +
@@ -112,11 +111,14 @@ public class SingleDayLogicFactory {
                 "select i.time, avg(f.futures - ((i.ask + i.bid) / 2)) over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
                 "from data.ta35_index i " +
                 "inner join %s f on i.time = f.time " +
-                "where i.time between date_trunc('day', date'%s') and date_trunc('day', date'%s' + interval '1' day);";
+                "where i.time between date_trunc('day', date'%s') and date_trunc('day', date'%s' + interval '1' day)" +
+                "and bid is not null and ask is not null;";
 
         String query = String.format(q, table_to_insert, min, table_to_calc, date, date);
         MySql.insert(query);
     }
+
+
 
 
     public static void op_avg_ta35(String table_to_insert, String table_to_calc, LocalDate date) {
@@ -136,12 +138,12 @@ public class SingleDayLogicFactory {
                 "from %s i " +
                 "inner join %s f " +
                 "on i.time = f.time " +
-                "where i.time::date = '%s';";
+                "where i.time between date_trunc('day', date'%s') and date_trunc('day', date'%s' + interval '1' day);";
 
-        String query = String.format(q, table_to_insert, min, index_table, fut_table_to_calc_op, date);
+        String query = String.format(q, table_to_insert, min, index_table, fut_table_to_calc_op, date, date);
         MySql.insert(query);
     }
-    
+
     public static void op_avg(String table_to_insert, String fut_table_to_calc_op, String index_table, LocalDate date) {
         String q = "insert into %s" +
                 " select i.time,  avg(f.value - i.value) over (ORDER BY i.time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +

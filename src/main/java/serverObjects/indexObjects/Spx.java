@@ -108,7 +108,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         if (Manifest.OPEN_CHARTS) {
             FuturesChartLong chart = new FuturesChartLong(this);
             chart.createChart();
-
+            
             OpAvg_Index_Chart opAvg_index_chart = new OpAvg_Index_Chart(this);
             opAvg_index_chart.createChart();
         }

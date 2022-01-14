@@ -39,6 +39,7 @@ public abstract class IDataBaseHandler {
     public static final int INDEX_DELTA_TABLE = 25;
     public static final int FUT_E1_TICK_SPEED = 26;
     public static final int FUT_DELTA_TABLE = 27;
+    public static final int E1_BID_ASK_COUNTER_TABLE = 28;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 

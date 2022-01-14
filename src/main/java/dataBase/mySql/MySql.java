@@ -132,6 +132,7 @@ public class MySql {
     }
 
     public static class Queries {
+        public static final int step_second = 5;
 
         public static ResultSet op_query(String index_table, String fut_table) {
             String query = String.format("select sum(f.value - i.value), count(f.value - i.value) as value " +
@@ -151,7 +152,36 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet op_avg_cumulative_query(String index_table, String fut_table) {
+
+        public static void op_avg_continues_serie(String index_table, String fut_table, int rows) {
+            String q = "select time, avg(op) over (ORDER BY row RANGE BETWEEN %s PRECEDING AND CURRENT ROW) as value\n" +
+                    "from (\n" +
+                    "         select i.time as time,\n" +
+                    "                f.value - i.value                   as op,\n" +
+                    "                row_number() over (order by i.time) as row\n" +
+                    "         from %s i\n" +
+                    "                  inner join %s f on i.time = f.time\n" +
+                    "         where i.time >= date_trunc('day', now() - interval '1' day)) a\n" +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);\n";
+
+            String query = String.format(q, rows, index_table, fut_table);
+            MySql.insert(query);
+        }
+
+        public static void op_avg_by_rows(String index_table, String fut_table, int rows) {
+            String q = "select avg(op) as value\n" +
+                    "from (\n" +
+                    "         select f.value - i.value as op\n" +
+                    "         from %s i\n" +
+                    "                  inner join %s f on i.time = f.time\n" +
+                    "         order by i.time desc\n" +
+                    "         limit %s) a;";
+
+            String query = String.format(q, index_table, fut_table, rows);
+            MySql.insert(query);
+        }
+
+        public static ResultSet op_avg_cumulative(String index_table, String fut_table) {
             String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
                     "from %s i " +
                     "inner join %s f " +
@@ -192,10 +222,62 @@ public class MySql {
         }
 
         public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
-            String query = String.format("select i.time as time, avg(f.value - i.value) over (order by i.time range between '%s min' preceding and current row ) as value " +
+            String modulu = "%";
+            String q = "select * " +
+                    "from ( " +
+                    "select i.time, " +
+                    "avg(f.value - i.value) " +
+                    "over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value, " +
+                    "row_number() over (order by i.time) as row " +
                     "from %s i " +
                     "inner join %s f on i.time = f.time " +
-                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", min, index_table, fut_table);
+                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)) a " +
+                    "where row % 5 = 0;";
+            String query = String.format(q, min, index_table, fut_table, modulu, step_second);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet ta35_op_avg_with_bid_ask(String table_to_insert, String fut_table, int min, int step_seconds) {
+            String modulu = "%";
+            String q = "insert into %s" +
+                    "select * " +
+                    "from ( " +
+                    "select i.time, " +
+                    "avg(f.futures - ((i.bid + i.ask) / 2)) " +
+                    "over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value, " +
+                    "row_number() over (order by i.time)                                              as row " +
+                    "from data.ta35_index i " +
+                    "inner join %s f on i.time = f.time " +
+                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)) a " +
+                    "where row %s %s = 0;";
+            String query = String.format(q, table_to_insert, min, fut_table, modulu, step_seconds);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet get_serie_cumulative_sum(String table_location, int step_second) {
+            String modulu = "%";
+            String q = "select * " +
+                    "from ( " +
+                    "select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over ( ORDER BY time ) as row " +
+                    "from %s " +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)) a " +
+                    "where row %s %s = 0;";
+            String query = String.format(q, table_location, modulu, step_second);
+            return MySql.select(query);
+        }
+
+        public static ResultSet get_serie(String table_location, int step_second) {
+            String modulu = "%";
+            String q = "select * " +
+                    "from ( " +
+                    "SELECT *, row_number() over (order by time) as row " +
+                    "FROM %s " +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) " +
+                    ") a " +
+                    "where row %s %s = 0;";
+            String query = String.format(q, table_location, modulu, step_second);
             return MySql.select(query);
         }
 
@@ -260,8 +342,6 @@ public class MySql {
             String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, exp_name);
             MySql.insert(query);
         }
-
-
 
         public static ResultSet select_2_tables_on_same_time_no_millis(String index_table, String decsion_table, LocalDate date) {
             String q = "select * " +

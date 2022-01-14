@@ -24,11 +24,12 @@ public abstract class Exp {
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate expDate;
     protected double future = 0;
-    protected double future_bid = 0;
-    protected double future_ask = 0;
-    protected int fut_bid_ask_counter = 0;
+    protected double contract_bid = 0;
+    protected double last_checked_future_bid = 0;
+    protected double contract_ask = 0;
+    protected double last_checked_future_ask = 0;
+    protected int contract_bid_ask_counter = 0;
 
-    protected int last_deal_quantity = 0;
     ExpData expData;
     List<Double> opFutList = new ArrayList<>();
 
@@ -103,6 +104,34 @@ public abstract class Exp {
         }
     }
 
+    public void set_contract_bid(double new_bid) {
+        if (new_bid > 1) {
+            // If increment state
+            if (new_bid > contract_bid && contract_ask == last_checked_future_ask) {
+                contract_bid_ask_counter++;
+            }
+            this.contract_bid = new_bid;
+
+            // Handle state
+            last_checked_future_ask = contract_ask;
+            last_checked_future_bid = contract_bid;
+        }
+    }
+
+    public void set_contract_ask(double new_ask) {
+        if (new_ask > 1) {
+            // If increment state
+            if (new_ask < contract_ask && contract_bid == last_checked_future_bid) {
+                contract_bid_ask_counter--;
+            }
+            this.contract_ask = new_ask;
+
+            // Handle state
+            last_checked_future_ask = contract_ask;
+            last_checked_future_bid = contract_bid;
+        }
+    }
+
     public LocalDate getExpDate() {
         return expDate;
     }
@@ -117,20 +146,12 @@ public abstract class Exp {
         }
     }
 
-    public double getFuture_bid() {
-        return future_bid;
+    public double getContract_bid() {
+        return contract_bid;
     }
 
-    public void setFuture_bid(double future_bid) {
-            this.future_bid = future_bid;
-    }
-
-    public double getFuture_ask() {
-        return future_ask;
-    }
-
-    public void setFuture_ask(double future_ask) {
-            this.future_ask = future_ask;
+    public double getContract_ask() {
+        return contract_ask;
     }
 
     public double getDividend() {
@@ -157,12 +178,12 @@ public abstract class Exp {
         this.days_to_exp = days_to_exp;
     }
 
-    public int getFut_bid_ask_counter() {
-        return fut_bid_ask_counter;
+    public int getContract_bid_ask_counter() {
+        return contract_bid_ask_counter;
     }
 
-    public void setFut_bid_ask_counter(int fut_bid_ask_counter) {
-        this.fut_bid_ask_counter = fut_bid_ask_counter;
+    public void setContract_bid_ask_counter(int contract_bid_ask_counter) {
+        this.contract_bid_ask_counter = contract_bid_ask_counter;
     }
 
     public List<Double> getOpFutList() {

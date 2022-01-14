@@ -167,6 +167,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         tablesNames.put(FUT_Q1_TABLE, "data.ndx_fut_e1");
         tablesNames.put(FUT_Q2_TABLE, "data.ndx_fut_e2");
         tablesNames.put(FUT_DELTA_TABLE, "data.ndx_fut_delta_cdf");
+        tablesNames.put(E1_BID_ASK_COUNTER_TABLE, "data.ndx_e1_bid_ask_counter_cdf");
     }
 
     @Override

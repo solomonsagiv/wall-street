@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 public class TimeSeriesFactory {
 
     public static final String INDEX_SERIES = "INDEX";
-    public static final String FUTURE_BID_ASK_COUNTER = "FUTURE_BID_ASK_COUNTER";
+    public static final String E1_BID_ASK_COUNTER = "E1_BID_ASK_COUNTER";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String INDEX_BID_ASK_COUNTER_SERIES = "INDEX_BID_ASK_COUNTER";
@@ -204,7 +204,7 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            case FUTURE_BID_ASK_COUNTER:
+            case E1_BID_ASK_COUNTER:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -213,7 +213,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getExps().getExp(ExpStrings.q1).getFut_bid_ask_counter();
+                        return client.getExps().getExp(ExpStrings.q1).getContract_bid_ask_counter();
                     }
 
                     @Override
@@ -240,7 +240,7 @@ public class TimeSeriesFactory {
                         IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
                         String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
                         String fut_table = dataBaseHandler.get_table_loc(exp.getName());
-                        ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table);
+                        ResultSet rs = MySql.Queries.op_avg_cumulative(index_table, fut_table);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };

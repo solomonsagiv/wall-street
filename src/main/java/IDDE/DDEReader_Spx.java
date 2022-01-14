@@ -39,6 +39,8 @@ public class DDEReader_Spx extends IDDEReader {
     String futWeekAskCell = "R10C11";
     String futMonthCell = "R11C10";
     String e1Cell = "R12C10";
+    String e1_contract_bid_cell = "R27C13";
+    String e1_contract_ask_cell = "R27C15";
     String e2Cell = "R13C10";
 
     // Naked future for delta
@@ -98,11 +100,17 @@ public class DDEReader_Spx extends IDDEReader {
 
         // Exps
         day.set_future(requestDouble(futDayCell, conversation));
-        day.setFuture_bid(requestDouble(futDayBidCell, conversation));
-        day.setFuture_ask(requestDouble(futDayAskCell, conversation));
+        day.set_contract_bid(requestDouble(futDayBidCell, conversation));
+        day.set_contract_ask(requestDouble(futDayAskCell, conversation));
+
         week.set_future(requestDouble(futWeekCell, conversation));
+
         month.set_future(requestDouble(futMonthCell, conversation));
+
         q1.set_future(requestDouble(e1Cell, conversation));
+        q1.set_contract_bid(requestDouble(e1_contract_bid_cell, conversation));
+        q1.set_contract_ask(requestDouble(e1_contract_ask_cell, conversation));
+
         q2.set_future(requestDouble(e2Cell, conversation));
     }
 

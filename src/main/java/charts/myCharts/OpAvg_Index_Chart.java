@@ -2,6 +2,8 @@ package charts.myCharts;
 
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
+import dataBase.mySql.MySql;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
@@ -46,43 +48,6 @@ public class OpAvg_Index_Chart extends MyChartCreator {
         Exp day_exp = client.getExps().getExp(ExpStrings.day);
 
         // --------- Op avg ---------- //
-
-        MyTimeSeries op_avg_1 = new MyTimeSeries("O/P Avg Day 1", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() throws UnknownHostException {
-                return day_exp.get_op_avg(60);
-            }
-            @Override
-            public void load() {
-            }
-        };
-        op_avg_1.setColor(Themes.PINK_LIGHT);
-        op_avg_1.setStokeSize(1.2f);
-        op_avg_1.setVisible(false);
-
-        MyTimeSeries op_avg_5 = new MyTimeSeries("O/P Avg Day 5", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() throws UnknownHostException {
-                return day_exp.get_op_avg(300);
-            }
-            @Override
-            public void load() {
-            }
-        };
-        op_avg_5.setColor(Themes.RED_2);
-        op_avg_5.setStokeSize(1.2f);
-        op_avg_5.setVisible(false);
-
         MyTimeSeries op_avg_15 = new MyTimeSeries("O/P Avg Day 15", client) {
             @Override
             public ResultSet load_last_x_time(int minuts) {
@@ -95,6 +60,12 @@ public class OpAvg_Index_Chart extends MyChartCreator {
             }
             @Override
             public void load() {
+                IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+
+                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                String fut_table = dataBaseHandler.get_table_loc(day_exp.getName());
+                ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 15);
+                IDataBaseHandler.loadSerieData(rs, this);
             }
         };
         op_avg_15.setColor(Themes.GREEN);
@@ -108,20 +79,24 @@ public class OpAvg_Index_Chart extends MyChartCreator {
 
             @Override
             public double getData() throws UnknownHostException {
-                return day_exp.get_op_avg(3600);
+                return 0;
             }
             @Override
             public void load() {
+                IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+
+                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                String fut_table = dataBaseHandler.get_table_loc(day_exp.getName());
+                ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 60);
+                IDataBaseHandler.loadSerieData(rs, this);
             }
         };
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[4];
-        series[0] = op_avg_1;
-        series[1] = op_avg_5;
-        series[2] = op_avg_15;
-        series[3] = op_avg_60;
+        series = new MyTimeSeries[2];
+        series[0] = op_avg_15;
+        series[1] = op_avg_60;
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
@@ -142,7 +117,10 @@ public class OpAvg_Index_Chart extends MyChartCreator {
 
             @Override
             public void load() {
-
+                IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
+                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                ResultSet rs = MySql.Queries.get_serie(index_table, 5);
+                IDataBaseHandler.loadSerieData(rs, this);
             }
         };
         indexSeries.setColor(Color.BLACK);

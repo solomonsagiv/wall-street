@@ -119,10 +119,23 @@ public class Full_Chart_2 extends MyChartCreator {
         // Chart
         MyChart deltaChart = new MyChart(client, series, props);
 
+        // --------- Q1 bid ask counter ---------- //
+
+        // Delta
+        MyTimeSeries q1_bid_ask_counter_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.E1_BID_ASK_COUNTER, client, client.getExps().getExp(ExpStrings.q1));
+        q1_bid_ask_counter_serie.setColor(Themes.GREEN);
+        q1_bid_ask_counter_serie.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[1];
+        series[0] = q1_bid_ask_counter_serie;
+
+        // Chart
+        MyChart q1_bid_ask_counterChart = new MyChart(client, series, props);
+
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_all_exps_chart, deltaChart, indexBidAskCounterChart};
+        MyChart[] charts = {indexChart, op_avg_all_exps_chart, q1_bid_ask_counterChart, deltaChart, indexBidAskCounterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
