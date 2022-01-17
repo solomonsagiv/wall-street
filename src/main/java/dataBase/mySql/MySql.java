@@ -152,23 +152,35 @@ public class MySql {
             return MySql.select(query);
         }
 
-
-        public static void op_avg_continues_serie(String index_table, String fut_table, int rows) {
-            String q = "select time, avg(op) over (ORDER BY row RANGE BETWEEN %s PRECEDING AND CURRENT ROW) as value\n" +
+        public static ResultSet op_avg_continues_by_rows_serie(String index_table, String fut_table, int rows) {
+            String modulu = "%";
+            String q = "select *\n" +
                     "from (\n" +
-                    "         select i.time as time,\n" +
-                    "                f.value - i.value                   as op,\n" +
-                    "                row_number() over (order by i.time) as row\n" +
-                    "         from %s i\n" +
-                    "                  inner join %s f on i.time = f.time\n" +
-                    "         where i.time >= date_trunc('day', now() - interval '1' day)) a\n" +
-                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);\n";
+                    "         select time,\n" +
+                    "                avg(op) over (ORDER BY row RANGE BETWEEN %s PRECEDING AND CURRENT ROW) as value,\n" +
+                    "                row\n" +
+                    "         from (\n" +
+                    "                  select i.time                              as time,\n" +
+                    "                         f.value - i.value                   as op,\n" +
+                    "                         row_number() over (order by i.time) as row\n" +
+                    "                  from %s i\n" +
+                    "                           inner join %s f on i.time = f.time\n" +
+                    "                  where i.time >= (select date_trunc('day', time)\n" +
+                    "                                   from %s\n" +
+                    "                                   where date_trunc('day', time) < date_trunc('day', now())\n" +
+                    "                                   group by date_trunc('day', time)\n" +
+                    "                                   order by date_trunc('day', time) desc\n" +
+                    "                                   limit 1)\n" +
+                    "              ) a\n" +
+                    "     ) a\n" +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "  and row %s %s = 0;";
 
-            String query = String.format(q, rows, index_table, fut_table);
-            MySql.insert(query);
+            String query = String.format(q, rows, index_table, fut_table, index_table, modulu, step_second);
+            return MySql.select(query);
         }
 
-        public static void op_avg_by_rows(String index_table, String fut_table, int rows) {
+        public static ResultSet op_avg_by_rows(String index_table, String fut_table, int rows) {
             String q = "select avg(op) as value\n" +
                     "from (\n" +
                     "         select f.value - i.value as op\n" +
@@ -178,7 +190,7 @@ public class MySql {
                     "         limit %s) a;";
 
             String query = String.format(q, index_table, fut_table, rows);
-            MySql.insert(query);
+            return MySql.select(query);
         }
 
         public static ResultSet op_avg_cumulative(String index_table, String fut_table) {

@@ -153,7 +153,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
     }
 
-
     @Override
     public void loadData() {
 
@@ -168,6 +167,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         load_op_avg(month, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)));
         load_op_avg(q1, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)));
         load_op_avg(q2, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)));
+
 
         // BID ASK COUNTER
         load_bid_ask_counter(MySql.Queries.get_sum(tablesNames.get(BID_ASK_COUNTER_TABLE)));

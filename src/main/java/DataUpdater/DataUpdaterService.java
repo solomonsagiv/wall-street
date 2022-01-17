@@ -1,6 +1,9 @@
 package DataUpdater;
 
+import dataBase.mySql.MySql;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
+import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
@@ -12,10 +15,15 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public void go() {
-        for (Exp exp: client.getExps().getExpList()) {
-            exp.setOp_avg_15(exp.get_op_avg(900));
-            exp.setOp_avg_60(exp.get_op_avg(3600));
-        }
+
+        String index_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
+        String day_fut_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
+
+        Exp day = getClient().getExps().getExp(ExpStrings.day);
+        day.setOp_avg_5_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 150)));
+        day.setOp_avg_15_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 450)));
+        day.setOp_avg_60_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 1800)));
+        day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 7000)));
     }
 
     @Override
@@ -25,7 +33,7 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 10000;
+        return 15000;
     }
 
     @Override

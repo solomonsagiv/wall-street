@@ -20,6 +20,10 @@ public abstract class Exp {
     private double op_avg_5 = 0;
     private double op_avg_15 = 0;
     private double op_avg_60 = 0;
+    private double op_avg_5_continue = 0;
+    private double op_avg_15_continue = 0;
+    private double op_avg_60_continue = 0;
+    private double op_avg_240_continue = 0;
 
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate expDate;
@@ -220,6 +224,38 @@ public abstract class Exp {
 
     public void setOp_avg_15(double op_avg_15) {
         this.op_avg_15 = op_avg_15;
+    }
+
+    public double getOp_avg_5_continue() {
+        return op_avg_5_continue;
+    }
+
+    public void setOp_avg_5_continue(double op_avg_5_continue) {
+        this.op_avg_5_continue = op_avg_5_continue;
+    }
+
+    public double getOp_avg_15_continue() {
+        return op_avg_15_continue;
+    }
+
+    public void setOp_avg_15_continue(double op_avg_15_continue) {
+        this.op_avg_15_continue = op_avg_15_continue;
+    }
+
+    public double getOp_avg_60_continue() {
+        return op_avg_60_continue;
+    }
+
+    public void setOp_avg_60_continue(double op_avg_60_continue) {
+        this.op_avg_60_continue = op_avg_60_continue;
+    }
+
+    public double getOp_avg_240_continue() {
+        return op_avg_240_continue;
+    }
+
+    public void setOp_avg_240_continue(double op_avg_240_continue) {
+        this.op_avg_240_continue = op_avg_240_continue;
     }
 
     public double getOp_avg_60() {

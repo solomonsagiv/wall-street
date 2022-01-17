@@ -29,12 +29,12 @@ public class MainTickTimeMargin {
 
     public void run_muilty_days() {
 
-        LocalDate date = LocalDate.of(2021, 12, 10);
+        LocalDate date = LocalDate.of(2021, 6, 1);
         LocalDate end_date = LocalDate.of(2022, 1, 14);
 
         while (date.isBefore(end_date)) {
             // NOT SATURDAY OR SUNDAY
-            if (date.getDayOfWeek().getValue() != FRIDAY && date.getDayOfWeek().getValue() != SATURDAY) {
+            if (date.getDayOfWeek().getValue() != SUNDAY && date.getDayOfWeek().getValue() != SATURDAY) {
                 System.out.println();
                 System.out.println("---------- " + date + " -----------");
                 run_single_day(date);
@@ -48,7 +48,6 @@ public class MainTickTimeMargin {
         spx500(date);
         ndx(date);
     }
-
 
     private void ta35(LocalDate date) {
         int min = 15;
@@ -66,14 +65,14 @@ public class MainTickTimeMargin {
 //        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_month_avg_60", "data.ta35_delta_month", date, min);
 //        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg_60", "data.ta35_delta_week", date, min);
     }
-    
+
     private void spx500(LocalDate date) {
 //        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day", "data.spx500_fut_day", date);
 
 //        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_1", "data.spx500_index", "data.spx500_fut_day", 1, date);
-//        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_5", "data.spx500_index", "data.spx500_fut_day", 5, date);
+        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_5", "data.spx500_index", "data.spx500_fut_day", 5, date);
         SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_15","data.spx500_index", "data.spx500_fut_day", 15, date);
-        SingleDayLogicFactory.op_avg("data.spx500_op_avg_week_60","data.spx500_index", "data.spx500_fut_day", 60, date);
+//        SingleDayLogicFactory.op_avg("data.spx500_op_avg_week_60","data.spx500_index", "data.spx500_fut_day", 60, date);
 
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg", date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_5", 5, date);
@@ -84,7 +83,8 @@ public class MainTickTimeMargin {
     private void ndx(LocalDate date) {
 //        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day", "data.ndx_fut_day", "data.ndx_index", date);
         SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15", "data.ndx_index", "data.ndx_fut_day", 15, date);
-        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60", "data.ndx_index", "data.ndx_fut_day", 60, date);
+        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_5", "data.ndx_index", "data.ndx_fut_day", 5, date);
+//        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60", "data.ndx_index", "data.ndx_fut_day", 60, date);
     }
 
     private void correltion(String index_table, String decision_table) {
@@ -114,17 +114,12 @@ public class MainTickTimeMargin {
 
     }
 
-
     private void import_series_time_sorted(ArrayList<String> tables_location_list, LocalDate date) {
-
         ArrayList<MyTickTimeSerie> series_list = new ArrayList<>();
-
         for (String table : tables_location_list) {
 //            IDataBaseHandler.loadSerieData(MySql.Queries.get_serie(table, date)) {
         }
-
     }
-
 
     private void tick_logic(LocalDate date) {
 

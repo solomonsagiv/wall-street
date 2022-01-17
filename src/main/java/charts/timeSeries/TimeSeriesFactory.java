@@ -32,6 +32,10 @@ public class TimeSeriesFactory {
     public static final String DF_DAY = "DF_DAY";
     public static final String DF_N_DAY_SPEED = "DF_N_DAY_SPEED";
     public static final String DF_DAY_SPEED = "DF_DAY_SPEED";
+    public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
+    public static final String OP_AVG_60_CONTINUE = "OP_AVG_60_CONTINUE";
+    public static final String OP_AVG_15_CONTINUE = "OP_AVG_15_CONTINUE";
+    public static final String OP_AVG_5_CONTINUE = "OP_AVG_5_CONTINUE";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
@@ -136,6 +140,93 @@ public class TimeSeriesFactory {
                     }
                 };
 
+            case OP_AVG_240_CONTINUE:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getExps().getExp(ExpStrings.day).getOp_avg_240_continue();
+                    }
+
+                    @Override
+                    public void load() {
+                        String index_tabele = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_tabele = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
+
+                        ResultSet rs = MySql.Queries.op_avg_continues_by_rows_serie(index_tabele, fut_tabele, 7000);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case OP_AVG_60_CONTINUE:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getExps().getExp(ExpStrings.day).getOp_avg_60_continue();
+                    }
+
+                    @Override
+                    public void load() {
+                        String index_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
+                        ResultSet rs = MySql.Queries.op_avg_continues_by_rows_serie(index_table, fut_table, 1800);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case OP_AVG_15_CONTINUE:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getExps().getExp(ExpStrings.day).getOp_avg_15_continue();
+                    }
+
+                    @Override
+                    public void load() {
+                        String index_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
+                        ResultSet rs = MySql.Queries.op_avg_continues_by_rows_serie(index_table, fut_table, 450);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+            case OP_AVG_5_CONTINUE:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getExps().getExp(ExpStrings.day).getOp_avg_5_continue();
+                    }
+
+                    @Override
+                    public void load() {
+                        String index_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
+                        String fut_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
+                        ResultSet rs = MySql.Queries.op_avg_continues_by_rows_serie(index_table, fut_table, 150);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
             case INDEX_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
