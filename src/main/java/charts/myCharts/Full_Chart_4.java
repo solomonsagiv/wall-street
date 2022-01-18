@@ -11,19 +11,20 @@ import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
-public class Full_Chart_2 extends MyChartCreator {
+public class Full_Chart_4 extends MyChartCreator {
 
     public static void main(String[] args) {
-        Full_Chart_2 fullChart2 = new Full_Chart_2(Spx.getInstance());
+        Full_Chart_4 fullChart2 = new Full_Chart_4(Spx.getInstance());
         fullChart2.createChart();
     }
 
     // Constructor
-    public Full_Chart_2(BASE_CLIENT_OBJECT client) {
+    public Full_Chart_4(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -109,19 +110,6 @@ public class Full_Chart_2 extends MyChartCreator {
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
-        // ------------------- Index bid ask counter -------------------- //
-
-        // Cunter
-        MyTimeSeries counter = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_BID_ASK_COUNTER_SERIES, client, null);
-        counter.setColor(Themes.BINANCE_ORANGE);
-        counter.setStokeSize(1f);
-
-        series = new MyTimeSeries[1];
-        series[0] = counter;
-
-        // Chart
-        MyChart indexBidAskCounterChart = new MyChart(client, series, props);
-
         // ------------------- Index 2 -------------------- //
 
         // Index
@@ -164,7 +152,7 @@ public class Full_Chart_2 extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, q1_bid_ask_counterChart, deltaChart, indexBidAskCounterChart};
+        MyChart[] charts = {indexChart, op_avg_chart, q1_bid_ask_counterChart, deltaChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
