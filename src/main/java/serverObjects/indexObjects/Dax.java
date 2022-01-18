@@ -115,8 +115,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            Full_Chart_3 chart_3 = new Full_Chart_3(client);
-            chart_3.createChart();
+
         }
     }
 

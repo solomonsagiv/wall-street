@@ -6,8 +6,8 @@ import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_3;
+import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong;
-import charts.myCharts.OpAvg_Index_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.ExpStrings;
@@ -19,6 +19,7 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,8 +109,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             FuturesChartLong chart = new FuturesChartLong(this);
             chart.createChart();
 
-            OpAvg_Index_Chart chart_3 = new OpAvg_Index_Chart(this);
-            chart_3.createChart();
+            Full_Chart_4 chart_4 = new Full_Chart_4(this);
+            chart_4.createChart();
         }
     }
 

@@ -4,6 +4,7 @@ import charts.myCharts.*;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import setting.clientSetting.SettingWindow;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,15 +28,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem fullCharts_2 = new JMenuItem("Full charts 2");
-        fullCharts_2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Full_Chart_2 chart = new Full_Chart_2(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem df_speeds = new JMenuItem("DF & Speed");
         df_speeds.addActionListener(new ActionListener() {
             @Override
@@ -45,11 +37,20 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem fullCharts_3 = new JMenuItem("Full charts 3");
-        fullCharts_3.addActionListener(new ActionListener() {
+        JMenuItem fullCharts_2 = new JMenuItem("Full charts 2");
+        fullCharts_2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Full_Chart_3 chart = new Full_Chart_3(client);
+                Full_Chart_2 chart = new Full_Chart_2(client);
+                chart.createChart();
+            }
+        });
+
+        JMenuItem fullCharts_4 = new JMenuItem("Full charts 4");
+        fullCharts_4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Full_Chart_4 chart = new Full_Chart_4(client);
                 chart.createChart();
             }
         });
@@ -113,7 +114,7 @@ public class PopupsMenuFactory {
         charts.add(index_plus_opavg);
         charts.add(delta_index_3600);
         charts.add(fullCharts_2);
-        charts.add(fullCharts_3);
+        charts.add(fullCharts_2);
         charts.add(baskets);
         charts.add(futures_real_time_long);
         charts.add(op_avg_chart);

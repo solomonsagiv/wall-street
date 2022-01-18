@@ -5,8 +5,8 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
+import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong;
-import charts.myCharts.OpAvg_Index_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
@@ -109,8 +109,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             FuturesChartLong chart = new FuturesChartLong(this);
             chart.createChart();
             
-            OpAvg_Index_Chart opAvg_index_chart = new OpAvg_Index_Chart(this);
-            opAvg_index_chart.createChart();
+            Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
+            full_chart_4.createChart();
         }
     }
 
