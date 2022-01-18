@@ -122,9 +122,10 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         @Override
         public void updateText() {
-            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
-            df_field.colorForge((int) df_func.getValue(), L.format_int());
+//            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
+//            df_field.colorForge((int) df_func.getValue(), L.format_int());
         }
+
     }
 
     @Override

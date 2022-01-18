@@ -310,7 +310,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         // TODO
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE));
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.E1_BID_ASK_COUNTER_TABLE));
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };

@@ -114,7 +114,7 @@ public class PopupsMenuFactory {
         charts.add(index_plus_opavg);
         charts.add(delta_index_3600);
         charts.add(fullCharts_2);
-        charts.add(fullCharts_2);
+        charts.add(fullCharts_4);
         charts.add(baskets);
         charts.add(futures_real_time_long);
         charts.add(op_avg_chart);

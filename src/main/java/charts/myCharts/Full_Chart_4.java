@@ -53,63 +53,26 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // ------------------ Op avg ------------------- //
 
-        // Exp
-        Exp day_exp = client.getExps().getExp(ExpStrings.day);
-
         // --------- Op avg ---------- //
-        MyTimeSeries op_avg_15 = new MyTimeSeries("O/P Avg Day 15", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() throws UnknownHostException {
-                return day_exp.get_op_avg(900);
-            }
-            @Override
-            public void load() {
-                IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
-
-                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
-                String fut_table = dataBaseHandler.get_table_loc(day_exp.getName());
-                ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 15);
-                IDataBaseHandler.loadSerieData(rs, this);
-            }
-        };
+        MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_CONTINUE, client, null);
         op_avg_15.setColor(Themes.GREEN);
         op_avg_15.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60 = new MyTimeSeries("O/P Avg Day 60", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() throws UnknownHostException {
-                return 0;
-            }
-            @Override
-            public void load() {
-                IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
-
-                String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
-                String fut_table = dataBaseHandler.get_table_loc(day_exp.getName());
-                ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 60);
-                IDataBaseHandler.loadSerieData(rs, this);
-            }
-        };
+        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_60_CONTINUE, client, null);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[2];
+        MyTimeSeries op_avg_240 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client, null);
+        op_avg_240.setColor(Themes.BINANCE_ORANGE);
+        op_avg_240.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[3];
         series[0] = op_avg_15;
         series[1] = op_avg_60;
+        series[2] = op_avg_240;
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
-
         // ------------------- Index 2 -------------------- //
 
         // Index
