@@ -306,6 +306,12 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet cumulative_sum_query_step_sec(String table_loc) {
+            String query = String.format("select time, sum(value) over (order by time) as value from %s " +
+                    "where %s;", table_loc, Filters.TODAY);
+            return MySql.select(query);
+        }
+
         public static ResultSet get_serie(String table_loc) {
             String q = "select * from %s where %s %s;";
             String query = String.format(q, table_loc, Filters.TODAY, Filters.ORDER_BY_TIME);

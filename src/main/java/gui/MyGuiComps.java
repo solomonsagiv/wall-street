@@ -455,8 +455,6 @@ public class MyGuiComps {
         }
     }
 
-
-
     public static void color_on_complete(JButton button) {
         Color original = button.getBackground();
         Color complete = Themes.BLUE_LIGHT_2;

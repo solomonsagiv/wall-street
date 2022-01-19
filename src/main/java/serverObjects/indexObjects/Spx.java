@@ -17,7 +17,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
 import java.util.HashMap;
 import java.util.Map;
 

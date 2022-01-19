@@ -18,6 +18,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_bid_ask_counter_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_day_0 = 0;
@@ -27,13 +28,19 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double baskets_0 = 0;
     double fut_delta_0 = 0;
+    double fut_bid_ask_counter_0 = 0;
 
-    E q1;
+    Exp day, week, month;
+    E q1, q2;
 
     public DataBaseHandler_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
+        day = exps.getExp(ExpStrings.day);
+        week = exps.getExp(ExpStrings.week);
+        month = exps.getExp(ExpStrings.month);
         q1 = (E) exps.getExp(ExpStrings.q1);
+        q2 = (E) exps.getExp(ExpStrings.q2);
     }
 
     int sleep_count = 100;
@@ -70,7 +77,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut day
-        double fut_day = exps.getExp(ExpStrings.day).get_future();
+        double fut_day = day.get_future();
 
         if (fut_day != fut_day_0) {
             fut_day_0 = fut_day;
@@ -78,7 +85,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut week
-        double fut_week = exps.getExp(ExpStrings.week).get_future();
+        double fut_week = week.get_future();
 
         if (fut_week != fut_week_0) {
             fut_week_0 = fut_week;
@@ -86,7 +93,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut month
-        double fut_month = exps.getExp(ExpStrings.month).get_future();
+        double fut_month = month.get_future();
 
         if (fut_month != fut_month_0) {
             fut_month_0 = fut_month;
@@ -94,7 +101,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut e1
-        double fut_e1 = exps.getExp(ExpStrings.q1).get_future();
+        double fut_e1 = q1.get_future();
 
         if (fut_e1 != fut_e1_0) {
             fut_e1_0 = fut_e1;
@@ -102,7 +109,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Fut e2
-        double fut_e2 = exps.getExp(ExpStrings.q2).get_future();
+        double fut_e2 = q2.get_future();
 
         if (fut_e2 != fut_e2_0) {
             fut_e2_0 = fut_e2;
@@ -116,6 +123,17 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             double last_count = basket - baskets_0;
             baskets_0 = basket;
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
+        // Future bid ask counter
+        int fut_bid_ask_counter = client.getIndexBidAskCounter();
+
+        if (fut_bid_ask_counter != fut_bid_ask_counter_0) {
+            double last_count = fut_bid_ask_counter - fut_bid_ask_counter_0;
+            fut_bid_ask_counter_0 = fut_bid_ask_counter;
+            if (last_count <= 1 || last_count >= -1) {
+                fut_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
         }
 
         // Baskets
@@ -184,5 +202,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
         insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
+        insertListRetro(fut_delta_timestamp, tablesNames.get(E1_BID_ASK_COUNTER_TABLE));
     }
 }

@@ -3,9 +3,6 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
-import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
@@ -13,8 +10,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
-import java.net.UnknownHostException;
-import java.sql.ResultSet;
 
 public class Full_Chart_4 extends MyChartCreator {
 
