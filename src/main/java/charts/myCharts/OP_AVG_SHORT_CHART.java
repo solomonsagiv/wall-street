@@ -26,6 +26,12 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
 
         MyTimeSeries[] series;
 
+
+        // Marker
+        ValueMarker marker = new ValueMarker(0);
+        marker.setPaint(Themes.GREY_2);
+        marker.setStroke(new BasicStroke(2f));
+
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, 1800);
@@ -38,12 +44,8 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-
-        // Marker
-        ValueMarker marker = new ValueMarker(0);
-        marker.setPaint(Themes.GREY_2);
-        marker.setStroke(new BasicStroke(2f));
-
+        props.setProp(ChartPropsEnum.MARKER, 0);
+        
         // --------------------------- Index -------------------------------- //
 
         // Index
@@ -123,7 +125,7 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
 
             @Override
             public double getData() throws UnknownHostException {
-                return day.getOp_avg_15();
+                return day.getOp_avg_60_continue();
             }
 
             @Override
@@ -144,7 +146,7 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
 
             @Override
             public double getData() throws UnknownHostException {
-                return day.getOp_avg_60();
+                return day.getOp_avg_60_continue();
             }
 
             @Override
