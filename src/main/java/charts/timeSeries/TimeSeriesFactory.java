@@ -344,7 +344,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() throws UnknownHostException {
-                        return exp.get_op_avg(60);
+                        return exp.getOp_avg_1();
                     }
 
                     @Override
@@ -366,7 +366,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() throws UnknownHostException {
-                        return exp.get_op_avg(300);
+                        return exp.getOp_avg_5();
                     }
 
                     @Override

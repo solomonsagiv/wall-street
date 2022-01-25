@@ -28,15 +28,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem df_speeds = new JMenuItem("DF & Speed");
-        df_speeds.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DF_SPEED_Chart chart = new DF_SPEED_Chart(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem fullCharts_2 = new JMenuItem("Full charts 2");
         fullCharts_2.addActionListener(new ActionListener() {
             @Override
@@ -64,15 +55,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem delta_index_3600 = new JMenuItem("Delta 1800");
-        delta_index_3600.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Delta_Index_1800_Chart chart = new Delta_Index_1800_Chart(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override
@@ -89,6 +71,15 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FuturesChartLong chart = new FuturesChartLong(client);
+                chart.createChart();
+            }
+        });
+
+        JMenuItem op_avg_30_chart = new JMenuItem("O/P avg 30");
+        op_avg_30_chart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OP_AVG_SHORT_CHART chart = new OP_AVG_SHORT_CHART(client);
                 chart.createChart();
             }
         });
@@ -112,13 +103,12 @@ public class PopupsMenuFactory {
         });
 
         charts.add(index_plus_opavg);
-        charts.add(delta_index_3600);
         charts.add(fullCharts_2);
         charts.add(fullCharts_4);
+        charts.add(op_avg_30_chart);
         charts.add(baskets);
         charts.add(futures_real_time_long);
         charts.add(op_avg_chart);
-        charts.add(df_speeds);
 
         menu.add(details);
         menu.add(settingWindow);

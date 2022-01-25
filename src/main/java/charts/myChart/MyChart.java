@@ -333,7 +333,7 @@ public class MyChart {
                 e.printStackTrace();
             }
         }
-
+        
         public void setTextWithColor(JLabel label, double price) {
             label.setText(L.str(price));
 

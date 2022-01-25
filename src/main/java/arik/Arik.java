@@ -73,7 +73,7 @@ public class Arik {
             }
         }
     }
-
+    
     private void arik_runner() {
         arikRunner = new ArikRunner(this);
         arikRunner.start();
