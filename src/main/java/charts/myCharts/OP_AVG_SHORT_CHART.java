@@ -45,7 +45,7 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
         props.setProp(ChartPropsEnum.MARKER, 0);
-        
+
         // --------------------------- Index -------------------------------- //
 
         // Index
@@ -85,7 +85,7 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
 
             @Override
             public double getData() throws UnknownHostException {
-                return day.getOp_avg_1();
+                return day.getOp_avg_1_continue();
             }
 
             @Override
@@ -105,7 +105,7 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
 
             @Override
             public double getData() throws UnknownHostException {
-                return day.getOp_avg_5();
+                return day.getOp_avg_5_continue();
             }
 
             @Override
