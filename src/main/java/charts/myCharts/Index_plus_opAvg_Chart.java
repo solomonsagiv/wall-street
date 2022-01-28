@@ -69,7 +69,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
 
             @Override
             public double getData() {
-                return client.getIndex() + day.getOp_avg_1();
+                return client.getIndex() + day.getOp_avg_1_continue();
             }
 
             @Override
@@ -89,7 +89,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
 
             @Override
             public double getData() {
-                return client.getIndex() + day.getOp_avg_5();
+                return client.getIndex() + day.getOp_avg_5_continue();
             }
 
             @Override
@@ -110,7 +110,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
 
             @Override
             public double getData() {
-                return client.getIndex() + day.getOp_avg_15();
+                return client.getIndex() + day.getOp_avg_15_continue();
             }
 
             @Override
@@ -131,7 +131,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
 
             @Override
             public double getData() {
-                return client.getIndex() + day.getOp_avg_60();
+                return client.getIndex() + day.getOp_avg_60_continue();
             }
 
             @Override

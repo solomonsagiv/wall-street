@@ -81,18 +81,28 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-        // ------------------- Delta  -------------------- //
+        // ------------------ Op avg 2 ------------------- //
+        MyTimeSeries op_avg_15_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_CONTINUE, client, null);
+        op_avg_15_2.setColor(Themes.GREEN);
+        op_avg_15_2.setVisible(false);
+        op_avg_15_2.setStokeSize(1.2f);
 
-        // Delta
-        MyTimeSeries deltaSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.FUTURE_DELTA, client, client.getExps().getExp(ExpStrings.q1));
-        deltaSeries.setColor(Themes.LIFGT_BLUE_2);
-        deltaSeries.setStokeSize(1.5f);
+        MyTimeSeries op_avg_60_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_60_CONTINUE, client, null);
+        op_avg_60_2.setColor(Themes.BLUE);
+        op_avg_60_2.setVisible(false);
+        op_avg_60_2.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[1];
-        series[0] = deltaSeries;
+        MyTimeSeries op_avg_240_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client, null);
+        op_avg_240_2.setColor(Themes.BINANCE_ORANGE);
+        op_avg_240_2.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[3];
+        series[0] = op_avg_15_2;
+        series[1] = op_avg_60_2;
+        series[2] = op_avg_240_2;
 
         // Chart
-        MyChart deltaChart = new MyChart(client, series, props);
+        MyChart op_avg_chart_2 = new MyChart(client, series, props);
 
         // --------- Q1 bid ask counter ---------- //
 
@@ -110,7 +120,7 @@ public class Full_Chart_4 extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, q1_bid_ask_counterChart, deltaChart};
+        MyChart[] charts = {indexChart, op_avg_chart, op_avg_chart_2, q1_bid_ask_counterChart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
