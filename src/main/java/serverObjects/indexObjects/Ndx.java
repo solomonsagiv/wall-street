@@ -7,7 +7,7 @@ import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_3;
 import charts.myCharts.Full_Chart_4;
-import charts.myCharts.FuturesChartLong;
+import charts.myCharts.FuturesChartLong_1000;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.ExpStrings;
@@ -106,7 +106,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChartLong chart = new FuturesChartLong(this);
+            FuturesChartLong_1000 chart = new FuturesChartLong_1000(this);
             chart.createChart();
 
             Full_Chart_4 chart_4 = new Full_Chart_4(this);

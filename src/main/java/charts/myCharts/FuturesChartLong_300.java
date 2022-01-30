@@ -13,10 +13,10 @@ import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class FuturesChartLong extends MyChartCreator {
+public class FuturesChartLong_300 extends MyChartCreator {
 
     // Constructor
-    public FuturesChartLong(BASE_CLIENT_OBJECT client ) {
+    public FuturesChartLong_300(BASE_CLIENT_OBJECT client ) {
         super(client, null, null);
     }
 
@@ -31,7 +31,7 @@ public class FuturesChartLong extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, 1000);
+        props.setProp(ChartPropsEnum.SECONDS, 300);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.003);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
