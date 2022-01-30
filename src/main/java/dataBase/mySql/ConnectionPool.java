@@ -15,7 +15,7 @@ public class ConnectionPool implements IConnectionPool {
         ConnectionPool connectionPool = ConnectionPool.getConnectionsPoolInstance();
     }
 
-    private static final int MAX_POOL_SIZE = 30;
+    private static final int MAX_POOL_SIZE = 15;
 
     // Instance
     private static ConnectionPool connectionPool;
@@ -123,6 +123,9 @@ public class ConnectionPool implements IConnectionPool {
     public void shutdown() throws SQLException {
         usedConnections.forEach(this::releaseConnection);
         for (Connection c : connections) {
+            c.close();
+        }
+        for (Connection c : usedConnections) {
             c.close();
         }
         connections.clear();

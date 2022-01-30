@@ -11,10 +11,13 @@ import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
+import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
-    
+
     static Spx spx;
     static Ndx ndx;
 //    static Dax dax;
@@ -49,6 +52,13 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     @Override
     public void onClose() {
         super.onClose();
+        try {
+            ConnectionPool pool = ConnectionPool.getConnectionsPoolInstance();
+            pool.shutdown();
+        } catch (SQLException throwables) {
+            JOptionPane.showMessageDialog(this, "Connections shut down failed");
+            throwables.printStackTrace();
+        }
         System.exit(0);
     }
 
@@ -65,7 +75,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         if (Manifest.DB) {
             loadOnStartUp();
         }
-        
+
         // This
         setXY(100, 100);
         setSize(500, 420);
