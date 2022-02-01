@@ -35,7 +35,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double fut_bid_ask_counter_0 = 0;
     Exp day, week, month;
     E q1, q2;
-
+    
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();

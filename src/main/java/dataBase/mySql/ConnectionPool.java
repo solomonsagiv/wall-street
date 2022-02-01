@@ -15,7 +15,7 @@ public class ConnectionPool implements IConnectionPool {
         ConnectionPool connectionPool = ConnectionPool.getConnectionsPoolInstance();
     }
 
-    private static final int MAX_POOL_SIZE = 15;
+    private static final int MAX_POOL_SIZE = 20;
 
     // Instance
     private static ConnectionPool connectionPool;
