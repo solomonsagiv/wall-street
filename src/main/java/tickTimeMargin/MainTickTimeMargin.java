@@ -45,8 +45,13 @@ public class MainTickTimeMargin {
 
     // Single day runner
     public void run_single_day(LocalDate date) {
-        spx500(date);
-        ndx(date);
+
+        LocalDate pre_date = LocalDate.of(2022, 2, 1);
+        LocalDate start_date = LocalDate.of(2022, 2, 2);
+        LocalDate end_date = LocalDate.of(2022, 2, 3);
+
+        spx500(pre_date, start_date, end_date);
+        ndx(pre_date, start_date, end_date);
     }
 
     private void ta35(LocalDate date) {
@@ -66,25 +71,53 @@ public class MainTickTimeMargin {
 //        SingleDayLogicFactory.ta35_bid_ask_counter_avg("data.ta35_delta_week_avg_60", "data.ta35_delta_week", date, min);
     }
 
-    private void spx500(LocalDate date) {
+    private void spx500(LocalDate pre_date, LocalDate start_date, LocalDate end_date) {
 //        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day", "data.spx500_fut_day", date);
 
 //        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_1", "data.spx500_index", "data.spx500_fut_day", 1, date);
-        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_5", "data.spx500_index", "data.spx500_fut_day", 5, date);
-        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_15","data.spx500_index", "data.spx500_fut_day", 15, date);
+//        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_5", "data.spx500_index", "data.spx500_fut_day", 5, date);
+//        SingleDayLogicFactory.op_avg("data.spx500_op_avg_day_15","data.spx500_index", "data.spx500_fut_day", 15, date);
 //        SingleDayLogicFactory.op_avg("data.spx500_op_avg_week_60","data.spx500_index", "data.spx500_fut_day", 60, date);
 
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg", date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_5", 5, date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_15", 15, date);
 //        SingleDayLogicFactory.bid_ask_counter_avg("data.spx500_bid_ask_counter_avg_45", 45, date);
+
+        SingleDayLogicFactory.wallstreet_op_avg_insert("data.ndx_op_avg_day_15_continue", 450, "data.ndx_index", "data.ndx_fut_day",
+                pre_date,
+                start_date,
+                end_date);
+        SingleDayLogicFactory.wallstreet_op_avg_insert("data.ndx_op_avg_day_60_continue", 1800, "data.ndx_index", "data.ndx_fut_day",
+                pre_date,
+                start_date,
+                end_date);
+        SingleDayLogicFactory.wallstreet_op_avg_insert("data.ndx_op_avg_day_240_continue", 7000, "data.ndx_index", "data.ndx_fut_day",
+                pre_date,
+                start_date,
+                end_date);
+
     }
 
-    private void ndx(LocalDate date) {
+    private void ndx(LocalDate pre_date, LocalDate start_date, LocalDate end_date) {
 //        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day", "data.ndx_fut_day", "data.ndx_index", date);
-        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15", "data.ndx_index", "data.ndx_fut_day", 15, date);
-        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_5", "data.ndx_index", "data.ndx_fut_day", 5, date);
+//        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_15", "data.ndx_index", "data.ndx_fut_day", 15, date);
+//        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_5", "data.ndx_index", "data.ndx_fut_day", 5, date);
 //        SingleDayLogicFactory.op_avg("data.ndx_op_avg_day_60", "data.ndx_index", "data.ndx_fut_day", 60, date);
+
+        SingleDayLogicFactory.wallstreet_op_avg_insert("data.ndx_op_avg_day_15_continue", 450, "data.ndx_index", "data.ndx_fut_day",
+                pre_date,
+                start_date,
+                end_date);
+
+        SingleDayLogicFactory.wallstreet_op_avg_insert("data.ndx_op_avg_day_60_continue", 1800, "data.ndx_index", "data.ndx_fut_day",
+                pre_date,
+                start_date,
+                end_date);
+        SingleDayLogicFactory.wallstreet_op_avg_insert("data.ndx_op_avg_day_240_continue", 7000, "data.ndx_index", "data.ndx_fut_day",
+                pre_date,
+                start_date,
+                end_date);
     }
 
     private void correltion(String index_table, String decision_table) {
@@ -92,13 +125,15 @@ public class MainTickTimeMargin {
 
     private void spx_avg_delta_index(LocalDate date) {
 
-        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_5", "data.spx500_index", 5, date);
-        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_15", "data.spx500_index", 15, date);
-        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_30", "data.spx500_index", 30, date);
+//        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_5", "data.spx500_index", 5, date);
+//        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_15", "data.spx500_index", 15, date);
+//        SingleDayLogicFactory.cumulative_avg_timeserie("data.spx500_index_avg_30", "data.spx500_index", 30, date);
+//
+//        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_5", "data.spx500_fut_delta_cdf", 5, date);
+//        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_15", "data.spx500_fut_delta_cdf", 15, date);
+//        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_30", "data.spx500_fut_delta_cdf", 15, date);
 
-        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_5", "data.spx500_fut_delta_cdf", 5, date);
-        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_15", "data.spx500_fut_delta_cdf", 15, date);
-        SingleDayLogicFactory.cumulative_avg_timeserie_cdf("data.spx500_fut_delta_avg_30", "data.spx500_fut_delta_cdf", 15, date);
+//        SingleDayLogicFactory.wallstreet_op_avg_insert();
 
     }
 

@@ -35,7 +35,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double fut_bid_ask_counter_0 = 0;
     Exp day, week, month;
     E q1, q2;
-    
+
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
@@ -68,7 +68,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
 
         // On changed data
-//        on_change_data();
+        on_change_data();
 
         // Grab decisions
         if (sleep_count % 20000 == 0) {

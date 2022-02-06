@@ -294,9 +294,9 @@ public abstract class IDataBaseHandler {
             queryBuiler.append(";");
 
             String q = String.format(queryBuiler.toString(), table_location);
-
+            
             // Insert
-            MySql.insert(q, true);
+            MySql.insert(q);
 
             // Clear the list
             list.clear();
