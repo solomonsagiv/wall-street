@@ -26,7 +26,6 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
 
         MyTimeSeries[] series;
 
-
         // Marker
         ValueMarker marker = new ValueMarker(0);
         marker.setPaint(Themes.GREY_2);
@@ -75,47 +74,6 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
         MyChart indexChart = new MyChart(client, series, props);
 
         // ----------------------------- OP AVG ---------------------------- //
-
-        // OP avg 1
-        MyTimeSeries op_avg_1 = new MyTimeSeries("OP avg 1", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() throws UnknownHostException {
-                return day.getOp_avg_1_continue();
-            }
-
-            @Override
-            public void load() {
-
-            }
-        };
-        op_avg_1.setColor(Themes.PURPLE);
-        op_avg_1.setStokeSize(1.5f);
-
-        // OP avg 5
-        MyTimeSeries op_avg_5 = new MyTimeSeries("OP avg 5", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() throws UnknownHostException {
-                return day.getOp_avg_5_continue();
-            }
-
-            @Override
-            public void load() {
-
-            }
-        };
-        op_avg_5.setColor(Themes.RED);
-        op_avg_5.setStokeSize(1.5f);
-
         // OP avg 15
         MyTimeSeries op_avg_15 = new MyTimeSeries("OP avg 15", client) {
             @Override
@@ -178,12 +136,10 @@ public class OP_AVG_SHORT_CHART extends MyChartCreator {
         op_avg_240.setStokeSize(1.5f);
 
 
-        series = new MyTimeSeries[5];
-        series[0] = op_avg_1;
-        series[1] = op_avg_5;
-        series[2] = op_avg_15;
-        series[3] = op_avg_60;
-        series[4] = op_avg_240;
+        series = new MyTimeSeries[3];
+        series[0] = op_avg_15;
+        series[1] = op_avg_60;
+        series[2] = op_avg_240;
 
         // Chart
         MyChart opavg_chart = new MyChart(client, series, props);

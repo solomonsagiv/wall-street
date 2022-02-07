@@ -206,27 +206,6 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            case OP_AVG_5_CONTINUE:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getExps().getExp(ExpStrings.day).getOp_avg_5_continue();
-                    }
-
-                    @Override
-                    public void load() {
-                        String index_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
-                        String fut_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
-                        ResultSet rs = MySql.Queries.op_avg_continues_by_rows_serie(index_table, fut_table, 150);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
             case INDEX_SERIES:
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -335,51 +314,6 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-            case OP_AVG_1_SERIES:
-                return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() throws UnknownHostException {
-                        return exp.getOp_avg_1_continue();
-                    }
-
-                    @Override
-                    public void load() {
-                        IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
-
-                        String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
-                        String fut_table = dataBaseHandler.get_table_loc(exp.getName());
-                        ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 1);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-            case OP_AVG_5_SERIES:
-                return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() throws UnknownHostException {
-                        return exp.getOp_avg_5_continue();
-                    }
-
-                    @Override
-                    public void load() {
-                        IDataBaseHandler dataBaseHandler = client.getMySqlService().getDataBaseHandler();
-
-                        String index_table = dataBaseHandler.get_table_loc(IDataBaseHandler.INDEX_TABLE);
-                        String fut_table = dataBaseHandler.get_table_loc(exp.getName());
-                        ResultSet rs = MySql.Queries.op_avg_cumulative_query(index_table, fut_table, 5);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
             case OP_AVG_15_SERIES:
                 return new MyTimeSeries(series_type + "_" + exp.getName().toUpperCase(), client) {
                     @Override

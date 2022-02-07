@@ -60,48 +60,7 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
         index.setColor(Color.BLACK);
         index.setStokeSize(2.25f);
 
-        // Index
-        MyTimeSeries index_min_avg_1 = new MyTimeSeries("Index avg 1", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() {
-                return client.getIndex() + day.getOp_avg_1_continue();
-            }
-
-            @Override
-            public void load() {
-
-            }
-        };
-        index_min_avg_1.setColor(Themes.GREEN);
-        index_min_avg_1.setStokeSize(2.25f);
-
-        // Index avg 5
-        MyTimeSeries index_min_avg_5 = new MyTimeSeries("Index avg 5", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
-
-            @Override
-            public double getData() {
-                return client.getIndex() + day.getOp_avg_5_continue();
-            }
-
-            @Override
-            public void load() {
-
-            }
-        };
-        index_min_avg_5.setColor(Themes.GREEN);
-        index_min_avg_5.setStokeSize(2.25f);
-        index_min_avg_5.setVisible(false);
-
-        // Index avg 5
+        // Index avg 15
         MyTimeSeries index_min_avg_15 = new MyTimeSeries("Index avg 15", client) {
             @Override
             public ResultSet load_last_x_time(int minuts) {
@@ -183,8 +142,6 @@ public class Index_plus_opAvg_Chart extends MyChartCreator {
         ask.setColor(Themes.RED);
         ask.setStokeSize(2.25f);
 
-        myTimeSeries.add(index_min_avg_1);
-        myTimeSeries.add(index_min_avg_5);
         myTimeSeries.add(index_min_avg_15);
         myTimeSeries.add(index_min_avg_60);
         myTimeSeries.add(index);

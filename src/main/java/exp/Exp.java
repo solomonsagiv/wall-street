@@ -16,8 +16,6 @@ public abstract class Exp {
     private double interest = 0;
     private double days_to_exp = -1;
 
-    private double op_avg_1_continue = 0;
-    private double op_avg_5_continue = 0;
     private double op_avg_15_continue = 0;
     private double op_avg_60_continue = 0;
     private double op_avg_240_continue = 0;
@@ -199,15 +197,6 @@ public abstract class Exp {
         return expName;
     }
 
-
-    public double getOp_avg_5_continue() {
-        return op_avg_5_continue;
-    }
-
-    public void setOp_avg_5_continue(double op_avg_5_continue) {
-        this.op_avg_5_continue = op_avg_5_continue;
-    }
-
     public double getOp_avg_15_continue() {
         return op_avg_15_continue;
     }
@@ -232,11 +221,4 @@ public abstract class Exp {
         this.op_avg_240_continue = op_avg_240_continue;
     }
 
-    public double getOp_avg_1_continue() {
-        return op_avg_1_continue;
-    }
-
-    public void setOp_avg_1_continue(double op_avg_1_continue) {
-        this.op_avg_1_continue = op_avg_1_continue;
-    }
 }
