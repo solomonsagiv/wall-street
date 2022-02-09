@@ -36,6 +36,8 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_60_CONTINUE = "OP_AVG_60_CONTINUE";
     public static final String OP_AVG_15_CONTINUE = "OP_AVG_15_CONTINUE";
     public static final String OP_AVG_5_CONTINUE = "OP_AVG_5_CONTINUE";
+    public static final String CURR_MIX_W = "CURR_MIX_W";
+    public static final String DE_CURR_MIX_W = "DE_CURR_MIX_W";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
@@ -135,6 +137,47 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DELTA_TABLE);
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+
+            case CURR_MIX_W:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getCurr_mix_w();
+                    }
+
+                    @Override
+                    public void load() {
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CURR_W_MIX_TABLE);
+                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DE_CURR_MIX_W:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDe_curr_mix_w();
+                    }
+
+                    @Override
+                    public void load() {
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CURR_W_MIX_TABLE);
                         ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }

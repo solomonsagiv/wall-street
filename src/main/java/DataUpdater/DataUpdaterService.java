@@ -23,6 +23,17 @@ public class DataUpdaterService extends MyBaseService {
         day.setOp_avg_15_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 450)));
         day.setOp_avg_60_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 1800)));
         day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 7000)));
+
+
+        // Curr and de curr
+        String curr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CURR_W_MIX_TABLE);
+        String de_curr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CURR_W_MIX_TABLE);
+
+        double curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(curr_mix_w_table));
+        double de_curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_curr_mix_w_table));
+
+        client.setCurr_mix_w(curr_mix_w);
+        client.setDe_curr_mix_w(de_curr_mix_w);
     }
 
     @Override

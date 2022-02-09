@@ -193,6 +193,7 @@ public class MySql {
             return MySql.select(query);
         }
 
+
         public static ResultSet op_avg_cumulative(String index_table, String fut_table) {
             String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
                     "from %s i " +

@@ -178,11 +178,12 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             if (data != 0) {
                 myValues.add(data);
                 addOrUpdate(getLastSeconde(), data);
+                lastSeconde = (Second) lastSeconde.next();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        lastSeconde = (Second) lastSeconde.next();
+
         return data;
     }
 

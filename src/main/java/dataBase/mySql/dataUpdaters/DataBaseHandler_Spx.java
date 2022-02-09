@@ -215,6 +215,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.spx500_fut_e2");
         tablesNames.put(FUT_DELTA_TABLE, "data.spx500_fut_delta_cdf");
         tablesNames.put(E1_BID_ASK_COUNTER_TABLE, "data.spx500_e1_bid_ask_counter_cdf");
+        tablesNames.put(CURR_W_MIX_TABLE, "data.spx500_curr_mix_cdf");
+        tablesNames.put(DE_CURR_W_MIX_TABLE, "data.spx500_de_curr_mix_cdf");
     }
 
     @Override

@@ -37,6 +37,24 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem curr_and_de_curr_mix_w = new JMenuItem("Curr, de curr");
+        curr_and_de_curr_mix_w.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Curr_and_de_curr_Chart chart = new Curr_and_de_curr_Chart(client);
+                chart.createChart();
+            }
+        });
+
+        JMenuItem curr_and_de_curr_separately_mix_w = new JMenuItem("Curr, de curr separately");
+        curr_and_de_curr_separately_mix_w.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Curr_and_de_curr_separately_Chart chart = new Curr_and_de_curr_separately_Chart(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem fullCharts_4 = new JMenuItem("Full charts 4");
         fullCharts_4.addActionListener(new ActionListener() {
             @Override
@@ -93,15 +111,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem index_plus_opavg = new JMenuItem("Index + O/P avg");
-        index_plus_opavg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Index_plus_opAvg_Chart chart = new Index_plus_opAvg_Chart(client);
-                chart.createChart();
-            }
-        });
-        
         JMenuItem details = new JMenuItem("Details");
         details.addActionListener(new ActionListener() {
             @Override
@@ -111,7 +120,8 @@ public class PopupsMenuFactory {
             }
         });
 
-        charts.add(index_plus_opavg);
+        charts.add(curr_and_de_curr_mix_w);
+        charts.add(curr_and_de_curr_separately_mix_w);
         charts.add(fullCharts_2);
         charts.add(fullCharts_4);
         charts.add(op_avg_30_chart);

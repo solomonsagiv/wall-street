@@ -122,6 +122,11 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double indexAskForCheck = 0;
     private double indexBidForCheck = 0;
 
+
+    // Curr and de curr
+    private double curr_mix_w = 0;
+    private double de_curr_mix_w = 0;
+
     public BASE_CLIENT_OBJECT() {
         try {
             bid_ask_counter_list = new ArrayList<>();
@@ -628,6 +633,22 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setDataUpdaterService(DataUpdaterService dataUpdaterService) {
         this.dataUpdaterService = dataUpdaterService;
+    }
+
+    public double getCurr_mix_w() {
+        return curr_mix_w;
+    }
+
+    public void setCurr_mix_w(double curr_mix_w) {
+        this.curr_mix_w = curr_mix_w;
+    }
+
+    public double getDe_curr_mix_w() {
+        return de_curr_mix_w;
+    }
+
+    public void setDe_curr_mix_w(double de_curr_mix_w) {
+        this.de_curr_mix_w = de_curr_mix_w;
     }
 
     @Override

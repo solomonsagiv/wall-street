@@ -58,8 +58,9 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         } catch (SQLException throwables) {
             JOptionPane.showMessageDialog(this, "Connections shut down failed");
             throwables.printStackTrace();
+        } finally {
+            System.exit(0);
         }
-        System.exit(0);
     }
 
     @Override
