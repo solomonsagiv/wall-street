@@ -29,11 +29,15 @@ public class DataUpdaterService extends MyBaseService {
         String curr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CURR_W_MIX_TABLE);
         String de_curr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CURR_W_MIX_TABLE);
 
-        double curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(curr_mix_w_table));
-        double de_curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_curr_mix_w_table));
+        try {
+            double curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(curr_mix_w_table));
+            double de_curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_curr_mix_w_table));
 
-        client.setCurr_mix_w(curr_mix_w);
-        client.setDe_curr_mix_w(de_curr_mix_w);
+            client.setCurr_mix_w(curr_mix_w);
+            client.setDe_curr_mix_w(de_curr_mix_w);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
     }
 
     @Override

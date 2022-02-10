@@ -60,11 +60,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // On data changed
         on_data_chage();
 
-        // Grab decisions
-        if (sleep_count % 20000 == 0) {
-            grab_decisions();
-        }
-
         // Update count
         sleep_count += sleep;
     }
@@ -146,7 +141,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
     }
-
 
     @Override
     public void loadData() {

@@ -23,7 +23,7 @@ interface ITimeSeries {
 }
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
-
+    
     private int id = 0;
     public static final int TIME = 0;
     public static final int VALUE = 1;
