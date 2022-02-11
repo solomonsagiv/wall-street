@@ -124,8 +124,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
 
     // Curr and de curr
-    private double curr_mix_w = 0;
-    private double de_curr_mix_w = 0;
+    private double corr_mix_w = 0;
+    private double de_corr_mix_w = 0;
+    private double corr_mix = 0;
+    private double de_corr_mix = 0;
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -635,20 +637,36 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.dataUpdaterService = dataUpdaterService;
     }
 
-    public double getCurr_mix_w() {
-        return curr_mix_w;
+    public double getCorr_mix_w() {
+        return corr_mix_w;
     }
 
-    public void setCurr_mix_w(double curr_mix_w) {
-        this.curr_mix_w = curr_mix_w;
+    public void setCorr_mix_w(double corr_mix_w) {
+        this.corr_mix_w = corr_mix_w;
     }
 
-    public double getDe_curr_mix_w() {
-        return de_curr_mix_w;
+    public double getDe_corr_mix_w() {
+        return de_corr_mix_w;
     }
 
-    public void setDe_curr_mix_w(double de_curr_mix_w) {
-        this.de_curr_mix_w = de_curr_mix_w;
+    public void setDe_corr_mix_w(double de_corr_mix_w) {
+        this.de_corr_mix_w = de_corr_mix_w;
+    }
+
+    public double getCorr_mix() {
+        return corr_mix;
+    }
+
+    public void setCorr_mix(double corr_mix) {
+        this.corr_mix = corr_mix;
+    }
+
+    public double getDe_corr_mix() {
+        return de_corr_mix;
+    }
+
+    public void setDe_corr_mix(double de_corr_mix) {
+        this.de_corr_mix = de_corr_mix;
     }
 
     @Override

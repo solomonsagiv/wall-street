@@ -8,10 +8,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class Curr_and_de_curr_separately_Chart extends MyChartCreator {
+public class Corr_and_de_corr_Chart extends MyChartCreator {
 
     // Constructor
-    public Curr_and_de_curr_separately_Chart(BASE_CLIENT_OBJECT client) {
+    public Corr_and_de_corr_Chart(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -52,31 +52,25 @@ public class Curr_and_de_curr_separately_Chart extends MyChartCreator {
 
         // ------------------- Curr and de curr -------------------- //
         // Curr
-        MyTimeSeries curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CURR_MIX_W, client, null);
+        MyTimeSeries curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX, client, null);
         curr_series.setColor(Color.BLUE);
         curr_series.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
-        series[0] = curr_series;
-
-        // Chart
-        MyChart curr_chart = new MyChart(client, series, props);
-
-        // ------------------- DE curr -------------------- //
         // DE Curr
-        MyTimeSeries de_curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CURR_MIX_W, client, null);
+        MyTimeSeries de_curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX, client, null);
         de_curr_series.setColor(Color.ORANGE);
         de_curr_series.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
-        series[0] = de_curr_series;
+        series = new MyTimeSeries[2];
+        series[0] = curr_series;
+        series[1] = de_curr_series;
 
         // Chart
-        MyChart de_curr_chart = new MyChart(client, series, props);
+        MyChart curr_and_de_curr_chart = new MyChart(client, series, props);
 
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, curr_chart, de_curr_chart};
+        MyChart[] charts = {indexChart, curr_and_de_curr_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

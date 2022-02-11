@@ -26,15 +26,21 @@ public class DataUpdaterService extends MyBaseService {
 
 
         // Curr and de curr
-        String curr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CURR_W_MIX_TABLE);
-        String de_curr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CURR_W_MIX_TABLE);
+        String corr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_W_TABLE);
+        String de_corr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_W_TABLE);
+        String corr_mix_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_TABLE);
+        String de_corr_mix_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_TABLE);
 
         try {
-            double curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(curr_mix_w_table));
-            double de_curr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_curr_mix_w_table));
+            double corr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(corr_mix_w_table));
+            double de_corr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_corr_mix_w_table));
+            double corr_mix = MySql.Queries.handle_rs(MySql.Queries.get_sum(corr_mix_table));
+            double de_corr_mix = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_corr_mix_table));
 
-            client.setCurr_mix_w(curr_mix_w);
-            client.setDe_curr_mix_w(de_curr_mix_w);
+            client.setCorr_mix_w(corr_mix_w);
+            client.setDe_corr_mix_w(de_corr_mix_w);
+            client.setCorr_mix(corr_mix);
+            client.setDe_corr_mix(de_corr_mix);
         } catch (Exception e ) {
             e.printStackTrace();
         }
