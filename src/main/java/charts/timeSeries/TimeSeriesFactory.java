@@ -184,8 +184,6 @@ public class TimeSeriesFactory {
                     }
                 };
 
-
-
             case CORR_MIX:
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -200,12 +198,9 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_TABLE);
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, 60);
-                        IDataBaseHandler.loadSerieData(rs, this);
+
                     }
                 };
-
 
             case DE_CORR_MIX:
                 return new MyTimeSeries(series_type, client) {
@@ -221,12 +216,8 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_TABLE);
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, 60);
-                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-
 
             case OP_AVG_240_CONTINUE:
                 return new MyTimeSeries(series_type, client) {

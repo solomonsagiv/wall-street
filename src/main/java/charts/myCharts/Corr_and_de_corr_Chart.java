@@ -22,7 +22,7 @@ public class Corr_and_de_corr_Chart extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, INFINITE);
+        props.setProp(ChartPropsEnum.SECONDS, 360);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.005);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
