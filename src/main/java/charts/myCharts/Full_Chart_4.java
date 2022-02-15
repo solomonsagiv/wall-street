@@ -3,12 +3,10 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import exp.ExpStrings;
 import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class Full_Chart_4 extends MyChartCreator {
@@ -81,46 +79,35 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-        // ------------------ Op avg 2 ------------------- //
-        MyTimeSeries op_avg_15_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_CONTINUE, client, null);
-        op_avg_15_2.setColor(Themes.GREEN);
-        op_avg_15_2.setVisible(false);
-        op_avg_15_2.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_60_CONTINUE, client, null);
-        op_avg_60_2.setColor(Themes.BLUE);
-        op_avg_60_2.setVisible(false);
-        op_avg_60_2.setStokeSize(1.2f);
-
-        MyTimeSeries op_avg_240_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client, null);
-        op_avg_240_2.setColor(Themes.BINANCE_ORANGE);
-        op_avg_240_2.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[3];
-        series[0] = op_avg_15_2;
-        series[1] = op_avg_60_2;
-        series[2] = op_avg_240_2;
-
-        // Chart
-        MyChart op_avg_chart_2 = new MyChart(client, series, props);
-
-        // --------- Q1 bid ask counter ---------- //
-
-        // Delta
-        MyTimeSeries q1_bid_ask_counter_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.E1_BID_ASK_COUNTER, client, client.getExps().getExp(ExpStrings.q1));
-        q1_bid_ask_counter_serie.setColor(Themes.GREEN);
-        q1_bid_ask_counter_serie.setStokeSize(1.5f);
+        // ------------------- Corr and de corr -------------------- //
+        // Curr
+        MyTimeSeries corr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
+        corr_series.setColor(Color.BLUE);
+        corr_series.setStokeSize(1.5f);
 
         series = new MyTimeSeries[1];
-        series[0] = q1_bid_ask_counter_serie;
+        series[0] = corr_series;
 
         // Chart
-        MyChart q1_bid_ask_counterChart = new MyChart(client, series, props);
+        MyChart corr_chart = new MyChart(client, series, props);
+
+        // ------------------- DE corr -------------------- //
+        // DE Curr
+        MyTimeSeries de_corr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
+        de_corr_series.setColor(Color.ORANGE);
+        de_corr_series.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[1];
+        series[0] = de_corr_series;
+
+        // Chart
+        MyChart de_corr_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, op_avg_chart_2, q1_bid_ask_counterChart};
+        MyChart[] charts = {indexChart, op_avg_chart, corr_chart, de_corr_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

@@ -25,20 +25,19 @@ public class DataUpdaterService extends MyBaseService {
         day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 7000)));
 
 
-        // Curr and de curr
-        String corr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_W_TABLE);
-        String de_corr_mix_w_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_W_TABLE);
+        // Corr and de corr
         String corr_mix_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_TABLE);
         String de_corr_mix_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_TABLE);
 
         try {
-            double corr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(corr_mix_w_table));
-            double de_corr_mix_w = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_corr_mix_w_table));
-            double corr_mix = MySql.Queries.handle_rs(MySql.Queries.get_sum(corr_mix_table));
-            double de_corr_mix = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_corr_mix_table));
+            double corr_mix_cdf = MySql.Queries.handle_rs(MySql.Queries.get_sum(corr_mix_table));
+            double de_corr_mix_cdf = MySql.Queries.handle_rs(MySql.Queries.get_sum(de_corr_mix_table));
 
-            client.setCorr_mix_w(corr_mix_w);
-            client.setDe_corr_mix_w(de_corr_mix_w);
+            double corr_mix = MySql.Queries.handle_rs(MySql.Queries.get_last_record(corr_mix_table));
+            double de_corr_mix = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_mix_table));
+
+            client.setCorr_mix_cdf(corr_mix_cdf);
+            client.setDe_corr_mix_cdf(de_corr_mix_cdf);
             client.setCorr_mix(corr_mix);
             client.setDe_corr_mix(de_corr_mix);
         } catch (Exception e ) {
@@ -53,7 +52,7 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 20000;
+        return 15000;
     }
 
     @Override

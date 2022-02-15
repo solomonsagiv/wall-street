@@ -123,9 +123,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double indexBidForCheck = 0;
 
 
-    // Curr and de curr
-    private double corr_mix_w = 0;
-    private double de_corr_mix_w = 0;
+    // Corr and de ourr
+    private double corr_mix_cdf = 0;
+    private double de_corr_mix_cdf = 0;
     private double corr_mix = 0;
     private double de_corr_mix = 0;
 
@@ -637,20 +637,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.dataUpdaterService = dataUpdaterService;
     }
 
-    public double getCorr_mix_w() {
-        return corr_mix_w;
+    public double getCorr_mix_cdf() {
+        return corr_mix_cdf;
     }
 
-    public void setCorr_mix_w(double corr_mix_w) {
-        this.corr_mix_w = corr_mix_w;
-    }
-
-    public double getDe_corr_mix_w() {
-        return de_corr_mix_w;
-    }
-
-    public void setDe_corr_mix_w(double de_corr_mix_w) {
-        this.de_corr_mix_w = de_corr_mix_w;
+    public static int getCURRENT() {
+        return CURRENT;
     }
 
     public double getCorr_mix() {
@@ -667,6 +659,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setDe_corr_mix(double de_corr_mix) {
         this.de_corr_mix = de_corr_mix;
+    }
+
+    public void setCorr_mix_cdf(double corr_mix_cdf) {
+        this.corr_mix_cdf = corr_mix_cdf;
+    }
+
+    public double getDe_corr_mix_cdf() {
+        return de_corr_mix_cdf;
+    }
+
+    public void setDe_corr_mix_cdf(double de_corr_mix_cdf) {
+        this.de_corr_mix_cdf = de_corr_mix_cdf;
     }
 
     @Override

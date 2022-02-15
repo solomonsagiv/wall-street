@@ -8,10 +8,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.awt.*;
 
-public class Corr_and_de_corr_separately_Chart extends MyChartCreator {
+public class Corr_and_de_corr_cdf_separately_Chart extends MyChartCreator {
 
     // Constructor
-    public Corr_and_de_corr_separately_Chart(BASE_CLIENT_OBJECT client) {
+    public Corr_and_de_corr_cdf_separately_Chart(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -52,7 +52,7 @@ public class Corr_and_de_corr_separately_Chart extends MyChartCreator {
 
         // ------------------- Curr and de curr -------------------- //
         // Curr
-        MyTimeSeries curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX, client, null);
+        MyTimeSeries curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
         curr_series.setColor(Color.BLUE);
         curr_series.setStokeSize(1.5f);
 
@@ -64,7 +64,7 @@ public class Corr_and_de_corr_separately_Chart extends MyChartCreator {
 
         // ------------------- DE curr -------------------- //
         // DE Curr
-        MyTimeSeries de_curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX, client, null);
+        MyTimeSeries de_curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
         de_curr_series.setColor(Color.ORANGE);
         de_curr_series.setStokeSize(1.5f);
 

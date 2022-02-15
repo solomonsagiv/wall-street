@@ -37,24 +37,14 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem corr_and_de_corr_mix_w = new JMenuItem("Corr, de corr W");
-        corr_and_de_corr_mix_w.addActionListener(new ActionListener() {
+        JMenuItem corr_and_de_corr_mix_cdf = new JMenuItem("Corr, de corr cdf");
+        corr_and_de_corr_mix_cdf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Corr_and_de_corr_W_Chart chart = new Corr_and_de_corr_W_Chart(client);
+                Corr_and_de_corr_cdf_Chart chart = new Corr_and_de_corr_cdf_Chart(client);
                 chart.createChart();
             }
         });
-
-        JMenuItem corr_and_de_corr_separately_mix_w = new JMenuItem("Corr, de corr W separately");
-        corr_and_de_corr_separately_mix_w.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Corr_and_de_corr_separately_W_Chart chart = new Corr_and_de_corr_separately_W_Chart(client);
-                chart.createChart();
-            }
-        });
-
 
         JMenuItem corr_and_de_corr_mix = new JMenuItem("Corr, de corr");
         corr_and_de_corr_mix.addActionListener(new ActionListener() {
@@ -65,11 +55,12 @@ public class PopupsMenuFactory {
             }
         });
 
+
         JMenuItem corr_and_de_corr_separately_mix = new JMenuItem("Corr, de corr separately");
         corr_and_de_corr_separately_mix.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Corr_and_de_corr_separately_Chart chart = new Corr_and_de_corr_separately_Chart(client);
+                Corr_and_de_corr_cdf_separately_Chart chart = new Corr_and_de_corr_cdf_separately_Chart(client);
                 chart.createChart();
             }
         });
@@ -139,10 +130,9 @@ public class PopupsMenuFactory {
             }
         });
 
-        charts.add(corr_and_de_corr_mix_w);
-        charts.add(corr_and_de_corr_separately_mix_w);
-        charts.add(corr_and_de_corr_mix);
+        charts.add(corr_and_de_corr_mix_cdf);
         charts.add(corr_and_de_corr_separately_mix);
+        charts.add(corr_and_de_corr_mix);
         charts.add(fullCharts_2);
         charts.add(fullCharts_4);
         charts.add(op_avg_30_chart);
