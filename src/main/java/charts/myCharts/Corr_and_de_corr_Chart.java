@@ -3,12 +3,17 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
 public class Corr_and_de_corr_Chart extends MyChartCreator {
+
+    public static void main(String[] args) {
+        Corr_and_de_corr_Chart chart = new Corr_and_de_corr_Chart(Spx.getInstance());
+        chart.createChart();
+    }
 
     // Constructor
     public Corr_and_de_corr_Chart(BASE_CLIENT_OBJECT client) {
@@ -32,11 +37,7 @@ public class Corr_and_de_corr_Chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-
-        // Marker
-        ValueMarker marker = new ValueMarker(0);
-        marker.setPaint(Color.BLACK);
-        marker.setStroke(new BasicStroke(2f));
+        props.setProp(ChartPropsEnum.MARKER, 0);
 
         // ------------------- Corr and de corr -------------------- //
         // Corr
