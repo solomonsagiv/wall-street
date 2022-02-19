@@ -16,14 +16,14 @@ public class DataUpdaterService extends MyBaseService {
     @Override
     public void go() {
 
-        String index_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.INDEX_TABLE);
-        String day_fut_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_DAY_TABLE);
+        String op_avg_15_continue = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_15_CONITNUE_TABLE);
+        String op_avg_60_continue = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_15_CONITNUE_TABLE);
+        String op_avg_240_continue = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_15_CONITNUE_TABLE);
 
         Exp day = getClient().getExps().getExp(ExpStrings.day);
-        day.setOp_avg_15_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 450)));
-        day.setOp_avg_60_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 1800)));
-        day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.op_avg_by_rows(index_table, day_fut_table, 7000)));
-
+        day.setOp_avg_15_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_15_continue)));
+        day.setOp_avg_60_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_60_continue)));
+        day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_240_continue)));
 
         // Corr and de corr
         String corr_mix_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_TABLE);
@@ -52,7 +52,7 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 15000;
+        return 20000;
     }
 
     @Override

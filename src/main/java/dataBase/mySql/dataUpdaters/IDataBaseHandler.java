@@ -44,6 +44,9 @@ public abstract class IDataBaseHandler {
     public static final int DE_CORR_MIX_W_TABLE = 30;
     public static final int CORR_MIX_TABLE = 29;
     public static final int DE_CORR_MIX_TABLE = 30;
+    public static final int OP_AVG_15_CONITNUE_TABLE = 31;
+    public static final int OP_AVG_60_CONITNUE_TABLE = 32;
+    public static final int OP_AVG_240_CONITNUE_TABLE = 33;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 
