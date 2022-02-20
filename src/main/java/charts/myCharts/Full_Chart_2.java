@@ -3,17 +3,13 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
-import exp.Exp;
 import exp.ExpStrings;
 import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
-import java.net.UnknownHostException;
-import java.sql.ResultSet;
 
 public class Full_Chart_2 extends MyChartCreator {
 
@@ -53,11 +49,11 @@ public class Full_Chart_2 extends MyChartCreator {
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
-        MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_CONTINUE, client, null);
+        MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15_SERIES, client, null);
         op_avg_15.setColor(Themes.GREEN);
         op_avg_15.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_60_CONTINUE, client, null);
+        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60_SERIES, client, null);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 

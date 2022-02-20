@@ -35,7 +35,6 @@ public abstract class IDataBaseHandler {
     public static final int INDEX_BID_TABLE = 21;
     public static final int INDEX_ASK_TABLE = 22;
     public static final int OP_AVG_DAY_TABLE = 23;
-    public static final int OP_AVG_15_DAY_TABLE = 24;
     public static final int INDEX_DELTA_TABLE = 25;
     public static final int FUT_E1_TICK_SPEED = 26;
     public static final int FUT_DELTA_TABLE = 27;
@@ -44,9 +43,10 @@ public abstract class IDataBaseHandler {
     public static final int DE_CORR_MIX_W_TABLE = 30;
     public static final int CORR_MIX_TABLE = 29;
     public static final int DE_CORR_MIX_TABLE = 30;
-    public static final int OP_AVG_15_CONITNUE_TABLE = 31;
-    public static final int OP_AVG_60_CONITNUE_TABLE = 32;
     public static final int OP_AVG_240_CONITNUE_TABLE = 33;
+    public static final int OP_AVG_DAY_15_TABLE = 34;
+    public static final int OP_AVG_DAY_60_TABLE = 35;
+    public static final int OP_AVG_DAY_5_TABLE = 36;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 

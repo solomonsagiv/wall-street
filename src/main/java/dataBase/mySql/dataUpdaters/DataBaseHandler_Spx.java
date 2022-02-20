@@ -200,7 +200,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(INDEX_BID_TABLE, "data.spx500_index_bid");
         tablesNames.put(INDEX_ASK_TABLE, "data.spx500_index_ask");
         tablesNames.put(OP_AVG_DAY_TABLE, "sagiv.spx500_op_avg_day");
-        tablesNames.put(OP_AVG_15_DAY_TABLE, "sagiv.spx500_op_avg_15_day");
         tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter_cdf");
         tablesNames.put(FUT_DAY_TABLE, "data.spx500_fut_day");
         tablesNames.put(FUT_WEEK_TABLE, "data.spx500_fut_week");
@@ -213,9 +212,10 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(DE_CORR_MIX_W_TABLE, "data.spx500_de_corr_mix_w_cdf");
         tablesNames.put(CORR_MIX_TABLE, "data.spx500_corr_mix_cdf");
         tablesNames.put(DE_CORR_MIX_TABLE, "data.spx500_de_corr_mix_cdf");
-        tablesNames.put(OP_AVG_15_CONITNUE_TABLE, "data.spx500_op_avg_day_15_continue");
-        tablesNames.put(OP_AVG_60_CONITNUE_TABLE, "data.spx500_op_avg_day_60_continue");
         tablesNames.put(OP_AVG_240_CONITNUE_TABLE, "data.spx500_op_avg_day_240_continue");
+        tablesNames.put(OP_AVG_DAY_5_TABLE, "data.spx500_op_avg_day_5");
+        tablesNames.put(OP_AVG_DAY_15_TABLE, "data.spx500_op_avg_day_15");
+        tablesNames.put(OP_AVG_DAY_60_TABLE, "data.spx500_op_avg_day_60");
     }
 
     @Override

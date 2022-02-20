@@ -47,11 +47,15 @@ public class Full_Chart_4 extends MyChartCreator {
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
-        MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_15_CONTINUE, client, null);
+        MyTimeSeries op_avg_5 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5_SERIES, client, null);
+        op_avg_5.setColor(Themes.RED);
+        op_avg_5.setStokeSize(1.2f);
+
+        MyTimeSeries op_avg_15 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15_SERIES, client, null);
         op_avg_15.setColor(Themes.GREEN);
         op_avg_15.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_60_CONTINUE, client, null);
+        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60_SERIES, client, null);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
@@ -59,10 +63,11 @@ public class Full_Chart_4 extends MyChartCreator {
         op_avg_240.setColor(Themes.BINANCE_ORANGE);
         op_avg_240.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[3];
-        series[0] = op_avg_15;
-        series[1] = op_avg_60;
-        series[2] = op_avg_240;
+        series = new MyTimeSeries[4];
+        series[0] = op_avg_5;
+        series[1] = op_avg_15;
+        series[2] = op_avg_60;
+        series[3] = op_avg_240;
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
