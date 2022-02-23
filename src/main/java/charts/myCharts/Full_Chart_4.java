@@ -133,7 +133,7 @@ public class Full_Chart_4 extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, corr_and_de_corr_cdf_chart, corr_and_de_corr_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, corr_and_de_corr_cdf_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
