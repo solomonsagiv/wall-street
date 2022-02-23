@@ -39,14 +39,16 @@ public abstract class IDataBaseHandler {
     public static final int FUT_E1_TICK_SPEED = 26;
     public static final int FUT_DELTA_TABLE = 27;
     public static final int E1_BID_ASK_COUNTER_TABLE = 28;
-    public static final int CORR_MIX_W_TABLE = 29;
-    public static final int DE_CORR_MIX_W_TABLE = 30;
-    public static final int CORR_MIX_TABLE = 29;
-    public static final int DE_CORR_MIX_TABLE = 30;
     public static final int OP_AVG_240_CONITNUE_TABLE = 33;
     public static final int OP_AVG_DAY_15_TABLE = 34;
     public static final int OP_AVG_DAY_60_TABLE = 35;
     public static final int OP_AVG_DAY_5_TABLE = 36;
+    public static final int CORR_15 = 37;
+    public static final int CORR_60 = 38;
+    public static final int DE_CORR_15 = 39;
+    public static final int DE_CORR_60 = 40;
+    public static final int CORR_MIX_CDF = 41;
+    public static final int DE_CORR_MIX_CDF = 42;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 

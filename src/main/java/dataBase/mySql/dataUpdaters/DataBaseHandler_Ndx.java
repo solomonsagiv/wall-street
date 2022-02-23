@@ -180,14 +180,16 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.ndx_fut_e2");
         tablesNames.put(FUT_DELTA_TABLE, "data.ndx_fut_delta_cdf");
         tablesNames.put(E1_BID_ASK_COUNTER_TABLE, "data.ndx_e1_bid_ask_counter_cdf");
-        tablesNames.put(CORR_MIX_W_TABLE, "data.ndx_corr_mix_w_cdf");
-        tablesNames.put(DE_CORR_MIX_W_TABLE, "data.ndx_de_corr_mix_w_cdf");
-        tablesNames.put(CORR_MIX_TABLE, "data.ndx_corr_mix_cdf");
-        tablesNames.put(DE_CORR_MIX_TABLE, "data.ndx_de_corr_mix_cdf");
+        tablesNames.put(CORR_15, "data.research_ndx_diffs_corr_mood_900");
+        tablesNames.put(CORR_60, "data.research_ndx_diffs_corr_mood_3600");
+        tablesNames.put(DE_CORR_15, "data.research_ndx_diffs_mood_900");
+        tablesNames.put(DE_CORR_60, "data.research_ndx_diffs_mood_3600");
         tablesNames.put(OP_AVG_240_CONITNUE_TABLE, "data.ndx_op_avg_day_240_continue");
         tablesNames.put(OP_AVG_DAY_5_TABLE, "data.ndx_op_avg_day_5");
         tablesNames.put(OP_AVG_DAY_15_TABLE, "data.ndx_op_avg_day_15");
         tablesNames.put(OP_AVG_DAY_60_TABLE, "data.ndx_op_avg_day_60");
+        tablesNames.put(CORR_MIX_CDF, "data.ndx_corr_mix_cdf");
+        tablesNames.put(DE_CORR_MIX_CDF, "data.ndx_de_corr_mix_cdf");
     }
 
     @Override

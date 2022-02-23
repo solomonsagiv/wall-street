@@ -79,7 +79,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             indAskMarginCounter += marginOfMarings;
         }
     }
-
+    
     @Override
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {

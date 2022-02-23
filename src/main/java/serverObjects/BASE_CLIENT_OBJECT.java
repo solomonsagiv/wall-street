@@ -124,10 +124,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
 
     // Corr and de ourr
+    private double corr_15 = 0;
+    private double corr_60 = 0;
+    private double de_corr_15 = 0;
+    private double de_corr_60 = 0;
     private double corr_mix_cdf = 0;
     private double de_corr_mix_cdf = 0;
-    private double corr_mix = 0;
-    private double de_corr_mix = 0;
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -637,28 +639,52 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.dataUpdaterService = dataUpdaterService;
     }
 
-    public double getCorr_mix_cdf() {
-        return corr_mix_cdf;
-    }
-
     public static int getCURRENT() {
         return CURRENT;
     }
 
-    public double getCorr_mix() {
-        return corr_mix;
+    public void setProps(Props props) {
+        this.props = props;
     }
 
-    public void setCorr_mix(double corr_mix) {
-        this.corr_mix = corr_mix;
+    public double getCorr_15() {
+        return corr_15;
     }
 
-    public double getDe_corr_mix() {
-        return de_corr_mix;
+    public void setCorr_15(double corr_15) {
+        this.corr_15 = corr_15;
     }
 
-    public void setDe_corr_mix(double de_corr_mix) {
-        this.de_corr_mix = de_corr_mix;
+    public double getCorr_60() {
+        return corr_60;
+    }
+
+    public void setCorr_60(double corr_60) {
+        this.corr_60 = corr_60;
+    }
+
+    public double getDe_corr_15() {
+        return de_corr_15;
+    }
+
+    public void setDe_corr_15(double de_corr_15) {
+        this.de_corr_15 = de_corr_15;
+    }
+
+    public double getDe_corr_60() {
+        return de_corr_60;
+    }
+
+    public void setDe_corr_60(double de_corr_60) {
+        this.de_corr_60 = de_corr_60;
+    }
+
+    public void setIndBidMarginCounter(double indBidMarginCounter) {
+        this.indBidMarginCounter = indBidMarginCounter;
+    }
+
+    public double getCorr_mix_cdf() {
+        return corr_mix_cdf;
     }
 
     public void setCorr_mix_cdf(double corr_mix_cdf) {

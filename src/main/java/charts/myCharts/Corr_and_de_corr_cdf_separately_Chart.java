@@ -52,7 +52,7 @@ public class Corr_and_de_corr_cdf_separately_Chart extends MyChartCreator {
 
         // ------------------- Curr and de curr -------------------- //
         // Curr
-        MyTimeSeries curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
+        MyTimeSeries curr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_15, client, null);
         curr_series.setColor(Color.BLUE);
         curr_series.setStokeSize(1.5f);
 

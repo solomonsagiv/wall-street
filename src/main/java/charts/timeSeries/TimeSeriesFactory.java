@@ -32,6 +32,10 @@ public class TimeSeriesFactory {
     public static final String DF_N_DAY_SPEED = "DF_N_DAY_SPEED";
     public static final String DF_DAY_SPEED = "DF_DAY_SPEED";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
+    public static final String CORR_15 = "CORR_15";
+    public static final String CORR_60 = "CORR_60";
+    public static final String DE_CORR_15 = "DE_CORR_15";
+    public static final String DE_CORR_60 = "DE_CORR_60";
     public static final String CORR_MIX_CDF = "CORR_MIX_CDF";
     public static final String DE_CORR_MIX_CDF = "DE_CORR_MIX_CDF";
     public static final String CORR_MIX = "CORR_MIX";
@@ -154,11 +158,12 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_TABLE);
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_CDF);
+                        ResultSet rs = MySql.Queries.get_serie(table_location);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
+
 
             case DE_CORR_MIX_CDF:
                 return new MyTimeSeries(series_type, client) {
@@ -174,13 +179,13 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_TABLE);
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(table_location);
+                        String table_location = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_CDF);
+                        ResultSet rs = MySql.Queries.get_serie(table_location);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
 
-            case CORR_MIX:
+            case CORR_15:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -189,16 +194,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getCorr_mix();
+                        return client.getCorr_15();
                     }
 
                     @Override
-                    public void load() {
-
-                    }
+                    public void load() { }
                 };
 
-            case DE_CORR_MIX:
+            case CORR_60:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -207,12 +210,43 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDe_corr_mix();
+                        return client.getCorr_60();
                     }
 
                     @Override
-                    public void load() {
+                    public void load() { }
+                };
+
+            case DE_CORR_15:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
                     }
+
+                    @Override
+                    public double getData() {
+                        return client.getDe_corr_15();
+                    }
+
+                    @Override
+                    public void load() { }
+                };
+
+            case DE_CORR_60:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDe_corr_60();
+                    }
+
+                    @Override
+                    public void load() { }
                 };
 
 

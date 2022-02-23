@@ -4,7 +4,6 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
-import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import java.awt.*;
@@ -38,11 +37,7 @@ public class Full_Chart_4 extends MyChartCreator {
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-
-        // Marker
-        ValueMarker marker = new ValueMarker(0);
-        marker.setPaint(Color.BLACK);
-        marker.setStroke(new BasicStroke(2f));
+        props.setProp(ChartPropsEnum.MARKER, 0);
 
         // ------------------ Op avg ------------------- //
 
@@ -86,33 +81,59 @@ public class Full_Chart_4 extends MyChartCreator {
 
 
         // ------------------- Corr and de corr -------------------- //
-        // Curr
-        MyTimeSeries corr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
-        corr_series.setColor(Color.BLUE);
-        corr_series.setStokeSize(1.5f);
+        // Corr
+        MyTimeSeries corr_15_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_15, client, null);
+        corr_15_series.setColor(Themes.GREEN);
+        corr_15_series.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
-        series[0] = corr_series;
+        // Corr
+        MyTimeSeries corr_60_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_60, client, null);
+        corr_60_series.setColor(Themes.BLUE_STRIKE);
+        corr_60_series.setStokeSize(1.5f);
+
+        // DE Corr
+        MyTimeSeries de_corr_15_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_15, client, null);
+        de_corr_15_series.setColor(Themes.YELLOW);
+        de_corr_15_series.setStokeSize(1.5f);
+
+        // DE Corr
+        MyTimeSeries de_corr_60_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_60, client, null);
+        de_corr_60_series.setColor(Themes.BINANCE_ORANGE);
+        de_corr_60_series.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[4];
+        series[0] = corr_15_series;
+        series[1] = corr_60_series;
+        series[2] = de_corr_15_series;
+        series[3] = de_corr_60_series;
 
         // Chart
-        MyChart corr_chart = new MyChart(client, series, props);
+        MyChart corr_and_de_corr_chart = new MyChart(client, series, props);
 
-        // ------------------- DE corr -------------------- //
-        // DE Curr
-        MyTimeSeries de_corr_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
-        de_corr_series.setColor(Color.ORANGE);
-        de_corr_series.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
-        series[0] = de_corr_series;
+        // ------------------- Corr and de corr cdf -------------------- //
+        // DE Corr
+        MyTimeSeries corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
+        corr_mix_cdf.setColor(Themes.BLUE);
+        corr_mix_cdf.setStokeSize(1.5f);
+
+        // DE Corr
+        MyTimeSeries de_corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
+        de_corr_mix_cdf.setColor(Themes.BINANCE_ORANGE);
+        de_corr_mix_cdf.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[2];
+        series[0] = corr_mix_cdf;
+        series[1] = de_corr_mix_cdf;
 
         // Chart
-        MyChart de_corr_chart = new MyChart(client, series, props);
+        MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
+
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, corr_chart, de_corr_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, corr_and_de_corr_cdf_chart, corr_and_de_corr_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
