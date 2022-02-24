@@ -6,6 +6,7 @@ import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 
 public class Full_Chart_4 extends MyChartCreator {
@@ -81,6 +82,20 @@ public class Full_Chart_4 extends MyChartCreator {
 
 
         // ------------------- Corr and de corr -------------------- //
+
+        MyProps props_2 = new MyProps();
+        props_2.setProp(ChartPropsEnum.SECONDS, 3600);
+        props_2.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
+        props_2.setProp(ChartPropsEnum.MARGIN, 0.005);
+        props_2.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
+        props_2.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
+        props_2.setProp(ChartPropsEnum.IS_LIVE, -1);
+        props_2.setProp(ChartPropsEnum.SLEEP, 1000);
+        props_2.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
+        props_2.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
+        props_2.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
+        props_2.setProp(ChartPropsEnum.MARKER, 0);
+
         // Corr
         MyTimeSeries corr_15_series = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_15, client, null);
         corr_15_series.setColor(Themes.GREEN);
@@ -108,26 +123,25 @@ public class Full_Chart_4 extends MyChartCreator {
         series[3] = de_corr_60_series;
 
         // Chart
-        MyChart corr_and_de_corr_chart = new MyChart(client, series, props);
-
+        MyChart corr_and_de_corr_chart = new MyChart(client, series, props_2);
 
         // ------------------- Corr and de corr cdf -------------------- //
-        // DE Corr
-        MyTimeSeries corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
-        corr_mix_cdf.setColor(Themes.BLUE);
-        corr_mix_cdf.setStokeSize(1.5f);
-
-        // DE Corr
-        MyTimeSeries de_corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
-        de_corr_mix_cdf.setColor(Themes.BINANCE_ORANGE);
-        de_corr_mix_cdf.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[2];
-        series[0] = corr_mix_cdf;
-        series[1] = de_corr_mix_cdf;
-
-        // Chart
-        MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
+//         DE Corr
+//        MyTimeSeries corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
+//        corr_mix_cdf.setColor(Themes.BLUE);
+//        corr_mix_cdf.setStokeSize(1.5f);
+//
+//         DE Corr
+//        MyTimeSeries de_corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
+//        de_corr_mix_cdf.setColor(Themes.BINANCE_ORANGE);
+//        de_corr_mix_cdf.setStokeSize(1.5f);
+//
+//        series = new MyTimeSeries[2];
+//        series[0] = corr_mix_cdf;
+//        series[1] = de_corr_mix_cdf;
+//
+//         Chart
+//        MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
 
 
         // -------------------- Chart -------------------- //
