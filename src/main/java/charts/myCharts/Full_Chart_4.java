@@ -6,7 +6,6 @@ import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class Full_Chart_4 extends MyChartCreator {
@@ -67,6 +66,8 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
+
+
         // ------------------- Index 2 -------------------- //
 
         // Index
@@ -80,9 +81,7 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-
         // ------------------- Corr and de corr -------------------- //
-
         MyProps props_2 = new MyProps();
         props_2.setProp(ChartPropsEnum.SECONDS, 3600);
         props_2.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
@@ -147,7 +146,7 @@ public class Full_Chart_4 extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, corr_and_de_corr_chart};
+        MyChart[] charts = {indexChart, op_avg_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

@@ -14,7 +14,7 @@ public class MySql {
     public static void main(String[] args) {
         MySql.Queries.cumulative_avg_from_cdf("data.spx500_index_bid_ask_counter_cdf", 15);
     }
-
+    
     private static ConnectionPool pool;
 
     // Insert
@@ -202,6 +202,14 @@ public class MySql {
                     "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
             return MySql.select(query);
         }
+
+//        public static ResultSet get_df() {
+//
+//        }
+//
+//        public static ResultSet get_last_record_df() {
+//
+//        }
 
         public static ResultSet get_last_x_time_of_series(String table_name, int minuts) {
             String q = "select * from %s where time > now() - interval '%s min' %s;";
