@@ -38,7 +38,7 @@ public class Full_Chart_4 extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
         props.setProp(ChartPropsEnum.MARKER, 0);
-
+        
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
