@@ -49,6 +49,7 @@ public abstract class IDataBaseHandler {
     public static final int DE_CORR_60 = 40;
     public static final int CORR_MIX_CDF = 41;
     public static final int DE_CORR_MIX_CDF = 42;
+    public static final int DECISION_FUNCTION_TABLE = 44;
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
 

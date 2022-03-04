@@ -24,7 +24,7 @@ public class Full_Chart_4 extends MyChartCreator {
     public void init() {
 
         MyTimeSeries[] series;
-
+        
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
@@ -66,7 +66,6 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
-
 
         // ------------------- Index 2 -------------------- //
 
@@ -121,32 +120,32 @@ public class Full_Chart_4 extends MyChartCreator {
         series[2] = de_corr_15_series;
         series[3] = de_corr_60_series;
 
-        // Chart
-        MyChart corr_and_de_corr_chart = new MyChart(client, series, props_2);
-
         // ------------------- Corr and de corr cdf -------------------- //
-//         DE Corr
-//        MyTimeSeries corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CORR_MIX_CDF, client, null);
-//        corr_mix_cdf.setColor(Themes.BLUE);
-//        corr_mix_cdf.setStokeSize(1.5f);
-//
-//         DE Corr
-//        MyTimeSeries de_corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
-//        de_corr_mix_cdf.setColor(Themes.BINANCE_ORANGE);
-//        de_corr_mix_cdf.setStokeSize(1.5f);
-//
-//        series = new MyTimeSeries[2];
-//        series[0] = corr_mix_cdf;
-//        series[1] = de_corr_mix_cdf;
-//
-//         Chart
-//        MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
+         // DE Corr
+        MyTimeSeries de_corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
+        de_corr_mix_cdf.setColor(Themes.BINANCE_ORANGE);
+        de_corr_mix_cdf.setStokeSize(1.5f);
 
+        series = new MyTimeSeries[1];
+        series[0] = de_corr_mix_cdf;
+
+        MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
+
+        // ------------------- DF N AVG -------------------- //
+        // DE Corr
+        MyTimeSeries df_n_avg = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG, client, null);
+        df_n_avg.setColor(Themes.BLUE);
+        df_n_avg.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[1];
+        series[0] = df_n_avg;
+
+        MyChart df_n_avg_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, df_n_avg_chart, corr_and_de_corr_cdf_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

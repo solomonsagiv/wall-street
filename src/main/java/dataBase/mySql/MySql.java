@@ -14,7 +14,7 @@ public class MySql {
     public static void main(String[] args) {
         MySql.Queries.cumulative_avg_from_cdf("data.spx500_index_bid_ask_counter_cdf", 15);
     }
-    
+
     private static ConnectionPool pool;
 
     // Insert
@@ -211,6 +211,7 @@ public class MySql {
 //
 //        }
 
+
         public static ResultSet get_last_x_time_of_series(String table_name, int minuts) {
             String q = "select * from %s where time > now() - interval '%s min' %s;";
             String query = String.format(q, table_name, minuts, Filters.ORDER_BY_TIME);
@@ -230,6 +231,17 @@ public class MySql {
                     "from %s " +
                     "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and time > now() - interval '%s min'  and session_id = %s and version = %s;";
             String query = String.format(q, table_location, min, session_id, version);
+            return MySql.select(query);
+        }
+
+        public static ResultSet get_df_serie(String table_location, int session_id, int version) {
+            String q = "select time,\n" +
+                    "       sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value\n" +
+                    "from %s\n" +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "  and session_id = %s\n" +
+                    "  and version = %s;";
+            String query = String.format(q, table_location, session_id, version);
             return MySql.select(query);
         }
 

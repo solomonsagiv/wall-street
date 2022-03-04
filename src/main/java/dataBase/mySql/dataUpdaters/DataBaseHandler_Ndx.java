@@ -190,6 +190,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         tablesNames.put(OP_AVG_DAY_60_TABLE, "data.ndx_op_avg_day_60");
         tablesNames.put(CORR_MIX_CDF, "data.ndx_corr_mix_cdf");
         tablesNames.put(DE_CORR_MIX_CDF, "data.ndx_de_corr_mix_cdf");
+        tablesNames.put(DECISION_FUNCTION_TABLE, "data.ndx_decision_func");
     }
 
     @Override

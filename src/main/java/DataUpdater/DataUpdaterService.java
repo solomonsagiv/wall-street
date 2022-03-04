@@ -5,6 +5,8 @@ import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import service.MyBaseService;
 
 public class DataUpdaterService extends MyBaseService {
@@ -52,9 +54,25 @@ public class DataUpdaterService extends MyBaseService {
             client.setDe_corr_60(de_corr_60);
             client.setCorr_mix_cdf(corr_mix_cdf);
             client.setDe_corr_mix_cdf(de_corr_mix_cdf);
-
         } catch (Exception e ) {
             e.printStackTrace();
+        }
+
+        // DF N AVG
+        df_n_avg();
+
+    }
+
+    private void df_n_avg() {
+        if (client instanceof Spx) {
+            String df_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DECISION_FUNCTION_TABLE);
+            double df_n_avg = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df_table, 504, 3));
+            client.setDf_n_avg(df_n_avg);
+        }
+        if (client instanceof Ndx) {
+            String df_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DECISION_FUNCTION_TABLE);
+            double df_n_avg = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df_table, 604, 4));
+            client.setDf_n_avg(df_n_avg);
         }
     }
 

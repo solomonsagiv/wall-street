@@ -40,9 +40,28 @@ public class TimeSeriesFactory {
     public static final String DE_CORR_MIX_CDF = "DE_CORR_MIX_CDF";
     public static final String CORR_MIX = "CORR_MIX";
     public static final String DE_CORR_MIX = "DE_CORR_MIX";
+    public static final String DF_N_AVG = "DF_N_AVG";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
+
+            case DF_N_AVG:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDf_n_avg();
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+                };
+
             case DF_N_DAY:
                 return new MyTimeSeries(series_type, client) {
 
