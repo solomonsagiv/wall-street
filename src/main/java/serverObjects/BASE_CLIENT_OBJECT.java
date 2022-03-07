@@ -89,7 +89,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
 
-    private double df_n_avg = 0;
+    private double df_n_avg_4 = 0;
+    private double df_n_avg_1 = 0;
 
     // Position
     private ArrayList<MyThread> threads = new ArrayList<>();
@@ -701,12 +702,20 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.de_corr_mix_cdf = de_corr_mix_cdf;
     }
 
-    public double getDf_n_avg() {
-        return df_n_avg;
+    public double getDf_n_avg_4() {
+        return df_n_avg_4;
     }
 
-    public void setDf_n_avg(double df_n_avg) {
-        this.df_n_avg = df_n_avg;
+    public void setDf_n_avg_4(double df_n_avg_4) {
+        this.df_n_avg_4 = df_n_avg_4;
+    }
+
+    public double getDf_n_avg_1() {
+        return df_n_avg_1;
+    }
+
+    public void setDf_n_avg_1(double df_n_avg_1) {
+        this.df_n_avg_1 = df_n_avg_1;
     }
 
     @Override

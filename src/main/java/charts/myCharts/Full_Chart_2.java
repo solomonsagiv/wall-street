@@ -8,7 +8,6 @@ import locals.Themes;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class Full_Chart_2 extends MyChartCreator {

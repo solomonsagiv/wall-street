@@ -17,7 +17,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,15 +78,15 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             indAskMarginCounter += marginOfMarings;
         }
     }
-
+    
     @Override
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.spx500_decision_func", 3, 502));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.spx500_decision_func", 3, 501));
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY_SPEED, "data.research_spx500_502_speed_300", 1));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY_SPEED, "data.research_spx500_501_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_N_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_4, "data.spx500_decision_func", 3, 504));
+            map.put(DecisionsFuncFactory.DF_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_4, "data.spx500_decision_func", 3, 503));
+            map.put(DecisionsFuncFactory.DF_N_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_1, "data.spx500_decision_func", 3, 506));
+            map.put(DecisionsFuncFactory.DF_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_1, "data.spx500_decision_func", 3, 505));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

@@ -19,7 +19,6 @@ import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,10 +83,10 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY, "data.ndx_decision_func", 4, 602));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY, "data.ndx_decision_func", 4, 601));
-            map.put(DecisionsFuncFactory.DF_N_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_N_DAY_SPEED, "data.research_ndx_602_speed_300", 1));
-            map.put(DecisionsFuncFactory.DF_DAY, new DecisionsFunc(DecisionsFuncFactory.DF_DAY_SPEED, "data.research_ndx_601_speed_300", 1));
+            map.put(DecisionsFuncFactory.DF_N_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_4, "data.ndx_decision_func", 4, 604));
+            map.put(DecisionsFuncFactory.DF_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_4, "data.ndx_decision_func", 4, 603));
+            map.put(DecisionsFuncFactory.DF_N_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_1, "data.ndx_decision_func", 4, 606));
+            map.put(DecisionsFuncFactory.DF_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_1, "data.ndx_decision_func", 4, 605));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

@@ -4,15 +4,23 @@ import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
 import exp.ExpStrings;
+import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
-import serverObjects.indexObjects.Spx;
 import service.MyBaseService;
+import java.util.ArrayList;
 
 public class DataUpdaterService extends MyBaseService {
 
+    ArrayList<DecisionsFunc> df_list;
+
     public DataUpdaterService(BASE_CLIENT_OBJECT client) {
         super(client);
+        df_list = new ArrayList<>();
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4));
     }
 
     @Override
@@ -30,31 +38,16 @@ public class DataUpdaterService extends MyBaseService {
         day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_240_continue)));
 
         // Corr and de corr
-        String corr_15_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_15);
-        String corr_60_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_60);
-        String de_corr_15_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_15);
-        String de_corr_60_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_60);
-
         String corr_mix_cdf_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_CDF);
         String de_corr_mix_cdf_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_CDF);
 
         try {
-            double corr_15 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(corr_15_table));
-            double corr_60 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(corr_60_table));
-
-            double de_corr_15 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_15_table));
-            double de_corr_60 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_60_table));
-
             double corr_mix_cdf = MySql.Queries.handle_rs(MySql.Queries.get_last_record(corr_mix_cdf_table));
             double de_corr_mix_cdf = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_mix_cdf_table));
 
-            client.setCorr_15(corr_15);
-            client.setCorr_60(corr_60);
-            client.setDe_corr_15(de_corr_15);
-            client.setDe_corr_60(de_corr_60);
             client.setCorr_mix_cdf(corr_mix_cdf);
             client.setDe_corr_mix_cdf(de_corr_mix_cdf);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -64,15 +57,9 @@ public class DataUpdaterService extends MyBaseService {
     }
 
     private void df_n_avg() {
-        if (client instanceof Spx) {
-            String df_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DECISION_FUNCTION_TABLE);
-            double df_n_avg = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df_table, 504, 3));
-            client.setDf_n_avg(df_n_avg);
-        }
-        if (client instanceof Ndx) {
-            String df_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DECISION_FUNCTION_TABLE);
-            double df_n_avg = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df_table, 604, 4));
-            client.setDf_n_avg(df_n_avg);
+        for (DecisionsFunc df : df_list) {
+            double value = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id()));
+            df.setValue(value);
         }
     }
 

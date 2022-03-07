@@ -22,7 +22,7 @@ public class Full_Chart_4 extends MyChartCreator {
 
     @Override
     public void init() {
-
+        
         MyTimeSeries[] series;
         
         // Props
@@ -132,8 +132,8 @@ public class Full_Chart_4 extends MyChartCreator {
         MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
 
         // ------------------- DF N AVG -------------------- //
-        // DE Corr
-        MyTimeSeries df_n_avg = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG, client, null);
+        // DF N 1
+        MyTimeSeries df_n_avg = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_1, client, null);
         df_n_avg.setColor(Themes.BLUE);
         df_n_avg.setStokeSize(1.5f);
 

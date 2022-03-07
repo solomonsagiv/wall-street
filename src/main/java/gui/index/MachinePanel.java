@@ -36,10 +36,10 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder();
 
         df_list = new ArrayList<>();
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY_SPEED));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY_SPEED));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4));
         initsialize();
     }
 
@@ -64,14 +64,14 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(body);
 
         // DF panels
-        df_panel_1 = new Dec_panel("5", df_list.get(0), df_list.get(1));
+        df_panel_1 = new Dec_panel("1", df_list.get(0), df_list.get(1));
         df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
         // DF panels
-        df_panel_2 = new Dec_panel("Day", df_list.get(2), df_list.get(3));
+        df_panel_2 = new Dec_panel("4", df_list.get(2), df_list.get(3));
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
@@ -122,8 +122,10 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         @Override
         public void updateText() {
-//            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
-//            df_field.colorForge((int) df_func.getValue(), L.format_int());
+            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
+            df_field.colorForge((int) df_func.getValue(), L.format_int());
+            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
+            df_field.colorForge((int) df_func.getValue(), L.format_int());
         }
 
     }

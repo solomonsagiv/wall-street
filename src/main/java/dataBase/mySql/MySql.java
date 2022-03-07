@@ -245,6 +245,18 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_research_serie(String table_location, int session_id, int version) {
+            String q = "select time,\n" +
+                    "       sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value\n" +
+                    "from %s\n" +
+                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "  and session_id = %s\n" +
+                    "  and version = %s;";
+            String query = String.format(q, table_location, session_id, version);
+            return MySql.select(query);
+        }
+
+
         public static ResultSet get_sum_from_df(String table_location, int version, int session_id) {
             String q = "select sum(delta) as value " +
                     "from %s " +

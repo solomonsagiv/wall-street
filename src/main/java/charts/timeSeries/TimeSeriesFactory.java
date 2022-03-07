@@ -5,6 +5,7 @@ import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
+import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -12,7 +13,7 @@ import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
-    
+
     public static final String INDEX_SERIES = "INDEX";
     public static final String E1_BID_ASK_COUNTER = "E1_BID_ASK_COUNTER";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
@@ -40,12 +41,15 @@ public class TimeSeriesFactory {
     public static final String DE_CORR_MIX_CDF = "DE_CORR_MIX_CDF";
     public static final String CORR_MIX = "CORR_MIX";
     public static final String DE_CORR_MIX = "DE_CORR_MIX";
-    public static final String DF_N_AVG = "DF_N_AVG";
+    public static final String DF_N_AVG_4 = "DF_N_AVG_4";
+    public static final String DF_N_AVG_1 = "DF_N_AVG_1";
+    public static final String DF_AVG_4 = "DF_AVG_4";
+    public static final String DF_AVG_1 = "DF_AVG_1";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
 
-            case DF_N_AVG:
+            case DF_N_AVG_4:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -54,13 +58,77 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDf_n_avg();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4).getValue();
                     }
 
                     @Override
                     public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
+
+            case DF_AVG_4:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DF_N_AVG_1:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DF_AVG_1:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
 
             case DF_N_DAY:
                 return new MyTimeSeries(series_type, client) {
@@ -217,7 +285,8 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load() { }
+                    public void load() {
+                    }
                 };
 
             case CORR_60:
@@ -233,7 +302,8 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load() { }
+                    public void load() {
+                    }
                 };
 
             case DE_CORR_15:
@@ -249,7 +319,8 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load() { }
+                    public void load() {
+                    }
                 };
 
             case DE_CORR_60:
@@ -265,7 +336,8 @@ public class TimeSeriesFactory {
                     }
 
                     @Override
-                    public void load() { }
+                    public void load() {
+                    }
                 };
 
 
