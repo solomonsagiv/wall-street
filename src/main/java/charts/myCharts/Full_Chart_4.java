@@ -14,7 +14,7 @@ public class Full_Chart_4 extends MyChartCreator {
         Full_Chart_4 fullChart2 = new Full_Chart_4(Spx.getInstance());
         fullChart2.createChart();
     }
-
+    
     // Constructor
     public Full_Chart_4(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
@@ -120,32 +120,45 @@ public class Full_Chart_4 extends MyChartCreator {
         series[2] = de_corr_15_series;
         series[3] = de_corr_60_series;
 
-        // ------------------- Corr and de corr cdf -------------------- //
-         // DE Corr
-        MyTimeSeries de_corr_mix_cdf = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_MIX_CDF, client, null);
-        de_corr_mix_cdf.setColor(Themes.BINANCE_ORANGE);
-        de_corr_mix_cdf.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[1];
-        series[0] = de_corr_mix_cdf;
-
-        MyChart corr_and_de_corr_cdf_chart = new MyChart(client, series, props);
-
-        // ------------------- DF N AVG -------------------- //
+        // ------------------- DF N AVG 1 -------------------- //
         // DF N 1
-        MyTimeSeries df_n_avg = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_1, client, null);
-        df_n_avg.setColor(Themes.BLUE);
-        df_n_avg.setStokeSize(1.5f);
+        MyTimeSeries df_n_avg_1 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_1, client, null);
+        df_n_avg_1.setColor(Themes.BLUE_2);
+        df_n_avg_1.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[1];
-        series[0] = df_n_avg;
+        // DF N 1
+        MyTimeSeries df_avg_1 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_AVG_1, client, null);
+        df_avg_1.setColor(Themes.BINANCE_GREEN);
+        df_avg_1.setStokeSize(1.5f);
 
-        MyChart df_n_avg_chart = new MyChart(client, series, props);
+        series = new MyTimeSeries[2];
+        series[0] = df_n_avg_1;
+        series[1] = df_avg_1;
+
+        MyChart df_n_avg_1_chart = new MyChart(client, series, props);
+
+        // ------------------- DF N AVG 4 -------------------- //
+
+        // DF N 4
+        MyTimeSeries df_n_avg_4 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_4, client, null);
+        df_n_avg_4.setColor(Themes.LIFGT_BLUE_2);
+        df_n_avg_4.setStokeSize(1.5f);
+
+        // DF N 4
+        MyTimeSeries df_avg_4 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_AVG_4, client, null);
+        df_avg_4.setColor(Themes.GREEN_LIGHT);
+        df_avg_4.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[2];
+        series[0] = df_n_avg_4;
+        series[1] = df_avg_4;
+
+        MyChart df_n_avg_4_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, df_n_avg_chart, corr_and_de_corr_cdf_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, df_n_avg_1_chart, df_n_avg_4_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
