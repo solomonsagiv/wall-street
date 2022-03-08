@@ -8,6 +8,7 @@ import jibeDataGraber.DecisionsFuncFactory;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -122,10 +123,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         @Override
         public void updateText() {
-            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
-            df_field.colorForge((int) df_func.getValue(), L.format_int());
-            df_n_field.colorForge((int) df_n_func.getValue(), L.format_int());
-            df_field.colorForge((int) df_func.getValue(), L.format_int());
+            df_n_field.colorForge((int) (df_n_func.getValue() / 1000), L.format_int());
+            df_field.colorForge((int) (df_func.getValue() / 1000), L.format_int());
         }
 
     }

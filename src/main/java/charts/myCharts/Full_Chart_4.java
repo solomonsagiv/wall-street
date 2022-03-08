@@ -24,7 +24,7 @@ public class Full_Chart_4 extends MyChartCreator {
     public void init() {
         
         MyTimeSeries[] series;
-        
+
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
@@ -38,7 +38,7 @@ public class Full_Chart_4 extends MyChartCreator {
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
         props.setProp(ChartPropsEnum.MARKER, 0);
-        
+
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
@@ -119,7 +119,7 @@ public class Full_Chart_4 extends MyChartCreator {
         series[1] = corr_60_series;
         series[2] = de_corr_15_series;
         series[3] = de_corr_60_series;
-
+        
         // ------------------- DF N AVG 1 -------------------- //
         // DF N 1
         MyTimeSeries df_n_avg_1 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_1, client, null);
@@ -138,15 +138,14 @@ public class Full_Chart_4 extends MyChartCreator {
         MyChart df_n_avg_1_chart = new MyChart(client, series, props);
 
         // ------------------- DF N AVG 4 -------------------- //
-
         // DF N 4
         MyTimeSeries df_n_avg_4 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_4, client, null);
-        df_n_avg_4.setColor(Themes.LIFGT_BLUE_2);
+        df_n_avg_4.setColor(Themes.ORANGE);
         df_n_avg_4.setStokeSize(1.5f);
 
         // DF N 4
         MyTimeSeries df_avg_4 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_AVG_4, client, null);
-        df_avg_4.setColor(Themes.GREEN_LIGHT);
+        df_avg_4.setColor(Themes.BINANCE_GREEN);
         df_avg_4.setStokeSize(1.5f);
 
         series = new MyTimeSeries[2];
