@@ -87,6 +87,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_4, "data.ndx_decision_func", 4, 603));
             map.put(DecisionsFuncFactory.DF_N_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_1, "data.ndx_decision_func", 4, 606));
             map.put(DecisionsFuncFactory.DF_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_1, "data.ndx_decision_func", 4, 605));
+            map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.ndx_decision_func", 4, 607));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;

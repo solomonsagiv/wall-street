@@ -45,6 +45,7 @@ public class TimeSeriesFactory {
     public static final String DF_N_AVG_1 = "DF_N_AVG_1";
     public static final String DF_AVG_4 = "DF_AVG_4";
     public static final String DF_AVG_1 = "DF_AVG_1";
+    public static final String DF_7 = "DF_7";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
@@ -104,7 +105,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1);
-                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        ResultSet rs = MySql.Queries.get_df_bar_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -171,6 +172,27 @@ public class TimeSeriesFactory {
 
                     }
                 };
+
+            case DF_7:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
             case DF_N_DAY_SPEED:
                 return new MyTimeSeries(series_type, client) {
                     @Override
