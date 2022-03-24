@@ -249,8 +249,8 @@ public class MySql {
             String q = "select *\n" +
                     "from %s\n" +
                     "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
-                    "  and session_id = %s\n" +
-                    "  and version = %s;";
+                    "and session_id = %s\n" +
+                    "and version = %s;";
             String query = String.format(q, table_location, session_id, version);
             return MySql.select(query);
         }

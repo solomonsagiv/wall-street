@@ -123,10 +123,18 @@ public class ConnectionPool implements IConnectionPool {
     public void shutdown() throws SQLException {
         usedConnections.forEach(this::releaseConnection);
         for (Connection c : connections) {
-            c.close();
+            try {
+                c.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         for (Connection c : usedConnections) {
-            c.close();
+            try {
+                c.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         connections.clear();
     }

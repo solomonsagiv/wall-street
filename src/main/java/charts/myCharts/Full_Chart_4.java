@@ -100,7 +100,7 @@ public class Full_Chart_4 extends MyChartCreator {
         df_n_avg_1.setColor(Themes.BLUE_2);
         df_n_avg_1.setStokeSize(1.5f);
 
-        series = new MyTimeSeries[2];
+        series = new MyTimeSeries[1];
         series[0] = df_n_avg_1;
 
         MyChart df_n_avg_1_chart = new MyChart(client, series, props_2);
