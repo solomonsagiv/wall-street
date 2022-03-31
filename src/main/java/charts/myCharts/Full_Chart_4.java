@@ -39,7 +39,6 @@ public class Full_Chart_4 extends MyChartCreator {
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
         props.setProp(ChartPropsEnum.MARKER, 0);
 
-
         // ------------------- Index -------------------- //
 
         // Index
@@ -82,7 +81,6 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
-
         // ------------------- De corr -------------------- //
 
         // De corr 3600
@@ -90,7 +88,7 @@ public class Full_Chart_4 extends MyChartCreator {
         de_corr_3600.setColor(Themes.BLUE);
         de_corr_3600.setStokeSize(1.5f);
 
-        // De corr 3600
+        // De corr 900
         MyTimeSeries de_corr_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_15, client, null);
         de_corr_900.setColor(Themes.GREEN);
         de_corr_900.setStokeSize(1.5f);
@@ -103,7 +101,7 @@ public class Full_Chart_4 extends MyChartCreator {
         MyChart de_corr_chart = new MyChart(client, series, props);
 
         
-        // ------------------- DF N AVG 4 -------------------- //
+        // ------------------- DF -------------------- //
         // DF 3
         MyTimeSeries df_3 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_3, client, null);
         df_3.setColor(Themes.ORANGE);
