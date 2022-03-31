@@ -26,7 +26,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Dec_panel df_panel_1;
     Dec_panel df_panel_2;
 
-    int width = 160;
+    int width = 100;
     int height = 300;
 
     private ArrayList<DecisionsFunc> df_list;
@@ -83,10 +83,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         private DecisionsFunc[] df_func;
         private MyGuiComps.MyLabel nameLbl;
-        private MyGuiComps.MyTextField df_n_field;
         private MyGuiComps.MyTextField df_field;
         private String name;
-
 
         public Dec_panel(String name, DecisionsFunc[] df_unc) {
             super();
@@ -106,15 +104,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
             nameLbl.setHeight(25);
             add(nameLbl);
 
-            // Df N
-            df_n_field = new MyGuiComps.MyTextField();
-            df_n_field.setXY(nameLbl.getX() + nameLbl.getWidth() + 1, nameLbl.getY());
-            df_n_field.setWidth(60);
-            add(df_n_field);
-
             // Df
             df_field = new MyGuiComps.MyTextField();
-            df_field.setXY(df_n_field.getX() + df_n_field.getWidth() + 1, df_n_field.getY());
+            df_field.setXY(nameLbl.getX() + nameLbl.getWidth() + 1, nameLbl.getY());
             df_field.setWidth(60);
             add(df_field);
         }
