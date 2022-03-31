@@ -26,10 +26,10 @@ public class Spx_Ndx_1000_Algo extends ArikAlgoAlert {
         Map<String, DecisionsFunc> spx_list =  spx.getDecisionsFuncHandler().getMap();
         Map<String, DecisionsFunc> ndx_list =  ndx.getDecisionsFuncHandler().getMap();
 
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_DAY));
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_N_DAY));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_DAY));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_N_DAY));
+        df_list.add(spx_list.get(DecisionsFuncFactory.DF_3));
+        df_list.add(spx_list.get(DecisionsFuncFactory.DF_7));
+        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_3));
+        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_7));
     }
 
     @Override

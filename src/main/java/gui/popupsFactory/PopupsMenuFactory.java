@@ -46,15 +46,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem df = new JMenuItem("DF");
-        df.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DF_Chart chart = new DF_Chart(client);
-                chart.createChart();
-            }
-        });
-        
         JMenuItem corr_and_de_corr_mix = new JMenuItem("Corr, de corr");
         corr_and_de_corr_mix.addActionListener(new ActionListener() {
             @Override
@@ -139,17 +130,11 @@ public class PopupsMenuFactory {
             }
         });
 
-        charts.add(df);
-        charts.add(corr_and_de_corr_mix_cdf);
-        charts.add(corr_and_de_corr_separately_mix);
-        charts.add(corr_and_de_corr_mix);
-        charts.add(fullCharts_2);
         charts.add(fullCharts_4);
-        charts.add(op_avg_30_chart);
+        charts.add(futures_real_time_300);
         charts.add(baskets);
         charts.add(futures_real_time_1000);
-        charts.add(futures_real_time_300);
-        charts.add(op_avg_chart);
+        charts.add(fullCharts_2);
 
         menu.add(details);
         menu.add(settingWindow);
