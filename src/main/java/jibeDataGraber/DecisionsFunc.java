@@ -27,7 +27,6 @@ public class DecisionsFunc {
         this.single_dec = single_dec;
     }
 
-
     public double getValue() {
         return value;
     };

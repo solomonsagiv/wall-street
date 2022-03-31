@@ -103,7 +103,7 @@ public class Full_Chart_4 extends MyChartCreator {
         series = new MyTimeSeries[1];
         series[0] = df_n_avg_1;
 
-        MyChart df_n_avg_1_chart = new MyChart(client, series, props_2);
+        MyChart df_n_avg_1_chart = new MyChart(client, series, props);
 
         // ------------------- DF N AVG 4 -------------------- //
         // DF N 4

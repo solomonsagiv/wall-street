@@ -23,7 +23,7 @@ interface ITimeSeries {
 }
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
-    
+
     private int id = 0;
     public static final int TIME = 0;
     public static final int VALUE = 1;
@@ -102,19 +102,14 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     public void add(LocalDateTime time) {
         try {
             Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
-
             double data = getData();
-
             if (data != 0) {
                 getMyValues().add(data);
-
                 if (scaled) {
                     data = getMyValues().getLastValAsStd();
                 }
-
                 addOrUpdate(second, data);
             }
-
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

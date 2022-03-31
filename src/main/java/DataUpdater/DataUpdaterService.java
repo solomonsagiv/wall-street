@@ -21,8 +21,8 @@ public class DataUpdaterService extends MyBaseService {
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
     }
-
     @Override
     public void go() {
 
@@ -53,13 +53,17 @@ public class DataUpdaterService extends MyBaseService {
 
         // DF N AVG
         df_n_avg();
-
     }
 
     private void df_n_avg() {
         for (DecisionsFunc df : df_list) {
-            double value = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id()));
-            df.setValue(value);
+            if (df.getName().equals(DecisionsFuncFactory.DF_AVG_1)) {
+                double value = MySql.Queries.handle_rs(MySql.Queries.get_df_bar_serie(df.getTable_location(), df.getVersion(), df.getSession_id()));
+                df.setValue(value);
+            } else {
+                double value = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id()));
+                df.setValue(value);
+            }
         }
     }
 
