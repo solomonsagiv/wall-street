@@ -37,10 +37,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder();
 
         df_list = new ArrayList<>();
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
         initsialize();
     }
 
@@ -65,14 +64,14 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(body);
 
         // DF panels
-        df_panel_1 = new Dec_panel("1", df_list.get(0), df_list.get(1));
+        df_panel_1 = new Dec_panel("0", new DecisionsFunc[]{df_list.get(2)});
         df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
         // DF panels
-        df_panel_2 = new Dec_panel("4", df_list.get(2), df_list.get(3));
+        df_panel_2 = new Dec_panel("4", new DecisionsFunc[]{df_list.get(0)});
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
@@ -82,18 +81,17 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     private class Dec_panel extends MyGuiComps.MyPanel implements IMyPanel {
 
-        private DecisionsFunc df_n_func;
-        private DecisionsFunc df_func;
+        private DecisionsFunc[] df_func;
         private MyGuiComps.MyLabel nameLbl;
         private MyGuiComps.MyTextField df_n_field;
         private MyGuiComps.MyTextField df_field;
         private String name;
 
-        public Dec_panel(String name, DecisionsFunc df_n_func, DecisionsFunc df_func) {
+
+        public Dec_panel(String name, DecisionsFunc[] df_unc) {
             super();
             this.name = name;
-            this.df_n_func = df_n_func;
-            this.df_func = df_func;
+            this.df_func = df_unc;
 
             init();
         }
@@ -123,8 +121,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         @Override
         public void updateText() {
-            df_n_field.colorForge((int) (df_n_func.getValue() / 1000), L.format_int());
-            df_field.colorForge((int) (df_func.getValue() / 1000), L.format_int());
+            for (DecisionsFunc df : df_func) {
+                df_field.colorForge((int) (df.getValue() / 1000), L.format_int());
+            }
         }
 
     }

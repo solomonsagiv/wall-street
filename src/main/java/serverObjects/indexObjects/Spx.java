@@ -78,15 +78,13 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             indAskMarginCounter += marginOfMarings;
         }
     }
-
+    
     @Override
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.DF_N_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_4, "data.spx500_decision_func", 3, 504));
-            map.put(DecisionsFuncFactory.DF_AVG_4, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_4, "data.spx500_decision_func", 3, 503));
-            map.put(DecisionsFuncFactory.DF_N_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_N_AVG_1, "data.spx500_decision_func", 3, 506));
-            map.put(DecisionsFuncFactory.DF_AVG_1, new DecisionsFunc(DecisionsFuncFactory.DF_AVG_1, "data.spx500_decision_func", 3, 505));
+            map.put(DecisionsFuncFactory.DF_3, new DecisionsFunc(DecisionsFuncFactory.DF_3, "data.spx500_decision_func", 3, 503));
+            map.put(DecisionsFuncFactory.DF_5, new DecisionsFunc(DecisionsFuncFactory.DF_5, "data.spx500_decision_func", 3, 505));
             map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.spx500_decision_func", 3, 507));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }

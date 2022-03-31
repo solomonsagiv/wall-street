@@ -29,9 +29,6 @@ public class TimeSeriesFactory {
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
     public static final String SESSION_4_VERSION_601 = "SESSION_4_VERSION_601";
     public static final String DF_N_DAY = "DF_N_DAY";
-    public static final String DF_DAY = "DF_DAY";
-    public static final String DF_N_DAY_SPEED = "DF_N_DAY_SPEED";
-    public static final String DF_DAY_SPEED = "DF_DAY_SPEED";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
     public static final String CORR_15 = "CORR_15";
     public static final String CORR_60 = "CORR_60";
@@ -41,137 +38,12 @@ public class TimeSeriesFactory {
     public static final String DE_CORR_MIX_CDF = "DE_CORR_MIX_CDF";
     public static final String CORR_MIX = "CORR_MIX";
     public static final String DE_CORR_MIX = "DE_CORR_MIX";
-    public static final String DF_N_AVG_4 = "DF_N_AVG_4";
-    public static final String DF_N_AVG_1 = "DF_N_AVG_1";
-    public static final String DF_AVG_4 = "DF_AVG_4";
-    public static final String DF_AVG_1 = "DF_AVG_1";
     public static final String DF_7 = "DF_7";
+    public static final String DF_5 = "DF_5";
+    public static final String DF_3 = "DF_3";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
-
-            case DF_N_AVG_4:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4);
-                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
-            case DF_AVG_4:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4);
-                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
-            case DF_N_AVG_1:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1);
-                        ResultSet rs = MySql.Queries.get_df_bar_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
-            case DF_AVG_1:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1);
-                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
-
-            case DF_N_DAY:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series_cumulative(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
-
-            case DF_DAY:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series_cumulative(table_location, minuts);
-                        return rs;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY).getValue();
-                    }
-
-                    @Override
-                    public void load() {
-
-                    }
-                };
 
             case DF_7:
                 return new MyTimeSeries(series_type, client) {
@@ -193,45 +65,46 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_N_DAY_SPEED:
+            case DF_5:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY_SPEED).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
+                        return null;
                     }
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_DAY_SPEED).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getValue();
                     }
 
                     @Override
                     public void load() {
-
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
 
-            case DF_DAY_SPEED:
+            case DF_3:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
-                        String table_location = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY_SPEED).getTable_location();
-                        ResultSet rs = MySql.Queries.get_last_x_time_of_series(table_location, minuts);
-                        return rs;
+                        return null;
                     }
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_DAY_SPEED).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3).getValue();
                     }
 
                     @Override
                     public void load() {
-
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
+
             case FUTURE_DELTA:
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -342,6 +215,9 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
+                        String serie = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_15);
+                        ResultSet rs = MySql.Queries.get_serie(serie);
+                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
 
@@ -359,6 +235,9 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
+                        String serie = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_60);
+                        ResultSet rs = MySql.Queries.get_serie(serie);
+                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
 

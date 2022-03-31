@@ -47,7 +47,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
         // Updater
         getUpdater().getHandler().start();
-
     }
 
     private void initListeners() {

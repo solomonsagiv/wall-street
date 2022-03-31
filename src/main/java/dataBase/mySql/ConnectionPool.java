@@ -35,6 +35,16 @@ public class ConnectionPool implements IConnectionPool {
         this.connections = connections;
     }
 
+    private ConnectionPool() {}
+
+
+    public static ConnectionPool getInstance() {
+        if (connectionPool == null) {
+            connectionPool = new ConnectionPool();
+        }
+        return connectionPool;
+    }
+
     public static ConnectionPool getConnectionsPoolInstance(int connection_count) {
         if (connectionPool == null) {
             try {

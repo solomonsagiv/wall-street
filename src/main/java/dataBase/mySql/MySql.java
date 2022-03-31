@@ -11,8 +11,32 @@ import java.time.LocalTime;
 
 public class MySql {
 
-    public static void main(String[] args) {
-        MySql.Queries.cumulative_avg_from_cdf("data.spx500_index_bid_ask_counter_cdf", 15);
+    public static void main(String[] args) throws SQLException {
+
+//        MyDBConnections dbConnections = new MyDBConnections();
+//        DBConnectionType connectionType = dbConnections.getConnectionType(MyDBConnections.JIBE_POSTGRES);
+//        Connection jibe_conn = (Connection) ConnectionPool.create(connectionType, 5);
+//        DBConnectionType sconnectionType = dbConnections.getConnectionType(MyDBConnections.SLO_POSTGRES);
+//        Connection slo_conn = (Connection) ConnectionPool.create(sconnectionType, 5);
+//
+//        String query = "select * from data.ndx_decision_func\n" +
+//                "where session_id = 4\n" +
+//                "  and version = 603\n" +
+//                "  and date_trunc('day', time) = date_trunc('day', date'2022-03-28');";
+//
+//        ResultSet rs = MySql.select(query, jibe_conn);
+//
+//
+//        while (true) {
+//            try {
+//                if (!rs.next()) break;
+//                MySql.insert();
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//
+//        }
+
     }
 
     private static ConnectionPool pool;
@@ -40,6 +64,29 @@ public class MySql {
             }
         }
     }
+
+    public static void insert(String query, Connection conn) {
+        try {
+
+            conn = getPool().getConnection();
+            Statement stmt = conn.createStatement();
+
+            // Execute
+            stmt.execute(query);
+
+            System.out.println(LocalTime.now() + "  " + query);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Insert");
+        } finally {
+            // Release connection
+            if (conn != null) {
+                getPool().releaseConnection(conn);
+            }
+        }
+    }
+
 
     public static void insert(String query, boolean thread) {
         if (thread) {
@@ -98,6 +145,33 @@ public class MySql {
         }
         return rs;
     }
+
+    public static ResultSet select(String query, Connection conn) {
+        ResultSet rs = null;
+
+        try {
+            conn = getPool().getConnection();
+
+            // create the java statement
+            Statement st = conn.createStatement();
+
+            // execute the query, and get a java resultset
+            rs = st.executeQuery(query);
+
+            System.out.println(query);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Select");
+        } finally {
+            // Release connection
+            if (conn != null) {
+                getPool().releaseConnection(conn);
+            }
+        }
+        return rs;
+    }
+
 
     public static void trunticate(String tableName, String schema) {
 
