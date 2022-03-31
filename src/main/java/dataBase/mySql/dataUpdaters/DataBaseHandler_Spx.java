@@ -66,7 +66,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             String fut_tick_speed_table_location = tablesNames.get(FUT_E1_TICK_SPEED);
             insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
-
+        
         // On changed data
         on_change_data();
 
