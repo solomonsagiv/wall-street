@@ -39,6 +39,21 @@ public class Full_Chart_4 extends MyChartCreator {
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
         props.setProp(ChartPropsEnum.MARKER, 0);
 
+
+        // ------------------- Index -------------------- //
+
+        // Index
+        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
+        indexSeries.setColor(Color.BLACK);
+        indexSeries.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[1];
+        series[0] = indexSeries;
+
+        // Chart
+        MyChart indexChart = new MyChart(client, series, props);
+
+
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
@@ -67,49 +82,32 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
-        // ------------------- Index 2 -------------------- //
 
-        // Index
-        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
-        indexSeries.setColor(Color.BLACK);
-        indexSeries.setStokeSize(1.5f);
+        // ------------------- De corr -------------------- //
 
-        series = new MyTimeSeries[1];
-        series[0] = indexSeries;
+        // De corr 3600
+        MyTimeSeries de_corr_3600 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_60, client, null);
+        de_corr_3600.setColor(Themes.BLUE);
+        de_corr_3600.setStokeSize(1.5f);
 
-        // Chart
-        MyChart indexChart = new MyChart(client, series, props);
-
-        // ------------------- DF N AVG 1 -------------------- //
-
-        MyProps props_2 = new MyProps();
-        props_2.setProp(ChartPropsEnum.SECONDS, 3600);
-        props_2.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
-        props_2.setProp(ChartPropsEnum.MARGIN, 0.005);
-        props_2.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
-        props_2.setProp(ChartPropsEnum.IS_LOAD_DB, 1);
-        props_2.setProp(ChartPropsEnum.IS_LIVE, -1);
-        props_2.setProp(ChartPropsEnum.SLEEP, 1000);
-        props_2.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
-        props_2.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
-        props_2.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
-        props_2.setProp(ChartPropsEnum.MARKER, 0);
-
-        // DF N 1
-        MyTimeSeries df_n_avg_1 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_1, client, null);
-        df_n_avg_1.setColor(Themes.BLUE_2);
-        df_n_avg_1.setStokeSize(1.5f);
+        // De corr 3600
+        MyTimeSeries de_corr_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_15, client, null);
+        de_corr_900.setColor(Themes.GREEN);
+        de_corr_900.setStokeSize(1.5f);
 
         series = new MyTimeSeries[2];
-        series[0] = df_n_avg_1;
+        series[0] = de_corr_3600;
+        series[1] = de_corr_900;
 
-        MyChart df_n_avg_1_chart = new MyChart(client, series, props_2);
+        // Chart
+        MyChart de_corr_chart = new MyChart(client, series, props);
 
+        
         // ------------------- DF N AVG 4 -------------------- //
-        // DF N 4
-        MyTimeSeries df_n_avg_4 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_N_AVG_4, client, null);
-        df_n_avg_4.setColor(Themes.ORANGE);
-        df_n_avg_4.setStokeSize(1.5f);
+        // DF 3
+        MyTimeSeries df_3 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_3, client, null);
+        df_3.setColor(Themes.ORANGE);
+        df_3.setStokeSize(1.5f);
 
         // DF 7
         MyTimeSeries df_7 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client, null);
@@ -117,15 +115,15 @@ public class Full_Chart_4 extends MyChartCreator {
         df_7.setStokeSize(1.5f);
 
         series = new MyTimeSeries[2];
-        series[0] = df_n_avg_4;
+        series[0] = df_3;
         series[1] = df_7;
 
-        MyChart df_n_avg_4_chart = new MyChart(client, series, props);
+        MyChart df_s_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, df_n_avg_1_chart, df_n_avg_4_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, de_corr_chart, df_s_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

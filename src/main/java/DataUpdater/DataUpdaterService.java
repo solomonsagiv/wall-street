@@ -17,10 +17,9 @@ public class DataUpdaterService extends MyBaseService {
     public DataUpdaterService(BASE_CLIENT_OBJECT client) {
         super(client);
         df_list = new ArrayList<>();
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_1));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_1));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_N_AVG_4));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_AVG_4));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
     }
 
     @Override
@@ -38,15 +37,15 @@ public class DataUpdaterService extends MyBaseService {
         day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_240_continue)));
 
         // Corr and de corr
-        String corr_mix_cdf_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.CORR_MIX_CDF);
-        String de_corr_mix_cdf_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_MIX_CDF);
+        String de_corr_60_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_60);
+        String de_corr_15_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_15);
 
         try {
-            double corr_mix_cdf = MySql.Queries.handle_rs(MySql.Queries.get_last_record(corr_mix_cdf_table));
-            double de_corr_mix_cdf = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_mix_cdf_table));
+            double de_corr_3600 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_60_table));
+            double de_corr_900 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_15_table));
 
-            client.setCorr_mix_cdf(corr_mix_cdf);
-            client.setDe_corr_mix_cdf(de_corr_mix_cdf);
+            client.setDe_corr_15(de_corr_900);
+            client.setDe_corr_60(de_corr_3600);
         } catch (Exception e) {
             e.printStackTrace();
         }
