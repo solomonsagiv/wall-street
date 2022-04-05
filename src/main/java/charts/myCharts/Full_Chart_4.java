@@ -81,26 +81,6 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
-        // ------------------- De corr -------------------- //
-
-        // De corr 3600
-        MyTimeSeries de_corr_3600 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_60, client, null);
-        de_corr_3600.setColor(Themes.BLUE);
-        de_corr_3600.setStokeSize(1.5f);
-
-        // De corr 900
-        MyTimeSeries de_corr_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DE_CORR_15, client, null);
-        de_corr_900.setColor(Themes.GREEN);
-        de_corr_900.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[2];
-        series[0] = de_corr_3600;
-        series[1] = de_corr_900;
-
-        // Chart
-        MyChart de_corr_chart = new MyChart(client, series, props);
-
-        
         // ------------------- DF -------------------- //
         // DF 3
         MyTimeSeries df_3 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_3, client, null);
@@ -118,10 +98,20 @@ public class Full_Chart_4 extends MyChartCreator {
 
         MyChart df_s_chart = new MyChart(client, series, props);
 
+        // ------------------- DE Corr -------------------- //
+        MyTimeSeries df_8 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8, client, null);
+        df_8.setColor(Themes.LIFGT_BLUE_2);
+        df_8.setStokeSize(1.5f);
+
+        series = new MyTimeSeries[1];
+        series[0] = df_8;
+
+        MyChart de_corr_chart = new MyChart(client, series, props);
+
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, de_corr_chart, df_s_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, df_s_chart, de_corr_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

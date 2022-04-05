@@ -84,13 +84,13 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
             map.put(DecisionsFuncFactory.DF_3, new DecisionsFunc(DecisionsFuncFactory.DF_3, "data.ndx_decision_func", 4, 603));
-            map.put(DecisionsFuncFactory.DF_5, new DecisionsFunc(DecisionsFuncFactory.DF_5, "data.ndx_decision_func", 4, 605));
+            map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.ndx_decision_func", 4, 608));
             map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.ndx_decision_func", 4, 607));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;
     }
-    
+
     @Override
     public void setIndex(double index) {
         super.setIndex(index);

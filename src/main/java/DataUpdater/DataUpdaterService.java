@@ -18,8 +18,8 @@ public class DataUpdaterService extends MyBaseService {
         super(client);
         df_list = new ArrayList<>();
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8));
     }
 
     @Override
@@ -36,19 +36,19 @@ public class DataUpdaterService extends MyBaseService {
         day.setOp_avg_60(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_60)));
         day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_240_continue)));
 
-        // Corr and de corr
-        String de_corr_60_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_60);
-        String de_corr_15_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_15);
-
-        try {
-            double de_corr_3600 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_60_table));
-            double de_corr_900 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_15_table));
-
-            client.setDe_corr_15(de_corr_900);
-            client.setDe_corr_60(de_corr_3600);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//         Corr and de corr
+//        String de_corr_60_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_60);
+//        String de_corr_15_table = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.DE_CORR_15);
+//
+//        try {
+//            double de_corr_3600 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_60_table));
+//            double de_corr_900 = MySql.Queries.handle_rs(MySql.Queries.get_last_record(de_corr_15_table));
+//
+//            client.setDe_corr_15(de_corr_900);
+//            client.setDe_corr_60(de_corr_3600);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         // DF N AVG
         df_n_avg();

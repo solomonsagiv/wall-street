@@ -39,7 +39,7 @@ public class TimeSeriesFactory {
     public static final String CORR_MIX = "CORR_MIX";
     public static final String DE_CORR_MIX = "DE_CORR_MIX";
     public static final String DF_7 = "DF_7";
-    public static final String DF_5 = "DF_5";
+    public static final String DF_8 = "DF_8";
     public static final String DF_3 = "DF_3";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
@@ -65,7 +65,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_5:
+            case DF_8:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -74,12 +74,12 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8).getValue();
                     }
 
                     @Override
                     public void load() {
-                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_5);
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8);
                         ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
