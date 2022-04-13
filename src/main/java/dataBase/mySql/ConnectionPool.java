@@ -5,6 +5,7 @@ import arik.Arik;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,18 @@ import java.util.List;
 public class ConnectionPool implements IConnectionPool {
 
     public static void main(String[] args) {
-        ConnectionPool connectionPool = ConnectionPool.getConnectionsPoolInstance();
+        try {
+
+            ResultSet rs = MySql.select(String.format("select * from %s order by time desc limit 1;", "data.ndx_index"));
+
+            while (rs.next()) {
+                System.out.println(rs.getTimestamp(0));
+                System.out.println(rs.getDouble("value"));
+            }
+
+        } catch (Exception e) {
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
+        }
     }
 
     private static final int MAX_POOL_SIZE = 20;

@@ -10,6 +10,7 @@ import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import java.sql.ResultSet;
@@ -84,6 +85,24 @@ public abstract class IDataBaseHandler {
             return tablesNames.get(FUT_Q2_TABLE);
         }
         return "No table call: " + target_table;
+    }
+
+    protected void load_exp_data() {
+
+        // START
+        String index_table = get_table_loc(INDEX_TABLE);
+        double start_exp = MySql.Queries.handle_rs(MySql.Queries.get_exp_start(index_table, client.getId_name()));
+        client.getExps().getExp(ExpStrings.q1).setStart(start_exp);
+
+        // DF
+        String table_location = get_table_loc(DECISION_FUNCTION_TABLE);
+        DecisionsFunc df_107 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
+        double v107 = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(table_location, df_107.getSession_id(), df_107.getVersion(), client.getId_name()));
+        DecisionsFunc df_103 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
+        double v103 = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(table_location, df_103.getSession_id(), df_103.getVersion(), client.getId_name()));
+
+        client.getExps().getExp(ExpStrings.q1).setV103(v103);
+        client.getExps().getExp(ExpStrings.q1).setV107(v107);
     }
 
     public void load_op_avg(Exp exp, ResultSet rs) {

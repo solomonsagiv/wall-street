@@ -33,6 +33,11 @@ public abstract class Exp {
     protected double last_checked_future_ask = 0;
     protected int contract_bid_ask_counter = 0;
 
+    public double v107 = 0;
+    public double v103 = 0;
+
+    public double start = 0;
+
     ExpData expData;
     List<Double> opFutList = new ArrayList<>();
 
@@ -247,5 +252,29 @@ public abstract class Exp {
 
     public void setOp_avg_60(double op_avg_60) {
         this.op_avg_60 = op_avg_60;
+    }
+
+    public double getV107() {
+        return v107;
+    }
+
+    public void setV107(double v107) {
+        this.v107 = v107;
+    }
+
+    public double getV103() {
+        return v103;
+    }
+
+    public void setV103(double v103) {
+        this.v103 = v103;
+    }
+
+    public double getStart() {
+        return start;
+    }
+
+    public void setStart(double start) {
+        this.start = start;
     }
 }

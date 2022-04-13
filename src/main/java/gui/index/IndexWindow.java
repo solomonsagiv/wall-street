@@ -36,12 +36,12 @@ public class IndexWindow extends MyGuiComps.MyFrame {
     public void initialize() {
 
         // This
-        setPreferredSize(new Dimension(542, 222));
+        setPreferredSize(new Dimension(750, 222));
         setLayout(null);
 
         // Index panel
         indexPanel = new IndexPanel((INDEX_CLIENT_OBJECT) client);
-        indexPanel.setBounds(0, 0, 550, 500);
+        indexPanel.setBounds(0, 0, 750, 500);
         getContentPane().add(indexPanel);
 
     }

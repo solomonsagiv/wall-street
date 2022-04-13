@@ -150,7 +150,6 @@ public class MySql {
         ResultSet rs = null;
 
         try {
-            conn = getPool().getConnection();
 
             // create the java statement
             Statement st = conn.createStatement();
@@ -163,11 +162,6 @@ public class MySql {
         } catch (Exception e) {
             e.printStackTrace();
             Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Select");
-        } finally {
-            // Release connection
-            if (conn != null) {
-                getPool().releaseConnection(conn);
-            }
         }
         return rs;
     }
@@ -214,6 +208,42 @@ public class MySql {
                     "inner join %s f " +
                     "on i.time = f.time " +
                     "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet get_exp_data(String table_location, int session, int version, String stock_id) {
+            String q = "select (\n" +
+                    "           select sum(delta)\n" +
+                    "           from %s\n" +
+                    "           where session_id = %s\n" +
+                    "             and version = %s\n" +
+                    "             and time between date_trunc('day', a.d) and date_trunc('day', now())\n" +
+                    "       )\n" +
+                    "from (\n" +
+                    "         select data::date as d\n" +
+                    "         from sagiv.props\n" +
+                    "         where stock_id = '%s'\n" +
+                    "           and prop = 'EXP_Q1_START'\n" +
+                    "     ) a;";
+            String query = String.format(q, table_location, session, version, stock_id);
+            return MySql.select(query);
+
+        }
+
+        public static ResultSet get_exp_start(String index_table_location, String stock_id) {
+            String q = "select (select value\n" +
+                    "        from %s\n" +
+                    "        where date_trunc('day', time) = date_trunc('day', a.date)\n" +
+                    "        order by time\n" +
+                    "        limit 1)\n" +
+                    "\n" +
+                    "from (\n" +
+                    "         select data::date as date\n" +
+                    "         from sagiv.props\n" +
+                    "         where stock_id = '%s'\n" +
+                    "           and prop = 'EXP_Q1_START') a;";
+            String query = String.format(q, index_table_location, stock_id);
             return MySql.select(query);
         }
 

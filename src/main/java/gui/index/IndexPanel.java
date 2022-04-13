@@ -30,7 +30,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
     // Basket panel
     MachinePanel machinePanel;
 
-    int height = 250;
+    int height = 240;
 
     Color backGround = Themes.GREY_LIGHT;
 
@@ -82,15 +82,17 @@ public class IndexPanel extends JPanel implements IMyPanel {
         machinePanel.setXY(tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
         add(machinePanel);
 
-        // ---------- Races and roll ---------- //
-        countersPanel = new CountersPanel(client);
-        countersPanel.setXY(machinePanel.getX() + machinePanel.getWidth() + 1, machinePanel.getY());
-        add(countersPanel);
-
         // --------------- Exp --------------- //
         expPanel = new ExpSumPanel(client);
-        expPanel.setXY(countersPanel.getX() + countersPanel.getWidth() + 1, countersPanel.getX());
+        expPanel.setXY(machinePanel.getX() + machinePanel.getWidth() + 1, machinePanel.getY());
         add(expPanel);
+
+        // ---------- Races and roll ---------- //
+        countersPanel = new CountersPanel(client);
+        countersPanel.setXY(expPanel.getX() + expPanel.getWidth() + 1, expPanel.getY());
+        add(countersPanel);
+
+
 
     }
 

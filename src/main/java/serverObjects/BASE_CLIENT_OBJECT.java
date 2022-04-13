@@ -280,6 +280,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return true;
     }
 
+
     public DecisionsFuncHandler getDecisionsFuncHandler() {
         return decisionsFuncHandler;
     }
