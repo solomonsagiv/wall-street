@@ -189,6 +189,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Load props
         load_properties();
 
+        // Load exp data
+        load_exp_data();
+
         // Set load
         client.setLoadFromDb(true);
     }
