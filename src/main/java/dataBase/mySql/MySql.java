@@ -214,7 +214,7 @@ public class MySql {
 
         public static ResultSet get_exp_data(String table_location, int session, int version, String stock_id) {
             String q = "select (\n" +
-                    "           select sum(delta)\n" +
+                    "           select sum(delta) as value\n" +
                     "           from %s\n" +
                     "           where session_id = %s\n" +
                     "             and version = %s\n" +

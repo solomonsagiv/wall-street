@@ -98,7 +98,7 @@ public abstract class IDataBaseHandler {
             String table_location = get_table_loc(DECISION_FUNCTION_TABLE);
             DecisionsFunc df_107 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
             double v107 = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(table_location, df_107.getSession_id(), df_107.getVersion(), client.getId_name()));
-            DecisionsFunc df_103 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
+            DecisionsFunc df_103 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3);
             double v103 = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(table_location, df_103.getSession_id(), df_103.getVersion(), client.getId_name()));
 
             client.getExps().getExp(ExpStrings.q1).setV103(v103);

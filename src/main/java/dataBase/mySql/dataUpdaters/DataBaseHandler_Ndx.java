@@ -157,8 +157,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         load_op_avg(q1, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)));
         load_op_avg(q2, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)));
 
-        //  FUT DELTA
-        load_fut_delta(q1, MySql.Queries.get_sum(tablesNames.get(FUT_DELTA_TABLE)));
 
         // Props
         load_properties();
