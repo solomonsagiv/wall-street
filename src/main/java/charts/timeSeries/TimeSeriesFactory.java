@@ -18,7 +18,6 @@ public class TimeSeriesFactory {
     public static final String E1_BID_ASK_COUNTER = "E1_BID_ASK_COUNTER";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
-    public static final String INDEX_BID_ASK_COUNTER_SERIES = "INDEX_BID_ASK_COUNTER";
     public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
     public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
@@ -376,43 +375,6 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                    }
-                };
-            case INDEX_BID_ASK_COUNTER_SERIES:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getIndexBidAskCounter();
-                    }
-
-                    @Override
-                    public void load() {
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.BID_ASK_COUNTER_TABLE));
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-            case E1_BID_ASK_COUNTER:
-                return new MyTimeSeries(series_type, client) {
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getExps().getExp(ExpStrings.q1).getContract_bid_ask_counter();
-                    }
-
-                    @Override
-                    public void load() {
-                        // TODO
-                        ResultSet rs = MySql.Queries.cumulative_sum_query(client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.E1_BID_ASK_COUNTER_TABLE));
-                        IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
             case OP_AVG_SERIES:

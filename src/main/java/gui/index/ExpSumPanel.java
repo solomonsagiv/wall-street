@@ -4,6 +4,8 @@ import exp.Exp;
 import exp.ExpStrings;
 import gui.MyGuiComps;
 import gui.panels.IMyPanel;
+import jibeDataGraber.DecisionsFunc;
+import jibeDataGraber.DecisionsFuncFactory;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -22,11 +24,11 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel moveLbl;
     MyGuiComps.MyTextField moveField;
 
-    MyGuiComps.MyLabel v107_Lbl;
-    MyGuiComps.MyTextField v107_Field;
+    MyGuiComps.MyLabel v7_Lbl;
+    MyGuiComps.MyTextField v7_Field;
 
-    MyGuiComps.MyLabel v103_Lbl;
-    MyGuiComps.MyTextField v103_Field;
+    MyGuiComps.MyLabel v3_Lbl;
+    MyGuiComps.MyTextField v3_Field;
 
     Exp exp;
 
@@ -69,22 +71,22 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         bodyPanel.add(moveField);
 
         // V107
-        v107_Lbl = new MyGuiComps.MyLabel("V107");
-        v107_Lbl.setXY(moveLbl.getX(), moveLbl.getY() + moveLbl.getHeight() + 3);
-        bodyPanel.add(v107_Lbl);
+        v7_Lbl = new MyGuiComps.MyLabel("0");
+        v7_Lbl.setXY(moveLbl.getX(), moveLbl.getY() + moveLbl.getHeight() + 3);
+        bodyPanel.add(v7_Lbl);
 
-        v107_Field = new MyGuiComps.MyTextField();
-        v107_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 3);
-        bodyPanel.add(v107_Field);
+        v7_Field = new MyGuiComps.MyTextField();
+        v7_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 3);
+        bodyPanel.add(v7_Field);
 
         // V103
-        v103_Lbl = new MyGuiComps.MyLabel("V103");
-        v103_Lbl.setXY(v107_Lbl.getX(), v107_Lbl.getY() + v107_Lbl.getHeight() + 3);
-        bodyPanel.add(v103_Lbl);
+        v3_Lbl = new MyGuiComps.MyLabel("4");
+        v3_Lbl.setXY(v7_Lbl.getX(), v7_Lbl.getY() + v7_Lbl.getHeight() + 3);
+        bodyPanel.add(v3_Lbl);
 
-        v103_Field = new MyGuiComps.MyTextField();
-        v103_Field.setXY(v107_Field.getX(), v107_Field.getY() + v107_Field.getHeight() + 3);
-        bodyPanel.add(v103_Field);
+        v3_Field = new MyGuiComps.MyTextField();
+        v3_Field.setXY(v7_Field.getX(), v7_Field.getY() + v7_Field.getHeight() + 3);
+        bodyPanel.add(v3_Field);
 
     }
 
@@ -95,12 +97,16 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         if (exp.getStart() != 0) {
             exp_move = L.floor(((client.getIndex() - exp.getStart()) / exp.getStart()) * 100, 100);
         }
-        double v107 = exp.getV107();
-        double v103 = exp.getV103();
+
+        DecisionsFunc v3 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3);
+        DecisionsFunc v7 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
+
+        double v7_exp = exp.getV107() + v7.getValue();
+        double v3_exp = exp.getV103() + v3.getValue();
 
         // Set text
         moveField.colorBack(exp_move, L.format100(), "%");
-        v107_Field.colorForge((int) (v107 / 1000));
-        v103_Field.colorForge((int) (v103 / 1000));
+        v7_Field.colorForge((int) (v7_exp / 1000));
+        v3_Field.colorForge((int) (v3_exp / 1000));
     }
 }

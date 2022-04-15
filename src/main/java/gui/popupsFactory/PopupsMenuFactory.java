@@ -37,49 +37,11 @@ public class PopupsMenuFactory {
             }
         });
 
-
-        JMenuItem corr_and_de_corr_mix_cdf = new JMenuItem("Corr, de corr cdf");
-        corr_and_de_corr_mix_cdf.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Corr_and_de_corr_cdf_Chart chart = new Corr_and_de_corr_cdf_Chart(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem corr_and_de_corr_mix = new JMenuItem("Corr, de corr");
-        corr_and_de_corr_mix.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Corr_and_de_corr_Chart chart = new Corr_and_de_corr_Chart(client);
-                chart.createChart();
-            }
-        });
-
-
-        JMenuItem corr_and_de_corr_separately_mix = new JMenuItem("Corr, de corr separately");
-        corr_and_de_corr_separately_mix.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Corr_and_de_corr_cdf_separately_Chart chart = new Corr_and_de_corr_cdf_separately_Chart(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem fullCharts_4 = new JMenuItem("Full charts 4");
         fullCharts_4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Full_Chart_4 chart = new Full_Chart_4(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem op_avg_chart = new JMenuItem("O/P Avg");
-        op_avg_chart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OpAvg_Index_Chart chart = new OpAvg_Index_Chart(client);
                 chart.createChart();
             }
         });
@@ -109,15 +71,6 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FuturesChartLong_300 chart = new FuturesChartLong_300(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem op_avg_30_chart = new JMenuItem("O/P avg 30");
-        op_avg_30_chart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OP_AVG_SHORT_CHART chart = new OP_AVG_SHORT_CHART(client);
                 chart.createChart();
             }
         });

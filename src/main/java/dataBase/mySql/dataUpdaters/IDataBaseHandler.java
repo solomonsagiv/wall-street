@@ -123,17 +123,6 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    public void load_bid_ask_counter(ResultSet rs) {
-        try {
-            if (rs.next()) {
-                int value = (int) rs.getDouble("value");
-                client.setIndexBidAskCounter(value);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
     public void load_fut_delta(Exp exp, ResultSet rs) {
         while (true) {
             try {

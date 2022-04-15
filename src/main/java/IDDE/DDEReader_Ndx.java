@@ -29,8 +29,6 @@ public class DDEReader_Ndx extends IDDEReader {
     String futWeekCell = "R10C10";
     String futMonthCell = "R11C10";
     String e1Cell = "R12C10";
-    String q1_contract_bid_cell = "R25C13";
-    String q1_contract_ask_cell = "R25C15";
 
     String e2Cell = "R13C10";
 
@@ -129,8 +127,6 @@ public class DDEReader_Ndx extends IDDEReader {
         month.set_future(requestDouble(futMonthCell, conversation));
 
         q1.set_future(requestDouble(e1Cell, conversation));
-        q1.set_contract_bid(requestDouble(q1_contract_bid_cell, conversation));
-        q1.set_contract_ask(requestDouble(q1_contract_ask_cell, conversation));
 
         q2.set_future(requestDouble(e2Cell, conversation));
 

@@ -75,20 +75,6 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             }
         });
         
-        // Index bid ask counter
-        indexBidAskCounterField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    int counter = L.INT(indexBidAskCounterField.getText());
-                    client.setIndexBidAskCounter(counter);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        });
-
         // Start
         startBtn.addActionListener(new ActionListener() {
             @Override

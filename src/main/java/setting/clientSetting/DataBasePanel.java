@@ -1,5 +1,6 @@
 package setting.clientSetting;
 
+import api.Manifest;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
 import locals.Themes;
@@ -16,11 +17,9 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
 
     MyGuiComps.MyButton stopBtn;
     MyGuiComps.MyButton startBtn;
-    MyGuiComps.MyButton resetBtn;
-    MyGuiComps.MyButton updateBtn;
-    MyGuiComps.MyButton loadBtn;
-    MyGuiComps.MyButton sumBtn;
     MyGuiComps.MyButton updateRatesBtn;
+    MyGuiComps.MyButton startJIbeDbBtn;
+    MyGuiComps.MyButton stopJIbeDbBtn;
 
     // Constructor
     public DataBasePanel(BASE_CLIENT_OBJECT client) {
@@ -49,42 +48,6 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             }
         });
 
-        // Reset
-        resetBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // TODO
-                resetBtn.complete();
-            }
-        });
-
-        // Update
-        updateBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // TODO
-                updateBtn.complete();
-            }
-        });
-
-        // Load
-        updateBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // TODO
-                updateBtn.complete();
-            }
-        });
-
-        // Sum line
-        sumBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                // TODO
-                sumBtn.complete();
-            }
-        });
-
         // Update rates
         updateRatesBtn.addActionListener(new ActionListener() {
             @Override
@@ -99,6 +62,21 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
                 }
             }
         });
+
+        startJIbeDbBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Manifest.LIVE_DB = true;
+            }
+        });
+
+        stopJIbeDbBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Manifest.LIVE_DB = false;
+            }
+        });
+
     }
 
     private void initialize() {
@@ -127,46 +105,31 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         stopBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(stopBtn);
 
-        // Reset
-        resetBtn = new MyGuiComps.MyButton("Reset");
-        resetBtn.setXY(10, 60);
-        resetBtn.setWidth(70);
-        resetBtn.setFont(resetBtn.getFont().deriveFont(9f));
-        resetBtn.setBackground(Themes.BLUE);
-        resetBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(resetBtn);
-
-        // Update
-        updateBtn = new MyGuiComps.MyButton("Update");
-        updateBtn.setXY(90, 60);
-        updateBtn.setWidth(70);
-        updateBtn.setFont(updateBtn.getFont().deriveFont(9f));
-        updateBtn.setBackground(Themes.BLUE);
-        updateBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(updateBtn);
-
-        // Load
-        loadBtn = new MyGuiComps.MyButton("Load");
-        loadBtn.setXY(170, 60);
-        loadBtn.setWidth(70);
-        loadBtn.setFont(loadBtn.getFont().deriveFont(9f));
-        loadBtn.setBackground(Themes.BLUE);
-        loadBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(loadBtn);
-
-        // Sum line
-        sumBtn = new MyGuiComps.MyButton("Sum");
-        sumBtn.setXY(10, 90);
-        sumBtn.setWidth(70);
-        sumBtn.setFont(sumBtn.getFont().deriveFont(9f));
-        sumBtn.setBackground(Themes.BLUE);
-        sumBtn.setForeground(Themes.GREY_VERY_LIGHT);
-        add(sumBtn);
-
         // Update rates
         updateRatesBtn = new MyGuiComps.MyButton("Update rates");
-        updateRatesBtn.setXY(sumBtn.getX() + sumBtn.getWidth() + 5, sumBtn.getY());
+        updateRatesBtn.setXY(stopBtn.getX() + stopBtn.getWidth() + 5, stopBtn.getY());
         add(updateRatesBtn);
+
+        // Start jibe db
+        startJIbeDbBtn = new MyGuiComps.MyButton("Start jibe DB");
+        startJIbeDbBtn.setXY(updateRatesBtn.getX() + updateRatesBtn.getWidth() + 5, updateRatesBtn.getY());
+        startJIbeDbBtn.setWidth(100);
+        startJIbeDbBtn.setFont(startJIbeDbBtn.getFont().deriveFont(9f));
+        startJIbeDbBtn.setBackground(Themes.BLUE);
+        startJIbeDbBtn.setForeground(Themes.GREY_VERY_LIGHT);
+        add(startJIbeDbBtn);
+
+
+        // Stop jibe db
+        stopJIbeDbBtn = new MyGuiComps.MyButton("Stop jibe DB");
+        stopJIbeDbBtn.setXY(startJIbeDbBtn.getX() + startJIbeDbBtn.getWidth() + 5, startJIbeDbBtn.getY());
+        stopJIbeDbBtn.setWidth(100);
+        stopJIbeDbBtn.setFont(stopJIbeDbBtn.getFont().deriveFont(9f));
+        stopJIbeDbBtn.setBackground(Themes.BLUE);
+        stopJIbeDbBtn.setForeground(Themes.GREY_VERY_LIGHT);
+        add(stopJIbeDbBtn);
+
+
 
     }
 }

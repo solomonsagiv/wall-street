@@ -31,7 +31,6 @@ public abstract class Exp {
     protected double last_checked_future_bid = 0;
     protected double contract_ask = 0;
     protected double last_checked_future_ask = 0;
-    protected int contract_bid_ask_counter = 0;
 
     public double v107 = 0;
     public double v103 = 0;
@@ -112,33 +111,7 @@ public abstract class Exp {
         }
     }
 
-    public void set_contract_bid(double new_bid) {
-        if (new_bid > 1) {
-            // If increment state
-            if (new_bid > contract_bid && contract_ask == last_checked_future_ask) {
-                contract_bid_ask_counter++;
-            }
-            this.contract_bid = new_bid;
 
-            // Handle state
-            last_checked_future_ask = contract_ask;
-            last_checked_future_bid = contract_bid;
-        }
-    }
-
-    public void set_contract_ask(double new_ask) {
-        if (new_ask > 1) {
-            // If increment state
-            if (new_ask < contract_ask && contract_bid == last_checked_future_bid) {
-                contract_bid_ask_counter--;
-            }
-            this.contract_ask = new_ask;
-
-            // Handle state
-            last_checked_future_ask = contract_ask;
-            last_checked_future_bid = contract_bid;
-        }
-    }
 
     public LocalDate getExpDate() {
         return expDate;
@@ -184,14 +157,6 @@ public abstract class Exp {
 
     public void setDays_to_exp(double days_to_exp) {
         this.days_to_exp = days_to_exp;
-    }
-
-    public int getContract_bid_ask_counter() {
-        return contract_bid_ask_counter;
-    }
-
-    public void setContract_bid_ask_counter(int contract_bid_ask_counter) {
-        this.contract_bid_ask_counter = contract_bid_ask_counter;
     }
 
     public List<Double> getOpFutList() {

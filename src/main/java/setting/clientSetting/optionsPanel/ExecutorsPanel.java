@@ -17,8 +17,6 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
 
     MyGuiComps.MyLabel opAvgLbl;
     MyGuiComps.MyTextField opAvgField;
-    MyGuiComps.MyLabel futBidAskCounterLbl;
-    MyGuiComps.MyTextField futBidAskCounterField;
 
     // Constructor
     public ExecutorsPanel(BASE_CLIENT_OBJECT client) {
@@ -42,19 +40,6 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
             }
         });
 
-        // Fut bid ask counter
-        futBidAskCounterField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    int counter = L.INT(futBidAskCounterField.getText());
-                    OptionsPanel.exp.setContract_bid_ask_counter(counter);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, e.getCause());
-                }
-            }
-        });
     }
 
     private void initialize() {
@@ -79,21 +64,6 @@ public class ExecutorsPanel extends MyGuiComps.MyPanel {
         opAvgField.setFontSize(9);
         opAvgField.setSize(50, 20);
         add(opAvgField);
-
-        // ----- Fut bid ask counter ----- //
-        futBidAskCounterLbl = new MyGuiComps.MyLabel("Fut B/A");
-        futBidAskCounterLbl.setXY(70, 10);
-        futBidAskCounterLbl.setHorizontalAlignment(JLabel.LEFT);
-        futBidAskCounterLbl.setFont(futBidAskCounterLbl.getFont().deriveFont(9f));
-        futBidAskCounterLbl.setLabelFor(futBidAskCounterLbl);
-        add(futBidAskCounterLbl);
-
-        // Field
-        futBidAskCounterField = new MyGuiComps.MyTextField();
-        futBidAskCounterField.setXY(70, 30);
-        futBidAskCounterField.setFontSize(9);
-        futBidAskCounterField.setSize(50, 20);
-        add(futBidAskCounterField);
 
     }
 

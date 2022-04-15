@@ -228,7 +228,6 @@ public class DetailsWindow {
             ArrayList<String> list = new ArrayList<>();
             list.add("Started: " + client.isStarted());
             list.add("Index: " + client.getIndex());
-            list.add("IndexBidAskCounter: " + client.getIndexBidAskCounter());
             list.add("Base: " + client.getBase());
             list.add("\n");
             list.add("DB: " + client.isDbRunning());

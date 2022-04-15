@@ -89,9 +89,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
 
-    private double df_n_avg_4 = 0;
-    private double df_n_avg_1 = 0;
-
     // Position
     private ArrayList<MyThread> threads = new ArrayList<>();
     private HashMap<String, Integer> ids = new HashMap<>();
@@ -113,26 +110,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double low = 0;
     private double base = 0;
     private double indexBidAskMargin = 0;
-    private int indexBidAskCounter = 0;
-    private int indexBidAskCounter2 = 0;
-
-    // Races
-    private double optimiPesimiMargin = 0;
-    private boolean conUpChanged = false;
-    private boolean conDownChanged = false;
-    private boolean indUpChanged = false;
-    private boolean indDownChanged = false;
-    private double indexAskForCheck = 0;
-    private double indexBidForCheck = 0;
-
-
-    // Corr and de ourr
-    private double corr_15 = 0;
-    private double corr_60 = 0;
-    private double de_corr_15 = 0;
-    private double de_corr_60 = 0;
-    private double corr_mix_cdf = 0;
-    private double de_corr_mix_cdf = 0;
 
     public BASE_CLIENT_OBJECT() {
         try {
@@ -257,7 +234,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
         text += "OP avg: " + L.format100(getExps().getMainExp().get_op_avg()) + "\n";
-        text += "Ind bidAskCounter: " + getIndexBidAskCounter() + "\n";
         try {
             text += "Roll: " + L.floor(getRollHandler().getRoll(RollEnum.E1_E2).getAvg(), 100) + "\n";
         } catch (Exception e) {
@@ -343,22 +319,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public void setIndexBid(double indexBid) {
-        if (indexBid > 1) {
-            if (indexBid > this.indexBid) {
-                indexBidAskCounter2++;
-            }
-
-            // If increment state
-            if (indexBid > this.indexBid && indexAskForCheck == this.indexAsk) {
-                indexBidAskCounter++;
-            }
             this.indexBid = indexBid;
-
-            // Ask for bid change state
-            indexBidForCheck = indexBid;
-            indexAskForCheck = this.indexAsk;
-
-        }
     }
 
     public double getIndBidMarginCounter() {
@@ -375,20 +336,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setIndexAsk(double indexAsk) {
         if (indexAsk > 1) {
-            if (indexAsk < this.indexAsk) {
-                indexBidAskCounter2--;
-            }
-
-            // If increment state
-            if (indexAsk < this.indexAsk && indexBidForCheck == indexBid) {
-                indexBidAskCounter--;
-            }
             this.indexAsk = indexAsk;
-
-            // Handle state
-            indexAskForCheck = indexAsk;
-            indexBidForCheck = indexBid;
-
         }
     }
 
@@ -457,14 +405,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return mySqlService;
     }
 
-    public int getIndexBidAskCounter2() {
-        return indexBidAskCounter2;
-    }
-
-    public void setIndexBidAskCounter2(int indexBidAskCounter2) {
-        this.indexBidAskCounter2 = indexBidAskCounter2;
-    }
-
     public Exps getExps() {
         if (exps == null) {
             initExpHandler();
@@ -504,37 +444,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.futureEndTime = futureEndTime;
     }
 
-    public boolean isConUpChanged() {
-        return conUpChanged;
-    }
-
-    public void setConUpChanged(boolean conUpChanged) {
-        this.conUpChanged = conUpChanged;
-    }
-
-    public boolean isConDownChanged() {
-        return conDownChanged;
-    }
-
-    public void setConDownChanged(boolean conDownChanged) {
-        this.conDownChanged = conDownChanged;
-    }
-
-    public boolean isIndUpChanged() {
-        return indUpChanged;
-    }
-
-    public void setIndUpChanged(boolean indUpChanged) {
-        this.indUpChanged = indUpChanged;
-    }
-
-    public boolean isIndDownChanged() {
-        return indDownChanged;
-    }
-
-    public void setIndDownChanged(boolean indDownChanged) {
-        this.indDownChanged = indDownChanged;
-    }
 
     public DDECells getDdeCells() {
         if (ddeCells == null) {
@@ -553,14 +462,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setDdeCells(DDECells ddeCells) {
         this.ddeCells = ddeCells;
-    }
-
-    public int getIndexBidAskCounter() {
-        return indexBidAskCounter;
-    }
-
-    public void setIndexBidAskCounter(int indexBidAskCounter) {
-        this.indexBidAskCounter = indexBidAskCounter;
     }
 
     public RollHandler getRollHandler() {
@@ -651,77 +552,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.props = props;
     }
 
-    public double getCorr_15() {
-        return corr_15;
-    }
-
-    public void setCorr_15(double corr_15) {
-        this.corr_15 = corr_15;
-    }
-
-    public double getCorr_60() {
-        return corr_60;
-    }
-
-    public void setCorr_60(double corr_60) {
-        this.corr_60 = corr_60;
-    }
-
-    public double getDe_corr_15() {
-        return de_corr_15;
-    }
-
-    public void setDe_corr_15(double de_corr_15) {
-        this.de_corr_15 = de_corr_15;
-    }
-
-    public double getDe_corr_60() {
-        return de_corr_60;
-    }
-
-    public void setDe_corr_60(double de_corr_60) {
-        this.de_corr_60 = de_corr_60;
-    }
-
     public void setIndBidMarginCounter(double indBidMarginCounter) {
         this.indBidMarginCounter = indBidMarginCounter;
-    }
-
-    public double getCorr_mix_cdf() {
-        return corr_mix_cdf;
-    }
-
-    public void setCorr_mix_cdf(double corr_mix_cdf) {
-        this.corr_mix_cdf = corr_mix_cdf;
-    }
-
-    public double getDe_corr_mix_cdf() {
-        return de_corr_mix_cdf;
-    }
-
-    public void setDe_corr_mix_cdf(double de_corr_mix_cdf) {
-        this.de_corr_mix_cdf = de_corr_mix_cdf;
-    }
-
-    public double getDf_n_avg_4() {
-        return df_n_avg_4;
-    }
-
-    public void setDf_n_avg_4(double df_n_avg_4) {
-        this.df_n_avg_4 = df_n_avg_4;
-    }
-
-    public double getDf_n_avg_1() {
-        return df_n_avg_1;
-    }
-
-    public void setDf_n_avg_1(double df_n_avg_1) {
-        this.df_n_avg_1 = df_n_avg_1;
     }
 
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
+                ", JIBE LIVE DB=" + Manifest.LIVE_DB +
                 ", optionsHandler=" + exps.toString() +
                 ", preStartIndexTrading=" + getIndex_pre_start_time() +
                 ", startOfIndexTrading=" + getIndexStartTime() +
@@ -732,7 +570,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", ids=" + ids +
                 ", started=" + started +
                 ", index=" + index +
-                ", indexBidAskCounter=" + indexBidAskCounter +
                 ", indexBid=" + indexBid +
                 ", indexAsk=" + indexAsk +
                 ", open=" + open +
@@ -743,7 +580,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +
                 ", racesMargin=" + getRacesMargin() +
-                ", optimiPesimiMargin=" + optimiPesimiMargin +
                 '}';
     }
 

@@ -17,10 +17,6 @@ public class ExpData {
         this.client = client;
     }
 
-    private int getTotalIndBidAskCounter() {
-        return indBidAskCounter + client.getIndexBidAskCounter();
-    }
-
     public int getIndBidAskCounter() {
         return indBidAskCounter;
     }

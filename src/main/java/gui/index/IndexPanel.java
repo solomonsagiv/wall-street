@@ -21,9 +21,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
     // Ticker
     TickerPanel tickerPanel;
 
-    // Races
-    CountersPanel countersPanel;
-
     // Exp
     ExpSumPanel expPanel;
 
@@ -87,13 +84,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
         expPanel.setXY(machinePanel.getX() + machinePanel.getWidth() + 1, machinePanel.getY());
         add(expPanel);
 
-        // ---------- Races and roll ---------- //
-        countersPanel = new CountersPanel(client);
-        countersPanel.setXY(expPanel.getX() + expPanel.getWidth() + 1, expPanel.getY());
-        add(countersPanel);
-
-
-
     }
 
     public Updater getUpdater() {
@@ -107,7 +97,6 @@ public class IndexPanel extends JPanel implements IMyPanel {
     public void updateText() {
         try {
             tickerPanel.updateText();
-            countersPanel.updateText();
             machinePanel.updateText();
             expPanel.updateText();
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package dataBase.mySql.dataUpdaters;
 
+import api.Manifest;
 import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
@@ -18,9 +19,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> ind_bid_ask_counter_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_delta_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_bid_ask_counter_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double index_bid_0 = 0;
@@ -30,9 +28,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double fut_month_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-    double index_bid_ask_counter_0 = 0;
-    double fut_delta_0 = 0;
-    double fut_bid_ask_counter_0 = 0;
     Exp day, week, month;
     E q1, q2;
 
@@ -66,7 +61,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             String fut_tick_speed_table_location = tablesNames.get(FUT_E1_TICK_SPEED);
             insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
-        
+
         // On changed data
         on_change_data();
 
@@ -75,31 +70,52 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     }
 
     private void on_change_data() {
-        // Index
-        if (client.getIndex() != index_0) {
-            index_0 = client.getIndex();
-            index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+
+        if (Manifest.LIVE_DB) {
+
+            // Index
+            if (client.getIndex() != index_0) {
+                index_0 = client.getIndex();
+                index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+            }
+
+            // Index bid
+            if (client.getIndexBid() != index_bid_0) {
+                index_bid_0 = client.getIndexBid();
+                index_bid_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_0));
+            }
+
+            // Index ask
+            if (client.getIndexAsk() != index_ask_0) {
+                index_ask_0 = client.getIndexAsk();
+                index_ask_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_0));
+            }
+
+            // Fut day
+            double fut_day = day.get_future();
+
+            if (fut_day != fut_day_0) {
+                fut_day_0 = fut_day;
+                fut_day_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_day_0));
+            }
+
+            // Fut e1
+            double fut_e1 = q1.get_future();
+
+            if (fut_e1 != fut_e1_0) {
+                fut_e1_0 = fut_e1;
+                fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+            }
+
+            // Fut e2
+            double fut_e2 = q2.get_future();
+
+            if (fut_e2 != fut_e2_0) {
+                fut_e2_0 = fut_e2;
+                fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+            }
         }
 
-        // Index bid
-        if (client.getIndexBid() != index_bid_0) {
-            index_bid_0 = client.getIndexBid();
-            index_bid_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_0));
-        }
-
-        // Index ask
-        if (client.getIndexAsk() != index_ask_0) {
-            index_ask_0 = client.getIndexAsk();
-            index_ask_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_0));
-        }
-
-        // Fut day
-        double fut_day = day.get_future();
-
-        if (fut_day != fut_day_0) {
-            fut_day_0 = fut_day;
-            fut_day_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_day_0));
-        }
 
         // Fut week
         double fut_week = week.get_future();
@@ -117,52 +133,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
         }
 
-        // Fut e1
-        double fut_e1 = q1.get_future();
 
-        if (fut_e1 != fut_e1_0) {
-            fut_e1_0 = fut_e1;
-            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-        }
-
-        // Fut e2
-        double fut_e2 = q2.get_future();
-
-        if (fut_e2 != fut_e2_0) {
-            fut_e2_0 = fut_e2;
-            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-        }
-
-        // Ind bid ask counter
-        int ind_bid_ask_counter = client.getIndexBidAskCounter();
-
-        if (ind_bid_ask_counter != index_bid_ask_counter_0) {
-            double last_count = ind_bid_ask_counter - index_bid_ask_counter_0;
-            index_bid_ask_counter_0 = ind_bid_ask_counter;
-            if (last_count <= 1 || last_count >= -1) {
-                ind_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
-        }
-
-        // Future bid ask counter
-        int fut_bid_ask_counter = client.getIndexBidAskCounter();
-
-        if (fut_bid_ask_counter != fut_bid_ask_counter_0) {
-            double last_count = fut_bid_ask_counter - fut_bid_ask_counter_0;
-            fut_bid_ask_counter_0 = fut_bid_ask_counter;
-            if (last_count <= 1 || last_count >= -1) {
-                fut_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
-        }
-
-        // Delta
-        double fut_delta = q1.getDelta();
-
-        if (fut_delta != fut_delta_0) {
-            double last_count = fut_delta - fut_delta_0;
-            fut_delta_0 = fut_delta;
-            fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-        }
     }
 
     @Override
@@ -182,9 +153,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // Load exp data
         load_exp_data();
-
-        // BID ASK COUNTER
-        load_bid_ask_counter(MySql.Queries.get_sum(tablesNames.get(BID_ASK_COUNTER_TABLE)));
 
         // Load props
         load_properties();
@@ -235,8 +203,38 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insertListRetro(fut_month_timeStamp, tablesNames.get(FUT_MONTH_TABLE));
         insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
-        insertListRetro(ind_bid_ask_counter_timestamp, tablesNames.get(BID_ASK_COUNTER_TABLE));
-        insertListRetro(fut_delta_timestamp, tablesNames.get(FUT_DELTA_TABLE));
-        insertListRetro(fut_bid_ask_counter_timestamp, tablesNames.get(E1_BID_ASK_COUNTER_TABLE));
     }
 }
+
+
+//
+//    // Ind bid ask counter
+//    int ind_bid_ask_counter = client.getIndexBidAskCounter();
+//
+//        if (ind_bid_ask_counter != index_bid_ask_counter_0) {
+//                double last_count = ind_bid_ask_counter - index_bid_ask_counter_0;
+//                index_bid_ask_counter_0 = ind_bid_ask_counter;
+//                if (last_count <= 1 || last_count >= -1) {
+//                ind_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+//                }
+//                }
+//
+//                // Future bid ask counter
+//                int fut_bid_ask_counter = client.getIndexBidAskCounter();
+//
+//                if (fut_bid_ask_counter != fut_bid_ask_counter_0) {
+//                double last_count = fut_bid_ask_counter - fut_bid_ask_counter_0;
+//                fut_bid_ask_counter_0 = fut_bid_ask_counter;
+//                if (last_count <= 1 || last_count >= -1) {
+//                fut_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+//                }
+//                }
+//
+//                // Delta
+//                double fut_delta = q1.getDelta();
+//
+//                if (fut_delta != fut_delta_0) {
+//                double last_count = fut_delta - fut_delta_0;
+//                fut_delta_0 = fut_delta;
+//                fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+//                }

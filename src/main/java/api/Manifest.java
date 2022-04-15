@@ -4,6 +4,8 @@ import dataBase.mySql.MyDBConnections;
 
 public class Manifest {
 
+    public static boolean LIVE_DB = false;
+
     // REAL ACCOUNT
     public static int REAL_PORT = 4343;
     public static int CLIENT_ID = 999;
