@@ -265,7 +265,6 @@ public abstract class IDataBaseHandler {
 
     public static void main(String[] args) {
         Spx.getInstance();
-
         IDataBaseHandler.insert_interes_rates(Spx.getInstance());
     }
 
@@ -274,7 +273,6 @@ public abstract class IDataBaseHandler {
             MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getName());
         }
     }
-
 
     public static void insert_batch_data(ArrayList<MyTick> list, String table_location) {
         if (list.size() > 0) {

@@ -506,7 +506,19 @@ public class MySql {
             String today_date = "now()::date";
 
             String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, exp_name);
+            // JIBE
             MySql.insert(query);
+
+
+            // SLO
+            try {
+                Connection slo_conn = ConnectionPool.get_slo_single_connection();
+                MySql.insert(query, slo_conn);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
         }
 
         public static ResultSet select_2_tables_on_same_time_no_millis(String index_table, String decsion_table, LocalDate date) {

@@ -2,7 +2,6 @@ package dataBase.mySql;
 
 import api.Manifest;
 import arik.Arik;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,20 +11,24 @@ import java.util.List;
 
 public class ConnectionPool implements IConnectionPool {
 
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//        Class.forName("org.postgresql.Driver");
+        String url = "jdbc:postgresql://52.73.213.15:5432/jibe?user=jibe_admin&password=160633a0cd2ab5a9b82f088a77240cb68f9232a8&ssl=false";
+        Connection conn = DriverManager.getConnection(url);
 
-            ResultSet rs = MySql.select(String.format("select * from %s order by time desc limit 1;", "data.ndx_index"));
+        ResultSet rs = MySql.select("select * from data.ndx_index order by time desc limit 1;", conn);
 
-            while (rs.next()) {
-                System.out.println(rs.getTimestamp(0));
-                System.out.println(rs.getDouble("value"));
-            }
-
-        } catch (Exception e) {
-            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
-        }
+        double d = MySql.Queries.handle_rs(rs);
+        System.out.println(d);
     }
+
+
+    public static Connection get_slo_single_connection() throws SQLException {
+        String url = "jdbc:postgresql://52.73.213.15:5432/jibe?user=jibe_admin&password=160633a0cd2ab5a9b82f088a77240cb68f9232a8&ssl=false";
+        Connection conn = DriverManager.getConnection(url);
+        return conn;
+    }
+
 
     private static final int MAX_POOL_SIZE = 20;
 
@@ -47,7 +50,8 @@ public class ConnectionPool implements IConnectionPool {
         this.connections = connections;
     }
 
-    private ConnectionPool() {}
+    private ConnectionPool() {
+    }
 
 
     public static ConnectionPool getInstance() {
