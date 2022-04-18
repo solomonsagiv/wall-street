@@ -67,8 +67,6 @@ public class MySql {
 
     public static void insert(String query, Connection conn) {
         try {
-
-            conn = getPool().getConnection();
             Statement stmt = conn.createStatement();
 
             // Execute
