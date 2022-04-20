@@ -68,20 +68,12 @@ public class MySql {
     public static void insert(String query, Connection conn) {
         try {
             Statement stmt = conn.createStatement();
-
             // Execute
             stmt.execute(query);
-
             System.out.println(LocalTime.now() + "  " + query);
-
         } catch (Exception e) {
             e.printStackTrace();
             Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Insert");
-        } finally {
-            // Release connection
-            if (conn != null) {
-                getPool().releaseConnection(conn);
-            }
         }
     }
 
