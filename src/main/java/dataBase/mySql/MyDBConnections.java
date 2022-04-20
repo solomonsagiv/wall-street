@@ -1,19 +1,14 @@
 package dataBase.mySql;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class MyDBConnections {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, SQLException {
 
-        for (int i = 0; i < 30; i++) {
-            Thread.sleep(200);
-
-            new Thread(() -> {
-                MySql.insert("INSERT INTO spx.index (time, value) VALUES ('now()', 5699)");
-            }).start();
-
-        }
     }
 
     // Static variables

@@ -151,11 +151,14 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         load_op_avg(q1, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)));
         load_op_avg(q2, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)));
 
+        try {
+            // Load props
+            load_properties();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Load exp data
         load_exp_data();
-
-        // Load props
-        load_properties();
 
         // Set load
         client.setLoadFromDb(true);
