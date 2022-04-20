@@ -8,22 +8,22 @@ public class DecisionsFunc {
     private int session_id = 0;
     private int version = 0;
     private int single_dec = 0;
+    private boolean is_cdf;
 
-    public DecisionsFunc(String name, String table_location) {
+    public DecisionsFunc(String name, String table_location, boolean is_cdf) {
         this.name = name;
         this.table_location = table_location;
+        this.is_cdf = is_cdf;
     }
 
-    public DecisionsFunc(String name, String table_location, int session_id, int version) {
-        this.name = name;
-        this.table_location = table_location;
+    public DecisionsFunc(String name, String table_location, boolean is_cdf, int session_id, int version) {
+        this(name, table_location, is_cdf);
         this.session_id = session_id;
         this.version = version;
     }
 
-    public DecisionsFunc(String name, String table_location, int single_dec) {
-        this.name = name;
-        this.table_location = table_location;
+    public DecisionsFunc(String name, String table_location, boolean is_cdf, int single_dec) {
+        this(name, table_location, is_cdf);
         this.single_dec = single_dec;
     }
 
@@ -36,6 +36,14 @@ public class DecisionsFunc {
             this.value = value;
         }
     };
+
+    public boolean isIs_cdf() {
+        return is_cdf;
+    }
+
+    public void setIs_cdf(boolean is_cdf) {
+        this.is_cdf = is_cdf;
+    }
 
     public int getSingle_dec() {
         return single_dec;

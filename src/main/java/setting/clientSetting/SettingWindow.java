@@ -26,7 +26,7 @@ public class SettingWindow extends MyGuiComps.MyFrame {
     @Override
     public void initListeners() {
     }
-
+    
     @Override
     public void initialize() {
 

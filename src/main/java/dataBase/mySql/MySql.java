@@ -544,6 +544,16 @@ public class MySql {
             }
             return 0;
         }
+
+        public static ResultSet get_last_record(String table_location, int version, int session_id) {
+            String q = "select * from\n" +
+                    "%s\n" +
+                    "where version = %s and session_id = %s\n" +
+                    "order by time desc limit 1;";
+
+            String query = String.format(q, table_location, version, session_id);
+            return MySql.select(query);
+        }
     }
 
     public static class Filters {

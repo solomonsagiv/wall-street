@@ -57,8 +57,17 @@ public class DataUpdaterService extends MyBaseService {
 
     private void df_n_avg() {
         for (DecisionsFunc df : df_list) {
-            double value = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id()));
-            df.setValue(value);
+            try {
+                if (df.isIs_cdf()) {
+                    double value = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id()));
+                    df.setValue(value);
+                } else {
+                    double value = MySql.Queries.handle_rs(MySql.Queries.get_last_record(df.getTable_location(), df.getVersion(), df.getSession_id()));
+                    df.setValue(value);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
