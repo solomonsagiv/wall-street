@@ -23,7 +23,7 @@ public abstract class IDDEReader {
         } catch (Exception e) {
             // TODO
 //            System.out.println("Cell: " + cell);
-            e.printStackTrace();
+//            e.printStackTrace();
         } finally {
             return d;
         }
