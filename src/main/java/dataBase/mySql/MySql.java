@@ -13,6 +13,8 @@ public class MySql {
 
     public static void main(String[] args) throws SQLException {
 
+        System.out.println(Queries.get_serie("data.research", 3, 117));
+
 //        MyDBConnections dbConnections = new MyDBConnections();
 //        DBConnectionType connectionType = dbConnections.getConnectionType(MyDBConnections.JIBE_POSTGRES);
 //        Connection jibe_conn = (Connection) ConnectionPool.create(connectionType, 5);
@@ -536,12 +538,23 @@ public class MySql {
         }
 
         public static ResultSet get_last_record(String table_location, int version, int session_id) {
-            String q = "select * from\n" +
+            String q = "select value from\n" +
                     "%s\n" +
                     "where version = %s and session_id = %s\n" +
                     "order by time desc limit 1;";
 
             String query = String.format(q, table_location, version, session_id);
+            return MySql.select(query);
+        }
+
+        public static ResultSet get_serie(String table_location, int session_id, int version) {
+            String q = "select time, value from\n" +
+                    "%s\n" +
+                    "where version = %s and session_id = %s\n" +
+                    "and %s;";
+
+            String query = String.format(q, table_location, version, session_id, Filters.TODAY);
+            System.out.println(query);
             return MySql.select(query);
         }
     }

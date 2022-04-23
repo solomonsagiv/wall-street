@@ -158,7 +158,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             e.printStackTrace();
         }
         // Load exp data
-        load_exp_data();
+//        load_exp_data();
 
         // Set load
         client.setLoadFromDb(true);

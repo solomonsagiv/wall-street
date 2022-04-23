@@ -85,7 +85,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         if (decisionsFuncHandler == null) {
             Map<String, DecisionsFunc> map = new HashMap<>();
             map.put(DecisionsFuncFactory.DF_3, new DecisionsFunc(DecisionsFuncFactory.DF_3, "data.spx500_decision_func", true, 3, 503));
-            map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.spx500_decision_func", false, 3, 117));
+            map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.research", false, 3, 117));
             map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.spx500_decision_func", true, 3, 507));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }

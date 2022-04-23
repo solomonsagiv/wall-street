@@ -29,7 +29,6 @@ public class ConnectionPool implements IConnectionPool {
         return conn;
     }
 
-
     private static final int MAX_POOL_SIZE = 20;
 
     // Instance
@@ -52,7 +51,6 @@ public class ConnectionPool implements IConnectionPool {
 
     private ConnectionPool() {
     }
-
 
     public static ConnectionPool getInstance() {
         if (connectionPool == null) {

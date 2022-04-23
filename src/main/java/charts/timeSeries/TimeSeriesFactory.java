@@ -79,7 +79,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8);
-                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
