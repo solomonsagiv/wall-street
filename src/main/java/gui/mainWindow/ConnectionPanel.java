@@ -1,9 +1,11 @@
 package gui.mainWindow;
 
+import DDE.DDEConnection;
 import DDE.DDEReader;
 import DDE.DDEWriter;
-import api.Manifest;
-import gui.LogWindow;
+import com.pretty_tools.dde.client.DDEClientConversation;
+import dataBase.mySql.MySql;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
 import locals.LocalHandler;
 import locals.Themes;
@@ -12,11 +14,11 @@ import serverObjects.indexObjects.Apple;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +29,9 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection ");
     MyGuiComps.MyButton connectionBtn = new MyGuiComps.MyButton("Connect");
     MyGuiComps.MyButton disConnectBtn = new MyGuiComps.MyButton("Disconnect");
-    MyGuiComps.MyButton logBtn = new MyGuiComps.MyButton("Log");
     MyGuiComps.MyLabel ddeStatusLbl = new MyGuiComps.MyLabel("DDE");
-    MyGuiComps.MyLabel twsStatusLbl = new MyGuiComps.MyLabel("TWS");
-    MyGuiComps.MyLabel portLbl = new MyGuiComps.MyLabel("Port");
-    MyGuiComps.MyTextField portField = new MyGuiComps.MyTextField();
     public static MyGuiComps.MyTextField excelLocationField = new MyGuiComps.MyTextField();
+    MyGuiComps.MyButton upload_params_button = new MyGuiComps.MyButton("Upload params");
 
     Map<String, DDEReader> ddeReaders = new HashMap<>();
     Map<String, DDEWriter> ddeWriters = new HashMap<>();
@@ -47,7 +46,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     }
 
     private void initListeners() {
-
 
         // Connection btn
         connectionBtn.addActionListener(new ActionListener() {
@@ -74,16 +72,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 }
 
                 ddeStatusLbl.setForeground(Themes.RED);
-            }
-        });
-
-        // Log btn
-        logBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Log window
-                LogWindow logWindow = new LogWindow();
-                logWindow.frame.setVisible(true);
             }
         });
 
@@ -123,6 +111,75 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
+
+        upload_params_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    // Insert params
+                    for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+                        client.getDdeHandler().getIddeReader().init_rates();
+                        IDataBaseHandler.insert_interes_rates(client);
+                    }
+
+                    // Update sapi request
+                    update_sapi_request();
+
+                    upload_params_button.complete();
+                    MyGuiComps.color_on_complete(upload_params_button);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public static void update_sapi_request() {
+        try {
+            DDEConnection ddeConnection = new DDEConnection();
+            DDEClientConversation conversation = ddeConnection.createNewConversation(Spx.getInstance().getSapi_excel_path());
+
+            int col = 2;
+            ArrayList<String> strings = new ArrayList<>();
+            String base_cell = "R%sC%s";
+
+            for (int row = 2; row < 1000; row++) {
+                String cell = String.format(base_cell, row, col);
+                String s = conversation.request(cell);
+                s = s.replaceAll("\\s+", "");
+                if (!s.equals("0")) {
+                    strings.add(s);
+                } else {
+                    strings.add(s);
+                }
+            }
+
+            // Create the query
+            if (strings.size() > 0) {
+
+                // Create the query
+                StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (topic, enabled) VALUES ");
+                int last_item_id = strings.get(strings.size() - 1).hashCode();
+                for (String s : strings) {
+                    queryBuiler.append(String.format("(%s, true)", s));
+                    if (s.hashCode() != last_item_id) {
+                        queryBuiler.append(",");
+                    }
+                }
+                queryBuiler.append(";");
+
+                String q = String.format(queryBuiler.toString(), "sapi.topic_to_monitor_test");
+
+                // Insert
+                MySql.insert(q, true);
+
+                // Clear the list
+                strings.clear();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void connectAll() {
@@ -160,7 +217,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     }
 
     private void registerClient(BASE_CLIENT_OBJECT client) {
-
         // Reader
         DDEReader ddeReader = new DDEReader(client);
         ddeReader.getHandler().start();
@@ -190,34 +246,15 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         connecionLbl.setForeground(Color.BLACK);
         add(connecionLbl);
 
-        // Port lbl
-        portLbl.setXY(20, 50);
-        portLbl.setForeground(Themes.BLUE_DARK);
-        portLbl.setWidth(80);
-        portLbl.setHorizontalAlignment(JLabel.LEFT);
-        portLbl.setFont(portLbl.getFont().deriveFont(12f).deriveFont(Font.BOLD));
-        portLbl.setLabelFor(portField);
-        add(portLbl);
-
-        portField.setXY(20, 80);
-        portField.setWidth(80);
-        portField.setOpaque(false);
-        portField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Themes.BLUE_DARK));
-        portField.setForeground(Themes.BLUE_DARK);
-        portField.setText(String.valueOf(Manifest.CLIENT_ID));
-        portField.setEnabled(true);
-        portField.setEditable(true);
-        add(portField);
-
         // Connect btn
-        connectionBtn.setXY(portField.getX() + portField.getWidth() + 20, 50);
+        connectionBtn.setXY(20, 50);
         connectionBtn.setForeground(Color.WHITE);
         connectionBtn.setBorder(BorderFactory.createLineBorder(Themes.GREEN.brighter()));
         connectionBtn.setBackground(Themes.GREEN);
         add(connectionBtn);
 
         // Disconnect btn
-        disConnectBtn.setXY(portField.getX() + portField.getWidth() + 20, 80);
+        disConnectBtn.setXY(connectionBtn.getX(), connectionBtn.getY() + connectionBtn.getHeight() + 3);
         disConnectBtn.setForeground(Color.WHITE);
         disConnectBtn.setBackground(Themes.RED);
         disConnectBtn.setBorder(BorderFactory.createLineBorder(Themes.RED.brighter()));
@@ -232,6 +269,14 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         clientComboBox.setForeground(Color.WHITE);
         add(clientComboBox);
 
+        // Upload params button
+        upload_params_button.setXY(clientComboBox.getX() + clientComboBox.getWidth() + 3, clientComboBox.getY());
+        upload_params_button.setBackground(Themes.BLUE_DARK);
+        upload_params_button.setForeground(Color.WHITE);
+        upload_params_button.setWidth(100);
+        add(upload_params_button);
+
+
         // Status lbl
         ddeStatusLbl.setXY(disConnectBtn.getX() + disConnectBtn.getWidth() + 20, disConnectBtn.getY());
         ddeStatusLbl.setWidth(60);
@@ -239,22 +284,8 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         ddeStatusLbl.setForeground(Themes.RED);
         add(ddeStatusLbl);
 
-        // Status lbl
-        twsStatusLbl.setXY(ddeStatusLbl.getX() + ddeStatusLbl.getWidth() + 1, ddeStatusLbl.getY());
-        twsStatusLbl.setWidth(60);
-        twsStatusLbl.setHorizontalAlignment(JLabel.LEFT);
-        twsStatusLbl.setForeground(Themes.RED);
-        add(twsStatusLbl);
-
-        // Log btn
-        logBtn.setXY(ddeStatusLbl.getX() + ddeStatusLbl.getWidth() + 60, 80);
-        logBtn.setBackground(Color.WHITE);
-        logBtn.setBorder(BorderFactory.createLineBorder(Themes.BLUE_DARK.brighter()));
-        logBtn.setForeground(Themes.BLUE_DARK);
-        add(logBtn);
-
         // Excel location
-        excelLocationField.setXY(portField.getX(), portField.getY() + portField.getHeight() + 15);
+        excelLocationField.setXY(disConnectBtn.getX(), disConnectBtn.getY() + disConnectBtn.getHeight() + 15);
         excelLocationField.setWidth(400);
         excelLocationField.setHeight(25);
         excelLocationField.setText("excelPath");

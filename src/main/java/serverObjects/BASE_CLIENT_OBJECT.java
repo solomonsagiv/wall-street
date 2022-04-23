@@ -50,6 +50,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected ArrayList<Integer> bid_ask_counter_list;
 
     public String excel_path = "";
+    public String sapi_excel_path = "";
 
     // Stocks delta
     StocksDeltaService stocksDeltaService;
@@ -514,6 +515,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public String getExcel_path() {
         return excel_path;
+    }
+
+    public String getSapi_excel_path() {
+        return sapi_excel_path;
+    }
+
+    public void setSapi_excel_path(String sapi_excel_path) {
+        this.sapi_excel_path = sapi_excel_path;
     }
 
     public void setExcel_path(String excel_path) {

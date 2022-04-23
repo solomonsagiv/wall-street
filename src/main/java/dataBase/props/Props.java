@@ -17,6 +17,7 @@ public class Props {
     Prop future_end_time;
     Prop excel_path;
     Prop main_exp;
+    Prop sapi_excel_file;
 
     public static final String INDEX_PRE_START_TIME = "INDEX_PRE_START_TIME";
     public static final String INDEX_START_TIME = "INDEX_START_TIME";
@@ -25,6 +26,7 @@ public class Props {
     public static final String CHARTS = "CHARTS";
     public static final String EXCEL_FILE_LOCATION = "EXCEL_FILE_LOCATION";
     public static final String MAIN_EXP = "MAIN_EXP";
+    public static final String SAPI_EXCEL_FILE_LOCATION = "SAPI_EXCEL_FILE_LOCATION";
 
     public Props(BASE_CLIENT_OBJECT client) {
         this.client = client;
@@ -148,6 +150,25 @@ public class Props {
                 return exp;
             }
         };
+
+        // ------------ SAPI FILE LOCATION -------------- //
+        sapi_excel_file = new Prop(client, SAPI_EXCEL_FILE_LOCATION) {
+            @Override
+            public void setData(Object data) {
+                String path = data.toString();
+                client.setSapi_excel_path(path);
+            }
+
+            @Override
+            public Object getData() {
+                String path = "";
+                try {
+                    path = client.getSapi_excel_path();
+                } catch (Exception e) {
+                }
+                return path;
+            }
+        };
     }
 
     private void init() {
@@ -157,6 +178,7 @@ public class Props {
         map.put(EXCEL_FILE_LOCATION, excel_path);
         map.put(MAIN_EXP, main_exp);
         map.put(INDEX_PRE_START_TIME, index_pre_start_time);
+        map.put(SAPI_EXCEL_FILE_LOCATION, sapi_excel_file);
     }
 
     public Map<String, Prop> getMap() {

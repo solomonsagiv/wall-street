@@ -54,7 +54,7 @@ public class DataUpdaterService extends MyBaseService {
         df_n_avg();
 
     }
-
+    
     private void df_n_avg() {
         for (DecisionsFunc df : df_list) {
             try {
