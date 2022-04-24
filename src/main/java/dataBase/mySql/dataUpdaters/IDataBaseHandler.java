@@ -198,10 +198,12 @@ public abstract class IDataBaseHandler {
                  props_name = rs.getString("prop");
                  data = rs.getObject("data");
 
+                System.out.println(props_name + "  " + data);
+
                 client.getProps().getMap().get(props_name).setData(data);
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println(data.toString());
             }
         }

@@ -575,6 +575,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", endOfIndexTrading=" + getIndexEndTime() +
                 ", endFutureTrading=" + getFutureEndTime() +
                 ", loadFromDb=" + loadFromDb +
+                ", sapi excep path=" + sapi_excel_path +
                 ", dbRunning=" + dbRunning +
                 ", ids=" + ids +
                 ", started=" + started +

@@ -149,11 +149,11 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             for (int row = 2; row < 1000; row++) {
                 String cell = String.format(base_cell, row, col);
                 String s = conversation.request(cell);
-                s = s.replaceAll("\\s+", "");
+                s = s.trim();
                 if (!s.equals("0")) {
                     strings.add(s);
                 } else {
-                    strings.add(s);
+                    break;
                 }
             }
 
@@ -164,7 +164,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (topic, enabled) VALUES ");
                 int last_item_id = strings.get(strings.size() - 1).hashCode();
                 for (String s : strings) {
-                    queryBuiler.append(String.format("(%s, true)", s));
+                    queryBuiler.append(String.format("('%s', true)", s));
                     if (s.hashCode() != last_item_id) {
                         queryBuiler.append(",");
                     }
