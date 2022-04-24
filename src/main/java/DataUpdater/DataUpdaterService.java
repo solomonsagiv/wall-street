@@ -8,6 +8,7 @@ import jibeDataGraber.DecisionsFunc;
 import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
+
 import java.util.ArrayList;
 
 public class DataUpdaterService extends MyBaseService {
@@ -54,7 +55,7 @@ public class DataUpdaterService extends MyBaseService {
         df_n_avg();
 
     }
-    
+
     private void df_n_avg() {
         for (DecisionsFunc df : df_list) {
             try {
@@ -63,7 +64,9 @@ public class DataUpdaterService extends MyBaseService {
                     df.setValue(value);
                 } else {
                     double value = MySql.Queries.handle_rs(MySql.Queries.get_last_record(df.getTable_location(), df.getVersion(), df.getSession_id()));
-                    df.setValue(value);
+                    if (value != -1) {
+                        df.setValue(value);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

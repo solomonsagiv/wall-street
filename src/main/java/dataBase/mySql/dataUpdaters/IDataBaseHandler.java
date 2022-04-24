@@ -190,15 +190,19 @@ public abstract class IDataBaseHandler {
         ResultSet rs = MySql.select(query);
 
         while (true) {
+            String props_name = "";
+            Object data = null ;
+
             try {
                 if (!rs.next()) break;
-                String props_name = rs.getString("prop");
-                Object data = rs.getObject("data");
+                 props_name = rs.getString("prop");
+                 data = rs.getObject("data");
 
                 client.getProps().getMap().get(props_name).setData(data);
 
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
+                System.out.println(data.toString());
             }
         }
     }

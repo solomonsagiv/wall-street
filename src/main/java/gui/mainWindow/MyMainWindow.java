@@ -74,7 +74,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
         // Load data from DB
         if (Manifest.DB) {
-//            loadOnStartUp();
+            loadOnStartUp();
         }
 
         // This

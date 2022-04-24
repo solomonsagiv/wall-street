@@ -4,6 +4,7 @@ import DDE.DDEConnection;
 import DDE.DDEReader;
 import DDE.DDEWriter;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
@@ -18,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,10 +119,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     // Insert params
-                    for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-                        client.getDdeHandler().getIddeReader().init_rates();
-                        IDataBaseHandler.insert_interes_rates(client);
-                    }
+//                    for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+//                        client.getDdeHandler().getIddeReader().init_rates();
+//                        IDataBaseHandler.insert_interes_rates(client);
+//                    }
 
                     // Update sapi request
                     update_sapi_request();
@@ -137,7 +139,8 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     public static void update_sapi_request() {
         try {
             DDEConnection ddeConnection = new DDEConnection();
-            DDEClientConversation conversation = ddeConnection.createNewConversation(Spx.getInstance().getSapi_excel_path());
+            String path = Spx.getInstance().getSapi_excel_path();
+            DDEClientConversation conversation = ddeConnection.createNewConversation(path);
 
             int col = 2;
             ArrayList<String> strings = new ArrayList<>();
@@ -168,10 +171,15 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 }
                 queryBuiler.append(";");
 
+                System.out.println(queryBuiler.toString());
+
                 String q = String.format(queryBuiler.toString(), "sapi.topic_to_monitor_test");
 
+                System.out.println(q);
+
                 // Insert
-                MySql.insert(q, true);
+                Connection connection = ConnectionPool.get_slo_single_connection();
+                MySql.insert(q, connection);
 
                 // Clear the list
                 strings.clear();
