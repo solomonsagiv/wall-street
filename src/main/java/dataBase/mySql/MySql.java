@@ -159,6 +159,20 @@ public class MySql {
     }
 
 
+    public static void trunticate(String tableName, String schema, Connection conn) {
+        String query = "TRUNCATE TABLE " + schema + "." + tableName;
+        try {
+            Statement st = conn.createStatement();
+
+            // execute the query, and get a java resultset
+            st.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Trunticate");
+        }
+    }
+
+
     public static void trunticate(String tableName, String schema) {
 
         String query = "TRUNCATE TABLE " + schema + "." + tableName;

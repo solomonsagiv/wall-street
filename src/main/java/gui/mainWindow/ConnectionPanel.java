@@ -6,6 +6,7 @@ import DDE.DDEWriter;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
+import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
 import locals.LocalHandler;
 import locals.Themes;
@@ -14,6 +15,7 @@ import serverObjects.indexObjects.Apple;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,6 +32,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection ");
     MyGuiComps.MyButton connectionBtn = new MyGuiComps.MyButton("Connect");
     MyGuiComps.MyButton disConnectBtn = new MyGuiComps.MyButton("Disconnect");
+    MyGuiComps.MyButton upload_rates_btn = new MyGuiComps.MyButton("Upload rates");
     MyGuiComps.MyLabel ddeStatusLbl = new MyGuiComps.MyLabel("DDE");
     public static MyGuiComps.MyTextField excelLocationField = new MyGuiComps.MyTextField();
     MyGuiComps.MyButton upload_params_button = new MyGuiComps.MyButton("Upload params");
@@ -55,7 +58,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 connectDDE();
             }
         });
-
 
         // Disconnect btn
         disConnectBtn.addActionListener(new ActionListener() {
@@ -117,6 +119,12 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
+                    // Connection
+                    Connection connection = ConnectionPool.get_slo_single_connection();
+
+                    // Trunticate current
+                    MySql.trunticate("topics_to_monitor", "sapi", connection);
+
                     // Update sapi request
                     update_sapi_request();
 
@@ -124,6 +132,22 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     MyGuiComps.color_on_complete(upload_params_button);
                 } catch (Exception exception) {
                     exception.printStackTrace();
+                    JOptionPane.showMessageDialog(null, exception.getCause());
+                }
+            }
+        });
+
+        upload_rates_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+                    try {
+                        client.getDdeHandler().getIddeReader().init_rates();
+                        IDataBaseHandler.insert_interes_rates(client);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                        JOptionPane.showMessageDialog(null, exception.getCause());
+                    }
                 }
             }
         });
@@ -166,7 +190,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
                 System.out.println(queryBuiler.toString());
 
-                String q = String.format(queryBuiler.toString(), "sapi.topic_to_monitor");
+                String q = String.format(queryBuiler.toString(), "sapi.topics_to_monitor");
 
                 System.out.println(q);
 
@@ -274,9 +298,15 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         upload_params_button.setXY(clientComboBox.getX() + clientComboBox.getWidth() + 3, clientComboBox.getY());
         upload_params_button.setBackground(Themes.BLUE_DARK);
         upload_params_button.setForeground(Color.WHITE);
-        upload_params_button.setWidth(180);
+        upload_params_button.setWidth(140);
         add(upload_params_button);
 
+        // Upload rates
+        upload_rates_btn.setXY(upload_params_button.getX() + upload_params_button.getWidth() + 3, upload_params_button.getY());
+        upload_rates_btn.setBackground(Themes.BLUE_DARK);
+        upload_rates_btn.setForeground(Color.WHITE);
+        upload_rates_btn.setWidth(140);
+        add(upload_rates_btn);
 
         // Status lbl
         ddeStatusLbl.setXY(disConnectBtn.getX() + disConnectBtn.getWidth() + 20, disConnectBtn.getY());
