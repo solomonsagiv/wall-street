@@ -118,12 +118,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    // Insert params
-//                    for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-//                        client.getDdeHandler().getIddeReader().init_rates();
-//                        IDataBaseHandler.insert_interes_rates(client);
-//                    }
-
                     // Update sapi request
                     update_sapi_request();
 
@@ -161,10 +155,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             if (strings.size() > 0) {
 
                 // Create the query
-                StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (topic, enabled) VALUES ");
+                StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (topic, fields, enabled, time_created) VALUES ");
                 int last_item_id = strings.get(strings.size() - 1).hashCode();
                 for (String s : strings) {
-                    queryBuiler.append(String.format("('%s', true)", s));
+                    queryBuiler.append(String.format("('%s', null, true, now())", s));
                     if (s.hashCode() != last_item_id) {
                         queryBuiler.append(",");
                     }
@@ -173,7 +167,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
                 System.out.println(queryBuiler.toString());
 
-                String q = String.format(queryBuiler.toString(), "sapi.topic_to_monitor_test");
+                String q = String.format(queryBuiler.toString(), "sapi.topic_to_monitor");
 
                 System.out.println(q);
 

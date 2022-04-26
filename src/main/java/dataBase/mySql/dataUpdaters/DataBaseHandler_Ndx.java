@@ -148,7 +148,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Load exp data
-//        load_exp_data();
+        load_exp_data();
 
         // Set load true
         client.setLoadFromDb(true);
