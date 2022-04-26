@@ -12,7 +12,6 @@ import exp.Exps;
 import jibeDataGraber.DecisionsFunc;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -41,7 +40,6 @@ public abstract class IDataBaseHandler {
     public static final int FUT_DELTA_TABLE = 27;
     public static final int E1_BID_ASK_COUNTER_TABLE = 28;
     public static final int OP_AVG_240_CONITNUE_TABLE = 33;
-    public static final int OP_AVG_DAY_15_TABLE = 34;
     public static final int OP_AVG_DAY_60_TABLE = 35;
     public static final int OP_AVG_DAY_5_TABLE = 36;
     public static final int CORR_15 = 37;
@@ -93,16 +91,6 @@ public abstract class IDataBaseHandler {
             String index_table = get_table_loc(INDEX_TABLE);
             double start_exp = MySql.Queries.handle_rs(MySql.Queries.get_exp_start(index_table, client.getId_name()));
             client.getExps().getExp(ExpStrings.q1).setStart(start_exp);
-
-            // DF
-//            String table_location = get_table_loc(DECISION_FUNCTION_TABLE);
-//            DecisionsFunc df_107 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
-//            double v107 = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(table_location, df_107.getSession_id(), df_107.getVersion(), client.getId_name()));
-//            DecisionsFunc df_103 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3);
-//            double v103 = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(table_location, df_103.getSession_id(), df_103.getVersion(), client.getId_name()));
-//
-//            client.getExps().getExp(ExpStrings.q1).setV103(v103);
-//            client.getExps().getExp(ExpStrings.q1).setV107(v107);
         } catch (Exception e) {
             e.printStackTrace();
         }

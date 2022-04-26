@@ -114,7 +114,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             super(client);
             setName("UPDATER");
         }
-
+        
         @Override
         public void initRunnable() {
             setRunnable(this);

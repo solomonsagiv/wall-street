@@ -6,7 +6,6 @@ import DDE.DDEWriter;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
 import locals.LocalHandler;
 import locals.Themes;
@@ -275,7 +274,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         upload_params_button.setXY(clientComboBox.getX() + clientComboBox.getWidth() + 3, clientComboBox.getY());
         upload_params_button.setBackground(Themes.BLUE_DARK);
         upload_params_button.setForeground(Color.WHITE);
-        upload_params_button.setWidth(100);
+        upload_params_button.setWidth(180);
         add(upload_params_button);
 
 

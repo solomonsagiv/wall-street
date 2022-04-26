@@ -28,15 +28,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem fullCharts_2 = new JMenuItem("Full charts 2");
-        fullCharts_2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Full_Chart_2 chart = new Full_Chart_2(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem fullCharts_4 = new JMenuItem("Full charts 4");
         fullCharts_4.addActionListener(new ActionListener() {
             @Override
@@ -88,7 +79,6 @@ public class PopupsMenuFactory {
         charts.add(futures_real_time_300);
         charts.add(baskets);
         charts.add(futures_real_time_1000);
-        charts.add(fullCharts_2);
 
         menu.add(details);
         menu.add(settingWindow);

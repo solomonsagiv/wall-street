@@ -13,33 +13,25 @@ import java.net.UnknownHostException;
 import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
-
+    
     public static final String INDEX_SERIES = "INDEX";
     public static final String E1_BID_ASK_COUNTER = "E1_BID_ASK_COUNTER";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
-    public static final String INDEX_RACES_SERIES = "INDEX_RACES";
     public static final String OP_AVG_SERIES = "OP_AVG";
     public static final String OP_AVG_DAY_5_SERIES = "OP_AVG_DAY_5";
-    public static final String OP_AVG_DAY_15_SERIES = "OP_AVG_DAY_15";
     public static final String OP_AVG_DAY_60_SERIES = "OP_AVG_DAY_60";
     public static final String BASKETS_SERIES = "BASKETS";
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
-    public static final String SESSION_4_VERSION_601 = "SESSION_4_VERSION_601";
-    public static final String DF_N_DAY = "DF_N_DAY";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
-    public static final String CORR_15 = "CORR_15";
-    public static final String CORR_60 = "CORR_60";
-    public static final String DE_CORR_15 = "DE_CORR_15";
-    public static final String DE_CORR_60 = "DE_CORR_60";
-    public static final String CORR_MIX_CDF = "CORR_MIX_CDF";
-    public static final String DE_CORR_MIX_CDF = "DE_CORR_MIX_CDF";
-    public static final String CORR_MIX = "CORR_MIX";
-    public static final String DE_CORR_MIX = "DE_CORR_MIX";
     public static final String DF_7 = "DF_7";
     public static final String DF_8 = "DF_8";
-    public static final String DF_3 = "DF_3";
+    public static final String DF_8_900 = "DF_8_900";
+    public static final String DF_8_3600 = "DF_8_3600";
+    public static final String DF_7_300 = "DF_7_300";
+    public static final String DF_7_900 = "DF_7_900";
+    public static final String DF_7_3600 = "DF_7_3600";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
@@ -84,7 +76,8 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_3:
+
+            case DF_8_900:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -93,13 +86,93 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3).getValue();
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_900).getValue();
                     }
 
                     @Override
                     public void load() {
-                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3);
-                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_900);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DF_8_3600:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_3600).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_3600);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DF_7_300:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_300).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_300);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DF_7_900:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_900).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_900);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+            case DF_7_3600:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_3600).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_3600);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -165,27 +238,6 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         String serie = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_DAY_5_TABLE);
-                        ResultSet rs = MySql.Queries.get_serie(serie);
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
-            case OP_AVG_DAY_15_SERIES:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public ResultSet load_last_x_time(int minuts) {
-                        return null;
-                    }
-
-                    @Override
-                    public double getData() {
-                        return client.getExps().getExp(ExpStrings.day).getOp_avg_15();
-                    }
-
-                    @Override
-                    public void load() {
-                        String serie = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_DAY_15_TABLE);
                         ResultSet rs = MySql.Queries.get_serie(serie);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }

@@ -185,7 +185,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         tablesNames.put(DE_CORR_60, "data.research_spx_diffs_mood_3600");
         tablesNames.put(OP_AVG_240_CONITNUE_TABLE, "data.spx500_op_avg_day_240_continue");
         tablesNames.put(OP_AVG_DAY_5_TABLE, "data.spx500_op_avg_day_5");
-        tablesNames.put(OP_AVG_DAY_15_TABLE, "data.spx500_op_avg_day_15");
         tablesNames.put(OP_AVG_DAY_60_TABLE, "data.spx500_op_avg_day_60");
         tablesNames.put(CORR_MIX_CDF, "data.spx500_corr_mix_cdf");
         tablesNames.put(DE_CORR_MIX_CDF, "data.spx500_de_corr_mix_cdf");
