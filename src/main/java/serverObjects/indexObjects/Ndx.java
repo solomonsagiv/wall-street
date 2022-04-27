@@ -87,11 +87,11 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.research", false, 4, 116));
             map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.ndx_decision_func", true, 4, 607));
 
-            map.put(DecisionsFuncFactory.DF_8_900, new DecisionsFunc(DecisionsFuncFactory.DF_8_900, "data.research", false, 3, 50));
-            map.put(DecisionsFuncFactory.DF_8_3600, new DecisionsFunc(DecisionsFuncFactory.DF_8_3600, "data.research", false, 3, 51));
-            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", false, 3, 127));
-            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", false, 3, 128));
-            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", false, 3, 129));
+            map.put(DecisionsFuncFactory.DF_8_900, new DecisionsFunc(DecisionsFuncFactory.DF_8_900, "data.research", false, 4, 50));
+            map.put(DecisionsFuncFactory.DF_8_3600, new DecisionsFunc(DecisionsFuncFactory.DF_8_3600, "data.research", false, 4, 51));
+            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", false, 4, 127));
+            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", false, 4, 128));
+            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", false, 4, 129));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;
