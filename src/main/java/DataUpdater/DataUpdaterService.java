@@ -71,7 +71,7 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 20000;
+        return 10000;
     }
 
     @Override
