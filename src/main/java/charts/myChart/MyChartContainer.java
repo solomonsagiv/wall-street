@@ -51,13 +51,15 @@ public class MyChartContainer extends JFrame {
         // Layout
         setLayout(new GridLayout(charts.length, 0));
 
-        // Append charts
-        appendCharts();
-
         // Load data
         if (Manifest.DB) {
             load_data();
         }
+
+        // Append charts
+        appendCharts();
+
+
     }
 
     private void load_data() {

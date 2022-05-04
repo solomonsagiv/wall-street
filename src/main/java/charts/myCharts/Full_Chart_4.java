@@ -52,7 +52,6 @@ public class Full_Chart_4 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //

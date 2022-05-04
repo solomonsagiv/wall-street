@@ -26,9 +26,8 @@ public class DataUpdaterService extends MyBaseService {
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_900));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_3600));
-
     }
-
+    
     @Override
     public void go() {
 
@@ -43,7 +42,6 @@ public class DataUpdaterService extends MyBaseService {
 
         // DF N AVG
         df_n_avg();
-
     }
 
     private void df_n_avg() {
@@ -54,9 +52,7 @@ public class DataUpdaterService extends MyBaseService {
                     df.setValue(value);
                 } else {
                     double value = MySql.Queries.handle_rs(MySql.Queries.get_last_record(df.getTable_location(), df.getVersion(), df.getSession_id()));
-                    if (value != -1) {
-                        df.setValue(value);
-                    }
+                    df.setValue(value);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -71,7 +67,7 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public int getSleep() {
-        return 10000;
+        return 20000;
     }
 
     @Override
