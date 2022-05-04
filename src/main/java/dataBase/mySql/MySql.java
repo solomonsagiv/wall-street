@@ -555,9 +555,10 @@ public class MySql {
             String q = "select value from\n" +
                     "%s\n" +
                     "where version = %s and session_id = %s\n" +
+                    "%s\n" +
                     "order by time desc limit 1;";
 
-            String query = String.format(q, table_location, version, session_id);
+            String query = String.format(q, table_location, version, session_id, Filters.TODAY);
             return MySql.select(query);
         }
 

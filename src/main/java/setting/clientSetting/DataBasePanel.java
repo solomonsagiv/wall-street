@@ -54,6 +54,11 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     client.getDdeHandler().getIddeReader().init_rates();
+
+
+
+
+
                     IDataBaseHandler.insert_interes_rates(client);
                     updateRatesBtn.complete();
                     MyGuiComps.color_on_complete(updateRatesBtn);

@@ -16,5 +16,4 @@ public class ChartPropsEnum {
     public static final String INCLUDE_DOMAIN_AXIS = "INCLUDE_DOMAIN_AXIS";
     public static final String INCLUDE_RANGE_AXIS = "INCLUDE_RANGE_AXIS";
     public static final String SCALED_DATA = "SCALED_DATA";
-    public static final String RETRO_MINS = "RETRO_MINS";
 }

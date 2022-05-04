@@ -2,12 +2,13 @@ package charts.myChart;
 
 import charts.MyChartPanel;
 import charts.timeSeries.MyTimeSeries;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import locals.L;
 import locals.Themes;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.*;
+import org.jfree.chart.axis.AxisLocation;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -198,8 +199,6 @@ public class MyChart {
                             if (isDataChanged()) {
                                 append();
                             }
-                        } else if (props.getProp(ChartPropsEnum.RETRO_MINS) > 0) {
-                            append_retro();
                         } else {
                             append();
                         }
@@ -209,19 +208,6 @@ public class MyChart {
                     }
                 } catch (InterruptedException e) {
                     break;
-                }
-            }
-        }
-
-        private void append_retro() {
-            int minuts = (int) props.getProp(ChartPropsEnum.RETRO_MINS);
-
-            if (minuts > 0) {
-                for (MyTimeSeries serie : series) {
-                    new Thread(() -> {
-                        serie.clear_data();
-                        IDataBaseHandler.loadSerieData(serie.load_last_x_time(minuts), serie);
-                    }).start();
                 }
             }
         }
