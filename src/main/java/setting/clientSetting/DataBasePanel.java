@@ -1,6 +1,8 @@
 package setting.clientSetting;
 
 import api.Manifest;
+import dataBase.mySql.ConnectionPool;
+import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
 import locals.Themes;
@@ -9,6 +11,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class DataBasePanel extends MyGuiComps.MyPanel {
 
@@ -55,10 +58,12 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
                 try {
                     client.getDdeHandler().getIddeReader().init_rates();
 
+                    // Delete current
+                    Connection slo_conn = ConnectionPool.get_slo_single_connection();
+                    MySql.Queries.delete_today_interest_rates(slo_conn);
+                    MySql.Queries.delete_today_interest_rates();
 
-
-
-
+                    // Update new one
                     IDataBaseHandler.insert_interes_rates(client);
                     updateRatesBtn.complete();
                     MyGuiComps.color_on_complete(updateRatesBtn);

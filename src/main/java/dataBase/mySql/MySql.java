@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,6 +111,19 @@ public class MySql {
     }
 
     // Update
+    public static void update(String query, Connection conn) {
+        try {
+            Statement stmt = conn.createStatement();
+            // Execute
+            stmt.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Update");
+        }
+    }
+
+
+    // Update
     public static ResultSet select(String query) {
         ResultSet rs = null;
         Connection conn = null;
@@ -214,6 +228,21 @@ public class MySql {
                     "on i.time = f.time " +
                     "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
             return MySql.select(query);
+        }
+
+
+        public static void delete_today_interest_rates() {
+            String query = "delete \n" +
+                    "from meta.interest_rates\n" +
+                    "where start_date = now()::date;";
+            MySql.update(query);
+        }
+
+        public static void delete_today_interest_rates(Connection conn) {
+            String query = "delete \n" +
+                    "from meta.interest_rates\n" +
+                    "where start_date = now()::date;";
+            MySql.update(query, conn);
         }
 
 
