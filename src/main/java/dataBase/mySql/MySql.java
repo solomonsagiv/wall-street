@@ -1,7 +1,6 @@
 package dataBase.mySql;
 
 import arik.Arik;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -537,7 +536,6 @@ public class MySql {
 
             return MySql.select(query);
         }
-
 
         public static double handle_rs(ResultSet rs) {
             while (true) {
