@@ -181,7 +181,7 @@ public class MyChart {
             this.series = series;
             initListeners();
         }
-        
+
         private void initListeners() {
 
         }
@@ -226,12 +226,19 @@ public class MyChart {
         private void appendDataToSeries() {
             try {
                 for (MyTimeSeries serie : series) {
+
                     // If bigger then target Seconds
                     if (serie.getItemCount() > props.getProp(ChartPropsEnum.SECONDS)) {
                         serie.remove(0);
                     }
-                    // Append data
-                    serie.add(LocalDateTime.now());
+
+                    // Live or not
+                    if (props.getBool(ChartPropsEnum.IS_LIVE)) {
+                        // Append data
+                        serie.add();
+                    } else {
+                        serie.add(LocalDateTime.now());
+                    }
                 }
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -320,7 +327,7 @@ public class MyChart {
                 e.printStackTrace();
             }
         }
-        
+
         public void setTextWithColor(JLabel label, double price) {
             label.setText(L.str(price));
 
