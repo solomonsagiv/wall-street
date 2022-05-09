@@ -18,6 +18,9 @@ public class DataUpdaterService extends MyBaseService {
     public DataUpdaterService(BASE_CLIENT_OBJECT client) {
         super(client);
         df_list = new ArrayList<>();
+
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2));
+
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_300));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_900));
