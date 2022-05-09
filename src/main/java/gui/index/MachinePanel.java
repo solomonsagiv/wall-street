@@ -25,6 +25,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     Df_panel df_panel_1;
     Df_panel df_panel_2;
+    Df_panel df_panel_3;
 
     int width = 100;
     int height = 300;
@@ -37,6 +38,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder();
 
         df_list = new ArrayList<>();
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8));
 
@@ -64,18 +66,25 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(body);
 
         // DF panels
-        df_panel_1 = new Df_panel("DF 7", new DecisionsFunc[]{df_list.get(0)});
+        df_panel_1 = new Df_panel("DF 2", new DecisionsFunc[]{df_list.get(0)});
         df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
         // DF panels
-        df_panel_2 = new Df_panel("DF 8", new DecisionsFunc[]{df_list.get(1)});
+        df_panel_2 = new Df_panel("DF 7", new DecisionsFunc[]{df_list.get(1)});
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
         body.add(df_panel_2);
+
+        // DF panels
+        df_panel_3 = new Df_panel("DF 8", new DecisionsFunc[]{df_list.get(2)});
+        df_panel_3.setXY(df_panel_2.getX(), df_panel_2.getY() + df_panel_2.getHeight() + 1);
+        df_panel_3.setWidth(width);
+        df_panel_3.setHeight(25);
+        body.add(df_panel_3);
 
     }
 

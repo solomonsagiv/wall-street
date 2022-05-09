@@ -48,7 +48,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         LocalHandler.clients.add(ndx);
 //        LocalHandler.clients.add(dax);
     }
-
+    
     @Override
     public void onClose() {
         super.onClose();

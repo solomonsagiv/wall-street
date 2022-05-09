@@ -20,7 +20,6 @@ import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
 import serverObjects.BASE_CLIENT_OBJECT;
 import threads.MyThread;
-
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;

@@ -26,6 +26,7 @@ public class TimeSeriesFactory {
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
     public static final String DF_7 = "DF_7";
+    public static final String DF_2 = "DF_2";
     public static final String DF_8 = "DF_8";
     public static final String DF_8_900 = "DF_8_900";
     public static final String DF_8_3600 = "DF_8_3600";
@@ -35,6 +36,26 @@ public class TimeSeriesFactory {
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
+
+            case DF_2:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2);
+                        ResultSet rs = MySql.Queries.get_df_serie(df.getTable_location(), df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
 
             case DF_7:
                 return new MyTimeSeries(series_type, client) {
