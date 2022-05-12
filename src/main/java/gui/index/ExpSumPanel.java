@@ -98,15 +98,12 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
             exp_move = L.floor(((client.getIndex() - exp.getStart()) / exp.getStart()) * 100, 100);
         }
 
-        DecisionsFunc v3 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_3);
         DecisionsFunc v7 = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7);
 
         double v7_exp = exp.getV107() + v7.getValue();
-        double v3_exp = exp.getV103() + v3.getValue();
 
         // Set text
         moveField.colorBack(exp_move, L.format100(), "%");
         v7_Field.colorForge((int) (v7_exp / 1000));
-        v3_Field.colorForge((int) (v3_exp / 1000));
     }
 }

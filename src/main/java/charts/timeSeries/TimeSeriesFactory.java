@@ -28,11 +28,14 @@ public class TimeSeriesFactory {
     public static final String DF_7 = "DF_7";
     public static final String DF_2 = "DF_2";
     public static final String DF_8 = "DF_8";
+    public static final String DF_8_300 = "DF_8_300";
     public static final String DF_8_900 = "DF_8_900";
     public static final String DF_8_3600 = "DF_8_3600";
+    public static final String DF_8_14400 = "DF_8_14400";
     public static final String DF_7_300 = "DF_7_300";
     public static final String DF_7_900 = "DF_7_900";
     public static final String DF_7_3600 = "DF_7_3600";
+
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, Exp exp) {
         switch (series_type.toUpperCase()) {
@@ -118,6 +121,26 @@ public class TimeSeriesFactory {
                     }
                 };
 
+            case DF_8_300:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_300).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_300);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
             case DF_8_3600:
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -133,6 +156,27 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_3600);
+                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
+
+            case DF_8_14400:
+                return new MyTimeSeries(series_type, client) {
+                    @Override
+                    public ResultSet load_last_x_time(int minuts) {
+                        return null;
+                    }
+
+                    @Override
+                    public double getData() {
+                        return client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_14400).getValue();
+                    }
+
+                    @Override
+                    public void load() {
+                        DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_14400);
                         ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
