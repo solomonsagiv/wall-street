@@ -133,6 +133,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     public void updateText() {
         df_panel_1.updateText();
         df_panel_2.updateText();
+        df_panel_3.updateText();
     }
 
     private void nois(JTextField textField) {
