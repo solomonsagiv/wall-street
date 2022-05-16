@@ -8,6 +8,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -59,7 +60,6 @@ public class MyChartContainer extends JFrame {
         // Append charts
         appendCharts();
 
-
     }
 
     private void load_data() {
@@ -79,14 +79,12 @@ public class MyChartContainer extends JFrame {
     private void check_load() {
 
         while (true) {
-
             try {
-                // Sleep
+                //Sleep
                 Thread.sleep(1000);
 
                 boolean load = true;
 
-                // Check for load = true
                 for (MyChart chart : charts) {
                     for (MyTimeSeries serie : chart.getSeries()) {
                         if (!serie.isLoad()) {
@@ -100,7 +98,6 @@ public class MyChartContainer extends JFrame {
                 if (load) {
                     break;
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

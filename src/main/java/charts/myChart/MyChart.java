@@ -191,7 +191,7 @@ public class MyChart {
             // While loop
             while (isRun()) {
                 try {
-                    if (client.isStarted()) {
+                    if (client.isStarted() && check_load()) {
                         // Sleep
                         Thread.sleep((long) props.getProp(ChartPropsEnum.SLEEP));
 
@@ -425,5 +425,15 @@ public class MyChart {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean check_load() {
+        boolean load = true;
+        for (MyTimeSeries serie : series) {
+            if (!serie.isLoad()) {
+                load = false;
+            }
+        }
+        return load;
     }
 }
