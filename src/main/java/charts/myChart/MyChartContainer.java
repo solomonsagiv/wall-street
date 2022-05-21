@@ -3,19 +3,17 @@ package charts.myChart;
 import api.Manifest;
 import charts.MyChartPanel;
 import charts.timeSeries.MyTimeSeries;
-import dataBase.mySql.MySql;
+import gui.MyGuiComps;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import serverObjects.BASE_CLIENT_OBJECT;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Field;
-import java.sql.ResultSet;
 
-public class MyChartContainer extends JFrame {
+public class MyChartContainer extends MyGuiComps.MyFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,28 +24,10 @@ public class MyChartContainer extends JFrame {
     String name;
 
     public MyChartContainer(BASE_CLIENT_OBJECT client, MyChart[] charts, String name) {
+        super(name, client);
         this.charts = charts;
         this.client = client;
         this.name = name;
-        init();
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    private void init() {
-
-        // Load bounds
-        loadBounds();
-
-        // On Close
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onClose(e);
-            }
-        });
 
         // Layout
         setLayout(new GridLayout(charts.length, 0));
@@ -59,6 +39,26 @@ public class MyChartContainer extends JFrame {
 
         // Append charts
         appendCharts();
+
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+
+    @Override
+    public void initialize() {
+        // Load bounds
+        loadBounds();
+
+        // On Close
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onClose(e);
+            }
+        });
 
     }
 
@@ -191,29 +191,6 @@ public class MyChartContainer extends JFrame {
         }
     }
 
-    private void loadBounds() {
-        new Thread(() -> {
-            try {
-                int width = 100, height = 100, x = 100, y = 100;
-
-                String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getName(), getName());
-                ResultSet rs = MySql.select(query);
-
-                while (rs.next()) {
-                    x = rs.getInt("x");
-                    y = rs.getInt("y");
-                    width = rs.getInt("width");
-                    height = rs.getInt("height");
-                }
-
-                setPreferredSize(new Dimension(width, height));
-                setBounds(x, y, width, height);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
     public void onClose(WindowEvent e) {
         // Update bound to database
         insetOrUpdateBounds();
@@ -224,13 +201,11 @@ public class MyChartContainer extends JFrame {
         dispose();
     }
 
-    private void insetOrUpdateBounds() {
-        try {
-            String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName(), getName(), getX(), getY(), getWidth(), getHeight());
-            MySql.select(query);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void initListeners() {
+
     }
+
+
 
 }

@@ -24,7 +24,7 @@ public class PopupsMenuFactory {
         settingWindow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SettingWindow(client.getName(), client);
+                new SettingWindow(client.getName() + " setting", client);
             }
         });
 
@@ -66,6 +66,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem df_round_chart = new JMenuItem("DF round");
+        df_round_chart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DF_ROUND_CHART chart = new DF_ROUND_CHART(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem details = new JMenuItem("Details");
         details.addActionListener(new ActionListener() {
             @Override
@@ -78,7 +87,7 @@ public class PopupsMenuFactory {
         charts.add(fullCharts_4);
         charts.add(futures_real_time_300);
         charts.add(baskets);
-        charts.add(futures_real_time_1000);
+        charts.add(df_round_chart);
 
         menu.add(details);
         menu.add(settingWindow);

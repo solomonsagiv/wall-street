@@ -599,6 +599,24 @@ public class MySql {
             System.out.println(query);
             return MySql.select(query);
         }
+
+        public static ResultSet get_serie(String table_location, int session_id, int version, int step_second) {
+
+            String modulu = "%";
+
+            String q = "select time, delta as value" +
+                    "from (\n" +
+                    "select *, row_number() over (order by time) as row\n" +
+                    "from %s\n" +
+                    "where version = %s\n" +
+                    "  and session_id = %s\n" +
+                    "  and %s) a\n" +
+                    "where row %s %s = 0;";
+
+            String query = String.format(q, table_location, version, session_id, Filters.TODAY, modulu, step_second);
+            System.out.println(query);
+            return MySql.select(query);
+        }
     }
 
     public static class Filters {

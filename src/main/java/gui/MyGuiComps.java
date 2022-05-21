@@ -11,8 +11,24 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class MyGuiComps {
+
+    public static class Windows {
+
+        public static ArrayList<MyGuiComps.MyFrame> frames = new ArrayList<>();
+
+        public static void add_frame(MyFrame frame) {
+            frames.add(frame);
+            System.out.println(frames);
+        }
+
+        public static void remove_frame(MyFrame frame) {
+            frames.remove(frame);
+            System.out.println(frames);
+        }
+    }
 
     // ---------- JFrame ---------- //
     public static abstract class MyFrame extends JFrame {
@@ -26,6 +42,7 @@ public class MyGuiComps {
             initListeners();
             packAndFinish();
             initOnClose();
+            Windows.add_frame(this);
         }
 
         public MyFrame(String title, BASE_CLIENT_OBJECT client) throws HeadlessException {
@@ -35,8 +52,9 @@ public class MyGuiComps {
             initialize();
             packAndFinish();
             initOnClose();
+            Windows.add_frame(this);
         }
-        
+
         private void packAndFinish() {
             pack();
             if (Manifest.DB) {
@@ -57,7 +75,7 @@ public class MyGuiComps {
                 try {
                     int width = 300, height = 300, x = 100, y = 100;
 
-                    String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getName(), getTitle());
+                    String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getId_name(), getTitle());
                     ResultSet rs = MySql.select(query);
 
                     while (rs.next()) {
@@ -75,13 +93,47 @@ public class MyGuiComps {
             }).start();
         }
 
-        protected void insetOrUpdateBounds() {
+        public void insetOrUpdateBounds() {
             try {
-                String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getName(), getTitle(), getX(), getY(), getWidth(), getHeight());
+                String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getId_name(), getTitle(), getX(), getY(), getWidth(), getHeight());
                 MySql.select(query);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+
+        public void set_start_bounds() {
+            try {
+                String query = String.format("SELECT sagiv.update_start_bounds('%s', '%s', %s, %s, %s, %s);", client.getId_name(), getTitle(), getX(), getY(), getWidth(), getHeight());
+                System.out.println(query);
+                MySql.select(query);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void load_start_bounds() {
+            new Thread(() -> {
+                try {
+                    int width = 300, height = 300, x = 100, y = 100;
+
+                    String query = String.format("SELECT * FROM sagiv.start_bounds WHERE stock_name = '%s' and item_name = '%s';", client.getId_name(), getTitle());
+                    ResultSet rs = MySql.select(query);
+
+                    while (rs.next()) {
+                        x = rs.getInt("x");
+                        y = rs.getInt("y");
+                        width = rs.getInt("width");
+                        height = rs.getInt("height");
+                    }
+
+                    setPreferredSize(new Dimension(width, height));
+                    setBounds(x, y, width, height);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
 
         private void initOnClose() {
@@ -98,7 +150,9 @@ public class MyGuiComps {
             if (Manifest.DB) {
                 insetOrUpdateBounds();
             }
+            Windows.remove_frame(this);
             dispose();
+
         }
         
         public void setXY(int x, int y) {

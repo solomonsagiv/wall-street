@@ -5,6 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
+import charts.myCharts.DF_ROUND_CHART;
 import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_300;
 import dataBase.mySql.MySqlService;
@@ -86,7 +87,9 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             Map<String, DecisionsFunc> map = new HashMap<>();
             map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.spx500_decision_func", true, 3, 508));
             map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.spx500_decision_func", true, 3, 507));
+            map.put(DecisionsFuncFactory.DF_7_1000_round, new DecisionsFunc(DecisionsFuncFactory.DF_7_1000_round, "data.spx500_decision_func", true, 3, 507));
             map.put(DecisionsFuncFactory.DF_2, new DecisionsFunc(DecisionsFuncFactory.DF_2, "data.spx500_decision_func", true, 3, 502));
+            map.put(DecisionsFuncFactory.DF_2_1000_round, new DecisionsFunc(DecisionsFuncFactory.DF_2_1000_round, "data.spx500_decision_func", true, 3, 502));
 
             map.put(DecisionsFuncFactory.DF_8_300, new DecisionsFunc(DecisionsFuncFactory.DF_8_300, "data.research", false, 3, 13));
             map.put(DecisionsFuncFactory.DF_8_900, new DecisionsFunc(DecisionsFuncFactory.DF_8_900, "data.research", false, 3, 11));
@@ -115,11 +118,24 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
-            FuturesChartLong_300 chart = new FuturesChartLong_300(this);
-            chart.createChart();
+            new Thread(() -> {
+                try {
 
-            Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
-            full_chart_4.createChart();
+                    FuturesChartLong_300 chart = new FuturesChartLong_300(this);
+                    chart.createChart();
+
+                    Thread.sleep(5000);
+
+                    Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
+                    full_chart_4.createChart();
+
+                    DF_ROUND_CHART df_round_chart = new DF_ROUND_CHART(this);
+                    df_round_chart.createChart();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 

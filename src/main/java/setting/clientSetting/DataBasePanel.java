@@ -23,6 +23,8 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton updateRatesBtn;
     MyGuiComps.MyButton startJIbeDbBtn;
     MyGuiComps.MyButton stopJIbeDbBtn;
+    MyGuiComps.MyButton setStartBoundsBtn;
+    MyGuiComps.MyButton loadStartBoundsBtn;
 
     // Constructor
     public DataBasePanel(BASE_CLIENT_OBJECT client) {
@@ -87,6 +89,25 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             }
         });
 
+        setStartBoundsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                for (MyGuiComps.MyFrame frame : MyGuiComps.Windows.frames) {
+                    frame.set_start_bounds();
+                }
+            }
+        });
+
+        loadStartBoundsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                for (MyGuiComps.MyFrame frame : MyGuiComps.Windows.frames) {
+                    System.out.println(frame.getTitle() + " ----------------------------");
+                    frame.load_start_bounds();
+                }
+            }
+        });
+
     }
 
     private void initialize() {
@@ -139,7 +160,23 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         stopJIbeDbBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(stopJIbeDbBtn);
 
+        // Start bounds
+        setStartBoundsBtn = new MyGuiComps.MyButton("Set start bounds");
+        setStartBoundsBtn.setXY(stopJIbeDbBtn.getX() + stopJIbeDbBtn.getWidth() + 5, stopJIbeDbBtn.getY());
+        setStartBoundsBtn.setWidth(140);
+        setStartBoundsBtn.setFont(stopJIbeDbBtn.getFont().deriveFont(9f));
+        setStartBoundsBtn.setBackground(Themes.BLUE);
+        setStartBoundsBtn.setForeground(Themes.GREY_VERY_LIGHT);
+        add(setStartBoundsBtn);
 
+        // Load start bounds
+        loadStartBoundsBtn = new MyGuiComps.MyButton("Load start bounds");
+        loadStartBoundsBtn.setXY(setStartBoundsBtn.getX() + setStartBoundsBtn.getWidth() + 5, setStartBoundsBtn.getY());
+        loadStartBoundsBtn.setWidth(140);
+        loadStartBoundsBtn.setFont(stopJIbeDbBtn.getFont().deriveFont(9f));
+        loadStartBoundsBtn.setBackground(Themes.BLUE);
+        loadStartBoundsBtn.setForeground(Themes.GREY_VERY_LIGHT);
+        add(loadStartBoundsBtn);
 
     }
 }
