@@ -146,8 +146,6 @@ public class DataBaseHandler_Apple extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.stockx_index");
-        tablesNames.put(INDEX_RACES_TABLE, "data.stockx_index_races_cdf");
-        tablesNames.put(FUT_RACES_TABLE, "data.stockx_fut_races_cdf");
         tablesNames.put(BASKETS_TABLE, "data.stockx_baskets_cdf");
         tablesNames.put(FUT_WEEK_TABLE, "data.stockx_fut_week");
         tablesNames.put(FUT_MONTH_TABLE, "data.stockx_fut_month");
@@ -180,8 +178,6 @@ public class DataBaseHandler_Apple extends IDataBaseHandler {
         insertListRetro(fut_month_timeStamp, tablesNames.get(FUT_MONTH_TABLE));
         insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
         insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
-        insertListRetro(ind_races_timestamp, tablesNames.get(INDEX_RACES_TABLE));
-        insertListRetro(fut_races_timestamp, tablesNames.get(FUT_RACES_TABLE));
         insertListRetro(baskets_timestamp, tablesNames.get(BASKETS_TABLE));
     }
 }

@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 public class TimeSeriesFactory {
 
     public static final String INDEX_SERIES = "INDEX";
-    public static final String E1_BID_ASK_COUNTER = "E1_BID_ASK_COUNTER";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
