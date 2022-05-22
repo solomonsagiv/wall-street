@@ -6,6 +6,7 @@ import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.*;
+import setting.clientSetting.SettingWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
 
     // Variables
     JComboBox clientsCombo;
-    MyGuiComps.MyButton fullSettingBtn;
+    MyGuiComps.MyButton setting_btn;
 
     MyGuiComps.MyLabel windowsLbl = new MyGuiComps.MyLabel("Windows");
 
@@ -54,6 +55,15 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                 }
             }
         });
+
+        // Setting
+        setting_btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Spx client = Spx.getInstance();
+                new SettingWindow(client.getName() + " setting", client);
+            }
+        });
     }
 
     private void initialize() {
@@ -79,10 +89,10 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
         add(clientsCombo);
 
         // Full setting
-        fullSettingBtn = new MyGuiComps.MyButton("Full setting");
-        fullSettingBtn.setXY(clientsCombo.getX(), clientsCombo.getY() + clientsCombo.getHeight() + 5);
-        fullSettingBtn.setWidth(80);
-        add(fullSettingBtn);
+        setting_btn = new MyGuiComps.MyButton("Setting");
+        setting_btn.setXY(clientsCombo.getX(), clientsCombo.getY() + clientsCombo.getHeight() + 5);
+        setting_btn.setWidth(80);
+        add(setting_btn);
     }
 
     private void initCombo() {

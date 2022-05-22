@@ -103,9 +103,9 @@ public class MyGuiComps {
         }
 
 
-        public void set_start_bounds() {
+        public void set_start_bounds(int pre_set) {
             try {
-                String query = String.format("SELECT sagiv.update_start_bounds('%s', '%s', %s, %s, %s, %s);", client.getId_name(), getTitle(), getX(), getY(), getWidth(), getHeight());
+                String query = String.format("SELECT sagiv.update_start_bounds('%s', '%s', %s, %s, %s, %s, %s);", client.getId_name(), getTitle(), getX(), getY(), getWidth(), getHeight(), pre_set);
                 System.out.println(query);
                 MySql.select(query);
             } catch (Exception e) {
@@ -113,12 +113,12 @@ public class MyGuiComps {
             }
         }
 
-        public void load_start_bounds() {
+        public void load_start_bounds(int pre_set) {
             new Thread(() -> {
                 try {
                     int width = 300, height = 300, x = 100, y = 100;
 
-                    String query = String.format("SELECT * FROM sagiv.start_bounds WHERE stock_name = '%s' and item_name = '%s';", client.getId_name(), getTitle());
+                    String query = String.format("SELECT * FROM sagiv.start_bounds WHERE stock_name = '%s' and item_name = '%s' and pre_set = %s;", client.getId_name(), getTitle(), pre_set);
                     ResultSet rs = MySql.select(query);
 
                     while (rs.next()) {

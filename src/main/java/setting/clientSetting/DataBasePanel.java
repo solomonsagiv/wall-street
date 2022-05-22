@@ -5,9 +5,11 @@ import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
+import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +27,9 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton stopJIbeDbBtn;
     MyGuiComps.MyButton setStartBoundsBtn;
     MyGuiComps.MyButton loadStartBoundsBtn;
+    JComboBox pre_set_combox;
+
+    int pre_set = 1;
 
     // Constructor
     public DataBasePanel(BASE_CLIENT_OBJECT client) {
@@ -93,7 +98,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 for (MyGuiComps.MyFrame frame : MyGuiComps.Windows.frames) {
-                    frame.set_start_bounds();
+                    frame.set_start_bounds(pre_set);
                 }
             }
         });
@@ -103,8 +108,15 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 for (MyGuiComps.MyFrame frame : MyGuiComps.Windows.frames) {
                     System.out.println(frame.getTitle() + " ----------------------------");
-                    frame.load_start_bounds();
+                    frame.load_start_bounds(pre_set);
                 }
+            }
+        });
+
+        pre_set_combox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                pre_set = L.INT(pre_set_combox.getSelectedItem().toString());
             }
         });
 
@@ -177,6 +189,11 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         loadStartBoundsBtn.setBackground(Themes.BLUE);
         loadStartBoundsBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(loadStartBoundsBtn);
+
+        // Pre set check box
+        pre_set_combox = new JComboBox(new String[] {"1", "2"});
+        pre_set_combox.setBounds(loadStartBoundsBtn.getX(), loadStartBoundsBtn.getY() + loadStartBoundsBtn.getHeight() + 3, 100, 25);
+        add(pre_set_combox);
 
     }
 }
