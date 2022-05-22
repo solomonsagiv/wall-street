@@ -157,8 +157,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         tablesNames.put(INDEX_TABLE, "data.ndx_index");
-        tablesNames.put(INDEX_RACES_TABLE, "sagiv.ndx_index_races_cdf");
-        tablesNames.put(FUT_RACES_TABLE, "sagiv.ndx_fut_races_cdf");
         tablesNames.put(BASKETS_TABLE, "data.ndx_baskets_cdf");
         tablesNames.put(FUT_DAY_TABLE, "data.ndx_fut_day");
         tablesNames.put(FUT_WEEK_TABLE, "data.ndx_fut_week");
@@ -167,16 +165,81 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         tablesNames.put(FUT_Q2_TABLE, "data.ndx_fut_e2");
         tablesNames.put(FUT_DELTA_TABLE, "data.ndx_fut_delta_cdf");
         tablesNames.put(E1_BID_ASK_COUNTER_TABLE, "data.ndx_e1_bid_ask_counter_cdf");
-        tablesNames.put(CORR_15, "data.research_ndx_diffs_corr_mood_900");
-        tablesNames.put(CORR_60, "data.research_ndx_diffs_corr_mood_3600");
-        tablesNames.put(DE_CORR_15, "data.research_ndx_diffs_mood_900");
-        tablesNames.put(DE_CORR_60, "data.research_ndx_diffs_mood_3600");
         tablesNames.put(OP_AVG_240_CONITNUE_TABLE, "data.ndx_op_avg_day_240_continue");
         tablesNames.put(OP_AVG_DAY_5_TABLE, "data.ndx_op_avg_day_5");
         tablesNames.put(OP_AVG_DAY_60_TABLE, "data.ndx_op_avg_day_60");
-        tablesNames.put(CORR_MIX_CDF, "data.ndx_corr_mix_cdf");
-        tablesNames.put(DE_CORR_MIX_CDF, "data.ndx_de_corr_mix_cdf");
         tablesNames.put(DECISION_FUNCTION_TABLE, "data.ndx_decision_func");
+
+
+
+        // Ids
+
+//        serie_ids.put(INDEX_TABLE, 1);
+//        serie_ids.put(FUT_DAY_TABLE, 2);
+//        serie_ids.put(FUT_WEEK_TABLE, 14);
+//        serie_ids.put(FUT_MONTH_TABLE, 13);
+//        serie_ids.put(FUT_Q1_TABLE,11);
+//        serie_ids.put(FUT_Q2_TABLE, 12);
+//        serie_ids.put(OP_AVG_240_CONITNUE_TABLE, 112);
+//        serie_ids.put(OP_AVG_DAY_5_TABLE, 114);
+//        serie_ids.put(OP_AVG_DAY_60_TABLE, 113);
+//        serie_ids.put(DF_7_300, 54);
+//        serie_ids.put(DF_7_900, 54);
+//        serie_ids.put(DF_7_3600, 54);
+//        serie_ids.put(DF_7, 54);
+//
+//
+//        1011 NDX
+//        1012 SPX
+//
+//        304,ndx_7_300
+//        54,ndx_7_300
+//        306,ndx_7_3600
+//        56,ndx_7_3600
+//        55,ndx_7_900
+//        305,ndx_7_900
+//        49,ndx_7_speed_300
+//        299,ndx_7_speed_300
+//        300,ndx_7_speed_900
+//        50,ndx_7_speed_900
+//        40,ndx_d2d_diffs_mood_14400
+//        311,ndx_d2d_diffs_mood_14400
+//        41,ndx_d2d_diffs_mood_28800
+//        312,ndx_d2d_diffs_mood_28800
+//        24,ndx_df_1
+//        284,ndx_df_1
+//        285,ndx_df_2
+//        25,ndx_df_2
+//        26,ndx_df_3
+//        286,ndx_df_3
+//        27,ndx_df_4
+//        287,ndx_df_4
+//        28,ndx_df_5
+//        288,ndx_df_5
+//        289,ndx_df_6
+//        29,ndx_df_6
+//        30,ndx_df_7
+//        290,ndx_df_7
+//        291,ndx_df_8
+//        31,ndx_df_8
+//        310,ndx_diffs_mood_14400
+//        39,ndx_diffs_mood_14400
+//        36,ndx_diffs_mood_300
+//        307,ndx_diffs_mood_300
+//        38,ndx_diffs_mood_3600
+//        309,ndx_diffs_mood_3600
+//        308,ndx_diffs_mood_900
+//        37,ndx_diffs_mood_900
+//        45,ndx_diffs_mood_sum
+//        295,ndx_diffs_mood_sum
+//        2,ndx_futures_day
+//        11,ndx_futures_e1
+//        12,ndx_futures_e2
+//        13,ndx_futures_month
+//        14,ndx_futures_week
+//        1,ndx_index
+
+
     }
 
     @Override

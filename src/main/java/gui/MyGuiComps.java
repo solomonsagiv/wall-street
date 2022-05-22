@@ -69,7 +69,7 @@ public class MyGuiComps {
             getContentPane().setLayout(null);
             setLayout(null);
         }
-        
+
         protected void loadBounds() {
             new Thread(() -> {
                 try {

@@ -2,14 +2,12 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.MyTimeSeries;
 import dataBase.MyTick;
-import dataBase.MyTickTimeSerie;
 import dataBase.mySql.MySql;
 import dataBase.props.Prop;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
-import jibeDataGraber.DecisionsFunc;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import java.sql.ResultSet;
@@ -25,8 +23,6 @@ public abstract class IDataBaseHandler {
     public static final int INDEX_TABLE = 11;
     public static final int BASKETS_TABLE = 12;
     public static final int BID_ASK_COUNTER_TABLE = 13;
-    public static final int INDEX_RACES_TABLE = 14;
-    public static final int FUT_RACES_TABLE = 15;
     public static final int FUT_DAY_TABLE = 16;
     public static final int FUT_WEEK_TABLE = 17;
     public static final int FUT_MONTH_TABLE = 18;
@@ -42,15 +38,17 @@ public abstract class IDataBaseHandler {
     public static final int OP_AVG_240_CONITNUE_TABLE = 33;
     public static final int OP_AVG_DAY_60_TABLE = 35;
     public static final int OP_AVG_DAY_5_TABLE = 36;
-    public static final int CORR_15 = 37;
-    public static final int CORR_60 = 38;
-    public static final int DE_CORR_15 = 39;
-    public static final int DE_CORR_60 = 40;
-    public static final int CORR_MIX_CDF = 41;
-    public static final int DE_CORR_MIX_CDF = 42;
     public static final int DECISION_FUNCTION_TABLE = 44;
+    public static final int DF_7_300 = 45;
+    public static final int DF_7_900 = 46;
+    public static final int DF_7_3600 = 47;
+    public static final int DF_7 = 48;
+    public static final int DF_2 = 49;
+    public static final int DF_2_900 = 50;
+
 
     protected Map<Integer, String> tablesNames = new HashMap<>();
+    protected Map<Integer, Integer> serie_ids = new HashMap<>();
 
     protected BASE_CLIENT_OBJECT client;
     protected Exps exps;
@@ -119,51 +117,6 @@ public abstract class IDataBaseHandler {
                 int delta = (int) rs.getDouble("value");
                 E e = (E) exp;
                 e.setDelta(delta);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-    }
-
-    protected void grab_decisions() {
-        for (DecisionsFunc df : client.getDecisionsFuncHandler().getMap().values()) {
-            new Thread(() -> {
-                if (df.getSession_id() != 0 && df.getVersion() != 0) {
-                    df.setValue(handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id())));
-                } else if (df.getSingle_dec() != 0){
-                    df.setValue(handle_rs(MySql.Queries.get_last_record(df.getTable_location())));
-                } else {
-                    df.setValue(handle_rs(MySql.Queries.get_sum(df.getTable_location())));
-                }
-            }).start();
-        }
-    }
-
-    public void load_index_delta(ResultSet rs) {
-        while (true) {
-            try {
-                if (!rs.next()) break;
-
-                int value = rs.getInt(2);
-                client.getStocksHandler().setDelta(value);
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-    }
-
-    public void load_baskets(ResultSet rs) {
-
-        while (true) {
-            try {
-                if (!rs.next()) break;
-                double value = rs.getDouble("value");
-                if (value > 0) {
-                    client.getBasketFinder().add_basket_up();
-                } else if (value < 0) {
-                    client.getBasketFinder().add_basket_down();
-                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -239,22 +192,6 @@ public abstract class IDataBaseHandler {
                 throwables.printStackTrace();
             }
         }
-    }
-    
-    public static MyTickTimeSerie load_data_to_tick_list(ResultSet rs) {
-        MyTickTimeSerie list = new MyTickTimeSerie();
-        while (true) {
-            try {
-                if (!rs.next()) break;
-                Timestamp timestamp = rs.getTimestamp("time");
-                double value = rs.getDouble("value");
-                MyTick tick = new MyTick(timestamp.toLocalDateTime(), value);
-                list.add(tick);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-        return list;
     }
 
     public static void main(String[] args) {

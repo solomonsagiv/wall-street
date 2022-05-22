@@ -11,6 +11,14 @@ import java.time.LocalTime;
 
 public class MySql {
 
+    public static final String RAW = "RAW";
+    public static final String SUM = "SUM";
+    public static final String AVG_TODAY = "AVG_TODAY";
+    public static final String CDF = "CDF";
+    public static final String BY_ROWS = "BY_ROWS";
+    public static final String BY_TIME = "BY_TIME";
+
+
     public static void main(String[] args) throws SQLException {
 
         System.out.println(Queries.get_serie("data.research", 3, 117));
@@ -219,7 +227,7 @@ public class MySql {
     }
 
     public static class Queries {
-        public static final int step_second = 5;
+        public static final int step_second = 10;
 
         public static ResultSet op_query(String index_table, String fut_table) {
             String query = String.format("select sum(f.value - i.value), count(f.value - i.value) as value " +
@@ -318,19 +326,19 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet op_avg_by_rows(String index_table, String fut_table, int rows) {
-            String q = "select avg(op) as value\n" +
+        public static ResultSet op_avg_mega_table(int index_id, int fut_id) {
+            String q = "select avg(f.value - i.value) as value\n" +
                     "from (\n" +
-                    "         select f.value - i.value as op\n" +
-                    "         from %s i\n" +
-                    "                  inner join %s f on i.time = f.time\n" +
-                    "         order by i.time desc\n" +
-                    "         limit %s) a;";
+                    "         select *\n" +
+                    "         from %s\n" +
+                    "         where timeseries_id = %s\n" +
+                    "     ) i\n" +
+                    "         inner join (select * from %s where timeseries_id = %s) f on i.time = f.time\n" +
+                    "where %s;";
 
-            String query = String.format(q, index_table, fut_table, rows);
+            String query = String.format(q, "ts.timeseries_data", index_id, "ts.timeseries_data", fut_id, Filters.TODAY);
             return MySql.select(query);
         }
-
 
         public static ResultSet op_avg_cumulative(String index_table, String fut_table) {
             String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
@@ -338,37 +346,6 @@ public class MySql {
                     "inner join %s f " +
                     "on i.time = f.time " +
                     "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);", index_table, fut_table);
-            return MySql.select(query);
-        }
-
-//        public static ResultSet get_df() {
-//
-//        }
-//
-//        public static ResultSet get_last_record_df() {
-//
-//        }
-
-
-        public static ResultSet get_last_x_time_of_series(String table_name, int minuts) {
-            String q = "select * from %s where time > now() - interval '%s min' %s;";
-            String query = String.format(q, table_name, minuts, Filters.ORDER_BY_TIME);
-            return MySql.select(query);
-        }
-
-        public static ResultSet get_last_x_time_of_series_cumulative(String table_name, int minuts) {
-            String q = "select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value " +
-                    "from %s " +
-                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and time > now() - interval '%s min';";
-            String query = String.format(q, table_name, minuts, Filters.ORDER_BY_TIME);
-            return MySql.select(query);
-        }
-
-        public static ResultSet get_last_x_time_from_dec_func_cumulative(String table_location, int min, int session_id, int version) {
-            String q = "select time, sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value " +
-                    "from %s " +
-                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and time > now() - interval '%s min'  and session_id = %s and version = %s;";
-            String query = String.format(q, table_location, min, session_id, version);
             return MySql.select(query);
         }
 
@@ -383,69 +360,12 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet get_df_bar_serie(String table_location, int session_id, int version) {
-            String q = "select *\n" +
-                    "from %s\n" +
-                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
-                    "and session_id = %s\n" +
-                    "and version = %s;";
-            String query = String.format(q, table_location, session_id, version);
-            return MySql.select(query);
-        }
-
-
-        public static ResultSet get_research_serie(String table_location, int session_id, int version) {
-            String q = "select time,\n" +
-                    "       sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value\n" +
-                    "from %s\n" +
-                    "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
-                    "  and session_id = %s\n" +
-                    "  and version = %s;";
-            String query = String.format(q, table_location, session_id, version);
-            return MySql.select(query);
-        }
-
-
         public static ResultSet get_sum_from_df(String table_location, int version, int session_id) {
             String q = "select sum(delta) as value " +
                     "from %s " +
                     "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and session_id = %s and version = %s;";
             String query = String.format(q, table_location, session_id, version);
             System.out.println(query);
-            return MySql.select(query);
-        }
-
-        public static ResultSet op_avg_cumulative_query(String index_table, String fut_table, int min) {
-            String modulu = "%";
-            String q = "select * " +
-                    "from ( " +
-                    "select i.time, " +
-                    "avg(f.value - i.value) " +
-                    "over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value, " +
-                    "row_number() over (order by i.time) as row " +
-                    "from %s i " +
-                    "inner join %s f on i.time = f.time " +
-                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)) a " +
-                    "where row % 5 = 0;";
-            String query = String.format(q, min, index_table, fut_table, modulu, step_second);
-            return MySql.select(query);
-        }
-
-
-        public static ResultSet ta35_op_avg_with_bid_ask(String table_to_insert, String fut_table, int min, int step_seconds) {
-            String modulu = "%";
-            String q = "insert into %s" +
-                    "select * " +
-                    "from ( " +
-                    "select i.time, " +
-                    "avg(f.futures - ((i.bid + i.ask) / 2)) " +
-                    "over (ORDER BY i.time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value, " +
-                    "row_number() over (order by i.time)                                              as row " +
-                    "from data.ta35_index i " +
-                    "inner join %s f on i.time = f.time " +
-                    "where i.time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)) a " +
-                    "where row %s %s = 0;";
-            String query = String.format(q, table_to_insert, min, fut_table, modulu, step_seconds);
             return MySql.select(query);
         }
 
@@ -482,13 +402,127 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet cumulative_sum_query(String table_loc) {
-            String query = String.format("select time, sum(value) over (order by time) as value from %s " +
-                    "where %s;", table_loc, Filters.TODAY);
+
+        private static ResultSet op_avg_by_time_cdf_mega_table(int index_id, int fut_id, int min) {
+            String modulu = "%";
+
+            String q = "select time, value\n" +
+                    "from (\n" +
+                    "select time,\n" +
+                    "       avg(fut - ind) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value,\n" +
+                    "       row_number() over (order by time) as row\n" +
+                    "from (\n" +
+                    "         select i.time as time, i.value as ind, f.value as fut\n" +
+                    "         from (\n" +
+                    "                  select *\n" +
+                    "                  from %s\n" +
+                    "                  where timeseries_id = %s\n" +
+                    "              ) i\n" +
+                    "                  inner join (select * from %s where timeseries_id = %s) f on i.time = f.time\n" +
+                    "         where %s) a) b\n" +
+                    "where row %s %s = 0;";
+
+            String query = String.format(q, min, "ts.timeseries_data", index_id, "ts.timeseries_data", fut_id, Filters.TODAY, modulu, step_second);
             return MySql.select(query);
         }
 
-        public static ResultSet cumulative_sum_query_step_sec(String table_loc) {
+        private static ResultSet op_avg_by_row_cdf_mega_table(int index_id, int fut_id, int rows) {
+            String modulu = "%";
+
+            String q = "select time, value\n" +
+                    "from (\n" +
+                    "         select time, avg(op) over (ORDER BY row RANGE BETWEEN %s PRECEDING AND CURRENT ROW) as value, row\n" +
+                    "         from (\n" +
+                    "                  select i.time                              as time,\n" +
+                    "                         f.value - i.value                   as op,\n" +
+                    "                         row_number() over (order by i.time) as row\n" +
+                    "                  from (select * from %s where timeseries_id = %s) i\n" +
+                    "                           inner join (select * from %s where timeseries_id = %s) f on i.time = f.time\n" +
+                    "                  where i.time >= date_trunc('day', (select time::date\n" +
+                    "                                                     from %s\n" +
+                    "                                                     where timeseries_id = %s\n" +
+                    "                                                     group by time::date\n" +
+                    "                                                     order by time desc\n" +
+                    "                                                     limit 1))) a) b\n" +
+                    "where %s\n" +
+                    "  and row %s %s = 0\n" +
+                    "order by time;";
+
+            String query = String.format(q, rows, "ts.timeseries_data", index_id, "ts.timeseries_data", fut_id, "ts.timeseries_data", index_id, Filters.TODAY, modulu, step_second);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet get_op_avg(int index_id, int fut_id, String type, int rows_or_minutes) {
+            switch (type) {
+                case AVG_TODAY:
+                    return op_avg_mega_table(index_id, fut_id);
+                case BY_ROWS:
+                    return op_avg_by_row_cdf_mega_table(index_id, fut_id, rows_or_minutes);
+                case BY_TIME:
+                    return op_avg_by_time_cdf_mega_table(index_id, fut_id, rows_or_minutes);
+            }
+            return null;
+        }
+
+
+        public static ResultSet get_serie_mega_table(int serie_id, String type) {
+            switch (type) {
+                case RAW:
+                    return get_serie_raw_mega_table(serie_id);
+                case CDF:
+                    return get_serie_cdf_mega_table(serie_id);
+                case SUM:
+                    return get_sum_mega_table(serie_id);
+            }
+            return null;
+        }
+
+
+        private static ResultSet get_sum_mega_table(int serie_id) {
+            String q = "select * \n" +
+                    "from %s \n" +
+                    "where timeseries_id = %s \n" +
+                    "and %s;";
+            String query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY);
+            return MySql.select(query);
+        }
+
+        private static ResultSet get_serie_raw_mega_table(int serie_id) {
+
+            String modulu = "%";
+
+            String q = "select time, value\n" +
+                    "from (\n" +
+                    "         select time, value, row_number() over (order by time) as row\n" +
+                    "         from %s\n" +
+                    "         where timeseries_id = %s\n" +
+                    "           and %s) a\n" +
+                    "where row %s %s = 0;";
+
+            String query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, modulu, step_second);
+            return MySql.select(query);
+        }
+
+
+        private static ResultSet get_serie_cdf_mega_table(int serie_id) {
+
+            String modulu = "%";
+
+            String q = "select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value\n" +
+                    "from (\n" +
+                    "         select time, value, row_number() over (order by time) as row\n" +
+                    "         from %s\n" +
+                    "         where timeseries_id = %s\n" +
+                    "           and %s) a\n" +
+                    "where row %s %s = 0;";
+
+            String query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, modulu, step_second);
+            return MySql.select(query);
+        }
+
+
+        public static ResultSet cumulative_sum_query(String table_loc) {
             String query = String.format("select time, sum(value) over (order by time) as value from %s " +
                     "where %s;", table_loc, Filters.TODAY);
             return MySql.select(query);
@@ -512,27 +546,12 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet update_rates_query(String id_name, String exp_name, double interest, double dividend, double day_to_exp, double base) {
-            String query = String.format("select data.update_spx500_interest_rates(now()::date, '%s', '%s',%s, %s,%s , %s);",
-                    id_name, exp_name, interest, dividend, day_to_exp, base);
-            return MySql.select(query);
-        }
-
         public static ResultSet get_sum(String table_location) {
             String q = "select sum(value) as value from %s where %s;";
             String query = String.format(q, table_location, Filters.TODAY);
             return MySql.select(query);
         }
 
-        public static ResultSet cumulative_avg_from_cdf(String counter_table_location, int min) {
-            String q = "select sum.time as time, avg(sum.sum) over (ORDER BY time RANGE BETWEEN INTERVAL '%s min' PRECEDING AND CURRENT ROW) as value " +
-                    "from (" +
-                    "select time, sum(t.value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) " +
-                    "from %s t " +
-                    "where %s) sum;";
-            String query = String.format(q, min, counter_table_location, Filters.TODAY);
-            return MySql.select(query);
-        }
 
         public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, String exp_name) {
             String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, item)" +
@@ -553,17 +572,6 @@ public class MySql {
                 throwables.printStackTrace();
             }
 
-        }
-
-        public static ResultSet select_2_tables_on_same_time_no_millis(String index_table, String decsion_table, LocalDate date) {
-            String q = "select * " +
-                    "from %s df " +
-                    "inner join %s i " +
-                    "on date_trunc('second', df.time::timestamp) = date_trunc('second', i.time::timestamp) " +
-                    "where df.time::date = date'%s';";
-            String query = String.format(q, decsion_table, index_table, date);
-
-            return MySql.select(query);
         }
 
         public static double handle_rs(ResultSet rs) {
