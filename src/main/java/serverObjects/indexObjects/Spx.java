@@ -96,9 +96,9 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_8_3600, new DecisionsFunc(DecisionsFuncFactory.DF_8_3600, "data.research", false, 3, 12));
             map.put(DecisionsFuncFactory.DF_8_14400, new DecisionsFunc(DecisionsFuncFactory.DF_8_14400, "data.research", false, 3, 14));
 
-            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", false, 3, 121));
-            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", false, 3, 122));
-            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", false, 3, 123));
+            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", true, 3, 121));
+            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", true, 3, 122));
+            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", true, 3, 123));
 
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }

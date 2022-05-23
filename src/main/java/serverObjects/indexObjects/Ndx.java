@@ -95,9 +95,9 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             map.put(DecisionsFuncFactory.DF_8_300, new DecisionsFunc(DecisionsFuncFactory.DF_8_300, "data.research", false, 4, 52));
             map.put(DecisionsFuncFactory.DF_8_14400, new DecisionsFunc(DecisionsFuncFactory.DF_8_14400, "data.research", false, 4, 53));
 
-            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", false, 4, 127));
-            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", false, 4, 128));
-            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", false, 4, 129));
+            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", true, 4, 127));
+            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", true, 4, 128));
+            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", true, 4, 129));
             decisionsFuncHandler = new DecisionsFuncHandler(map);
         }
         return decisionsFuncHandler;
