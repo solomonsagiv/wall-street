@@ -628,13 +628,11 @@ public class MySql {
     }
 
     public static class Filters {
-
         public static final String ONE_OR_MINUS_ONE = "(value = 1 or value = -1)";
         public static final String BIGGER_OR_SMALLER_10K = "(value < 10000 or value > -10000)";
         public static final String TODAY = "time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)";
         public static final String ORDER_BY_TIME = "order by time";
         public static final String ORDER_BY_TIME_DESC = "order by time desc";
         public static final String ORDER_BY_TIME_DESC_LIMIT_1 = "order by time desc limit 1";
-
     }
 }

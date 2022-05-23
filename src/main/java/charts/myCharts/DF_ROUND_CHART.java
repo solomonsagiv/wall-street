@@ -7,6 +7,8 @@ import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
+import java.awt.*;
+
 public class DF_ROUND_CHART extends MyChartCreator {
 
     public static void main(String[] args) {
@@ -41,8 +43,11 @@ public class DF_ROUND_CHART extends MyChartCreator {
         // ------------------- Df 2 round -------------------- //
 
         // DF 2 round
-        MyTimeSeries df_2_round = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_1000_round, client, null);
-        df_2_round.setColor(Themes.PURPLE);
+        MyTimeSeries df_2_round = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_ROUND, client, null);
+
+        Color color = Themes.PURPLE;
+
+        df_2_round.setColor(color);
         df_2_round.setStokeSize(1.5f);
 
         series = new MyTimeSeries[1];
@@ -55,7 +60,7 @@ public class DF_ROUND_CHART extends MyChartCreator {
         // ------------------- Df 7 round -------------------- //
 
         // DF 2 round
-        MyTimeSeries df_7_round = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_1000_round, client, null);
+        MyTimeSeries df_7_round = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_ROUND, client, null);
         df_7_round.setColor(Themes.BLUE_2);
         df_7_round.setStokeSize(1.5f);
 

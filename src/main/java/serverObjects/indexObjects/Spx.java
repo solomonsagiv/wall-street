@@ -87,9 +87,9 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             Map<String, DecisionsFunc> map = new HashMap<>();
             map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.spx500_decision_func", true, 3, 508));
             map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.spx500_decision_func", true, 3, 507));
-            map.put(DecisionsFuncFactory.DF_7_1000_round, new DecisionsFunc(DecisionsFuncFactory.DF_7_1000_round, "data.spx500_decision_func", true, 3, 507));
+            map.put(DecisionsFuncFactory.DF_7_ROUND, new DecisionsFunc(DecisionsFuncFactory.DF_7_ROUND, "data.spx500_decision_func", true, 3, 507));
             map.put(DecisionsFuncFactory.DF_2, new DecisionsFunc(DecisionsFuncFactory.DF_2, "data.spx500_decision_func", true, 3, 502));
-            map.put(DecisionsFuncFactory.DF_2_1000_round, new DecisionsFunc(DecisionsFuncFactory.DF_2_1000_round, "data.spx500_decision_func", true, 3, 502));
+            map.put(DecisionsFuncFactory.DF_2_ROUND, new DecisionsFunc(DecisionsFuncFactory.DF_2_ROUND, "data.spx500_decision_func", true, 3, 502));
 
             map.put(DecisionsFuncFactory.DF_8_300, new DecisionsFunc(DecisionsFuncFactory.DF_8_300, "data.research", false, 3, 13));
             map.put(DecisionsFuncFactory.DF_8_900, new DecisionsFunc(DecisionsFuncFactory.DF_8_900, "data.research", false, 3, 11));

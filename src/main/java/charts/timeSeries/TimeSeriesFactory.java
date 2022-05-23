@@ -25,9 +25,9 @@ public class TimeSeriesFactory {
     public static final String FUTURE_DELTA = "FUTURE_DELTA";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
     public static final String DF_7 = "DF_7";
-    public static final String DF_7_1000_round = "DF_7_1000_round";
+    public static final String DF_7_ROUND = "DF_7_ROUND";
     public static final String DF_2 = "DF_2";
-    public static final String DF_2_1000_round = "DF_2_1000_round";
+    public static final String DF_2_ROUND = "DF_2_ROUND";
     public static final String DF_8 = "DF_8";
     public static final String DF_8_300 = "DF_8_300";
     public static final String DF_8_900 = "DF_8_900";
@@ -61,7 +61,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_2_1000_round:
+            case DF_2_ROUND:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -70,7 +70,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        double value = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2_1000_round).getValue();
+                        double value = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2_ROUND).getValue();
                         return (int) (value / 1000);
                     }
 
@@ -99,7 +99,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_7_1000_round:
+            case DF_7_ROUND:
                 return new MyTimeSeries(series_type, client) {
                     @Override
                     public ResultSet load_last_x_time(int minuts) {
@@ -108,7 +108,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        double value = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_1000_round).getValue();
+                        double value = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_ROUND).getValue();
                         return (int) (value / 1000);
                     }
 
