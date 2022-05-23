@@ -612,7 +612,7 @@ public class MySql {
 
             String modulu = "%";
 
-            String q = "select time, delta as value" +
+            String q = "select time, value " +
                     "from (\n" +
                     "select *, row_number() over (order by time) as row\n" +
                     "from %s\n" +
