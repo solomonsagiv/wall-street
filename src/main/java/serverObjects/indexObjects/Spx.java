@@ -126,8 +126,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
                     Thread.sleep(5000);
 
-                    Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
-                    full_chart_4.createChart();
+//                    Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
+//                    full_chart_4.createChart();
 
                     DF_ROUND_CHART df_round_chart = new DF_ROUND_CHART(this);
                     df_round_chart.createChart();
