@@ -350,13 +350,16 @@ public class MySql {
         }
 
         public static ResultSet get_df_serie(String table_location, int session_id, int version) {
-            String q = "select time,\n" +
-                    "       sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value\n" +
+            String modulu = "%";
+            String q = "select * from (\n" +
+                    "select time,\n" +
+                    "       sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
                     "from %s\n" +
                     "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
                     "  and session_id = %s\n" +
-                    "  and version = %s;";
-            String query = String.format(q, table_location, session_id, version);
+                    "  and version = %s) a\n" +
+                    "where row %s %s = 0;";
+            String query = String.format(q, table_location, session_id, version, modulu, step_second);
             return MySql.select(query);
         }
 
@@ -529,8 +532,12 @@ public class MySql {
         }
 
         public static ResultSet get_serie(String table_loc) {
-            String q = "select * from %s where %s %s;";
-            String query = String.format(q, table_loc, Filters.TODAY, Filters.ORDER_BY_TIME);
+            String modulu = "%";
+            String q = "select * from(" +
+                    "select *, row_number() over (order by time) as row" +
+                    " from %s where %s)a " +
+                    "where row %s %s = 0;";
+            String query = String.format(q, table_loc, Filters.TODAY, modulu, step_second);
             return MySql.select(query);
         }
 
