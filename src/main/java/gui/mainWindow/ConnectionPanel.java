@@ -149,6 +149,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         JOptionPane.showMessageDialog(null, exception.getCause());
                     }
                 }
+
+                // Stocks
+
+
             }
         });
     }

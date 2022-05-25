@@ -364,10 +364,13 @@ public class MySql {
         }
 
         public static ResultSet get_sum_from_df(String table_location, int version, int session_id) {
-            String q = "select sum(delta) as value " +
+
+            String val = table_location.contains("func") ? "delta" : "value";
+
+            String q = "select sum(%s) as value " +
                     "from %s " +
                     "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day) and session_id = %s and version = %s;";
-            String query = String.format(q, table_location, session_id, version);
+            String query = String.format(q, val, table_location, session_id, version);
             System.out.println(query);
             return MySql.select(query);
         }
