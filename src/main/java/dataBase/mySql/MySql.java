@@ -350,16 +350,18 @@ public class MySql {
         }
 
         public static ResultSet get_df_serie(String table_location, int session_id, int version) {
+            String val = table_location.contains("func") ? "delta" : "value";
+            
             String modulu = "%";
             String q = "select * from (\n" +
                     "select time,\n" +
-                    "       sum(delta) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
+                    "       sum(%s) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
                     "from %s\n" +
                     "where time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
                     "  and session_id = %s\n" +
                     "  and version = %s) a\n" +
                     "where row %s %s = 0;";
-            String query = String.format(q, table_location, session_id, version, modulu, step_second);
+            String query = String.format(q, val, table_location, session_id, version, modulu, step_second);
             return MySql.select(query);
         }
 
