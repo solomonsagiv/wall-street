@@ -25,8 +25,8 @@ public class DataUpdaterService extends MyBaseService {
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_300));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_900));
         df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_3600));
-
-//        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_14400));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_ROUND));
+        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2_ROUND));
     }
     
     @Override
@@ -44,7 +44,7 @@ public class DataUpdaterService extends MyBaseService {
         // DF N AVG
         df_n_avg();
     }
-    
+
     private void df_n_avg() {
         for (DecisionsFunc df : df_list) {
             try {

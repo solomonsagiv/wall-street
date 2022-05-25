@@ -214,7 +214,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_8_14400);
-                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion(), 20);
+                        ResultSet rs = MySql.Queries.get_df_serie("data.research", df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
@@ -234,11 +234,11 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_300);
-                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion(), 20);
+                        ResultSet rs = MySql.Queries.get_df_serie("data.research", df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-
+                
             case DF_7_900:
                 return new MyTimeSeries(series_type, client) {
                     @Override
@@ -254,7 +254,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         DecisionsFunc df = client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_900);
-                        ResultSet rs = MySql.Queries.get_serie("data.research", df.getSession_id(), df.getVersion(), 20);
+                        ResultSet rs = MySql.Queries.get_df_serie("data.research", df.getSession_id(), df.getVersion());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
