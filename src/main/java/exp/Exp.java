@@ -1,6 +1,5 @@
 package exp;
 
-import locals.L;
 import options.Options;
 import serverObjects.BASE_CLIENT_OBJECT;
 import tws.TwsContractsEnum;
@@ -22,6 +21,7 @@ public abstract class Exp {
 
     private double op_avg_5 = 0;
     private double op_avg_60 = 0;
+    private double op_avg = 0;
 
     protected BASE_CLIENT_OBJECT client;
     protected LocalDate expDate;
@@ -40,7 +40,6 @@ public abstract class Exp {
     List<Double> opFutList = new ArrayList<>();
 
     protected double op_avg_sum = 0;
-    protected int op_avg_sum_count = 0;
 
     protected Options options;
 
@@ -54,63 +53,9 @@ public abstract class Exp {
         this.options = new Options(client, this);
     }
 
-    public void add_op(double op) {
-        op_avg_sum += op;
-        op_avg_sum_count++;
-    }
-
-    public void add_op() {
-        op_avg_sum += future - client.getIndex();
-        op_avg_sum_count++;
-    }
-
-    public void set_op_avg(double sum, int sum_count) {
-        op_avg_sum = sum;
-        op_avg_sum_count = sum_count;
-    }
-
-    public double get_op_avg() {
-        return L.floor(op_avg_sum / (double) op_avg_sum_count, 100);
-    }
-
-    public double get_op_avg(int secondes) {
-        try {
-
-            // If op future list < seconds
-            if (secondes > opFutList.size() - 1) {
-                return get_op_avg();
-            }
-
-            double sum = 0;
-
-            for (int i = opFutList.size() - secondes; i < opFutList.size(); i++) {
-                sum += opFutList.get(i);
-            }
-
-            return L.floor(sum / secondes, 100);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
     public double get_op() {
         return future - client.getIndex();
     }
-
-    public void set_op_avg(double opAvg) {
-        // Op by sum count
-        int size = op_avg_sum_count;
-        op_avg_sum = opAvg * size;
-
-        // Op list
-        opFutList.clear();
-        for (int i = 0; i < opFutList.size(); i++) {
-            opFutList.add(opAvg);
-        }
-    }
-
-
 
     public LocalDate getExpDate() {
         return expDate;
@@ -124,6 +69,14 @@ public abstract class Exp {
         if (future > 1) {
             this.future = future;
         }
+    }
+
+    public double getOp_avg() {
+        return op_avg;
+    }
+
+    public void setOp_avg(double op_avg) {
+        this.op_avg = op_avg;
     }
 
     public double getContract_bid() {

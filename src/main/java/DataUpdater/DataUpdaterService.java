@@ -1,60 +1,76 @@
 package DataUpdater;
 
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
+import charts.timeSeries.TimeSeriesHandler;
 import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
 import exp.ExpStrings;
-import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
-
 import java.util.ArrayList;
 
 public class DataUpdaterService extends MyBaseService {
 
-    ArrayList<DecisionsFunc> df_list;
+    ArrayList<MyTimeSeries> time_series;
 
     public DataUpdaterService(BASE_CLIENT_OBJECT client) {
         super(client);
-        df_list = new ArrayList<>();
+        time_series = new ArrayList<>();
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300, client));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_900, client));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_3600, client));
 
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2));
-
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_300));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_900));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_3600));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_7_ROUND));
-        df_list.add(client.getDecisionsFuncHandler().get_decision_func(DecisionsFuncFactory.DF_2_ROUND));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_ROUND, client));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_ROUND, client));
     }
-    
+
     @Override
     public void go() {
 
-        String op_avg_5 = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_DAY_5_TABLE);
-        String op_avg_60 = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_DAY_60_TABLE);
-        String op_avg_240_continue = client.getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.OP_AVG_240_CONITNUE_TABLE);
+        int op_avg_5_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_5_TABLE);
+        int op_avg_60_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_60_TABLE);
+        int op_avg_240_continue_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_240_CONITNUE_TABLE);
+        int op_avg_day = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_TABLE);
+        int op_avg_week = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_TABLE);
+        int op_avg_month = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_MONTH_TABLE);
+        int op_avg_q1 = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_TABLE);
+        int op_avg_q2 = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_TABLE);
 
+
+        // Day
         Exp day = getClient().getExps().getExp(ExpStrings.day);
-        day.setOp_avg_5(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_5)));
-        day.setOp_avg_60(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_60)));
-        day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record(op_avg_240_continue)));
+        day.setOp_avg_5(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_5_id, MySql.RAW)));
+        day.setOp_avg_60(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_60_id, MySql.RAW)));
+        day.setOp_avg_240_continue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_240_continue_id, MySql.RAW)));
+        day.setOp_avg(op_avg_day);
+
+        // Week
+        Exp week = getClient().getExps().getExp(ExpStrings.week);
+        week.setOp_avg(op_avg_week);
+
+        // Month
+        Exp month = getClient().getExps().getExp(ExpStrings.month);
+        month.setOp_avg(op_avg_month);
+
+        // Q1
+        Exp q1 = getClient().getExps().getExp(ExpStrings.q1);
+        q1.setOp_avg(op_avg_q1);
+
+        // Q2
+        Exp q2 = getClient().getExps().getExp(ExpStrings.q2);
+        q2.setOp_avg(op_avg_q2);
 
         // DF N AVG
         df_n_avg();
     }
 
     private void df_n_avg() {
-        for (DecisionsFunc df : df_list) {
+        for (MyTimeSeries ts : time_series) {
             try {
-                if (df.isIs_cdf()) {
-                    double value = MySql.Queries.handle_rs(MySql.Queries.get_sum_from_df(df.getTable_location(), df.getVersion(), df.getSession_id()));
-                    df.setValue(value);
-                } else {
-                    double value = MySql.Queries.handle_rs(MySql.Queries.get_last_record(df.getTable_location(), df.getVersion(), df.getSession_id()));
-                    df.setValue(value);
-                }
+                ts.updateData();
             } catch (Exception e) {
                 e.printStackTrace();
             }

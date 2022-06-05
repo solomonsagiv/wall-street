@@ -6,7 +6,7 @@ public interface IBaseClient {
 
     ApiEnum getApi();
 
-    void initSeries();
+    void initSeries(BASE_CLIENT_OBJECT client);
 
     void openChartsOnStart();
 

@@ -42,7 +42,7 @@ public class Full_Chart_4 extends MyChartCreator {
         // ------------------- Index -------------------- //
 
         // Index
-        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
+        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client);
         indexSeries.setColor(Color.BLACK);
         indexSeries.setStokeSize(1.5f);
 
@@ -55,15 +55,15 @@ public class Full_Chart_4 extends MyChartCreator {
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
-        MyTimeSeries op_avg_5 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5_SERIES, client, null);
+        MyTimeSeries op_avg_5 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5_SERIES, client);
         op_avg_5.setColor(Themes.RED);
         op_avg_5.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60_SERIES, client, null);
+        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60_SERIES, client);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_240 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client, null);
+        MyTimeSeries op_avg_240 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client);
         op_avg_240.setColor(Themes.BINANCE_ORANGE);
         op_avg_240.setStokeSize(1.2f);
 
@@ -77,22 +77,22 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // ------------------- DF -------------------- //
         // DF 2
-        MyTimeSeries df_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client, null);
+        MyTimeSeries df_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client);
         df_2.setColor(Themes.ORANGE);
         df_2.setStokeSize(1.5f);
 
         // DF 7
-        MyTimeSeries df_7 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client, null);
+        MyTimeSeries df_7 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client);
         df_7.setColor(Themes.PURPLE);
         df_7.setStokeSize(1.5f);
 
         // DF 7 300
-        MyTimeSeries df_7_300 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300, client, null);
+        MyTimeSeries df_7_300 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300, client);
         df_7_300.setColor(Themes.RED);
         df_7_300.setStokeSize(1.5f);
 
         // DF 7 900
-        MyTimeSeries df_7_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_900, client, null);
+        MyTimeSeries df_7_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_900, client);
         df_7_900.setColor(Themes.RED);
         df_7_900.setStokeSize(1.5f);
 

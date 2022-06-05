@@ -12,16 +12,12 @@ import charts.myCharts.FuturesChartLong_300;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import exp.ExpStrings;
-import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
-import jibeDataGraber.DecisionsFuncHandler;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-import java.util.HashMap;
-import java.util.Map;
+import serverObjects.BASE_CLIENT_OBJECT;
 
 public class Ndx extends INDEX_CLIENT_OBJECT {
 
@@ -31,7 +27,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public Ndx() {
         setName("ndx");
         setId_name("ndx");
-        setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
+
         setBasketFinder(new BasketFinder_3(this, 80, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
@@ -42,6 +38,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public static Ndx getInstance() {
         if (client == null) {
             client = new Ndx();
+            client.setMySqlService(new MySqlService(client, new DataBaseHandler_Ndx(client)));
         }
         return client;
     }
@@ -81,29 +78,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public DecisionsFuncHandler getDecisionsFuncHandler() {
-        if (decisionsFuncHandler == null) {
-            Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.ndx_decision_func", true, 4, 608));
-            map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.ndx_decision_func", true, 4, 607));
-            map.put(DecisionsFuncFactory.DF_7_ROUND, new DecisionsFunc(DecisionsFuncFactory.DF_7_ROUND, "data.ndx_decision_func", true, 4, 607));
-            map.put(DecisionsFuncFactory.DF_2, new DecisionsFunc(DecisionsFuncFactory.DF_2, "data.ndx_decision_func", true, 4, 602));
-            map.put(DecisionsFuncFactory.DF_2_ROUND, new DecisionsFunc(DecisionsFuncFactory.DF_2_ROUND, "data.ndx_decision_func", true, 4, 602));
-
-            map.put(DecisionsFuncFactory.DF_8_900, new DecisionsFunc(DecisionsFuncFactory.DF_8_900, "data.research", false, 4, 50));
-            map.put(DecisionsFuncFactory.DF_8_3600, new DecisionsFunc(DecisionsFuncFactory.DF_8_3600, "data.research", false, 4, 51));
-            map.put(DecisionsFuncFactory.DF_8_300, new DecisionsFunc(DecisionsFuncFactory.DF_8_300, "data.research", false, 4, 52));
-            map.put(DecisionsFuncFactory.DF_8_14400, new DecisionsFunc(DecisionsFuncFactory.DF_8_14400, "data.research", false, 4, 53));
-
-            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", true, 4, 127));
-            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", true, 4, 128));
-            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", true, 4, 129));
-            decisionsFuncHandler = new DecisionsFuncHandler(map);
-        }
-        return decisionsFuncHandler;
-    }
-
-    @Override
     public void setIndex(double index) {
         super.setIndex(index);
     }
@@ -111,6 +85,11 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     @Override
     public ApiEnum getApi() {
         return ApiEnum.DDE;
+    }
+
+    @Override
+    public void initSeries(BASE_CLIENT_OBJECT client) {
+
     }
 
     @Override

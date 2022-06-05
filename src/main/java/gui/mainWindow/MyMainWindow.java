@@ -20,12 +20,10 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static Spx spx;
     static Ndx ndx;
-//    static Dax dax;
 
     static {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
-//        dax = Dax.getInstance();
     }
 
     // Variables
@@ -46,7 +44,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void appendClients() {
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(ndx);
-//        LocalHandler.clients.add(dax);
     }
     
     @Override

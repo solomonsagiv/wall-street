@@ -12,11 +12,11 @@ import java.time.LocalTime;
 public class MySql {
 
     public static final String RAW = "RAW";
-    public static final String SUM = "SUM";
     public static final String AVG_TODAY = "AVG_TODAY";
     public static final String CDF = "CDF";
     public static final String BY_ROWS = "BY_ROWS";
     public static final String BY_TIME = "BY_TIME";
+    public static final String FROM_TODAY = "FROM_TODAY";
 
 
     public static void main(String[] args) throws SQLException {
@@ -289,6 +289,21 @@ public class MySql {
             return MySql.select(query);
         }
 
+
+        public static ResultSet get_start_exp_mega(int index_id, String stock_id) {
+            String q = "select value\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "  and date_trunc('day', time) = (select data::date\n" +
+                    "                                 from sagiv.props\n" +
+                    "                                 where stock_id = '%s'\n" +
+                    "                                   and prop = 'EXP_Q1_START')\n" +
+                    "order by time limit 1;\n";
+
+            String query = String.format(q, index_id, stock_id);
+            return MySql.select(query);
+        }
+
         public static ResultSet op_avg_query(String index_table, String fut_table) {
             String query = String.format("select avg(f.value - i.value) as value " +
                     "from %s i " +
@@ -334,11 +349,16 @@ public class MySql {
                     "         where timeseries_id = %s\n" +
                     "     ) i\n" +
                     "         inner join (select * from %s where timeseries_id = %s) f on i.time = f.time\n" +
-                    "where %s;";
+                    "where i.%s;";
 
             String query = String.format(q, "ts.timeseries_data", index_id, "ts.timeseries_data", fut_id, Filters.TODAY);
+            System.out.println(query);
             return MySql.select(query);
         }
+
+
+
+
 
         public static ResultSet op_avg_cumulative(String index_table, String fut_table) {
             String query = String.format("select time, avg(f.value - i.value) over (order by i.time) as value " +
@@ -351,7 +371,7 @@ public class MySql {
 
         public static ResultSet get_df_serie(String table_location, int session_id, int version) {
             String val = table_location.contains("func") ? "delta" : "value";
-            
+
             String modulu = "%";
             String q = "select * from (\n" +
                     "select time,\n" +
@@ -461,18 +481,43 @@ public class MySql {
         }
 
 
-        public static ResultSet get_op_avg(int index_id, int fut_id, String type, int rows_or_minutes) {
+        public static ResultSet get_op_avg_mega(int index_id, int fut_id, String type) {
             switch (type) {
                 case AVG_TODAY:
                     return op_avg_mega_table(index_id, fut_id);
-                case BY_ROWS:
-                    return op_avg_by_row_cdf_mega_table(index_id, fut_id, rows_or_minutes);
-                case BY_TIME:
-                    return op_avg_by_time_cdf_mega_table(index_id, fut_id, rows_or_minutes);
             }
             return null;
         }
 
+        public static ResultSet get_last_record_mega(int serie_id, String type) {
+            switch (type) {
+                case RAW:
+                    return get_last_raw_record_mega(serie_id);
+                case CDF:
+                    return get_last_cdf_record_mega(serie_id);
+            }
+            return null;
+        }
+
+        private static ResultSet get_last_raw_record_mega(int serie_id) {
+            String q = "select *\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "and %s %s;";
+
+            String query = String.format(q, serie_id, Filters.TODAY, Filters.ORDER_BY_TIME_DESC_LIMIT_1);
+            return MySql.select(query);
+        }
+
+        private static ResultSet get_last_cdf_record_mega(int serie_id) {
+            String q = "select time, sum(value) as value\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "and %s %s;";
+
+            String query = String.format(q, serie_id, Filters.TODAY, Filters.ORDER_BY_TIME_DESC_LIMIT_1);
+            return MySql.select(query);
+        }
 
         public static ResultSet get_serie_mega_table(int serie_id, String type) {
             switch (type) {
@@ -480,21 +525,10 @@ public class MySql {
                     return get_serie_raw_mega_table(serie_id);
                 case CDF:
                     return get_serie_cdf_mega_table(serie_id);
-                case SUM:
-                    return get_sum_mega_table(serie_id);
             }
             return null;
         }
 
-
-        private static ResultSet get_sum_mega_table(int serie_id) {
-            String q = "select * \n" +
-                    "from %s \n" +
-                    "where timeseries_id = %s \n" +
-                    "and %s;";
-            String query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY);
-            return MySql.select(query);
-        }
 
         private static ResultSet get_serie_raw_mega_table(int serie_id) {
 

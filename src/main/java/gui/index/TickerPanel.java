@@ -7,7 +7,7 @@ import gui.panels.IMyPanel;
 import locals.L;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField highPresentField;
 
     public static void main(String[] args) {
-        IndexWindow window = new IndexWindow("Dax", Dax.getInstance());
+        IndexWindow window = new IndexWindow("Dax", Spx.getInstance());
     }
 
     public TickerPanel(BASE_CLIENT_OBJECT client) {
@@ -240,7 +240,7 @@ class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
             opField.colorBack(exp.get_op(), L.format10());
 
             if (exp.getOpFutList().size() > 0) {
-                opAvgField.colorForge(exp.get_op_avg(), L.format100());
+                opAvgField.colorForge(exp.getOp_avg(), L.format100());
             }
 
         } catch (Exception e) {

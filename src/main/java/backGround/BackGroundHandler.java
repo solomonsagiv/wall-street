@@ -95,7 +95,6 @@ public class BackGroundHandler {
                     //  Index end time ( Close runners )
                     if (now.isAfter(client.getIndexEndTime()) && !runnersClosed) {
                         client.getMyServiceHandler().removeService(client.getMySqlService());
-                        client.getMyServiceHandler().removeService(client.getListsService());
                         try {
                             client.getDdeHandler().getDdeReaderThread().getHandler().close();
                             client.getDdeHandler().getDdeWriterThread().getHandler().close();

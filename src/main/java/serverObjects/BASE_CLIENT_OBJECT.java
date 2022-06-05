@@ -6,16 +6,13 @@ import DataUpdater.DataUpdaterService;
 import IDDE.DDEHandler;
 import api.Manifest;
 import baskets.BasketFinder_3;
+import charts.timeSeries.TimeSeriesHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.props.Props;
 import exp.E;
 import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
-import jibeDataGraber.BidAskCounterGrabberService;
-import jibeDataGraber.DecisionsFuncHandler;
-import jibeDataGraber.TickSpeedService;
-import lists.ListsService;
 import locals.L;
 import locals.LocalHandler;
 import roll.RollEnum;
@@ -24,6 +21,7 @@ import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
 import stocksHandler.stocksDelta.StocksDeltaService;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -55,15 +53,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     // Stocks delta
     StocksDeltaService stocksDeltaService;
 
-    // Decision funcs service
-    protected TickSpeedService tickSpeedService;
-    protected BidAskCounterGrabberService bidAskCounterGrabberService;
-
     // Roll
     protected RollHandler rollHandler;
-
-    // Decision func handler
-    protected DecisionsFuncHandler decisionsFuncHandler;
 
     // Basic
     protected double index = 0;
@@ -78,7 +69,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private BasketFinder_3 basketFinder;
 
     // Services
-    ListsService listsService;
     MySqlService mySqlService;
     DataUpdaterService dataUpdaterService;
 
@@ -89,6 +79,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime indexStartTime;
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
+
+    TimeSeriesHandler timeSeriesHandler;
 
     // Position
     private ArrayList<MyThread> threads = new ArrayList<>();
@@ -118,10 +110,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
             LocalHandler.clients.add(this);
 
             // Call subClasses abstract functions
-            initSeries();
+            initSeries(this);
 
             // MyServices
-            listsService = new ListsService(this);
             stocksHandler = new StocksHandler(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,11 +138,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         setStarted(false);
     }
 
-    // ---------- basic functions ---------- //
-    @Override
-    public void initSeries() {
-
-    }
+    // ---------- BASIC FUNCTIONS ---------- //
 
     @Override
     public void initExpHandler() {
@@ -234,7 +221,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "High: " + high + "\n";
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
-        text += "OP avg: " + L.format100(getExps().getMainExp().get_op_avg()) + "\n";
+        text += "OP avg: " + L.format100(getExps().getMainExp().getOp_avg()) + "\n";
         try {
             text += "Roll: " + L.floor(getRollHandler().getRoll(RollEnum.E1_E2).getAvg(), 100) + "\n";
         } catch (Exception e) {
@@ -255,11 +242,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         }
 
         return true;
-    }
-
-
-    public DecisionsFuncHandler getDecisionsFuncHandler() {
-        return decisionsFuncHandler;
     }
 
     public void setLoadFromDb(boolean loadFromDb) {
@@ -386,16 +368,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return strikeMargin;
     }
 
-    public BidAskCounterGrabberService getBidAskCounterGrabberService() {
-        return bidAskCounterGrabberService;
-    }
-
     public void setStrikeMargin(double strikeMargin) {
         this.strikeMargin = strikeMargin;
-    }
-
-    public ListsService getListsService() {
-        return listsService;
     }
 
     public void setMySqlService(MySqlService mySqlService) {
@@ -509,10 +483,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.index_pre_start_time = index_pre_start_time;
     }
 
-    public TickSpeedService getTickSpeedService() {
-        return tickSpeedService;
-    }
-
     public String getExcel_path() {
         return excel_path;
     }
@@ -565,6 +535,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.indBidMarginCounter = indBidMarginCounter;
     }
 
+    public TimeSeriesHandler getTimeSeriesHandler() {
+        return timeSeriesHandler;
+    }
+
+    public void setTimeSeriesHandler(TimeSeriesHandler timeSeriesHandler) {
+        this.timeSeriesHandler = timeSeriesHandler;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
@@ -587,7 +565,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
                 ", low=" + low +
                 ", base=" + base +
                 ", indexBidAskMargin=" + indexBidAskMargin +
-                ", listsService=" + listsService +
                 ", mySqlService=" + mySqlService +
                 ", racesMargin=" + getRacesMargin() +
                 '}';

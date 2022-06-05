@@ -1,11 +1,13 @@
 package dataBase.mySql.dataUpdaters;
 
 import api.Manifest;
+import charts.timeSeries.TimeSeriesHandler;
 import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -53,13 +55,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Update lists retro
         if (sleep_count % 15000 == 0) {
             updateListsRetro();
-        }
-
-        // Insert tick speed
-        if (sleep_count % 60000 == 0) {
-            String fut_table_location = tablesNames.get(FUT_Q1_TABLE);
-            String fut_tick_speed_table_location = tablesNames.get(FUT_E1_TICK_SPEED);
-            insert_batch_data(tick_logic(load_uncalced_tick_speed_time(fut_table_location, fut_tick_speed_table_location)), fut_tick_speed_table_location);
         }
 
         // On changed data
@@ -116,7 +111,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             }
         }
 
-
         // Fut week
         double fut_week = week.get_future();
 
@@ -132,8 +126,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             fut_month_0 = fut_month;
             fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
         }
-
-
     }
 
     @Override
@@ -145,11 +137,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         Exp q1 = exps.getExp(ExpStrings.q1);
         Exp q2 = exps.getExp(ExpStrings.q2);
 
-        load_op_avg(day, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_DAY_TABLE)));
-        load_op_avg(week, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_WEEK_TABLE)));
-        load_op_avg(month, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_MONTH_TABLE)));
-        load_op_avg(q1, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q1_TABLE)));
-        load_op_avg(q2, MySql.Queries.op_query(tablesNames.get(INDEX_TABLE), tablesNames.get(FUT_Q2_TABLE)));
+        load_op_avg(day, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_DAY_TABLE), MySql.AVG_TODAY));
+        load_op_avg(week, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_WEEK_TABLE), MySql.AVG_TODAY));
+        load_op_avg(month, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_MONTH_TABLE), MySql.AVG_TODAY));
+        load_op_avg(q1, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_Q1_TABLE), MySql.AVG_TODAY));
+        load_op_avg(q2, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_Q2_TABLE), MySql.AVG_TODAY));
 
         try {
             // Load props
@@ -166,74 +158,37 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     @Override
     public void initTablesNames() {
-        tablesNames.put(INDEX_TABLE, "data.spx500_index");
-        tablesNames.put(FUT_E1_TICK_SPEED, "data.spx500_fut_e1_tick_speed");
-        tablesNames.put(INDEX_BID_TABLE, "data.spx500_index_bid");
-        tablesNames.put(INDEX_ASK_TABLE, "data.spx500_index_ask");
-        tablesNames.put(OP_AVG_DAY_TABLE, "sagiv.spx500_op_avg_day");
-        tablesNames.put(BID_ASK_COUNTER_TABLE, "data.spx500_index_bid_ask_counter_cdf");
-        tablesNames.put(FUT_DAY_TABLE, "data.spx500_fut_day");
-        tablesNames.put(FUT_WEEK_TABLE, "data.spx500_fut_week");
-        tablesNames.put(FUT_MONTH_TABLE, "data.spx500_fut_month");
-        tablesNames.put(FUT_Q1_TABLE, "data.spx500_fut_e1");
-        tablesNames.put(FUT_Q2_TABLE, "data.spx500_fut_e2");
-        tablesNames.put(FUT_DELTA_TABLE, "data.spx500_fut_delta_cdf");
-        tablesNames.put(E1_BID_ASK_COUNTER_TABLE, "data.spx500_e1_bid_ask_counter_cdf");
-        tablesNames.put(OP_AVG_240_CONITNUE_TABLE, "data.spx500_op_avg_day_240_continue");
-        tablesNames.put(OP_AVG_DAY_5_TABLE, "data.spx500_op_avg_day_5");
-        tablesNames.put(OP_AVG_DAY_60_TABLE, "data.spx500_op_avg_day_60");
-        tablesNames.put(DECISION_FUNCTION_TABLE, "data.spx500_decision_func");
-
-
-
+        serie_ids.put(TimeSeriesHandler.INDEX_TABLE, 3);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_TABLE, 16);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_TABLE, 15);
+        serie_ids.put(TimeSeriesHandler.FUT_DAY_TABLE, 4);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK_TABLE, 20);
+        serie_ids.put(TimeSeriesHandler.FUT_MONTH_TABLE, 19);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1_TABLE, 17);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2_TABLE, 18);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE_TABLE, 117);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5_TABLE, 116);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60_TABLE, 115);
+        serie_ids.put(TimeSeriesHandler.DF_7, 1028);
+        serie_ids.put(TimeSeriesHandler.DF_7_300, 1042);
+        serie_ids.put(TimeSeriesHandler.DF_7_900, 1043);
+        serie_ids.put(TimeSeriesHandler.DF_2, 1023);
+        serie_ids.put(TimeSeriesHandler.BASKETS_TABLE, 1418);
     }
 
     @Override
     protected void open_chart_on_start() {
-        // todo
+
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_timestamp, tablesNames.get(INDEX_TABLE));
-        insertListRetro(index_bid_timestamp, tablesNames.get(INDEX_BID_TABLE));
-        insertListRetro(index_ask_timestamp, tablesNames.get(INDEX_ASK_TABLE));
-        insertListRetro(fut_day_timeStamp, tablesNames.get(FUT_DAY_TABLE));
-        insertListRetro(fut_week_timeStamp, tablesNames.get(FUT_WEEK_TABLE));
-        insertListRetro(fut_month_timeStamp, tablesNames.get(FUT_MONTH_TABLE));
-        insertListRetro(fut_e1_timeStamp, tablesNames.get(FUT_Q1_TABLE));
-        insertListRetro(fut_e2_timeStamp, tablesNames.get(FUT_Q2_TABLE));
+        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_TABLE));
+        insertListRetro(index_bid_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_TABLE));
+        insertListRetro(index_ask_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_TABLE));
+        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY_TABLE));
+        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK_TABLE));
+        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH_TABLE));
+        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_TABLE));
+        insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_TABLE));
     }
 }
-
-
-//
-//    // Ind bid ask counter
-//    int ind_bid_ask_counter = client.getIndexBidAskCounter();
-//
-//        if (ind_bid_ask_counter != index_bid_ask_counter_0) {
-//                double last_count = ind_bid_ask_counter - index_bid_ask_counter_0;
-//                index_bid_ask_counter_0 = ind_bid_ask_counter;
-//                if (last_count <= 1 || last_count >= -1) {
-//                ind_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-//                }
-//                }
-//
-//                // Future bid ask counter
-//                int fut_bid_ask_counter = client.getIndexBidAskCounter();
-//
-//                if (fut_bid_ask_counter != fut_bid_ask_counter_0) {
-//                double last_count = fut_bid_ask_counter - fut_bid_ask_counter_0;
-//                fut_bid_ask_counter_0 = fut_bid_ask_counter;
-//                if (last_count <= 1 || last_count >= -1) {
-//                fut_bid_ask_counter_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-//                }
-//                }
-//
-//                // Delta
-//                double fut_delta = q1.getDelta();
-//
-//                if (fut_delta != fut_delta_0) {
-//                double last_count = fut_delta - fut_delta_0;
-//                fut_delta_0 = fut_delta;
-//                fut_delta_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-//                }

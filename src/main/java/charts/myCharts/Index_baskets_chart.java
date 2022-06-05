@@ -36,7 +36,7 @@ public class Index_baskets_chart extends MyChartCreator {
         // --------- Index ---------- //
 
         // Index
-        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, null);
+        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client);
         index.setStokeSize(1.5f);
         index.setColor(Color.BLACK);
 
@@ -48,7 +48,7 @@ public class Index_baskets_chart extends MyChartCreator {
 
         // ---------- Baskets ---------- //
         // Index
-        MyTimeSeries baskets = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_SERIES, client, null);
+        MyTimeSeries baskets = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_SERIES, client);
         baskets.setColor(Themes.PURPLE);
         baskets.setStokeSize(1.5f);
 

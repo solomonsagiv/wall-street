@@ -10,17 +10,13 @@ import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_300;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.ExpStrings;
-import jibeDataGraber.*;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
 import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
-
-import java.util.HashMap;
-import java.util.Map;
+import serverObjects.BASE_CLIENT_OBJECT;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
@@ -35,8 +31,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDataUpdaterService(new DataUpdaterService(this));
 
         roll();
-        tickSpeedService = new TickSpeedService(this, getMySqlService().getDataBaseHandler().get_table_loc(IDataBaseHandler.FUT_E1_TICK_SPEED));
-        bidAskCounterGrabberService = new BidAskCounterGrabberService(this);
     }
 
     // get instance
@@ -82,30 +76,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     }
 
     @Override
-    public DecisionsFuncHandler getDecisionsFuncHandler() {
-        if (decisionsFuncHandler == null) {
-            Map<String, DecisionsFunc> map = new HashMap<>();
-            map.put(DecisionsFuncFactory.DF_8, new DecisionsFunc(DecisionsFuncFactory.DF_8, "data.spx500_decision_func", true, 3, 508));
-            map.put(DecisionsFuncFactory.DF_7, new DecisionsFunc(DecisionsFuncFactory.DF_7, "data.spx500_decision_func", true, 3, 507));
-            map.put(DecisionsFuncFactory.DF_7_ROUND, new DecisionsFunc(DecisionsFuncFactory.DF_7_ROUND, "data.spx500_decision_func", true, 3, 507));
-            map.put(DecisionsFuncFactory.DF_2, new DecisionsFunc(DecisionsFuncFactory.DF_2, "data.spx500_decision_func", true, 3, 502));
-            map.put(DecisionsFuncFactory.DF_2_ROUND, new DecisionsFunc(DecisionsFuncFactory.DF_2_ROUND, "data.spx500_decision_func", true, 3, 502));
-
-            map.put(DecisionsFuncFactory.DF_8_300, new DecisionsFunc(DecisionsFuncFactory.DF_8_300, "data.research", false, 3, 13));
-            map.put(DecisionsFuncFactory.DF_8_900, new DecisionsFunc(DecisionsFuncFactory.DF_8_900, "data.research", false, 3, 11));
-            map.put(DecisionsFuncFactory.DF_8_3600, new DecisionsFunc(DecisionsFuncFactory.DF_8_3600, "data.research", false, 3, 12));
-            map.put(DecisionsFuncFactory.DF_8_14400, new DecisionsFunc(DecisionsFuncFactory.DF_8_14400, "data.research", false, 3, 14));
-
-            map.put(DecisionsFuncFactory.DF_7_300, new DecisionsFunc(DecisionsFuncFactory.DF_7_300, "data.research", true, 3, 121));
-            map.put(DecisionsFuncFactory.DF_7_900, new DecisionsFunc(DecisionsFuncFactory.DF_7_900, "data.research", true, 3, 122));
-            map.put(DecisionsFuncFactory.DF_7_3600, new DecisionsFunc(DecisionsFuncFactory.DF_7_3600, "data.research", true, 3, 123));
-
-            decisionsFuncHandler = new DecisionsFuncHandler(map);
-        }
-        return decisionsFuncHandler;
-    }
-
-    @Override
     public void setIndex(double index) {
         super.setIndex(index);
     }
@@ -113,6 +83,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     @Override
     public ApiEnum getApi() {
         return ApiEnum.DDE;
+    }
+
+    @Override
+    public void initSeries(BASE_CLIENT_OBJECT client) {
+
     }
 
     @Override

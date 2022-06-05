@@ -14,4 +14,9 @@ public class BITCOIN_CLIENT extends BASE_CLIENT_OBJECT {
     public ApiEnum getApi() {
         return ApiEnum.DDE;
     }
+
+    @Override
+    public void initSeries(BASE_CLIENT_OBJECT client) {
+
+    }
 }

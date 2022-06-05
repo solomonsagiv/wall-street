@@ -2,11 +2,10 @@ package arik.alerts;
 
 import arik.Arik;
 import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Spx_Ndx_1000_Algo extends ArikAlgoAlert {
 
@@ -23,11 +22,11 @@ public class Spx_Ndx_1000_Algo extends ArikAlgoAlert {
         ndx = Ndx.getInstance();
         this.df_list = new ArrayList<>();
         
-        Map<String, DecisionsFunc> spx_list =  spx.getDecisionsFuncHandler().getMap();
-        Map<String, DecisionsFunc> ndx_list =  ndx.getDecisionsFuncHandler().getMap();
-
-        df_list.add(spx_list.get(DecisionsFuncFactory.DF_7));
-        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_7));
+//        Map<String, DecisionsFunc> spx_list =  spx.getDecisionsFuncHandler().getMap();
+//        Map<String, DecisionsFunc> ndx_list =  ndx.getDecisionsFuncHandler().getMap();
+//
+//        df_list.add(spx_list.get(DecisionsFuncFactory.DF_7));
+//        df_list.add(ndx_list.get(DecisionsFuncFactory.DF_7));
     }
 
     @Override

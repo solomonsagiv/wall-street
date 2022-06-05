@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesHandler;
 import dataBase.MyTick;
 import dataBase.mySql.MySql;
 import dataBase.props.Prop;
@@ -20,34 +21,6 @@ import java.util.Map;
 
 public abstract class IDataBaseHandler {
 
-    public static final int INDEX_TABLE = 11;
-    public static final int BASKETS_TABLE = 12;
-    public static final int BID_ASK_COUNTER_TABLE = 13;
-    public static final int FUT_DAY_TABLE = 16;
-    public static final int FUT_WEEK_TABLE = 17;
-    public static final int FUT_MONTH_TABLE = 18;
-    public static final int FUT_Q1_TABLE = 19;
-    public static final int FUT_Q2_TABLE = 20;
-    public static final int INDEX_BID_TABLE = 21;
-    public static final int INDEX_ASK_TABLE = 22;
-    public static final int OP_AVG_DAY_TABLE = 23;
-    public static final int INDEX_DELTA_TABLE = 25;
-    public static final int FUT_E1_TICK_SPEED = 26;
-    public static final int FUT_DELTA_TABLE = 27;
-    public static final int E1_BID_ASK_COUNTER_TABLE = 28;
-    public static final int OP_AVG_240_CONITNUE_TABLE = 33;
-    public static final int OP_AVG_DAY_60_TABLE = 35;
-    public static final int OP_AVG_DAY_5_TABLE = 36;
-    public static final int DECISION_FUNCTION_TABLE = 44;
-    public static final int DF_7_300 = 45;
-    public static final int DF_7_900 = 46;
-    public static final int DF_7_3600 = 47;
-    public static final int DF_7 = 48;
-    public static final int DF_2 = 49;
-    public static final int DF_2_900 = 50;
-
-
-    protected Map<Integer, String> tablesNames = new HashMap<>();
     protected Map<Integer, Integer> serie_ids = new HashMap<>();
 
     protected BASE_CLIENT_OBJECT client;
@@ -64,30 +37,12 @@ public abstract class IDataBaseHandler {
 
     public abstract void initTablesNames();
 
-    public String get_table_loc(int target_table) {
-        return tablesNames.get(target_table);
-    }
-
-    public String get_table_loc(String target_table) {
-        if (target_table.equals(ExpStrings.day)) {
-            return tablesNames.get(FUT_DAY_TABLE);
-        } else if (target_table.equals(ExpStrings.week)) {
-            return tablesNames.get(FUT_WEEK_TABLE);
-        } else if (target_table.equals(ExpStrings.month)) {
-            return tablesNames.get(FUT_MONTH_TABLE);
-        } else if (target_table.equals(ExpStrings.q1)) {
-            return tablesNames.get(FUT_Q1_TABLE);
-        } else if (target_table.equals(ExpStrings.q2)) {
-            return tablesNames.get(FUT_Q2_TABLE);
-        }
-        return "No table call: " + target_table;
-    }
 
     protected void load_exp_data() {
         try {
             // START
-            String index_table = get_table_loc(INDEX_TABLE);
-            double start_exp = MySql.Queries.handle_rs(MySql.Queries.get_exp_start(index_table, client.getId_name()));
+            int index_table = serie_ids.get(TimeSeriesHandler.INDEX_TABLE);
+            double start_exp = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_table, client.getId_name()));
             client.getExps().getExp(ExpStrings.q1).setStart(start_exp);
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,10 +52,9 @@ public abstract class IDataBaseHandler {
     public void load_op_avg(Exp exp, ResultSet rs) {
         // Day
         try {
-            if (  rs.next()) {
-                double sum = rs.getDouble(1);
-                int sum_count = rs.getInt(2);
-                exp.set_op_avg(sum, sum_count);
+            if (rs.next()) {
+                double value = rs.getDouble("value");
+                exp.setOp_avg(value);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -132,12 +86,12 @@ public abstract class IDataBaseHandler {
 
         while (true) {
             String props_name = "";
-            Object data = null ;
+            Object data = null;
 
             try {
                 if (!rs.next()) break;
-                 props_name = rs.getString("prop");
-                 data = rs.getObject("data");
+                props_name = rs.getString("prop");
+                data = rs.getObject("data");
 
                 System.out.println(props_name + "  " + data);
 
@@ -229,22 +183,22 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    void insertListRetro(ArrayList<MyTimeStampObject> list, String table_location) {
+    void insertListRetro(ArrayList<MyTimeStampObject> list, int timeseries_id) {
         if (list.size() > 0) {
 
             // Create the query
-            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value) VALUES ");
+            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value, timeseries_id) VALUES ");
             int last_item_id = list.get(list.size() - 1).hashCode();
             for (MyTimeStampObject row : list) {
-                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", row.getInstant(), row.getValue()));
+                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", row.getInstant(), row.getValue(), timeseries_id));
                 if (row.hashCode() != last_item_id) {
                     queryBuiler.append(",");
                 }
             }
             queryBuiler.append(";");
 
-            String q = String.format(queryBuiler.toString(), table_location);
-            
+            String q = String.format(queryBuiler.toString(), "ts.timeseries_data", timeseries_id);
+
             // Insert
             MySql.insert(q);
 
@@ -331,4 +285,7 @@ public abstract class IDataBaseHandler {
 
     protected abstract void open_chart_on_start();
 
+    public Map<Integer, Integer> getSerie_ids() {
+        return serie_ids;
+    }
 }

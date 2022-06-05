@@ -7,10 +7,7 @@ import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.awt.*;
-import java.net.UnknownHostException;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class FuturesChartLong_300 extends MyChartCreator {
@@ -44,14 +41,15 @@ public class FuturesChartLong_300 extends MyChartCreator {
         // ----- Chart 1 ----- //
         // Index
         MyTimeSeries index = new MyTimeSeries("Index", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
 
             @Override
             public double getData() {
                 return client.getIndex();
+            }
+
+            @Override
+            public void updateData() {
+
             }
 
             @Override
@@ -64,14 +62,15 @@ public class FuturesChartLong_300 extends MyChartCreator {
 
         // Bid
         MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
 
             @Override
             public double getData() {
                 return client.getIndexBid();
+            }
+
+            @Override
+            public void updateData() {
+
             }
 
             @Override
@@ -84,14 +83,15 @@ public class FuturesChartLong_300 extends MyChartCreator {
 
         // Ask
         MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
-            @Override
-            public ResultSet load_last_x_time(int minuts) {
-                return null;
-            }
 
             @Override
             public double getData() {
                 return client.getIndexAsk();
+            }
+
+            @Override
+            public void updateData() {
+
             }
 
             @Override
@@ -115,14 +115,15 @@ public class FuturesChartLong_300 extends MyChartCreator {
         for (Exp exp : exps.getExpList()) {
 
             MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client) {
+
                 @Override
-                public ResultSet load_last_x_time(int minuts) {
-                    return null;
+                public double getData() {
+                    return exp.get_future();
                 }
 
                 @Override
-                public double getData() throws UnknownHostException {
-                    return exp.get_future();
+                public void updateData() {
+
                 }
 
                 @Override

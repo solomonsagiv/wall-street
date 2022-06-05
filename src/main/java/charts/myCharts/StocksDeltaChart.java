@@ -39,7 +39,7 @@ public class StocksDeltaChart extends MyChartCreator {
         marker.setStroke(new BasicStroke(2f));
 
         // -------- Index bid ask counter -------- //
-        MyTimeSeries stocks_delta_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STOCKS_DELTA_SERIES, client, null);
+        MyTimeSeries stocks_delta_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STOCKS_DELTA_SERIES, client);
         stocks_delta_serie.setColor(Themes.LIFGT_BLUE_2);
         stocks_delta_serie.setStokeSize(1.5f);
 

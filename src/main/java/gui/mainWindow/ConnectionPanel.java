@@ -11,8 +11,6 @@ import gui.MyGuiComps;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Apple;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
@@ -87,14 +85,8 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     case "SPX":
                         client = Spx.getInstance();
                         break;
-                    case "DAX":
-                        client = Dax.getInstance();
-                        break;
                     case "NDX":
                         client = Ndx.getInstance();
-                        break;
-                    case "APPLE":
-                        client = Apple.getInstance();
                         break;
                     default:
                         client = Spx.getInstance();
@@ -225,18 +217,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 // Spx
             } else if (clientComboBox.getSelectedItem().equals("SPX")) {
                 registerClient(Spx.getInstance());
-                // Dax
-            } else if (clientComboBox.getSelectedItem().equals("DAX")) {
-                registerClient(Dax.getInstance());
             }  // Ndx
             else if (clientComboBox.getSelectedItem().equals("NDX")) {
                 registerClient(Ndx.getInstance());
             }
-            // Apple
-            else if (clientComboBox.getSelectedItem().equals("APPLE")) {
-                registerClient(Apple.getInstance());
-            }
-
             ddeStatusLbl.setForeground(Themes.GREEN);
         } catch (
                 Exception e) {

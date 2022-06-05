@@ -2,10 +2,9 @@ package arik.alerts;
 
 import arik.Arik;
 import jibeDataGraber.DecisionsFunc;
-import jibeDataGraber.DecisionsFuncFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Plus_Minus_Algo extends ArikAlgoAlert {
 
@@ -18,9 +17,9 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         this.target_price_for_exit_position = 0;
         this.df_list = new ArrayList<>();
 
-        Map<String, DecisionsFunc> df_map = client.getDecisionsFuncHandler().getMap();
+//        Map<String, MyTimeSeries> df_map = client.getTimeSeriesHandler().getMap();
 
-        df_list.add(df_map.get(DecisionsFuncFactory.DF_7));
+//        df_list.add(df_map.get(DecisionsFuncFactory.DF_7));
     }
 
     @Override
