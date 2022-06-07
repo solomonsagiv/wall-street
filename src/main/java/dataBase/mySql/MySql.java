@@ -535,12 +535,12 @@ public class MySql {
         }
 
         private static ResultSet get_last_cdf_record_mega(int serie_id) {
-            String q = "select time, sum(value) as value\n" +
+            String q = "select sum(value) as value\n" +
                     "from ts.timeseries_data\n" +
                     "where timeseries_id = %s\n" +
-                    "and %s %s;";
+                    "and %s;";
 
-            String query = String.format(q, serie_id, Filters.TODAY, Filters.ORDER_BY_TIME_DESC_LIMIT_1);
+            String query = String.format(q, serie_id, Filters.TODAY);
             return MySql.select(query);
         }
 

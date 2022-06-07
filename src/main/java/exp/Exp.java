@@ -39,8 +39,6 @@ public abstract class Exp {
     ExpData expData;
     List<Double> opFutList = new ArrayList<>();
 
-    protected double op_avg_sum = 0;
-
     protected Options options;
 
     String expName;

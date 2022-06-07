@@ -91,16 +91,10 @@ public class Full_Chart_4 extends MyChartCreator {
         df_7_300.setColor(Themes.RED);
         df_7_300.setStokeSize(1.5f);
 
-        // DF 7 900
-        MyTimeSeries df_7_900 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_900, client);
-        df_7_900.setColor(Themes.RED);
-        df_7_900.setStokeSize(1.5f);
-
-        series = new MyTimeSeries[4];
+        series = new MyTimeSeries[3];
         series[0] = df_2;
         series[1] = df_7;
         series[2] = df_7_300;
-        series[3] = df_7_900;
 
         MyChart df_s_chart = new MyChart(client, series, props);
 

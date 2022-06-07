@@ -190,14 +190,16 @@ public abstract class IDataBaseHandler {
             StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value, timeseries_id) VALUES ");
             int last_item_id = list.get(list.size() - 1).hashCode();
             for (MyTimeStampObject row : list) {
-                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s)", row.getInstant(), row.getValue(), timeseries_id));
+                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s, %s)", row.getInstant(), row.getValue(), timeseries_id));
                 if (row.hashCode() != last_item_id) {
                     queryBuiler.append(",");
                 }
             }
             queryBuiler.append(";");
 
-            String q = String.format(queryBuiler.toString(), "ts.timeseries_data", timeseries_id);
+            String q = String.format(queryBuiler.toString(), "ts.timeseries_data");
+
+            System.out.println(q);
 
             // Insert
             MySql.insert(q);

@@ -151,7 +151,7 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
             // Exps mini panels
             expsPanel.updateText();
-        } catch ( Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -238,12 +238,8 @@ class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
         try {
             futField.setText(L.str(L.floor(exp.get_future(), 10)));
             opField.colorBack(exp.get_op(), L.format10());
-
-            if (exp.getOpFutList().size() > 0) {
-                opAvgField.colorForge(exp.getOp_avg(), L.format100());
-            }
-
-        } catch (Exception e) {
+            opAvgField.colorForge(exp.getOp_avg(), L.format100());
+            } catch (Exception e) {
             e.printStackTrace();
         }
     }
