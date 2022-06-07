@@ -253,6 +253,35 @@ public class MySql {
             MySql.update(query, conn);
         }
 
+        public static String load_stocks_excel_file_location() {
+            String query = "select data\n" +
+                    "from sagiv.props\n" +
+                    "where stock_id = 'stocks'\n" +
+                    "and prop = 'SAPI_EXCEL_FILE_LOCATION';";
+
+            String res = "";
+
+            ResultSet rs = MySql.select(query);
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+                    res = rs.getString("data");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            return res;
+        }
+
+
+        public static void update_stock_rates(String stock_id, double interest, double div, int days_left, double base, String exp_type, double cof) {
+            String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, item, cof, created_at) VALUES " +
+                    "('%s', %s, %s, %s, %s, '%s', '%s', '%s', %s, DEFAULT)";
+            String query = String.format(q, stock_id, interest, div, days_left, base, "now()::date", "now()::date", exp_type, cof);
+
+            MySql.insert(query);
+        }
+
 
         public static ResultSet get_exp_data(String table_location, int session, int version, String stock_id) {
             String q = "select (\n" +
@@ -288,7 +317,6 @@ public class MySql {
             String query = String.format(q, index_table_location, stock_id);
             return MySql.select(query);
         }
-
 
         public static ResultSet get_start_exp_mega(int index_id, String stock_id) {
             String q = "select value\n" +
@@ -355,9 +383,6 @@ public class MySql {
             System.out.println(query);
             return MySql.select(query);
         }
-
-
-
 
 
         public static ResultSet op_avg_cumulative(String index_table, String fut_table) {

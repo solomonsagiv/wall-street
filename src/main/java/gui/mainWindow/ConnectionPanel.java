@@ -3,11 +3,14 @@ package gui.mainWindow;
 import DDE.DDEConnection;
 import DDE.DDEReader;
 import DDE.DDEWriter;
+import api.Manifest;
+import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
 import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
+import locals.L;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -141,12 +144,31 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         JOptionPane.showMessageDialog(null, exception.getCause());
                     }
                 }
-
                 // Stocks
-
-
+                init_stocks_rates();
             }
         });
+    }
+    
+    private void init_stocks_rates() {
+        try {
+            DDEClientConversation conversation = new DDEConnection().createNewConversation(Manifest.STOCKS_EXCEL_FILE_LOCATION);
+
+            // Aapl
+            String aapl_symbol = "aapl";
+            String exp_type = "week";
+            double aapl_interest = L.dbl(conversation.request(""));
+            double aapl_dividend = L.dbl(conversation.request(""));
+            int aapl_days_left = (int) L.dbl(conversation.request(""));
+            double aapl_base = L.dbl(conversation.request(""));
+            double cof = 0.002;
+
+            MySql.Queries.update_stock_rates(aapl_symbol, aapl_interest, aapl_dividend, aapl_days_left, aapl_base, exp_type, cof);
+
+        } catch (NullPointerException | DDEException e ) {
+            JOptionPane.showMessageDialog(null, "Stocks excel file not found " + e.getCause());
+        }
+
     }
 
     public static void update_sapi_request() {

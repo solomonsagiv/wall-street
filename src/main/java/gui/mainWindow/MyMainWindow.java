@@ -1,9 +1,9 @@
 package gui.mainWindow;
 
 import api.Manifest;
-import arik.Arik;
 import backGround.BackGroundHandler;
 import dataBase.mySql.ConnectionPool;
+import dataBase.mySql.MySql;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
@@ -119,7 +119,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         }
         if (Manifest.DB) {
             try {
-                Arik.load_from_db();
+                // Load stocks
+                Manifest.STOCKS_EXCEL_FILE_LOCATION = MySql.Queries.load_stocks_excel_file_location();
             } catch (Exception e) {
                 e.printStackTrace();
             }

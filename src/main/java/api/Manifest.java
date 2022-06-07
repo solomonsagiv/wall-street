@@ -31,6 +31,8 @@ public class Manifest {
     public static String ACCOUNT = SNUPPI_ACCOUNT;
     public static int PORT = GATEWAY_PORT;
     public static int SCREEN = 0;
+
+    public static String STOCKS_EXCEL_FILE_LOCATION;
     /*
      * On expiration change
      * 1. EXPIRY date
