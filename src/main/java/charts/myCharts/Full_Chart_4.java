@@ -74,7 +74,7 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
-
+        
         // ------------------- DF -------------------- //
         // DF 2
         MyTimeSeries df_2 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client);

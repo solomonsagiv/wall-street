@@ -2,6 +2,8 @@ package charts.timeSeries;
 
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
+import exp.Exp;
+import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.ResultSet;
@@ -17,9 +19,7 @@ public class TimeSeriesFactory {
     public static final String BASKETS_SERIES = "BASKETS";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
     public static final String DF_7 = "DF_7";
-    public static final String DF_7_ROUND = "DF_7_ROUND";
     public static final String DF_2 = "DF_2";
-    public static final String DF_2_ROUND = "DF_2_ROUND";
     public static final String DF_7_300 = "DF_7_300";
     public static final String DF_7_900 = "DF_7_900";
     public static final String DF_7_3600 = "DF_7_3600";
@@ -50,25 +50,6 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_2_ROUND:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getData() {
-                        return (int) (super.getData() / 1000);
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-                };
-
             case DF_7:
                 return new MyTimeSeries(series_type, client) {
 
@@ -88,25 +69,6 @@ public class TimeSeriesFactory {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
-                    }
-                };
-
-            case DF_7_ROUND:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getData() {
-                        return (int) (super.getData() / 1000);
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
-                    }
-
-                    @Override
-                    public void load() {
                     }
                 };
 
@@ -178,13 +140,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return super.getData();
+                        Exp exp = client.getExps().getExp(ExpStrings.day);
+                        return exp.getOp_avg_240_continue();
                     }
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_240_CONITNUE_TABLE);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_240_CONITNUE_TABLE);
+//                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
                     }
 
                     @Override
@@ -200,13 +163,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return super.getData();
+                        Exp exp = client.getExps().getExp(ExpStrings.day);
+                        return exp.getOp_avg_5();
                     }
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_5_TABLE);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_5_TABLE);
+//                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
                     }
 
                     @Override
@@ -222,13 +186,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        return super.getData();
+                        Exp exp = client.getExps().getExp(ExpStrings.day);
+                        return exp.getOp_avg_60();
                     }
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_60_TABLE);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_60_TABLE);
+//                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
                     }
 
                     @Override

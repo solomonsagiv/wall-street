@@ -36,7 +36,7 @@ public class PopupsMenuFactory {
                 chart.createChart();
             }
         });
-
+        
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override
@@ -48,21 +48,11 @@ public class PopupsMenuFactory {
             }
         });
 
-
-        JMenuItem futures_real_time_300 = new JMenuItem("Futures 300");
-        futures_real_time_300.addActionListener(new ActionListener() {
+        JMenuItem futures_real_time_600 = new JMenuItem("Futures 600");
+        futures_real_time_600.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FuturesChartLong_300 chart = new FuturesChartLong_300(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem df_round_chart = new JMenuItem("DF round");
-        df_round_chart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DF_ROUND_CHART chart = new DF_ROUND_CHART(client);
+                FuturesChartLong_600 chart = new FuturesChartLong_600(client);
                 chart.createChart();
             }
         });
@@ -77,9 +67,8 @@ public class PopupsMenuFactory {
         });
 
         charts.add(fullCharts_4);
-        charts.add(futures_real_time_300);
+        charts.add(futures_real_time_600);
         charts.add(baskets);
-        charts.add(df_round_chart);
 
         menu.add(details);
         menu.add(settingWindow);

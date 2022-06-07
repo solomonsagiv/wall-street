@@ -5,9 +5,8 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.DF_ROUND_CHART;
 import charts.myCharts.Full_Chart_4;
-import charts.myCharts.FuturesChartLong_300;
+import charts.myCharts.FuturesChartLong_600;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import exp.ExpStrings;
@@ -96,16 +95,13 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             new Thread(() -> {
                 try {
 
-                    FuturesChartLong_300 chart = new FuturesChartLong_300(this);
+                    FuturesChartLong_600 chart = new FuturesChartLong_600(this);
                     chart.createChart();
 
                     Thread.sleep(5000);
 
                     Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
                     full_chart_4.createChart();
-
-                    DF_ROUND_CHART df_round_chart = new DF_ROUND_CHART(this);
-                    df_round_chart.createChart();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

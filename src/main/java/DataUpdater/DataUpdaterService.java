@@ -27,7 +27,7 @@ public class DataUpdaterService extends MyBaseService {
 
     @Override
     public void go() {
-
+        
         int op_avg_5_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_5_TABLE);
         int op_avg_60_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_60_TABLE);
         int op_avg_240_continue_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_240_CONITNUE_TABLE);
@@ -42,13 +42,7 @@ public class DataUpdaterService extends MyBaseService {
         double op_avg_month = MySql.Queries.handle_rs(MySql.Queries.get_op_avg_mega(index_id, month_id, MySql.AVG_TODAY));
         double op_avg_q1 = MySql.Queries.handle_rs(MySql.Queries.get_op_avg_mega(index_id, q1_id, MySql.AVG_TODAY));
 
-
-
         double op_avg_day_5 = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_5_id, MySql.RAW));
-
-
-
-
 
         // Day
         Exp day = getClient().getExps().getExp(ExpStrings.day);
