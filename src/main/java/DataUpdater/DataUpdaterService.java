@@ -35,9 +35,9 @@ public class DataUpdaterService extends MyBaseService {
         int q2_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.FUT_Q2_TABLE);
         int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_TABLE);
 
-        double op_avg_day_5 = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_60_id, MySql.RAW));
-        double op_avg_day_60 = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_240_continue_id, MySql.RAW));
-        double op_avg_day_240_continue = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_5_id, MySql.RAW));
+        double op_avg_day_5 = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_5_id, MySql.RAW));
+        double op_avg_day_60 = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_60_id, MySql.RAW));
+        double op_avg_day_240_continue = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(op_avg_240_continue_id, MySql.RAW));
         double op_avg_day = MySql.Queries.handle_rs(MySql.Queries.get_op_avg_mega(index_id, day_id, MySql.AVG_TODAY));
         double op_avg_week = MySql.Queries.handle_rs(MySql.Queries.get_op_avg_mega(index_id, week_id, MySql.AVG_TODAY));
         double op_avg_month = MySql.Queries.handle_rs(MySql.Queries.get_op_avg_mega(index_id, month_id, MySql.AVG_TODAY));
