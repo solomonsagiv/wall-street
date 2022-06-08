@@ -20,6 +20,7 @@ public class DataUpdaterService extends MyBaseService {
         time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client));
         time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client));
         time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300, client));
+        time_series.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_SERIES, client));
     }
 
     @Override
