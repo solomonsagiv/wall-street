@@ -5,6 +5,7 @@ import dataBase.mySql.MySql;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -154,7 +155,7 @@ public class MyGuiComps {
             dispose();
 
         }
-        
+
         public void setXY(int x, int y) {
             setBounds(x, y, getWidth(), getHeight());
         }
@@ -232,6 +233,37 @@ public class MyGuiComps {
             setBackground(Themes.GREY_VERY_LIGHT);
             setBorder(null);
 //            setEnabled(false);
+        }
+
+        public void color_on_change(double val) {
+            new Thread(() -> {
+                try {
+
+                    Color color;
+
+                    if (val > L.dbl(getText())) {
+                        color = Themes.OPEN_RACE;
+                    } else if (val < L.dbl(getText())) {
+                        color = Themes.BINANCE_RED;
+                    } else {
+                        color = getBackground();
+                    }
+
+                    // Get original color
+                    Color original_color = getBackground();
+                    setBackground(color);
+
+                    // sleep
+                    Thread.sleep(1000);
+
+                    // Set original again
+                    setBackground(original_color);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }).start();
         }
 
         public void setFontSize(int size) {
@@ -513,7 +545,7 @@ public class MyGuiComps {
         Color original = button.getBackground();
         Color complete = Themes.BLUE_LIGHT_2;
 
-        new Thread(() ->{
+        new Thread(() -> {
             try {
                 button.setBackground(complete);
                 Thread.sleep(1000);

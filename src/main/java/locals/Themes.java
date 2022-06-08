@@ -13,7 +13,7 @@ public class Themes {
     public static Color BINANCE_GREEN = new Color(7, 93, 55);
     //    public static Color BINANCE_GREEN = new Color( 7, 153, 98 );
     //	public static Color BINANCE_GREEN = new Color( 111 , 207 , 31 );
-    public static Color BINANCE_RED = new Color(255, 53, 157);
+    public static Color BINANCE_RED = new Color(252, 154, 162);
     public static Color ORANGE = new Color(219, 158, 47);
     public static Color LIGHT_BLUE_2 = new Color(0, 237, 255);
     public static Color BLUE_STRIKE = new Color(48, 82, 181);
