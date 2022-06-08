@@ -50,7 +50,7 @@ public class BasketFinder extends MyBaseService {
                 e.printStackTrace();
             }
         }
-
+        
         // Got basket
         if (changesCount >= targetChanges) {
 

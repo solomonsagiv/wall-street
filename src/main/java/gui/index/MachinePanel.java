@@ -1,6 +1,6 @@
 package gui.index;
 
-import baskets.BasketFinder_3;
+import baskets.BasketFinder_by_stocks;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import gui.MyGuiComps;
@@ -20,7 +20,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel headerLbl;
 
     MyGuiComps.MyPanel body;
-    BasketFinder_3 basketFinder;
+    BasketFinder_by_stocks basketFinder;
 
     Df_panel df_panel_1;
     Df_panel df_panel_2;
@@ -34,13 +34,13 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     public MachinePanel(BASE_CLIENT_OBJECT client) {
         super();
         this.client = client;
-        this.basketFinder = client.getBasketFinder();
+        this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
         df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client));
         df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client));
         df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_SERIES, client));
-
+        
         initsialize();
     }
 

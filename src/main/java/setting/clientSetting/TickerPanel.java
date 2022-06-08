@@ -100,7 +100,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     int num = L.INT(targetBasketChangesField.getText());
-                    client.getBasketFinder().setTargetChanges(num);
+                    client.getBasketFinder_by_stocks().setTargetChanges(num);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -113,7 +113,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     int basket = L.INT(basketUpField.getText());
-                    client.getBasketFinder().setBasketUp(basket);
+                    client.getBasketFinder_by_stocks().setBasketUp(basket);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -126,7 +126,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     int basket = L.INT(basketDownField.getText());
-                    client.getBasketFinder().setBasketDown(basket);
+                    client.getBasketFinder_by_stocks().setBasketDown(basket);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -139,7 +139,7 @@ public class TickerPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     int sleep = L.INT(basketsSleepField.getText());
-                    client.getBasketFinder().setBig_frame_time_in_secondes(sleep);
+                    client.getBasketFinder_by_stocks().setBig_frame_time_in_secondes(sleep);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

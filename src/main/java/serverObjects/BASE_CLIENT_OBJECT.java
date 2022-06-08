@@ -5,7 +5,7 @@ import DDE.DDECellsBloomberg;
 import DataUpdater.DataUpdaterService;
 import IDDE.DDEHandler;
 import api.Manifest;
-import baskets.BasketFinder_3;
+import baskets.BasketFinder_by_stocks;
 import charts.timeSeries.TimeSeriesHandler;
 import dataBase.mySql.MySqlService;
 import dataBase.props.Props;
@@ -21,7 +21,6 @@ import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
 import stocksHandler.stocksDelta.StocksDeltaService;
 import threads.MyThread;
-
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -66,7 +65,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private DDEHandler ddeHandler;
 
     // Basket finder
-    private BasketFinder_3 basketFinder;
+    private BasketFinder_by_stocks basketFinder_by_stocks;
 
     // Services
     MySqlService mySqlService;
@@ -507,12 +506,12 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.ddeHandler = ddeHandler;
     }
 
-    public BasketFinder_3 getBasketFinder() {
-        return basketFinder;
+    public BasketFinder_by_stocks getBasketFinder_by_stocks() {
+        return basketFinder_by_stocks;
     }
 
-    public void setBasketFinder(BasketFinder_3 basketFinder) {
-        this.basketFinder = basketFinder;
+    public void setBasketFinder_by_stocks(BasketFinder_by_stocks basketFinder_by_stocks) {
+        this.basketFinder_by_stocks = basketFinder_by_stocks;
     }
 
     public DataUpdaterService getDataUpdaterService() {

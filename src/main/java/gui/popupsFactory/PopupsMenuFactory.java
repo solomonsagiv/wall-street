@@ -36,12 +36,12 @@ public class PopupsMenuFactory {
                 chart.createChart();
             }
         });
-        
+
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (client.getBasketFinder() != null) {
+                if (client.getBasketFinder_by_stocks() != null) {
                     Index_baskets_chart chart = new Index_baskets_chart(client);
                     chart.createChart();
                 }

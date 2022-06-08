@@ -116,7 +116,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         }
 
         // Baskets
-        int basket = client.getBasketFinder().getBaskets();
+        int basket = client.getBasketFinder_by_stocks().getBaskets();
 
         if (basket != baskets_0) {
             double last_count = basket - baskets_0;

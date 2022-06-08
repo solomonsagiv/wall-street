@@ -9,7 +9,7 @@ import stocksHandler.StocksHandler;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class BasketFinder_3 extends MyBaseService {
+public class BasketFinder_by_stocks extends MyBaseService {
 
     // Variables
     private int changesCount = 0;
@@ -22,8 +22,8 @@ public class BasketFinder_3 extends MyBaseService {
     private double biggest_change = 0;
     private int sleep_between_frames = 1000;
     private int big_frame_time_in_secondes;
-    
-    public BasketFinder_3(BASE_CLIENT_OBJECT client, int targetChanges, int big_frame_time_in_secondes) {
+
+    public BasketFinder_by_stocks(BASE_CLIENT_OBJECT client, int targetChanges, int big_frame_time_in_secondes) {
         super(client);
         this.targetChanges = targetChanges;
         this.big_frame_time_in_secondes = big_frame_time_in_secondes;
@@ -94,6 +94,7 @@ public class BasketFinder_3 extends MyBaseService {
             if (bigFrame.is_index_up()) {
                 add_basket_up();
                 reset_data_after_basket();
+
             } else {
                 add_basket_down();
                 reset_data_after_basket();

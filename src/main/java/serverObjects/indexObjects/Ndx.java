@@ -5,7 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
-import baskets.BasketFinder_3;
+import baskets.BasketFinder_by_stocks;
 import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_600;
 import dataBase.mySql.MySqlService;
@@ -27,7 +27,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName("ndx");
         setId_name("ndx");
 
-        setBasketFinder(new BasketFinder_3(this, 80, 3));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 90, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
         roll();
@@ -105,9 +105,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
                     Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
                     full_chart_4.createChart();
 
-                    DF_ROUND_CHART df_round_chart = new DF_ROUND_CHART(this);
-                    df_round_chart.createChart();
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -124,7 +121,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(super.toString());
-        str.append("Baskets 2= " + getBasketFinder().toString());
+        str.append("Baskets 2= " + getBasketFinder_by_stocks().toString());
         return str.toString();
     }
 
