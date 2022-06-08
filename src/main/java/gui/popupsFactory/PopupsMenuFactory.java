@@ -48,6 +48,19 @@ public class PopupsMenuFactory {
             }
         });
 
+
+        JMenuItem baskets_1800 = new JMenuItem("Baskets 1800");
+        baskets_1800.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (client.getBasketFinder_by_stocks() != null) {
+                    Index_baskets_short_chart chart = new Index_baskets_short_chart(client);
+                    chart.createChart();
+                }
+            }
+        });
+
+
         JMenuItem futures_real_time_600 = new JMenuItem("Futures 600");
         futures_real_time_600.addActionListener(new ActionListener() {
             @Override
@@ -69,6 +82,7 @@ public class PopupsMenuFactory {
         charts.add(fullCharts_4);
         charts.add(futures_real_time_600);
         charts.add(baskets);
+        charts.add(baskets_1800);
 
         menu.add(details);
         menu.add(settingWindow);

@@ -27,7 +27,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName("ndx");
         setId_name("ndx");
 
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 90, 3));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 90, 2));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
         roll();
