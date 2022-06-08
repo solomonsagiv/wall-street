@@ -274,14 +274,19 @@ public class MySql {
         }
 
 
-        public static void update_stock_rates(String stock_id, double interest, double div, int days_left, double base, String exp_type, double cof) {
-            String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, item, cof, created_at) VALUES " +
-                    "('%s', %s, %s, %s, %s, '%s', '%s', '%s', %s, DEFAULT)";
-            String query = String.format(q, stock_id, interest, div, days_left, base, "now()::date", "now()::date", exp_type, cof);
+        public static void update_stock_rates(String stock_id, double interest, double div, int days_left, double base, String exp_type) throws SQLException {
+            String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, item) VALUES " +
+                    "('%s', %s, %s, %s, %s, '%s', '%s', '%s')";
+            String query = String.format(q, stock_id, interest, div, days_left, base, LocalDate.now(), LocalDate.now(), exp_type);
+
+            System.out.println(query);
 
             MySql.insert(query);
-        }
 
+            Connection slo_conn = ConnectionPool.get_slo_single_connection();
+            MySql.insert(query, slo_conn);
+
+        }
 
         public static ResultSet get_exp_data(String table_location, int session, int version, String stock_id) {
             String q = "select (\n" +

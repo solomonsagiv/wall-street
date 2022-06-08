@@ -99,7 +99,7 @@ public abstract class IDataBaseHandler {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(data.toString());
+                System.out.println(data.toString() + " Prop name= " + props_name);
             }
         }
     }

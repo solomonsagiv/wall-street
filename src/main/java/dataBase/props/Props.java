@@ -1,6 +1,9 @@
 package dataBase.props;
 
+import api.Manifest;
 import exp.Exp;
+import exp.ExpStrings;
+import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
@@ -18,6 +21,8 @@ public class Props {
     Prop excel_path;
     Prop main_exp;
     Prop sapi_excel_file;
+    Prop stocks_excel_file;
+    Prop exp_q1_start_date;
 
     public static final String INDEX_PRE_START_TIME = "INDEX_PRE_START_TIME";
     public static final String INDEX_START_TIME = "INDEX_START_TIME";
@@ -27,6 +32,8 @@ public class Props {
     public static final String EXCEL_FILE_LOCATION = "EXCEL_FILE_LOCATION";
     public static final String MAIN_EXP = "MAIN_EXP";
     public static final String SAPI_EXCEL_FILE_LOCATION = "SAPI_EXCEL_FILE_LOCATION";
+    public static final String STOCKS_EXCEL_FILE_LOCATION = "STOCKS_EXCEL_FILE_LOCATION";
+    public static final String EXP_Q1_START_DATE = "EXP_Q1_START";
 
     public Props(BASE_CLIENT_OBJECT client) {
         this.client = client;
@@ -132,6 +139,37 @@ public class Props {
             }
         };
 
+        stocks_excel_file = new Prop(client, STOCKS_EXCEL_FILE_LOCATION) {
+            @Override
+            public void setData(Object data) {
+                String path = data.toString();
+                Manifest.STOCKS_EXCEL_FILE_LOCATION = path;
+            }
+
+            @Override
+            public Object getData() {
+                String path = "";
+                try {
+                    path = Manifest.STOCKS_EXCEL_FILE_LOCATION;
+                } catch (Exception e) {
+                }
+                return path;
+            }
+        };
+
+        exp_q1_start_date = new Prop(client, EXP_Q1_START_DATE) {
+            @Override
+            public void setData(Object data) {
+            }
+
+            @Override
+            public Object getData() {
+                return "";
+            }
+        };
+
+
+
         // ------------ MAIN EXP -------------- //
         main_exp = new Prop(client, MAIN_EXP) {
             @Override
@@ -179,6 +217,8 @@ public class Props {
         map.put(MAIN_EXP, main_exp);
         map.put(INDEX_PRE_START_TIME, index_pre_start_time);
         map.put(SAPI_EXCEL_FILE_LOCATION, sapi_excel_file);
+        map.put(STOCKS_EXCEL_FILE_LOCATION, stocks_excel_file);
+        map.put(EXP_Q1_START_DATE, exp_q1_start_date);
     }
 
     public Map<String, Prop> getMap() {

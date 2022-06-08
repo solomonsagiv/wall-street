@@ -22,6 +22,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -144,6 +145,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         JOptionPane.showMessageDialog(null, exception.getCause());
                     }
                 }
+
+                String file = Manifest.STOCKS_EXCEL_FILE_LOCATION;
+                System.out.println(file);
+
                 // Stocks
                 init_stocks_rates();
             }
@@ -157,16 +162,16 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             // Aapl
             String aapl_symbol = "aapl";
             String exp_type = "week";
-            double aapl_interest = L.dbl(conversation.request(""));
-            double aapl_dividend = L.dbl(conversation.request(""));
-            int aapl_days_left = (int) L.dbl(conversation.request(""));
-            double aapl_base = L.dbl(conversation.request(""));
-            double cof = 0.002;
+            double aapl_interest = L.dbl(conversation.request("R17C5"));
+            double aapl_dividend = L.dbl(conversation.request("R17C6"));
+            int aapl_days_left = (int) L.dbl(conversation.request("R17C7"));
+            double aapl_base = L.dbl(conversation.request("R17C8"));
 
-            MySql.Queries.update_stock_rates(aapl_symbol, aapl_interest, aapl_dividend, aapl_days_left, aapl_base, exp_type, cof);
+            MySql.Queries.update_stock_rates(aapl_symbol, aapl_interest, aapl_dividend, aapl_days_left, aapl_base, exp_type);
 
-        } catch (NullPointerException | DDEException e ) {
-            JOptionPane.showMessageDialog(null, "Stocks excel file not found " + e.getCause());
+        } catch (NullPointerException | DDEException | SQLException e ) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Stocks excel file not found " + e.getMessage());
         }
 
     }

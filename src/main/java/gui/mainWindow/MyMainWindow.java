@@ -121,6 +121,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
             try {
                 // Load stocks
                 Manifest.STOCKS_EXCEL_FILE_LOCATION = MySql.Queries.load_stocks_excel_file_location();
+                System.out.println(Manifest.STOCKS_EXCEL_FILE_LOCATION);
             } catch (Exception e) {
                 e.printStackTrace();
             }
