@@ -5,12 +5,12 @@ import charts.timeSeries.TimeSeriesHandler;
 import dataBase.MyTick;
 import dataBase.mySql.MySql;
 import dataBase.props.Prop;
-import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -41,39 +41,11 @@ public abstract class IDataBaseHandler {
     protected void load_exp_data() {
         try {
             // START
-            int index_table = serie_ids.get(TimeSeriesHandler.INDEX_TABLE);
+            int index_table = serie_ids.get(TimeSeriesHandler.INDEX);
             double start_exp = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_table, client.getId_name()));
             client.getExps().getExp(ExpStrings.q1).setStart(start_exp);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void load_op_avg(Exp exp, ResultSet rs) {
-        // Day
-        try {
-            if (rs.next()) {
-                double value = rs.getDouble("value");
-                exp.setOp_avg(value);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void load_fut_delta(Exp exp, ResultSet rs) {
-        while (true) {
-            try {
-                if (!rs.next()) break;
-
-                int delta = (int) rs.getDouble("value");
-                E e = (E) exp;
-                e.setDelta(delta);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
@@ -284,8 +256,6 @@ public abstract class IDataBaseHandler {
         }
         return myTicks;
     }
-
-    protected abstract void open_chart_on_start();
 
     public Map<Integer, Integer> getSerie_ids() {
         return serie_ids;

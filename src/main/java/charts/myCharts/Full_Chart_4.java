@@ -55,11 +55,11 @@ public class Full_Chart_4 extends MyChartCreator {
         // ------------------ Op avg ------------------- //
 
         // --------- Op avg ---------- //
-        MyTimeSeries op_avg_5 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5_SERIES, client);
+        MyTimeSeries op_avg_5 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client);
         op_avg_5.setColor(Themes.RED);
         op_avg_5.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60_SERIES, client);
+        MyTimeSeries op_avg_60 = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 

@@ -39,7 +39,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_list = new ArrayList<>();
         df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client));
         df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client));
-        df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_SERIES, client));
+        df_list.add(TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS, client));
 
         initsialize();
     }
@@ -130,7 +130,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
                     }
 
                     // Baskets color on change
-                    if (ts.getName().equals(TimeSeriesFactory.BASKETS_SERIES)) {
+                    if (ts.getName().equals(TimeSeriesFactory.BASKETS)) {
                         df_field.color_on_change(ts.getData());
                     }
 

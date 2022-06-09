@@ -2,12 +2,10 @@ package dataBase.mySql.dataUpdaters;
 
 import api.Manifest;
 import charts.timeSeries.TimeSeriesHandler;
-import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -128,19 +126,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     @Override
     public void loadData() {
-        // OP AVG
-        Exp day = exps.getExp(ExpStrings.day);
-        Exp week = exps.getExp(ExpStrings.week);
-        Exp month = exps.getExp(ExpStrings.month);
-        Exp q1 = exps.getExp(ExpStrings.q1);
-        Exp q2 = exps.getExp(ExpStrings.q2);
-
-        load_op_avg(day, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_DAY_TABLE), MySql.AVG_TODAY));
-        load_op_avg(week, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_WEEK_TABLE), MySql.AVG_TODAY));
-        load_op_avg(month, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_MONTH_TABLE), MySql.AVG_TODAY));
-        load_op_avg(q1, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_Q1_TABLE), MySql.AVG_TODAY));
-        load_op_avg(q2, MySql.Queries.get_op_avg_mega(serie_ids.get(TimeSeriesHandler.INDEX_TABLE), serie_ids.get(TimeSeriesHandler.FUT_Q2_TABLE), MySql.AVG_TODAY));
-
         try {
             // Props
             load_properties();
@@ -158,36 +143,36 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
         // Ids
-        serie_ids.put(TimeSeriesHandler.INDEX_TABLE, 1);
-        serie_ids.put(TimeSeriesHandler.FUT_DAY_TABLE, 2);
-        serie_ids.put(TimeSeriesHandler.FUT_WEEK_TABLE, 14);
-        serie_ids.put(TimeSeriesHandler.FUT_MONTH_TABLE, 13);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1_TABLE, 11);
-        serie_ids.put(TimeSeriesHandler.FUT_Q2_TABLE, 12);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE_TABLE, 112);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5_TABLE, 114);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60_TABLE, 113);
+        serie_ids.put(TimeSeriesHandler.INDEX, 1);
+        serie_ids.put(TimeSeriesHandler.FUT_DAY, 2);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK, 14);
+        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 13);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1, 11);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2, 12);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 112);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 114);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 113);
         serie_ids.put(TimeSeriesHandler.DF_7, 995);
         serie_ids.put(TimeSeriesHandler.DF_7_300, 1009);
         serie_ids.put(TimeSeriesHandler.DF_7_900, 1010);
         serie_ids.put(TimeSeriesHandler.DF_7_3600, 1011);
         serie_ids.put(TimeSeriesHandler.DF_2, 990);
-        serie_ids.put(TimeSeriesHandler.BASKETS_TABLE, 1418);
+        serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 1904);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 1905);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH, 1906);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1907);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1908);
 
-    }
-
-    @Override
-    protected void open_chart_on_start() {
-        // todo
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_TABLE));
-        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY_TABLE));
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK_TABLE));
-        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH_TABLE));
-        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_TABLE));
-        insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_TABLE));
-        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_TABLE));
+        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
+        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
+        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK));
+        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
+        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
+        insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2));
+        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
     }
 }
