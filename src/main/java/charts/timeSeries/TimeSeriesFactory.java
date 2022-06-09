@@ -225,8 +225,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.day);
-                        return exp.getOp_avg();
+                        return super.getData();
                     }
 
                     @Override

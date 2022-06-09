@@ -1,5 +1,8 @@
 package charts.timeSeries;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class TimeSeriesHandler {
 
     public static final int INDEX = 11;
@@ -31,4 +34,14 @@ public abstract class TimeSeriesHandler {
     public static final int OP_AVG_MONTH = 51;
     public static final int OP_AVG_Q1 = 52;
     public static final int OP_AVG_Q2 = 53;
+
+    private Map<String, MyTimeSeries> series_map = new HashMap<>();
+
+    public Map<String, MyTimeSeries> getSeries_map() {
+        return series_map;
+    }
+
+    public void setSeries_map(Map<String, MyTimeSeries> series_map) {
+        this.series_map = series_map;
+    }
 }

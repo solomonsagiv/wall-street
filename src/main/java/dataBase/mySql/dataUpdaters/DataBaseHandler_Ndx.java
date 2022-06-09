@@ -1,6 +1,7 @@
 package dataBase.mySql.dataUpdaters;
 
 import api.Manifest;
+import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
 import exp.Exp;
@@ -164,6 +165,20 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1907);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1908);
 
+
+
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.DF_2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.DF_7, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.DF_7_300, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.BASKETS, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_DAY_5, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_MONTH, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
+        client.getTimeSeriesHandler().getSeries_map().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
     }
 
     private void updateListsRetro() {
