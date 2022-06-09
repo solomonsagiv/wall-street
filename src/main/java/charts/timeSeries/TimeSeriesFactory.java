@@ -108,7 +108,8 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7_900);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
+                        setData(val);
                     }
 
                     @Override
@@ -144,17 +145,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.day);
-                        return exp.getOp_avg_240_continue();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_240_CONITNUE);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
-                        exp.setOp_avg_240_continue(getData());
+                        exp.setOp_avg_240_continue(val);
                     }
 
                     @Override
@@ -170,17 +171,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.day);
-                        return exp.getOp_avg_5();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_5);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
-                        exp.setOp_avg_5(getData());
+                        exp.setOp_avg_5(val);
 
                     }
 
@@ -197,17 +198,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.day);
-                        return exp.getOp_avg_60();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY_60);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
-                        exp.setOp_avg_60(getData());
+                        exp.setOp_avg_60(val);
                     }
 
                     @Override
@@ -231,10 +232,11 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_DAY);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
-                        exp.setOp_avg(getData());
+                        exp.setOp_avg(val);
 
                     }
 
@@ -252,17 +254,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.week);
-                        return exp.getOp_avg();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.week);
-                        exp.setOp_avg(getData());
+                        exp.setOp_avg(val);
 
                     }
 
@@ -281,17 +283,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.month);
-                        return exp.getOp_avg();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_MONTH);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.month);
-                        exp.setOp_avg(getData());
+                        exp.setOp_avg(val);
 
                     }
 
@@ -309,17 +311,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.q1);
-                        return exp.getOp_avg();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q1);
-                        exp.setOp_avg(getData());
+                        exp.setOp_avg(val);
 
                     }
 
@@ -336,17 +338,17 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getData() {
-                        Exp exp = client.getExps().getExp(ExpStrings.q2);
-                        return exp.getOp_avg();
+                        return super.getData();
                     }
 
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2);
-                        setData(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setData(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q2);
-                        exp.setOp_avg(getData());
+                        exp.setOp_avg(val);
 
                     }
 
