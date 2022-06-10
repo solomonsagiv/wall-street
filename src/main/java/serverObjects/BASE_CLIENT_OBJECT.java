@@ -535,6 +535,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
     public TimeSeriesHandler getTimeSeriesHandler() {
+        if (timeSeriesHandler == null) {
+            timeSeriesHandler = new TimeSeriesHandler();
+        }
         return timeSeriesHandler;
     }
 

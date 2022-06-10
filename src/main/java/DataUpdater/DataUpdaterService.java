@@ -13,18 +13,18 @@ public class DataUpdaterService extends MyBaseService {
     public DataUpdaterService(BASE_CLIENT_OBJECT client) {
         super(client);
         time_series = new ArrayList<>();
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.DF_2));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.DF_7));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.DF_7_300));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.BASKETS));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_DAY));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_WEEK));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_MONTH));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_Q1));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_Q2));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_DAY_5));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_DAY_60));
-        time_series.add(client.getTimeSeriesHandler().getSeries_map().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_300));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_MONTH));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_5));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
     }
 
     @Override

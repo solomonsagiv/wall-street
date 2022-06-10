@@ -3,7 +3,7 @@ package charts.timeSeries;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class TimeSeriesHandler {
+public class TimeSeriesHandler {
 
     public static final int INDEX = 11;
     public static final int BASKETS = 12;
@@ -37,8 +37,16 @@ public abstract class TimeSeriesHandler {
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
 
-    public Map<String, MyTimeSeries> getSeries_map() {
+    private Map<String, MyTimeSeries> getSeries_map() {
         return series_map;
+    }
+
+    public MyTimeSeries get(String timeserie_type) {
+        return series_map.get(timeserie_type);
+    }
+
+    public void put(String timeserie_type, MyTimeSeries timeSeries){
+        series_map.put(timeserie_type, timeSeries);
     }
 
     public void setSeries_map(Map<String, MyTimeSeries> series_map) {
