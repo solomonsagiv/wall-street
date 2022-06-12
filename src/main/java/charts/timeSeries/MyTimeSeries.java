@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 
 interface ITimeSeries {
     double getData();
+
     void updateData();
+
     void load();
 }
 
@@ -36,12 +38,14 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     MyDoubleList myValues;
     private String series_type;
     private boolean load = false;
+    private String agg_type;
 
     // Constructor
-    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
+    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client, String agg_type) {
         super(name);
         this.name = (String) name;
         this.series_type = (String) name;
+        this.agg_type = agg_type;
         this.client = client;
         myValues = new MyDoubleList();
     }
@@ -73,15 +77,15 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     public void add(LocalDateTime time) {
-            Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
-            double data = getData();
-            if (data != 0) {
-                getMyValues().add(data);
-                if (scaled) {
-                    data = getMyValues().getLastValAsStd();
-                }
-                addOrUpdate(second, data);
+        Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
+        double data = getData();
+        if (data != 0) {
+            getMyValues().add(data);
+            if (scaled) {
+                data = getMyValues().getLastValAsStd();
             }
+            addOrUpdate(second, data);
+        }
     }
 
     public MyDoubleList getMyValues() {
@@ -207,5 +211,13 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void setData(double data) {
         this.data = data;
+    }
+
+    public String getAgg_type() {
+        return agg_type;
+    }
+
+    public void setAgg_type(String agg_type) {
+        this.agg_type = agg_type;
     }
 }

@@ -24,7 +24,7 @@ public class Manifest {
 
     // SELECTED ACCOUNT
     public static final int POOL_SIZE = 15;
-    public static boolean DB = false;
+    public static boolean DB = true;
     public static boolean DB_RUNNER = true;
     public static boolean OPEN_CHARTS = true;
     public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_POSTGRES;

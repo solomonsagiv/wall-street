@@ -2,6 +2,7 @@ package charts.myCharts;
 
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
+import dataBase.mySql.MySql;
 import exp.Exp;
 import exp.Exps;
 import locals.Themes;
@@ -40,7 +41,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries("Index", client) {
+        MyTimeSeries index = new MyTimeSeries("Index", client, MySql.RAW) {
 
             @Override
             public double getData() {
@@ -61,7 +62,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         index.setStokeSize(2.25f);
 
         // Bid
-        MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
+        MyTimeSeries bid = new MyTimeSeries("Index bid", client, MySql.RAW) {
 
             @Override
             public double getData() {
@@ -82,7 +83,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         bid.setStokeSize(2.25f);
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
+        MyTimeSeries ask = new MyTimeSeries("Index ask", client, MySql.RAW) {
 
             @Override
             public double getData() {
@@ -114,7 +115,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
 
         for (Exp exp : exps.getExpList()) {
 
-            MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client) {
+            MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client, MySql.RAW) {
 
                 @Override
                 public double getData() {
