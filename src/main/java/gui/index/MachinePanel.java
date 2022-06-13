@@ -128,12 +128,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
                     } else {
                         df_field.colorForge(0);
                     }
-
-                    // Baskets color on change
-                    if (ts.getName().equals(TimeSeriesFactory.BASKETS_CDF)) {
-                        df_field.color_on_change(ts.getData());
-                    }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
