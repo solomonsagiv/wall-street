@@ -6,8 +6,8 @@ import charts.timeSeries.TimeSeriesFactory;
 import dataBase.mySql.MySql;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
-import java.awt.*;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 public class Index_baskets_short_chart extends MyChartCreator {
 
@@ -35,17 +35,34 @@ public class Index_baskets_short_chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
 
         // --------- Index ---------- //
-
-        // Index
-        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, MySql.RAW);
-        index.setStokeSize(1.5f);
-        index.setColor(Color.BLACK);
+        // Spx df 7 raw
+        MyTimeSeries ndx_index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, Ndx.getInstance(), MySql.RAW);
+        ndx_index.setStokeSize(1.5f);
+        ndx_index.setColor(Themes.LIFGT_BLUE_2);
 
         series = new MyTimeSeries[1];
-        series[0] = index;
-
+        series[0] = ndx_index;
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
+
+
+        // Spx df 7 raw
+        MyTimeSeries spx_df_7 = Spx.getInstance().getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW);
+        spx_df_7.setStokeSize(1.5f);
+        spx_df_7.setColor(Themes.LIFGT_BLUE_2);
+
+        // Ndx df 7 raw
+        MyTimeSeries ndx_df_7 = Ndx.getInstance().getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW);
+        ndx_df_7.setStokeSize(1.5f);
+        ndx_df_7.setColor(Themes.GREEN_LIGHT);
+
+        series = new MyTimeSeries[2];
+        series[0] = ndx_df_7;
+        series[1] = spx_df_7;
+
+        // Chart
+        MyChart df_chart= new MyChart(client, series, props);
+
 
         // ---------- Baskets ---------- //
         // Index
@@ -59,7 +76,7 @@ public class Index_baskets_short_chart extends MyChartCreator {
         MyChart basketsChart = new MyChart(client, series, props);
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, basketsChart};
+        MyChart[] charts = {indexChart, basketsChart, df_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

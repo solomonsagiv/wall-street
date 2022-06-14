@@ -10,11 +10,6 @@ import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_600;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
-import exp.ExpStrings;
-import roll.Roll;
-import roll.RollEnum;
-import roll.RollHandler;
-import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -30,7 +25,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 80, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
-        roll();
     }
 
     // get instance
@@ -42,12 +36,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         return client;
     }
 
-    private void roll() {
-        rollHandler = new RollHandler(this);
-
-        Roll quarter_quarterFar = new Roll(this, ExpStrings.q1, ExpStrings.q2, RollPriceEnum.FUTURE);
-        rollHandler.addRoll(RollEnum.E1_E2, quarter_quarterFar);
-    }
 
     @Override
     public void setIndexBid(double indexBid) {

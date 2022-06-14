@@ -37,8 +37,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
@@ -124,10 +124,12 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
             for (MyTimeSeries ts : timeSeries) {
                 try {
                     if (ts.getData() != 0) {
-                        df_field.colorForge((int) (ts.getData() / 1000), L.format_int());
-                    } else {
-                        df_field.colorForge(0);
+                        if (ts.getData() > 1000 || ts.getData() < -1000) {
+                            df_field.colorForge((int) (ts.getData() / 1000), L.format_int());
+                            continue;
+                        }
                     }
+                    df_field.colorForge((int) ts.getData());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

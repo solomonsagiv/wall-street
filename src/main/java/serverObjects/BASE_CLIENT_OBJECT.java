@@ -15,12 +15,11 @@ import exp.ExpStrings;
 import exp.Exps;
 import locals.L;
 import locals.LocalHandler;
-import roll.RollEnum;
-import roll.RollHandler;
 import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
 import stocksHandler.stocksDelta.StocksDeltaService;
 import threads.MyThread;
+
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -51,9 +50,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Stocks delta
     StocksDeltaService stocksDeltaService;
-
-    // Roll
-    protected RollHandler rollHandler;
 
     // Basic
     protected double index = 0;
@@ -144,8 +140,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         // Add to
         Exps exps = new Exps(this);
         exps.addExp(new ExpReg(this, ExpStrings.day));
-        exps.addExp(new ExpReg(this, ExpStrings.week));
-        exps.addExp(new ExpReg(this, ExpStrings.month));
         exps.addExp(new E(this, ExpStrings.q1));
         exps.addExp(new E(this, ExpStrings.q2));
         exps.setMainExp(exps.getExp(ExpStrings.day));
@@ -221,11 +215,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         text += "Low: " + low + "\n";
         text += "Close: " + index + "\n";
         text += "OP avg: " + L.format100(getExps().getMainExp().getOp_avg()) + "\n";
-        try {
-            text += "Roll: " + L.floor(getRollHandler().getRoll(RollEnum.E1_E2).getAvg(), 100) + "\n";
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return text;
     }
 
@@ -436,15 +425,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setDdeCells(DDECells ddeCells) {
         this.ddeCells = ddeCells;
-    }
-
-    public RollHandler getRollHandler() {
-        if (rollHandler == null) throw new NullPointerException(getName() + " Roll inn't set");
-        return rollHandler;
-    }
-
-    public void setRollHandler(RollHandler rollHandler) {
-        this.rollHandler = rollHandler;
     }
 
     public static int getPRE() {

@@ -17,8 +17,15 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_DAY_60 = "OP_AVG_DAY_60";
     public static final String BASKETS_CDF = "BASKETS_CDF";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
-    public static final String DF_7_RAW = "DF_7_CDF";
-    public static final String DF_2_RAW = "DF_2_CDF";
+    public static final String DF_2 = "DF_2";
+    public static final String DF_7 = "DF_7";
+
+    public static final String DF_2_RAW = "DF_2_RAW";
+    public static final String DF_7_RAW = "DF_7_RAW";
+
+    public static final String DF_2_CDF = "DF_2_CDF";
+    public static final String DF_7_CDF = "DF_7_CDF";
+
     public static final String DF_7_300_RAW = "DF_7_300_RAW";
     public static final String DF_7_900_RAW = "DF_7_900_RAW";
     public static final String DF_7_3600_RAW = "DF_7_3600_RAW";
@@ -32,7 +39,7 @@ public class TimeSeriesFactory {
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client, String agg_type) {
         switch (series_type.toUpperCase()) {
 
-            case DF_2_RAW:
+            case DF_2:
                 return new MyTimeSeries(series_type, client, agg_type) {
 
                     @Override
@@ -54,7 +61,8 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_7_RAW:
+
+            case DF_7:
                 return new MyTimeSeries(series_type, client, agg_type) {
 
                     @Override

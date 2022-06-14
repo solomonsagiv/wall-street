@@ -9,11 +9,6 @@ import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_600;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
-import exp.ExpStrings;
-import roll.Roll;
-import roll.RollEnum;
-import roll.RollHandler;
-import roll.RollPriceEnum;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -29,7 +24,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
 
-        roll();
     }
 
     // get instance
@@ -38,13 +32,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
             client = new Spx();
         }
         return client;
-    }
-
-    private void roll() {
-        rollHandler = new RollHandler(this);
-
-        Roll quarter_quarterFar = new Roll(this, ExpStrings.q1, ExpStrings.q2, RollPriceEnum.FUTURE);
-        rollHandler.addRoll(RollEnum.E1_E2, quarter_quarterFar);
     }
 
     @Override

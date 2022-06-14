@@ -1,14 +1,14 @@
 package arik.alerts;
 
 import arik.Arik;
-import jibeDataGraber.DecisionsFunc;
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.util.ArrayList;
 
 public class Plus_Minus_Algo extends ArikAlgoAlert {
 
-    ArrayList<DecisionsFunc> df_list;
+    ArrayList<MyTimeSeries> df_list;
     BASE_CLIENT_OBJECT client;
 
     // Constructor
@@ -16,10 +16,10 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         super(target_price_for_position);
         this.target_price_for_exit_position = 0;
         this.df_list = new ArrayList<>();
+        this.client = client;
 
-//        Map<String, MyTimeSeries> df_map = client.getTimeSeriesHandler().getMap();
-
-//        df_list.add(df_map.get(DecisionsFuncFactory.DF_7));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
     }
 
     @Override
@@ -31,8 +31,8 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         // Enter long
         if (!LONG) {
             boolean b = true;
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() < target_price_for_position) {
+            for (MyTimeSeries ts : df_list) {
+                if (ts.getData() < target_price_for_position) {
                     b = false;
                     break;
                 }
@@ -46,8 +46,8 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
 
         // Exit long
         if (LONG) {
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() < target_price_for_exit_position) {
+            for (MyTimeSeries ts : df_list) {
+                if (ts.getData() < target_price_for_exit_position) {
                     LONG = false;
                     Arik.getInstance().sendMessageToEveryOne("EXIT LONG \n" + client.getName() + " " + client.getIndex());
                     break;
@@ -59,8 +59,8 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         // Enter short
         if (!SHORT) {
             boolean b = true;
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() > target_price_for_position * -1) {
+            for (MyTimeSeries ts : df_list) {
+                if (ts.getData() > target_price_for_position * -1) {
                     b = false;
                     break;
                 }
@@ -74,8 +74,8 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
 
         // Exit short
         if (SHORT) {
-            for (DecisionsFunc df : df_list) {
-                if (df.getValue() > target_price_for_exit_position * -1) {
+            for (MyTimeSeries ts : df_list) {
+                if (ts.getData() > target_price_for_exit_position * -1) {
                     SHORT = false;
                     Arik.getInstance().sendMessageToEveryOne("EXIT SHORT \n" + client.getName() + " " + client.getIndex());
                     break;

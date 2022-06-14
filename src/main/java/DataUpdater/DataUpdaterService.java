@@ -15,12 +15,10 @@ public class DataUpdaterService extends MyBaseService {
         time_series = new ArrayList<>();
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_900_RAW));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_3600_RAW));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_MONTH));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_5));
