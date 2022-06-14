@@ -7,6 +7,7 @@ import dataBase.mySql.MySql;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 
 public class Full_Chart_4 extends MyChartCreator {
@@ -15,7 +16,7 @@ public class Full_Chart_4 extends MyChartCreator {
         Full_Chart_4 fullChart2 = new Full_Chart_4(Spx.getInstance());
         fullChart2.createChart();
     }
-    
+
     // Constructor
     public Full_Chart_4(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
@@ -23,7 +24,7 @@ public class Full_Chart_4 extends MyChartCreator {
 
     @Override
     public void init() {
-        
+
         MyTimeSeries[] series;
 
         // Props
@@ -75,15 +76,15 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
-        
+
         // ------------------- DF -------------------- //
         // DF 2
-        MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
+        MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW);
         df_2.setColor(Themes.ORANGE);
         df_2.setStokeSize(1.5f);
 
         // DF 7
-        MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
+        MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW);
         df_7.setColor(Themes.PURPLE);
         df_7.setStokeSize(1.5f);
 
@@ -94,30 +95,10 @@ public class Full_Chart_4 extends MyChartCreator {
 
         MyChart df_s_chart = new MyChart(client, series, props);
 
-        // -------------------- DF raw -------------------- //
-
-
-        // DF 7 3600
-        MyTimeSeries df_7_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_3600_RAW);
-        df_7_3600.setColor(Themes.BLUE);
-        df_7_3600.setStokeSize(1.5f);
-
-        // DF 7 900
-        MyTimeSeries df_7_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_900_RAW);
-        df_7_900.setColor(Themes.GREEN);
-        df_7_900.setStokeSize(1.5f);
-
-
-        series = new MyTimeSeries[2];
-        series[0] = df_7_3600;
-        series[1] = df_7_900;
-
-        MyChart df_raw_chart = new MyChart(client, series, props);
-
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart, df_s_chart, df_raw_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, df_s_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

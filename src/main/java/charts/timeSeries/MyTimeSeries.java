@@ -104,7 +104,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             e.printStackTrace();
         }
     }
-
+    
     public void add(MyJson json) {
         try {
             if (!json.getString(JsonStrings.x).isEmpty()) {

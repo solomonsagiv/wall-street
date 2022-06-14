@@ -171,8 +171,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1903);
 
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client, MySql.CDF));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client, MySql.CDF));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_RAW, client, MySql.CDF));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_RAW, client, MySql.CDF));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_900_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_900_RAW, client, MySql.RAW));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_3600_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_3600_RAW, client, MySql.RAW));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client, MySql.CDF));
