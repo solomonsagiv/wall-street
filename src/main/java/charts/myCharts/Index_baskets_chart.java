@@ -3,7 +3,6 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import dataBase.mySql.MySql;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -37,7 +36,7 @@ public class Index_baskets_chart extends MyChartCreator {
         // --------- Index ---------- //
 
         // Index
-        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client, MySql.RAW);
+        MyTimeSeries index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client);
         index.setStokeSize(1.5f);
         index.setColor(Color.BLACK);
 

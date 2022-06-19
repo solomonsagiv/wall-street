@@ -2,7 +2,6 @@ package arik.cases;
 
 import arik.Arik;
 import arik.ArikCase;
-import arik.grabdata.ArikGrabData;
 import arik.locals.KeyBoards;
 import com.pengrad.telegrambot.model.Update;
 import locals.L;
@@ -16,9 +15,9 @@ public class TA35_Case extends ArikCase {
 
     @Override
     public boolean doCase(Update update) {
-        String return_text = "TA35" + " price " + L.format100(ArikGrabData.ta35_index) + "\n" +
-                "V5 = " + L.format_int(ArikGrabData.ta35_v5) + "\n" +
-                "V6 = " + L.format_int(ArikGrabData.ta35_v6) + "\n";
+        String return_text = "TA35" + " price " + L.format100(0) + "\n" +
+                "V5 = " + L.format_int(0) + "\n" +
+                "V6 = " + L.format_int(0) + "\n";
 
         Arik.getInstance().sendMessage(update, return_text, getKeyboard());
         return true;

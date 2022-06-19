@@ -3,11 +3,11 @@ package dataBase.mySql.dataUpdaters;
 import api.Manifest;
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
-import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -156,9 +156,10 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 113);
         serie_ids.put(TimeSeriesHandler.DF_7, 995);
         serie_ids.put(TimeSeriesHandler.DF_7_300, 1009);
-        serie_ids.put(TimeSeriesHandler.DF_7_900, 1010);
         serie_ids.put(TimeSeriesHandler.DF_7_3600, 1011);
         serie_ids.put(TimeSeriesHandler.DF_2, 990);
+        serie_ids.put(TimeSeriesHandler.DF_2_300, 2194);
+        serie_ids.put(TimeSeriesHandler.DF_2_3600, 2196);
         serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 1904);
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 1905);
@@ -166,20 +167,22 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1907);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1908);
 
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client, MySql.CDF));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client, MySql.CDF));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2, client, MySql.RAW));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7, client, MySql.RAW));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_300_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_300_RAW, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_3600_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_3600_RAW, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_300_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300_RAW, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_3600_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_3600_RAW, client));
 
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_5, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client, MySql.CDF));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client, MySql.RAW));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_5, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client, MySql.RAW));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client, MySql.RAW));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client, MySql.RAW));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client, MySql.RAW));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client, MySql.RAW));
     }
 
     private void updateListsRetro() {

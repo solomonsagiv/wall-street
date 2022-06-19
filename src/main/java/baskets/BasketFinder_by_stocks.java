@@ -30,7 +30,7 @@ public class BasketFinder_by_stocks extends MyBaseService {
         this.stocksHandler = client.getStocksHandler();
         this.bigFrame = new BigFrame();
     }
-
+    
     @Override
     public void go() {
 
