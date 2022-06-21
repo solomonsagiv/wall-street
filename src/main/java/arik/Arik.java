@@ -49,7 +49,7 @@ public class Arik {
         }
         return arik;
     }
-    
+
     public void start() {
         if (!running) {
 

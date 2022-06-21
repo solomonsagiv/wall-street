@@ -3,7 +3,6 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import dataBase.mySql.MySql;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
@@ -44,7 +43,7 @@ public class Index_baskets_short_chart extends MyChartCreator {
 
         // --------- Index ---------- //
         // Spx df 7 raw
-        MyTimeSeries ndx_index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, Ndx.getInstance(), MySql.RAW);
+        MyTimeSeries ndx_index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, Ndx.getInstance());
         ndx_index.setStokeSize(1.5f);
         ndx_index.setColor(Color.BLACK);
 

@@ -2,12 +2,12 @@ package charts.myCharts;
 
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
-import dataBase.mySql.MySql;
 import exp.Exp;
 import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
 
         // ----- Chart 1 ----- //
         // Index
-        MyTimeSeries index = new MyTimeSeries("Index", client, MySql.RAW) {
+        MyTimeSeries index = new MyTimeSeries("Index", client) {
 
             @Override
             public double getData() {
@@ -62,7 +62,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         index.setStokeSize(2.25f);
 
         // Bid
-        MyTimeSeries bid = new MyTimeSeries("Index bid", client, MySql.RAW) {
+        MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
 
             @Override
             public double getData() {
@@ -83,7 +83,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         bid.setStokeSize(2.25f);
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries("Index ask", client, MySql.RAW) {
+        MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
 
             @Override
             public double getData() {
@@ -115,7 +115,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
 
         for (Exp exp : exps.getExpList()) {
 
-            MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client, MySql.RAW) {
+            MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client) {
 
                 @Override
                 public double getData() {

@@ -38,21 +38,21 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     MyDoubleList myValues;
     private String series_type;
     private boolean load = false;
-    private String agg_type;
 
     // Constructor
-    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client, String agg_type) {
+    public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
         super(name);
         this.name = (String) name;
         this.series_type = (String) name;
-        this.agg_type = agg_type;
         this.client = client;
         myValues = new MyDoubleList();
     }
 
     public void load_data() {
         try {
-            load();
+            if (!isLoad()) {
+                load();
+            }
             setLoad(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
             e.printStackTrace();
         }
     }
-    
+
     public void add(MyJson json) {
         try {
             if (!json.getString(JsonStrings.x).isEmpty()) {
@@ -213,11 +213,4 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         this.data = data;
     }
 
-    public String getAgg_type() {
-        return agg_type;
-    }
-
-    public void setAgg_type(String agg_type) {
-        this.agg_type = agg_type;
-    }
 }
