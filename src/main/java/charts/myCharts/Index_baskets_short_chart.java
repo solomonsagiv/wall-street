@@ -9,7 +9,14 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
+import java.awt.*;
+
 public class Index_baskets_short_chart extends MyChartCreator {
+
+    public static void main(String[] args) {
+        Index_baskets_short_chart index_baskets_short_chart = new Index_baskets_short_chart(Spx.getInstance());
+        index_baskets_short_chart.createChart();
+    }
 
     // Constructor
     public Index_baskets_short_chart(BASE_CLIENT_OBJECT client) {
@@ -33,28 +40,28 @@ public class Index_baskets_short_chart extends MyChartCreator {
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, INFINITE);
         props.setProp(ChartPropsEnum.INCLUDE_DOMAIN_AXIS, 1);
+        props.setProp(ChartPropsEnum.MARKER, 0);
 
         // --------- Index ---------- //
         // Spx df 7 raw
         MyTimeSeries ndx_index = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, Ndx.getInstance(), MySql.RAW);
         ndx_index.setStokeSize(1.5f);
-        ndx_index.setColor(Themes.LIFGT_BLUE_2);
+        ndx_index.setColor(Color.BLACK);
 
         series = new MyTimeSeries[1];
         series[0] = ndx_index;
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-
         // Spx df 7 raw
         MyTimeSeries spx_df_7 = Spx.getInstance().getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW);
         spx_df_7.setStokeSize(1.5f);
-        spx_df_7.setColor(Themes.LIFGT_BLUE_2);
+        spx_df_7.setColor(Themes.BINANCE_ORANGE);
 
         // Ndx df 7 raw
         MyTimeSeries ndx_df_7 = Ndx.getInstance().getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW);
         ndx_df_7.setStokeSize(1.5f);
-        ndx_df_7.setColor(Themes.GREEN_LIGHT);
+        ndx_df_7.setColor(Themes.BLUE);
 
         series = new MyTimeSeries[2];
         series[0] = ndx_df_7;
@@ -62,7 +69,6 @@ public class Index_baskets_short_chart extends MyChartCreator {
 
         // Chart
         MyChart df_chart= new MyChart(client, series, props);
-
 
         // ---------- Baskets ---------- //
         // Index

@@ -11,11 +11,9 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public class DDEReader_Spx extends IDDEReader {
 
     Exp day;
-    Exp week;
-    Exp month;
     E q1;
     E q2;
-
+    
     private boolean init_exp = false;
 
     String indCell = "R2C3";
@@ -100,16 +98,12 @@ public class DDEReader_Spx extends IDDEReader {
 
         // Exps
         day.set_future(requestDouble(futDayCell, conversation));
-        week.set_future(requestDouble(futWeekCell, conversation));
-        month.set_future(requestDouble(futMonthCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
     }
 
     private void init_exps() {
         day = client.getExps().getExp(ExpStrings.day);
-        week = client.getExps().getExp(ExpStrings.week);
-        month = client.getExps().getExp(ExpStrings.month);
         q1 = (E) client.getExps().getExp(ExpStrings.q1);
         q2 = (E) client.getExps().getExp(ExpStrings.q2);
         init_exp = true;
@@ -121,8 +115,6 @@ public class DDEReader_Spx extends IDDEReader {
             DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getExcel_path());
 
             Exp day = client.getExps().getExp(ExpStrings.day);
-            Exp week = client.getExps().getExp(ExpStrings.week);
-            Exp month = client.getExps().getExp(ExpStrings.month);
             Exp q1 = client.getExps().getExp(ExpStrings.q1);
             Exp q2 = client.getExps().getExp(ExpStrings.q2);
 
@@ -130,16 +122,6 @@ public class DDEReader_Spx extends IDDEReader {
             day.setInterest(requestDouble(day_interest_cell, conversation));
             day.setDividend(requestDouble(day_div_cell, conversation));
             day.setDays_to_exp(requestDouble(day_days_cell, conversation));
-
-            // Week
-            week.setInterest(requestDouble(week_interest_cell, conversation));
-            week.setDividend(requestDouble(week_div_cell, conversation));
-            week.setDays_to_exp(requestDouble(week_days_cell, conversation));
-
-            // Month
-            month.setInterest(requestDouble(month_interest_cell, conversation));
-            month.setDividend(requestDouble(month_div_cell, conversation));
-            month.setDays_to_exp(requestDouble(month_days_cell, conversation));
 
             // Q1
             q1.setInterest(requestDouble(q1_interest_cell, conversation));

@@ -8,6 +8,7 @@ import gui.panels.IMyPanel;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -124,10 +125,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
             for (MyTimeSeries ts : timeSeries) {
                 try {
                     if (ts.getData() != 0) {
-                        if (ts.getData() > 1000 || ts.getData() < -1000) {
-                            df_field.colorForge((int) (ts.getData() / 1000), L.format_int());
-                            continue;
-                        }
+                        df_field.colorForge((int) (ts.getData() / 1000), L.format_int());
+                        continue;
                     }
                     df_field.colorForge((int) ts.getData());
                 } catch (Exception e) {
