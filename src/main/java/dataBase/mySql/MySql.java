@@ -18,7 +18,6 @@ public class MySql {
     public static final String BY_TIME = "BY_TIME";
     public static final String FROM_TODAY = "FROM_TODAY";
 
-
     public static void main(String[] args) throws SQLException {
 
         System.out.println(Queries.get_serie("data.research", 3, 117));

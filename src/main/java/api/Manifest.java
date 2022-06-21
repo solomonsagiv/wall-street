@@ -21,9 +21,9 @@ public class Manifest {
 
     // GATEWAY
     public static int GATEWAY_PORT = 4001;
-
+    
     // SELECTED ACCOUNT
-    public static final int POOL_SIZE = 15;
+    public static int POOL_SIZE = 15;
     public static boolean DB = true;
     public static boolean DB_RUNNER = true;
     public static boolean OPEN_CHARTS = true;

@@ -37,7 +37,7 @@ public class DataUpdaterService extends MyBaseService {
     private void update_timeseries_data() {
         for (MyTimeSeries ts : time_series) {
             try {
-                System.out.println(ts.getName() + " " + ts.getData());
+                System.out.println(ts.getName() + " " + ts.getValue());
 
                 ts.updateData();
             } catch (Exception e) {

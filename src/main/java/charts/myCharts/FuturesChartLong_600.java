@@ -44,7 +44,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         MyTimeSeries index = new MyTimeSeries("Index", client) {
 
             @Override
-            public double getData() {
+            public double getValue() {
                 return client.getIndex();
             }
 
@@ -65,7 +65,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
 
             @Override
-            public double getData() {
+            public double getValue() {
                 return client.getIndexBid();
             }
 
@@ -86,7 +86,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
         MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
 
             @Override
-            public double getData() {
+            public double getValue() {
                 return client.getIndexAsk();
             }
 
@@ -118,7 +118,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
             MyTimeSeries myTimeSerie = new MyTimeSeries(StringUtils.capitalize(exp.getName()), client) {
 
                 @Override
-                public double getData() {
+                public double getValue() {
                     return exp.get_future();
                 }
 

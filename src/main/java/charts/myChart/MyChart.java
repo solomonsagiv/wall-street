@@ -389,7 +389,7 @@ public class MyChart {
                 oldVal = oldVals[i];
 
                 try {
-                    newVal = serie.getData();
+                    newVal = serie.getValue();
                 } catch (Exception e) {
                     e.printStackTrace();
                     change = false;

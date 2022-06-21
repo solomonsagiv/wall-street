@@ -1,31 +1,24 @@
 package arik.grabdata;
 
+import arik.Arik;
+import arik.dataHandler.DataHandler;
 import arik.window.ArikMainPanel;
-import charts.timeSeries.MyTimeSeries;
+import dataBase.mySql.MySql;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
-
-import java.util.ArrayList;
 
 public class ArikGrabData extends MyThread implements Runnable {
 
     Spx spx;
     Ndx ndx;
 
-    public static double ta35_index = 0;
-    public static int ta35_v5 = 0;
-    public static int ta35_v6 = 0;
-    public static int ta35_pre_v5 = 0;
-    public static int ta35_pre_v6 = 0;
-
-    String ta35_dec_table = "data.ta35_decision_func";
-
-    ArrayList<MyTimeSeries> series_list;
+    Arik arik;
 
     public ArikGrabData() {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
+        arik = Arik.getInstance();
     }
 
     @Override
@@ -65,15 +58,23 @@ public class ArikGrabData extends MyThread implements Runnable {
 
     private void grab_data() {
 
+        DataHandler dataHandler = arik.getDataHandler();
 
-    }
+        // TA35
+        dataHandler.get(DataHandler.TA35_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(5, MySql.RAW)));
+        dataHandler.get(DataHandler.TA35_DF_5).setValue((int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(92, MySql.CDF)));
+        dataHandler.get(DataHandler.TA35_DF_6).setValue((int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(93, MySql.CDF)));
 
-    public static void update_pre_v5() {
-        ta35_pre_v5 = ta35_v5;
-    }
+        // SPX
+        dataHandler.get(DataHandler.SPX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(3, MySql.RAW)));
+        dataHandler.get(DataHandler.SPX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1028, MySql.CDF)));
+        dataHandler.get(DataHandler.SPX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1023, MySql.CDF)));
 
-    public static void update_pre_v6() {
-        ta35_pre_v6 = ta35_v6;
+        // NDX
+        dataHandler.get(DataHandler.NDX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1, MySql.RAW)));
+        dataHandler.get(DataHandler.NDX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(995, MySql.CDF)));
+        dataHandler.get(DataHandler.NDX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(990, MySql.CDF)));
+
     }
 
     @Override

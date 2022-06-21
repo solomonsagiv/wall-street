@@ -1,9 +1,11 @@
 package arik;
 
+import api.Manifest;
 import arik.alerts.ArikAlgoAlert;
 import arik.alerts.ArikPositionsAlert;
 import arik.alerts.Plus_Minus_Algo;
 import arik.alerts.TA35_100000_Algo;
+import arik.dataHandler.DataHandler;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
@@ -28,6 +30,7 @@ public class Arik {
     private ArikRunner arikRunner;
     private boolean running = false;
     private TelegramBot bot;
+    private DataHandler dataHandler;
 
     private int updateId = 0;
 
@@ -39,7 +42,9 @@ public class Arik {
     }
 
     public static void main(String[] args) {
+        Manifest.POOL_SIZE = 5;
         Arik.getInstance().start();
+
     }
 
     // Get instance
@@ -57,6 +62,9 @@ public class Arik {
                 // Load from database
                 load_from_db();
 
+                // Data objects
+                init_data_handler();
+
                 // Arik messages runner
                 arik_runner();
 
@@ -73,7 +81,11 @@ public class Arik {
             }
         }
     }
-    
+
+    private void init_data_handler() {
+        dataHandler = new DataHandler();
+    }
+
     private void arik_runner() {
         arikRunner = new ArikRunner(this);
         arikRunner.start();
@@ -89,9 +101,9 @@ public class Arik {
         // Positions alert
         ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
         // Spx
-        algo_list.add(new Plus_Minus_Algo(1000, Spx.getInstance()));
+        algo_list.add(new Plus_Minus_Algo(5000, Spx.getInstance()));
         // Ndx
-        algo_list.add(new Plus_Minus_Algo(1000, Ndx.getInstance()));
+        algo_list.add(new Plus_Minus_Algo(5000, Ndx.getInstance()));
 
         // TA 35
         ArrayList<Double> targets = new ArrayList<>();
@@ -209,7 +221,7 @@ public class Arik {
             updateId += 1;
         }
     }
-
+    
     // ----------- Getters and Setters ---------- //
     public int getUpdateId() {
         return updateId;
@@ -235,4 +247,11 @@ public class Arik {
         this.bot = bot;
     }
 
+    public DataHandler getDataHandler() {
+        return dataHandler;
+    }
+
+    public void setDataHandler(DataHandler dataHandler) {
+        this.dataHandler = dataHandler;
+    }
 }

@@ -1,25 +1,47 @@
 package arik.alerts;
 
 import arik.Arik;
-import charts.timeSeries.MyTimeSeries;
-import charts.timeSeries.TimeSeriesFactory;
+import arik.dataHandler.DataHandler;
+import arik.dataHandler.DataObject;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import java.util.ArrayList;
 
 public class Plus_Minus_Algo extends ArikAlgoAlert {
 
-    ArrayList<MyTimeSeries> df_list;
     BASE_CLIENT_OBJECT client;
+
+    ArrayList<DataObject> dataObjects;
+
+    Arik arik;
+
+    DataObject index;
 
     // Constructor
     public Plus_Minus_Algo(double target_price_for_position, BASE_CLIENT_OBJECT client) {
         super(target_price_for_position);
         this.target_price_for_exit_position = 0;
-        this.df_list = new ArrayList<>();
+        this.dataObjects = new ArrayList<>();
         this.client = client;
+        this.arik = Arik.getInstance();
 
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
+        init_data_objects(client);
+    }
+
+    private void init_data_objects(BASE_CLIENT_OBJECT client) {
+        if (client instanceof Spx) {
+            dataObjects.add(arik.getDataHandler().get(DataHandler.SPX_DF_2));
+            dataObjects.add(arik.getDataHandler().get(DataHandler.SPX_DF_7));
+            index = arik.getDataHandler().get(DataHandler.SPX_INDEX);
+        }
+
+        if (client instanceof Ndx) {
+            dataObjects.add(arik.getDataHandler().get(DataHandler.NDX_DF_2));
+            dataObjects.add(arik.getDataHandler().get(DataHandler.NDX_DF_7));
+            index = arik.getDataHandler().get(DataHandler.NDX_INDEX);
+        }
+
     }
 
     @Override
@@ -31,8 +53,8 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         // Enter long
         if (!LONG) {
             boolean b = true;
-            for (MyTimeSeries ts : df_list) {
-                if (ts.getData() < target_price_for_position) {
+            for (DataObject ts : dataObjects) {
+                if (ts.getValue() < target_price_for_position) {
                     b = false;
                     break;
                 }
@@ -40,16 +62,16 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
             LONG = b;
 
             if (LONG) {
-                Arik.getInstance().sendMessageToEveryOne("LONG \n" + client.getName() + " " + client.getIndex());
+                Arik.getInstance().sendMessageToSlo("LONG \n" + client.getName() + " " + index.getValue());
             }
         }
 
         // Exit long
         if (LONG) {
-            for (MyTimeSeries ts : df_list) {
-                if (ts.getData() < target_price_for_exit_position) {
+            for (DataObject ts : dataObjects) {
+                if (ts.getValue() < target_price_for_exit_position) {
                     LONG = false;
-                    Arik.getInstance().sendMessageToEveryOne("EXIT LONG \n" + client.getName() + " " + client.getIndex());
+                    Arik.getInstance().sendMessageToSlo("EXIT LONG \n" + client.getName() + " " + index.getValue());
                     break;
                 }
             }
@@ -59,8 +81,8 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         // Enter short
         if (!SHORT) {
             boolean b = true;
-            for (MyTimeSeries ts : df_list) {
-                if (ts.getData() > target_price_for_position * -1) {
+            for (DataObject ts : dataObjects) {
+                if (ts.getValue() > target_price_for_position * -1) {
                     b = false;
                     break;
                 }
@@ -68,16 +90,16 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
             SHORT = b;
 
             if (SHORT) {
-                Arik.getInstance().sendMessageToEveryOne("SHORT \n" + client.getName() + " " + client.getIndex());
+                Arik.getInstance().sendMessageToSlo("SHORT \n" + client.getName() + " " + index.getValue());
             }
         }
 
         // Exit short
         if (SHORT) {
-            for (MyTimeSeries ts : df_list) {
-                if (ts.getData() > target_price_for_exit_position * -1) {
+            for (DataObject ts : dataObjects) {
+                if (ts.getValue() > target_price_for_exit_position * -1) {
                     SHORT = false;
-                    Arik.getInstance().sendMessageToEveryOne("EXIT SHORT \n" + client.getName() + " " + client.getIndex());
+                    Arik.getInstance().sendMessageToSlo("EXIT SHORT \n" + client.getName() + " " + index.getValue());
                     break;
                 }
             }

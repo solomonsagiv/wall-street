@@ -13,7 +13,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 interface ITimeSeries {
-    double getData();
+    double getValue();
 
     void updateData();
 
@@ -22,7 +22,7 @@ interface ITimeSeries {
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
-    private double data;
+    private double value;
     private int serie_database_id = 0;
     private int id = 0;
     public static final int TIME = 0;
@@ -78,7 +78,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
 
     public void add(LocalDateTime time) {
         Second second = new Second(time.getSecond(), time.getMinute(), time.getHour(), time.getDayOfMonth(), time.getMonthValue(), time.getYear());
-        double data = getData();
+        double data = getValue();
         if (data != 0) {
             getMyValues().add(data);
             if (scaled) {
@@ -127,7 +127,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         double data = 0;
         // live data
         try {
-            data = getData();
+            data = getValue();
             if (data != 0) {
                 myValues.add(data);
                 addOrUpdate(getLastSeconde(), data);
@@ -205,12 +205,12 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     }
 
     @Override
-    public double getData() {
-        return data;
+    public double getValue() {
+        return value;
     }
 
-    public void setData(double data) {
-        this.data = data;
+    public void setValue(double value) {
+        this.value = value;
     }
 
 }
