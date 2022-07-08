@@ -7,14 +7,13 @@ import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.awt.*;
 import java.util.ArrayList;
 
-public class FuturesChartLong_600 extends MyChartCreator {
+public class FuturesChartLong_400 extends MyChartCreator {
 
     // Constructor
-    public FuturesChartLong_600(BASE_CLIENT_OBJECT client ) {
+    public FuturesChartLong_400(BASE_CLIENT_OBJECT client ) {
         super(client, null, null);
     }
 
@@ -29,7 +28,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, 600);
+        props.setProp(ChartPropsEnum.SECONDS, 400);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.003);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
@@ -59,7 +58,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
             }
         };
         index.setColor(Color.BLACK);
-        index.setStokeSize(2.25f);
+        index.setStokeSize(1.75f);
 
         // Bid
         MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
@@ -80,7 +79,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
             }
         };
         bid.setColor(Themes.BLUE);
-        bid.setStokeSize(2.25f);
+        bid.setStokeSize(1.75f);
 
         // Ask
         MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
@@ -101,7 +100,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
             }
         };
         ask.setColor(Themes.RED);
-        ask.setStokeSize(2.25f);
+        ask.setStokeSize(1.75f);
 
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
@@ -131,7 +130,7 @@ public class FuturesChartLong_600 extends MyChartCreator {
                 public void load() {}
             };
 
-            myTimeSerie.setStokeSize(2.25f);
+            myTimeSerie.setStokeSize(1.75f);
             myTimeSerie.setColor(greens.get(i));
             i++;
             myTimeSeries.add(myTimeSerie);

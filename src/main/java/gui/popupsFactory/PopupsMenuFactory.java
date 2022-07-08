@@ -48,7 +48,6 @@ public class PopupsMenuFactory {
             }
         });
 
-
         JMenuItem baskets_1800 = new JMenuItem("Baskets 1800");
         baskets_1800.addActionListener(new ActionListener() {
             @Override
@@ -60,12 +59,11 @@ public class PopupsMenuFactory {
             }
         });
 
-
-        JMenuItem futures_real_time_600 = new JMenuItem("Futures 600");
+        JMenuItem futures_real_time_600 = new JMenuItem("Futures 400");
         futures_real_time_600.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FuturesChartLong_600 chart = new FuturesChartLong_600(client);
+                FuturesChartLong_400 chart = new FuturesChartLong_400(client);
                 chart.createChart();
             }
         });

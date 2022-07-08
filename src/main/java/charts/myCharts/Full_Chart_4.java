@@ -42,12 +42,18 @@ public class Full_Chart_4 extends MyChartCreator {
         // ------------------- Index -------------------- //
 
         // Index
-        MyTimeSeries indexSeries = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_SERIES, client);
-        indexSeries.setColor(Color.BLACK);
-        indexSeries.setStokeSize(1.5f);
+        MyTimeSeries index_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX, client);
+        index_serie.setColor(Color.BLACK);
+        index_serie.setStokeSize(1f);
 
-        series = new MyTimeSeries[1];
-        series[0] = indexSeries;
+        // Index
+        MyTimeSeries fut_day_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.FUTURE_DAY_MULTIPLY_OP, client);
+        fut_day_serie.setColor(Themes.GREEN);
+        fut_day_serie.setStokeSize(1f);
+
+        series = new MyTimeSeries[2];
+        series[0] = index_serie;
+        series[1] = fut_day_serie;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);

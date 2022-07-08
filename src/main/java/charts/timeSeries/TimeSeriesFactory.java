@@ -9,7 +9,8 @@ import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
 
-    public static final String INDEX_SERIES = "INDEX";
+    public static final String INDEX = "INDEX";
+    public static final String FUTURE_DAY_MULTIPLY_OP = "FUTURE_DAY_MULTIPLY_OP";
     public static final String INDEX_BID_SERIES = "INDEX_BID";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK";
     public static final String STOCKS_DELTA_SERIES = "STOCKS_DELTA";
@@ -18,7 +19,7 @@ public class TimeSeriesFactory {
     public static final String BASKETS_CDF = "BASKETS_CDF";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
 
-//    DF 2
+    // DF 2
     public static final String DF_2_RAW = "DF_2_RAW";
     public static final String DF_2_300_RAW = "DF_2_300_RAW";
     public static final String DF_2_3600_RAW = "DF_2_3600_RAW";
@@ -196,7 +197,6 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
-
 
             case DF_7_3600_RAW:
                 return new MyTimeSeries(series_type, client) {
@@ -440,7 +440,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case INDEX_SERIES:
+            case INDEX:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -493,6 +493,31 @@ public class TimeSeriesFactory {
                     public void load() {
                     }
                 };
+
+
+            case FUTURE_DAY_MULTIPLY_OP:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        double op = client.getExps().getExp(ExpStrings.day).get_op();
+                        double value = client.getIndex() + (op * 5);
+                        return (value);
+                    }
+
+                    @Override
+                    public void updateData() {
+
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.FUT_DAY);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
             case BASKETS_CDF:
                 return new MyTimeSeries(series_type, client) {
 

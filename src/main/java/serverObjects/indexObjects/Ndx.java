@@ -7,7 +7,7 @@ import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
 import charts.myCharts.Full_Chart_4;
-import charts.myCharts.FuturesChartLong_600;
+import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import serverObjects.ApiEnum;
@@ -85,7 +85,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
             new Thread(() -> {
                 try {
 
-                    FuturesChartLong_600 chart = new FuturesChartLong_600(this);
+                    FuturesChartLong_400 chart = new FuturesChartLong_400(this);
                     chart.createChart();
 
                     Thread.sleep(5000);

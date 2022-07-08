@@ -124,11 +124,11 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         public void updateText() {
             for (MyTimeSeries ts : timeSeries) {
                 try {
-                    if (ts.getData() != 0) {
-                        df_field.colorForge((int) (ts.getData() / 1000), L.format_int());
+                    if (ts.getValue() != 0) {
+                        df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
                         continue;
                     }
-                    df_field.colorForge((int) ts.getData());
+                    df_field.colorForge((int) ts.getValue());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
