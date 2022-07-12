@@ -5,6 +5,7 @@ import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
@@ -357,7 +358,6 @@ public class TimeSeriesFactory {
                 };
 
 
-
             case OP_AVG_MONTH:
                 return new MyTimeSeries(series_type, client) {
 
@@ -500,8 +500,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getValue() {
-                        double op = client.getExps().getExp(ExpStrings.day).get_op();
-                        double value = client.getIndex() + (op * 9);
+                        double value = client.getIndex() + client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_5).getValue();
                         return (value);
                     }
 
