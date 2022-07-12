@@ -504,6 +504,7 @@ public class TimeSeriesFactory {
                         return (value);
                     }
 
+
                     @Override
                     public void updateData() {
 
