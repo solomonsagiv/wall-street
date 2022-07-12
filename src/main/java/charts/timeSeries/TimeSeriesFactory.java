@@ -501,7 +501,7 @@ public class TimeSeriesFactory {
                     @Override
                     public double getValue() {
                         double op = client.getExps().getExp(ExpStrings.day).get_op();
-                        double value = client.getIndex() + (op * 5);
+                        double value = client.getIndex() + (op * 3);
                         return (value);
                     }
 

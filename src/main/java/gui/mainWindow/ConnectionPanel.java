@@ -179,7 +179,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     public static void update_sapi_request() {
         try {
             DDEConnection ddeConnection = new DDEConnection();
-            String path = Spx.getInstance().getSapi_excel_path();
+//            String path = Spx.getInstance().getSapi_excel_path();
+
+            String path = "C:/Users/yosef/Desktop/[bbg index.xlsm]SAPI List";
+
             DDEClientConversation conversation = ddeConnection.createNewConversation(path);
 
             int col = 2;
