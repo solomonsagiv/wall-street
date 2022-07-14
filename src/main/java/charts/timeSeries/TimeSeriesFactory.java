@@ -32,6 +32,9 @@ public class TimeSeriesFactory {
     public static final String DF_7_3600_RAW = "DF_7_3600_RAW";
     public static final String DF_7_CDF = "DF_7_CDF";
 
+    // DF 8
+    public static final String DF_8_RAW = "DF_8_RAW";
+
     public static final String OP_AVG_DAY = "OP_AVG_DAY";
     public static final String OP_AVG_WEEK = "OP_AVG_WEEK";
     public static final String OP_AVG_MONTH = "OP_AVG_MONTH";
@@ -220,6 +223,29 @@ public class TimeSeriesFactory {
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
                 };
+
+            case DF_8_RAW:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+                };
+
 
 
             case OP_AVG_240_CONTINUE:

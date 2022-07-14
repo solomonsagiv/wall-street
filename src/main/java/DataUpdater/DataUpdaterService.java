@@ -13,10 +13,9 @@ public class DataUpdaterService extends MyBaseService {
     public DataUpdaterService(BASE_CLIENT_OBJECT client) {
         super(client);
         time_series = new ArrayList<>();
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_300_RAW));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_3600_RAW));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_300_RAW));
-        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_3600_RAW));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
