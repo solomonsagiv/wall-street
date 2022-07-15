@@ -520,13 +520,12 @@ public class TimeSeriesFactory {
                     }
                 };
 
-
             case FUTURE_DAY_MULTIPLY_OP:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
                     public double getValue() {
-                        double value = client.getIndex() + client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_5).getValue();
+                        double value = client.getIndex() + client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_5).getValue() * 6;
                         return (value);
                     }
 
