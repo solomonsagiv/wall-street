@@ -150,9 +150,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_MONTH, 13);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 11);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 12);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 112);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 114);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 113);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 1001);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 997);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 999);
         serie_ids.put(TimeSeriesHandler.DF_7, 995);
         serie_ids.put(TimeSeriesHandler.DF_7_300, 1009);
         serie_ids.put(TimeSeriesHandler.DF_7_3600, 1011);

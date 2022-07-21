@@ -25,15 +25,18 @@ public class TimeSeriesFactory {
     public static final String DF_2_300_RAW = "DF_2_300_RAW";
     public static final String DF_2_3600_RAW = "DF_2_3600_RAW";
     public static final String DF_2_CDF = "DF_2_CDF";
+    public static final String DF_2_RAW_AVG_300 = "DF_2_RAW_AVG_300";
 
     // DF 7
     public static final String DF_7_RAW = "DF_7_RAW";
     public static final String DF_7_300_RAW = "DF_7_300_RAW";
     public static final String DF_7_3600_RAW = "DF_7_3600_RAW";
     public static final String DF_7_CDF = "DF_7_CDF";
+    public static final String DF_7_RAW_AVG_300 = "DF_7_RAW_AVG_300";
 
     // DF 8
     public static final String DF_8_RAW = "DF_8_RAW";
+    public static final String DF_8_RAW_AVG_300 = "DF_8_RAW_AVG_300";
 
     public static final String OP_AVG_DAY = "OP_AVG_DAY";
     public static final String OP_AVG_WEEK = "OP_AVG_WEEK";

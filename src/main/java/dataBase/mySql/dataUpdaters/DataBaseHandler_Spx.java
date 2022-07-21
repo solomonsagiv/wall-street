@@ -154,9 +154,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_MONTH, 19);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 17);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 18);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 117);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 116);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 115);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 1034);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 1030);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 1032);
         serie_ids.put(TimeSeriesHandler.DF_7, 1028);
         serie_ids.put(TimeSeriesHandler.DF_7_300, 1042);
         serie_ids.put(TimeSeriesHandler.DF_7_3600, 1044);
