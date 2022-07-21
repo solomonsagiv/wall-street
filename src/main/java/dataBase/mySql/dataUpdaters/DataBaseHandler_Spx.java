@@ -175,11 +175,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_300_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_300_RAW, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_3600_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_3600_RAW, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_300_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_300_RAW, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_3600_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_3600_RAW, client));
-
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_RAW, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_RAW, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));

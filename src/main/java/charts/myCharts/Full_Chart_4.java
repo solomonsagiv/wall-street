@@ -85,7 +85,7 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // DF 2
         MyTimeSeries df_2_raw = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW);
-        df_2_raw.setColor(Themes.ORANGE);
+        df_2_raw.setColor(Themes.BINANCE_ORANGE);
         df_2_raw.setStokeSize(1.5f);
 
         // DF 7
@@ -95,7 +95,7 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // DF 8
         MyTimeSeries df_8_raw = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW);
-        df_8_raw.setColor(Themes.BROWN);
+        df_8_raw.setColor(Themes.RED);
         df_8_raw.setStokeSize(1.5f);
 
 
