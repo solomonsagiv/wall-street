@@ -35,7 +35,7 @@ public class TimeSeriesHandler {
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
 
-    private Map<String, MyTimeSeries> getSeries_map() {
+    public Map<String, MyTimeSeries> getSeries_map() {
         return series_map;
     }
 

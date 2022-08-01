@@ -43,6 +43,11 @@ public abstract class IDataBaseHandler {
             int index_table = serie_ids.get(TimeSeriesHandler.INDEX);
             double start_exp = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_table, client.getId_name()));
             client.getExps().getExp(ExpStrings.q1).setStart(start_exp);
+
+            // Load exp data for each timeserie
+            for (Map.Entry<String, MyTimeSeries> entry :client.getTimeSeriesHandler().getSeries_map().entrySet()) {
+                entry.getValue().load_exp_data();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

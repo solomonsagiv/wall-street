@@ -19,7 +19,6 @@ import service.MyServiceHandler;
 import stocksHandler.StocksHandler;
 import stocksHandler.stocksDelta.StocksDeltaService;
 import threads.MyThread;
-
 import javax.swing.table.DefaultTableModel;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
@@ -98,7 +97,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double low = 0;
     private double base = 0;
     private double indexBidAskMargin = 0;
-
+    
     public BASE_CLIENT_OBJECT() {
         try {
             bid_ask_counter_list = new ArrayList<>();

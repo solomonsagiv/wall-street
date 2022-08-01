@@ -26,6 +26,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Df_panel df_panel_1;
     Df_panel df_panel_2;
     Df_panel df_panel_3;
+    Df_panel df_panel_4;
 
     int width = 100;
     int height = 300;
@@ -40,6 +41,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_list = new ArrayList<>();
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
@@ -80,10 +82,17 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         body.add(df_panel_2);
 
         // DF panels
-        df_panel_3 = new Df_panel("Baskets", new MyTimeSeries[]{df_list.get(2)});
+        df_panel_3 = new Df_panel("DF 8", new MyTimeSeries[]{df_list.get(2)});
         df_panel_3.setXY(df_panel_2.getX(), df_panel_2.getY() + df_panel_2.getHeight() + 1);
         df_panel_3.setWidth(width);
         df_panel_3.setHeight(25);
+        body.add(df_panel_3);
+
+        // DF panels
+        df_panel_4 = new Df_panel("Baskets", new MyTimeSeries[]{df_list.get(3)});
+        df_panel_4.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
+        df_panel_4.setWidth(width);
+        df_panel_4.setHeight(25);
         body.add(df_panel_3);
 
     }
@@ -142,6 +151,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_panel_1.updateText();
         df_panel_2.updateText();
         df_panel_3.updateText();
+        df_panel_4.updateText();
     }
 
     private void nois(JTextField textField) {

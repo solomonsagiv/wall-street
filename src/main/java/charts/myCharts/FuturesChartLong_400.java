@@ -56,6 +56,11 @@ public class FuturesChartLong_400 extends MyChartCreator {
             public void load() {
 
             }
+
+            @Override
+            public void load_exp_data() {
+
+            }
         };
         index.setColor(Color.BLACK);
         index.setStokeSize(1.75f);
@@ -77,6 +82,11 @@ public class FuturesChartLong_400 extends MyChartCreator {
             public void load() {
 
             }
+
+            @Override
+            public void load_exp_data() {
+
+            }
         };
         bid.setColor(Themes.BLUE);
         bid.setStokeSize(1.75f);
@@ -96,6 +106,11 @@ public class FuturesChartLong_400 extends MyChartCreator {
 
             @Override
             public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
 
             }
         };
@@ -128,6 +143,11 @@ public class FuturesChartLong_400 extends MyChartCreator {
 
                 @Override
                 public void load() {}
+
+                @Override
+                public void load_exp_data() {
+
+                }
             };
 
             myTimeSerie.setStokeSize(1.75f);

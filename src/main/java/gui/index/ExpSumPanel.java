@@ -1,5 +1,7 @@
 package gui.index;
 
+import charts.timeSeries.MyTimeSeries;
+import charts.timeSeries.TimeSeriesFactory;
 import exp.Exp;
 import exp.ExpStrings;
 import gui.MyGuiComps;
@@ -22,11 +24,16 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel moveLbl;
     MyGuiComps.MyTextField moveField;
 
-    MyGuiComps.MyLabel v7_Lbl;
-    MyGuiComps.MyTextField v7_Field;
+    MyGuiComps.MyLabel df_2_Lbl;
+    MyGuiComps.MyTextField df_2_Field;
 
-    MyGuiComps.MyLabel v3_Lbl;
-    MyGuiComps.MyTextField v3_Field;
+    MyGuiComps.MyLabel df_7_Lbl;
+    MyGuiComps.MyTextField df_7_Field;
+
+    MyGuiComps.MyLabel df_8_Lbl;
+    MyGuiComps.MyTextField df_8_Field;
+
+    MyTimeSeries df_2_cdf, df_7_cdf, df_8_cdf;
 
     Exp exp;
 
@@ -35,6 +42,10 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.client = client;
         initsialize();
         this.exp = client.getExps().getExp(ExpStrings.q1);
+
+        df_2_cdf = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
+        df_7_cdf = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
+        df_8_cdf = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
     }
 
     int width = 300;
@@ -68,23 +79,33 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         moveField.setXY(moveLbl.getX() + moveLbl.getWidth() + 3, moveLbl.getY());
         bodyPanel.add(moveField);
 
-        // V107
-        v7_Lbl = new MyGuiComps.MyLabel("0");
-        v7_Lbl.setXY(moveLbl.getX(), moveLbl.getY() + moveLbl.getHeight() + 3);
-        bodyPanel.add(v7_Lbl);
+        // DF 2
+        df_2_Lbl = new MyGuiComps.MyLabel("DF 2");
+        df_2_Lbl.setXY(moveLbl.getX(), moveLbl.getY() + moveLbl.getHeight() + 3);
+        bodyPanel.add(df_2_Lbl);
 
-        v7_Field = new MyGuiComps.MyTextField();
-        v7_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 3);
-        bodyPanel.add(v7_Field);
+        df_2_Field = new MyGuiComps.MyTextField();
+        df_2_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 3);
+        bodyPanel.add(df_2_Field);
 
-        // V103
-        v3_Lbl = new MyGuiComps.MyLabel("4");
-        v3_Lbl.setXY(v7_Lbl.getX(), v7_Lbl.getY() + v7_Lbl.getHeight() + 3);
-        bodyPanel.add(v3_Lbl);
+        // DF 7
+        df_7_Lbl = new MyGuiComps.MyLabel("DF 7");
+        df_7_Lbl.setXY(df_2_Lbl.getX(), df_2_Lbl.getY() + df_2_Lbl.getHeight() + 3);
+        bodyPanel.add(df_7_Lbl);
 
-        v3_Field = new MyGuiComps.MyTextField();
-        v3_Field.setXY(v7_Field.getX(), v7_Field.getY() + v7_Field.getHeight() + 3);
-        bodyPanel.add(v3_Field);
+        df_7_Field = new MyGuiComps.MyTextField();
+        df_7_Field.setXY(df_2_Field.getX(), df_2_Field.getY() + df_2_Field.getHeight() + 3);
+        bodyPanel.add(df_7_Field);
+
+
+        // DF 8
+        df_8_Lbl = new MyGuiComps.MyLabel("DF 8");
+        df_8_Lbl.setXY(df_7_Lbl.getX(), df_7_Lbl.getY() + df_7_Lbl.getHeight() + 3);
+        bodyPanel.add(df_8_Lbl);
+
+        df_8_Field = new MyGuiComps.MyTextField();
+        df_8_Field.setXY(df_7_Field.getX(), df_7_Field.getY() + df_7_Field.getHeight() + 3);
+        bodyPanel.add(df_8_Field);
 
     }
 
@@ -95,8 +116,14 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         if (exp.getStart() != 0) {
             exp_move = L.floor(((client.getIndex() - exp.getStart()) / exp.getStart()) * 100, 100);
         }
-
 //         Set text
         moveField.colorBack(exp_move, L.format100(), "%");
+
+        // DF 2
+        df_2_Field.colorForge((int)(df_2_cdf.get_value_with_exp() / 1000));
+        df_7_Field.colorForge((int)(df_7_cdf.get_value_with_exp() / 1000));
+        df_8_Field.colorForge((int)(df_8_cdf.get_value_with_exp() / 1000));
+
+
     }
 }

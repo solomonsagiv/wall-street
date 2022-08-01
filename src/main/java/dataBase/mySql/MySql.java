@@ -510,6 +510,23 @@ public class MySql {
         }
 
 
+        public static ResultSet get_df_exp_sum(int serie_id, int index_id) {
+            String q = "select sum(sum) as value\n" +
+                    "from ts.ca_timeseries_1day_candle\n" +
+                    "where timeseries_id = %s\n" +
+                    "  and date_trunc('day', time) >= (select date_trunc('day', time)::date\n" +
+                    "       from ts.timeseries_data\n" +
+                    "       where timeseries_id = %s\n" +
+                    "         and date_trunc('day', time) < date_trunc('day', now())\n" +
+                    "       group by date_trunc('day', time)\n" +
+                    "       order by date_trunc('day', time) desc\n" +
+                    "       limit 1);";
+
+            String query = String.format(q, serie_id, index_id);
+            return MySql.select(query);
+        }
+
+
         public static ResultSet get_op_avg_mega(int index_id, int fut_id, String type) {
             switch (type) {
                 case AVG_TODAY:

@@ -18,6 +18,8 @@ interface ITimeSeries {
     void updateData();
 
     void load();
+
+    void load_exp_data();
 }
 
 public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
@@ -38,6 +40,7 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
     MyDoubleList myValues;
     private String series_type;
     private boolean load = false;
+    private double exp_data = 0;
 
     // Constructor
     public MyTimeSeries(Comparable name, BASE_CLIENT_OBJECT client) {
@@ -145,6 +148,10 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         myValues.remove(index);
     }
 
+    public double get_value_with_exp() {
+        return getValue() + getExp_data();
+    }
+
     public Color getColor() {
         return color;
     }
@@ -213,4 +220,11 @@ public abstract class MyTimeSeries extends TimeSeries implements ITimeSeries {
         this.value = value;
     }
 
+    public double getExp_data() {
+        return exp_data;
+    }
+
+    public void setExp_data(double exp_data) {
+        this.exp_data = exp_data;
+    }
 }
