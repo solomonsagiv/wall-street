@@ -97,7 +97,7 @@ public class Full_Chart_4 extends MyChartCreator {
         MyTimeSeries df_8_raw = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW);
         df_8_raw.setColor(Themes.RED);
         df_8_raw.setStokeSize(1.5f);
-
+        
 
         series = new MyTimeSeries[3];
         series[0] = df_2_raw;
