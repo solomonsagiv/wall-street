@@ -8,7 +8,6 @@ import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import javax.swing.*;
 import java.awt.*;
 

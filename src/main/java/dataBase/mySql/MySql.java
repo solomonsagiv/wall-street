@@ -509,6 +509,15 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_serie_moving_avg(int serie_id, int min) {
+            String q  = "select avg(value) as value\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "and time > now() - interval '%s min';";
+
+            String query = String.format(q, serie_id, min);
+            return MySql.select(query);
+        }
 
         public static ResultSet get_df_exp_sum(int serie_id, int index_id) {
             String q = "select sum(sum) as value\n" +
