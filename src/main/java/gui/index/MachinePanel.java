@@ -56,7 +56,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         header.setXY(0, 0);
         add(header);
 
-        headerLbl = new MyGuiComps.MyLabel("Machine", true);
+        headerLbl = new MyGuiComps.MyLabel("Today", true);
         headerLbl.setHorizontalAlignment(JLabel.CENTER);
         headerLbl.setWidth(width);
         header.add(headerLbl);
@@ -69,7 +69,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // DF panels
         df_panel_1 = new Df_panel("DF 2", new MyTimeSeries[]{df_list.get(0)});
-        df_panel_1.setXY(3, 3);
+        df_panel_1.setXY(3, 28);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);

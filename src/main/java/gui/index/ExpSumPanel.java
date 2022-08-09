@@ -20,16 +20,9 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     MyGuiComps.MyPanel bodyPanel;
 
-    MyGuiComps.MyLabel moveLbl;
     MyGuiComps.MyTextField moveField;
-
-    MyGuiComps.MyLabel df_2_Lbl;
     MyGuiComps.MyTextField df_2_Field;
-
-    MyGuiComps.MyLabel df_7_Lbl;
     MyGuiComps.MyTextField df_7_Field;
-
-    MyGuiComps.MyLabel df_8_Lbl;
     MyGuiComps.MyTextField df_8_Field;
 
     MyTimeSeries df_2_cdf, df_7_cdf, df_8_cdf;
@@ -59,7 +52,7 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         headerPanel.setXY(0, 0);
         add(headerPanel);
 
-        headerLbl = new MyGuiComps.MyLabel("Exp");
+        headerLbl = new MyGuiComps.MyLabel("Exp", true);
         headerLbl.setHorizontalAlignment(JLabel.CENTER);
         headerPanel.add(headerLbl);
 
@@ -69,41 +62,23 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         bodyPanel.setSize(width, 200);
         add(bodyPanel);
 
-        // Move
-        moveLbl = new MyGuiComps.MyLabel("Move");
-        moveLbl.setXY(3, 3);
-        bodyPanel.add(moveLbl);
-
         moveField = new MyGuiComps.MyTextField();
-        moveField.setXY(moveLbl.getX() + moveLbl.getWidth() + 3, moveLbl.getY());
+        moveField.setXY(5, 3);
         bodyPanel.add(moveField);
 
         // DF 2
-        df_2_Lbl = new MyGuiComps.MyLabel("DF 2");
-        df_2_Lbl.setXY(moveLbl.getX(), moveLbl.getY() + moveLbl.getHeight() + 3);
-        bodyPanel.add(df_2_Lbl);
-
         df_2_Field = new MyGuiComps.MyTextField();
-        df_2_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 3);
+        df_2_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 1);
         bodyPanel.add(df_2_Field);
 
         // DF 7
-        df_7_Lbl = new MyGuiComps.MyLabel("DF 7");
-        df_7_Lbl.setXY(df_2_Lbl.getX(), df_2_Lbl.getY() + df_2_Lbl.getHeight() + 3);
-        bodyPanel.add(df_7_Lbl);
-
         df_7_Field = new MyGuiComps.MyTextField();
-        df_7_Field.setXY(df_2_Field.getX(), df_2_Field.getY() + df_2_Field.getHeight() + 3);
+        df_7_Field.setXY(df_2_Field.getX(), df_2_Field.getY() + df_2_Field.getHeight() + 1);
         bodyPanel.add(df_7_Field);
 
-
         // DF 8
-        df_8_Lbl = new MyGuiComps.MyLabel("DF 8");
-        df_8_Lbl.setXY(df_7_Lbl.getX(), df_7_Lbl.getY() + df_7_Lbl.getHeight() + 3);
-        bodyPanel.add(df_8_Lbl);
-
         df_8_Field = new MyGuiComps.MyTextField();
-        df_8_Field.setXY(df_7_Field.getX(), df_7_Field.getY() + df_7_Field.getHeight() + 3);
+        df_8_Field.setXY(df_7_Field.getX(), df_7_Field.getY() + df_7_Field.getHeight() + 1);
         bodyPanel.add(df_8_Field);
 
     }
