@@ -57,7 +57,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
             }
         });
     }
-
+    
     public void showPopUpMenu(MouseEvent event) {
         JPopupMenu menu = PopupsMenuFactory.indexPanel(client);
         // Show the menu

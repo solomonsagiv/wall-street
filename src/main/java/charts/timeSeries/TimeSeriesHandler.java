@@ -32,6 +32,7 @@ public class TimeSeriesHandler {
     public static final int DF_2_300 = 54;
     public static final int DF_2_3600 = 55;
     public static final int DF_8 = 56;
+    public static final int DF_8_900 = 57;
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
 

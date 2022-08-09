@@ -82,7 +82,6 @@ public class Full_Chart_4 extends MyChartCreator {
         MyChart op_avg_chart = new MyChart(client, series, props);
 
         // ------------------- DF -------------------- //
-
         // DF 2
         MyTimeSeries df_2_raw = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW);
         df_2_raw.setColor(Themes.BINANCE_ORANGE);
@@ -97,12 +96,16 @@ public class Full_Chart_4 extends MyChartCreator {
         MyTimeSeries df_8_raw = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW);
         df_8_raw.setColor(Themes.RED);
         df_8_raw.setStokeSize(1.5f);
-        
 
-        series = new MyTimeSeries[3];
+        MyTimeSeries df_8_raw_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900);
+        df_8_raw_900.setColor(Themes.BLUE_LIGHT_2);
+
+
+        series = new MyTimeSeries[4];
         series[0] = df_2_raw;
         series[1] = df_7_raw;
         series[2] = df_8_raw;
+        series[3] = df_8_raw_900;
 
         MyChart df_s_chart = new MyChart(client, series, props);
 
