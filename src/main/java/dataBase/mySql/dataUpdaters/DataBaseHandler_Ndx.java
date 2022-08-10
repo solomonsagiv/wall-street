@@ -140,7 +140,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Set load true
         client.setLoadFromDb(true);
     }
-
+    
     @Override
     public void initTablesNames() {
         // Ids

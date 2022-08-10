@@ -62,13 +62,9 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         bodyPanel.setSize(width, 200);
         add(bodyPanel);
 
-        moveField = new MyGuiComps.MyTextField();
-        moveField.setXY(5, 3);
-        bodyPanel.add(moveField);
-
         // DF 2
         df_2_Field = new MyGuiComps.MyTextField();
-        df_2_Field.setXY(moveField.getX(), moveField.getY() + moveField.getHeight() + 1);
+        df_2_Field.setXY(3, 3);
         bodyPanel.add(df_2_Field);
 
         // DF 7
@@ -80,6 +76,11 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_8_Field = new MyGuiComps.MyTextField();
         df_8_Field.setXY(df_7_Field.getX(), df_7_Field.getY() + df_7_Field.getHeight() + 1);
         bodyPanel.add(df_8_Field);
+
+
+        moveField = new MyGuiComps.MyTextField();
+        moveField.setXY(df_8_Field.getX(), df_8_Field.getY() + df_8_Field.getHeight() + 1);
+        bodyPanel.add(moveField);
 
     }
 

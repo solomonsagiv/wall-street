@@ -20,6 +20,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel header;
     MyGuiComps.MyLabel headerLbl;
 
+    MyGuiComps.MyLabel raw_header_lbl, cdf_header_lbl;
+
     MyGuiComps.MyPanel body;
     BasketFinder_by_stocks basketFinder;
 
@@ -28,8 +30,13 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Df_panel df_panel_3;
     Df_panel df_panel_4;
 
-    int width = 100;
-    int height = 300;
+    Df_panel df_panel_5;
+    Df_panel df_panel_6;
+    Df_panel df_panel_7;
+
+    int panel_width = 127;
+    int width = 60;
+    int height = 400;
 
     private ArrayList<MyTimeSeries> df_list;
 
@@ -39,6 +46,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
@@ -48,84 +58,99 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     }
 
     private void initsialize() {
-        setSize(width, height);
+        setSize(panel_width, height);
 
         // ------ Head ------ //
         header = new MyGuiComps.MyPanel();
-        header.setSize(width, 25);
+        header.setSize(panel_width, 25);
         header.setXY(0, 0);
         add(header);
 
-        headerLbl = new MyGuiComps.MyLabel("Today", true);
-        headerLbl.setHorizontalAlignment(JLabel.CENTER);
-        headerLbl.setWidth(width);
-        header.add(headerLbl);
+        // Raw
+        raw_header_lbl = new MyGuiComps.MyLabel("Raw", true);
+        raw_header_lbl.setXY(3, 3);
+        raw_header_lbl.setWidth(width);
+        raw_header_lbl.setHeight(25);
+        raw_header_lbl.setHorizontalAlignment(JLabel.CENTER);
+        header.add(raw_header_lbl);
 
-        // Body
+        // Cdf
+        cdf_header_lbl = new MyGuiComps.MyLabel("Cdf", true);
+        cdf_header_lbl.setXY(raw_header_lbl.getX() + raw_header_lbl.getWidth() + 1, raw_header_lbl.getY());
+        cdf_header_lbl.setWidth(width);
+        cdf_header_lbl.setHeight(25);
+        cdf_header_lbl.setHorizontalAlignment(JLabel.CENTER);
+        header.add(cdf_header_lbl);
+
+        // ------------ Body ------------ //
         body = new MyGuiComps.MyPanel();
         body.setXY(0, header.getY() + header.getHeight() + 1);
-        body.setSize(width, height);
+        body.setSize(panel_width, height);
         add(body);
 
-        // DF panels
-        df_panel_1 = new Df_panel("DF 2", new MyTimeSeries[]{df_list.get(0)});
-        df_panel_1.setXY(3, 28);
+        df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, false);
+        df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
-        // DF panels
-        df_panel_2 = new Df_panel("DF 7", new MyTimeSeries[]{df_list.get(1)});
+        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, false);
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
         body.add(df_panel_2);
 
-        // DF panels
-        df_panel_3 = new Df_panel("DF 8", new MyTimeSeries[]{df_list.get(2)});
+        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, false);
         df_panel_3.setXY(df_panel_2.getX(), df_panel_2.getY() + df_panel_2.getHeight() + 1);
         df_panel_3.setWidth(width);
         df_panel_3.setHeight(25);
         body.add(df_panel_3);
 
-        // DF panels
-        df_panel_4 = new Df_panel("Baskets", new MyTimeSeries[]{df_list.get(3)});
-        df_panel_4.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
+        df_panel_4 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false);
+        df_panel_4.setXY(df_panel_1.getX() + df_panel_1.getWidth() + 1, df_panel_1.getY());
         df_panel_4.setWidth(width);
         df_panel_4.setHeight(25);
-        body.add(df_panel_3);
+        body.add(df_panel_4);
+
+        df_panel_5 = new Df_panel(new MyTimeSeries[]{df_list.get(4)}, true);
+        df_panel_5.setXY(df_panel_4.getX(), df_panel_4.getY() + df_panel_4.getHeight() + 1);
+        df_panel_5.setWidth(width);
+        df_panel_5.setHeight(25);
+        body.add(df_panel_5);
+
+        df_panel_6 = new Df_panel(new MyTimeSeries[]{df_list.get(5)}, true);
+        df_panel_6.setXY(df_panel_5.getX(), df_panel_5.getY() + df_panel_5.getHeight() + 1);
+        df_panel_6.setWidth(width);
+        df_panel_6.setHeight(25);
+        body.add(df_panel_6);
+
+        df_panel_7 = new Df_panel(new MyTimeSeries[]{df_list.get(6)}, false);
+        df_panel_7.setXY(df_panel_6.getX(), df_panel_6.getY() + df_panel_6.getHeight() + 1);
+        df_panel_7.setWidth(width);
+        df_panel_7.setHeight(25);
+        body.add(df_panel_7);
 
     }
 
     private class Df_panel extends MyGuiComps.MyPanel implements IMyPanel {
 
         private MyTimeSeries[] timeSeries;
-        private MyGuiComps.MyLabel nameLbl;
         private MyGuiComps.MyTextField df_field;
-        private String name;
+        private boolean round;
 
-        public Df_panel(String name, MyTimeSeries[] df_unc) {
+        public Df_panel(MyTimeSeries[] df_unc, boolean round) {
             super();
-            this.name = name;
             this.timeSeries = df_unc;
-
+            this.round = round;
             init();
         }
 
         protected void init() {
             super.init();
-
-            // Name
-            nameLbl = new MyGuiComps.MyLabel(name);
-            nameLbl.setXY(0, 0);
-            nameLbl.setWidth(30);
-            nameLbl.setHeight(25);
-            add(nameLbl);
-
             // Df
             df_field = new MyGuiComps.MyTextField();
-            df_field.setXY(nameLbl.getX() + nameLbl.getWidth() + 1, nameLbl.getY());
-            df_field.setWidth(60);
+            df_field.setXY(0, 0);
+            df_field.setWidth(width);
             add(df_field);
         }
 
@@ -133,11 +158,16 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         public void updateText() {
             for (MyTimeSeries ts : timeSeries) {
                 try {
-                    if (ts.getValue() != 0) {
-                        df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
-                        continue;
+
+                    if (round) {
+                        if (ts.getValue() != 0) {
+                            df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
+                            continue;
+                        }
+                        df_field.colorForge((int) ts.getValue());
+                    } else {
+                        df_field.colorForge((int) ts.getValue());
                     }
-                    df_field.colorForge((int) ts.getValue());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -152,6 +182,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_panel_2.updateText();
         df_panel_3.updateText();
         df_panel_4.updateText();
+        df_panel_5.updateText();
+        df_panel_6.updateText();
+        df_panel_7.updateText();
     }
 
     private void nois(JTextField textField) {
