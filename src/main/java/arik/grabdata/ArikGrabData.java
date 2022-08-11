@@ -60,20 +60,17 @@ public class ArikGrabData extends MyThread implements Runnable {
 
         DataHandler dataHandler = arik.getDataHandler();
 
-        // TA35
-        dataHandler.get(DataHandler.TA35_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(5, MySql.RAW)));
-        dataHandler.get(DataHandler.TA35_DF_5).setValue((int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(92, MySql.CDF)));
-        dataHandler.get(DataHandler.TA35_DF_6).setValue((int) MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(93, MySql.CDF)));
-
         // SPX
         dataHandler.get(DataHandler.SPX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(3, MySql.RAW)));
-        dataHandler.get(DataHandler.SPX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1028, MySql.CDF)));
-        dataHandler.get(DataHandler.SPX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1023, MySql.CDF)));
+        dataHandler.get(DataHandler.SPX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1028, MySql.RAW)));
+        dataHandler.get(DataHandler.SPX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1023, MySql.RAW)));
+        dataHandler.get(DataHandler.SPX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1023, MySql.RAW)));
 
         // NDX
         dataHandler.get(DataHandler.NDX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1, MySql.RAW)));
-        dataHandler.get(DataHandler.NDX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(995, MySql.CDF)));
-        dataHandler.get(DataHandler.NDX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(990, MySql.CDF)));
+        dataHandler.get(DataHandler.NDX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(995, MySql.RAW)));
+        dataHandler.get(DataHandler.NDX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(990, MySql.RAW)));
+        dataHandler.get(DataHandler.NDX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(990, MySql.RAW)));
 
     }
 

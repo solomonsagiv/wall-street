@@ -12,10 +12,12 @@ public class DataHandler {
     public static final String SPX_INDEX = "SPX_INDEX";
     public static final String SPX_DF_2 = "SPX_DF_2";
     public static final String SPX_DF_7 = "SPX_DF_7";
+    public static final String SPX_DF_8 = "SPX_DF_8";
 
     public static final String NDX_INDEX = "NDX_INDEX";
     public static final String NDX_DF_2 = "NDX_DF_2";
     public static final String NDX_DF_7 = "NDX_DF_7";
+    public static final String NDX_DF_8 = "NDX_DF_8";
 
     private Map<String, DataObject> map;
 

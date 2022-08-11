@@ -156,7 +156,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_7, 995);
         serie_ids.put(TimeSeriesHandler.DF_7_300, 1009);
         serie_ids.put(TimeSeriesHandler.DF_7_3600, 1011);
-        serie_ids.put(TimeSeriesHandler.DF_2, 990);
+        serie_ids.put(TimeSeriesHandler.DF_2, 989);//990
         serie_ids.put(TimeSeriesHandler.DF_2_300, 2194);
         serie_ids.put(TimeSeriesHandler.DF_2_3600, 2196);
         serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
