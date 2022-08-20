@@ -34,8 +34,6 @@ public abstract class Exp {
     public double v107 = 0;
     public double v103 = 0;
 
-    public double start = 0;
-
     ExpData expData;
     List<Double> opFutList = new ArrayList<>();
 
@@ -177,11 +175,4 @@ public abstract class Exp {
         this.v103 = v103;
     }
 
-    public double getStart() {
-        return start;
-    }
-
-    public void setStart(double start) {
-        this.start = start;
-    }
 }

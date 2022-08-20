@@ -2,6 +2,7 @@ package charts.timeSeries;
 
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
+import dataBase.props.Props;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -25,7 +26,6 @@ public class TimeSeriesFactory {
     public static final String DF_2_300_RAW = "DF_2_300_RAW";
     public static final String DF_2_3600_RAW = "DF_2_3600_RAW";
     public static final String DF_2_CDF = "DF_2_CDF";
-    public static final String DF_2_RAW_AVG_300 = "DF_2_RAW_AVG_300";
 
     // DF 7
     public static final String DF_7_RAW = "DF_7_RAW";
@@ -45,7 +45,26 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_Q1 = "OP_AVG_Q1";
     public static final String OP_AVG_Q2 = "OP_AVG_Q2";
 
+    // Exp
+    // Week
+    public static final String DF_2_WEEK = "DF_2_WEEK";
+    public static final String DF_7_WEEK = "DF_7_WEEK";
+    public static final String DF_8_WEEK = "DF_8_WEEK";
 
+    // Month
+    public static final String DF_2_MONTH = "DF_2_MONTH";
+    public static final String DF_7_MONTH = "DF_7_MONTH";
+    public static final String DF_8_MONTH = "DF_8_MONTH";
+
+    // Q1
+    public static final String DF_2_Q1 = "DF_2_Q1";
+    public static final String DF_7_Q1 = "DF_7_Q1";
+    public static final String DF_8_Q1 = "DF_8_Q1";
+
+    // EXP move
+    public static final String EXP_WEEK_START = "MOVE_WEEK";
+    public static final String EXP_MONTH_START = "MOVE_MONTH";
+    public static final String EXP_Q1_START = "MOVE_Q1";
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
         switch (series_type.toUpperCase()) {
@@ -193,9 +212,6 @@ public class TimeSeriesFactory {
                         setExp_data(data);
                     }
                 };
-
-
-
 
             case DF_7_RAW:
                 return new MyTimeSeries(series_type, client) {
@@ -362,7 +378,6 @@ public class TimeSeriesFactory {
 
                     }
                 };
-
 
 
             case OP_AVG_240_CONTINUE:
@@ -748,6 +763,301 @@ public class TimeSeriesFactory {
                         setExp_data(data);
                     }
                 };
+
+
+// ---------------------- DF 2 exps -------------------- //
+            case DF_2_WEEK:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case DF_2_MONTH:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case DF_2_Q1:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_Q1_START));
+                        setExp_data(data);
+                    }
+                };
+
+
+            // ---------------------- DF 7 exps -------------------- //
+            case DF_7_WEEK:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case DF_7_MONTH:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case DF_7_Q1:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_Q1_START));
+                        setExp_data(data);
+                    }
+                };
+
+            // ---------------------- DF 8 exps -------------------- //
+            case DF_8_WEEK:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case DF_8_MONTH:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case DF_8_Q1:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_Q1_START));
+                        setExp_data(data);
+                    }
+                };
+
+
+            case EXP_WEEK_START:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_WEEK_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case EXP_MONTH_START:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_MONTH_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case EXP_Q1_START:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_Q1_START));
+                        setExp_data(data);
+                    }
+                };
+
             default:
                 return null;
         }

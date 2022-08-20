@@ -68,7 +68,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // Raw
         raw_header_lbl = new MyGuiComps.MyLabel("Raw", true);
-        raw_header_lbl.setXY(3, 3);
+        raw_header_lbl.setXY(3, 0);
         raw_header_lbl.setWidth(width);
         raw_header_lbl.setHeight(25);
         raw_header_lbl.setHorizontalAlignment(JLabel.CENTER);

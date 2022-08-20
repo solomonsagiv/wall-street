@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -287,23 +288,16 @@ public class MySql {
 
         }
 
-        public static ResultSet get_exp_data(String table_location, int session, int version, String stock_id) {
-            String q = "select (\n" +
-                    "           select sum(delta) as value\n" +
-                    "           from %s\n" +
-                    "           where session_id = %s\n" +
-                    "             and version = %s\n" +
-                    "             and time between date_trunc('day', a.d) and date_trunc('day', now())\n" +
-                    "       )\n" +
-                    "from (\n" +
-                    "         select data::date as d\n" +
-                    "         from sagiv.props\n" +
-                    "         where stock_id = '%s'\n" +
-                    "           and prop = 'EXP_Q1_START'\n" +
-                    "     ) a;";
-            String query = String.format(q, table_location, session, version, stock_id);
+        public static ResultSet get_exp_data(BASE_CLIENT_OBJECT client, int serie_id, String exp_prop_name) {
+            String q = "select sum(sum) as value\n" +
+                    "from ts.ca_timeseries_1day_candle\n" +
+                    "where date_trunc('day', time) >= (select data::date as date\n" +
+                    "                                  from props\n" +
+                    "                                  where stock_id = '%s'\n" +
+                    "                                    and prop = '%s')\n" +
+                    "  and timeseries_id = %s;";
+            String query = String.format(q, client.getId_name(), exp_prop_name, serie_id);
             return MySql.select(query);
-
         }
 
         public static ResultSet get_exp_start(String index_table_location, String stock_id) {
@@ -322,17 +316,17 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet get_start_exp_mega(int index_id, String stock_id) {
+        public static ResultSet get_start_exp_mega(int index_id, String stock_id, String exp_prop_name) {
             String q = "select value\n" +
                     "from ts.timeseries_data\n" +
                     "where timeseries_id = %s\n" +
                     "  and date_trunc('day', time) = (select data::date\n" +
                     "                                 from sagiv.props\n" +
                     "                                 where stock_id = '%s'\n" +
-                    "                                   and prop = 'EXP_Q1_START')\n" +
+                    "                                   and prop = '%s')\n" +
                     "order by time limit 1;\n";
 
-            String query = String.format(q, index_id, stock_id);
+            String query = String.format(q, index_id, stock_id, exp_prop_name);
             return MySql.select(query);
         }
 
@@ -518,6 +512,9 @@ public class MySql {
             String query = String.format(q, serie_id, min);
             return MySql.select(query);
         }
+
+
+
 
         public static ResultSet get_df_exp_sum(int serie_id, int index_id) {
             String q = "select sum(sum) as value\n" +
