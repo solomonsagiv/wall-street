@@ -102,12 +102,12 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         monthLbl = new MyGuiComps.MyLabel("Month", true);
         monthLbl.setHorizontalAlignment(JLabel.CENTER);
-        monthLbl.setXY(weekLbl.getX() + weekLbl.getWidth() + 7 , weekLbl.getY());
+        monthLbl.setXY(weekLbl.getX() + weekLbl.getWidth() + 7, weekLbl.getY());
         headerPanel.add(monthLbl);
 
         q1Lbl = new MyGuiComps.MyLabel("Q1", true);
         q1Lbl.setHorizontalAlignment(JLabel.CENTER);
-        q1Lbl.setXY(monthLbl.getX() + monthLbl.getWidth() + 7 , monthLbl.getY());
+        q1Lbl.setXY(monthLbl.getX() + monthLbl.getWidth() + 7, monthLbl.getY());
         headerPanel.add(q1Lbl);
 
         // ------ Body ------ //
@@ -197,19 +197,19 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         moveField_q1.colorBack(q1_move, L.format100(), "%");
 
         // Week
-        df_2_Field_week.colorForge((int) (df_2_week.get_value_with_exp() / 1000));
-        df_7_Field_week.colorForge((int) (df_7_week.get_value_with_exp() / 1000));
-        df_8_Field_week.colorForge((int) (df_8_week.get_value_with_exp() / 1000));
+        df_2_Field_week.colorForge((int) ((df_2_week.get_value_with_exp() + df_2_cdf.getValue()) / 1000));
+        df_7_Field_week.colorForge((int) ((df_7_week.get_value_with_exp() + df_7_cdf.getValue()) / 1000));
+        df_8_Field_week.colorForge((int) ((df_8_week.get_value_with_exp() + df_8_cdf.getValue()) / 1000));
 
         // Month
-        df_2_Field_month.colorForge((int) (df_2_month.get_value_with_exp() / 1000));
-        df_7_Field_month.colorForge((int) (df_7_month.get_value_with_exp() / 1000));
-        df_8_Field_month.colorForge((int) (df_8_month.get_value_with_exp() / 1000));
+        df_2_Field_month.colorForge((int) ((df_2_month.get_value_with_exp() + df_2_cdf.getValue()) / 1000));
+        df_7_Field_month.colorForge((int) ((df_7_month.get_value_with_exp() + df_7_cdf.getValue()) / 1000));
+        df_8_Field_month.colorForge((int) ((df_8_month.get_value_with_exp() + df_8_cdf.getValue()) / 1000));
 
         // Week
-        df_2_Field_q1.colorForge((int) (df_2_q1.get_value_with_exp() / 1000));
-        df_7_Field_q1.colorForge((int) (df_7_q1.get_value_with_exp() / 1000));
-        df_8_Field_q1.colorForge((int) (df_8_q1.get_value_with_exp() / 1000));
+        df_2_Field_q1.colorForge((int) ((df_2_q1.get_value_with_exp() + df_2_cdf.getValue()) / 1000));
+        df_7_Field_q1.colorForge((int) ((df_7_q1.get_value_with_exp() + df_7_cdf.getValue()) / 1000));
+        df_8_Field_q1.colorForge((int) ((df_8_q1.get_value_with_exp() + df_8_cdf.getValue()) / 1000));
 
     }
 }

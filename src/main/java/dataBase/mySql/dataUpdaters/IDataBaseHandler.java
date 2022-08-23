@@ -68,8 +68,8 @@ public abstract class IDataBaseHandler {
                 client.getProps().getMap().get(props_name).setData(data);
 
             } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(data.toString() + " Prop name= " + props_name);
+//                e.printStackTrace();
+//                System.out.println(data.toString() + " Prop name= " + props_name);
             }
         }
     }

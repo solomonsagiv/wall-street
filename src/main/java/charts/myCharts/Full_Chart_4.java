@@ -24,7 +24,7 @@ public class Full_Chart_4 extends MyChartCreator {
     public void init() {
 
         MyTimeSeries[] series;
-        
+
         // Props
         props = new MyProps();
         props.setProp(ChartPropsEnum.SECONDS, INFINITE);
