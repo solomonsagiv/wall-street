@@ -20,7 +20,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
-
+    
     double index_0 = 0;
     double index_bid_0 = 0;
     double index_ask_0 = 0;
