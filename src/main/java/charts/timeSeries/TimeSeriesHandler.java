@@ -9,8 +9,6 @@ public class TimeSeriesHandler {
     public static final int BASKETS = 12;
     public static final int BID_ASK_COUNTER = 13;
     public static final int FUT_DAY = 16;
-    public static final int FUT_WEEK = 17;
-    public static final int FUT_MONTH = 18;
     public static final int FUT_Q1 = 19;
     public static final int FUT_Q2 = 20;
     public static final int INDEX_BID = 21;

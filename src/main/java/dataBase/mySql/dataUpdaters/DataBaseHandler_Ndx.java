@@ -14,29 +14,23 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_day_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_day_0 = 0;
-    double fut_week_0 = 0;
-    double fut_month_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double baskets_0 = 0;
 
-    Exp day, week, month;
+    Exp day;
     E q1, q2;
 
     public DataBaseHandler_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
         day = exps.getExp(ExpStrings.day);
-        week = exps.getExp(ExpStrings.week);
-        month = exps.getExp(ExpStrings.month);
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
     }
@@ -98,22 +92,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         }
 
-        // Fut week
-        double fut_week = week.get_future();
-
-        if (fut_week != fut_week_0) {
-            fut_week_0 = fut_week;
-            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-        }
-
-        // Fut month
-        double fut_month = month.get_future();
-
-        if (fut_month != fut_month_0) {
-            fut_month_0 = fut_month;
-            fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
-        }
-
         // Baskets
         int basket = client.getBasketFinder_by_stocks().getBaskets();
 
@@ -146,8 +124,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Ids
         serie_ids.put(TimeSeriesHandler.INDEX, 1);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 2);
-        serie_ids.put(TimeSeriesHandler.FUT_WEEK, 14);
-        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 13);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 11);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 12);
         serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 1001);
@@ -207,8 +183,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     private void updateListsRetro() {
         insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
         insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK));
-        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2));
         insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));

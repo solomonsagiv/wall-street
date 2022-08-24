@@ -16,8 +16,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_ask_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_day_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     
@@ -25,19 +23,15 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double index_bid_0 = 0;
     double index_ask_0 = 0;
     double fut_day_0 = 0;
-    double fut_week_0 = 0;
-    double fut_month_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-    Exp day, week, month;
+    Exp day;
     E q1, q2;
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
         day = exps.getExp(ExpStrings.day);
-        week = exps.getExp(ExpStrings.week);
-        month = exps.getExp(ExpStrings.month);
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
     }
@@ -109,22 +103,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
             }
         }
-
-        // Fut week
-        double fut_week = week.get_future();
-
-        if (fut_week != fut_week_0) {
-            fut_week_0 = fut_week;
-            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-        }
-
-        // Fut month
-        double fut_month = month.get_future();
-
-        if (fut_month != fut_month_0) {
-            fut_month_0 = fut_month;
-            fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
-        }
     }
 
     @Override
@@ -149,8 +127,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4);
-        serie_ids.put(TimeSeriesHandler.FUT_WEEK, 20);
-        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 19);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 17);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 18);
         serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 1034);
@@ -212,8 +188,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insertListRetro(index_bid_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID));
         insertListRetro(index_ask_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK));
         insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK));
-        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2));
     }
