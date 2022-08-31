@@ -20,7 +20,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel header;
     MyGuiComps.MyLabel headerLbl;
 
-    MyGuiComps.MyLabel raw_header_lbl, cdf_header_lbl;
+    MyGuiComps.MyLabel short_range_header_lbl, long_range_header_lbl;
 
     MyGuiComps.MyPanel body;
     BasketFinder_by_stocks basketFinder;
@@ -46,12 +46,12 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_RAW));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_RAW));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_90_FRAME));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_90_FRAME));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_90_FRAME));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_600_FRAME));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_600_FRAME));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_600_FRAME));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
@@ -67,20 +67,20 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(header);
 
         // Raw
-        raw_header_lbl = new MyGuiComps.MyLabel("Raw", true);
-        raw_header_lbl.setXY(3, 0);
-        raw_header_lbl.setWidth(width);
-        raw_header_lbl.setHeight(25);
-        raw_header_lbl.setHorizontalAlignment(JLabel.CENTER);
-        header.add(raw_header_lbl);
+        short_range_header_lbl = new MyGuiComps.MyLabel("Short", true);
+        short_range_header_lbl.setXY(3, 0);
+        short_range_header_lbl.setWidth(width);
+        short_range_header_lbl.setHeight(25);
+        short_range_header_lbl.setHorizontalAlignment(JLabel.CENTER);
+        header.add(short_range_header_lbl);
 
         // Cdf
-        cdf_header_lbl = new MyGuiComps.MyLabel("Cdf", true);
-        cdf_header_lbl.setXY(raw_header_lbl.getX() + raw_header_lbl.getWidth() + 1, raw_header_lbl.getY());
-        cdf_header_lbl.setWidth(width);
-        cdf_header_lbl.setHeight(25);
-        cdf_header_lbl.setHorizontalAlignment(JLabel.CENTER);
-        header.add(cdf_header_lbl);
+        long_range_header_lbl = new MyGuiComps.MyLabel("Long", true);
+        long_range_header_lbl.setXY(short_range_header_lbl.getX() + short_range_header_lbl.getWidth() + 1, short_range_header_lbl.getY());
+        long_range_header_lbl.setWidth(width);
+        long_range_header_lbl.setHeight(25);
+        long_range_header_lbl.setHorizontalAlignment(JLabel.CENTER);
+        header.add(long_range_header_lbl);
 
         // ------------ Body ------------ //
         body = new MyGuiComps.MyPanel();

@@ -289,15 +289,48 @@ public class MySql {
         }
 
         public static ResultSet get_exp_data(BASE_CLIENT_OBJECT client, int serie_id, String exp_prop_name) {
-            String q = "select sum(sum) as value\n" +
-                    "from ts.ca_timeseries_1day_candle\n" +
-                    "where date_trunc('day', time) >= (select data::date as date\n" +
-                    "                                  from props\n" +
-                    "                                  where stock_id = '%s'\n" +
-                    "                                    and prop = '%s')\n" +
-                    "  and timeseries_id = %s;";
+
+            String q = "";
+
+            if (exp_prop_name.toLowerCase().contains("week")) {
+
+                q = "select sum(sum) as value\n" +
+                        "from ts.ca_timeseries_1day_candle\n" +
+                        "where date_trunc('day', time) > (select data::date as date\n" +
+                        "                                  from props\n" +
+                        "                                  where stock_id = '%s'\n" +
+                        "                                    and prop = '%s')\n" +
+                        " and date_trunc('day', time) < date_trunc('day', now())\n" +
+                        "  and timeseries_id = %s;";
+
+            } else {
+                q = "select sum(sum) as value\n" +
+                        "from ts.ca_timeseries_1day_candle\n" +
+                        "where date_trunc('day', time) >= (select data::date as date\n" +
+                        "                                  from props\n" +
+                        "                                  where stock_id = '%s'\n" +
+                        "                                    and prop = '%s')\n" +
+                        " and date_trunc('day', time) < date_trunc('day', now())\n" +
+                        "  and timeseries_id = %s;";
+            }
+
+
             String query = String.format(q, client.getId_name(), exp_prop_name, serie_id);
             return MySql.select(query);
+        }
+
+        public static ResultSet get_df_cdf_by_frame(int serie_id, int frame_in_secondes) {
+            String q = "\n" +
+                    "select sum(a.value) as value\n" +
+                    "from (\n" +
+                    "select *\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "order by time desc limit %s) a;";
+
+            String query = String.format(q, serie_id, frame_in_secondes);
+            return MySql.select(query);
+
         }
 
         public static ResultSet get_exp_start(String index_table_location, String stock_id) {
@@ -317,14 +350,29 @@ public class MySql {
         }
 
         public static ResultSet get_start_exp_mega(int index_id, String stock_id, String exp_prop_name) {
-            String q = "select value\n" +
-                    "from ts.timeseries_data\n" +
-                    "where timeseries_id = %s\n" +
-                    "  and date_trunc('day', time) = (select data::date\n" +
-                    "                                 from sagiv.props\n" +
-                    "                                 where stock_id = '%s'\n" +
-                    "                                   and prop = '%s')\n" +
-                    "order by time limit 1;\n";
+
+            String q = "";
+
+            if (exp_prop_name.toLowerCase().contains("week")) {
+                q = "select value\n" +
+                        "from ts.timeseries_data\n" +
+                        "where timeseries_id = %s\n" +
+                        "  and date_trunc('day', time) = (select data::date\n" +
+                        "                                 from sagiv.props\n" +
+                        "                                 where stock_id = '%s'\n" +
+                        "                                   and prop = '%s')\n" +
+                        "order by time desc limit 1;\n";
+            } else {
+
+                q = "select value\n" +
+                        "from ts.timeseries_data\n" +
+                        "where timeseries_id = %s\n" +
+                        "  and date_trunc('day', time) = (select data::date\n" +
+                        "                                 from sagiv.props\n" +
+                        "                                 where stock_id = '%s'\n" +
+                        "                                   and prop = '%s')\n" +
+                        "order by time limit 1;\n";
+            }
 
             String query = String.format(q, index_id, stock_id, exp_prop_name);
             return MySql.select(query);
@@ -504,7 +552,7 @@ public class MySql {
         }
 
         public static ResultSet get_serie_moving_avg(int serie_id, int min) {
-            String q  = "select avg(value) as value\n" +
+            String q = "select avg(value) as value\n" +
                     "from ts.timeseries_data\n" +
                     "where timeseries_id = %s\n" +
                     "and time > now() - interval '%s min';";
@@ -512,8 +560,6 @@ public class MySql {
             String query = String.format(q, serie_id, min);
             return MySql.select(query);
         }
-
-
 
 
         public static ResultSet get_df_exp_sum(int serie_id, int index_id) {

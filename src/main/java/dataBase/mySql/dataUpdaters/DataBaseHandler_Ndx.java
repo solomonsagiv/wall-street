@@ -7,6 +7,7 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -118,7 +119,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Set load true
         client.setLoadFromDb(true);
     }
-    
+
     @Override
     public void initTablesNames() {
         // Ids
@@ -143,7 +144,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1908);
         serie_ids.put(TimeSeriesHandler.DF_8, 996);
         serie_ids.put(TimeSeriesHandler.DF_8_900, 1013);
-        
+
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_CDF, client));
@@ -151,7 +152,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_RAW, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_RAW, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW_900, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));
@@ -177,6 +177,16 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_Q1_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_Q1_START, client));
+
+        // Frame
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_600_FRAME, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_90_FRAME, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_600_FRAME, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_90_FRAME, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_90_FRAME, client));
 
     }
 

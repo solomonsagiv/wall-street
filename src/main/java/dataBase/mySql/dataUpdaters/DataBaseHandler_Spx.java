@@ -155,7 +155,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_RAW, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_RAW, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW_900, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));
@@ -177,10 +176,20 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_MONTH, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_Q1, client));
 
+        // Exp
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_Q1_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_Q1_START, client));
 
+        // Frame
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_600_FRAME, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_90_FRAME, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_600_FRAME, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_90_FRAME, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_90_FRAME, client));
     }
 
     private void updateListsRetro() {
