@@ -88,19 +88,19 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         body.setSize(panel_width, height);
         add(body);
 
-        df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, false);
+        df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, true);
         df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
-        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, false);
+        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, true);
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
         body.add(df_panel_2);
 
-        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, false);
+        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, true);
         df_panel_3.setXY(df_panel_2.getX(), df_panel_2.getY() + df_panel_2.getHeight() + 1);
         df_panel_3.setWidth(width);
         df_panel_3.setHeight(25);

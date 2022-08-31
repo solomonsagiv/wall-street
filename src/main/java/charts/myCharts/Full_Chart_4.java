@@ -98,7 +98,7 @@ public class Full_Chart_4 extends MyChartCreator {
         df_8_raw.setStokeSize(1.5f);
 
 
-        series = new MyTimeSeries[4];
+        series = new MyTimeSeries[3];
         series[0] = df_2_raw;
         series[1] = df_7_raw;
         series[2] = df_8_raw;
