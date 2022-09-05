@@ -66,16 +66,16 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         header.setXY(0, 0);
         add(header);
 
-        // Raw
-        short_range_header_lbl = new MyGuiComps.MyLabel("Short", true);
+        // Fast
+        short_range_header_lbl = new MyGuiComps.MyLabel("Fast", true);
         short_range_header_lbl.setXY(3, 0);
         short_range_header_lbl.setWidth(width);
         short_range_header_lbl.setHeight(25);
         short_range_header_lbl.setHorizontalAlignment(JLabel.CENTER);
         header.add(short_range_header_lbl);
 
-        // Cdf
-        long_range_header_lbl = new MyGuiComps.MyLabel("Long", true);
+        // Slow
+        long_range_header_lbl = new MyGuiComps.MyLabel("Slow", true);
         long_range_header_lbl.setXY(short_range_header_lbl.getX() + short_range_header_lbl.getWidth() + 1, short_range_header_lbl.getY());
         long_range_header_lbl.setWidth(width);
         long_range_header_lbl.setHeight(25);
