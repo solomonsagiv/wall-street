@@ -1054,7 +1054,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 36000));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 21600));
                         setValue(data);
                     }
 
@@ -1102,7 +1102,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 36000));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 21600));
                         setValue(data);
                     }
 
@@ -1150,7 +1150,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 36000));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 21600));
                         setValue(data);
                     }
                     

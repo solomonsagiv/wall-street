@@ -56,7 +56,7 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         headerPanel.setSize(320, 25);
         headerPanel.setXY(5, 0);
         add(headerPanel);
-
+        
         // Open
         openLbl = new MyGuiComps.MyLabel("Open", true);
         openLbl.setXY(0, 0);

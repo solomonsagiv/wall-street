@@ -33,7 +33,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Df_panel df_panel_5;
     Df_panel df_panel_6;
     Df_panel df_panel_7;
-
+    
     int panel_width = 127;
     int width = 60;
     int height = 400;
