@@ -146,7 +146,11 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1903);
         serie_ids.put(TimeSeriesHandler.DF_8, 1029);
         serie_ids.put(TimeSeriesHandler.DF_8_900, 1046);
-        
+        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3756);
+        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3757);
+        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3802);
+        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
+
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
@@ -191,6 +195,12 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_90_FRAME, client));
+
+        // JUPITER
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_MONTH, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEIGHTED, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEIGHTED, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.STD_MOVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STD_MOVE, client));
     }
 
     private void updateListsRetro() {

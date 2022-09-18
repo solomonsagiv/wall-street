@@ -33,6 +33,10 @@ public class DataUpdaterService extends MyBaseService {
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_90_FRAME));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_600_FRAME));
         time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_90_FRAME));
+
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEEK));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_MONTH));
+        time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEIGHTED));
     }
     
     @Override

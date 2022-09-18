@@ -41,11 +41,15 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField df_7_Field_q1;
     MyGuiComps.MyTextField df_8_Field_q1;
 
+    // DF exp
+    MyGuiComps.MyTextField df_week_field, df_month_field, df_weighted_field;
+
     MyTimeSeries df_2_cdf, df_7_cdf, df_8_cdf,
             df_2_week, df_7_week, df_8_week,
             df_2_month, df_7_month, df_8_month,
             df_2_q1, df_7_q1, df_8_q1,
-            exp_week_start, exp_month_start, exp_q1_start;
+            exp_week_start, exp_month_start, exp_q1_start,
+            df_week, df_month, df_weighted;
 
     Exp exp;
 
@@ -80,6 +84,10 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         exp_month_start = client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_MONTH_START);
         exp_q1_start = client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_Q1_START);
 
+        // DF Exp
+        df_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEEK);
+        df_month = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_MONTH);
+        df_weighted = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEIGHTED);
     }
 
     int width = 300;
@@ -179,6 +187,20 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         moveField_q1.setXY(df_8_Field_q1.getX(), df_8_Field_q1.getY() + df_8_Field_q1.getHeight() + 1);
         bodyPanel.add(moveField_q1);
 
+
+        // Df exp
+        df_week_field = new MyGuiComps.MyTextField();
+        df_week_field.setXY(moveField_week.getX(), moveField_week.getY() + moveField_week.getHeight() + 1);
+        bodyPanel.add(df_week_field);
+
+        df_month_field = new MyGuiComps.MyTextField();
+        df_month_field.setXY(moveField_month.getX(), moveField_month.getY() + moveField_month.getHeight() + 1);
+        bodyPanel.add(df_month_field);
+
+        df_weighted_field = new MyGuiComps.MyTextField();
+        df_weighted_field.setXY(moveField_q1.getX(), moveField_q1.getY() + moveField_q1.getHeight() + 1);
+        bodyPanel.add(df_weighted_field);
+
     }
 
     @Override
@@ -210,6 +232,11 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_2_Field_q1.colorForge((int) ((df_2_q1.get_value_with_exp() + df_2_cdf.getValue()) / 1000));
         df_7_Field_q1.colorForge((int) ((df_7_q1.get_value_with_exp() + df_7_cdf.getValue()) / 1000));
         df_8_Field_q1.colorForge((int) ((df_8_q1.get_value_with_exp() + df_8_cdf.getValue()) / 1000));
+
+        // DF exp
+        df_week_field.colorForge((int) df_week.getValue());
+        df_month_field.colorForge((int) df_month.getValue());
+        df_weighted_field.colorForge((int) df_weighted.getValue());
 
     }
 }

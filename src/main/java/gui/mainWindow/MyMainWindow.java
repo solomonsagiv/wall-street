@@ -105,7 +105,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 try {
                     // Load data from database
                     if (Manifest.DB) {
-                        client.getMySqlService().getDataBaseHandler().loadData();
+                        client.getMySqlService().getDataBaseHandler().
+                                loadData();
                     } else {
                         client.setLoadFromDb(true);
                     }

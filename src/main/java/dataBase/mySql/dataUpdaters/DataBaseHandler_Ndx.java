@@ -144,6 +144,13 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1908);
         serie_ids.put(TimeSeriesHandler.DF_8, 996);
         serie_ids.put(TimeSeriesHandler.DF_8_900, 1013);
+        
+        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3798);
+        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3800);
+        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3801);
+        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
+
+
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
@@ -187,6 +194,12 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_90_FRAME, client));
+
+        // JUPITER
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_MONTH, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEIGHTED, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEIGHTED, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.STD_MOVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STD_MOVE, client));
 
     }
 

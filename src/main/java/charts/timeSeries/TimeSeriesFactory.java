@@ -49,11 +49,15 @@ public class TimeSeriesFactory {
     public static final String DF_2_WEEK = "DF_2_WEEK";
     public static final String DF_7_WEEK = "DF_7_WEEK";
     public static final String DF_8_WEEK = "DF_8_WEEK";
+    public static final String DF_WEEK = "DF_WEEK";
 
     // Month
     public static final String DF_2_MONTH = "DF_2_MONTH";
     public static final String DF_7_MONTH = "DF_7_MONTH";
     public static final String DF_8_MONTH = "DF_8_MONTH";
+    public static final String DF_MONTH = "DF_MONTH";
+
+    public static final String DF_WEIGHTED = "DF_WEIGHTED";
 
     // Q1
     public static final String DF_2_Q1 = "DF_2_Q1";
@@ -65,7 +69,6 @@ public class TimeSeriesFactory {
     public static final String EXP_MONTH_START = "MOVE_MONTH";
     public static final String EXP_Q1_START = "MOVE_Q1";
 
-
     // Frame
     public static final String DF_2_600_FRAME = "DF_2_600_FRAME";
     public static final String DF_2_90_FRAME = "DF_2_90_FRAME";
@@ -76,9 +79,105 @@ public class TimeSeriesFactory {
     public static final String DF_8_600_FRAME = "DF_8_600_FRAME";
     public static final String DF_8_90_FRAME = "DF_8_90_FRAME";
 
+    public static final String STD_MOVE = "STD_MOVE";
+
+
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
         switch (series_type.toUpperCase()) {
+
+            case DF_WEEK:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_WEEK);
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
+            case DF_MONTH:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_MONTH);
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
+
+            case DF_WEIGHTED:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_WEIGHTED);
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
+            case STD_MOVE:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.STD_MOVE);
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
 
             case DF_2_CDF:
                 return new MyTimeSeries(series_type, client) {
@@ -1090,7 +1189,7 @@ public class TimeSeriesFactory {
                     public void load_exp_data() {
                     }
                 };
-
+                
             case DF_7_600_FRAME:
                 return new MyTimeSeries(series_type, client) {
 
