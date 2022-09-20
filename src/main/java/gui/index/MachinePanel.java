@@ -46,9 +46,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_90_FRAME));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_90_FRAME));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_90_FRAME));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_600_FRAME));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_600_FRAME));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_600_FRAME));
@@ -67,7 +67,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(header);
 
         // Fast
-        short_range_header_lbl = new MyGuiComps.MyLabel("Fast", true);
+        short_range_header_lbl = new MyGuiComps.MyLabel("Today", true);
         short_range_header_lbl.setXY(3, 0);
         short_range_header_lbl.setWidth(width);
         short_range_header_lbl.setHeight(25);

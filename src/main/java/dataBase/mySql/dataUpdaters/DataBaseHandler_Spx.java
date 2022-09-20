@@ -188,13 +188,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // Frame
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_600_FRAME, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_90_FRAME, client));
-
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_600_FRAME, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_90_FRAME, client));
-
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_90_FRAME, client));
 
         // JUPITER
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));

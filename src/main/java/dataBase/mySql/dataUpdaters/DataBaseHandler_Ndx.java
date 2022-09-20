@@ -150,8 +150,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3801);
         serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
 
-
-
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_CDF, client));
@@ -187,13 +185,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // Frame
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_600_FRAME, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_90_FRAME, client));
-
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_600_FRAME, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_90_FRAME, client));
-
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_90_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_90_FRAME, client));
 
         // JUPITER
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));

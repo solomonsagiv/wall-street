@@ -83,7 +83,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         expPanel = new ExpSumPanel(client);
         expPanel.setXY(machinePanel.getX() + machinePanel.getWidth() + 1, machinePanel.getY());
         add(expPanel);
-
+        
     }
 
     public Updater getUpdater() {

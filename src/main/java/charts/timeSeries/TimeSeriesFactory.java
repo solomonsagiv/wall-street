@@ -71,13 +71,8 @@ public class TimeSeriesFactory {
 
     // Frame
     public static final String DF_2_600_FRAME = "DF_2_600_FRAME";
-    public static final String DF_2_90_FRAME = "DF_2_90_FRAME";
-
     public static final String DF_7_600_FRAME = "DF_7_600_FRAME";
-    public static final String DF_7_90_FRAME = "DF_7_90_FRAME";
-
     public static final String DF_8_600_FRAME = "DF_8_600_FRAME";
-    public static final String DF_8_90_FRAME = "DF_8_90_FRAME";
 
     public static final String STD_MOVE = "STD_MOVE";
 
@@ -1166,30 +1161,6 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_2_90_FRAME:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 5400));
-                        setValue(data);
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-                
             case DF_7_600_FRAME:
                 return new MyTimeSeries(series_type, client) {
 
@@ -1202,30 +1173,6 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
                         double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 21600));
-                        setValue(data);
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-
-            case DF_7_90_FRAME:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 5400));
                         setValue(data);
                     }
 
@@ -1253,30 +1200,6 @@ public class TimeSeriesFactory {
                         setValue(data);
                     }
                     
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-
-            case DF_8_90_FRAME:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(serie_id, 5400));
-                        setValue(data);
-                    }
-
                     @Override
                     public void load() {
                     }
