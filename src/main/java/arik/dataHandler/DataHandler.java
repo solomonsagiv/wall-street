@@ -31,10 +31,12 @@ public class DataHandler {
         put(SPX_INDEX);
         put(SPX_DF_2);
         put(SPX_DF_7);
+        put(SPX_DF_8);
 
         put(NDX_INDEX);
         put(NDX_DF_2);
         put(NDX_DF_7);
+        put(NDX_DF_8);
     }
 
     private void put(String object_type) {

@@ -33,12 +33,14 @@ public class Plus_Minus_Algo extends ArikAlgoAlert {
         if (client instanceof Spx) {
             dataObjects.add(arik.getDataHandler().get(DataHandler.SPX_DF_2));
             dataObjects.add(arik.getDataHandler().get(DataHandler.SPX_DF_7));
+            dataObjects.add(arik.getDataHandler().get(DataHandler.SPX_DF_8));
             index = arik.getDataHandler().get(DataHandler.SPX_INDEX);
         }
 
         if (client instanceof Ndx) {
             dataObjects.add(arik.getDataHandler().get(DataHandler.NDX_DF_2));
             dataObjects.add(arik.getDataHandler().get(DataHandler.NDX_DF_7));
+            dataObjects.add(arik.getDataHandler().get(DataHandler.NDX_DF_8));
             index = arik.getDataHandler().get(DataHandler.NDX_INDEX);
         }
 

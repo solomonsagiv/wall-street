@@ -4,7 +4,6 @@ import api.Manifest;
 import arik.alerts.ArikAlgoAlert;
 import arik.alerts.ArikPositionsAlert;
 import arik.alerts.Plus_Minus_Algo;
-import arik.alerts.TA35_100000_Algo;
 import arik.dataHandler.DataHandler;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
@@ -16,6 +15,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -106,10 +106,10 @@ public class Arik {
         algo_list.add(new Plus_Minus_Algo(5000, Ndx.getInstance()));
 
         // TA 35
-        ArrayList<Double> targets = new ArrayList<>();
-        targets.add(30000.0);
-        targets.add(60000.0);
-        algo_list.add(new TA35_100000_Algo(100000, targets));
+//        ArrayList<Double> targets = new ArrayList<>();
+//        targets.add(30000.0);
+//        targets.add(60000.0);
+//        algo_list.add(new TA35_100000_Algo(100000, targets));
         return algo_list;
     }
 

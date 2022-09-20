@@ -25,11 +25,12 @@ public class Ndx_Case extends ArikCase {
         DataObject index = dataHandler.get(DataHandler.NDX_INDEX);
         DataObject df_2 = dataHandler.get(DataHandler.NDX_DF_2);
         DataObject df_7 = dataHandler.get(DataHandler.NDX_DF_7);
-
+        DataObject df_8 = dataHandler.get(DataHandler.NDX_DF_8);
 
         String return_text = client.getName() + " price " + L.format100(index.getValue()) + "\n" +
                 "DF 2 = " + L.format_int(df_2.getValue()) + "\n" +
-                "DF 7 = " + L.format_int(df_7.getValue()) + "\n";
+                "DF 7 = " + L.format_int(df_7.getValue()) + "\n" +
+                "DF 8 = " + L.format_int(df_8.getValue()) + "\n";
 //
         Arik.getInstance().sendMessage(update, return_text, getKeyboard());
         return true;
