@@ -20,7 +20,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel header;
     MyGuiComps.MyLabel headerLbl;
 
-    MyGuiComps.MyLabel short_range_header_lbl, long_range_header_lbl;
+    MyGuiComps.MyLabel today_header_lbl;
 
     MyGuiComps.MyPanel body;
     BasketFinder_by_stocks basketFinder;
@@ -28,13 +28,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Df_panel df_panel_1;
     Df_panel df_panel_2;
     Df_panel df_panel_3;
-    Df_panel df_panel_4;
-
-    Df_panel df_panel_5;
-    Df_panel df_panel_6;
     Df_panel df_panel_7;
     
-    int panel_width = 127;
+    int panel_width = 63;
     int width = 60;
     int height = 400;
 
@@ -49,9 +45,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_600_FRAME));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_600_FRAME));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_600_FRAME));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
@@ -67,20 +60,12 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(header);
 
         // Fast
-        short_range_header_lbl = new MyGuiComps.MyLabel("Today", true);
-        short_range_header_lbl.setXY(3, 0);
-        short_range_header_lbl.setWidth(width);
-        short_range_header_lbl.setHeight(25);
-        short_range_header_lbl.setHorizontalAlignment(JLabel.CENTER);
-        header.add(short_range_header_lbl);
-
-        // Slow
-        long_range_header_lbl = new MyGuiComps.MyLabel("Slow", true);
-        long_range_header_lbl.setXY(short_range_header_lbl.getX() + short_range_header_lbl.getWidth() + 1, short_range_header_lbl.getY());
-        long_range_header_lbl.setWidth(width);
-        long_range_header_lbl.setHeight(25);
-        long_range_header_lbl.setHorizontalAlignment(JLabel.CENTER);
-        header.add(long_range_header_lbl);
+        today_header_lbl = new MyGuiComps.MyLabel("Today", true);
+        today_header_lbl.setXY(3, 0);
+        today_header_lbl.setWidth(width);
+        today_header_lbl.setHeight(25);
+        today_header_lbl.setHorizontalAlignment(JLabel.CENTER);
+        header.add(today_header_lbl);
 
         // ------------ Body ------------ //
         body = new MyGuiComps.MyPanel();
@@ -106,26 +91,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_panel_3.setHeight(25);
         body.add(df_panel_3);
 
-        df_panel_4 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, true);
-        df_panel_4.setXY(df_panel_1.getX() + df_panel_1.getWidth() + 1, df_panel_1.getY());
-        df_panel_4.setWidth(width);
-        df_panel_4.setHeight(25);
-        body.add(df_panel_4);
-
-        df_panel_5 = new Df_panel(new MyTimeSeries[]{df_list.get(4)}, true);
-        df_panel_5.setXY(df_panel_4.getX(), df_panel_4.getY() + df_panel_4.getHeight() + 1);
-        df_panel_5.setWidth(width);
-        df_panel_5.setHeight(25);
-        body.add(df_panel_5);
-
-        df_panel_6 = new Df_panel(new MyTimeSeries[]{df_list.get(5)}, true);
-        df_panel_6.setXY(df_panel_5.getX(), df_panel_5.getY() + df_panel_5.getHeight() + 1);
-        df_panel_6.setWidth(width);
-        df_panel_6.setHeight(25);
-        body.add(df_panel_6);
-
-        df_panel_7 = new Df_panel(new MyTimeSeries[]{df_list.get(6)}, false);
-        df_panel_7.setXY(df_panel_6.getX(), df_panel_6.getY() + df_panel_6.getHeight() + 1);
+        df_panel_7 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false);
+        df_panel_7.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
         df_panel_7.setWidth(width);
         df_panel_7.setHeight(25);
         body.add(df_panel_7);
@@ -181,9 +148,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_panel_1.updateText();
         df_panel_2.updateText();
         df_panel_3.updateText();
-        df_panel_4.updateText();
-        df_panel_5.updateText();
-        df_panel_6.updateText();
         df_panel_7.updateText();
     }
 
