@@ -48,8 +48,17 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem futures_real_time_600 = new JMenuItem("Futures 400");
-        futures_real_time_600.addActionListener(new ActionListener() {
+        JMenuItem futures_real_time_1000 = new JMenuItem("Futures 1000");
+        futures_real_time_1000.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FuturesChartLong_1000 chart = new FuturesChartLong_1000(client);
+                chart.createChart();
+            }
+        });
+
+        JMenuItem futures_real_time_400 = new JMenuItem("Futures 400");
+        futures_real_time_400.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FuturesChartLong_400 chart = new FuturesChartLong_400(client);
@@ -67,7 +76,8 @@ public class PopupsMenuFactory {
         });
 
         charts.add(fullCharts_4);
-        charts.add(futures_real_time_600);
+        charts.add(futures_real_time_1000);
+        charts.add(futures_real_time_400);
         charts.add(baskets);
 
         menu.add(details);
