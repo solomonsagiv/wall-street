@@ -613,10 +613,10 @@ public class MySql {
                     "where timeseries_id = %s\n" +
                     "and %s %s;";
 
-            String query = String.format(q, serie_id, Filters.TODAY, Filters.ORDER_BY_TIME_DESC_LIMIT_1);
+            String query = String.format(q, serie_id, Filters.TODAY, Filters.ORDER_BY_TIME_DESC_OFFSET_1_LIMIT_1);
             return MySql.select(query);
         }
-
+        
         private static ResultSet get_last_cdf_record_mega(int serie_id) {
             String q = "select sum(value) as value\n" +
                     "from ts.timeseries_data\n" +
@@ -788,5 +788,6 @@ public class MySql {
         public static final String ORDER_BY_TIME = "order by time";
         public static final String ORDER_BY_TIME_DESC = "order by time desc";
         public static final String ORDER_BY_TIME_DESC_LIMIT_1 = "order by time desc limit 1";
+        public static final String ORDER_BY_TIME_DESC_OFFSET_1_LIMIT_1 = "order by time desc offset 1 limit 1";
     }
 }
