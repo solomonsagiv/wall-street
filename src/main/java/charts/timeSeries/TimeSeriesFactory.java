@@ -286,8 +286,6 @@ public class TimeSeriesFactory {
                     }
                 };
 
-
-
             case DF_8_RAW_3600:
                 return new MyTimeSeries(series_type, client) {
 
@@ -313,9 +311,6 @@ public class TimeSeriesFactory {
                     public void load_exp_data() {
                     }
                 };
-
-
-
 
 
             case OP_AVG_240_CONTINUE:

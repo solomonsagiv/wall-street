@@ -62,15 +62,17 @@ public class ArikGrabData extends MyThread implements Runnable {
 
         // SPX
         dataHandler.get(DataHandler.SPX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(3, MySql.RAW)));
-        dataHandler.get(DataHandler.SPX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1022, 21600)));
-        dataHandler.get(DataHandler.SPX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1028, 21600)));
-        dataHandler.get(DataHandler.SPX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1029, 21600)));
+//        dataHandler.get(DataHandler.SPX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1022, 21600)));
+//        dataHandler.get(DataHandler.SPX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1028, 21600)));
+//        dataHandler.get(DataHandler.SPX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1029, 21600)));
+
+//        String position_status = MySql.Queries.get_position_status();
 
         // NDX
         dataHandler.get(DataHandler.NDX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1, MySql.RAW)));
-        dataHandler.get(DataHandler.NDX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(989, 21600)));
-        dataHandler.get(DataHandler.NDX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(995, 21600)));
-        dataHandler.get(DataHandler.NDX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(996, 21600)));
+//        dataHandler.get(DataHandler.NDX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(989, 21600)));
+//        dataHandler.get(DataHandler.NDX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(995, 21600)));
+//        dataHandler.get(DataHandler.NDX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(996, 21600)));
 
     }
 

@@ -91,11 +91,11 @@ public class Full_Chart_4 extends MyChartCreator {
         // ------------------ DF ------------------- //
 
         MyTimeSeries df_8_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900);
-        df_8_900.setColor(Themes.RED);
+        df_8_900.setColor(Themes.GREEN);
         df_8_900.setStokeSize(1.2f);
 
         MyTimeSeries df_8_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_3600);
-        df_8_3600.setColor(Themes.GREEN);
+        df_8_3600.setColor(Themes.BLUE);
         df_8_3600.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
@@ -104,8 +104,7 @@ public class Full_Chart_4 extends MyChartCreator {
 
         // Chart
         MyChart df_chart = new MyChart(client, series, props);
-
-
+        
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //

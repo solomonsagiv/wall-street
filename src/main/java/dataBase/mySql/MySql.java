@@ -333,6 +333,16 @@ public class MySql {
 
         }
 
+
+//        public static String get_position_status() {
+//            String q = "";
+//
+//            String query = String.format();
+//
+//            return MySql.select();
+//        }
+
+
         public static ResultSet get_exp_start(String index_table_location, String stock_id) {
             String q = "select (select value\n" +
                     "        from %s\n" +
