@@ -607,6 +607,18 @@ public class MySql {
             return null;
         }
 
+        public static ResultSet get_transaction(int session_id) {
+            String q = "select created_at, position_type, index_value_at_creation, index_value_at_close, close_reason\n" +
+                    "from ts.transactions\n" +
+                    "where session_id = %s\n" +
+                    "and date_trunc('day', created_at) = date_trunc('day', now())\n" +
+                    "order by created_at desc limit 1;";
+
+            String query = String.format(q, session_id);
+
+            return MySql.select(query);
+        }
+
         private static ResultSet get_last_raw_record_mega(int serie_id) {
             String q = "select *\n" +
                     "from ts.timeseries_data\n" +
@@ -636,6 +648,7 @@ public class MySql {
             }
             return null;
         }
+
 
 
         private static ResultSet get_serie_raw_mega_table(int serie_id) {

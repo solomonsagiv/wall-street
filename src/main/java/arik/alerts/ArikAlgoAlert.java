@@ -6,6 +6,7 @@ public abstract class ArikAlgoAlert {
 
     protected boolean LONG = false;
     protected boolean SHORT = false;
+    protected boolean POSITION = false;
 
     protected double target_price_for_position;
     protected double target_price_for_exit_position;

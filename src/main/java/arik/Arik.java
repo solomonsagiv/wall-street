@@ -3,7 +3,7 @@ package arik;
 import api.Manifest;
 import arik.alerts.ArikAlgoAlert;
 import arik.alerts.ArikPositionsAlert;
-import arik.alerts.Plus_Minus_Algo;
+import arik.alerts.Jibe_Positions_Algo;
 import arik.dataHandler.DataHandler;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
@@ -13,8 +13,6 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
-import serverObjects.indexObjects.Ndx;
-import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.sql.ResultSet;
@@ -100,16 +98,7 @@ public class Arik {
     private ArrayList<ArikAlgoAlert> getArikAlgoAlerts() {
         // Positions alert
         ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
-        // Spx
-        algo_list.add(new Plus_Minus_Algo(5000, Spx.getInstance()));
-        // Ndx
-        algo_list.add(new Plus_Minus_Algo(5000, Ndx.getInstance()));
-
-        // TA 35
-//        ArrayList<Double> targets = new ArrayList<>();
-//        targets.add(30000.0);
-//        targets.add(60000.0);
-//        algo_list.add(new TA35_100000_Algo(100000, targets));
+        algo_list.add(new Jibe_Positions_Algo(10000000));
         return algo_list;
     }
 
