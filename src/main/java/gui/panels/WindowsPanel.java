@@ -44,6 +44,9 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "NDX":
                         new IndexWindow("Ndx window", Ndx.getInstance());
                         break;
+                    case "DAX":
+                        new IndexWindow("Dax window", Dax.getInstance());
+                        break;
                     default:
                         break;
                 }
@@ -91,13 +94,12 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
 
     private void initCombo() {
         Set<BASE_CLIENT_OBJECT> clients = LocalHandler.clients;
-        String[] clientNames = new String[LocalHandler.clients.size() + 1];
+        String[] clientNames = new String[LocalHandler.clients.size()];
         int i = 0;
         for (BASE_CLIENT_OBJECT client : clients) {
             clientNames[i] = client.getName().toUpperCase();
             i++;
         }
-        clientNames[i] = "STOCKS";
         clientsCombo = new JComboBox(clientNames);
     }
 

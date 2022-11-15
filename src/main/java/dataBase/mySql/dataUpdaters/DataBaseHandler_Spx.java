@@ -123,32 +123,31 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
 
-        serie_ids.put(TimeSeriesHandler.INDEX, 3);
+        serie_ids.put(TimeSeriesHandler.INDEX, 5364);
         serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 17);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 18);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONITNUE, 1034);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 1030);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_15, 1030);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 1032);
-        serie_ids.put(TimeSeriesHandler.DF_7, 1028);
-        serie_ids.put(TimeSeriesHandler.DF_2, 1022);//1023
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5354);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 5347);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_15, 5348);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 5349);
+        serie_ids.put(TimeSeriesHandler.DF_7, 5345);
+        serie_ids.put(TimeSeriesHandler.DF_2, 5340);//1023
         serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 1899);
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 1900);
         serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH, 1901);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1902);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1903);
-        serie_ids.put(TimeSeriesHandler.DF_8, 1029);
+        serie_ids.put(TimeSeriesHandler.DF_8, 5346);
         serie_ids.put(TimeSeriesHandler.DF_WEEK, 3756);
         serie_ids.put(TimeSeriesHandler.DF_MONTH, 3757);
         serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3850);
         serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_15, 1031);
-        serie_ids.put(TimeSeriesHandler.DF_8_900, 4888);
-        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5284);
+        serie_ids.put(TimeSeriesHandler.DF_8_900, 5374);
+        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5375);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));

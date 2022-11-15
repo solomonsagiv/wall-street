@@ -18,7 +18,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     BASE_CLIENT_OBJECT client;
 
     MyGuiComps.MyPanel header;
-    MyGuiComps.MyLabel headerLbl;
 
     MyGuiComps.MyLabel today_header_lbl;
 
@@ -29,7 +28,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     Df_panel df_panel_2;
     Df_panel df_panel_3;
     Df_panel df_panel_7;
-    
+
     int panel_width = 63;
     int width = 60;
     int height = 400;
@@ -125,15 +124,16 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         public void updateText() {
             for (MyTimeSeries ts : timeSeries) {
                 try {
-
-                    if (round) {
-                        if (ts.getValue() != 0) {
-                            df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
-                            continue;
+                    if (ts != null) {
+                        if (round) {
+                            if (ts.getValue() != 0) {
+                                df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
+                                continue;
+                            }
+                            df_field.colorForge((int) ts.getValue());
+                        } else {
+                            df_field.colorForge((int) ts.getValue());
                         }
-                        df_field.colorForge((int) ts.getValue());
-                    } else {
-                        df_field.colorForge((int) ts.getValue());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

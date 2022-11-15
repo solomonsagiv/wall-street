@@ -13,7 +13,7 @@ public class TimeSeriesHandler {
     public static final int INDEX_BID = 21;
     public static final int INDEX_ASK = 22;
     public static final int OP_AVG_DAY = 23;
-    public static final int OP_AVG_240_CONITNUE = 33;
+    public static final int OP_AVG_240_CONTINUE = 33;
     public static final int OP_AVG_DAY_60 = 35;
     public static final int OP_AVG_DAY_5 = 36;
     public static final int DF_7 = 48;

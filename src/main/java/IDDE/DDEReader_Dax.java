@@ -28,33 +28,27 @@ public class DDEReader_Dax extends IDDEReader {
 
     // Future
     String futWeekCell = "R9C10";
-    String futMonthCell = "R10C10";
-    String e1Cell = "R11C10";
-    String e2Cell = "R12C10";
-
-    // Naked future for delta
-    String naked_future_cell = "R32C13";
-    String naked_future_bid_cell = "R33C13";
-    String naked_future_ask_cell = "R31C13";
-    String naked_future_volume_cell = "R38C13";
+    String futMonthCell = "R11C10";
+    String e1Cell = "R12C10";
+    String e2Cell = "R13C10";
 
     // Interest
-    String week_interest_cell = "R38C5";
-    String month_interest_cell = "R39C5";
-    String q1_interest_cell = "R40C5";
-    String q2_interest_cell = "R41C5";
+    String week_interest_cell = "R40C4";
+    String month_interest_cell = "R42C4";
+    String q1_interest_cell = "R43C4";
+    String q2_interest_cell = "R44C4";
 
     // Div
-    String week_div_cell = "R38C6";
-    String month_div_cell = "R39C6";
-    String q1_div_cell = "R40C6";
-    String q2_div_cell = "R41C6";
+    String week_div_cell = "R40C5";
+    String month_div_cell = "R42C5";
+    String q1_div_cell = "R43C5";
+    String q2_div_cell = "R44C5";
 
     // Day to exp
-    String week_days_cell = "R38C7";
-    String month_days_cell = "R39C7";
-    String q1_days_cell = "R40C7";
-    String q2_days_cell = "R41C7";
+    String week_days_cell = "R40C6";
+    String month_days_cell = "R42C6";
+    String q1_days_cell = "R43C6";
+    String q2_days_cell = "R44C6";
 
     // Constructor
     public DDEReader_Dax(BASE_CLIENT_OBJECT client) {
@@ -63,31 +57,31 @@ public class DDEReader_Dax extends IDDEReader {
 
     private void initStockCells(DDEClientConversation conversation) {
 
-        int nameCol = 26;
-        int row = 2;
-
-        while (true) {
-            try {
-                String name = conversation.request(String.format("R%sC%s", row, nameCol));
-
-                // End
-                if (row > 500) {
-                    break;
-                }
-
-                // End
-                if (name.replaceAll("\\s+", "").equals("0") || name.replaceAll("\\s+", "").equals("")) {
-                    break;
-                }
-
-                // Add stock
-                client.getStocksHandler().addStock(name, row);
-                row++;
-
-            } catch (DDEException e) {
-                e.printStackTrace();
-            }
-        }
+//        int nameCol = 26;
+//        int row = 2;
+//
+//        while (true) {
+//            try {
+//                String name = conversation.request(String.format("R%sC%s", row, nameCol));
+//
+//                // End
+//                if (row > 500) {
+//                    break;
+//                }
+//
+//                // End
+//                if (name.replaceAll("\\s+", "").equals("0") || name.replaceAll("\\s+", "").equals("")) {
+//                    break;
+//                }
+//
+//                // Add stock
+//                client.getStocksHandler().addStock(name, row);
+//                row++;
+//
+//            } catch (DDEException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         initStocksCells = true;
     }
@@ -104,12 +98,6 @@ public class DDEReader_Dax extends IDDEReader {
         if (!init_exp) {
             init_exps();
         }
-
-        // Naked future and volume (Delta calc)
-        q1.setNaked_future(requestDouble(naked_future_cell, conversation));
-        q1.setNaked_future_bid(requestDouble(naked_future_bid_cell, conversation));
-        q1.setNaked_future_ask(requestDouble(naked_future_ask_cell, conversation));
-        q1.setVolume((int) requestDouble(naked_future_volume_cell, conversation));
 
         // Index
         client.setIndex(requestDouble(indCell, conversation));
