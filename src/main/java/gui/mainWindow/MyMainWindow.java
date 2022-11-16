@@ -9,9 +9,9 @@ import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -20,12 +20,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     static Spx spx;
     static Ndx ndx;
-//    static Dax dax;
-
+    static Dax dax;
+    
     static {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
-//        dax = Dax.getInstance();
+        dax = Dax.getInstance();
     }
 
     // Variables

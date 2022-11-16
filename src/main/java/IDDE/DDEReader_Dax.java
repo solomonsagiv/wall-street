@@ -57,31 +57,31 @@ public class DDEReader_Dax extends IDDEReader {
 
     private void initStockCells(DDEClientConversation conversation) {
 
-//        int nameCol = 26;
-//        int row = 2;
-//
-//        while (true) {
-//            try {
-//                String name = conversation.request(String.format("R%sC%s", row, nameCol));
-//
-//                // End
-//                if (row > 500) {
-//                    break;
-//                }
-//
-//                // End
-//                if (name.replaceAll("\\s+", "").equals("0") || name.replaceAll("\\s+", "").equals("")) {
-//                    break;
-//                }
-//
-//                // Add stock
-//                client.getStocksHandler().addStock(name, row);
-//                row++;
-//
-//            } catch (DDEException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        int nameCol = 26;
+        int row = 2;
+
+        while (true) {
+            try {
+                String name = conversation.request(String.format("R%sC%s", row, nameCol));
+
+                // End
+                if (row > 500) {
+                    break;
+                }
+
+                // End
+                if (name.replaceAll("\\s+", "").equals("0") || name.replaceAll("\\s+", "").equals("")) {
+                    break;
+                }
+
+                // Add stock
+                client.getStocksHandler().addStock(name, row);
+                row++;
+
+            } catch (DDEException e) {
+                e.printStackTrace();
+            }
+        }
 
         initStocksCells = true;
     }
@@ -125,7 +125,7 @@ public class DDEReader_Dax extends IDDEReader {
         q2 = (E) client.getExps().getExp(ExpStrings.q2);
         init_exp = true;
     }
-
+    
 
     @Override
     public void init_rates() {
