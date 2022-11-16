@@ -14,6 +14,7 @@ import locals.L;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
@@ -92,6 +93,9 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                     case "NDX":
                         client = Ndx.getInstance();
                         break;
+                    case "DAX":
+                        client = Dax.getInstance();
+                        break;
                     default:
                         client = Spx.getInstance();
                         break;
@@ -154,7 +158,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             }
         });
     }
-    
+
     private void init_stocks_rates() {
         try {
             DDEClientConversation conversation = new DDEConnection().createNewConversation(Manifest.STOCKS_EXCEL_FILE_LOCATION);
@@ -169,7 +173,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
             MySql.Queries.update_stock_rates(aapl_symbol, aapl_interest, aapl_dividend, aapl_days_left, aapl_base, exp_type);
 
-        } catch (NullPointerException | DDEException | SQLException e ) {
+        } catch (NullPointerException | DDEException | SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Stocks excel file not found " + e.getMessage());
         }
