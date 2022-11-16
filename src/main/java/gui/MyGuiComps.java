@@ -275,21 +275,29 @@ public class MyGuiComps {
         }
 
         public void setText(double val, DecimalFormat format) {
-            if (format != null) {
-                setText(format.format(val));
-            } else {
-                setText(L.str(val));
+            try {
+                if (format != null) {
+                    setText(format.format(val));
+                } else {
+                    setText(L.str(val));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
         public void colorForge(double val, DecimalFormat format) {
-            if (val >= 0) {
-                setForeground(Themes.GREEN);
-            } else {
-                setForeground(Themes.RED);
-            }
+            try {
+                if (val >= 0) {
+                    setForeground(Themes.GREEN);
+                } else {
+                    setForeground(Themes.RED);
+                }
 
-            setText(format.format(val));
+                setText(format.format(val));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void colorForge(double val, DecimalFormat format, String sign) {
@@ -312,13 +320,16 @@ public class MyGuiComps {
         }
 
         public void colorForge(int val) {
-            if (val >= 0) {
-                setForeground(Themes.GREEN);
-            } else {
-                setForeground(Themes.RED);
+            try {
+                if (val >= 0) {
+                    setForeground(Themes.GREEN);
+                } else {
+                    setForeground(Themes.RED);
+                }
+                setText(L.str(val));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            setText(L.str(val));
         }
 
         public void colorBack(double val, DecimalFormat format) {
@@ -336,17 +347,20 @@ public class MyGuiComps {
         }
 
         public void colorBack(double val, DecimalFormat format, String sign) {
+            try {
+                setForeground(Color.WHITE);
+                setFont(getFont().deriveFont(Font.BOLD));
 
-            setForeground(Color.WHITE);
-            setFont(getFont().deriveFont(Font.BOLD));
+                if (val >= 0) {
+                    setBackground(Themes.GREEN);
+                } else {
+                    setBackground(Themes.RED);
+                }
 
-            if (val >= 0) {
-                setBackground(Themes.GREEN);
-            } else {
-                setBackground(Themes.RED);
+                setText(format.format(val) + sign);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            setText(format.format(val) + sign);
         }
 
     }
