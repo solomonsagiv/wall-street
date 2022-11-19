@@ -239,18 +239,36 @@ public class MySql {
         }
 
 
-        public static void delete_today_interest_rates() {
+        public static void delete_today_rates() {
             String query = "delete \n" +
                     "from meta.interest_rates\n" +
                     "where start_date = now()::date;";
             MySql.update(query);
         }
 
-        public static void delete_today_interest_rates(Connection conn) {
+        public static void delete_today_rates(Connection conn) {
             String query = "delete \n" +
                     "from meta.interest_rates\n" +
                     "where start_date = now()::date;";
             MySql.update(query, conn);
+        }
+
+        public static ResultSet delete_today_rates(String stock_id) {
+            String q = "delete \n" +
+                    "from meta.interest_rates\n" +
+                    "where start_date = now()::date\n" +
+                    "and stock_id = '%s';";
+            String query = String.format(q, stock_id);
+            return MySql.select(query);
+        }
+
+        public static ResultSet delete_today_rates(String stock_id, Connection conn) {
+            String q = "delete \n" +
+                    "from meta.interest_rates\n" +
+                    "where start_date = now()::date\n" +
+                    "and stock_id = '%s';";
+            String query = String.format(q, stock_id);
+            return MySql.select(query, conn);
         }
 
         public static String load_stocks_excel_file_location() {
@@ -332,16 +350,6 @@ public class MySql {
             return MySql.select(query);
 
         }
-
-
-//        public static String get_position_status() {
-//            String q = "";
-//
-//            String query = String.format();
-//
-//            return MySql.select();
-//        }
-
 
         public static ResultSet get_exp_start(String index_table_location, String stock_id) {
             String q = "select (select value\n" +
@@ -718,7 +726,6 @@ public class MySql {
             String query = String.format(q, table_location, Filters.TODAY);
             return MySql.select(query);
         }
-
 
         public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, double cof, String exp_name) {
             String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, cof, item)" +

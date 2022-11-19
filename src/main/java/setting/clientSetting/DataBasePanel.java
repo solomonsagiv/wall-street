@@ -8,7 +8,6 @@ import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
@@ -67,8 +66,8 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
 
                     // Delete current
                     Connection slo_conn = ConnectionPool.get_slo_single_connection();
-                    MySql.Queries.delete_today_interest_rates(slo_conn);
-                    MySql.Queries.delete_today_interest_rates();
+                    MySql.Queries.delete_today_rates(client.getId_name(),slo_conn);
+                    MySql.Queries.delete_today_rates(client.getId_name());
 
                     // Update new one
                     IDataBaseHandler.insert_interes_rates(client);

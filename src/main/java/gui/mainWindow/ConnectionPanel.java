@@ -17,7 +17,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -140,24 +139,47 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         upload_rates_btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-                    try {
-                        client.getDdeHandler().getIddeReader().init_rates();
-                        IDataBaseHandler.insert_interes_rates(client);
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                        JOptionPane.showMessageDialog(null, exception.getCause());
-                    }
-                }
+                // Delete current
+                delete_rates();
 
-                String file = Manifest.STOCKS_EXCEL_FILE_LOCATION;
-                System.out.println(file);
-
-                // Stocks
-                init_stocks_rates();
+                // Insert new rates
+                insert_rates();
             }
         });
     }
+
+    private void delete_rates() {
+        // Delete current
+        Connection slo_conn = null;
+        try {
+            slo_conn = ConnectionPool.get_slo_single_connection();
+            MySql.Queries.delete_today_rates(slo_conn);
+            MySql.Queries.delete_today_rates();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void insert_rates() {
+        // I
+        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+            try {
+                //
+                client.getDdeHandler().getIddeReader().init_rates();
+                IDataBaseHandler.insert_interes_rates(client);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null, exception.getCause());
+            }
+        }
+
+        String file = Manifest.STOCKS_EXCEL_FILE_LOCATION;
+        System.out.println(file);
+
+        // Stocks
+        init_stocks_rates();
+    }
+
 
     private void init_stocks_rates() {
         try {
