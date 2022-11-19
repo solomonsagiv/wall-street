@@ -67,26 +67,21 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4759);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5634);
+
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 5631);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_15, 5632);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 5633);
-//        serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 1899);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 1900);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH, 1901);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1902);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1903);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5634);
+        serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_5, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK, client));
 
         // Exp
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));

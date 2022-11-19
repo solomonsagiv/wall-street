@@ -14,6 +14,7 @@ public abstract class Exp {
     private double dividend = 0;
     private double interest = 0;
     private double days_to_exp = -1;
+    private double cof = 0;
 
     private double op_avg_15_continue = 0;
     private double op_avg_60_continue = 0;
@@ -175,4 +176,11 @@ public abstract class Exp {
         this.v103 = v103;
     }
 
+    public double getCof() {
+        return cof;
+    }
+
+    public void setCof(double cof) {
+        this.cof = cof;
+    }
 }

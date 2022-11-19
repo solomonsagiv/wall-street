@@ -181,11 +181,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_Q1_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_Q1_START, client));
 
-        // Frame
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_600_FRAME, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_600_FRAME, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_600_FRAME, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_600_FRAME, client));
-
         // JUPITER
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_MONTH, client));

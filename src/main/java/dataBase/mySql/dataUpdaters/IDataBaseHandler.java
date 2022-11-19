@@ -8,7 +8,6 @@ import exp.Exp;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -39,7 +38,7 @@ public abstract class IDataBaseHandler {
     protected void load_exp_data() {
         try {
             // Load exp data for each timeserie
-            for (Map.Entry<String, MyTimeSeries> entry :client.getTimeSeriesHandler().getSeries_map().entrySet()) {
+            for (Map.Entry<String, MyTimeSeries> entry : client.getTimeSeriesHandler().getSeries_map().entrySet()) {
                 entry.getValue().load_exp_data();
             }
         } catch (Exception e) {
@@ -125,7 +124,7 @@ public abstract class IDataBaseHandler {
 
     public static void insert_interes_rates(BASE_CLIENT_OBJECT client) {
         for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getName());
+            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getCof(), exp.getName());
         }
     }
 

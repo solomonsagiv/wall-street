@@ -50,6 +50,8 @@ public class DDEReader_Dax extends IDDEReader {
     String q1_days_cell = "R43C6";
     String q2_days_cell = "R44C6";
 
+    String cofCell = "R40C9";
+
     // Constructor
     public DDEReader_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -136,21 +138,25 @@ public class DDEReader_Dax extends IDDEReader {
             week.setInterest(requestDouble(week_interest_cell, conversation));
             week.setDividend(requestDouble(week_div_cell, conversation));
             week.setDays_to_exp(requestDouble(week_days_cell, conversation));
+            week.setCof(requestDouble(cofCell, conversation));
 
             // Month
             month.setInterest(requestDouble(month_interest_cell, conversation));
             month.setDividend(requestDouble(month_div_cell, conversation));
             month.setDays_to_exp(requestDouble(month_days_cell, conversation));
+            month.setCof(requestDouble(cofCell, conversation));
 
             // Q1
             q1.setInterest(requestDouble(q1_interest_cell, conversation));
             q1.setDividend(requestDouble(q1_div_cell, conversation));
             q1.setDays_to_exp(requestDouble(q1_days_cell, conversation));
+            q1.setCof(requestDouble(cofCell, conversation));
 
             // Q2
             q2.setInterest(requestDouble(q2_interest_cell, conversation));
             q2.setDividend(requestDouble(q2_div_cell, conversation));
             q2.setDays_to_exp(requestDouble(q2_days_cell, conversation));
+            q2.setCof(requestDouble(cofCell, conversation));
 
             conversation.disconnect();
         } catch (DDEException e) {

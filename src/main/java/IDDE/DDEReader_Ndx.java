@@ -57,6 +57,9 @@ public class DDEReader_Ndx extends IDDEReader {
     String q1_days_cell = "R40C6";
     String q2_days_cell = "R41C6";
 
+    // Cof
+    String cofCell = "R37C9";
+
     // Constructor
     public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -150,16 +153,19 @@ public class DDEReader_Ndx extends IDDEReader {
             day.setInterest(requestDouble(day_interest_cell, conversation));
             day.setDividend(requestDouble(day_div_cell, conversation));
             day.setDays_to_exp(requestDouble(day_days_cell, conversation));
+            day.setCof(requestDouble(cofCell, conversation));
 
 //             Q1
             q1.setInterest(requestDouble(q1_interest_cell, conversation));
             q1.setDividend(requestDouble(q1_div_cell, conversation));
             q1.setDays_to_exp(requestDouble(q1_days_cell, conversation));
+            q1.setCof(requestDouble(cofCell, conversation));
 
 //             Q2
             q2.setInterest(requestDouble(q2_interest_cell, conversation));
             q2.setDividend(requestDouble(q2_div_cell, conversation));
             q2.setDays_to_exp(requestDouble(q2_days_cell, conversation));
+            q2.setCof(requestDouble(cofCell, conversation));
 
             conversation.disconnect();
         } catch (DDEException e) {
