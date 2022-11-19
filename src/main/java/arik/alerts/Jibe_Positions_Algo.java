@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
-    Transaction transaction;
+    public static Transaction transaction;
     final int session_id = 1224;
 
     // Constructor
@@ -22,10 +22,14 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
         transaction = read_transaction(MySql.Queries.get_transaction(session_id));
 
+        System.out.println();
+        System.out.println(transaction);
+        System.out.println();
+
         // No position
         if (!POSITION) {
             // New transaction
-            if (transaction.close_reason == null || transaction.close_reason == "") {
+            if ((transaction.close_reason == null || transaction.close_reason == "") && transaction.created_at != null) {
                 POSITION = true;
                 send_enter_transaction_alert(transaction.transaction_type, transaction.index_at_creation);
             }
@@ -59,8 +63,12 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
         }
         return transaction;
+
     }
 
+    public static String positions_text() {
+        return transaction.toString();
+    }
 
     private void send_enter_transaction_alert(String position_type, double index_at_created) {
         String text = "SPX Enter %s\n" +
@@ -82,4 +90,13 @@ class Transaction {
     String close_reason;
     double index_at_creation, index_at_close;
 
+    @Override
+    public String toString() {
+        return "Transaction " + "\n\n" +
+                "  created_at:        " + created_at + "\n" +
+                "  transaction_type:  " + transaction_type + '\'' + "\n" +
+                "  close_reason:      " + close_reason + '\'' + "\n" +
+                "  index_at_creation: " + index_at_creation + "\n" +
+                "  index_at_close:    " + index_at_close + "\n";
+    }
 }
