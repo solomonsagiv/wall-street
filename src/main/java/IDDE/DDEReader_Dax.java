@@ -96,7 +96,6 @@ public class DDEReader_Dax extends IDDEReader {
             initStockCells(conversation);
         }
 
-
         if (!init_exp) {
             init_exps();
         }
@@ -112,7 +111,7 @@ public class DDEReader_Dax extends IDDEReader {
 
         // Exps
         week.set_future(requestDouble(futWeekCell, conversation));
-        month.set_future(requestDouble(futMonthCell, conversation));
+        // month.set_future(requestDouble(futMonthCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
 

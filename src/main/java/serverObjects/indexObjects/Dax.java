@@ -9,6 +9,10 @@ import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
+import exp.E;
+import exp.ExpReg;
+import exp.ExpStrings;
+import exp.Exps;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -20,6 +24,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public Dax() {
         setName("dax");
         setId_name("dax");
+        initExpHandler();
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
@@ -49,6 +54,18 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         if (marginOfMarings > 0 && marginOfMarings < 5) {
             indAskMarginCounter += marginOfMarings;
         }
+    }
+
+
+    @Override
+    public void initExpHandler() {
+        // Add to
+        Exps exps = new Exps(this);
+        exps.addExp(new ExpReg(this, ExpStrings.day));
+        exps.addExp(new E(this, ExpStrings.q1));
+        exps.addExp(new E(this, ExpStrings.q2));
+        exps.setMainExp(exps.getExp(ExpStrings.q1));
+        setExps(exps);
     }
 
     @Override

@@ -40,7 +40,12 @@ public class TimeSeriesHandler {
     }
 
     public MyTimeSeries get(String timeserie_type) {
-        return series_map.get(timeserie_type);
+        try {
+            return series_map.get(timeserie_type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void put(String timeserie_type, MyTimeSeries timeSeries){

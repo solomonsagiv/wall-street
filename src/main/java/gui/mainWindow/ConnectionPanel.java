@@ -277,6 +277,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             else if (clientComboBox.getSelectedItem().equals("NDX")) {
                 registerClient(Ndx.getInstance());
             }
+            // Dax
+            else if (clientComboBox.getSelectedItem().equals("DAX")) {
+                registerClient(Dax.getInstance());
+            }
             ddeStatusLbl.setForeground(Themes.GREEN);
         } catch (
                 Exception e) {
