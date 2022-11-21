@@ -5,17 +5,18 @@ import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
+import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 public class DataBaseHandler_Dax extends IDataBaseHandler {
 
-    Exp day;
+    Exp week;
     E q1, q2;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
-        day = exps.getExp(ExpStrings.day);
+        week = exps.getExp(ExpStrings.day);
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
     }

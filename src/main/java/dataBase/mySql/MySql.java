@@ -729,7 +729,7 @@ public class MySql {
 
         public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, double cof, String exp_name) {
             String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, cof, item)" +
-                    " VALUES ('%s', %s, %s, %s, %s, %s, %s, '%s')";
+                    " VALUES ('%s', %s, %s, %s, %s, %s, %s, '%s', '%s')";
             String today_date = "now()::date";
 
             String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, cof, exp_name);

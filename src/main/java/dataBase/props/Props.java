@@ -174,7 +174,7 @@ public class Props {
                 return exp;
             }
         };
-
+        
         // ------------ SAPI FILE LOCATION -------------- //
         sapi_excel_file = new Prop(client, SAPI_EXCEL_FILE_LOCATION) {
             @Override
@@ -193,8 +193,6 @@ public class Props {
                 return path;
             }
         };
-
-
 
     }
 

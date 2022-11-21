@@ -121,7 +121,8 @@ public class DDEReader_Dax extends IDDEReader {
     }
 
     private void init_exps() {
-        week = client.getExps().getExp(ExpStrings.week);
+
+        week = client.getExps().getExp(ExpStrings.day);
         month = client.getExps().getExp(ExpStrings.month);
         q1 = (E) client.getExps().getExp(ExpStrings.q1);
         q2 = (E) client.getExps().getExp(ExpStrings.q2);
@@ -134,17 +135,22 @@ public class DDEReader_Dax extends IDDEReader {
         try {
             DDEClientConversation conversation = new DDEConnection().createNewConversation(client.getExcel_path());
 
+            if (!init_exp) {
+                init_exps();
+            }
+
+
             // Week
             week.setInterest(requestDouble(week_interest_cell, conversation));
             week.setDividend(requestDouble(week_div_cell, conversation));
             week.setDays_to_exp(requestDouble(week_days_cell, conversation));
             week.setCof(requestDouble(cofCell, conversation));
 
-            // Month
-            month.setInterest(requestDouble(month_interest_cell, conversation));
-            month.setDividend(requestDouble(month_div_cell, conversation));
-            month.setDays_to_exp(requestDouble(month_days_cell, conversation));
-            month.setCof(requestDouble(cofCell, conversation));
+//             requestDoubleMonth
+//            month.setInterest(requestDouble(month_interest_cell, conversation));
+//            month.setDividend(requestDouble(month_div_cell, conversation));
+//            month.setDays_to_exp(requestDouble(month_days_cell, conversation));
+//            month.setCof(requestDouble(cofCell, conversation));
 
             // Q1
             q1.setInterest(requestDouble(q1_interest_cell, conversation));

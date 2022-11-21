@@ -8,6 +8,9 @@ import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -205,20 +208,22 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
-        double week_start = exp_week_start.get_value_with_exp();
-        double month_start = exp_month_start.get_value_with_exp();
-        double q1_start = exp_q1_start.get_value_with_exp();
 
-        double week_move = L.floor(((client.getIndex() - week_start) / week_start) * 100, 100);
-        double month_move = L.floor(((client.getIndex() - month_start) / month_start) * 100, 100);
-        double q1_move = L.floor(((client.getIndex() - q1_start) / q1_start) * 100, 100);
+        if (client instanceof Spx || client instanceof Ndx) {
 
-        // Set text
-        moveField_week.colorBack(week_move, L.format100(), "%");
-        moveField_month.colorBack(month_move, L.format100(), "%");
-        moveField_q1.colorBack(q1_move, L.format100(), "%");
+            double week_start = exp_week_start.get_value_with_exp();
+            double month_start = exp_month_start.get_value_with_exp();
+            double q1_start = exp_q1_start.get_value_with_exp();
 
-        try {
+            double week_move = L.floor(((client.getIndex() - week_start) / week_start) * 100, 100);
+            double month_move = L.floor(((client.getIndex() - month_start) / month_start) * 100, 100);
+            double q1_move = L.floor(((client.getIndex() - q1_start) / q1_start) * 100, 100);
+
+            // Set text
+            moveField_week.colorBack(week_move, L.format100(), "%");
+            moveField_month.colorBack(month_move, L.format100(), "%");
+            moveField_q1.colorBack(q1_move, L.format100(), "%");
+
             // Week
             df_2_Field_week.colorForge((int) ((df_2_week.get_value_with_exp() + df_2_cdf.getValue()) / 1000));
             df_7_Field_week.colorForge((int) ((df_7_week.get_value_with_exp() + df_7_cdf.getValue()) / 1000));
@@ -238,9 +243,6 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
             df_week_field.colorForge((int) df_week.getValue());
             df_month_field.colorForge((int) df_month.getValue());
             df_weighted_field.colorForge((int) df_weighted.getValue());
-        } catch (Exception e) {
-//            e.printStackTrace();
         }
-
     }
 }

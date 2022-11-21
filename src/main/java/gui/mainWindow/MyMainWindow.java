@@ -46,7 +46,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void appendClients() {
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(ndx);
-//        LocalHandler.clients.add(dax);
+        LocalHandler.clients.add(dax);
     }
     
     @Override

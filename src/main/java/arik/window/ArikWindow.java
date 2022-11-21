@@ -12,7 +12,7 @@ public class ArikWindow extends MyGuiComps.MyFrame {
         new ArikWindow("Arik window");
          ConnectionPool.getConnectionsPoolInstance(5);
     }
-
+    
     ArikMainPanel arikMainPanel;
 
     public ArikWindow(String title) throws HeadlessException {
