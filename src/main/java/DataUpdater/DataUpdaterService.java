@@ -37,7 +37,7 @@ public class DataUpdaterService extends MyBaseService {
         // Update timeseries
         update_timeseries_data();
     }
-
+    
     private void update_timeseries_data() {
         for (MyTimeSeries ts : time_series) {
             try {

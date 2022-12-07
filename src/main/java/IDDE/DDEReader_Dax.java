@@ -21,10 +21,10 @@ public class DDEReader_Dax extends IDDEReader {
     boolean initStocksCells = false;
 
     String indCell = "R2C3";
-    String openCell = "R12C4";
-    String highCell = "R12C1";
-    String lowCell = "R12C2";
-    String baseCell = "R10C5";
+    String openCell = "R13C4";
+    String highCell = "R13C1";
+    String lowCell = "R13C2";
+    String baseCell = "R11C5";
 
     // Future
     String futWeekCell = "R9C10";
