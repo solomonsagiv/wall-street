@@ -5,6 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
+import baskets.BasketFinder_by_stocks;
 import charts.myCharts.Full_Chart_4;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
@@ -28,6 +29,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 3));
     }
 
     // get instance
