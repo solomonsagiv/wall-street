@@ -56,7 +56,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         }
     }
 
-
     @Override
     public void initExpHandler() {
         // Add to

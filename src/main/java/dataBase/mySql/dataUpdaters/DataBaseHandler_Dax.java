@@ -5,13 +5,18 @@ import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
-import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
+import java.time.Instant;
+import java.util.ArrayList;
 
 public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     Exp week;
     E q1, q2;
+
+    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+
+    double baskets_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -43,6 +48,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     }
 
     private void on_change_data() {
+
+        // Baskets
+        int basket = client.getBasketFinder_by_stocks().getBaskets();
+
+        if (basket != baskets_0) {
+            double last_count = basket - baskets_0;
+            baskets_0 = basket;
+            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
 
     }
 
@@ -91,5 +105,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
+        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
     }
 }

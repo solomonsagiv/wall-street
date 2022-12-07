@@ -8,7 +8,6 @@ import gui.MyGuiComps;
 import gui.panels.IMyPanel;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
@@ -205,24 +204,24 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
         bodyPanel.add(df_weighted_field);
 
     }
-
+    
     @Override
     public void updateText() {
 
+        double week_start = exp_week_start.get_value_with_exp();
+        double month_start = exp_month_start.get_value_with_exp();
+        double q1_start = exp_q1_start.get_value_with_exp();
+
+        double week_move = L.floor(((client.getIndex() - week_start) / week_start) * 100, 100);
+        double month_move = L.floor(((client.getIndex() - month_start) / month_start) * 100, 100);
+        double q1_move = L.floor(((client.getIndex() - q1_start) / q1_start) * 100, 100);
+
+        // Set text
+        moveField_week.colorBack(week_move, L.format100(), "%");
+        moveField_month.colorBack(month_move, L.format100(), "%");
+        moveField_q1.colorBack(q1_move, L.format100(), "%");
+
         if (client instanceof Spx || client instanceof Ndx) {
-
-            double week_start = exp_week_start.get_value_with_exp();
-            double month_start = exp_month_start.get_value_with_exp();
-            double q1_start = exp_q1_start.get_value_with_exp();
-
-            double week_move = L.floor(((client.getIndex() - week_start) / week_start) * 100, 100);
-            double month_move = L.floor(((client.getIndex() - month_start) / month_start) * 100, 100);
-            double q1_move = L.floor(((client.getIndex() - q1_start) / q1_start) * 100, 100);
-
-            // Set text
-            moveField_week.colorBack(week_move, L.format100(), "%");
-            moveField_month.colorBack(month_move, L.format100(), "%");
-            moveField_q1.colorBack(q1_move, L.format100(), "%");
 
             // Week
             df_2_Field_week.colorForge((int) ((df_2_week.get_value_with_exp() + df_2_cdf.getValue()) / 1000));
