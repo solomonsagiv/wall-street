@@ -34,6 +34,9 @@ public class TimeSeriesHandler {
     public static final int DF_8_900 = 63;
     public static final int DF_8_3600 = 64;
 
+    public static final int OP_AVG_Q1_15 = 65;
+    public static final int OP_AVG_Q1_60 = 65;
+    
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
     public Map<String, MyTimeSeries> getSeries_map() {
         return series_map;

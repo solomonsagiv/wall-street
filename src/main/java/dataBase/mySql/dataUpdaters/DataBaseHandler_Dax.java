@@ -81,20 +81,16 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
 
-        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 5631);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 5632);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 5633);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5634);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 5632);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
         serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_5, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
 
 
