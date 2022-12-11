@@ -11,7 +11,6 @@ import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
 import exp.E;
-import exp.ExpReg;
 import exp.ExpStrings;
 import exp.Exps;
 import serverObjects.ApiEnum;
@@ -62,7 +61,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void initExpHandler() {
         // Add to
         Exps exps = new Exps(this);
-        exps.addExp(new ExpReg(this, ExpStrings.day));
         exps.addExp(new E(this, ExpStrings.q1));
         exps.addExp(new E(this, ExpStrings.q2));
         exps.setMainExp(exps.getExp(ExpStrings.q1));

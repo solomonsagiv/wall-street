@@ -3,15 +3,14 @@ package dataBase.mySql.dataUpdaters;
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
-import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Dax extends IDataBaseHandler {
 
-    Exp week;
     E q1, q2;
 
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
@@ -21,7 +20,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
-        week = exps.getExp(ExpStrings.day);
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
     }
@@ -70,7 +68,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
         // Load exp data
         load_exp_data();
-
+        
         // Set load
         client.setLoadFromDb(true);
     }
@@ -83,12 +81,13 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
 
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_5, 5631);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_15, 5632);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY_60, 5633);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 5631);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 5632);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 5633);
         serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5634);
         serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
@@ -96,7 +95,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
+
 
         // Exp
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));

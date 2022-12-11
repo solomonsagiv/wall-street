@@ -14,8 +14,8 @@ public class TimeSeriesHandler {
     public static final int INDEX_ASK = 22;
     public static final int OP_AVG_DAY = 23;
     public static final int OP_AVG_240_CONTINUE = 33;
-    public static final int OP_AVG_DAY_60 = 35;
-    public static final int OP_AVG_DAY_5 = 36;
+    public static final int OP_AVG_60 = 35;
+    public static final int OP_AVG_5 = 36;
     public static final int DF_7 = 48;
     public static final int DF_2 = 49;
     
@@ -29,7 +29,7 @@ public class TimeSeriesHandler {
     public static final int DF_MONTH = 59;
     public static final int DF_WEIGHTED = 60;
     public static final int STD_MOVE = 61;
-    public static final int OP_AVG_DAY_15 = 62;
+    public static final int OP_AVG_15 = 62;
 
     public static final int DF_8_900 = 63;
     public static final int DF_8_3600 = 64;
