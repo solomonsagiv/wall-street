@@ -6,7 +6,7 @@ import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
-import charts.myCharts.Full_Chart_4;
+import charts.myCharts.Full_Chart_Q1;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -93,7 +93,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
                     Thread.sleep(5000);
 
-                    Full_Chart_4 full_chart_4 = new Full_Chart_4(this);
+                    Full_Chart_Q1 full_chart_4 = new Full_Chart_Q1(this);
                     full_chart_4.createChart();
 
                 } catch (InterruptedException e) {
