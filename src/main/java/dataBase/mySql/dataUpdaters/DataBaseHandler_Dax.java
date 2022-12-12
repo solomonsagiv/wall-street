@@ -84,7 +84,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 5632);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
         serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
 
 

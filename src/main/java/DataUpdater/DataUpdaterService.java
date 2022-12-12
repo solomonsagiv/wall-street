@@ -42,8 +42,8 @@ public class DataUpdaterService extends MyBaseService {
         if (client instanceof Dax) {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60));
         }
     }
     
