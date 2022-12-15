@@ -23,7 +23,7 @@ public class TimeSeriesHandler {
     public static final int OP_AVG_MONTH = 51;
     public static final int OP_AVG_Q1 = 52;
     public static final int OP_AVG_Q2 = 53;
-
+    
     public static final int DF_8 = 56;
     public static final int DF_WEEK = 58;
     public static final int DF_MONTH = 59;

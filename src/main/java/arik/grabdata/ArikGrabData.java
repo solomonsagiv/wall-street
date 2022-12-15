@@ -20,7 +20,7 @@ public class ArikGrabData extends MyThread implements Runnable {
         ndx = Ndx.getInstance();
         arik = Arik.getInstance();
     }
-
+    
     @Override
     public void run() {
         go();

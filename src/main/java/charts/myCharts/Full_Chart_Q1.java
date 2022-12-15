@@ -59,10 +59,10 @@ public class Full_Chart_Q1 extends MyChartCreator {
         MyChart indexChart = new MyChart(client, series, props);
 
         // ------------------ Op avg ------------------- //
-
+        
         // --------- Op avg ---------- //
         MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
-        op_avg_15.setColor(Themes.GREEN);
+        op_avg_15.setColor(Themes.RED);
         op_avg_15.setStokeSize(1.2f);
         
         MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);

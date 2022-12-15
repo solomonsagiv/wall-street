@@ -1,10 +1,12 @@
 package dataBase.mySql.dataUpdaters;
 
+import api.Manifest;
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -12,9 +14,13 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     E q1, q2;
 
+    ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
+    double index_0 = 0;
+    double fut_e1_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -46,15 +52,30 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void on_change_data() {
 
-        // Baskets
-        int basket = client.getBasketFinder_by_stocks().getBaskets();
+        if (Manifest.LIVE_DB) {
+            // Baskets
+            int basket = client.getBasketFinder_by_stocks().getBaskets();
 
-        if (basket != baskets_0) {
-            double last_count = basket - baskets_0;
-            baskets_0 = basket;
-            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            if (basket != baskets_0) {
+                double last_count = basket - baskets_0;
+                baskets_0 = basket;
+                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+            // Index
+            if (client.getIndex() != index_0) {
+                index_0 = client.getIndex();
+                index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+            }
+
+            // Fut e1
+            double fut_e1 = q1.get_future();
+
+            if (fut_e1 != fut_e1_0) {
+                fut_e1_0 = fut_e1;
+                fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+            }
         }
-
     }
 
     @Override
@@ -67,7 +88,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
         // Load exp data
         load_exp_data();
-        
+
         // Set load
         client.setLoadFromDb(true);
     }
@@ -100,5 +121,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void updateListsRetro() {
         insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
+        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
+        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
     }
 }
