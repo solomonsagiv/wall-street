@@ -30,7 +30,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setDataUpdaterService(new DataUpdaterService(this));
         setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 3));
     }
-
+    
     // get instance
     public static Dax getInstance() {
         if (client == null) {
