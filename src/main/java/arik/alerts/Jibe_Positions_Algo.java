@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
     public static Transaction transaction;
-    final int session_id = 1224;
+    final int session_id = 1256;
 
     // Constructor
 

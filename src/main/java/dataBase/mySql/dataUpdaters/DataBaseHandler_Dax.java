@@ -12,21 +12,24 @@ import java.util.ArrayList;
 
 public class DataBaseHandler_Dax extends IDataBaseHandler {
 
-    E q1, q2;
+    E q1, q2, week;
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_0 = 0;
     double fut_e1_0 = 0;
+    double fut_week_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
+        week = (E) exps.getExp(ExpStrings.week);
     }
 
     int sleep_count = 100;
@@ -75,6 +78,18 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_e1_0 = fut_e1;
                 fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
             }
+
+            // Fut week
+            double fut_week = week.get_future();
+
+            if (fut_week != fut_week_0) {
+                fut_week_0 = fut_week;
+
+                if (Math.abs(fut_week - fut_week_0) > 50) {
+                    fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+                }
+            }
+
         }
     }
 
@@ -105,13 +120,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
         serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
+
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
-
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK, client));
 
         // Exp
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));

@@ -8,7 +8,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 import java.awt.*;
 
-public class Full_Chart_4 extends MyChartCreator {
+public class Charts5 extends MyChartCreator {
 
     public static void main(String[] args) {
         Full_Chart_4 fullChart2 = new Full_Chart_4(Spx.getInstance());
@@ -16,7 +16,7 @@ public class Full_Chart_4 extends MyChartCreator {
     }
 
     // Constructor
-    public Full_Chart_4(BASE_CLIENT_OBJECT client) {
+    public Charts5(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -78,26 +78,26 @@ public class Full_Chart_4 extends MyChartCreator {
         series[0] = op_avg_15;
         series[1] = op_avg_60;
         series[2] = op_avg_240;
-        
+
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
         // ------------------ DF ------------------- //
 //
-//        MyTimeSeries baskets = client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF);
-//        baskets.setColor(Themes.PURPLE);
-//        baskets.setStokeSize(1.2f);
-//
-//        series = new MyTimeSeries[1];
-//        series[0] = baskets;
-//
-//        // Chart
-//        MyChart basket_chart = new MyChart(client, series, props);
+        MyTimeSeries baskets = client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF);
+        baskets.setColor(Themes.PURPLE);
+        baskets.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[1];
+        series[0] = baskets;
+
+        // Chart
+        MyChart basket_chart = new MyChart(client, series, props);
 ////
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, basket_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
@@ -105,3 +105,4 @@ public class Full_Chart_4 extends MyChartCreator {
     }
 
 }
+

@@ -111,7 +111,6 @@ public class DDEReader_Dax extends IDDEReader {
 
         // Exps
         week.set_future(requestDouble(futWeekCell, conversation));
-        // month.set_future(requestDouble(futMonthCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
 
@@ -138,18 +137,11 @@ public class DDEReader_Dax extends IDDEReader {
                 init_exps();
             }
 
-
             // Week
             week.setInterest(requestDouble(week_interest_cell, conversation));
             week.setDividend(requestDouble(week_div_cell, conversation));
             week.setDays_to_exp(requestDouble(week_days_cell, conversation));
             week.setCof(requestDouble(cofCell, conversation));
-
-//             requestDoubleMonth
-//            month.setInterest(requestDouble(month_interest_cell, conversation));
-//            month.setDividend(requestDouble(month_div_cell, conversation));
-//            month.setDays_to_exp(requestDouble(month_days_cell, conversation));
-//            month.setCof(requestDouble(cofCell, conversation));
 
             // Q1
             q1.setInterest(requestDouble(q1_interest_cell, conversation));
