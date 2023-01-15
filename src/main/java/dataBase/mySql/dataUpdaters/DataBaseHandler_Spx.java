@@ -1,12 +1,12 @@
 package dataBase.mySql.dataUpdaters;
 
-import api.Manifest;
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -59,7 +59,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     private void on_change_data() {
 
-        if (Manifest.LIVE_DB) {
+        if (client.isLive_db()) {
 
             // Index
             if (client.getIndex() != index_0) {

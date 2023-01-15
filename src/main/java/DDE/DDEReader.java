@@ -3,10 +3,7 @@ package DDE;
 import IDDE.IDDEReader;
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
-import locals.LocalHandler;
-import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import threads.MyThread;
 
 public class DDEReader extends MyThread implements Runnable {

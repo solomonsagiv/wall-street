@@ -1,6 +1,5 @@
 package dataBase.mySql.dataUpdaters;
 
-import api.Manifest;
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
@@ -55,7 +54,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void on_change_data() {
 
-        if (Manifest.LIVE_DB) {
+        if (client.isLive_db()) {
             // Baskets
             int basket = client.getBasketFinder_by_stocks().getBaskets();
 

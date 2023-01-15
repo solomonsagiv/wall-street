@@ -97,6 +97,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double low = 0;
     private double base = 0;
     private double indexBidAskMargin = 0;
+
+    // DB
+    boolean live_db = false;
     
     public BASE_CLIENT_OBJECT() {
         try {
@@ -524,10 +527,18 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.timeSeriesHandler = timeSeriesHandler;
     }
 
+    public boolean isLive_db() {
+        return live_db;
+    }
+
+    public void setLive_db(boolean live_db) {
+        this.live_db = live_db;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", JIBE LIVE DB=" + Manifest.LIVE_DB +
+                ", JIBE LIVE DB=" + live_db +
                 ", optionsHandler=" + exps.toString() +
                 ", preStartIndexTrading=" + getIndex_pre_start_time() +
                 ", startOfIndexTrading=" + getIndexStartTime() +

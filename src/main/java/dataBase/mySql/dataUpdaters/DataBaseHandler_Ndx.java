@@ -1,6 +1,5 @@
 package dataBase.mySql.dataUpdaters;
 
-import api.Manifest;
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
 import exp.E;
@@ -59,7 +58,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     private void on_data_chage() {
 
-        if (Manifest.LIVE_DB) {
+        if (client.isLive_db()) {
             // Index
             if (client.getIndex() != index_0) {
                 index_0 = client.getIndex();

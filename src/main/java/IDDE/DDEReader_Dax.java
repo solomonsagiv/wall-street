@@ -12,7 +12,6 @@ import stocksHandler.MiniStock;
 public class DDEReader_Dax extends IDDEReader {
 
     Exp week;
-    Exp month;
     E q1;
     E q2;
 
@@ -119,9 +118,7 @@ public class DDEReader_Dax extends IDDEReader {
     }
 
     private void init_exps() {
-
-        week = client.getExps().getExp(ExpStrings.day);
-        month = client.getExps().getExp(ExpStrings.month);
+        week = client.getExps().getExp(ExpStrings.week);
         q1 = (E) client.getExps().getExp(ExpStrings.q1);
         q2 = (E) client.getExps().getExp(ExpStrings.q2);
         init_exp = true;
