@@ -146,7 +146,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_MONTH, 3757);
         serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3850);
         serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
-        serie_ids.put(TimeSeriesHandler.DF_8_900, 5374);
+        serie_ids.put(TimeSeriesHandler.DF_8_900, 4888);
         serie_ids.put(TimeSeriesHandler.DF_8_3600, 5375);
 
 

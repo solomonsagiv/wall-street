@@ -82,14 +82,14 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         startJIbeDbBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Manifest.LIVE_DB = true;
+                client.setLive_db(true);
             }
         });
 
         stopJIbeDbBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Manifest.LIVE_DB = false;
+                client.setLive_db(false);
             }
         });
 
