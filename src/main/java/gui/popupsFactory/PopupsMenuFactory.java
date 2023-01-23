@@ -32,7 +32,7 @@ public class PopupsMenuFactory {
         fullCharts_4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Full_Chart_4 chart = new Full_Chart_4(client);
+                Chart_4 chart = new Chart_4(client);
                 chart.createChart();
             }
         });

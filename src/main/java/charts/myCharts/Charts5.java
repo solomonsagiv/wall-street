@@ -11,7 +11,7 @@ import java.awt.*;
 public class Charts5 extends MyChartCreator {
 
     public static void main(String[] args) {
-        Full_Chart_4 fullChart2 = new Full_Chart_4(Spx.getInstance());
+        Chart_4 fullChart2 = new Chart_4(Spx.getInstance());
         fullChart2.createChart();
     }
 

@@ -15,6 +15,8 @@ public class DDEReader_Dax extends IDDEReader {
     E q1;
     E q2;
 
+    double fut_week_0 = 0;
+
     private boolean init_exp = false;
 
     boolean initStocksCells = false;
@@ -109,6 +111,9 @@ public class DDEReader_Dax extends IDDEReader {
         client.setBase(requestDouble(baseCell, conversation));
 
         // Exps
+        
+
+
         week.set_future(requestDouble(futWeekCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));

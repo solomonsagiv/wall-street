@@ -6,7 +6,6 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -148,9 +147,13 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_8_900, 5504);
         serie_ids.put(TimeSeriesHandler.DF_8_3600, 5505);
 
+        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 8930);
+
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_CDF, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RELATIVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RELATIVE, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW_900, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RAW_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RAW_3600, client));
