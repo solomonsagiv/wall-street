@@ -1,6 +1,7 @@
 package charts.myChart;
 
 import charts.MyChartPanel;
+import charts.myCharts.Full_Chart_Q1;
 import charts.timeSeries.MyTimeSeries;
 import locals.L;
 import locals.Themes;
@@ -19,6 +20,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import threads.MyThread;
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +33,14 @@ import java.util.Collections;
 import java.util.NoSuchElementException;
 
 public class MyChart {
+
+    public static void main(String[] args) {
+
+        Dax dax = Dax.getInstance();
+        Full_Chart_Q1 q1 = new Full_Chart_Q1(dax);
+        q1.createChart();
+
+    }
 
     public XYPlot plot;
     public ChartUpdater updater;
