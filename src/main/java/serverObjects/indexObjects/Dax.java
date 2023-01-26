@@ -30,6 +30,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setDataUpdaterService(new DataUpdaterService(this));
         setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 3));
         setLive_db(true);
+        setIndex_bid_ask_synthetic_margin(5);
     }
     
     // get instance

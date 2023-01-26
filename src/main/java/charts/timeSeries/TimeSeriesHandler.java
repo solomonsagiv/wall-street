@@ -38,6 +38,8 @@ public class TimeSeriesHandler {
     public static final int OP_AVG_Q1_60 = 66;
 
     public static final int DF_8_RELATIVE = 67;
+    public static final int INDEX_BID_SYNTHETIC = 68;
+    public static final int INDEX_ASK_SYNTHETIC = 69;
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
     public Map<String, MyTimeSeries> getSeries_map() {

@@ -52,6 +52,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Basic
     protected double index = 0;
+    protected double index_bid_synthetic, index_ask_synthetic;
+    protected double index_bid_ask_synthetic_margin = 0;
 
     // Table
     DefaultTableModel model = new DefaultTableModel();
@@ -533,6 +535,31 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setLive_db(boolean live_db) {
         this.live_db = live_db;
+    }
+
+
+    public double getIndex_bid_synthetic() {
+        return index_bid_synthetic;
+    }
+
+    public void setIndex_bid_synthetic(double index_bid_synthetic) {
+        this.index_bid_synthetic = index_bid_synthetic;
+    }
+
+    public double getIndex_ask_synthetic() {
+        return index_ask_synthetic;
+    }
+
+    public void setIndex_ask_synthetic(double index_ask_synthetic) {
+        this.index_ask_synthetic = index_ask_synthetic;
+    }
+
+    public double getIndex_bid_ask_synthetic_margin() {
+        return index_bid_ask_synthetic_margin;
+    }
+
+    public void setIndex_bid_ask_synthetic_margin(double index_bid_ask_synthetic_margin) {
+        this.index_bid_ask_synthetic_margin = index_bid_ask_synthetic_margin;
     }
 
     @Override

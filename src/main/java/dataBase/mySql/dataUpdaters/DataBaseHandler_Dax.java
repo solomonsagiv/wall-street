@@ -13,11 +13,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     E q1, q2, week;
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_bid_synthetic_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
+    double index_bid_synthetic_0 = 0;
+    double index_ask_synthetic_0 = 0;
     double index_0 = 0;
     double fut_e1_0 = 0;
     double fut_week_0 = 0;
@@ -69,6 +73,18 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
             }
 
+            // Index bid synthetic
+            if (client.getIndex_bid_synthetic() != index_bid_synthetic_0) {
+                index_bid_synthetic_0 = client.getIndex_bid_synthetic();
+                index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
+            }
+
+            // Index ask synthetic
+            if (client.getIndex_ask_synthetic() != index_ask_synthetic_0) {
+                index_ask_synthetic_0 = client.getIndex_ask_synthetic();
+                index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
+            }
+
             // Fut e1
             double fut_e1 = q1.get_future();
 
@@ -110,6 +126,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     public void initTablesNames() {
 
         serie_ids.put(TimeSeriesHandler.INDEX, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4759);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
@@ -136,6 +154,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     private void updateListsRetro() {
         insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
         insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
+        insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC));
+        insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
     }
