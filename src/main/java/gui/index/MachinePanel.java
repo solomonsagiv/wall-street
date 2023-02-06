@@ -11,6 +11,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
@@ -72,26 +73,26 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         body.setSize(panel_width, height);
         add(body);
 
-        df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, true);
+        df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, true, L.format_int(), false);
         df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
-        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, false);
+        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, false, L.format100(), true);
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
         body.add(df_panel_2);
 
-        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, false);
+        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, false, L.format_int(), false);
         df_panel_3.setXY(df_panel_2.getX(), df_panel_2.getY() + df_panel_2.getHeight() + 1);
         df_panel_3.setWidth(width);
         df_panel_3.setHeight(25);
         body.add(df_panel_3);
 
 
-        df_panel_4 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false);
+        df_panel_4 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false, L.format_int(), false);
         df_panel_4.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
         df_panel_4.setWidth(width);
         df_panel_4.setHeight(25);
@@ -104,11 +105,15 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         private MyTimeSeries[] timeSeries;
         private MyGuiComps.MyTextField df_field;
         private boolean round;
+        private DecimalFormat df;
+        private boolean dbl;
 
-        public Df_panel(MyTimeSeries[] df_unc, boolean round) {
+        public Df_panel(MyTimeSeries[] df_unc, boolean round, DecimalFormat df, boolean dbl) {
             super();
             this.timeSeries = df_unc;
             this.round = round;
+            this.df = df;
+            this.dbl = dbl;
             init();
         }
 
@@ -126,15 +131,25 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
             for (MyTimeSeries ts : timeSeries) {
                 try {
                     if (ts != null) {
-                        if (round) {
-                            if (ts.getValue() != 0) {
-                                df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
-                                continue;
-                            }
-                            df_field.colorForge(ts.getValue(), L.format100());
-                        } else {
-                            df_field.colorForge(ts.getValue(), L.format100());
+
+                        // Double
+                        if (dbl) {
+                            df_field.colorForge(ts.getValue(), df);
+                            continue;
                         }
+
+                        // INT and round
+                        if (!dbl && round) {
+                            df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
+                            continue;
+                        }
+
+                        // Only INT
+                        if (!dbl) {
+                            df_field.colorForge((int) ts.getValue());
+                            continue;
+                        }
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
