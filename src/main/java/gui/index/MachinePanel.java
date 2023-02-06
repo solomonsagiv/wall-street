@@ -73,7 +73,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(body);
 
         df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, true);
-        df_panel_1.setXY(3,3);
+        df_panel_1.setXY(3, 3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
@@ -98,7 +98,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         body.add(df_panel_4);
 
     }
-    
+
     private class Df_panel extends MyGuiComps.MyPanel implements IMyPanel {
 
         private MyTimeSeries[] timeSeries;
@@ -131,9 +131,9 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
                                 df_field.colorForge((int) (ts.getValue() / 1000), L.format_int());
                                 continue;
                             }
-                            df_field.colorForge((int) ts.getValue());
+                            df_field.colorForge(ts.getValue(), L.format100());
                         } else {
-                            df_field.colorForge((int) ts.getValue());
+                            df_field.colorForge(ts.getValue(), L.format100());
                         }
                     }
                 } catch (Exception e) {

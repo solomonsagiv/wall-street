@@ -273,13 +273,13 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8_900);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
                         setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8_900);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }

@@ -100,7 +100,7 @@ public class Chart_6 extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, df_chart, relative_chart};
+        MyChart[] charts = {indexChart, relative_chart, df_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
