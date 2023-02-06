@@ -24,10 +24,10 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel body;
     BasketFinder_by_stocks basketFinder;
 
+    Df_panel df_panel_3;
     Df_panel df_panel_1;
     Df_panel df_panel_2;
-    Df_panel df_panel_3;
-    Df_panel df_panel_7;
+    Df_panel df_panel_4;
 
     int panel_width = 63;
     int width = 60;
@@ -41,10 +41,10 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900));
 
         initsialize();
     }
@@ -73,31 +73,32 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(body);
 
         df_panel_1 = new Df_panel(new MyTimeSeries[]{df_list.get(0)}, true);
-        df_panel_1.setXY(3, 3);
+        df_panel_1.setXY(3,3);
         df_panel_1.setWidth(width);
         df_panel_1.setHeight(25);
         body.add(df_panel_1);
 
-        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, true);
+        df_panel_2 = new Df_panel(new MyTimeSeries[]{df_list.get(1)}, false);
         df_panel_2.setXY(df_panel_1.getX(), df_panel_1.getY() + df_panel_1.getHeight() + 1);
         df_panel_2.setWidth(width);
         df_panel_2.setHeight(25);
         body.add(df_panel_2);
 
-        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, true);
+        df_panel_3 = new Df_panel(new MyTimeSeries[]{df_list.get(2)}, false);
         df_panel_3.setXY(df_panel_2.getX(), df_panel_2.getY() + df_panel_2.getHeight() + 1);
         df_panel_3.setWidth(width);
         df_panel_3.setHeight(25);
         body.add(df_panel_3);
 
-        df_panel_7 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false);
-        df_panel_7.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
-        df_panel_7.setWidth(width);
-        df_panel_7.setHeight(25);
-        body.add(df_panel_7);
+
+        df_panel_4 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false);
+        df_panel_4.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
+        df_panel_4.setWidth(width);
+        df_panel_4.setHeight(25);
+        body.add(df_panel_4);
 
     }
-
+    
     private class Df_panel extends MyGuiComps.MyPanel implements IMyPanel {
 
         private MyTimeSeries[] timeSeries;
@@ -145,10 +146,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
-        df_panel_1.updateText();
-        df_panel_2.updateText();
         df_panel_3.updateText();
-        df_panel_7.updateText();
+        df_panel_4.updateText();
     }
 
     private void nois(JTextField textField) {

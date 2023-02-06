@@ -62,8 +62,15 @@ public abstract class Exp {
         return future;
     }
 
+
+    double pre_future = 0;
+
     public void set_future(double future) {
-        if (future > 1) {
+        if (pre_future == 0) {
+            pre_future = future;
+        }
+        
+        if (future > 1 && Math.abs(future - pre_future) < 30) {
             this.future = future;
         }
     }
