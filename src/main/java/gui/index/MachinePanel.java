@@ -146,6 +146,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     @Override
     public void updateText() {
+        df_panel_1.updateText();
+        df_panel_2.updateText();
         df_panel_3.updateText();
         df_panel_4.updateText();
     }
