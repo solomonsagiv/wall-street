@@ -70,7 +70,7 @@ public abstract class Exp {
             pre_future = future;
         }
         
-        if (future > 1 && Math.abs(future - pre_future) < 30) {
+        if (future > 1) {
             this.future = future;
         }
     }
