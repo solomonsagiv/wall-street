@@ -30,7 +30,7 @@ public class TimeSeriesHandler {
     public static final int DF_WEIGHTED = 60;
     public static final int STD_MOVE = 61;
     public static final int OP_AVG_15 = 62;
-
+    
     public static final int DF_8_900 = 63;
     public static final int DF_8_3600 = 64;
 
@@ -40,6 +40,16 @@ public class TimeSeriesHandler {
     public static final int DF_8_RELATIVE = 67;
     public static final int INDEX_BID_SYNTHETIC = 68;
     public static final int INDEX_ASK_SYNTHETIC = 69;
+    public static final int WINDOW_SIZE = 70;
+
+    public static final int DOW_DF_8_ID = 71;
+    public static final int DOW_RELATIVE_ID = 72;
+
+    public static final int STOXX_DF_8_ID = 73;
+    public static final int STOXX_RELATIVE_ID = 74;
+
+    public static final int CAC_DF_8_ID = 75;
+    public static final int CAC_RELATIVE_ID = 76;
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
     public Map<String, MyTimeSeries> getSeries_map() {

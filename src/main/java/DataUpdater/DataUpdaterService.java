@@ -17,6 +17,12 @@ public class DataUpdaterService extends MyBaseService {
         super(client);
         time_series = new ArrayList<>();
 
+        if (client instanceof Spx) {
+            // DOW
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DOW_DF_8_CDF));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DOW_RELATIVE));
+        }
+
         // Spx || Ndx
         if (client instanceof Spx || client instanceof Ndx) {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900));
@@ -28,7 +34,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE));
-
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEEK));
         }
 
@@ -42,6 +47,12 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK));
+
+            // STOXX AND CAC
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_DF_8_CDF));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_RELATIVE));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_DF_8_CDF));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_RELATIVE));
         }
     }
     

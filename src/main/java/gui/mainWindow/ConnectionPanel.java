@@ -31,7 +31,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
     // Variables
     JComboBox clientComboBox;
-    MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection ");
+    MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection");
     MyGuiComps.MyButton connectionBtn = new MyGuiComps.MyButton("Connect");
     MyGuiComps.MyButton disConnectBtn = new MyGuiComps.MyButton("Disconnect");
     MyGuiComps.MyButton upload_rates_btn = new MyGuiComps.MyButton("Upload rates");

@@ -66,6 +66,25 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem wallstreet = new JMenuItem("Wall-street");
+        wallstreet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chart_wallstreet chart = new Chart_wallstreet(client);
+                chart.createChart();
+            }
+        });
+
+
+        JMenuItem europe = new JMenuItem("Europe");
+        europe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chart_Europe chart = new Chart_Europe(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override
@@ -98,10 +117,11 @@ public class PopupsMenuFactory {
 
         charts.add(charts_5);
         charts.add(fullCharts_4);
-        charts.add(charts_6);
+        charts.add(europe);
         charts.add(fullCharts_q1);
         charts.add(futures_real_time_400);
-        charts.add(baskets);
+        charts.add(wallstreet);
+        charts.add(europe);
 
         menu.add(details);
         menu.add(settingWindow);

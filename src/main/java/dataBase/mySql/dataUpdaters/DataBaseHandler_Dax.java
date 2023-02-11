@@ -138,6 +138,11 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
 
+        serie_ids.put(TimeSeriesHandler.STOXX_DF_8_ID, 9361);
+        serie_ids.put(TimeSeriesHandler.STOXX_RELATIVE_ID, 9379);
+        serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9431);
+        serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9442);
+
         // DF 9 and relative
         serie_ids.put(TimeSeriesHandler.DF_8, 9173);
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9199);
@@ -159,6 +164,10 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_RELATIVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_RELATIVE, client));
 
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.STOXX_DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STOXX_DF_8_CDF, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.STOXX_RELATIVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STOXX_RELATIVE, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.CAC_DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CAC_DF_8_CDF, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.CAC_RELATIVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.CAC_RELATIVE, client));
 
     }
 

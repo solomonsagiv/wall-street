@@ -5,7 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Chart_4;
+import charts.myCharts.Chart_wallstreet;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
@@ -87,8 +87,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
                     Thread.sleep(5000);
 
-                    Chart_4 full_chart_4 = new Chart_4(this);
-                    full_chart_4.createChart();
+                    Chart_wallstreet Chart_wallstreet = new Chart_wallstreet(this);
+                    Chart_wallstreet.createChart();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
