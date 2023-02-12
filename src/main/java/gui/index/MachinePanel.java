@@ -44,8 +44,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_list = new ArrayList<>();
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900));
+        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
     }
@@ -91,9 +91,8 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
         df_panel_3.setHeight(25);
         body.add(df_panel_3);
 
-
         df_panel_4 = new Df_panel(new MyTimeSeries[]{df_list.get(3)}, false, L.format_int(), false);
-        df_panel_4.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 1);
+        df_panel_4.setXY(df_panel_3.getX(), df_panel_3.getY() + df_panel_3.getHeight() + 27);
         df_panel_4.setWidth(width);
         df_panel_4.setHeight(25);
         body.add(df_panel_4);
