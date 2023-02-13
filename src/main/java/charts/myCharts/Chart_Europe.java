@@ -69,7 +69,7 @@ public class Chart_Europe extends MyChartCreator {
         cac_df_8.setStokeSize(1.2f);
 
         MyTimeSeries stoxx_df_8 = dax.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_DF_8_CDF);
-        stoxx_df_8.setColor(Themes.PINK_LIGHT);
+        stoxx_df_8.setColor(Themes.LIFGT_BLUE_2);
         stoxx_df_8.setStokeSize(1.2f);
 
         series = new MyTimeSeries[3];
@@ -91,7 +91,7 @@ public class Chart_Europe extends MyChartCreator {
         cac_relative_change.setStokeSize(1.2f);
 
         MyTimeSeries stoxx_relative_change = dax.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_RELATIVE);
-        stoxx_relative_change.setColor(Themes.PINK_LIGHT);
+        stoxx_relative_change.setColor(Themes.LIFGT_BLUE_2);
         stoxx_relative_change.setStokeSize(1.2f);
 
         series = new MyTimeSeries[3];

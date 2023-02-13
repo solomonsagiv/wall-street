@@ -108,14 +108,14 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = STOXX_DF_8_ID;
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
                         int serie_id = STOXX_DF_8_ID;
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -164,14 +164,14 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = CAC_DF_8_ID;
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
                         int serie_id = CAC_DF_8_ID;
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -220,14 +220,14 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = DOW_DF_8_ID;
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
                         int serie_id = DOW_DF_8_ID;
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
