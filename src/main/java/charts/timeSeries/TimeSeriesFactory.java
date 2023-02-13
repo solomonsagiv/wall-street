@@ -84,14 +84,6 @@ public class TimeSeriesFactory {
     public static final String DOW_DF_8_CDF = "DOW_DF_8_CDF";
     public static final String DOW_RELATIVE = "DOW_RELATIVE";
 
-    public static final int STOXX_DF_8_ID = 9361;
-    public static final int STOXX_RELATIVE_ID = 9379;
-
-    public static final int CAC_DF_8_ID = 9431;
-    public static final int CAC_RELATIVE_ID = 9442;
-
-    public static final int DOW_DF_8_ID = 9412;
-    public static final int DOW_RELATIVE_ID = 9428;
 
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
@@ -107,14 +99,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = STOXX_DF_8_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.STOXX_DF_8_ID);
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = STOXX_DF_8_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.STOXX_DF_8_ID);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
@@ -135,14 +127,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = STOXX_RELATIVE_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.STOXX_RELATIVE_ID);
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = STOXX_RELATIVE_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.STOXX_RELATIVE_ID);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
@@ -163,14 +155,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = CAC_DF_8_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.CAC_DF_8_ID);
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = CAC_DF_8_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.CAC_DF_8_ID);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
@@ -191,14 +183,16 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = CAC_RELATIVE_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.CAC_RELATIVE_ID);
+
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = CAC_RELATIVE_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.CAC_RELATIVE_ID);
+
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
@@ -219,14 +213,16 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = DOW_DF_8_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DOW_DF_8_ID);
+
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = DOW_DF_8_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DOW_DF_8_ID);
+
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
@@ -247,14 +243,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = DOW_RELATIVE_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DOW_RELATIVE_ID);
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
                         setValue(val);
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = DOW_RELATIVE_ID;
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DOW_RELATIVE_ID);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
