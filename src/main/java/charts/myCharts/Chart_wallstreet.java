@@ -73,7 +73,7 @@ public class Chart_wallstreet extends MyChartCreator {
         ndx_df_8.setStokeSize(1.2f);
 
         MyTimeSeries dow_df_8 = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DOW_DF_8_CDF);
-        dow_df_8.setColor(Themes.PINK_LIGHT);
+        dow_df_8.setColor(Themes.LIFGT_BLUE_2);
         dow_df_8.setStokeSize(1.2f);
 
         series = new MyTimeSeries[3];
@@ -95,7 +95,7 @@ public class Chart_wallstreet extends MyChartCreator {
         ndx_relative_change.setStokeSize(1.2f);
 
         MyTimeSeries dow_relative_change = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DOW_RELATIVE);
-        dow_relative_change.setColor(Themes.PINK_LIGHT);
+        dow_relative_change.setColor(Themes.LIFGT_BLUE_2);
         dow_relative_change.setStokeSize(1.2f);
 
         series = new MyTimeSeries[3];
