@@ -173,11 +173,11 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             }
         }
 
-        String file = Manifest.STOCKS_EXCEL_FILE_LOCATION;
-        System.out.println(file);
-
-        // Stocks
-        init_stocks_rates();
+//        String file = Manifest.STOCKS_EXCEL_FILE_LOCATION;
+//        System.out.println(file);
+//
+//        // Stocks
+//        init_stocks_rates();
     }
 
 
