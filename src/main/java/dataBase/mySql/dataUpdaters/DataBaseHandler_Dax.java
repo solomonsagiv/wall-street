@@ -67,23 +67,23 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
             }
 
-            // Index
-            if (client.getIndex() != index_0) {
-                index_0 = client.getIndex();
-                index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
-            }
-
-            // Index bid synthetic
-            if (client.getIndex_bid_synthetic() != index_bid_synthetic_0) {
-                index_bid_synthetic_0 = client.getIndex_bid_synthetic();
-                index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
-            }
-
-            // Index ask synthetic
-            if (client.getIndex_ask_synthetic() != index_ask_synthetic_0) {
-                index_ask_synthetic_0 = client.getIndex_ask_synthetic();
-                index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
-            }
+//            // Index
+//            if (client.getIndex() != index_0) {
+//                index_0 = client.getIndex();
+//                index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+//            }
+//
+//            // Index bid synthetic
+//            if (client.getIndex_bid_synthetic() != index_bid_synthetic_0) {
+//                index_bid_synthetic_0 = client.getIndex_bid_synthetic();
+//                index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
+//            }
+//
+//            // Index ask synthetic
+//            if (client.getIndex_ask_synthetic() != index_ask_synthetic_0) {
+//                index_ask_synthetic_0 = client.getIndex_ask_synthetic();
+//                index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
+//            }
 
             // Fut e1
             double fut_e1 = q1.get_future();
@@ -173,9 +173,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void updateListsRetro() {
         insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
-        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
-        insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC));
-        insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
+//        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
+//        insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC));
+//        insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
     }

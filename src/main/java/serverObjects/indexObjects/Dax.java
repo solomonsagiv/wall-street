@@ -30,7 +30,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
         setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 3));
-        setLive_db(true);
+        setLive_db(false);
         setIndex_bid_ask_synthetic_margin(5);
     }
     

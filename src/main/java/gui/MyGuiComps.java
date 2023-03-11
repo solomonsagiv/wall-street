@@ -31,6 +31,8 @@ public class MyGuiComps {
         }
     }
 
+
+
     // ---------- JFrame ---------- //
     public static abstract class MyFrame extends JFrame {
 
