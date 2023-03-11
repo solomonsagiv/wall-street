@@ -44,14 +44,8 @@ public class Chart_Europe extends MyChartCreator {
         index_serie.setColor(Color.BLACK);
         index_serie.setStokeSize(1f);
 
-        // Index
-        MyTimeSeries fut_day_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.FUTURE_DAY_MULTIPLY_OP, client);
-        fut_day_serie.setColor(Themes.GREEN);
-        fut_day_serie.setStokeSize(1f);
-
-        series = new MyTimeSeries[2];
+        series = new MyTimeSeries[1];
         series[0] = index_serie;
-        series[1] = fut_day_serie;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
