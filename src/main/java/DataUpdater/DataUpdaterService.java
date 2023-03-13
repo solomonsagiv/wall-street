@@ -46,6 +46,7 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK));
 
             // STOXX AND CAC
