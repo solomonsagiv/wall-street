@@ -58,17 +58,32 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void on_change_data() {
 
+
+        // Baskets
+        int basket = client.getBasketFinder_by_stocks().getBaskets();
+
+        if (basket != baskets_0) {
+            double last_count = basket - baskets_0;
+            baskets_0 = basket;
+            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+        }
+
+        // Fut week
+        double fut_week = week.get_future();
+
+        if (fut_week != fut_week_0) {
+            fut_week_0 = fut_week;
+
+//                if (Math.abs(fut_week - fut_week_0) > 50) {
+            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+//                }
+        }
+
+
+        // Is live db
         if (client.isLive_db()) {
-            // Baskets
-            int basket = client.getBasketFinder_by_stocks().getBaskets();
 
-            if (basket != baskets_0) {
-                double last_count = basket - baskets_0;
-                baskets_0 = basket;
-                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
-
-//            // Index
+            // Index
             if (client.getIndex() != index_0) {
                 index_0 = client.getIndex();
                 index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
@@ -94,16 +109,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
             }
 
-            // Fut week
-            double fut_week = week.get_future();
-
-            if (fut_week != fut_week_0) {
-                fut_week_0 = fut_week;
-
-//                if (Math.abs(fut_week - fut_week_0) > 50) {
-                fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-//                }
-            }
 
         }
     }
@@ -126,31 +131,59 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
 
+//        serie_ids.put(TimeSeriesHandler.INDEX, 4369);
+//        serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
+//        serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
+//        serie_ids.put(TimeSeriesHandler.FUT_DAY, 4759);
+//        serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
+//        serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
+//
+//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9185);
+//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9184);
+//        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9186);
+//
+////        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 5632);
+////        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
+//        serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
+//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
+//        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
+//
+//        serie_ids.put(TimeSeriesHandler.STOXX_DF_8_ID, 9361);
+//        serie_ids.put(TimeSeriesHandler.STOXX_RELATIVE_ID, 9379);
+//        serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9431);
+//        serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9442);
+//
+//        // DF 9 and relative
+//        serie_ids.put(TimeSeriesHandler.DF_8, 9173);
+//        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9199);
+
+
+
+
         serie_ids.put(TimeSeriesHandler.INDEX, 4369);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
-        serie_ids.put(TimeSeriesHandler.FUT_DAY, 4759);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
-        serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1, 9881);
 
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9185);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9184);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9186);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9507);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9506);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9508);
 
 //        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 5632);
 //        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
-        serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
+        serie_ids.put(TimeSeriesHandler.BASKETS, 9520);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9521);
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
 
-        serie_ids.put(TimeSeriesHandler.STOXX_DF_8_ID, 9361);
-        serie_ids.put(TimeSeriesHandler.STOXX_RELATIVE_ID, 9379);
-        serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9431);
-        serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9442);
+        serie_ids.put(TimeSeriesHandler.STOXX_DF_8_ID, 9422);
+        serie_ids.put(TimeSeriesHandler.STOXX_RELATIVE_ID, 9432);
+
+        serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9394);
+        serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9410);
 
         // DF 9 and relative
-        serie_ids.put(TimeSeriesHandler.DF_8, 9173);
-        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9199);
+        serie_ids.put(TimeSeriesHandler.DF_8, 9498);
+        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9510);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));

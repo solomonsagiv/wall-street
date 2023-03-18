@@ -131,21 +131,18 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_60, 5479);
         serie_ids.put(TimeSeriesHandler.DF_7, 5475);
         serie_ids.put(TimeSeriesHandler.DF_2, 5470);//990
-        serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 1904);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 1905);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH, 1906);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1907);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1908);
+        serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 9517);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9518);
         serie_ids.put(TimeSeriesHandler.DF_8, 5504);
 
-        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3798);
-        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3800);
-        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3801);
-        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
+//        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3798);
+//        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3800);
+//        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3801);
+//        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
 
         serie_ids.put(TimeSeriesHandler.DF_8_900, 5504);
-        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5505);
+//        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5505);
 
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 8930);
 
