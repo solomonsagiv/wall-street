@@ -98,7 +98,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
         try {
             tickerPanel.updateText();
             machinePanel.updateText();
-            expPanel.updateText();
+//            expPanel.updateText();
         } catch (Exception e) {
             e.printStackTrace();
         }
