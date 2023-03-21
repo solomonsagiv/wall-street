@@ -18,14 +18,14 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
+//    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
     double index_ask_synthetic_0 = 0;
     double index_0 = 0;
     double fut_e1_0 = 0;
-    double fut_week_0 = 0;
+//    double fut_week_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -68,16 +68,16 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
-        // Fut week
-        double fut_week = week.get_future();
-
-        if (fut_week != fut_week_0) {
-            fut_week_0 = fut_week;
-
-//                if (Math.abs(fut_week - fut_week_0) > 50) {
-            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-//                }
-        }
+//        // Fut week
+//        double fut_week = week.get_future();
+//
+//        if (fut_week != fut_week_0) {
+//            fut_week_0 = fut_week;
+//
+////                if (Math.abs(fut_week - fut_week_0) > 50) {
+//            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+////                }
+//        }
 
 
         // Is live db
@@ -214,6 +214,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC));
         insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
+//        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
     }
 }
