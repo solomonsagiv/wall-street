@@ -19,7 +19,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
 //    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
-
+    
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
     double index_ask_synthetic_0 = 0;
@@ -108,7 +108,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_e1_0 = fut_e1;
                 fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
             }
-
 
         }
     }
