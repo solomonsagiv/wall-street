@@ -120,31 +120,32 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     @Override
     public void initTablesNames() {
+
         // Ids
-        serie_ids.put(TimeSeriesHandler.INDEX, 5494);
+        serie_ids.put(TimeSeriesHandler.INDEX, 1);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 2);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 11);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 12);
         serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5484);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 5477);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 5478);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 5479);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 9460);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 9462);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 9461);
         serie_ids.put(TimeSeriesHandler.DF_7, 5475);
         serie_ids.put(TimeSeriesHandler.DF_2, 5470);//990
         serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 9517);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9518);
-        serie_ids.put(TimeSeriesHandler.DF_8, 5504);
+        serie_ids.put(TimeSeriesHandler.DF_8, 9455);
 
 //        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3798);
 //        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3800);
 //        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3801);
 //        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
 
-        serie_ids.put(TimeSeriesHandler.DF_8_900, 5504);
+        serie_ids.put(TimeSeriesHandler.DF_8_900, 9455);
 //        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5505);
 
-        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 8930);
+        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9465);
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
