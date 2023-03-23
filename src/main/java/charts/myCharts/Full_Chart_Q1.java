@@ -69,7 +69,7 @@ public class Full_Chart_Q1 extends MyChartCreator {
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_14400 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE);
+        MyTimeSeries op_avg_14400 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_14400);
         op_avg_14400.setColor(Themes.ORANGE);
         op_avg_14400.setStokeSize(1.2f);
 

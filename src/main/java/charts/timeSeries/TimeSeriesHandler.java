@@ -51,6 +51,9 @@ public class TimeSeriesHandler {
     public static final int CAC_DF_8_ID = 75;
     public static final int CAC_RELATIVE_ID = 76;
 
+    public static final int OP_AVG_Q1_14400 = 77;
+
+
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
     public Map<String, MyTimeSeries> getSeries_map() {
         return series_map;

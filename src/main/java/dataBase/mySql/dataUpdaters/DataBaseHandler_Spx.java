@@ -159,16 +159,16 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 17);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 18);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5354);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 5347);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 5348);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 5349);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9474);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 9471);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 9473);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 9472);
         serie_ids.put(TimeSeriesHandler.DF_7, 5345);
         serie_ids.put(TimeSeriesHandler.DF_2, 5340);//1023
         serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 9514);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9515);
-        serie_ids.put(TimeSeriesHandler.DF_8, 5374);// Dynamic
+        serie_ids.put(TimeSeriesHandler.DF_8, 9466);// Dynamic
 //        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3756);
 //        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3757);
 //        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3850);

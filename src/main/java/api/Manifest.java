@@ -20,13 +20,13 @@ public class Manifest {
 
     // GATEWAY
     public static int GATEWAY_PORT = 4001;
-    
+
     // SELECTED ACCOUNT
     public static int POOL_SIZE = 15;
     public static boolean DB = true;
     public static boolean DB_RUNNER = true;
     public static boolean OPEN_CHARTS = true;
-    public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_POSTGRES;
+    public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_PROD;
     public static String ACCOUNT = SNUPPI_ACCOUNT;
     public static int PORT = GATEWAY_PORT;
     public static int SCREEN = 0;

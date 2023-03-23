@@ -110,6 +110,7 @@ public abstract class IDataBaseHandler {
                 if (!rs.next()) break;
                 Timestamp timestamp = rs.getTimestamp("time");
                 double value = rs.getDouble("value");
+                System.out.println(value + "  "  + timeSeries.getName());
                 timeSeries.add(timestamp.toLocalDateTime(), value);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

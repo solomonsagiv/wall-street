@@ -36,7 +36,7 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEEK));
         }
-
+        
         // Dax
         if (client instanceof Dax) {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900));
@@ -46,13 +46,14 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_14400));
             
             // STOXX AND CAC
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_RELATIVE));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_RELATIVE));
+            System.out.println();
         }
     }
     
