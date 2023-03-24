@@ -176,8 +176,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_8_900, 9466);
 //        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5375);
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9476);
-        serie_ids.put(TimeSeriesHandler.DOW_DF_8_ID, 9412);
-        serie_ids.put(TimeSeriesHandler.DOW_RELATIVE_ID, 9428);
+        serie_ids.put(TimeSeriesHandler.DOW_DF_8_ID, 9411);
+        serie_ids.put(TimeSeriesHandler.DOW_RELATIVE_ID, 9421);
         
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
