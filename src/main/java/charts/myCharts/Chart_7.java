@@ -5,21 +5,20 @@ import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
-public class Chart_6 extends MyChartCreator {
-    
-    Spx spx;
-    Ndx ndx;
+public class Chart_7 extends MyChartCreator {
+
+    public static void main(String[] args) {
+        Chart_7 fullChart2 = new Chart_7(Spx.getInstance());
+        fullChart2.createChart();
+    }
 
     // Constructor
-    public Chart_6(BASE_CLIENT_OBJECT client) {
+    public Chart_7(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
-        spx = Spx.getInstance();
-        ndx = Ndx.getInstance();
     }
 
     @Override
@@ -64,43 +63,52 @@ public class Chart_6 extends MyChartCreator {
 
         // --------- Op avg ---------- //
 
-        MyTimeSeries spx_df_8 = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
-        spx_df_8.setColor(Themes.RED);
-        spx_df_8.setStokeSize(1.2f);
+        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
+        op_avg_15.setColor(Themes.RED);
+        op_avg_15.setStokeSize(1.2f);
 
-        MyTimeSeries ndx_df_8 = ndx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
-        ndx_df_8.setColor(Themes.GREEN);
-        ndx_df_8.setStokeSize(1.2f);
+        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
+        op_avg_60.setColor(Themes.BLUE);
+        op_avg_60.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[2];
-        series[0] = spx_df_8;
-        series[1] = ndx_df_8;
+        MyTimeSeries op_avg_240 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE);
+        op_avg_240.setColor(Themes.BINANCE_ORANGE);
+        op_avg_240.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[3];
+        series[0] = op_avg_15;
+        series[1] = op_avg_60;
+        series[2] = op_avg_240;
+        
+        // Chart
+        MyChart op_avg_chart = new MyChart(client, series, props);
+
+        // -------------------- DF'S ---------------------- //
+
+        MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
+        df_2.setColor(Themes.ORANGE);
+        df_2.setStokeSize(1.2f);
+
+        MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
+        df_7.setColor(Themes.PURPLE);
+        df_7.setStokeSize(1.2f);
+
+        MyTimeSeries df_8 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        df_8.setColor(Themes.RED);
+        df_8.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[3];
+        series[0] = df_2;
+        series[1] = df_7;
+        series[2] = df_8;
 
         // Chart
         MyChart df_chart = new MyChart(client, series, props);
-        
-        // ------------------ DF ------------------- //
-
-        MyTimeSeries spx_relative_change = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE);
-        spx_relative_change.setColor(Themes.RED);
-        spx_relative_change.setStokeSize(1.2f);
-
-        MyTimeSeries ndx_relative_change = ndx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE);
-        ndx_relative_change.setColor(Themes.GREEN);
-        ndx_relative_change.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[2];
-        series[0] = spx_relative_change;
-        series[1] = ndx_relative_change;
-
-        // Chart
-        MyChart relative_chart = new MyChart(client, series, props);
-
 ////
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, relative_chart, df_chart};
+        MyChart[] charts = {indexChart, op_avg_chart, df_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
