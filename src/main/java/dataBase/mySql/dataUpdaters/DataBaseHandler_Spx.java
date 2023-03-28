@@ -153,7 +153,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
 
 
-        serie_ids.put(TimeSeriesHandler.INDEX, 9470);
+        serie_ids.put(TimeSeriesHandler.INDEX, 3);
         serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4);
