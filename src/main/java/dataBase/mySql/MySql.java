@@ -36,7 +36,6 @@ public class MySql {
 //
 //        ResultSet rs = MySql.select(query, jibe_conn);
 //
-//
 //        while (true) {
 //            try {
 //                if (!rs.next()) break;
@@ -636,7 +635,7 @@ public class MySql {
             String query = String.format(q, serie_id, Filters.TODAY, Filters.ORDER_BY_TIME_DESC_OFFSET_1_LIMIT_1);
             return MySql.select(query);
         }
-        
+
         private static ResultSet get_last_cdf_record_mega(int serie_id) {
             String q = "select sum(value) as value\n" +
                     "from ts.timeseries_data\n" +
@@ -658,7 +657,6 @@ public class MySql {
         }
 
 
-
         private static ResultSet get_serie_raw_mega_table(int serie_id) {
 
             String modulu = "%";
@@ -677,18 +675,18 @@ public class MySql {
 
 
         private static ResultSet get_serie_cdf_mega_table(int serie_id) {
-
             String modulu = "%";
 
-            String q = "select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value\n" +
-                    "from (\n" +
-                    "         select time, value, row_number() over (order by time) as row\n" +
-                    "         from %s\n" +
-                    "         where timeseries_id = %s\n" +
-                    "           and %s) a\n" +
-                    "where row %s %s = 0;";
+            String q = "select * from (\n" +
+                    "select time, sum(sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
+                    "from %s\n" +
+                    "where timeseries_id = %s\n" +
+                    "and %s) a\n" +
+                    "where row %s %s = 0;\n" +
+                    "\n";
 
-            String query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, modulu, step_second);
+
+            String query = String.format(q, "ts.ca_timeseries_5min_candle", serie_id, Filters.TODAY, modulu, step_second);
             return MySql.select(query);
         }
 
