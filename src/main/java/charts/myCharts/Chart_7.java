@@ -4,6 +4,7 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
+import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -102,8 +103,17 @@ public class Chart_7 extends MyChartCreator {
         series[1] = df_7;
         series[2] = df_8;
 
+
+        ValueMarker marker_30k = new ValueMarker(30000.0);
+        marker_30k.setPaint(Themes.GREY_2);
+
+        ValueMarker marker_minus_30k = new ValueMarker(-30000.0);
+        marker_minus_30k.setPaint(Themes.GREY_2);
+
         // Chart
         MyChart df_chart = new MyChart(client, series, props);
+        df_chart.add_marker(marker_30k);
+        df_chart.add_marker(marker_minus_30k);
 ////
         // -------------------- Chart -------------------- //
 

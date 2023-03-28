@@ -161,6 +161,10 @@ public class MyChart {
         }
     }
 
+    public void add_marker(ValueMarker marker) {
+        plot.addRangeMarker(marker, Layer.BACKGROUND);
+    }
+
     public MyTimeSeries[] getSeries() {
         return series;
     }
