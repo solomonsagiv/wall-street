@@ -957,10 +957,9 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getValue() {
-                        double value = client.getIndex() + client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_5).getValue() * 6;
+                        double value = client.getIndex() + client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15).getValue() * 6;
                         return (value);
                     }
-
 
                     @Override
                     public void updateData() {

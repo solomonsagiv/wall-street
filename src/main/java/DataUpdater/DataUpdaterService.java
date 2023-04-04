@@ -55,7 +55,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_RELATIVE));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_RELATIVE));
-            System.out.println();
         }
     }
     
