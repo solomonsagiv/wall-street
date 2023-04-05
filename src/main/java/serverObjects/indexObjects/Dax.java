@@ -6,8 +6,8 @@ import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
+import charts.Europe_Op_Avg;
 import charts.myCharts.Chart_Europe;
-import charts.myCharts.Full_Chart_Q1;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -90,23 +90,15 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
-                try {
 
-                    FuturesChartLong_400 chart = new FuturesChartLong_400(this);
-                    chart.createChart();
+                FuturesChartLong_400 chart = new FuturesChartLong_400(this);
+                chart.createChart();
 
-                    Thread.sleep(5000);
+                Chart_Europe full_chart_4 = new Chart_Europe(this);
+                full_chart_4.createChart();
 
-                    Chart_Europe full_chart_4 = new Chart_Europe(this);
-                    full_chart_4.createChart();
-
-                    Full_Chart_Q1 full_chart_q1 = new Full_Chart_Q1(this);
-                    full_chart_q1.createChart();
-
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Europe_Op_Avg europe_op_avg = new Europe_Op_Avg(this);
+                europe_op_avg.createChart();
             }).start();
         }
     }
