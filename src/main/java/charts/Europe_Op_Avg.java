@@ -58,11 +58,11 @@ public class Europe_Op_Avg extends MyChartCreator {
 
         // --------- Dax Op avg ---------- //
 
-        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
+        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
         op_avg_15.setColor(Themes.RED);
         op_avg_15.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
+        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 

@@ -86,7 +86,6 @@ public class PopupsMenuFactory {
             }
         });
 
-
         JMenuItem europe = new JMenuItem("Europe");
         europe.addActionListener(new ActionListener() {
             @Override
