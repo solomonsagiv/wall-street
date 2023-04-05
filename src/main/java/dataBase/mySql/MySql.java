@@ -685,11 +685,9 @@ public class MySql {
                     "where row %s %s = 0;\n" +
                     "\n";
 
-
-            String query = String.format(q, "ts.ca_timeseries_5min_candle", serie_id, Filters.TODAY, modulu, step_second);
+            String query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, Filters.TODAY, modulu, step_second);
             return MySql.select(query);
         }
-
 
         public static ResultSet cumulative_sum_query(String table_loc) {
             String query = String.format("select time, sum(value) over (order by time) as value from %s " +

@@ -90,6 +90,7 @@ public class DDEReader_Spx extends IDDEReader {
         q1.setVolume((int) requestDouble(naked_future_volume_cell, conversation));
 
         // Index
+        double index = client.getIndex();
         client.setIndex(requestDouble(indCell, conversation));
         client.setIndexBid(requestDouble(indBidCell, conversation));
         client.setIndexAsk(requestDouble(indAskCell, conversation));
