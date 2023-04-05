@@ -180,7 +180,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9394);
         serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9410);
         serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_900, 9407);
-        serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_3600, 9407);
+        serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_3600, 9406);
 
 
 
