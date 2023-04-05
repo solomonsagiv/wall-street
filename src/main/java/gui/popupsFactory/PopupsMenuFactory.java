@@ -1,5 +1,6 @@
 package gui.popupsFactory;
 
+import charts.Europe_Op_Avg;
 import charts.myCharts.*;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -95,6 +96,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem europe_op_avg = new JMenuItem("Europe op avg");
+        europe_op_avg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Europe_Op_Avg chart = new Europe_Op_Avg(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem baskets = new JMenuItem("Baskets");
         baskets.addActionListener(new ActionListener() {
             @Override
@@ -105,7 +115,6 @@ public class PopupsMenuFactory {
                 }
             }
         });
-
 
         JMenuItem futures_real_time_400 = new JMenuItem("Futures 400");
         futures_real_time_400.addActionListener(new ActionListener() {
@@ -133,6 +142,7 @@ public class PopupsMenuFactory {
         charts.add(futures_real_time_400);
         charts.add(wallstreet);
         charts.add(europe);
+        charts.add(europe_op_avg);
 
         menu.add(details);
         menu.add(settingWindow);
