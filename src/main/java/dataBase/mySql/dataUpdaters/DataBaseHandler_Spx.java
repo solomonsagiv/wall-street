@@ -86,22 +86,24 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 fut_day_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_day_0));
             }
 
-            // Fut e1
-            double fut_e1 = q1.get_future();
-
-            if (fut_e1 != fut_e1_0) {
-                fut_e1_0 = fut_e1;
-                fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-            }
-
-            // Fut e2
-            double fut_e2 = q2.get_future();
-
-            if (fut_e2 != fut_e2_0) {
-                fut_e2_0 = fut_e2;
-                fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-            }
         }
+
+        // Fut e1
+        double fut_e1 = q1.get_future();
+
+        if (fut_e1 != fut_e1_0) {
+            fut_e1_0 = fut_e1;
+            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+        }
+
+        // Fut e2
+        double fut_e2 = q2.get_future();
+
+        if (fut_e2 != fut_e2_0) {
+            fut_e2_0 = fut_e2;
+            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+        }
+
     }
 
     @Override
@@ -156,8 +158,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 4);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1, 17);
-        serie_ids.put(TimeSeriesHandler.FUT_Q2, 18);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1, 9531);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2, 9532);
         serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9474);
         serie_ids.put(TimeSeriesHandler.OP_AVG_5, 9471);
         serie_ids.put(TimeSeriesHandler.OP_AVG_15, 9473);
@@ -177,6 +179,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9476);
         serie_ids.put(TimeSeriesHandler.DOW_DF_8_ID, 9411);
         serie_ids.put(TimeSeriesHandler.DOW_RELATIVE_ID, 9421);
+        serie_ids.put(TimeSeriesHandler.ROLL_900, 9538);
+        serie_ids.put(TimeSeriesHandler.ROLL_3600, 9537);
         
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
@@ -195,26 +199,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
 
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_WEEK, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_MONTH, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_Q1, client));
-//
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_WEEK, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_MONTH, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_Q1, client));
-//
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_WEEK, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_MONTH, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_Q1, client));
-//
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_Q1_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_Q1_START, client));
-//
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_MONTH, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEIGHTED, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEIGHTED, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.STD_MOVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STD_MOVE, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLl_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLl_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLl_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLl_3600, client));
+
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DOW_DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DOW_DF_8_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DOW_RELATIVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DOW_RELATIVE, client));

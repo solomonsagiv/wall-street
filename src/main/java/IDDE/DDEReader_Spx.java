@@ -71,6 +71,9 @@ public class DDEReader_Spx extends IDDEReader {
     // Cof
     String cofCell = "R40C9";
 
+    String q1_normalized_num_cell = "R43C10";
+    String q2_normalized_num_cell = "R44C10";
+
     // Constructor
     public DDEReader_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -112,7 +115,7 @@ public class DDEReader_Spx extends IDDEReader {
         q2 = (E) client.getExps().getExp(ExpStrings.q2);
         init_exp = true;
     }
-
+    
     @Override
     public void init_rates() {
         try {
@@ -133,12 +136,14 @@ public class DDEReader_Spx extends IDDEReader {
             q1.setDividend(requestDouble(q1_div_cell, conversation));
             q1.setDays_to_exp(requestDouble(q1_days_cell, conversation));
             q1.setCof(requestDouble(cofCell, conversation));
+            q1.setNormalized_num(requestDouble(q1_normalized_num_cell, conversation));
 
             // Q2
             q2.setInterest(requestDouble(q2_interest_cell, conversation));
             q2.setDividend(requestDouble(q2_div_cell, conversation));
             q2.setDays_to_exp(requestDouble(q2_days_cell, conversation));
             q2.setCof(requestDouble(cofCell, conversation));
+            q2.setNormalized_num(requestDouble(q2_normalized_num_cell, conversation));
 
             conversation.disconnect();
         } catch (DDEException e) {

@@ -31,6 +31,7 @@ public abstract class Exp {
     protected double last_checked_future_bid = 0;
     protected double contract_ask = 0;
     protected double last_checked_future_ask = 0;
+    protected double normalized_num = 0;
 
     public double v107 = 0;
     public double v103 = 0;
@@ -189,5 +190,13 @@ public abstract class Exp {
 
     public void setCof(double cof) {
         this.cof = cof;
+    }
+
+    public double getNormalized_num() {
+        return normalized_num;
+    }
+
+    public void setNormalized_num(double normalized_num) {
+        this.normalized_num = normalized_num;
     }
 }

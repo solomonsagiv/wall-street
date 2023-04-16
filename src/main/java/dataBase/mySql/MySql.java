@@ -485,7 +485,6 @@ public class MySql {
             return MySql.select(query);
         }
 
-
         public static ResultSet get_serie_cumulative_sum(String table_location, int step_second) {
             String modulu = "%";
             String q = "select * " +
@@ -517,7 +516,6 @@ public class MySql {
             String query = String.format(q, table_loc, Filters.TODAY);
             return MySql.select(query);
         }
-
 
         private static ResultSet op_avg_by_time_cdf_mega_table(int index_id, int fut_id, int min) {
             String modulu = "%";
@@ -723,12 +721,12 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, double cof, String exp_name) {
-            String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, cof, item)" +
-                    " VALUES ('%s', %s, %s, %s, %s, %s, %s, '%s', '%s')";
+        public static void insert_rates(String id_name, double interest, double dividend, double days_to_exp, double base, double cof, String exp_name, double normalized_num) {
+            String q = "INSERT INTO meta.interest_rates (stock_id, rate, dividend, days_to_expired, base, start_date, end_date, cof, item, normalized_num)" +
+                    " VALUES ('%s', %s, %s, %s, %s, %s, %s, '%s', '%s', '%s')";
             String today_date = "now()::date";
 
-            String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, cof, exp_name);
+            String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, cof, exp_name, normalized_num);
             // JIBE
             MySql.insert(query);
 

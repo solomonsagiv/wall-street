@@ -125,7 +125,7 @@ public abstract class IDataBaseHandler {
 
     public static void insert_interes_rates(BASE_CLIENT_OBJECT client) {
         for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getCof(), exp.getName());
+            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getCof(), exp.getName(), exp.getNormalized_num());
         }
     }
 

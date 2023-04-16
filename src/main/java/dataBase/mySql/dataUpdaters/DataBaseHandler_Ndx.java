@@ -22,7 +22,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double baskets_0 = 0;
-
+    
     Exp day;
     E q1, q2;
 
@@ -72,24 +72,24 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                 fut_day_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_day_0));
             }
 
-
-            // Fut e1
-            double fut_e1 = q1.get_future();
-
-            if (fut_e1 != fut_e1_0) {
-                fut_e1_0 = fut_e1;
-                fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-            }
-
-            // Fut e2
-            double fut_e2 = q2.get_future();
-
-            if (fut_e2 != fut_e2_0) {
-                fut_e2_0 = fut_e2;
-                fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-            }
-
         }
+
+        // Fut e1
+        double fut_e1 = q1.get_future();
+
+        if (fut_e1 != fut_e1_0) {
+            fut_e1_0 = fut_e1;
+            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+        }
+
+        // Fut e2
+        double fut_e2 = q2.get_future();
+
+        if (fut_e2 != fut_e2_0) {
+            fut_e2_0 = fut_e2;
+            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+        }
+
 
         // Baskets
         int basket = client.getBasketFinder_by_stocks().getBaskets();
@@ -124,8 +124,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Ids
         serie_ids.put(TimeSeriesHandler.INDEX, 1);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 2);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1, 11);
-        serie_ids.put(TimeSeriesHandler.FUT_Q2, 12);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1, 9533);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2, 9534);
         serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9463);
         serie_ids.put(TimeSeriesHandler.OP_AVG_5, 9460);
         serie_ids.put(TimeSeriesHandler.OP_AVG_15, 9462);
@@ -144,6 +144,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         serie_ids.put(TimeSeriesHandler.DF_8_900, 9455);
 //        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5505);
+
+        serie_ids.put(TimeSeriesHandler.ROLL_900, 9540);
+        serie_ids.put(TimeSeriesHandler.ROLL_3600, 9539);
 
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9465);
 
@@ -180,6 +183,10 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_Q1_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_Q1_START, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLl_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLl_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLl_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLl_3600, client));
+
 
         // JUPITER
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEEK, client));

@@ -18,6 +18,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
 //    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     
     double baskets_0 = 0;
@@ -25,6 +26,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double index_ask_synthetic_0 = 0;
     double index_0 = 0;
     double fut_e1_0 = 0;
+    double fut_e2_0 = 0;
 //    double fut_week_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
@@ -108,6 +110,13 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
             }
 
+            // Fut e2
+            double fut_e2 = q2.get_future();
+
+            if (fut_e2 != fut_e2_0) {
+                fut_e2_0 = fut_e2;
+                fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+            }
         }
     }
 
