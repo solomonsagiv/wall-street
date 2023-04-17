@@ -199,8 +199,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLl_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLl_900, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLl_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLl_3600, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_3600, client));
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DOW_DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DOW_DF_8_CDF, client));

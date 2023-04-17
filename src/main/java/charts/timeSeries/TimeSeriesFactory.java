@@ -93,8 +93,8 @@ public class TimeSeriesFactory {
     public static final String STOXX_OP_AVG_3600 = "STOXX_OP_AVG_3600";
 
     // Roll
-    public static final String ROLl_3600 = "ROLl_3600";
-    public static final String ROLl_900 = "ROLl_900";
+    public static final String ROLL_3600 = "ROLL_3600";
+    public static final String ROLL_900 = "ROLL_900";
 
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
@@ -102,7 +102,7 @@ public class TimeSeriesFactory {
 
 
 
-            case ROLl_900:
+            case ROLL_900:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -133,7 +133,7 @@ public class TimeSeriesFactory {
                 };
 
 
-            case ROLl_3600:
+            case ROLL_3600:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
