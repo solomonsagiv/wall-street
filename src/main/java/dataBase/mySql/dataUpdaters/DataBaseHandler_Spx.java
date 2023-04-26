@@ -6,6 +6,7 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_day_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
-    
+
     double index_0 = 0;
     double index_bid_0 = 0;
     double index_ask_0 = 0;
@@ -124,36 +125,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
 
-//        serie_ids.put(TimeSeriesHandler.INDEX, 5364);
-//        serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
-//        serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
-//        serie_ids.put(TimeSeriesHandler.FUT_DAY, 4);
-//        serie_ids.put(TimeSeriesHandler.FUT_Q1, 17);
-//        serie_ids.put(TimeSeriesHandler.FUT_Q2, 18);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 5354);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 5347);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 5348);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 5349);
-//        serie_ids.put(TimeSeriesHandler.DF_7, 5345);
-//        serie_ids.put(TimeSeriesHandler.DF_2, 5340);//1023
-//        serie_ids.put(TimeSeriesHandler.BASKETS, 1418);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 1899);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 1900);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH, 1901);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 1902);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 1903);
-//        serie_ids.put(TimeSeriesHandler.DF_8, 5374);// Dynamic
-//        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3756);
-//        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3757);
-//        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3850);
-//        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
-//        serie_ids.put(TimeSeriesHandler.DF_8_900, 5374);
-//        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5375);
-//        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 8929);
-//        serie_ids.put(TimeSeriesHandler.DOW_DF_8_ID, 9412);
-//        serie_ids.put(TimeSeriesHandler.DOW_RELATIVE_ID, 9428);
-
-
         serie_ids.put(TimeSeriesHandler.INDEX, 9470);
         serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
@@ -170,18 +141,13 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 9514);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9515);
         serie_ids.put(TimeSeriesHandler.DF_8, 9466);// Dynamic
-//        serie_ids.put(TimeSeriesHandler.DF_WEEK, 3756);
-//        serie_ids.put(TimeSeriesHandler.DF_MONTH, 3757);
-//        serie_ids.put(TimeSeriesHandler.DF_WEIGHTED, 3850);
-//        serie_ids.put(TimeSeriesHandler.STD_MOVE, 3753);
         serie_ids.put(TimeSeriesHandler.DF_8_900, 9466);
-//        serie_ids.put(TimeSeriesHandler.DF_8_3600, 5375);
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9476);
         serie_ids.put(TimeSeriesHandler.DOW_DF_8_ID, 9411);
         serie_ids.put(TimeSeriesHandler.DOW_RELATIVE_ID, 9421);
         serie_ids.put(TimeSeriesHandler.ROLL_900, 9538);
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9537);
-        
+
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
@@ -205,7 +171,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DOW_DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DOW_DF_8_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DOW_RELATIVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DOW_RELATIVE, client));
-
 
     }
 

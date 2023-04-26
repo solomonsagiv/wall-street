@@ -5,9 +5,9 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Chart_7;
+import charts.myCharts.Chart_9;
 import charts.myCharts.Chart_wallstreet;
-import charts.myCharts.FuturesChartLong_400;
+import charts.myCharts.FuturesChart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import serverObjects.ApiEnum;
@@ -82,13 +82,13 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
 
-                FuturesChartLong_400 chart = new FuturesChartLong_400(this);
+                FuturesChart chart = new FuturesChart(this);
                 chart.createChart();
 
                 Chart_wallstreet Chart_wallstreet = new Chart_wallstreet(this);
                 Chart_wallstreet.createChart();
 
-                Chart_7 chart_4 = new Chart_7(this);
+                Chart_9 chart_4 = new Chart_9(this);
                 chart_4.createChart();
 
             }).start();

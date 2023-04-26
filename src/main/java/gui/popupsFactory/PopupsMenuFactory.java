@@ -75,6 +75,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem charts_9 = new JMenuItem("Charts 9");
+        charts_9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chart_9 chart = new Chart_9(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem wallstreet = new JMenuItem("Wall-street");
         wallstreet.addActionListener(new ActionListener() {
             @Override
@@ -144,6 +153,7 @@ public class PopupsMenuFactory {
         charts.add(fullCharts_4);
         charts.add(charts_7);
         charts.add(charts_8);
+        charts.add(charts_9);
         charts.add(europe);
         charts.add(fullCharts_q1);
         charts.add(futures_real_time_400);
