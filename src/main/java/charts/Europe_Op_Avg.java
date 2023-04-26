@@ -54,6 +54,24 @@ public class Europe_Op_Avg extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
+
+
+        // ------------------ Roll ------------------- //
+        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
+        roll_900.setColor(Themes.RED);
+        roll_900.setStokeSize(1.2f);
+
+        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
+        roll_3600.setColor(Themes.PURPLE);
+        roll_3600.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = roll_900;
+        series[1] = roll_3600;
+
+        // Chart
+        MyChart roll_chart = new MyChart(client, series, props);
+
         // ------------------ Op avg ------------------- //
 
         // --------- Dax Op avg ---------- //
@@ -111,7 +129,7 @@ public class Europe_Op_Avg extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, dax_op_avg_chart, cac_op_avg_chart, stoxx_op_avg_chart};
+        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_chart, cac_op_avg_chart, stoxx_op_avg_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
