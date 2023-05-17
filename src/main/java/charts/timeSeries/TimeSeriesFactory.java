@@ -70,7 +70,6 @@ public class TimeSeriesFactory {
 
     public static final String STD_MOVE = "STD_MOVE";
 
-
     // Relative
     public static final String DF_8_RELATIVE = "DF_8_RELATIVE";
     public static final String WINDOW_SIZE = "WINDOW_SIZE";

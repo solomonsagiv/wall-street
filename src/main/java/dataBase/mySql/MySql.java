@@ -45,7 +45,6 @@ public class MySql {
 //            }
 //
 //        }
-
     }
 
     private static ConnectionPool pool;

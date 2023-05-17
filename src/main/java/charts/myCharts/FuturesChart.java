@@ -3,6 +3,7 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import exp.Exp;
+import exp.ExpStrings;
 import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
@@ -67,11 +68,11 @@ public class FuturesChart extends MyChartCreator {
         index.setStokeSize(1.75f);
 
         // Bid
-        MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
+        MyTimeSeries bid = new MyTimeSeries("Future bid", client) {
 
             @Override
             public double getValue() {
-                return client.getIndexBid();
+                return client.getExps().getExp(ExpStrings.q1).get_future() - 3;
             }
 
             @Override
@@ -93,11 +94,11 @@ public class FuturesChart extends MyChartCreator {
         bid.setStokeSize(1.75f);
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
+        MyTimeSeries ask = new MyTimeSeries("Future ask", client) {
 
             @Override
             public double getValue() {
-                return client.getIndexAsk();
+                return client.getExps().getExp(ExpStrings.q1).get_future() + 3;
             }
 
             @Override
