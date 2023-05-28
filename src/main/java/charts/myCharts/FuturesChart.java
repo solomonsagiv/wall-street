@@ -92,6 +92,7 @@ public class FuturesChart extends MyChartCreator {
         };
         bid.setColor(Themes.BLUE);
         bid.setStokeSize(1.75f);
+        bid.setVisible(false);
 
         // Ask
         MyTimeSeries ask = new MyTimeSeries("Future ask", client) {
@@ -118,6 +119,7 @@ public class FuturesChart extends MyChartCreator {
         };
         ask.setColor(Themes.RED);
         ask.setStokeSize(1.75f);
+        ask.setVisible(false);
 
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
