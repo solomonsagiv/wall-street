@@ -53,6 +53,11 @@ public class MyChart {
     private MyProps props;
     XYLineAndShapeRenderer renderer;
 
+    Color background = Themes.BINANCE_GREY;
+    Color x_grid_color = Themes.GREY_LIGHT;
+    Color y_grid_color = Themes.GREY_LIGHT;
+    Color marker_color = Themes.GREY_LIGHT;
+
     // Constructor
     public MyChart(BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props) {
         this.client = client;
@@ -97,11 +102,11 @@ public class MyChart {
 
     private void plot_style() {
         plot = chart.getXYPlot();
-        plot.setBackgroundPaint(Color.WHITE);
+        plot.setBackgroundPaint(background);
         plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_RANGE_GRID_VISIBLE));
         plot.setDomainGridlinesVisible(props.getBool(ChartPropsEnum.IS_DOMAIN_GRID_VISIBLE));
-        plot.setRangeGridlinePaint(Color.BLACK);
-        plot.setDomainGridlinePaint(Color.BLACK);
+        plot.setRangeGridlinePaint(y_grid_color);
+        plot.setDomainGridlinePaint(x_grid_color);
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
         plot.getDomainAxis().setVisible(props.getBool(ChartPropsEnum.INCLUDE_DOMAIN_AXIS));
         plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
@@ -156,7 +161,7 @@ public class MyChart {
         if (props.getProp(ChartPropsEnum.MARKER) != MyProps.p_null) {
             ValueMarker marker = new ValueMarker(props.getProp(ChartPropsEnum.MARKER));
             marker.setStroke(new BasicStroke(1.2f));
-            marker.setPaint(Color.BLACK);
+            marker.setPaint(marker_color);
             plot.addRangeMarker(marker, Layer.BACKGROUND);
         }
     }
