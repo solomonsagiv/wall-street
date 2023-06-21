@@ -69,7 +69,6 @@ public class Chart_9 extends MyChartCreator {
         // Chart
         MyChart roll_chart = new MyChart(client, series, props);
 
-
         // --------- Op avg ---------- //
 
         MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
@@ -92,31 +91,33 @@ public class Chart_9 extends MyChartCreator {
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
-        // -------------------- DF'S ---------------------- //
+        // -------------------- Op Avg q1 ---------------------- //
 
-        MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
-        df_2.setColor(Themes.ORANGE);
-        df_2.setStokeSize(1.2f);
+        MyTimeSeries op_avg_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1);
+        op_avg_q1.setColor(Themes.GREEN);
+        op_avg_q1.setStokeSize(1.2f);
 
-        MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
-        df_7.setColor(Themes.PURPLE);
-        df_7.setStokeSize(1.2f);
-
-        MyTimeSeries df_8 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
-        df_8.setColor(Themes.RED);
-        df_8.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[3];
-        series[0] = df_2;
-        series[1] = df_7;
-        series[2] = df_8;
+        series = new MyTimeSeries[1];
+        series[0] = op_avg_q1;
 
         // Chart
-        MyChart df_chart = new MyChart(client, series, props);
+        MyChart q1_chart = new MyChart(client, series, props);
+
+
+        // -------------------- Op Avg q2 ---------------------- //
+        MyTimeSeries op_avg_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2);
+        op_avg_q2.setColor(Themes.BROWN);
+        op_avg_q2.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[1];
+        series[0] = op_avg_q2;
+
+        // Chart
+        MyChart q2_chart = new MyChart(client, series, props);
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, op_avg_chart, df_chart};
+        MyChart[] charts = {indexChart, roll_chart, op_avg_chart, q1_chart, q2_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

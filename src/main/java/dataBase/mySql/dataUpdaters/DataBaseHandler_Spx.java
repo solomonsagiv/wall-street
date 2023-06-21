@@ -139,7 +139,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DF_2, 9525);//1023
         serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
         serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 9514);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9515);
         serie_ids.put(TimeSeriesHandler.DF_8, 9466);// Dynamic
         serie_ids.put(TimeSeriesHandler.DF_8_900, 9466);
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9476);
@@ -147,6 +146,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.DOW_RELATIVE_ID, 9421);
         serie_ids.put(TimeSeriesHandler.ROLL_900, 9538);
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9537);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9578);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 9577);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
