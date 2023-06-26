@@ -140,7 +140,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9539);
         serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9465);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9580);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9601);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 9579);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_15, 9603);
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
@@ -178,6 +180,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_3600, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_15, client));
 
 
         // JUPITER

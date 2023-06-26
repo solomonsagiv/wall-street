@@ -97,8 +97,13 @@ public class Chart_9 extends MyChartCreator {
         op_avg_q1.setColor(Themes.GREEN);
         op_avg_q1.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[1];
+        MyTimeSeries op_avg_q1_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
+        op_avg_q1_15.setColor(Themes.RED);
+        op_avg_q1_15.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
         series[0] = op_avg_q1;
+        series[1] = op_avg_q1_15;
 
         // Chart
         MyChart q1_chart = new MyChart(client, series, props);
@@ -109,8 +114,13 @@ public class Chart_9 extends MyChartCreator {
         op_avg_q2.setColor(Themes.BROWN);
         op_avg_q2.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[1];
+        MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15);
+        op_avg_q2_15.setColor(Themes.RED);
+        op_avg_q2_15.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
         series[0] = op_avg_q2;
+        series[1] = op_avg_q2_15;
 
         // Chart
         MyChart q2_chart = new MyChart(client, series, props);

@@ -53,10 +53,12 @@ public class MyChart {
     private MyProps props;
     XYLineAndShapeRenderer renderer;
 
-    Color background = Themes.BINANCE_GREY;
+//    GradientPaint background = new GradientPaint(0, 0, Themes.BINANCE_GREY, 0, 1000, Themes.BINANCE_GREY.darker());
+    Color background = Color.WHITE;
     Color x_grid_color = Themes.GREY_LIGHT;
     Color y_grid_color = Themes.GREY_LIGHT;
-    Color marker_color = Themes.GREY_LIGHT;
+    Color marker_color = Color.BLACK;
+    Color axis_color = Themes.BINANCE_GREY;
 
     // Constructor
     public MyChart(BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props) {
@@ -101,7 +103,12 @@ public class MyChart {
     }
 
     private void plot_style() {
+        chart.setBackgroundPaint(background);
         plot = chart.getXYPlot();
+
+
+
+
         plot.setBackgroundPaint(background);
         plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_RANGE_GRID_VISIBLE));
         plot.setDomainGridlinesVisible(props.getBool(ChartPropsEnum.IS_DOMAIN_GRID_VISIBLE));
@@ -113,7 +120,7 @@ public class MyChart {
         plot.setDomainPannable(false);
         plot.setRangePannable(false);
         plot.getRangeAxis().setAutoRange(true);
-        plot.getRangeAxis().setTickLabelPaint(Themes.BINANCE_GREY);
+        plot.getRangeAxis().setTickLabelPaint(axis_color);
         plot.getRangeAxis().setTickLabelFont(Themes.ARIEL_BOLD_15);
     }
 

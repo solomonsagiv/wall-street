@@ -42,6 +42,7 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_MONTH = "OP_AVG_MONTH";
     public static final String OP_AVG_Q1 = "OP_AVG_Q1";
     public static final String OP_AVG_Q2 = "OP_AVG_Q2";
+    public static final String OP_AVG_Q2_15 = "OP_AVG_Q2_15";
 
     // Exp
     // Week
@@ -1069,6 +1070,39 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+
+                    }
+                };
+
+
+            case OP_AVG_Q2_15:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_15);
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setValue(val);
+
+                        Exp exp = client.getExps().getExp(ExpStrings.q2);
+                        exp.setOp_avg(val);
+
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_15);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
