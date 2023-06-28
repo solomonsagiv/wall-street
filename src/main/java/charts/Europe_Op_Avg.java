@@ -150,7 +150,7 @@ public class Europe_Op_Avg extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_q2_chart, dax_op_avg_chart, cac_op_avg_chart, stoxx_op_avg_chart};
+        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_chart, dax_op_avg_q2_chart, cac_op_avg_chart, stoxx_op_avg_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
