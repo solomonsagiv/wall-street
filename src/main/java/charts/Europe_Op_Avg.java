@@ -88,8 +88,29 @@ public class Europe_Op_Avg extends MyChartCreator {
         series[0] = op_avg_15;
         series[1] = op_avg_60;
 
+
         // Chart
         MyChart dax_op_avg_chart = new MyChart(client, series, props);
+
+
+
+        // --------- Dax Op avg ---------- //
+
+        MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15);
+        op_avg_q2_15.setColor(Themes.RED);
+        op_avg_q2_15.setStokeSize(1.2f);
+
+        MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2);
+        op_avg_q2_60.setColor(Themes.GREEN);
+        op_avg_q2_60.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = op_avg_q2_15;
+        series[1] = op_avg_q2_60;
+
+
+        // Chart
+        MyChart dax_op_avg_q2_chart = new MyChart(client, series, props);
 
         // --------- Cac Op avg ---------- //
 
@@ -129,7 +150,7 @@ public class Europe_Op_Avg extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_chart, cac_op_avg_chart, stoxx_op_avg_chart};
+        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_q2_chart, dax_op_avg_chart, cac_op_avg_chart, stoxx_op_avg_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
