@@ -60,7 +60,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void on_change_data() {
 
-
         // Baskets
         int basket = client.getBasketFinder_by_stocks().getBaskets();
 
@@ -190,7 +189,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_900, 9407);
         serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_3600, 9406);
 
-
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 9600);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_15, 9605);
 
         // DF 9 and relative
         serie_ids.put(TimeSeriesHandler.DF_8, 9498);
@@ -206,7 +206,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_14400, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_14400, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_15, client));
+
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_3600, client));

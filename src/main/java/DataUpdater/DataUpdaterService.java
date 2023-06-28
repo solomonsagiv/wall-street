@@ -48,7 +48,9 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_14400));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600));
-            
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15));
+
             // STOXX AND CAC
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_DF_8_CDF));
@@ -60,7 +62,7 @@ public class DataUpdaterService extends MyBaseService {
             System.out.println();
         }
     }
-    
+
     @Override
     public void go() {
         // Update timeseries
