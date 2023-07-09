@@ -3,6 +3,7 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import exp.Exp;
+import exp.ExpStrings;
 import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
@@ -117,6 +118,34 @@ public class FuturesChartLong_400 extends MyChartCreator {
         ask.setColor(Themes.RED);
         ask.setStokeSize(1.75f);
 
+
+        // Ask
+        MyTimeSeries index_plus_avg = new MyTimeSeries("Index + avg 3600", client) {
+
+            @Override
+            public double getValue() {
+                double avg = client.getExps().getExp(ExpStrings.q1).getOp_avg_60();
+                return client.getIndex() + avg;
+            }
+
+            @Override
+            public void updateData() {
+
+            }
+
+            @Override
+            public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
+
+            }
+        };
+        index_plus_avg.setColor(Themes.GREY_2);
+        index_plus_avg.setStokeSize(1.25f);
+        
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
         greens.add(Themes.GREEN);
@@ -166,6 +195,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
         myTimeSeries.add(index);
         myTimeSeries.add(bid);
         myTimeSeries.add(ask);
+        myTimeSeries.add(index_plus_avg);
 
         // Series
         MyTimeSeries[] series = toArray();
