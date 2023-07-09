@@ -12,6 +12,7 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     static Spx spx;
     static Ndx ndx;
     static Dax dax;
-    
+
     static {
         spx = Spx.getInstance();
         ndx = Ndx.getInstance();
@@ -48,7 +49,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         LocalHandler.clients.add(ndx);
         LocalHandler.clients.add(dax);
     }
-    
+
     @Override
     public void onClose() {
         super.onClose();
@@ -103,9 +104,12 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         if (Manifest.DB) {
             ConnectionPool.getConnectionsPoolInstance();
         }
-        // Start back runners
-        for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-            new Thread(() -> {
+
+        new Thread(() -> {
+
+            // Start back runners
+            for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
+
                 try {
                     // Load data from database
                     if (Manifest.DB) {
@@ -119,16 +123,18 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 }
                 // Start back runner
                 BackGroundHandler.getInstance().createNewRunner(client);
-            }).start();
-        }
-        if (Manifest.DB) {
-            try {
-                // Load stocks
-                Manifest.STOCKS_EXCEL_FILE_LOCATION = MySql.Queries.load_stocks_excel_file_location();
-                System.out.println(Manifest.STOCKS_EXCEL_FILE_LOCATION);
-            } catch (Exception e) {
-                e.printStackTrace();
+
             }
-        }
+
+            if (Manifest.DB) {
+                try {
+                    // Load stocks
+                    Manifest.STOCKS_EXCEL_FILE_LOCATION = MySql.Queries.load_stocks_excel_file_location();
+                    System.out.println(Manifest.STOCKS_EXCEL_FILE_LOCATION);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
