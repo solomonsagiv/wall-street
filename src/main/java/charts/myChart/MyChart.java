@@ -106,9 +106,6 @@ public class MyChart {
         chart.setBackgroundPaint(background);
         plot = chart.getXYPlot();
 
-
-
-
         plot.setBackgroundPaint(background);
         plot.setRangeGridlinesVisible(props.getBool(ChartPropsEnum.IS_RANGE_GRID_VISIBLE));
         plot.setDomainGridlinesVisible(props.getBool(ChartPropsEnum.IS_DOMAIN_GRID_VISIBLE));
@@ -191,6 +188,11 @@ public class MyChart {
         }
     }
 
+    public void close() {
+        getUpdater().close();
+
+    }
+
     // ---------- Chart updater thread ---------- //
     class ChartUpdater extends MyThread implements Runnable {
 
@@ -209,6 +211,14 @@ public class MyChart {
 
         private void initListeners() {
 
+        }
+
+        public void close() {
+            try {
+                getHandler().close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override

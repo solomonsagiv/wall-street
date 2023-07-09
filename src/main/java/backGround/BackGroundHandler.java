@@ -3,6 +3,7 @@ package backGround;
 import api.Manifest;
 import arik.Arik;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 
@@ -63,6 +64,8 @@ public class BackGroundHandler {
 
             while (isRun()) {
                 try {
+
+                    System.out.println("Number of threads " + Thread.activeCount());
 
                     // Sleep
                     Thread.sleep(2000);

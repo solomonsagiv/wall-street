@@ -91,7 +91,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private StocksHandler stocksHandler;
 
     // MyService
-    private MyServiceHandler myServiceHandler = new MyServiceHandler(this);
+    public MyServiceHandler myServiceHandler = new MyServiceHandler(this);
     private double indexBid = 0;
     private double indexAsk = 0;
     private double open = 0;

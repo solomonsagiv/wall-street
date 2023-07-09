@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 public class MyServiceHandler extends MyThread implements Runnable {
 
-    final int sleep = 100;
+    final int sleep = 200;
     int sleepCount = 0;
     // Variables
     private List<MyBaseService> servies = new ArrayList<>();
@@ -38,6 +38,8 @@ public class MyServiceHandler extends MyThread implements Runnable {
                 executServices();
 
                 initSleepCount();
+
+
 
             } catch (InterruptedException e) {
                 executor.shutdownNow();

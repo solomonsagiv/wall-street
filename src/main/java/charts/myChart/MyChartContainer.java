@@ -66,9 +66,15 @@ public class MyChartContainer extends MyGuiComps.MyFrame {
         // Load each serie
         for (MyChart chart : charts) {
             for (MyTimeSeries serie : chart.getSeries()) {
-                new Thread(() -> {
-                    serie.load_data();
-                }).start();
+//                new Thread(() -> {
+//                    try {
+//                        Thread.sleep(1000);
+                        serie.load_data();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }).start();
             }
         }
 
@@ -196,7 +202,8 @@ public class MyChartContainer extends MyGuiComps.MyFrame {
         insetOrUpdateBounds();
 
         for (MyChart myChart : charts) {
-            myChart.getUpdater().getHandler().close();
+//            myChart.getUpdater().getHandler().close();
+            myChart.close();
         }
         dispose();
     }

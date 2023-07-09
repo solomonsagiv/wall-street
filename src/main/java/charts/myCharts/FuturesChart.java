@@ -124,7 +124,7 @@ public class FuturesChart extends MyChartCreator {
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
         greens.add(Themes.GREEN);
-        greens.add(Themes.BLUE);
+        greens.add(Color.BLACK);
         greens.add(Themes.GREEN_LIGHT_2);
         greens.add(Themes.GREEN_LIGHT_2);
         greens.add(Themes.GREEN_LIGHT_2);
