@@ -143,7 +143,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
 
             }
         };
-        index_plus_avg.setColor(Themes.GREY_2);
+        index_plus_avg.setColor(Themes.GREY_3);
         index_plus_avg.setStokeSize(1.25f);
         
         // Futures
