@@ -91,6 +91,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
         };
         bid.setColor(Themes.BLUE);
         bid.setStokeSize(1.75f);
+        bid.setVisible(false);
 
         // Ask
         MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
@@ -117,6 +118,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
         };
         ask.setColor(Themes.RED);
         ask.setStokeSize(1.75f);
+        ask.setVisible(false);
 
 
         // Ask
