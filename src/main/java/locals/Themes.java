@@ -41,6 +41,8 @@ public class Themes {
     public static Color RED = new Color(229, 19, 0);
     public static Color RED_2 = new Color(151, 21, 5);
     public static Color PINK_LIGHT = new Color(255, 124, 176);
+    public static Color LIGHT_RED = new Color(230, 80, 95);
+
 
 //	public static Color GREEN = new Color( 0 , 128 , 0 );
 
