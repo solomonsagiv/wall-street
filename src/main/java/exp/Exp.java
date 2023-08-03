@@ -16,7 +16,7 @@ public abstract class Exp {
     private double days_to_exp = -1;
     private double cof = 0;
 
-    private double op_avg_15_continue = 0;
+    private double op_avg_15 = 0;
     private double op_avg_60_continue = 0;
     private double op_avg_240_continue = 0;
 
@@ -128,12 +128,12 @@ public abstract class Exp {
         return expName;
     }
 
-    public double getOp_avg_15_continue() {
-        return op_avg_15_continue;
+    public double getOp_avg_15() {
+        return op_avg_15;
     }
 
-    public void setOp_avg_15_continue(double op_avg_15_continue) {
-        this.op_avg_15_continue = op_avg_15_continue;
+    public void setOp_avg_15(double op_avg_15) {
+        this.op_avg_15 = op_avg_15;
     }
 
     public double getOp_avg_60_continue() {

@@ -968,7 +968,7 @@ public class TimeSeriesFactory {
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q1);
-                        exp.setOp_avg_60(val);
+                        exp.setOp_avg_15(val);
                     }
 
                     @Override
