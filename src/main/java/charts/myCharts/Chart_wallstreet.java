@@ -89,14 +89,9 @@ public class Chart_wallstreet extends MyChartCreator {
         ndx_relative_change.setColor(Themes.GREEN);
         ndx_relative_change.setStokeSize(1.2f);
 
-        MyTimeSeries dow_relative_change = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DOW_RELATIVE);
-        dow_relative_change.setColor(Themes.LIFGT_BLUE_2);
-        dow_relative_change.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[3];
+        series = new MyTimeSeries[2];
         series[0] = spx_relative_change;
         series[1] = ndx_relative_change;
-        series[2] = dow_relative_change;
 
         // Chart
         MyChart relative_chart = new MyChart(client, series, props);
