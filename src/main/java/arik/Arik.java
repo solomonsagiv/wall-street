@@ -40,7 +40,7 @@ public class Arik {
     }
 
     public static void main(String[] args) {
-        Manifest.POOL_SIZE = 5;
+        Manifest.POOL_SIZE = 1;
         Arik.getInstance().start();
 
     }
@@ -71,7 +71,7 @@ public class Arik {
 
                 // Position alerts
                 position_alerts();
-                
+
                 System.out.println("Running");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -122,7 +122,7 @@ public class Arik {
                 if (name.toLowerCase().equals("sagiv") ||
                         name.toLowerCase().equals("yogi") ||
                         name.toLowerCase().equals("moti") ||
-                        name.toLowerCase().equals("guru")) {
+                        name.toLowerCase().equals("guru") || name.toLowerCase().equals("ori")) {
                     slo.add(id);
                 }
             } catch (SQLException throwables) {
@@ -210,7 +210,7 @@ public class Arik {
             updateId += 1;
         }
     }
-    
+
     // ----------- Getters and Setters ---------- //
     public int getUpdateId() {
         return updateId;

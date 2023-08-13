@@ -10,7 +10,7 @@ public class ArikWindow extends MyGuiComps.MyFrame {
 
     public static void main(String[] args) throws SQLException {
         new ArikWindow("Arik window");
-         ConnectionPool.getConnectionsPoolInstance(5);
+         ConnectionPool.getConnectionsPoolInstance(1);
     }
     
     ArikMainPanel arikMainPanel;
