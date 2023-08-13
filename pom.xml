@@ -206,13 +206,6 @@
             <version>11.0.1</version>
         </dependency>
 
-        <!-- Telegram bot -->
-        <dependency>
-            <groupId>com.github.pengrad</groupId>
-            <artifactId>java-telegram-bot-api</artifactId>
-            <version>3.6.0</version>
-        </dependency>
-
         <dependency>
             <groupId>com.vdurmont</groupId>
             <artifactId>emoji-java</artifactId>
@@ -283,6 +276,19 @@
             <artifactId>cxf-codegen-plugin</artifactId>
             <version>3.3.6</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.pengrad</groupId>-->
+<!--            <artifactId>java-telegram-bot-api</artifactId>-->
+<!--            <version>3.6.0</version>-->
+<!--        </dependency>-->
+
+        <!-- Telegram bot -->
+        <dependency>
+            <groupId>com.github.pengrad</groupId>
+            <artifactId>java-telegram-bot-api</artifactId>
+            <version>6.7.0</version>
+        </dependency>
+
 
     </dependencies>
     <properties>

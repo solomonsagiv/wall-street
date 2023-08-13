@@ -5,6 +5,8 @@ import arik.ArikCase;
 import arik.locals.KeyBoards;
 import com.pengrad.telegrambot.model.Update;
 
+import java.math.BigInteger;
+
 public class Positions_Case extends ArikCase {
 
     public Positions_Case(String name) {
@@ -14,7 +16,7 @@ public class Positions_Case extends ArikCase {
 
     @Override
     public boolean doCase(Update update) {
-        for (int id : Arik.slo) {
+        for (long id : Arik.slo) {
             if (update.message().from().id() == id) {
                 Arik.getInstance().sendMessage(update, "Choose position", getKeyboard());
                 break;

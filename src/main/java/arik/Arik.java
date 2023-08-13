@@ -8,13 +8,13 @@ import arik.dataHandler.DataHandler;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.TelegramBotAdapter;
+//import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
-
 import javax.swing.*;
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,13 +30,14 @@ public class Arik {
     private TelegramBot bot;
     private DataHandler dataHandler;
 
-    private int updateId = 0;
+    private long updateId = 0;
 
-    public static ArrayList<Integer> accounts = new ArrayList<>();
-    public static ArrayList<Integer> slo = new ArrayList<>();
+    public static ArrayList<Long> accounts = new ArrayList<>();
+    public static ArrayList<Long> slo = new ArrayList<>();
 
     private Arik() {
-        bot = TelegramBotAdapter.build("400524449:AAE1nFANVNd6Vlj44DKhQLD0fdtlE7MZFj0");
+
+        bot = new TelegramBot("400524449:AAE1nFANVNd6Vlj44DKhQLD0fdtlE7MZFj0");
     }
 
     public static void main(String[] args) {
@@ -113,7 +114,7 @@ public class Arik {
         while (true) {
             try {
                 if (!rs.next()) break;
-                int id = rs.getInt("id");
+                long id = rs.getLong("id");
                 String name = rs.getString("name");
 
                 accounts.add(id);
@@ -175,7 +176,7 @@ public class Arik {
     // Send message
     public void sendMessageToSlo(String text) {
         try {
-            for (int person : slo) {
+            for (long person : slo) {
                 sendMessage(person, text, null);
             }
         } catch (Exception e) {
@@ -187,11 +188,11 @@ public class Arik {
     public void sendMessageToEveryOne(String text) {
         try {
             if (EVERYONE) {
-                for (int account : accounts) {
+                for (long account : accounts) {
                     sendMessage(account, text, null);
                 }
             } else {
-                for (int account : slo) {
+                for (long account : slo) {
                     sendMessage(account, text, null);
                 }
             }
@@ -201,7 +202,7 @@ public class Arik {
     }
 
     // Send message
-    public void sendMessage(int id, String text, Keyboard keyBoard) {
+    public void sendMessage(long id, String text, Keyboard keyBoard) {
         if (keyBoard != null) {
             getBot().execute(new SendMessage(id, text).replyMarkup(keyBoard));
             updateId += 1;
@@ -212,7 +213,7 @@ public class Arik {
     }
 
     // ----------- Getters and Setters ---------- //
-    public int getUpdateId() {
+    public long getUpdateId() {
         return updateId;
     }
 

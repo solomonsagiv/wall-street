@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/java-telegram-bot-api-master.zip!/java-telegram-bot-api-master/library/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/java-telegram-bot-api-master.zip!/java-telegram-bot-api-master/library/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/java-telegram-bot-api-master.zip!/java-telegram-bot-api-master/sample/src/main/java" />
+    </SOURCES>
+  </library>
+</component>

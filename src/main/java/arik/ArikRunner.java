@@ -7,6 +7,7 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -19,7 +20,7 @@ public class ArikRunner extends Thread {
     Arik arik;
     CasesHandler casesHandler;
     long date = 0;
-    
+
     // Constructor
     public ArikRunner(Arik arik) {
         this.arik = arik;
@@ -68,8 +69,15 @@ public class ArikRunner extends Thread {
 
     // Get upadtes
     private void getUpdates(int alert_count) {
-        GetUpdatesResponse updatesResponse = arik.getBot()
-                .execute(new GetUpdates().limit(1000).offset(arik.getUpdateId()).timeout(5));
+
+        GetUpdatesResponse updatesResponse = null;
+            updatesResponse = arik.getBot()
+                    .execute(new GetUpdates().limit(1000).offset(Math.toIntExact(arik.getUpdateId())).timeout(5));
+
+//        GetUpdatesResponse updatesResponse = null;
+//            updatesResponse = arik.getBot()
+//                    .execute(new GetUpdates());
+
         List<Update> updates = updatesResponse.updates();
         if (updates.size() > 0) {
             for (Update update : updates) {
@@ -134,8 +142,8 @@ public class ArikRunner extends Thread {
     }
 
     // Is allowed
-    public boolean is_allowed(ArrayList<Integer> allowed, int id) {
-        for (int i : allowed) {
+    public boolean is_allowed(ArrayList<Long> allowed, long id) {
+        for (long i : allowed) {
             if (id == i) {
                 return true;
             }
