@@ -8,6 +8,7 @@ import api.Manifest;
 import baskets.BasketFinder_by_stocks;
 import charts.myCharts.Chart_9;
 import charts.myCharts.FuturesChart;
+import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import serverObjects.ApiEnum;
@@ -84,7 +85,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
 
-                FuturesChart chart = new FuturesChart(this);
+                FuturesChartLong_400 chart = new FuturesChartLong_400(this);
                 chart.createChart();
 
                 Chart_9 chart_4 = new Chart_9(this);

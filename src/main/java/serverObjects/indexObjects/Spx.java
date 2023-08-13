@@ -8,6 +8,7 @@ import api.Manifest;
 import charts.myCharts.Chart_9;
 import charts.myCharts.Chart_wallstreet;
 import charts.myCharts.FuturesChart;
+import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
 import serverObjects.ApiEnum;
@@ -82,7 +83,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
 
-                FuturesChart chart = new FuturesChart(this);
+                FuturesChartLong_400 chart = new FuturesChartLong_400(this);
                 chart.createChart();
 
                 Chart_wallstreet Chart_wallstreet = new Chart_wallstreet(this);
