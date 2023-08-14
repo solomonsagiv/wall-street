@@ -56,8 +56,6 @@ public class DataUpdaterService extends MyBaseService {
             // STOXX AND CAC
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_DF_8_CDF));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.CAC_OP_AVG_3600));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.STOXX_OP_AVG_3600));
 
             System.out.println();
         }
