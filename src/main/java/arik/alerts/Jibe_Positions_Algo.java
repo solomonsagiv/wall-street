@@ -2,19 +2,19 @@ package arik.alerts;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
     public static Transaction transaction;
-    final int session_id = 10017;
+    int session_id;
 
     // Constructor
 
-    public Jibe_Positions_Algo(double target_price_for_position) {
+    public Jibe_Positions_Algo(double target_price_for_position, int session_id) {
         super(target_price_for_position);
+        this.session_id = session_id;
     }
 
     @Override
@@ -80,23 +80,5 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
         String text = "SPX Exit %s\n" +
                 "%s";
         Arik.getInstance().sendMessageToSlo(String.format(text, position_type, index_at_close));
-    }
-}
-
-class Transaction {
-
-    Date created_at;
-    String transaction_type;
-    String close_reason;
-    double index_at_creation, index_at_close;
-
-    @Override
-    public String toString() {
-        return "Transaction " + "\n\n" +
-                "  created_at:        " + created_at + "\n" +
-                "  transaction_type:  " + transaction_type + '\'' + "\n" +
-                "  close_reason:      " + close_reason + '\'' + "\n" +
-                "  index_at_creation: " + index_at_creation + "\n" +
-                "  index_at_close:    " + index_at_close + "\n";
     }
 }

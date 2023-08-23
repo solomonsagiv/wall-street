@@ -8,16 +8,16 @@ import arik.dataHandler.DataHandler;
 import arik.grabdata.ArikGrabData;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
-//import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
 import javax.swing.*;
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+//import com.pengrad.telegrambot.TelegramBotAdapter;
 
 public class Arik {
 
@@ -99,7 +99,8 @@ public class Arik {
     private ArrayList<ArikAlgoAlert> getArikAlgoAlerts() {
         // Positions alert
         ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
-        algo_list.add(new Jibe_Positions_Algo(10000000));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10024));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10025));
         return algo_list;
     }
 
