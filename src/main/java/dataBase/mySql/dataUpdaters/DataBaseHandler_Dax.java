@@ -74,13 +74,10 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         if (fut_week != fut_week_0) {
 
-            if (Math.abs(fut_week - fut_week_0) < 20) {
+            if (Math.abs(fut_week - fut_week_0) < 15) {
                 fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
             }
-
             fut_week_0 = fut_week;
-
-
         }
 
         // Is live db

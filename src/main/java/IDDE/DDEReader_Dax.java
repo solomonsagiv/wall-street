@@ -51,6 +51,9 @@ public class DDEReader_Dax extends IDDEReader {
 
     String cofCell = "R40C9";
 
+
+    double fut_week_0 = 0;
+
     // Constructor
     public DDEReader_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -113,7 +116,15 @@ public class DDEReader_Dax extends IDDEReader {
         client.setBase(requestDouble(baseCell, conversation));
 
         // Exps
-        week.set_future(requestDouble(futWeekCell, conversation));
+
+        double fut_week = requestDouble(futWeekCell, conversation);
+        if (fut_week != fut_week_0) {
+            if (Math.abs(fut_week - fut_week_0) < 15) {
+                week.set_future(fut_week);
+            }
+            fut_week_0 = fut_week;
+        }
+
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
 
