@@ -110,7 +110,6 @@ public class Europe_Op_Avg extends MyChartCreator {
         // Chart
         MyChart dax_op_avg_chart = new MyChart(client, series, props);
 
-
         // --------- Dax Op avg ---------- //
 
         MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15);
@@ -128,7 +127,6 @@ public class Europe_Op_Avg extends MyChartCreator {
 
         // Chart
         MyChart dax_op_avg_q2_chart = new MyChart(client, series, props);
-
 
         // -------------------- Chart -------------------- //
 

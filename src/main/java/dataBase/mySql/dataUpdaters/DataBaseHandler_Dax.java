@@ -34,7 +34,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         initTablesNames();
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
-        week = (E) exps.getExp(ExpStrings.week);
+        week = (E) exps.getExp(ExpStrings.day);
     }
 
     int sleep_count = 100;

@@ -122,7 +122,7 @@ public class DDEReader_Dax extends IDDEReader {
     }
 
     private void init_exps() {
-        week = client.getExps().getExp(ExpStrings.week);
+        week = client.getExps().getExp(ExpStrings.day);
         q1 = (E) client.getExps().getExp(ExpStrings.q1);
         q2 = (E) client.getExps().getExp(ExpStrings.q2);
         init_exp = true;
