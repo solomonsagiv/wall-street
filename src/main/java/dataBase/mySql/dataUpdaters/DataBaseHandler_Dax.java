@@ -19,15 +19,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
-//    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
-    
+    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
+
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
     double index_ask_synthetic_0 = 0;
     double index_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-//    double fut_week_0 = 0;
+    double fut_week_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -70,15 +70,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
 
 //        // Fut week
-//        double fut_week = week.get_future();
-//
-//        if (fut_week != fut_week_0) {
-//            fut_week_0 = fut_week;
-//
-////                if (Math.abs(fut_week - fut_week_0) > 50) {
-//            fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-////                }
-//        }
+        double fut_week = week.get_future();
+
+        if (fut_week != fut_week_0) {
+            fut_week_0 = fut_week;
+
+            if (Math.abs(fut_week - fut_week_0) < 20) {
+                fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+            }
+        }
 
         // Is live db
         if (client.isLive_db()) {
@@ -172,6 +172,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9612);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_14400, 9508);
 
+        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 9615);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 9616);
+
 //        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 5632);
 //        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
         serie_ids.put(TimeSeriesHandler.BASKETS, 9520);
@@ -208,6 +211,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_15, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
