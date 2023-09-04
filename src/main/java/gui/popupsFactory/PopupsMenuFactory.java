@@ -1,6 +1,6 @@
 package gui.popupsFactory;
 
-import charts.Europe_Op_Avg;
+import charts.myCharts.Europe_Op_Avg;
 import charts.myCharts.*;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;

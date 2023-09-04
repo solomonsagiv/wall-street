@@ -1,4 +1,4 @@
-package charts;
+package charts.myCharts;
 
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
@@ -55,7 +55,6 @@ public class Europe_Op_Avg extends MyChartCreator {
         MyChart indexChart = new MyChart(client, series, props);
 
 
-
         // ------------------ Roll ------------------- //
         MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
         roll_900.setColor(Themes.PURPLE);
@@ -74,6 +73,25 @@ public class Europe_Op_Avg extends MyChartCreator {
 
         // ------------------ Op avg ------------------- //
 
+
+        // --------- Dax Op avg ---------- //
+
+        MyTimeSeries op_avg_day_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
+        op_avg_day_15.setColor(Themes.RED);
+        op_avg_day_15.setStokeSize(1.2f);
+
+        MyTimeSeries op_avg_day_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
+        op_avg_day_60.setColor(Themes.BLUE);
+        op_avg_day_60.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = op_avg_day_15;
+        series[1] = op_avg_day_60;
+
+        // Chart
+        MyChart dax_op_avg_day_chart = new MyChart(client, series, props);
+
+
         // --------- Dax Op avg ---------- //
 
         MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
@@ -81,7 +99,7 @@ public class Europe_Op_Avg extends MyChartCreator {
         op_avg_15.setStokeSize(1.2f);
 
         MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);
-        op_avg_60.setColor(Themes.BLUE);
+        op_avg_60.setColor(Themes.BINANCE_GREEN);
         op_avg_60.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
@@ -115,7 +133,7 @@ public class Europe_Op_Avg extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_chart, dax_op_avg_q2_chart};
+        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_day_chart, dax_op_avg_chart, dax_op_avg_q2_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
