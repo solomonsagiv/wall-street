@@ -101,7 +101,7 @@ public class DDEReader_Dax extends IDDEReader {
         if (!init_exp) {
             init_exps();
         }
-
+        
         double index = requestDouble(indCell, conversation);
 
         // Index
