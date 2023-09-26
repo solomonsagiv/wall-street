@@ -12,6 +12,7 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.Keyboard;
 import com.pengrad.telegrambot.request.SendMessage;
 import dataBase.mySql.MySql;
+
 import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 //import com.pengrad.telegrambot.TelegramBotAdapter;
 
 public class Arik {
+
+    public static boolean allow_trading = false;
 
     public static final boolean EVERYONE = false;
 
@@ -120,16 +123,15 @@ public class Arik {
             try {
                 if (!rs.next()) break;
                 long id = rs.getLong("id");
-                String name = rs.getString("name");
+                boolean notification = rs.getBoolean("notification");
 
-                accounts.add(id);
+                if (id > 100) {
+                    accounts.add(id);
 
 //                 Slo accounts
-                if (name.toLowerCase().equals("sagiv") ||
-                        name.toLowerCase().equals("yogi") ||
-                        name.toLowerCase().equals("moti") ||
-                        name.toLowerCase().equals("guru") || name.toLowerCase().equals("ori")) {
-                    slo.add(id);
+                    if (notification) {
+                        slo.add(id);
+                    }
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

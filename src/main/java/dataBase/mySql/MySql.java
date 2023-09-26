@@ -431,6 +431,12 @@ public class MySql {
             return MySql.select(query);
         }
 
+
+        public static ResultSet get_accounts_data() {
+            String query = "select * from sagiv.arik_accounts;";
+            return MySql.select(query);
+        }
+
         public static ResultSet op_avg_mega_table(int index_id, int fut_id) {
             String q = "select avg(f.value - i.value) as value\n" +
                     "from (\n" +

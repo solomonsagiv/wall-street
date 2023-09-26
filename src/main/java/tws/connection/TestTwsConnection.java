@@ -1,31 +1,32 @@
-package tws;
+package tws.connection;
 
 import com.ib.client.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CountDownLatch;
 
-public class TWSConnection {
+public class TestTwsConnection {
     private static final int CLIENT_ID = 0; // Unique client ID
-    private static final int ORDER_ID = 1; // Unique order ID
+    private static final int ORDER_ID = 51; // Unique order ID
 
     public static void main(String[] args) {
         // Initialize the EClientSocket
         EJavaSignal signal = new EJavaSignal();
-        EClientSocket client = new EClientSocket(new EWrapperImpl(), signal);
+        EClientSocket client = new EClientSocket(new EWrapperImplTest(), signal);
 
         // Connect to IB TWS or IB Gateway
-        client.eConnect("127.0.0.1", 7497, CLIENT_ID);
+        client.eConnect("localhost", 7777, CLIENT_ID);
 
         // Create the SPX future contract
         Contract contract = new Contract();
-        contract.symbol("SPX");
+        contract.symbol("NQZ3");
         contract.secType("FUT");
         contract.currency("USD");
-        contract.exchange("GLOBEX");
-        contract.lastTradeDateOrContractMonth("202312"); // YYYYMM
+        contract.exchange("CME");
+        contract.multiplier("20");
+        contract.tradingClass("NQ");
+        contract.lastTradeDateOrContractMonth("202312");
 
         // Create the order - Let's say it's a market order to buy 1 contract
         Order order = new Order();
@@ -39,16 +40,18 @@ public class TWSConnection {
 
         // Ideally, you'd handle disconnections and other events too
         // Here's a simple latch just to keep the main thread alive
-        CountDownLatch latch = new CountDownLatch(1);
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        CountDownLatch latch = new CountDownLatch(1);
+//        try {
+//            latch.await();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        System.out.println("Done");
     }
 }
 
-class EWrapperImpl implements EWrapper {
+class EWrapperImplTest implements EWrapper {
 
     @Override
     public void tickPrice(int tickerId, int field, double price, TickAttr attrib) {
@@ -82,7 +85,7 @@ class EWrapperImpl implements EWrapper {
 
     @Override
     public void orderStatus(int orderId, String status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, String whyHeld) {
-
+        System.out.println("orderId = " + orderId + ", status = " + status + ", filled = " + filled + ", remaining = " + remaining + ", avgFillPrice = " + avgFillPrice + ", permId = " + permId + ", parentId = " + parentId + ", lastFillPrice = " + lastFillPrice + ", clientId = " + clientId + ", whyHeld = " + whyHeld);
     }
 
     @Override
@@ -121,7 +124,9 @@ class EWrapperImpl implements EWrapper {
 
     @Override
     public void nextValidId(int orderId) {
-
+        System.out.println("----------------------------");
+        System.out.println("Next valide id= " + orderId);
+        System.out.println("----------------------------");
     }
 
     @Override

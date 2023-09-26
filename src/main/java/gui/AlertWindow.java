@@ -28,12 +28,35 @@ public class AlertWindow {
         textArea.setText(stackTrace);
     }
 
+    public AlertWindow(String message) {
+        this();
+        textArea.setText(message);
+    }
+
+    public AlertWindow(String title, String message) {
+        this();
+        messageLbl.setText(title);
+        textArea.setText(message);
+    }
+
     public static void Show(String message, String cause, String stackTrace) {
         AlertWindow alertWindow = new AlertWindow(message, cause, stackTrace);
         alertWindow.frame.setVisible(true);
         showOnScreen(Manifest.SCREEN, alertWindow.frame);
     }
 
+    public static void Show(String text) {
+        AlertWindow alertWindow = new AlertWindow(text);
+        alertWindow.frame.setVisible(true);
+        showOnScreen(Manifest.SCREEN, alertWindow.frame);
+    }
+
+
+    public static void Show(String title, String text) {
+        AlertWindow alertWindow = new AlertWindow(title, text);
+        alertWindow.frame.setVisible(true);
+        showOnScreen(Manifest.SCREEN, alertWindow.frame);
+    }
     public static void Show(String message, Throwable cause, StackTraceElement[] stackTrace) {
         AlertWindow alertWindow = new AlertWindow(message, cause.toString(), stackTrace.toString());
         alertWindow.frame.setVisible(true);
@@ -77,12 +100,12 @@ public class AlertWindow {
         frame = new JFrame();
         frame.setBounds(100, 100, 427, 491);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().setBackground(Themes.BINANCE_GREY);
+        frame.getContentPane().setBackground(Color.WHITE);
         frame.getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 411, 452);
-        panel.setBackground(Themes.BINANCE_GREY);
+        panel.setBackground(Color.WHITE);
         panel.setLayout(null);
         frame.getContentPane().add(panel);
 
@@ -109,8 +132,8 @@ public class AlertWindow {
         textArea = new JTextArea();
         scrollPane.setViewportView(textArea);
         textArea.setFont(new Font("Dubai Medium", Font.PLAIN, 14));
-        textArea.setForeground(Color.WHITE);
-        textArea.setBackground(Themes.BINANCE_GREY);
+        textArea.setForeground(Color.BLACK);
+        textArea.setBackground(Color.WHITE);
 
         JSeparator separator = new JSeparator();
         separator.setForeground(Color.BLACK);

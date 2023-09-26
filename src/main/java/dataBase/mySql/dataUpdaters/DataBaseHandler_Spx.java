@@ -124,7 +124,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     @Override
     public void initTablesNames() {
-
+        
         serie_ids.put(TimeSeriesHandler.INDEX, 9470);
         serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);

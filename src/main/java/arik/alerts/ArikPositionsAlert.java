@@ -21,7 +21,7 @@ public class ArikPositionsAlert extends MyThread implements Runnable {
                 System.out.println(getName());
                 
                 // Sleep
-                Thread.sleep(15000);
+                Thread.sleep(10000);
 
                 // Logic
                 logic();

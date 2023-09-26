@@ -37,6 +37,7 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
         }
         
         // Dax

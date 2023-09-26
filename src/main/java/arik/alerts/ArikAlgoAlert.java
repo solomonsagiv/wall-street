@@ -17,4 +17,6 @@ public abstract class ArikAlgoAlert {
     }
 
     public abstract void go();
+
+
 }

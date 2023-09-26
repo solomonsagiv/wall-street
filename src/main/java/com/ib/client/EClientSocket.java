@@ -1,5 +1,7 @@
 package com.ib.client;
 
+import gui.AlertWindow;
+
 import java.io.DataInputStream;
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -96,6 +98,7 @@ public class EClientSocket extends EClient implements EClientMsgSink {
         } catch (Exception e) {
             eDisconnect();
             connectionError();
+            AlertWindow.Show("Couldn't connect to TWS \nClient ID= " + clientId + "\nport= " + port + "\n" + e.getMessage());
         }
     }
 

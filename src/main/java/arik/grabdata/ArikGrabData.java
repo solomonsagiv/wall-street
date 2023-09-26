@@ -7,6 +7,7 @@ import arik.window.ArikMainPanel;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
+import tws.accounts.ConnectionsAndAccountHandler;
 
 public class ArikGrabData extends MyThread implements Runnable {
 
@@ -51,6 +52,11 @@ public class ArikGrabData extends MyThread implements Runnable {
             if (ArikMainPanel.textArea != null) {
                 ArikMainPanel.textArea.setText(Jibe_Positions_Algo.positions_text());
             }
+
+            if (ArikMainPanel.connectionTextArea != null) {
+                ArikMainPanel.connectionTextArea.setText(ConnectionsAndAccountHandler.get_account_names());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

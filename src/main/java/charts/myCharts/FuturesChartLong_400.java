@@ -147,6 +147,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
         };
         index_plus_avg.setColor(Themes.BLUE);
         index_plus_avg.setStokeSize(1.4f);
+        index_plus_avg.setVisible(false);
 
 
         // Ask
@@ -175,15 +176,16 @@ public class FuturesChartLong_400 extends MyChartCreator {
         };
         index_plus_avg_900.setColor(Themes.LIGHT_RED);
         index_plus_avg_900.setStokeSize(1.4f);
+        index_plus_avg_900.setVisible(false);
 
-        
+
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
         greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
+        greens.add(Themes.GREEN_LIGHT_4);
+        greens.add(Themes.GREEN_LIGHT_4);
+        greens.add(Themes.GREEN_LIGHT_4);
+        greens.add(Themes.GREEN_LIGHT_4);
 
         int i = 0;
 
@@ -216,7 +218,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (exp.getName().equals(ExpStrings.q1)) {
+            if (exp.getName().equals(ExpStrings.day)) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);

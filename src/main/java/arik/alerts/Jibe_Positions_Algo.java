@@ -2,6 +2,7 @@ package arik.alerts;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
+import tws.accounts.ConnectionsAndAccountHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -32,6 +33,7 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
             if ((transaction.close_reason == null || transaction.close_reason == "") && transaction.created_at != null) {
                 POSITION = true;
                 send_enter_transaction_alert(transaction.transaction_type, transaction.index_at_creation);
+                send_order();
             }
         }
 
@@ -40,9 +42,9 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
             if (transaction.close_reason != null && transaction.close_reason != "") {
                 POSITION = false;
                 send_close_transaction_alert(transaction.transaction_type, transaction.index_at_close);
+                send_order();
             }
         }
-
     }
 
     private Transaction read_transaction(ResultSet rs) {
@@ -63,7 +65,6 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
         }
         return transaction;
-
     }
 
     public static String positions_text() {
@@ -81,4 +82,12 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
                 "%s";
         Arik.getInstance().sendMessageToSlo(String.format(text, position_type, index_at_close));
     }
+
+    private void send_order() {
+        if (Arik.allow_trading) {
+            ConnectionsAndAccountHandler.send_order_all_accounts();
+        }
+    }
 }
+
+
