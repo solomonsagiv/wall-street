@@ -140,6 +140,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem futures_real_time_700 = new JMenuItem("Futures 700");
+        futures_real_time_700.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FuturesChartLong_400 chart = new FuturesChartLong_400(client);
+                chart.createChart();
+            }
+        });
+
 
         JMenuItem futures = new JMenuItem("Futures");
         futures.addActionListener(new ActionListener() {

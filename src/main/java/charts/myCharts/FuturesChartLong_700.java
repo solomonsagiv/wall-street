@@ -11,10 +11,10 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class FuturesChartLong_400 extends MyChartCreator {
+public class FuturesChartLong_700 extends MyChartCreator {
 
     // Constructor
-    public FuturesChartLong_400(BASE_CLIENT_OBJECT client ) {
+    public FuturesChartLong_700(BASE_CLIENT_OBJECT client ) {
         super(client, null, null);
     }
 
@@ -29,7 +29,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
 
         // Props
         props = new MyProps();
-        props.setProp(ChartPropsEnum.SECONDS, 400);
+        props.setProp(ChartPropsEnum.SECONDS, 700);
         props.setProp(ChartPropsEnum.IS_INCLUDE_TICKER, -1);
         props.setProp(ChartPropsEnum.MARGIN, 0.003);
         props.setProp(ChartPropsEnum.IS_RANGE_GRID_VISIBLE, -1);
@@ -65,36 +65,6 @@ public class FuturesChartLong_400 extends MyChartCreator {
         };
         index.setColor(Color.BLACK);
         index.setStokeSize(1.75f);
-
-
-        // Future calc
-        MyTimeSeries future_calc = new MyTimeSeries("Future calc", client) {
-
-            @Override
-            public double getValue() {
-                double future_week  = client.getExps().getExp(ExpStrings.day).get_future();
-                double future_q1  = client.getExps().getExp(ExpStrings.q1).get_future();
-                return (future_week - (future_q1 - 3)) + client.getIndex();
-            }
-
-            @Override
-            public void updateData() {
-
-            }
-
-            @Override
-            public void load() {}
-
-            @Override
-            public void load_exp_data() {
-
-            }
-        };
-        future_calc.setColor(Themes.GREEN);
-        future_calc.setStokeSize(1.75f);
-
-
-
 
         // Bid
         MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
@@ -260,7 +230,6 @@ public class FuturesChartLong_400 extends MyChartCreator {
         myTimeSeries.add(ask);
         myTimeSeries.add(index_plus_avg);
         myTimeSeries.add(index_plus_avg_900);
-        myTimeSeries.add(future_calc);
 
         // Series
         MyTimeSeries[] series = toArray();
