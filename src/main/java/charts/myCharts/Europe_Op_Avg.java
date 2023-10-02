@@ -54,11 +54,10 @@ public class Europe_Op_Avg extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-
         // ------------------ Roll ------------------- //
         MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
-        roll_900.setColor(Themes.PURPLE);
-        roll_900.setStokeSize(1.2f);
+        roll_900.setColor(Themes.LIGHT_RED);
+        roll_900.setStokeSize(1.05f);
 
         MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
         roll_3600.setColor(Themes.LIFGT_BLUE_2);
@@ -75,10 +74,9 @@ public class Europe_Op_Avg extends MyChartCreator {
 
 
         // --------- Dax Op avg ---------- //
-
         MyTimeSeries op_avg_day_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
-        op_avg_day_15.setColor(Themes.RED);
-        op_avg_day_15.setStokeSize(1.2f);
+        op_avg_day_15.setColor(Themes.LIGHT_RED);
+        op_avg_day_15.setStokeSize(1.1f);
 
         MyTimeSeries op_avg_day_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
         op_avg_day_60.setColor(Themes.BLUE);
@@ -95,8 +93,8 @@ public class Europe_Op_Avg extends MyChartCreator {
         // --------- Dax Op avg ---------- //
 
         MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
-        op_avg_15.setColor(Themes.RED);
-        op_avg_15.setStokeSize(1.2f);
+        op_avg_15.setColor(Themes.LIGHT_RED);
+        op_avg_15.setStokeSize(1.05f);
 
         MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);
         op_avg_60.setColor(Themes.BINANCE_GREEN);
@@ -113,8 +111,8 @@ public class Europe_Op_Avg extends MyChartCreator {
         // --------- Dax Op avg ---------- //
 
         MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15);
-        op_avg_q2_15.setColor(Themes.RED);
-        op_avg_q2_15.setStokeSize(1.2f);
+        op_avg_q2_15.setColor(Themes.LIGHT_RED);
+        op_avg_q2_15.setStokeSize(1.05f);
 
         MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2);
         op_avg_q2_60.setColor(Themes.GREEN);
