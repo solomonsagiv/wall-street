@@ -60,7 +60,7 @@ public class Chart_10 extends MyChartCreator {
         roll_900.setStokeSize(1.0f);
 
         MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
-        roll_3600.setColor(Themes.LIFGT_BLUE_2);
+        roll_3600.setColor(Themes.PURPLE);
         roll_3600.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
