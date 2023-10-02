@@ -57,7 +57,7 @@ public class Chart_10 extends MyChartCreator {
         // ------------------ Roll ------------------- //
         MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
         roll_900.setColor(Themes.LIGHT_RED);
-        roll_900.setStokeSize(1.05f);
+        roll_900.setStokeSize(1.0f);
 
         MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
         roll_3600.setColor(Themes.LIFGT_BLUE_2);
@@ -74,7 +74,7 @@ public class Chart_10 extends MyChartCreator {
 
         MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
         op_avg_15.setColor(Themes.LIGHT_RED);
-        op_avg_15.setStokeSize(1.05f);
+        op_avg_15.setStokeSize(1.0f);
 
         MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
         op_avg_60.setColor(Themes.BLUE);
