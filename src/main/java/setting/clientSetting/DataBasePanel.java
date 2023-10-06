@@ -1,13 +1,15 @@
 package setting.clientSetting;
 
-import api.Manifest;
 import dataBase.mySql.ConnectionPool;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
+import dataBase.props.Props;
 import gui.MyGuiComps;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,11 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 public class DataBasePanel extends MyGuiComps.MyPanel {
+
+    public static void main(String[] args) {
+        SettingWindow window = new SettingWindow("Test", Spx.getInstance());
+    }
+
 
     // Variables
     BASE_CLIENT_OBJECT client;
@@ -27,6 +34,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
     MyGuiComps.MyButton setStartBoundsBtn;
     MyGuiComps.MyButton loadStartBoundsBtn;
     JComboBox pre_set_combox;
+    MyGuiComps.MyTextField set_start_min_field;
 
     int pre_set = 1;
 
@@ -119,6 +127,14 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             }
         });
 
+        set_start_min_field.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String min = set_start_min_field.getText();
+                client.setChart_start_min(Integer.parseInt(min));
+                MySql.Queries.update_prop(client.getId_name(), Props.CHART_START_MIN, min);
+            }
+        });
     }
 
     private void initialize() {
@@ -188,6 +204,17 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
         loadStartBoundsBtn.setBackground(Themes.BLUE);
         loadStartBoundsBtn.setForeground(Themes.GREY_VERY_LIGHT);
         add(loadStartBoundsBtn);
+
+        MyGuiComps.MyLabel start_min_lbl = new MyGuiComps.MyLabel("set start min");
+        start_min_lbl.setXY(startBtn.getX(), startBtn.getY() + startBtn.getHeight() + 5);
+        start_min_lbl.setWidth(140);
+        add(start_min_lbl);
+
+        set_start_min_field = new MyGuiComps.MyTextField();
+        set_start_min_field.setXY(start_min_lbl.getX(), start_min_lbl.getY() + start_min_lbl.getHeight() + 5);
+        set_start_min_field.setWidth(140);
+        set_start_min_field.setFont(set_start_min_field.getFont().deriveFont(9f));
+        add(set_start_min_field);
 
         // Pre set check box
         pre_set_combox = new JComboBox(new String[] {"1", "2"});

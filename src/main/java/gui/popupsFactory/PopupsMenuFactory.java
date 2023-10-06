@@ -1,5 +1,6 @@
 package gui.popupsFactory;
 
+import charts.Chart_11;
 import charts.myCharts.Europe_Op_Avg;
 import charts.myCharts.*;
 import gui.DetailsWindow;
@@ -93,6 +94,16 @@ public class PopupsMenuFactory {
             }
         });
 
+
+        JMenuItem charts_11 = new JMenuItem("Charts 11 short averages");
+        charts_11.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chart_11 chart = new Chart_11(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem wallstreet = new JMenuItem("Wall-street");
         wallstreet.addActionListener(new ActionListener() {
             @Override
@@ -173,6 +184,7 @@ public class PopupsMenuFactory {
 //        charts.add(charts_8);
         charts.add(charts_9);
         charts.add(charts_10);
+        charts.add(charts_11);
         charts.add(europe);
         charts.add(fullCharts_q1);
         charts.add(futures_real_time_400);

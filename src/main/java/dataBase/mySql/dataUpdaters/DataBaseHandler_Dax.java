@@ -190,6 +190,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9394);
         serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9410);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_1, 9636);
         serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_900, 9407);
         serie_ids.put(TimeSeriesHandler.CAC_OP_AVG_3600, 9406);
 
@@ -203,9 +204,11 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Roll
         serie_ids.put(TimeSeriesHandler.ROLL_900, 9546);
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9547);
+        serie_ids.put(TimeSeriesHandler.ROLL_60, 9633);
 
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_1, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_14400, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_14400, client));
@@ -219,6 +222,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_3600, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_60, client));
 
         // Exp
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));

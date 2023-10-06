@@ -106,6 +106,7 @@ public class MySql {
             // Execute
             stmt.executeUpdate(query);
         } catch (Exception e) {
+            System.out.println(query);
             e.printStackTrace();
             Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause() + " \n" + "Update");
         } finally {
@@ -649,18 +650,19 @@ public class MySql {
             return MySql.select(query);
         }
 
-        public static ResultSet get_serie_mega_table(int serie_id, String type) {
+        public static ResultSet get_serie_mega_table(int serie_id, String type, int min_from_start) {
             switch (type) {
                 case RAW:
-                    return get_serie_raw_mega_table(serie_id);
+                    return get_serie_raw_mega_table(serie_id, min_from_start);
                 case CDF:
-                    return get_serie_cdf_mega_table(serie_id);
+                    return get_serie_cdf_mega_table(serie_id, min_from_start);
             }
             return null;
         }
 
+        private static ResultSet get_serie_raw_mega_table(int serie_id, int min_from_start) {
 
-        private static ResultSet get_serie_raw_mega_table(int serie_id) {
+//            String time_start = get_first_today_record_time(min_from_start, serie_id);
 
             String modulu = "%";
 
@@ -677,8 +679,10 @@ public class MySql {
         }
 
 
-        private static ResultSet get_serie_cdf_mega_table(int serie_id) {
+        private static ResultSet get_serie_cdf_mega_table(int serie_id, int min_from_start) {
             String modulu = "%";
+
+//            String time_start = get_first_today_record_time(min_from_start, serie_id);
 
             String q = "select * from (\n" +
                     "select time, sum(sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
@@ -688,7 +692,7 @@ public class MySql {
                     "where row %s %s = 0;\n" +
                     "\n";
 
-            String query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, Filters.TODAY, modulu, step_second);
+            String query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, Filters.TODAY,  modulu, step_second);
             return MySql.select(query);
         }
 
@@ -759,6 +763,12 @@ public class MySql {
             return 0;
         }
 
+        public static void update_prop(String client_name, String prop, String data) {
+            String q = "update sagiv.props SET data = '%s' WHERE stock_id = '%s' AND prop = '%s';";
+            String query = String.format(q, data, client_name, prop);
+            MySql.update(query);
+        }
+
         public static ResultSet get_last_record(String table_location, int version, int session_id) {
             String q = "select value from\n" +
                     "%s\n" +
@@ -798,6 +808,27 @@ public class MySql {
             System.out.println(query);
             return MySql.select(query);
         }
+    }
+
+    public static String get_first_today_record_time(int min, int timeseries_id) {
+        String q = "select time::time + interval '%s min' as time\n" +
+                "from ts.timeseries_data\n" +
+                "where timeseries_id = %s\n" +
+                "and date_trunc('day', time) = now()::date order by time limit 1;";
+        String query = String.format(q, min, timeseries_id);
+
+        ResultSet rs = MySql.select(query);
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                String time = rs.getString("time");
+                return time;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
+        return null;
     }
 
     public static class Filters {

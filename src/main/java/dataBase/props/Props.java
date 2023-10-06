@@ -20,6 +20,7 @@ public class Props {
     Prop main_exp;
     Prop sapi_excel_file;
     Prop stocks_excel_file;
+    Prop chart_start_min;
 
     public static final String INDEX_PRE_START_TIME = "INDEX_PRE_START_TIME";
     public static final String INDEX_START_TIME = "INDEX_START_TIME";
@@ -33,6 +34,7 @@ public class Props {
     public static final String EXP_Q1_START = "EXP_Q1_START";
     public static final String EXP_WEEK_START = "EXP_WEEK_START";
     public static final String EXP_MONTH_START = "EXP_MONTH_START";
+    public static final String CHART_START_MIN = "CHART_START_MIN";
 
     public Props(BASE_CLIENT_OBJECT client) {
         this.client = client;
@@ -174,7 +176,7 @@ public class Props {
                 return exp;
             }
         };
-        
+
         // ------------ SAPI FILE LOCATION -------------- //
         sapi_excel_file = new Prop(client, SAPI_EXCEL_FILE_LOCATION) {
             @Override
@@ -194,6 +196,26 @@ public class Props {
             }
         };
 
+
+        // ------------ CHART START MIN -------------- //
+        chart_start_min = new Prop(client, CHART_START_MIN) {
+            @Override
+            public void setData(Object data) {
+                int min = (int) data;
+                client.setChart_start_min(min);
+            }
+
+            @Override
+            public Object getData() {
+                int time = 0;
+                try {
+                    time = client.getChart_start_min();
+                } catch (Exception e) {
+                }
+                return time;
+            }
+        };
+
     }
 
     private void init() {
@@ -205,6 +227,7 @@ public class Props {
         map.put(INDEX_PRE_START_TIME, index_pre_start_time);
         map.put(SAPI_EXCEL_FILE_LOCATION, sapi_excel_file);
         map.put(STOCKS_EXCEL_FILE_LOCATION, stocks_excel_file);
+        map.put(CHART_START_MIN, chart_start_min);
 
     }
 

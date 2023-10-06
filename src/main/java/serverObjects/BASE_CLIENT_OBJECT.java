@@ -76,6 +76,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private LocalTime indexEndTime;
     private LocalTime futureEndTime;
 
+    private int chart_start_min;
+
     TimeSeriesHandler timeSeriesHandler;
 
     // Position
@@ -560,6 +562,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setIndex_bid_ask_synthetic_margin(double index_bid_ask_synthetic_margin) {
         this.index_bid_ask_synthetic_margin = index_bid_ask_synthetic_margin;
+    }
+
+    public int getChart_start_min() {
+        return chart_start_min;
+    }
+
+    public void setChart_start_min(int chart_start_min) {
+        this.chart_start_min = chart_start_min;
     }
 
     @Override
