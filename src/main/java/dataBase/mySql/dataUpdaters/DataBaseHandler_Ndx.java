@@ -110,7 +110,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         // Load exp data
         load_exp_data();
 

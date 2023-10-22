@@ -72,7 +72,6 @@ public class Europe_Op_Avg extends MyChartCreator {
 
         // ------------------ Op avg ------------------- //
 
-
         // --------- Dax Op avg ---------- //
         MyTimeSeries op_avg_day_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
         op_avg_day_15.setColor(Themes.LIGHT_RED);

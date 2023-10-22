@@ -67,35 +67,6 @@ public class FuturesChartLong_400 extends MyChartCreator {
         index.setStokeSize(1.75f);
 
 
-        // Future calc
-        MyTimeSeries future_calc = new MyTimeSeries("Future calc", client) {
-
-            @Override
-            public double getValue() {
-                double future_week  = client.getExps().getExp(ExpStrings.day).get_future();
-                double future_q1  = client.getExps().getExp(ExpStrings.q1).get_future();
-                return (future_week - (future_q1 - 3)) + client.getIndex();
-            }
-
-            @Override
-            public void updateData() {
-
-            }
-
-            @Override
-            public void load() {}
-
-            @Override
-            public void load_exp_data() {
-
-            }
-        };
-        future_calc.setColor(Themes.GREEN);
-        future_calc.setStokeSize(1.75f);
-
-
-
-
         // Bid
         MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
 
@@ -151,64 +122,6 @@ public class FuturesChartLong_400 extends MyChartCreator {
         ask.setVisible(false);
 
 
-        // Ask
-        MyTimeSeries index_plus_avg = new MyTimeSeries("Index + avg 3600", client) {
-
-            @Override
-            public double getValue() {
-                double avg = client.getExps().getExp(ExpStrings.q1).getOp_avg_60();
-                return client.getIndex() + avg;
-            }
-
-            @Override
-            public void updateData() {
-
-            }
-
-            @Override
-            public void load() {
-
-            }
-
-            @Override
-            public void load_exp_data() {
-
-            }
-        };
-        index_plus_avg.setColor(Themes.BLUE);
-        index_plus_avg.setStokeSize(1.4f);
-        index_plus_avg.setVisible(false);
-
-
-        // Ask
-        MyTimeSeries index_plus_avg_900 = new MyTimeSeries("Index + avg 900", client) {
-
-            @Override
-            public double getValue() {
-                double avg = client.getExps().getExp(ExpStrings.q1).getOp_avg_15();
-                return client.getIndex() + avg;
-            }
-
-            @Override
-            public void updateData() {
-
-            }
-
-            @Override
-            public void load() {
-
-            }
-
-            @Override
-            public void load_exp_data() {
-
-            }
-        };
-        index_plus_avg_900.setColor(Themes.LIGHT_RED);
-        index_plus_avg_900.setStokeSize(1.4f);
-        index_plus_avg_900.setVisible(false);
-
-
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
         greens.add(Themes.GREEN);
@@ -258,9 +171,6 @@ public class FuturesChartLong_400 extends MyChartCreator {
         myTimeSeries.add(index);
         myTimeSeries.add(bid);
         myTimeSeries.add(ask);
-        myTimeSeries.add(index_plus_avg);
-        myTimeSeries.add(index_plus_avg_900);
-        myTimeSeries.add(future_calc);
 
         // Series
         MyTimeSeries[] series = toArray();

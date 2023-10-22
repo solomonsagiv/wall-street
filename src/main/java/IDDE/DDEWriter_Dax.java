@@ -15,5 +15,6 @@ public class DDEWriter_Dax extends IDDEWriter {
 
     @Override
     public void write(DDEClientConversation conversation) {
+
     }
 }

@@ -13,60 +13,41 @@ public class DDEReader_Spx extends IDDEReader {
     Exp day;
     E q1;
     E q2;
+    Exp month;
     
     private boolean init_exp = false;
 
-    String indCell = "R2C3";
-    String indBidCell = "R2C2";
-    String indAskCell = "R2C4";
-    String openCell = "R13C4";
-    String highCell = "R13C1";
-    String lowCell = "R13C2";
-    String baseCell = "R11C5";
+    String indCell = "R11C4";
+    String indBidCell = "R11C3";
+    String indAskCell = "R11C5";
+    String openCell = "R11C18";
+    String highCell = "R11C20";
+    String lowCell = "R11C19";
+    String baseCell = "R11C21";
     String futDayCell = "R9C10";
-    String futDayBidCell = "R9C9";
-    String futDayAskCell = "R9C11";
-    String put_day_bid_cell = "R61C8";
-    String put_day_ask_cell = "R61C6";
-    String call_day_bid_cell = "R61C2";
-    String call_day_ask_cell = "R61C4";
 
-
-    String futWeekCell = "R10C10";
-    String futWeekBidCell = "R10C9";
-    String futWeekAskCell = "R10C11";
-    String futMonthCell = "R11C10";
-    String e1Cell = "R12C10";
-    String e1_contract_bid_cell = "R27C13";
-    String e1_contract_ask_cell = "R27C15";
-    String e2Cell = "R13C10";
-
-    // Naked future for delta
-    String naked_future_cell = "R32C13";
-    String naked_future_bid_cell = "R33C13";
-    String naked_future_ask_cell = "R31C13";
-    String naked_future_volume_cell = "R38C13";
+    String futWeekCell = "R12C4";
+    String futMonthCell = "R13C4";
+    String e1Cell = "R14C4";
+    String e2Cell = "R15C4";
 
     // Interest
-    String day_interest_cell = "R40C4";
-    String week_interest_cell = "R41C4";
-    String month_interest_cell = "R42C4";
-    String q1_interest_cell = "R43C4";
-    String q2_interest_cell = "R44C4";
+    String day_interest_cell = "R12C9";
+    String month_interest_cell = "R13C9";
+    String q1_interest_cell = "R14C9";
+    String q2_interest_cell = "R15C9";
 
     // Div
-    String day_div_cell = "R40C5";
-    String week_div_cell = "R41C5";
-    String month_div_cell = "R42C5";
-    String q1_div_cell = "R43C5";
-    String q2_div_cell = "R44C5";
+    String day_div_cell = "R12C14";
+    String month_div_cell = "R13C14";
+    String q1_div_cell = "R14C14";
+    String q2_div_cell = "R15C14";
 
     // Day to exp
-    String day_days_cell = "R40C6";
-    String week_days_cell = "R41C6";
-    String month_days_cell = "R42C6";
-    String q1_days_cell = "R43C6";
-    String q2_days_cell = "R44C6";
+    String day_days_cell = "R12C13";
+    String month_days_cell = "R13C13";
+    String q1_days_cell = "R14C13";
+    String q2_days_cell = "R15C13";
 
     // Cof
     String cofCell = "R40C9";
@@ -86,14 +67,7 @@ public class DDEReader_Spx extends IDDEReader {
             init_exps();
         }
 
-        // Naked future and volume (Delta calc)
-        q1.setNaked_future(requestDouble(naked_future_cell, conversation));
-        q1.setNaked_future_bid(requestDouble(naked_future_bid_cell, conversation));
-        q1.setNaked_future_ask(requestDouble(naked_future_ask_cell, conversation));
-        q1.setVolume((int) requestDouble(naked_future_volume_cell, conversation));
-
         // Index
-        double index = client.getIndex();
         client.setIndex(requestDouble(indCell, conversation));
         client.setIndexBid(requestDouble(indBidCell, conversation));
         client.setIndexAsk(requestDouble(indAskCell, conversation));

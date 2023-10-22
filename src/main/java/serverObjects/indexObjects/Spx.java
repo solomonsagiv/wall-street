@@ -5,7 +5,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Chart_10;
 import charts.myCharts.Chart_9;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
@@ -87,9 +86,6 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
                 Chart_9 chart_4 = new Chart_9(this);
                 chart_4.createChart();
-
-                Chart_10 chart_5 = new Chart_10(this);
-                chart_5.createChart();
 
             }).start();
         }

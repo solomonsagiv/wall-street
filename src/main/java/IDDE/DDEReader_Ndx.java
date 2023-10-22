@@ -18,44 +18,40 @@ public class DDEReader_Ndx extends IDDEReader {
 
     boolean initStocksCells = false;
 
-    String indCell = "R2C3";
-    String openCell = "R13C4";
-    String highCell = "R13C1";
-    String lowCell = "R13C2";
-    String baseCell = "R11C5";
+
+
+    String indCell = "R11C4";
+    String indBidCell = "R11C3";
+    String indAskCell = "R11C5";
+    String openCell = "R11C18";
+    String highCell = "R11C20";
+    String lowCell = "R11C19";
+    String baseCell = "R11C21";
     String futDayCell = "R9C10";
-    String futWeekCell = "R10C10";
-    String futMonthCell = "R11C10";
-    String e1Cell = "R12C10";
 
-    String e2Cell = "R13C10";
-
-    // Naked future for delta
-    String naked_future_cell = "R30C13";
-    String naked_future_bid_cell = "R31C13";
-    String naked_future_ask_cell = "R29C13";
-    String naked_future_volume_cell = "R36C13";
+    String futWeekCell = "R12C4";
+    String futMonthCell = "R13C4";
+    String e1Cell = "R14C4";
+    String e2Cell = "R15C4";
 
     // Interest
-    String day_interest_cell = "R37C4";
-    String week_interest_cell = "R38C4";
-    String month_interest_cell = "R39C4";
-    String q1_interest_cell = "R40C4";
-    String q2_interest_cell = "R41C4";
+    String day_interest_cell = "R12C8";
+    String month_interest_cell = "R13C8";
+    String q1_interest_cell = "R14C8";
+    String q2_interest_cell = "R15C8";
 
     // Div
-    String day_div_cell = "R37C5";
-    String week_div_cell = "R38C5";
-    String month_div_cell = "R39C5";
-    String q1_div_cell = "R40C5";
-    String q2_div_cell = "R41C5";
+    String day_div_cell = "R12C9";
+    String month_div_cell = "R13C9";
+    String q1_div_cell = "R14C9";
+    String q2_div_cell = "R15C9";
 
     // Day to exp
-    String day_days_cell = "R37C6";
-    String week_days_cell = "R38C6";
-    String month_days_cell = "R39C6";
-    String q1_days_cell = "R40C6";
-    String q2_days_cell = "R41C6";
+    String day_days_cell = "R12C13";
+    String month_days_cell = "R13C13";
+    String q1_days_cell = "R14C13";
+    String q2_days_cell = "R15C13";
+
 
     // Normalized number
     String q1_normalized_num_cell = "R40C10";
@@ -71,8 +67,8 @@ public class DDEReader_Ndx extends IDDEReader {
 
     private void initStockCells(DDEClientConversation conversation) {
 
-        int nameCol = 26;
-        int row = 2;
+        int nameCol = 2;
+        int row = 50;
 
         while (true) {
             try {
@@ -110,12 +106,6 @@ public class DDEReader_Ndx extends IDDEReader {
         if (!init_exp) {
             init_exps();
         }
-
-        // Naked future and volume (Delta calc)
-        q1.setNaked_future(requestDouble(naked_future_cell, conversation));
-        q1.setNaked_future_bid(requestDouble(naked_future_bid_cell, conversation));
-        q1.setNaked_future_ask(requestDouble(naked_future_ask_cell, conversation));
-        q1.setVolume((int) requestDouble(naked_future_volume_cell, conversation));
 
         // Index
         client.setIndex(requestDouble(indCell, conversation));

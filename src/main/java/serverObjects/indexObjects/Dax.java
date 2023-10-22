@@ -6,7 +6,7 @@ import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
-import charts.myCharts.Europe_Op_Avg;
+import charts.Chart_11;
 import charts.myCharts.FuturesChartLong_400;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -58,12 +58,13 @@ public class Dax extends INDEX_CLIENT_OBJECT {
             indAskMarginCounter += marginOfMarings;
         }
     }
-
+    
     @Override
     public void initExpHandler() {
         // Add to
         Exps exps = new Exps(this);
         exps.addExp(new E(this, ExpStrings.day));
+        exps.addExp(new E(this, ExpStrings.month));
         exps.addExp(new E(this, ExpStrings.q1));
         exps.addExp(new E(this, ExpStrings.q2));
         exps.setMainExp(exps.getExp(ExpStrings.q1));
@@ -89,12 +90,11 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
-
                 FuturesChartLong_400 chart = new FuturesChartLong_400(this);
                 chart.createChart();
 
-                Europe_Op_Avg europe_op_avg = new Europe_Op_Avg(this);
-                europe_op_avg.createChart();
+                Chart_11 chart_11 = new Chart_11(this);
+                chart_11.createChart();
             }).start();
         }
     }

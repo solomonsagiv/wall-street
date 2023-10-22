@@ -24,8 +24,13 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_Q1_15 = "OP_AVG_Q1_15";
     public static final String OP_AVG_Q1_60 = "OP_AVG_Q1_60";
 
+    public static final String OP_AVG_MONTH_15 = "OP_AVG_MONTH_15";
+    public static final String OP_AVG_MONTH_60 = "OP_AVG_MONTH_60";
+
     public static final String BASKETS_CDF = "BASKETS_CDF";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
+
+
 
     // DF 2
     public static final String DF_2_CDF = "DF_2_CDF";
@@ -226,6 +231,66 @@ public class TimeSeriesFactory {
                     }
                 };
 
+
+            case OP_AVG_MONTH_15:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_MONTH_15);
+
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setValue(val);
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_MONTH_15);
+
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+
+                    }
+                };
+
+            case OP_AVG_MONTH_60:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_MONTH_60);
+
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setValue(val);
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_MONTH_60);
+
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+
+                    }
+                };
 
             case STOXX_DF_8_CDF:
                 return new MyTimeSeries(series_type, client) {

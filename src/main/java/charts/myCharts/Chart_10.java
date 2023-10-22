@@ -80,34 +80,17 @@ public class Chart_10 extends MyChartCreator {
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_240 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE);
-        op_avg_240.setColor(Themes.BINANCE_ORANGE);
-        op_avg_240.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[3];
+        series = new MyTimeSeries[2];
         series[0] = op_avg_15;
         series[1] = op_avg_60;
-        series[2] = op_avg_240;
 
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 
-        // -------------------- DF 2  ---------------------- //
-
-        MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
-        df_2.setColor(Themes.BINANCE_ORANGE);
-        df_2.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[1];
-        series[0] = df_2;
-
-        // Chart
-        MyChart df2_chart = new MyChart(client, series, props);
-
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, op_avg_chart, df2_chart};
+        MyChart[] charts = {indexChart, roll_chart, op_avg_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

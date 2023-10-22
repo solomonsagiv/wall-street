@@ -207,15 +207,17 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             DDEConnection ddeConnection = new DDEConnection();
 //            String path = Spx.getInstance().getSapi_excel_path();
 
-            String path = "C:/Users/yosef/Desktop/[bbg index.xlsm]SAPI List";
+//            String path = "C:/Users/yosef/Desktop/[bbg index.xlsm]SAPI List";
+
+            String path = "C:/Users/yosef/OneDrive/Desktop/[WS trading.xlsm]SAPI";
 
             DDEClientConversation conversation = ddeConnection.createNewConversation(path);
 
-            int col = 2;
+            int col = 3;
             ArrayList<String> strings = new ArrayList<>();
             String base_cell = "R%sC%s";
 
-            for (int row = 2; row < 1000; row++) {
+            for (int row = 11; row < 1000; row++) {
                 String cell = String.format(base_cell, row, col);
                 String s = conversation.request(cell);
                 s = s.trim();

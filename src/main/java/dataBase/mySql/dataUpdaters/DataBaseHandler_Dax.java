@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DataBaseHandler_Dax extends IDataBaseHandler {
 
-    E q1, q2, week;
+    E q1, q2, week, month;
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_synthetic_timestamp = new ArrayList<>();
@@ -20,6 +20,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -28,6 +29,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
+    double fut_month_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -35,6 +37,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
         week = (E) exps.getExp(ExpStrings.day);
+        month = (E) exps.getExp(ExpStrings.month);
     }
 
     int sleep_count = 100;
@@ -78,6 +81,17 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
             }
             fut_week_0 = fut_week;
+        }
+
+        // Fut month
+        double fut_month = month.get_future();
+
+        if (fut_month != fut_month_0) {
+
+            if (Math.abs(fut_week - fut_month_0) < 15) {
+                fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
+            }
+            fut_month_0 = fut_month;
         }
 
         // Is live db
@@ -137,37 +151,12 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
 
-//        serie_ids.put(TimeSeriesHandler.INDEX, 4369);
-//        serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
-//        serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
-//        serie_ids.put(TimeSeriesHandler.FUT_DAY, 4759);
-//        serie_ids.put(TimeSeriesHandler.FUT_Q1, 4367);
-//        serie_ids.put(TimeSeriesHandler.FUT_Q2, 4368);
-//
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9185);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9184);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9186);
-//
-////        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 5632);
-////        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 5633);
-//        serie_ids.put(TimeSeriesHandler.BASKETS, 5805);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 6561);
-//        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK, 5806);
-//
-//        serie_ids.put(TimeSeriesHandler.STOXX_DF_8_ID, 9361);
-//        serie_ids.put(TimeSeriesHandler.STOXX_RELATIVE_ID, 9379);
-//        serie_ids.put(TimeSeriesHandler.CAC_DF_8_ID, 9431);
-//        serie_ids.put(TimeSeriesHandler.CAC_RELATIVE_ID, 9442);
-//
-//        // DF 9 and relative
-//        serie_ids.put(TimeSeriesHandler.DF_8, 9173);
-//        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9199);
-
         serie_ids.put(TimeSeriesHandler.INDEX, 4369);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 9881);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 9522);
+        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 11822);
 
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9611);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9612);
@@ -206,11 +195,13 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9547);
         serie_ids.put(TimeSeriesHandler.ROLL_60, 9633);
 
+        // Month
+        serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH_15, 9638);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH_60, 9639);
+
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_1, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_60, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_14400, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_14400, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
@@ -219,6 +210,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
 
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_MONTH_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_MONTH_15, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_MONTH_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_MONTH_60, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_3600, client));
@@ -252,5 +245,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
+        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
     }
 }
