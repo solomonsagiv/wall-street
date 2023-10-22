@@ -660,6 +660,16 @@ public class MySql {
             return null;
         }
 
+        public static ResultSet get_cumulative_avg_serie(int serie_id, int min) {
+            String q = "sselect time, avg(value) over (ORDER BY time RANGE BETWEEN '%s min' PRECEDING AND CURRENT ROW) as value\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s and %s;";
+
+            String query = String.format(q, min, serie_id, Filters.TODAY);
+            return MySql.select(query);
+        }
+
+
         private static ResultSet get_serie_raw_mega_table(int serie_id, int min_from_start) {
 
             String time_start = get_first_today_record_time(min_from_start, serie_id);
@@ -691,8 +701,6 @@ public class MySql {
                 query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, time_start, modulu, step_second);
                 System.out.println(query);
             }
-
-
 
             return MySql.select(query);
         }

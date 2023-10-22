@@ -104,9 +104,44 @@ public class TimeSeriesFactory {
     public static final String ROLL_60 = "ROLL_60";
     public static final String ROLL_300 = "ROLL_300";
 
+    // Index avg
+    public static final String INDEX_AVG_3600 = "INDEX_AVG_3600";
+
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
         switch (series_type.toUpperCase()) {
+
+
+            case INDEX_AVG_3600:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600);
+
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 60));
+                        setValue(val);
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600);
+
+                        ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 60);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+
+                    }
+                };
+
 
 
             case ROLL_60:
