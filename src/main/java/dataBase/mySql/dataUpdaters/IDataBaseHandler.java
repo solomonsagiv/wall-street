@@ -61,7 +61,7 @@ public abstract class IDataBaseHandler {
                 if (!rs.next()) break;
                 props_name = rs.getString("prop");
                 data = rs.getObject("data");
-
+                
                 System.out.println(props_name + "  " + data);
 
                 client.getProps().getMap().get(props_name).setData(data);
