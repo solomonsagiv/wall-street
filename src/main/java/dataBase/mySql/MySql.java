@@ -661,11 +661,18 @@ public class MySql {
         }
 
         public static ResultSet get_cumulative_avg_serie(int serie_id, int min) {
-            String q = "select time, avg(value) over (ORDER BY time RANGE BETWEEN '%s min' PRECEDING AND CURRENT ROW) as value\n" +
-                    "from ts.timeseries_data\n" +
-                    "where timeseries_id = %s and %s;";
 
-            String query = String.format(q, min, serie_id, Filters.TODAY);
+            String modulu = "%";
+
+            String q = "select time, value\n" +
+                    "from (\n" +
+                    "         select time, avg(value) over (ORDER BY time RANGE BETWEEN '%s min' PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
+                    "         from ts.timeseries_data\n" +
+                    "         where timeseries_id = %s\n" +
+                    "           and %s) a\n" +
+                    "where row %s %s = 0;";
+
+            String query = String.format(q, min, serie_id, Filters.TODAY, modulu, step_second);
             return MySql.select(query);
         }
 
