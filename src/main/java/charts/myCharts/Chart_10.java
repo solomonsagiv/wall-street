@@ -6,7 +6,6 @@ import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
-
 import java.awt.*;
 
 public class Chart_10 extends MyChartCreator {
@@ -53,9 +52,16 @@ public class Chart_10 extends MyChartCreator {
         index_avg_3600_serie.setColor(Themes.PURPLE);
         index_avg_3600_serie.setStokeSize(0.75f);
 
-        series = new MyTimeSeries[2];
+        // Index avg 900
+        MyTimeSeries index_avg_900_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900,client);
+
+        index_avg_900_serie.setColor(Themes.RED);
+        index_avg_900_serie.setStokeSize(0.75f);
+
+        series = new MyTimeSeries[3];
         series[0] = index_serie;
-        series[1] = index_avg_3600_serie;
+        series[1] = index_avg_900_serie;
+        series[2] = index_avg_3600_serie;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);

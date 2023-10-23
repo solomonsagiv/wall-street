@@ -53,10 +53,17 @@ public class Chart_9 extends MyChartCreator {
         index_avg_3600_serie.setStokeSize(0.75f);
 
 
+        // Index avg 900
+        MyTimeSeries index_avg_900_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900,client);
+
+        index_avg_900_serie.setColor(Themes.RED);
+        index_avg_900_serie.setStokeSize(0.75f);
+
         // Index
-        series = new MyTimeSeries[2];
+        series = new MyTimeSeries[3];
         series[0] = index_serie;
-        series[1] = index_avg_3600_serie;
+        series[1] = index_avg_900_serie;
+        series[2] = index_avg_3600_serie;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
