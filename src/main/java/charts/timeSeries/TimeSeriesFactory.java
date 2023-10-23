@@ -30,8 +30,6 @@ public class TimeSeriesFactory {
     public static final String BASKETS_CDF = "BASKETS_CDF";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
 
-
-
     // DF 2
     public static final String DF_2_CDF = "DF_2_CDF";
 
@@ -111,7 +109,6 @@ public class TimeSeriesFactory {
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
         switch (series_type.toUpperCase()) {
 
-
             case INDEX_AVG_3600:
                 return new MyTimeSeries(series_type, client) {
 
@@ -141,9 +138,7 @@ public class TimeSeriesFactory {
 
                     }
                 };
-
-
-
+                
             case ROLL_60:
                 return new MyTimeSeries(series_type, client) {
 

@@ -3,15 +3,11 @@ package charts.myCharts;
 import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
-import charts.timeSeries.TimeSeriesHandler;
-import dataBase.mySql.MySql;
-import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
-import java.sql.ResultSet;
 
 public class Chart_10 extends MyChartCreator {
 
@@ -52,47 +48,10 @@ public class Chart_10 extends MyChartCreator {
         index_serie.setStokeSize(1f);
 
         // Index avg 3600
-        MyTimeSeries index_avg_3600_serie = new MyTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client) {
-
-            @Override
-            public double getValue() {
-                return super.getValue();
-            }
-
-            @Override
-            public void updateData() {
-                int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600);
-
-                double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 60));
-                setValue(val);
-            }
-
-            @Override
-            public void load() {
-                int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600);
-
-                ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 60);
-                IDataBaseHandler.loadSerieData(rs, this);
-            }
-
-            @Override
-            public void load_exp_data() {
-
-            }
-        };
-
-
-
+        MyTimeSeries index_avg_3600_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600,client);
 
         index_avg_3600_serie.setColor(Themes.PURPLE);
         index_avg_3600_serie.setStokeSize(0.75f);
-
-
-
-
-
-
-
 
         series = new MyTimeSeries[2];
         series[0] = index_serie;

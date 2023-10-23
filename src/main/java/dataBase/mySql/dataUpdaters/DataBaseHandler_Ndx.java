@@ -123,6 +123,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // Ids
         serie_ids.put(TimeSeriesHandler.INDEX, 1);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600, 1);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 2);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 9533);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 9534);

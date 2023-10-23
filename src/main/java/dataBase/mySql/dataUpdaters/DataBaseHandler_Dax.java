@@ -152,6 +152,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     public void initTablesNames() {
 
         serie_ids.put(TimeSeriesHandler.INDEX, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600, 4369);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 9881);

@@ -23,6 +23,7 @@ public class DataUpdaterService extends MyBaseService {
 
         // Spx || Ndx
         if (client instanceof Spx || client instanceof Ndx) {
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 //            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY));
@@ -40,6 +41,7 @@ public class DataUpdaterService extends MyBaseService {
 
         // Dax
         if (client instanceof Dax) {
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
@@ -54,6 +56,7 @@ public class DataUpdaterService extends MyBaseService {
             System.out.println();
         }
     }
+
 
     @Override
     public void go() {

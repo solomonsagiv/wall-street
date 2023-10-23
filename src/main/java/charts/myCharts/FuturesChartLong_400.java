@@ -38,7 +38,7 @@ public class FuturesChartLong_400 extends MyChartCreator {
         props.setProp(ChartPropsEnum.SLEEP, 100);
         props.setProp(ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS, INFINITE);
         props.setProp(ChartPropsEnum.SECONDS_ON_MESS, 10);
-    
+
         // ----- Chart 1 ----- //
         // Index
         MyTimeSeries index = new MyTimeSeries("Index", client) {
