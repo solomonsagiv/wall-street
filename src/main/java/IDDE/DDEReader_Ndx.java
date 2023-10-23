@@ -19,7 +19,6 @@ public class DDEReader_Ndx extends IDDEReader {
     boolean initStocksCells = false;
 
 
-
     String indCell = "R11C4";
     String indBidCell = "R11C3";
     String indAskCell = "R11C5";
@@ -54,8 +53,8 @@ public class DDEReader_Ndx extends IDDEReader {
 
 
     // Normalized number
-    String q1_normalized_num_cell = "R40C10";
-    String q2_normalized_num_cell = "R41C10";
+    String q1_normalized_num_cell = "R14C18";
+    String q2_normalized_num_cell = "R15C18";
 
     // Cof
     String cofCell = "R37C9";

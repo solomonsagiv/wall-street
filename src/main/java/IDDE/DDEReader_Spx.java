@@ -52,8 +52,8 @@ public class DDEReader_Spx extends IDDEReader {
     // Cof
     String cofCell = "R40C9";
 
-    String q1_normalized_num_cell = "R43C10";
-    String q2_normalized_num_cell = "R44C10";
+    String q1_normalized_num_cell = "R14C18";
+    String q2_normalized_num_cell = "R15C18";
 
     // Constructor
     public DDEReader_Spx(BASE_CLIENT_OBJECT client) {

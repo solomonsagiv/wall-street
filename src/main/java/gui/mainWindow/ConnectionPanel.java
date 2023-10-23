@@ -209,7 +209,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 
 //            String path = "C:/Users/yosef/Desktop/[bbg index.xlsm]SAPI List";
 
-            String path = "C:/Users/yosef/OneDrive/Desktop/[WS trading.xlsm]SAPI";
+            String path = "C:/Users/yosef/OneDrive/Desktop/[WS trading.xlsm]SAPI List";
 
             DDEClientConversation conversation = ddeConnection.createNewConversation(path);
 
