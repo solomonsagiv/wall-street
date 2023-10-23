@@ -201,6 +201,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH_60, 9639);
 
 
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
+
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_14400, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_14400, client));
