@@ -661,7 +661,7 @@ public class MySql {
         }
 
         public static ResultSet get_cumulative_avg_serie(int serie_id, int min) {
-            String q = "sselect time, avg(value) over (ORDER BY time RANGE BETWEEN '%s min' PRECEDING AND CURRENT ROW) as value\n" +
+            String q = "select time, avg(value) over (ORDER BY time RANGE BETWEEN '%s min' PRECEDING AND CURRENT ROW) as value\n" +
                     "from ts.timeseries_data\n" +
                     "where timeseries_id = %s and %s;";
 
