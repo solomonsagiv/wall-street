@@ -145,6 +145,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 9579);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_15, 9603);
 
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
+
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_CDF, client));
@@ -170,7 +173,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_WEEK, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_MONTH, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_Q1, client));
-        
+
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_WEEK, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_MONTH, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_MONTH, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_8_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_8_Q1, client));
@@ -192,6 +195,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_WEIGHTED, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_WEIGHTED, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.STD_MOVE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.STD_MOVE, client));
     }
+
 
     private void updateListsRetro() {
         insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
