@@ -131,7 +131,6 @@ public class DDEReader_Dax extends IDDEReader {
         init_exp = true;
     }
 
-
     @Override
     public void init_rates() {
         try {
