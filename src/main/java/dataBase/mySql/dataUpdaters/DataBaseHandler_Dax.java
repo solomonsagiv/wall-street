@@ -197,6 +197,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9547);
         serie_ids.put(TimeSeriesHandler.ROLL_60, 9633);
 
+//        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_MONTH_3600, );
+//        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_MONTH_900, );
+
         // Month
         serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH_15, 9638);
         serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH_60, 9639);
@@ -250,6 +253,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
+        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
     }
 }
