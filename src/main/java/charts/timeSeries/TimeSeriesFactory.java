@@ -1,15 +1,23 @@
 package charts.timeSeries;
 
+import charts.myCharts.Chart_10;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import dataBase.props.Props;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 
 import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
+
+    public static void main(String[] args) {
+        Chart_10 chart_10 = new Chart_10(Dax.getInstance());
+        chart_10.createChart();
+    }
+
 
     public static final String INDEX = "INDEX";
     public static final String FUTURE_DAY_MULTIPLY_OP = "FUTURE_DAY_MULTIPLY_OP";
@@ -115,7 +123,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getValue() {
-                        return super.getValue();
+                        return client.getIndex_avg_3600();
                     }
 
                     @Override
@@ -124,6 +132,8 @@ public class TimeSeriesFactory {
 
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 60));
                         setValue(val);
+                        client.setIndex_avg_3600(val);
+
                     }
 
                     @Override
@@ -140,13 +150,12 @@ public class TimeSeriesFactory {
                     }
                 };
 
-
             case INDEX_AVG_900:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
                     public double getValue() {
-                        return super.getValue();
+                        return client.getIndex_avg_900();
                     }
 
                     @Override
@@ -155,6 +164,7 @@ public class TimeSeriesFactory {
 
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 15));
                         setValue(val);
+                        client.setIndex_avg_900(val);
                     }
 
                     @Override

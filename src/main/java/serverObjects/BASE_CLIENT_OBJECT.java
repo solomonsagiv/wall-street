@@ -55,6 +55,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     protected double index_bid_synthetic, index_ask_synthetic;
     protected double index_bid_ask_synthetic_margin = 0;
 
+    // INDEX manipulations
+    protected double index_avg_3600;
+    protected double index_avg_900;
+
     // Table
     DefaultTableModel model = new DefaultTableModel();
 
@@ -570,6 +574,23 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setChart_start_min(int chart_start_min) {
         this.chart_start_min = chart_start_min;
+    }
+
+
+    public double getIndex_avg_3600() {
+        return index_avg_3600;
+    }
+
+    public void setIndex_avg_3600(double index_avg_3600) {
+        this.index_avg_3600 = index_avg_3600;
+    }
+
+    public double getIndex_avg_900() {
+        return index_avg_900;
+    }
+
+    public void setIndex_avg_900(double index_avg_900) {
+        this.index_avg_900 = index_avg_900;
     }
 
     @Override

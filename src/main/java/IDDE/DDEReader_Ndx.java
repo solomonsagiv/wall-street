@@ -26,7 +26,7 @@ public class DDEReader_Ndx extends IDDEReader {
     String highCell = "R11C20";
     String lowCell = "R11C19";
     String baseCell = "R11C21";
-    String futDayCell = "R9C10";
+    String futDayCell = "R12C10";
 
     String futWeekCell = "R12C4";
     String futMonthCell = "R13C4";
@@ -118,7 +118,6 @@ public class DDEReader_Ndx extends IDDEReader {
         // Exps
         day.set_future(requestDouble(futDayCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
-
         q2.set_future(requestDouble(e2Cell, conversation));
 
         // Stocks
