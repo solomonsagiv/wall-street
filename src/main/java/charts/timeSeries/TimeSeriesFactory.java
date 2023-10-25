@@ -18,7 +18,6 @@ public class TimeSeriesFactory {
         chart_10.createChart();
     }
 
-
     public static final String INDEX = "INDEX";
     public static final String FUTURE_DAY_MULTIPLY_OP = "FUTURE_DAY_MULTIPLY_OP";
     public static final String INDEX_BID_SERIES = "INDEX_BID";

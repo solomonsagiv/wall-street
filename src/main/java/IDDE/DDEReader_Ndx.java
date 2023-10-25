@@ -26,7 +26,7 @@ public class DDEReader_Ndx extends IDDEReader {
     String highCell = "R11C20";
     String lowCell = "R11C19";
     String baseCell = "R11C21";
-    String futDayCell = "R12C10";
+    String futDayCell = "R12C4";
 
     String futWeekCell = "R12C4";
     String futMonthCell = "R13C4";
