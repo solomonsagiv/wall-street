@@ -158,7 +158,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 9881);
         serie_ids.put(TimeSeriesHandler.FUT_DAY, 9522);
-        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 11822);
+        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 9637);
 
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9611);
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9612);
