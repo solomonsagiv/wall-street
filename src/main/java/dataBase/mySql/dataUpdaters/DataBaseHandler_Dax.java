@@ -197,8 +197,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_3600, 9547);
         serie_ids.put(TimeSeriesHandler.ROLL_60, 9633);
 
-//        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_MONTH_3600, );
-//        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_MONTH_900, );
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_MONTH_3600, 9641);
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_MONTH_900, 9640);
 
         // Month
         serie_ids.put(TimeSeriesHandler.OP_AVG_MONTH_15, 9638);
@@ -207,6 +207,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_WEEK_MONTH_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_WEEK_MONTH_3600, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_WEEK_MONTH_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_WEEK_MONTH_900, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));

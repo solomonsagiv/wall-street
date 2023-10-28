@@ -1,6 +1,6 @@
 package gui.popupsFactory;
 
-import charts.myCharts.Europe_Op_Avg;
+import charts.myCharts.DAX_CHART_10;
 import charts.myCharts.*;
 import gui.DetailsWindow;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
@@ -110,11 +110,11 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem europe_op_avg = new JMenuItem("Europe op avg");
+        JMenuItem europe_op_avg = new JMenuItem("Dax chart 10");
         europe_op_avg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Europe_Op_Avg chart = new Europe_Op_Avg(client);
+                DAX_CHART_10 chart = new DAX_CHART_10(client);
                 chart.createChart();
             }
         });

@@ -9,15 +9,15 @@ import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
-public class Europe_Op_Avg extends MyChartCreator {
+public class DAX_CHART_10 extends MyChartCreator {
 
     public static void main(String[] args) {
-        Europe_Op_Avg fullChart2 = new Europe_Op_Avg(Spx.getInstance());
+        DAX_CHART_10 fullChart2 = new DAX_CHART_10(Spx.getInstance());
         fullChart2.createChart();
     }
 
     // Constructor
-    public Europe_Op_Avg(BASE_CLIENT_OBJECT client) {
+    public DAX_CHART_10(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -47,19 +47,34 @@ public class Europe_Op_Avg extends MyChartCreator {
         index_serie.setColor(Color.BLACK);
         index_serie.setStokeSize(1f);
 
+
+        // Index avg 3600
+        MyTimeSeries index_avg_3600_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600,client);
+
+        index_avg_3600_serie.setColor(Themes.PURPLE);
+        index_avg_3600_serie.setStokeSize(0.75f);
+
+        // Index avg 900
+        MyTimeSeries index_avg_900_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900,client);
+
+        index_avg_900_serie.setColor(Themes.RED);
+        index_avg_900_serie.setStokeSize(0.75f);
+
         // Index
-        series = new MyTimeSeries[1];
+        series = new MyTimeSeries[3];
         series[0] = index_serie;
+        series[1] = index_avg_900_serie;
+        series[2] = index_avg_3600_serie;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
         // ------------------ Roll ------------------- //
-        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
+        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_900);
         roll_900.setColor(Themes.LIGHT_RED);
         roll_900.setStokeSize(1.0f);
 
-        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
+        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_3600);
         roll_3600.setColor(Themes.PURPLE);
         roll_3600.setStokeSize(1.2f);
 
@@ -89,46 +104,27 @@ public class Europe_Op_Avg extends MyChartCreator {
         MyChart dax_op_avg_day_chart = new MyChart(client, series, props);
 
 
-        // --------- Dax Op avg ---------- //
+        // --------- Dax DFs ---------- //
 
-        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
-        op_avg_15.setColor(Themes.LIGHT_RED);
-        op_avg_15.setStokeSize(1.0f);
+        MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
+        df_2.setColor(Themes.BINANCE_ORANGE);
+        df_2.setStokeSize(1.0f);
 
-        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);
-        op_avg_60.setColor(Themes.BINANCE_GREEN);
-        op_avg_60.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[2];
-        series[0] = op_avg_15;
-        series[1] = op_avg_60;
-
-
-        // Chart
-        MyChart dax_op_avg_chart = new MyChart(client, series, props);
-
-        // --------- Dax Op avg ---------- //
-
-        MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15);
-        op_avg_q2_15.setColor(Themes.LIGHT_RED);
-        op_avg_q2_15.setStokeSize(1.0f);
-
-        MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2);
-        op_avg_q2_60.setColor(Themes.GREEN);
-        op_avg_q2_60.setStokeSize(1.2f);
+        MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
+        df_7.setColor(Themes.PURPLE);
+        df_7.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
-        series[0] = op_avg_q2_15;
-        series[1] = op_avg_q2_60;
-
+        series[0] = df_2;
+        series[1] = df_7;
 
         // Chart
-        MyChart dax_op_avg_q2_chart = new MyChart(client, series, props);
+        MyChart df_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, dax_op_avg_day_chart, dax_op_avg_chart, dax_op_avg_q2_chart};
+        MyChart[] charts = {indexChart, dax_op_avg_day_chart, roll_chart, df_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

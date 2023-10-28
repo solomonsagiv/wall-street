@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
 
+    public static final String ROLL_WEEK_MONTH_3600 = "ROLL_WEEK_MONTH_3600";
+    public static final String ROLL_WEEK_MONTH_900 = "ROLL_WEEK_MONTH_900";
+
     public static void main(String[] args) {
         Chart_10 chart_10 = new Chart_10(Dax.getInstance());
         chart_10.createChart();
@@ -180,6 +183,67 @@ public class TimeSeriesFactory {
                     }
                 };
 
+            case ROLL_WEEK_MONTH_3600:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_MONTH_3600);
+
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setValue(val);
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_MONTH_3600);
+
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+
+                    }
+                };
+
+
+            case ROLL_WEEK_MONTH_900:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_MONTH_900);
+
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        setValue(val);
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_MONTH_900);
+
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+
+                    }
+                };
+                
             case ROLL_60:
                 return new MyTimeSeries(series_type, client) {
 

@@ -123,26 +123,10 @@ public class Chart_9 extends MyChartCreator {
         // Chart
         MyChart q1_chart = new MyChart(client, series, props);
 
-
-        // -------------------- Op Avg q2 ---------------------- //
-        MyTimeSeries op_avg_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2);
-        op_avg_q2.setColor(Themes.BROWN);
-        op_avg_q2.setStokeSize(1.2f);
-
-        MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_15);
-        op_avg_q2_15.setColor(Themes.LIGHT_RED);
-        op_avg_q2_15.setStokeSize(1.0f);
-
-        series = new MyTimeSeries[2];
-        series[0] = op_avg_q2;
-        series[1] = op_avg_q2_15;
-
-        // Chart
-        MyChart q2_chart = new MyChart(client, series, props);
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, op_avg_chart, q1_chart, q2_chart};
+        MyChart[] charts = {indexChart, roll_chart, op_avg_chart, q1_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
