@@ -22,17 +22,36 @@ public class ChartFilterWindow extends MyGuiComps.MyFrame {
     // Constructor
     MyGuiComps.MyPanel mainPanel;
     MyGuiComps.MyLabel titleLbl;
-    
+    MyChartContainer container;
+
     // Constructors
     public ChartFilterWindow(String title, BASE_CLIENT_OBJECT client) throws HeadlessException {
         super(title, client);
     }
 
     // Constructors
-    public ChartFilterWindow(String title, BASE_CLIENT_OBJECT client, MyChart myChart) throws HeadlessException {
+    public ChartFilterWindow(String title, BASE_CLIENT_OBJECT client, MyChart myChart, MyChartContainer container) throws HeadlessException {
         super(title, client);
         this.myChart = myChart;
+        this.container = container;
         initParams(myChart);
+        initBounds();
+    }
+
+    private void initBounds() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(300);
+
+                int x = container.getX();
+                int y = container.getY();
+
+                setXY(x, y);
+                setBounds(x, y, getWidth(), getHeight());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void initParams(MyChart myChart) {

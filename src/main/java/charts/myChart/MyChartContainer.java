@@ -122,20 +122,20 @@ public class MyChartContainer extends MyGuiComps.MyFrame {
 
             initProps(chartPanel);
             addPan(chartPanel);
-            mouseListener(chartPanel, myChart);
+            mouseListener(chartPanel, myChart, this);
             mouseWheel(chartPanel, myChart);
             add(chartPanel);
         }
     }
 
     private void initProps(MyChartPanel chartPanel) {
-        chartPanel.setMouseZoomable(true);
-        chartPanel.setMouseWheelEnabled(true);
-        chartPanel.setDomainZoomable(true);
+        chartPanel.setMouseZoomable(false);
+        chartPanel.setMouseWheelEnabled(false);
+        chartPanel.setDomainZoomable(false);
         chartPanel.setRangeZoomable(false);
         chartPanel.setZoomTriggerDistance(Integer.MAX_VALUE);
-        chartPanel.setFillZoomRectangle(true);
-        chartPanel.setZoomAroundAnchor(true);
+        chartPanel.setFillZoomRectangle(false);
+        chartPanel.setZoomAroundAnchor(false);
     }
 
     private void mouseWheel(MyChartPanel chartPanel, MyChart myChart) {
@@ -147,7 +147,7 @@ public class MyChartContainer extends MyGuiComps.MyFrame {
         });
     }
 
-    private void mouseListener(MyChartPanel chartPanel, MyChart myChart) {
+    private void mouseListener(MyChartPanel chartPanel, MyChart myChart, MyChartContainer container) {
 
         // 2 Clicks
         chartPanel.addMouseListener(new MouseAdapter() {
@@ -179,7 +179,7 @@ public class MyChartContainer extends MyGuiComps.MyFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (e.getButton() == MouseEvent.BUTTON3) {
-                    new ChartFilterWindow("Filter", client, myChart);
+                    new ChartFilterWindow("Filter", client, myChart, container);
                 }
             }
         });

@@ -85,7 +85,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void initSeries(BASE_CLIENT_OBJECT client) {
 
     }
-
+    
     @Override
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {

@@ -95,7 +95,7 @@ public class Chart_10 extends MyChartCreator {
         series = new MyTimeSeries[2];
         series[0] = op_avg_15;
         series[1] = op_avg_60;
-
+        
         // Chart
         MyChart op_avg_chart = new MyChart(client, series, props);
 

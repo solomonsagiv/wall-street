@@ -87,8 +87,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
                 FuturesChartLong_400 chart = new FuturesChartLong_400(this);
                 chart.createChart();
 
-                Chart_9 chart_4 = new Chart_9(this);
-                chart_4.createChart();
+                Chart_9 chart_9 = new Chart_9(this);
+                chart_9.createChart();
 
             }).start();
         }
