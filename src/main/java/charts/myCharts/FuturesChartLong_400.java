@@ -124,11 +124,11 @@ public class FuturesChartLong_400 extends MyChartCreator {
 
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
+        greens.add(Themes.GREEN_LIGHT_4);
         greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN_LIGHT_4);
-        greens.add(Themes.GREEN_LIGHT_4);
-        greens.add(Themes.GREEN_LIGHT_4);
-        greens.add(Themes.GREEN_LIGHT_4);
+        greens.add(Themes.GREEN);
+        greens.add(Themes.GREEN);
+        greens.add(Themes.GREEN);
 
         int i = 0;
 
