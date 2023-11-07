@@ -42,6 +42,7 @@ public class TimeSeriesFactory {
 
     // DF 2
     public static final String DF_2_CDF = "DF_2_CDF";
+    public static final String DF_2_ROLL_CDF = "DF_2_ROLL_CDF";
 
     // DF 7
     public static final String DF_7_CDF = "DF_7_CDF";
@@ -811,6 +812,36 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load_exp_data() {
+                    }
+                };
+
+            case DF_2_ROLL_CDF:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min());
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
+//                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
+//                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id));
+//                        setExp_data(data);
                     }
                 };
 

@@ -72,7 +72,7 @@ public class DAX_CHART_10 extends MyChartCreator {
         // ------------------ Roll ------------------- //
         MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_900);
         roll_900.setColor(Themes.LIGHT_RED);
-        roll_900.setStokeSize(1.0f);
+        roll_900.setStokeSize(0.75f);
 
         MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_3600);
         roll_3600.setColor(Themes.PURPLE);
@@ -90,7 +90,7 @@ public class DAX_CHART_10 extends MyChartCreator {
         // --------- Dax Op avg ---------- //
         MyTimeSeries op_avg_day_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
         op_avg_day_15.setColor(Themes.LIGHT_RED);
-        op_avg_day_15.setStokeSize(1.0f);
+        op_avg_day_15.setStokeSize(0.75f);
 
         MyTimeSeries op_avg_day_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
         op_avg_day_60.setColor(Themes.BLUE);
@@ -110,13 +110,19 @@ public class DAX_CHART_10 extends MyChartCreator {
         df_2.setColor(Themes.BINANCE_ORANGE);
         df_2.setStokeSize(1.0f);
 
+
         MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
         df_7.setColor(Themes.PURPLE);
-        df_7.setStokeSize(1.2f);
+        df_7.setStokeSize(1.0f);
 
-        series = new MyTimeSeries[2];
+        MyTimeSeries df_2_roll = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF);
+        df_2_roll.setColor(Themes.LIFGT_BLUE_2);
+        df_2_roll.setStokeSize(1.0f);
+
+        series = new MyTimeSeries[3];
         series[0] = df_2;
         series[1] = df_7;
+        series[2] = df_2_roll;
 
         // Chart
         MyChart df_chart = new MyChart(client, series, props);

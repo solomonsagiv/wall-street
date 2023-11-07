@@ -12,7 +12,7 @@ import serverObjects.indexObjects.Dax;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
+public class DaxTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     BASE_CLIENT_OBJECT client;
     Exps exps;
@@ -26,7 +26,6 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel openLbl;
     MyGuiComps.MyLabel lastLbl;
     MyGuiComps.MyLabel lowLbl;
-    MyGuiComps.MyLabel highLbl;
 
     MyGuiComps.MyTextField openField;
     MyGuiComps.MyTextField openPresentField;
@@ -34,14 +33,12 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField lastPresentField;
     MyGuiComps.MyTextField lowField;
     MyGuiComps.MyTextField lowPresentField;
-    MyGuiComps.MyTextField highField;
-    MyGuiComps.MyTextField highPresentField;
 
     public static void main(String[] args) {
         IndexWindow window = new IndexWindow("Dax", Dax.getInstance());
     }
 
-    public TickerPanel(BASE_CLIENT_OBJECT client) {
+    public DaxTickerPanel(BASE_CLIENT_OBJECT client) {
         super();
         this.client = client;
         this.exps = client.getExps();
@@ -58,24 +55,20 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(headerPanel);
         
         // Open
-        openLbl = new MyGuiComps.MyLabel("Open", true);
+        openLbl = new MyGuiComps.MyLabel("DF 2", true);
         openLbl.setXY(0, 0);
         headerPanel.add(openLbl);
 
         // Last
-        lastLbl = new MyGuiComps.MyLabel("Last", true);
+        lastLbl = new MyGuiComps.MyLabel("DF 7", true);
         lastLbl.setXY(openLbl.getX() + openLbl.getWidth() + 9, 0);
         headerPanel.add(lastLbl);
 
         // Low
-        lowLbl = new MyGuiComps.MyLabel("Low", true);
+        lowLbl = new MyGuiComps.MyLabel("DF 2 ROLL", true);
         lowLbl.setXY(lastLbl.getX() + lastLbl.getWidth() + 9, 0);
         headerPanel.add(lowLbl);
 
-        // High
-        highLbl = new MyGuiComps.MyLabel("High", true);
-        highLbl.setXY(lowLbl.getX() + lowLbl.getWidth() + 9, 0);
-        headerPanel.add(highLbl);
 
         // ------- Body ------- //
         bodyPanel = new MyGuiComps.MyPanel();
@@ -116,17 +109,6 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         lowPresentField.setXY(lowField.getX(), lowField.getY() + lowField.getHeight() + 1);
         bodyPanel.add(lowPresentField);
 
-        // High
-        highField = new MyGuiComps.MyTextField();
-        highField.setXY(highLbl.getX(), 5);
-        bodyPanel.add(highField);
-
-        highPresentField = new MyGuiComps.MyTextField();
-        highPresentField.setForeground(Color.WHITE);
-        highPresentField.setFont(highPresentField.getFont().deriveFont(Font.BOLD));
-        highPresentField.setXY(highField.getX(), highField.getY() + highField.getHeight() + 1);
-        bodyPanel.add(highPresentField);
-
         // Exps
         expsPanel = new ExpsPanel(exps);
         expsPanel.setXY(openPresentField.getX(), openPresentField.getY() + openPresentField.getHeight() + 1);
@@ -141,13 +123,11 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
             openField.setText(L.format_int(client.getOpen()));
             lastField.setText(L.format_int(client.getIndex()));
             lowField.setText(L.format_int(client.getLow()));
-            highField.setText(L.format_int(client.getHigh()));
 
             // Present
             openPresentField.colorBack(L.present(client.getOpen(), client.getBase()), L.format100(), "%");
             lastPresentField.colorBack(L.present(client.getIndex(), client.getBase()), L.format100(), "%");
             lowPresentField.colorBack(L.present(client.getLow(), client.getBase()), L.format100(), "%");
-            highPresentField.colorBack(L.present(client.getHigh(), client.getBase()), L.format100(), "%");
 
             // Exps mini panels
             expsPanel.updateText();
@@ -158,12 +138,12 @@ public class TickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 }
 
 
-class ExpsPanel extends MyGuiComps.MyPanel implements IMyPanel {
+class DaxExpsPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     Exps exps;
     ArrayList<ExpMiniPanel> miniPanels = new ArrayList<>();
 
-    public ExpsPanel(Exps exps) {
+    public DaxExpsPanel(Exps exps) {
         super();
         this.exps = exps;
         initsialize();
@@ -193,7 +173,7 @@ class ExpsPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
 
 // Exp mini panels
-class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
+class DaxExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     Exp exp;
 
@@ -202,7 +182,7 @@ class ExpMiniPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField opField;
     MyGuiComps.MyTextField opAvgField;
 
-    public ExpMiniPanel(Exp exp) {
+    public DaxExpMiniPanel(Exp exp) {
         super();
         this.exp = exp;
         initsialize();

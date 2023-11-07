@@ -207,8 +207,11 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // DF
         serie_ids.put(TimeSeriesHandler.DF_2, 9643);
         serie_ids.put(TimeSeriesHandler.DF_7, 9644);
+        serie_ids.put(TimeSeriesHandler.DF_2_ROLL, 9652);
 
 
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_ROLL_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_ROLL_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
 

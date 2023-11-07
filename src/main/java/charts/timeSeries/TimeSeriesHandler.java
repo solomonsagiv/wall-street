@@ -73,6 +73,7 @@ public class TimeSeriesHandler {
 
     public static final int ROLL_WEEK_MONTH_3600 = 93;
     public static final int ROLL_WEEK_MONTH_900 = 94;
+    public static final int DF_2_ROLL = 95;
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
     public Map<String, MyTimeSeries> getSeries_map() {
