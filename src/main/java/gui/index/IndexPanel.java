@@ -33,6 +33,7 @@ public class IndexPanel extends JPanel implements IMyPanel {
 
     INDEX_CLIENT_OBJECT client;
 
+
     private Updater updater;
 
     public IndexPanel(INDEX_CLIENT_OBJECT client) {
