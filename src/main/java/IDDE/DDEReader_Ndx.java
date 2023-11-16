@@ -57,7 +57,7 @@ public class DDEReader_Ndx extends IDDEReader {
     String q2_normalized_num_cell = "R15C18";
 
     // Cof
-    String cofCell = "R9C23";
+    String cofCell = "R12C23";
 
     // Constructor
     public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {

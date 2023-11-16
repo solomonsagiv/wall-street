@@ -50,7 +50,7 @@ public class DDEReader_Spx extends IDDEReader {
     String q2_days_cell = "R15C13";
 
     // Cof
-    String cofCell = "R9C23";
+    String cofCell = "R12C23";
 
     String q1_normalized_num_cell = "R14C18";
     String q2_normalized_num_cell = "R15C18";
