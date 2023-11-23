@@ -784,13 +784,22 @@ public class MySql {
             String today_date = "now()::date";
 
             String query = String.format(q, id_name, interest, dividend, days_to_exp, base, today_date, today_date, cof, exp_name, normalized_num);
-            // JIBE
+            // JIBE prod
             MySql.insert(query);
 
 
             // SLO
             try {
                 Connection slo_conn = ConnectionPool.get_slo_single_connection();
+                MySql.insert(query, slo_conn);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+            // JIbe dev
+            try {
+                Connection slo_conn = ConnectionPool.get_jibe_dev_single_connection();
                 MySql.insert(query, slo_conn);
 
             } catch (SQLException throwables) {

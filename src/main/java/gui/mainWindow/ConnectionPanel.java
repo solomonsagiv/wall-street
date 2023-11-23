@@ -29,6 +29,8 @@ import java.util.Map;
 
 public class ConnectionPanel extends MyGuiComps.MyPanel {
 
+
+
     // Variables
     JComboBox clientComboBox;
     MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection");
@@ -151,10 +153,14 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     private void delete_rates() {
         // Delete current
         Connection slo_conn = null;
+        Connection jibe_dev_conn = null;
         try {
             slo_conn = ConnectionPool.get_slo_single_connection();
+            jibe_dev_conn = ConnectionPool.get_jibe_dev_single_connection();
+
             MySql.Queries.delete_today_rates(slo_conn);
             MySql.Queries.delete_today_rates();
+            MySql.Queries.delete_today_rates(jibe_dev_conn);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
