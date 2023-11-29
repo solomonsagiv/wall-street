@@ -51,7 +51,6 @@ public class DDEReader_Ndx extends IDDEReader {
     String q1_days_cell = "R14C13";
     String q2_days_cell = "R15C13";
 
-
     // Normalized number
     String q1_normalized_num_cell = "R14C18";
     String q2_normalized_num_cell = "R15C18";
