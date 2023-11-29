@@ -1,11 +1,13 @@
 package gui.panels;
 
 import gui.MyGuiComps;
-import gui.index.IndexWindow;
+import gui.index.newP.NewIndexWindow;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.*;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 import setting.clientSetting.SettingWindow;
 
 import javax.swing.*;
@@ -39,13 +41,13 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
 
                 switch (selected) {
                     case "SPX":
-                        new IndexWindow("Spx window", Spx.getInstance());
+                        new NewIndexWindow("Spx window", Spx.getInstance());
                         break;
                     case "NDX":
-                        new IndexWindow("Ndx window", Ndx.getInstance());
+                        new NewIndexWindow("Ndx window", Ndx.getInstance());
                         break;
                     case "DAX":
-                        new IndexWindow("Dax window", Dax.getInstance());
+                        new NewIndexWindow("Dax window", Dax.getInstance());
                         break;
                     default:
                         break;

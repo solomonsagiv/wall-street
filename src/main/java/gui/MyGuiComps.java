@@ -386,7 +386,7 @@ public class MyGuiComps {
 
         private void init() {
 
-            setBounds(new Rectangle(60, 25));
+            setBounds(new Rectangle(65, 25));
 
             setForeground(Themes.BLUE);
             setHorizontalAlignment(JLabel.CENTER);

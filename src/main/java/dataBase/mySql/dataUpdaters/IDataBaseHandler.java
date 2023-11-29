@@ -8,6 +8,7 @@ import exp.Exp;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -34,15 +35,14 @@ public abstract class IDataBaseHandler {
 
     public abstract void initTablesNames();
 
-
     protected void load_exp_data() {
-        try {
-            // Load exp data for each timeserie
-            for (Map.Entry<String, MyTimeSeries> entry : client.getTimeSeriesHandler().getSeries_map().entrySet()) {
+        // Load exp data for each timeserie
+        for (Map.Entry<String, MyTimeSeries> entry : client.getTimeSeriesHandler().getSeries_map().entrySet()) {
+            try {
                 entry.getValue().load_exp_data();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -61,7 +61,7 @@ public abstract class IDataBaseHandler {
                 if (!rs.next()) break;
                 props_name = rs.getString("prop");
                 data = rs.getObject("data");
-                
+
                 System.out.println(props_name + "  " + data);
 
                 client.getProps().getMap().get(props_name).setData(data);
@@ -110,7 +110,7 @@ public abstract class IDataBaseHandler {
                 if (!rs.next()) break;
                 Timestamp timestamp = rs.getTimestamp("time");
                 double value = rs.getDouble("value");
-                System.out.println(value + "  "  + timeSeries.getName());
+                System.out.println(value + "  " + timeSeries.getName());
                 timeSeries.add(timestamp.toLocalDateTime(), value);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

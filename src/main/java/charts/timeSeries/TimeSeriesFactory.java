@@ -6,6 +6,7 @@ import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import dataBase.props.Props;
 import exp.Exp;
 import exp.ExpStrings;
+import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 
@@ -38,6 +39,7 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_MONTH_60 = "OP_AVG_MONTH_60";
 
     public static final String BASKETS_CDF = "BASKETS_CDF";
+    public static final String BASKETS_MONTH_CDF = "BASKETS_MONTH_CDF";
     public static final String OP_AVG_240_CONTINUE = "OP_AVG_240_CONTINUE";
 
     // DF 2
@@ -48,7 +50,7 @@ public class TimeSeriesFactory {
     public static final String DF_7_CDF = "DF_7_CDF";
 
     // DF 8
-    public static final String DF_8_CDF = "DF_8_CDF";
+    public static final String DF_9_CDF = "DF_8_CDF";
     public static final String DF_8_RAW_900 = "DF_8_RAW_900";
     public static final String DF_8_RAW_3600 = "DF_8_RAW_3600";
 
@@ -62,13 +64,14 @@ public class TimeSeriesFactory {
     // Exp
     // Week
     public static final String DF_2_WEEK = "DF_2_WEEK";
-    public static final String DF_7_WEEK = "DF_7_WEEK";
+    public static final String DF_2_ROLL_WEEK = "DF_2_ROLL_WEEK";
+    public static final String BASKETS_WEEK = "BASKETS_WEEK";
     public static final String DF_8_WEEK = "DF_8_WEEK";
     public static final String DF_WEEK = "DF_WEEK";
 
     // Month
     public static final String DF_2_MONTH = "DF_2_MONTH";
-    public static final String DF_7_MONTH = "DF_7_MONTH";
+    public static final String DF_2_ROLL_MONTH = "DF_2_ROLL_MONTH";
     public static final String DF_8_MONTH = "DF_8_MONTH";
     public static final String DF_MONTH = "DF_MONTH";
 
@@ -244,7 +247,7 @@ public class TimeSeriesFactory {
 
                     }
                 };
-                
+
             case ROLL_60:
                 return new MyTimeSeries(series_type, client) {
 
@@ -723,98 +726,6 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_WEEK:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_WEEK);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-
-            case DF_MONTH:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_MONTH);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-
-            case DF_WEIGHTED:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_WEIGHTED);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-
-            case STD_MOVE:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.STD_MOVE);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                    }
-                };
-
             case DF_2_ROLL_CDF:
                 return new MyTimeSeries(series_type, client) {
 
@@ -838,10 +749,6 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load_exp_data() {
-//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-//                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-//                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id));
-//                        setExp_data(data);
                     }
                 };
 
@@ -868,10 +775,6 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load_exp_data() {
-//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-//                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-//                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id));
-//                        setExp_data(data);
                     }
                 };
 
@@ -905,7 +808,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_8_CDF:
+            case DF_9_CDF:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -1027,7 +930,7 @@ public class TimeSeriesFactory {
                     public double getValue() {
                         return super.getValue();
                     }
-                    
+
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_1);
@@ -1547,27 +1450,23 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.BASKETS);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
+
+                        int basket_up = (int) MySql.Queries.handle_rs(MySql.Queries.get_baskets_up_sum(serie_id));
+                        int basket_down = (int) MySql.Queries.handle_rs(MySql.Queries.get_baskets_down_sum(serie_id));
+                        client.getBasketFinder_by_stocks().setBasketUp(basket_up);
+                        client.getBasketFinder_by_stocks().setBasketDown((int) L.abs(basket_down));
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.BASKETS);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min());
-                        IDataBaseHandler.loadSerieData(rs, this);
                     }
 
                     @Override
                     public void load_exp_data() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.BASKETS);
-                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id));
-                        setExp_data(data);
                     }
                 };
 
-
-// ---------------------- DF 2 exps -------------------- //
+            // ---------------------- DF 2 exps -------------------- //
             case DF_2_WEEK:
                 return new MyTimeSeries(series_type, client) {
 
@@ -1587,6 +1486,55 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        setExp_data(data);
+                    }
+                };
+
+
+            case DF_2_ROLL_WEEK:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        setExp_data(data);
+                    }
+                };
+
+            case BASKETS_WEEK:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.BASKETS);
                         double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
                         setExp_data(data);
                     }
@@ -1616,7 +1564,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_2_Q1:
+            case DF_2_ROLL_MONTH:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -1634,62 +1582,14 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load_exp_data() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_Q1_START));
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
                         setExp_data(data);
                     }
                 };
 
 
             // ---------------------- DF 7 exps -------------------- //
-            case DF_7_WEEK:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
-                        setExp_data(data);
-                    }
-                };
-
-            case DF_7_MONTH:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                    }
-
-                    @Override
-                    public void load() {
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
-                        setExp_data(data);
-                    }
-                };
-
             case DF_7_Q1:
                 return new MyTimeSeries(series_type, client) {
 
@@ -1713,36 +1613,6 @@ public class TimeSeriesFactory {
                         setExp_data(data);
                     }
                 };
-
-
-            case DF_8_RELATIVE:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8_RELATIVE);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW)));
-
-                    }
-
-                    @Override
-                    public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_8_RELATIVE);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-
-                    }
-                };
-
 
             // ---------------------- DF 8 exps -------------------- //
             case DF_8_WEEK:
@@ -1889,36 +1759,6 @@ public class TimeSeriesFactory {
                         setExp_data(data);
                     }
                 };
-
-
-            case WINDOW_SIZE:
-                return new MyTimeSeries(series_type, client) {
-
-                    @Override
-                    public double getValue() {
-                        return super.getValue();
-                    }
-
-                    @Override
-                    public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.WINDOW_SIZE);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
-                        setValue(val);
-                    }
-
-                    @Override
-                    public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.WINDOW_SIZE);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
-                        IDataBaseHandler.loadSerieData(rs, this);
-                    }
-
-                    @Override
-                    public void load_exp_data() {
-
-                    }
-                };
-
 
             default:
                 return null;

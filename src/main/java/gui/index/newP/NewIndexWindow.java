@@ -1,26 +1,34 @@
-package gui.index;
+package gui.index.newP;
 
 import gui.MyGuiComps;
-import gui.index.newP.NewIndexWindow;
-import gui.index.newP.NewPanel;
+import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
-public class IndexWindow extends MyGuiComps.MyFrame {
+public class NewIndexWindow extends MyGuiComps.MyFrame {
 
     // Variables
     NewPanel indexPanel;
 
     // Constructor
-    public IndexWindow(String title, INDEX_CLIENT_OBJECT client) throws HeadlessException {
+    public NewIndexWindow(String title, INDEX_CLIENT_OBJECT client) throws HeadlessException {
         super(title, client);
+        load_data(client);
     }
 
     public static void main(String[] args) {
         Spx dax = Spx.getInstance();
         new NewIndexWindow("Dax", dax);
+    }
+
+    private static void load_data(BASE_CLIENT_OBJECT client) {
+        new Thread(()->{
+//            client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF).load();
+//            client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF).load();
+//            client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF).load();
+        }).start();
     }
 
     @Override

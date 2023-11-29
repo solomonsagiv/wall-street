@@ -1,4 +1,4 @@
-package gui.index;
+package gui.index.newP;
 
 import baskets.BasketFinder_by_stocks;
 import charts.timeSeries.MyTimeSeries;
@@ -14,7 +14,7 @@ import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class DaxMachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
+public class NewMachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
     BASE_CLIENT_OBJECT client;
 
@@ -37,7 +37,7 @@ public class DaxMachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     private ArrayList<MyTimeSeries> df_list_week;
     private ArrayList<MyTimeSeries> df_list_month;
 
-    public DaxMachinePanel(BASE_CLIENT_OBJECT client) {
+    public NewMachinePanel(BASE_CLIENT_OBJECT client) {
         super();
         this.client = client;
         this.basketFinder = client.getBasketFinder_by_stocks();

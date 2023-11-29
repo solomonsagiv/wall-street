@@ -88,7 +88,7 @@ public class Chart_7 extends MyChartCreator {
         df_7.setColor(Themes.PURPLE);
         df_7.setStokeSize(1.2f);
 
-        MyTimeSeries df_8 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries df_8 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         df_8.setColor(Themes.RED);
         df_8.setStokeSize(1.2f);
 

@@ -17,7 +17,7 @@ public class ConnectionPool implements IConnectionPool {
         ResultSet rs = MySql.select("select * from meta.interest_rates;", jibe_dev_conn);
         System.out.println("Done");
     }
-
+    
     public static Connection get_slo_single_connection() throws SQLException {
         String url = "jdbc:postgresql://52.73.213.15:5432/jibe?user=jibe_admin&password=160633a0cd2ab5a9b82f088a77240cb68f9232a8&ssl=false";
         Connection conn = DriverManager.getConnection(url);

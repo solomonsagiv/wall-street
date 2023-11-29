@@ -104,12 +104,10 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
         if (Manifest.DB) {
             ConnectionPool.getConnectionsPoolInstance();
         }
-
+        
         new Thread(() -> {
-
             // Start back runners
             for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-
                 try {
                     // Load data from database
                     if (Manifest.DB) {
@@ -123,7 +121,6 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
                 }
                 // Start back runner
                 BackGroundHandler.getInstance().createNewRunner(client);
-
             }
 
             if (Manifest.DB) {

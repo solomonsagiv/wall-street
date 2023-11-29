@@ -64,11 +64,11 @@ public class Chart_wallstreet_2 extends MyChartCreator {
 
         // --------- DF 9 ---------- //
 
-        MyTimeSeries spx_df_8 = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries spx_df_8 = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         spx_df_8.setColor(Themes.RED);
         spx_df_8.setStokeSize(1.2f);
 
-        MyTimeSeries ndx_df_8 = ndx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries ndx_df_8 = ndx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         ndx_df_8.setColor(Themes.GREEN);
         ndx_df_8.setStokeSize(1.2f);
 
@@ -116,7 +116,7 @@ public class Chart_wallstreet_2 extends MyChartCreator {
         df_7.setColor(Themes.PURPLE);
         df_7.setStokeSize(1.2f);
 
-        MyTimeSeries df_8 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries df_8 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         df_8.setColor(Themes.RED);
         df_8.setStokeSize(1.2f);
 

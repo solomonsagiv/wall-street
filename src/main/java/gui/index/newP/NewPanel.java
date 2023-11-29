@@ -1,31 +1,29 @@
-package gui.index;
+package gui.index.newP;
 
 import gui.panels.IMyPanel;
 import gui.popupsFactory.PopupsMenuFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class DaxPanel extends JPanel implements IMyPanel {
+public class NewPanel extends JPanel implements IMyPanel {
 
     public static void main(String[] args) {
-        DaxPanel indexPanel = new DaxPanel(Dax.getInstance());
+        NewPanel indexPanel = new NewPanel( Spx.getInstance());
+        indexPanel.setVisible(true);
     }
 
     // Ticker
-    DaxTickerPanel tickerPanel;
+    NewTickerPanel tickerPanel;
 
     // Exp
-    DaxExpSumPanel expPanel;
-    
-    // Basket panel
-    DaxMachinePanel machinePanel;
+    NewExpSumPanel expPanel;
 
     int height = 240;
 
@@ -35,7 +33,7 @@ public class DaxPanel extends JPanel implements IMyPanel {
 
     private Updater updater;
 
-    public DaxPanel(INDEX_CLIENT_OBJECT client) {
+    public NewPanel(INDEX_CLIENT_OBJECT client) {
         this.client = client;
         client.getExps();
 
@@ -70,20 +68,16 @@ public class DaxPanel extends JPanel implements IMyPanel {
         setBounds(0, 0, 0, height);
 
         // ---------- Ticker section ---------- //
-        tickerPanel = new DaxTickerPanel(client);
+        tickerPanel = new NewTickerPanel(client);
         tickerPanel.setXY(0, 0);
         add(tickerPanel);
 
-        // ---------- Basket panel -------------//
-        machinePanel = new DaxMachinePanel(client);
-        machinePanel.setXY(tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
-        add(machinePanel);
-
         // --------------- Exp --------------- //
-        expPanel = new DaxExpSumPanel(client);
-        expPanel.setXY(machinePanel.getX() + machinePanel.getWidth() + 1, machinePanel.getY());
+        expPanel = new NewExpSumPanel(client);
+        expPanel.setXY(tickerPanel.getX() + tickerPanel.getWidth() + 1, tickerPanel.getY());
+        expPanel.setWidth(332);
         add(expPanel);
-        
+
     }
 
     public Updater getUpdater() {
@@ -97,8 +91,7 @@ public class DaxPanel extends JPanel implements IMyPanel {
     public void updateText() {
         try {
             tickerPanel.updateText();
-            machinePanel.updateText();
-//            expPanel.updateText();
+            expPanel.updateText();
         } catch (Exception e) {
             e.printStackTrace();
         }

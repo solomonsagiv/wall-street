@@ -228,6 +228,22 @@ public class MySql {
     public static class Queries {
         public static final int step_second = 10;
 
+
+        public static ResultSet get_baskets_up_sum(int serie_id) {
+            String q = "select sum(value) as value " +
+                    "from ts.timeseries_data where timeseries_id = %s and value = 1 and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);";
+            String query = String.format(q, serie_id);
+            return MySql.select(query);
+        }
+
+        public static ResultSet get_baskets_down_sum(int serie_id) {
+            String q = "select sum(value) as value " +
+                    "from ts.timeseries_data where timeseries_id = %s and value = -1 and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day);";
+            String query = String.format(q, serie_id);
+            return MySql.select(query);
+        }
+
+
         public static ResultSet op_query(String index_table, String fut_table) {
             String query = String.format("select sum(f.value - i.value), count(f.value - i.value) as value " +
                     "from %s i " +

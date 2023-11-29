@@ -59,11 +59,11 @@ public class Chart_wallstreet extends MyChartCreator {
 
         // --------- Op avg ---------- //
 
-        MyTimeSeries spx_df_8 = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries spx_df_8 = spx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         spx_df_8.setColor(Themes.RED);
         spx_df_8.setStokeSize(1.2f);
 
-        MyTimeSeries ndx_df_8 = ndx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries ndx_df_8 = ndx.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         ndx_df_8.setColor(Themes.GREEN);
         ndx_df_8.setStokeSize(1.2f);
 

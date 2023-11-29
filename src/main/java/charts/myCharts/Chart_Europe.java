@@ -54,7 +54,7 @@ public class Chart_Europe extends MyChartCreator {
 
         // --------- Op avg ---------- //
 
-        MyTimeSeries dax_df_8 = dax.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_CDF);
+        MyTimeSeries dax_df_8 = dax.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
         dax_df_8.setColor(Themes.RED);
         dax_df_8.setStokeSize(1.2f);
 
