@@ -110,19 +110,13 @@ public class DAX_CHART_10 extends MyChartCreator {
         df_2.setColor(Themes.BINANCE_ORANGE);
         df_2.setStokeSize(1.0f);
 
-
-        MyTimeSeries df_7 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_7_CDF);
-        df_7.setColor(Themes.PURPLE);
-        df_7.setStokeSize(1.0f);
-
         MyTimeSeries df_2_roll = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF);
         df_2_roll.setColor(Themes.LIFGT_BLUE_2);
         df_2_roll.setStokeSize(1.0f);
 
-        series = new MyTimeSeries[3];
+        series = new MyTimeSeries[2];
         series[0] = df_2;
-        series[1] = df_7;
-        series[2] = df_2_roll;
+        series[1] = df_2_roll;
 
         // Chart
         MyChart df_chart = new MyChart(client, series, props);
