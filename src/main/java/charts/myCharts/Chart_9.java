@@ -69,37 +69,37 @@ public class Chart_9 extends MyChartCreator {
         MyChart indexChart = new MyChart(client, series, props);
 
         // ------------------ Roll week q1 ------------------- //
-        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900);
-        roll_900.setColor(Themes.LIGHT_RED);
-        roll_900.setStokeSize(1.0f);
+        MyTimeSeries roll_week_q1_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900);
+        roll_week_q1_900.setColor(Themes.LIGHT_RED);
+        roll_week_q1_900.setStokeSize(1.0f);
 
-        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600);
-        roll_3600.setColor(Themes.PURPLE);
-        roll_3600.setStokeSize(1.2f);
+        MyTimeSeries roll_week_q1_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600);
+        roll_week_q1_3600.setColor(Themes.PURPLE);
+        roll_week_q1_3600.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
-        series[0] = roll_900;
-        series[1] = roll_3600;
+        series[0] = roll_week_q1_900;
+        series[1] = roll_week_q1_3600;
 
         // Chart
         MyChart roll_chart = new MyChart(client, series, props);
 
 
         // ------------------ Roll q1 q2 ------------------- //
-        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
-        roll_900.setColor(Themes.LIGHT_RED);
-        roll_900.setStokeSize(1.0f);
+        MyTimeSeries roll_q1_q2_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_900);
+        roll_q1_q2_900.setColor(Themes.LIGHT_RED);
+        roll_q1_q2_900.setStokeSize(1.0f);
 
-        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
-        roll_3600.setColor(Themes.PURPLE);
-        roll_3600.setStokeSize(1.2f);
+        MyTimeSeries roll_q1_q2_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_3600);
+        roll_q1_q2_3600.setColor(Themes.PURPLE);
+        roll_q1_q2_3600.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
-        series[0] = roll_900;
-        series[1] = roll_3600;
+        series[0] = roll_q1_q2_900;
+        series[1] = roll_q1_q2_3600;
 
         // Chart
-        MyChart roll_chart = new MyChart(client, series, props);
+        MyChart roll_week_q1_chart = new MyChart(client, series, props);
 
         // --------- Op avg ---------- //
 

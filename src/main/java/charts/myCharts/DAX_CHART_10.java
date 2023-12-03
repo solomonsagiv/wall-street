@@ -70,11 +70,11 @@ public class DAX_CHART_10 extends MyChartCreator {
         MyChart indexChart = new MyChart(client, series, props);
 
         // ------------------ Roll ------------------- //
-        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_900);
+        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900);
         roll_900.setColor(Themes.LIGHT_RED);
         roll_900.setStokeSize(0.75f);
 
-        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_3600);
+        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600);
         roll_3600.setColor(Themes.PURPLE);
         roll_3600.setStokeSize(1.2f);
 

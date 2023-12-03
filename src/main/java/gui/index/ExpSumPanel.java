@@ -52,15 +52,10 @@ public class ExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         // Week
         df_2_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_WEEK);
-        df_8_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_WEEK);
+        df_8_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_WEEK);
 
         // Exp start
         exp_week_start = client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_WEEK_START);
-
-        // DF Exp
-        df_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEEK);
-        df_month = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_MONTH);
-        df_weighted = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_WEIGHTED);
     }
 
     int width = 200;

@@ -47,29 +47,11 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem charts_6 = new JMenuItem("Charts 6");
-        charts_6.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_6 chart = new Chart_6(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem charts_7 = new JMenuItem("Charts 7");
         charts_7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Chart_7 chart = new Chart_7(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem charts_8 = new JMenuItem("Charts 8");
-        charts_8.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_8 chart = new Chart_8(client);
                 chart.createChart();
             }
         });
@@ -97,24 +79,6 @@ public class PopupsMenuFactory {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Chart_12 chart = new Chart_12(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem wallstreet = new JMenuItem("Wall-street");
-        wallstreet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_wallstreet chart = new Chart_wallstreet(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem europe = new JMenuItem("Europe");
-        europe.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_Europe chart = new Chart_Europe(client);
                 chart.createChart();
             }
         });

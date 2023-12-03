@@ -43,8 +43,6 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
 
         df_list = new ArrayList<>();
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RELATIVE));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_8_RAW_900));
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
