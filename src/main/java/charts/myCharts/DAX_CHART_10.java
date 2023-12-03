@@ -88,11 +88,11 @@ public class DAX_CHART_10 extends MyChartCreator {
         // ------------------ Op avg ------------------- //
 
         // --------- Dax Op avg ---------- //
-        MyTimeSeries op_avg_day_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
+        MyTimeSeries op_avg_day_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900);
         op_avg_day_15.setColor(Themes.LIGHT_RED);
         op_avg_day_15.setStokeSize(0.75f);
 
-        MyTimeSeries op_avg_day_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
+        MyTimeSeries op_avg_day_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600);
         op_avg_day_60.setColor(Themes.BLUE);
         op_avg_day_60.setStokeSize(1.2f);
 

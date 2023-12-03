@@ -50,6 +50,9 @@ public class DDEReader_Dax extends IDDEReader {
     String q1_days_cell = "R20C13";
     String q2_days_cell = "R21C13";
 
+    String q1_normalized_num_cell = "R20C17";
+    String q2_normalized_num_cell = "R21C17";
+
 //    String cofCell = "R40C9";
 
     // Constructor
@@ -155,12 +158,14 @@ public class DDEReader_Dax extends IDDEReader {
             q1.setInterest(requestDouble(q1_interest_cell, conversation));
             q1.setDividend(requestDouble(q1_div_cell, conversation));
             q1.setDays_to_exp(requestDouble(q1_days_cell, conversation));
+            q1.setNormalized_num(requestDouble(q1_normalized_num_cell, conversation));
 //            q1.setCof(requestDouble(cofCell, conversation));
 
             // Q2
             q2.setInterest(requestDouble(q2_interest_cell, conversation));
             q2.setDividend(requestDouble(q2_div_cell, conversation));
             q2.setDays_to_exp(requestDouble(q2_days_cell, conversation));
+            q2.setNormalized_num(requestDouble(q2_normalized_num_cell, conversation));
 //            q2.setCof(requestDouble(cofCell, conversation));
 
             conversation.disconnect();

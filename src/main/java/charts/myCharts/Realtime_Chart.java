@@ -8,14 +8,13 @@ import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.awt.*;
 import java.util.ArrayList;
 
-public class FuturesChart extends MyChartCreator {
+public class Realtime_Chart extends MyChartCreator {
 
     // Constructor
-    public FuturesChart(BASE_CLIENT_OBJECT client ) {
+    public Realtime_Chart(BASE_CLIENT_OBJECT client ) {
         super(client, null, null);
     }
 
@@ -67,12 +66,13 @@ public class FuturesChart extends MyChartCreator {
         index.setColor(Color.BLACK);
         index.setStokeSize(1.75f);
 
+
         // Bid
-        MyTimeSeries bid = new MyTimeSeries("Future bid", client) {
+        MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
 
             @Override
             public double getValue() {
-                return client.getExps().getExp(ExpStrings.q1).get_future() - 3;
+                return client.getIndexBid();
             }
 
             @Override
@@ -95,11 +95,11 @@ public class FuturesChart extends MyChartCreator {
         bid.setVisible(false);
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries("Future ask", client) {
+        MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
 
             @Override
             public double getValue() {
-                return client.getExps().getExp(ExpStrings.q1).get_future() + 3;
+                return client.getIndexAsk();
             }
 
             @Override
@@ -124,10 +124,10 @@ public class FuturesChart extends MyChartCreator {
         // Futures
         ArrayList<Color> greens = new ArrayList<>();
         greens.add(Themes.GREEN);
-        greens.add(Color.BLACK);
-        greens.add(Themes.GREEN_LIGHT_2);
-        greens.add(Themes.GREEN_LIGHT_2);
-        greens.add(Themes.GREEN_LIGHT_2);
+        greens.add(Themes.PURPLE);
+        greens.add(Themes.PURPLE);
+        greens.add(Themes.PURPLE);
+        greens.add(Themes.PURPLE);
 
         int i = 0;
 
@@ -160,7 +160,7 @@ public class FuturesChart extends MyChartCreator {
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (client.getExps().getMainExp().getName().equals(exp.getName())) {
+            if (exp.getName().equals(ExpStrings.day)) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);

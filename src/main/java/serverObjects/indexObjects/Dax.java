@@ -7,7 +7,7 @@ import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
 import charts.myCharts.DAX_CHART_10;
-import charts.myCharts.FuturesChartLong_400;
+import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
 import exp.E;
@@ -28,7 +28,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 27, 3));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 33, 2));
         setLive_db(false);
         setIndex_bid_ask_synthetic_margin(5);
     }
@@ -49,7 +49,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     @Override
     public void setIndexAsk(double indexAsk) {
         super.setIndexAsk(indexAsk);
-        // Margin counter
+        // Margin counter‰
         double bidMargin = index - getIndexBid();
         double askMargin = indexAsk - index;
         double marginOfMarings = bidMargin - askMargin;
@@ -90,7 +90,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
-                FuturesChartLong_400 chart = new FuturesChartLong_400(this);
+                Realtime_Chart chart = new Realtime_Chart(this);
                 chart.createChart();
 
                 DAX_CHART_10 chart_10 = new DAX_CHART_10(this);

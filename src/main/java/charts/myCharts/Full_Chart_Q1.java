@@ -61,11 +61,11 @@ public class Full_Chart_Q1 extends MyChartCreator {
         // ------------------ Op avg ------------------- //
         
         // --------- Op avg ---------- //
-        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15);
+        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_900);
         op_avg_15.setColor(Themes.RED);
         op_avg_15.setStokeSize(1.2f);
         
-        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);
+        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_3600);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 

@@ -92,6 +92,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem charts_12 = new JMenuItem("Charts 12");
+        charts_12.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chart_12 chart = new Chart_12(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem wallstreet = new JMenuItem("Wall-street");
         wallstreet.addActionListener(new ActionListener() {
             @Override
@@ -130,30 +139,20 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem futures_real_time_400 = new JMenuItem("Futures 400");
-        futures_real_time_400.addActionListener(new ActionListener() {
+        JMenuItem real_time = new JMenuItem("Realtime");
+        real_time.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FuturesChartLong_400 chart = new FuturesChartLong_400(client);
+                Realtime_Chart chart = new Realtime_Chart(client);
                 chart.createChart();
             }
         });
 
-        JMenuItem futures_real_time_700 = new JMenuItem("Futures 700");
-        futures_real_time_700.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FuturesChartLong_400 chart = new FuturesChartLong_400(client);
-                chart.createChart();
-            }
-        });
-
-
-        JMenuItem futures = new JMenuItem("Futures");
+        JMenuItem futures = new JMenuItem("Realtime 2");
         futures.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FuturesChart chart = new FuturesChart(client);
+                Realtime_2_Chart chart = new Realtime_2_Chart(client);
                 chart.createChart();
             }
         });
@@ -169,13 +168,9 @@ public class PopupsMenuFactory {
 
         charts.add(charts_9);
         charts.add(charts_10);
-        charts.add(europe);
-        charts.add(fullCharts_q1);
-        charts.add(futures_real_time_400);
+        charts.add(charts_12);
+        charts.add(real_time);
         charts.add(futures);
-        charts.add(wallstreet);
-        charts.add(europe);
-        charts.add(europe_op_avg);
 
         menu.add(details);
         menu.add(settingWindow);

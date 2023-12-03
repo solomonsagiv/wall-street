@@ -8,13 +8,14 @@ import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.awt.*;
 import java.util.ArrayList;
 
-public class FuturesChartLong_400 extends MyChartCreator {
+public class Realtime_2_Chart extends MyChartCreator {
 
     // Constructor
-    public FuturesChartLong_400(BASE_CLIENT_OBJECT client ) {
+    public Realtime_2_Chart(BASE_CLIENT_OBJECT client ) {
         super(client, null, null);
     }
 
@@ -66,13 +67,12 @@ public class FuturesChartLong_400 extends MyChartCreator {
         index.setColor(Color.BLACK);
         index.setStokeSize(1.75f);
 
-
         // Bid
-        MyTimeSeries bid = new MyTimeSeries("Index bid", client) {
+        MyTimeSeries bid = new MyTimeSeries("Future bid", client) {
 
             @Override
             public double getValue() {
-                return client.getIndexBid();
+                return client.getExps().getExp(ExpStrings.q1).get_future() - 3;
             }
 
             @Override
@@ -95,11 +95,11 @@ public class FuturesChartLong_400 extends MyChartCreator {
         bid.setVisible(false);
 
         // Ask
-        MyTimeSeries ask = new MyTimeSeries("Index ask", client) {
+        MyTimeSeries ask = new MyTimeSeries("Future ask", client) {
 
             @Override
             public double getValue() {
-                return client.getIndexAsk();
+                return client.getExps().getExp(ExpStrings.q1).get_future() + 3;
             }
 
             @Override
@@ -121,16 +121,6 @@ public class FuturesChartLong_400 extends MyChartCreator {
         ask.setStokeSize(1.75f);
         ask.setVisible(false);
 
-
-        // Futures
-        ArrayList<Color> greens = new ArrayList<>();
-        greens.add(Themes.GREEN_LIGHT_4);
-        greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
-        greens.add(Themes.GREEN);
-
-        int i = 0;
 
         for (Exp exp : exps.getExpList()) {
 
@@ -155,13 +145,18 @@ public class FuturesChartLong_400 extends MyChartCreator {
                 }
             };
 
+            switch (exp.getName()) {
+                case ExpStrings.day:myTimeSerie.setColor(Themes.GREEN);
+                case ExpStrings.week:myTimeSerie.setColor(Themes.GREEN);
+                case ExpStrings.q1:myTimeSerie.setColor(Themes.PURPLE);
+                case ExpStrings.q2:myTimeSerie.setColor(Themes.PURPLE.brighter());
+            }
+
             myTimeSerie.setStokeSize(1.75f);
-            myTimeSerie.setColor(greens.get(i));
-            i++;
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (exp.getName().equals(ExpStrings.day)) {
+            if (client.getExps().getMainExp().getName().equals(exp.getName())) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);

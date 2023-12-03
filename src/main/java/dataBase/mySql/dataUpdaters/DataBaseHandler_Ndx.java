@@ -72,24 +72,23 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                 fut_day_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_day_0));
             }
 
+            // Fut e1
+            double fut_e1 = q1.get_future();
+
+            if (fut_e1 != fut_e1_0) {
+                fut_e1_0 = fut_e1;
+                fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+            }
+
+            // Fut e2
+            double fut_e2 = q2.get_future();
+
+            if (fut_e2 != fut_e2_0) {
+                fut_e2_0 = fut_e2;
+                fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+            }
+
         }
-
-        // Fut e1
-        double fut_e1 = q1.get_future();
-
-        if (fut_e1 != fut_e1_0) {
-            fut_e1_0 = fut_e1;
-            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-        }
-
-        // Fut e2
-        double fut_e2 = q2.get_future();
-
-        if (fut_e2 != fut_e2_0) {
-            fut_e2_0 = fut_e2;
-            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-        }
-
 
         // Baskets
         int basket = client.getBasketFinder_by_stocks().getBaskets();
@@ -125,67 +124,96 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_900, 1);
-        serie_ids.put(TimeSeriesHandler.FUT_DAY, 2);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK, 2);
         serie_ids.put(TimeSeriesHandler.FUT_Q1, 9533);
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 9534);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_240_CONTINUE, 9463);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_5, 9460);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_15, 9462);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_60, 9461);
+
+        // Df
+        serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
+
+        // DF
         serie_ids.put(TimeSeriesHandler.DF_7, 9529);
         serie_ids.put(TimeSeriesHandler.DF_2, 9528);//990
-        serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_DAY, 9517);
-        serie_ids.put(TimeSeriesHandler.DF_8, 9455);
+        serie_ids.put(TimeSeriesHandler.DF_9, 9455);
         serie_ids.put(TimeSeriesHandler.DF_8_900, 9455);
-        serie_ids.put(TimeSeriesHandler.ROLL_900, 9540);
-        serie_ids.put(TimeSeriesHandler.ROLL_3600, 9539);
-        serie_ids.put(TimeSeriesHandler.DF_8_RELATIVE, 9465);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1, 9518);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_60, 9580);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_15, 9601);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2, 9579);
-        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_15, 9603);
+
+        // Week
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK_900, 9462);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK_3600, 9461);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK_240_CONTINUE, 9463);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK_DAILY, 9517);
+
+        // Q1
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_900, 9601);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_3600, 9580);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q1_DAILY, 9685);
+
+        // Q2
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_900, 9603);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_3600, 9579);
+        serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_DAILY, 9683);
+
+        // Roll week q1
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_900, 9540);
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_3600, 9539);
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_DAILY, 9671);
+
+        // Roll q1 q2
+        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_900, 9677);
+        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_3600, 9681);
+        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_DAILY, 9680);
 
 
+        // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
 
+        // BASKETS
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
 
+        // DF
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_9_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_9_CDF, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_5, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_5, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_15, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_DAY_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_DAY_60, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_240_CONTINUE, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_15, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_60, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_60, client));
+        // Weekly
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_DAILY, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_3600, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2, client));
+        // Q1
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_DAILY, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_3600, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_900, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_3600, client));
+        // Q2
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_DAILY, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_3600, client));
 
+        // ROLL WEEK Q1
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_WEEK_Q1_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_WEEK_Q1_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_WEEK_Q1_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_WEEK_Q1_3600, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_15, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_15, client));
+        // ROLL Q1 Q2
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_Q1_Q2_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_Q1_Q2_900, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_Q1_Q2_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_Q1_Q2_3600, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.ROLL_Q1_Q2_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.ROLL_Q1_Q2_DAILY, client));
 
+        // EXP WEEK
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_WEEK, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_WEEK, client));
 
+        // EXP MONTH
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
-
     }
-
 
     private void updateListsRetro() {
         insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
-        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_DAY));
+        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK));
         insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
         insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2));
         insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));

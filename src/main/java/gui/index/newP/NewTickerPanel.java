@@ -128,8 +128,8 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
             MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
 //            MyTimeSeries df_2_roll = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF);
             MyTimeSeries df_9 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
-            MyTimeSeries op_avg_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60);
-            MyTimeSeries roll_q1_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
+            MyTimeSeries op_avg_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY);
+            MyTimeSeries roll_q1_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_DAILY);
 
             // CDF
             df_2_field.colorForge((int) df_2.getValue() / 1000);

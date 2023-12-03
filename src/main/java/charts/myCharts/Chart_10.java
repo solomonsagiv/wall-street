@@ -84,11 +84,11 @@ public class Chart_10 extends MyChartCreator {
 
         // --------- Op avg ---------- //
 
-        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15);
+        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900);
         op_avg_15.setColor(Themes.LIGHT_RED);
         op_avg_15.setStokeSize(1.0f);
 
-        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60);
+        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600);
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 

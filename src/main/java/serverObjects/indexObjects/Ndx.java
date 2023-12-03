@@ -7,7 +7,7 @@ import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
 import charts.myCharts.Chart_9;
-import charts.myCharts.FuturesChartLong_400;
+import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
 import serverObjects.ApiEnum;
@@ -22,7 +22,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName("ndx");
         setId_name("ndx");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 80, 3));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 80, 2));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
     }
@@ -84,7 +84,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
 
-                FuturesChartLong_400 chart = new FuturesChartLong_400(this);
+                Realtime_Chart chart = new Realtime_Chart(this);
                 chart.createChart();
 
                 Chart_9 chart_9 = new Chart_9(this);

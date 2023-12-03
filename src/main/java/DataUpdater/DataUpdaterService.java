@@ -25,16 +25,35 @@ public class DataUpdaterService extends MyBaseService {
         if (client instanceof Spx || client instanceof Ndx) {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_900));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_240_CONTINUE));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600));
+
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
-            
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));
+
+            // Week
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE));
+
+            // Q1
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY));
+
+            // Q2
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_DAILY));
+
+            // Roll week q1
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY));
+
+            // Roll q1 q2
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_DAILY));
+
             // Week
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_WEEK));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_WEEK_START));
@@ -48,26 +67,46 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
         }
 
-
         // Dax
         if (client instanceof Dax) {
+            // Index
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_900));
+
+            // Baskets
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
+
+            // DF
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_15));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_DAY_60));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_15));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_60));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_900));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_MONTH_3600));
 
             // Week
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_WEEK));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE));
+
+            // Q1
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY));
+
+            // Q2
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_DAILY));
+
+            // Roll week q1
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY));
+
+            // Roll q1 q2
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_900));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_3600));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_DAILY));
+
+            // Week
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_WEEK));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_WEEK_START));
 

@@ -6,23 +6,24 @@ import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
+
 import java.awt.*;
 
-public class Chart_9 extends MyChartCreator {
+public class Chart_12 extends MyChartCreator {
 
     public static void main(String[] args) {
-        Chart_9 fullChart2 = new Chart_9(Spx.getInstance());
+        Chart_12 fullChart2 = new Chart_12(Spx.getInstance());
         fullChart2.createChart();
     }
 
     // Constructor
-    public Chart_9(BASE_CLIENT_OBJECT client) {
+    public Chart_12(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
     @Override
     public void init() {
-
+    
         MyTimeSeries[] series;
 
         // Props
@@ -52,14 +53,12 @@ public class Chart_9 extends MyChartCreator {
         index_avg_3600_serie.setColor(Themes.PURPLE);
         index_avg_3600_serie.setStokeSize(0.75f);
 
-
         // Index avg 900
         MyTimeSeries index_avg_900_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900,client);
 
         index_avg_900_serie.setColor(Themes.RED);
         index_avg_900_serie.setStokeSize(0.75f);
 
-        // Index
         series = new MyTimeSeries[3];
         series[0] = index_serie;
         series[1] = index_avg_900_serie;
@@ -68,40 +67,7 @@ public class Chart_9 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-        // ------------------ Roll week q1 ------------------- //
-        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900);
-        roll_900.setColor(Themes.LIGHT_RED);
-        roll_900.setStokeSize(1.0f);
-
-        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600);
-        roll_3600.setColor(Themes.PURPLE);
-        roll_3600.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[2];
-        series[0] = roll_900;
-        series[1] = roll_3600;
-
-        // Chart
-        MyChart roll_chart = new MyChart(client, series, props);
-
-
-        // ------------------ Roll q1 q2 ------------------- //
-        MyTimeSeries roll_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_900);
-        roll_900.setColor(Themes.LIGHT_RED);
-        roll_900.setStokeSize(1.0f);
-
-        MyTimeSeries roll_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_3600);
-        roll_3600.setColor(Themes.PURPLE);
-        roll_3600.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[2];
-        series[0] = roll_900;
-        series[1] = roll_3600;
-
-        // Chart
-        MyChart roll_chart = new MyChart(client, series, props);
-
-        // --------- Op avg ---------- //
+        // --------- Op avg week ---------- //
 
         MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900);
         op_avg_15.setColor(Themes.LIGHT_RED);
@@ -111,57 +77,84 @@ public class Chart_9 extends MyChartCreator {
         op_avg_60.setColor(Themes.BLUE);
         op_avg_60.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_240 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE);
-        op_avg_240.setColor(Themes.BINANCE_ORANGE);
-        op_avg_240.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[3];
+        series = new MyTimeSeries[2];
         series[0] = op_avg_15;
         series[1] = op_avg_60;
-        series[2] = op_avg_240;
-        
+
         // Chart
-        MyChart op_avg_chart = new MyChart(client, series, props);
+        MyChart op_avg_week_chart = new MyChart(client, series, props);
 
-        // -------------------- Op Avg q1 ---------------------- //
 
-        MyTimeSeries op_avg_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY);
-        op_avg_q1.setColor(Themes.GREEN);
-        op_avg_q1.setStokeSize(1.2f);
+        // --------- Op avg q1 ---------- //
 
         MyTimeSeries op_avg_q1_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_900);
         op_avg_q1_15.setColor(Themes.LIGHT_RED);
         op_avg_q1_15.setStokeSize(1.0f);
 
+        MyTimeSeries op_avg_q1_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_3600);
+        op_avg_q1_60.setColor(Themes.BLUE);
+        op_avg_q1_60.setStokeSize(1.2f);
+
         series = new MyTimeSeries[2];
-        series[0] = op_avg_q1;
-        series[1] = op_avg_q1_15;
+        series[0] = op_avg_q1_15;
+        series[1] = op_avg_q1_60;
 
         // Chart
-        MyChart q1_chart = new MyChart(client, series, props);
+        MyChart op_avg_q1_chart = new MyChart(client, series, props);
 
-
-        // -------------------- Op Avg q1 ---------------------- //
-
-        MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600);
-        op_avg_q2_60.setColor(Themes.BROWN);
-        op_avg_q2_60.setStokeSize(1.2f);
+        // --------- Op avg q2 ---------- //
 
         MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_900);
         op_avg_q2_15.setColor(Themes.LIGHT_RED);
         op_avg_q2_15.setStokeSize(1.0f);
 
+        MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600);
+        op_avg_q2_60.setColor(Themes.BLUE);
+        op_avg_q2_60.setStokeSize(1.2f);
+
         series = new MyTimeSeries[2];
-        series[0] = op_avg_q2_60;
-        series[1] = op_avg_q2_15;
+        series[0] = op_avg_q2_15;
+        series[1] = op_avg_q2_60;
 
         // Chart
-        MyChart q2_chart = new MyChart(client, series, props);
+        MyChart op_avg_q2_chart = new MyChart(client, series, props);
+
+        // ------------------ Roll week q1 ------------------- //
+        MyTimeSeries roll_week_q1_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_900);
+        roll_week_q1_900.setColor(Themes.LIGHT_RED);
+        roll_week_q1_900.setStokeSize(1.0f);
+
+        MyTimeSeries roll_week_q1_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_3600);
+        roll_week_q1_3600.setColor(Themes.PURPLE);
+        roll_week_q1_3600.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = roll_week_q1_900;
+        series[1] = roll_week_q1_3600;
+
+        // Chart
+        MyChart roll_week_q1_chart = new MyChart(client, series, props);
+
+        // ------------------ Roll q1 q2 ------------------- //
+        MyTimeSeries roll_q1_q2_900 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_900);
+        roll_q1_q2_900.setColor(Themes.LIGHT_RED);
+        roll_q1_q2_900.setStokeSize(1.0f);
+
+        MyTimeSeries roll_q1_q2_3600 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_3600);
+        roll_q1_q2_3600.setColor(Themes.PURPLE);
+        roll_q1_q2_3600.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = roll_q1_q2_900;
+        series[1] = roll_q1_q2_3600;
+
+        // Chart
+        MyChart roll_q1_q2_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, roll_chart, op_avg_chart, q1_chart, q2_chart};
+        MyChart[] charts = {indexChart, op_avg_week_chart, op_avg_q1_chart, op_avg_q2_chart, roll_week_q1_chart, roll_q1_q2_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());
