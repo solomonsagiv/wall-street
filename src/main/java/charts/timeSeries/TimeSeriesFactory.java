@@ -34,7 +34,7 @@ public class TimeSeriesFactory {
     public static final String DF_2_CDF = "DF_2_CDF";
     public static final String DF_2_ROLL_CDF = "DF_2_ROLL_CDF";
     public static final String DF_7_CDF = "DF_7_CDF";
-    public static final String DF_9_CDF = "DF_8_CDF";
+    public static final String DF_9_CDF = "DF_9_CDF";
 
     // Week
     public static final String OP_AVG_WEEK_900 = "OP_AVG_WEEK_900";
@@ -43,8 +43,8 @@ public class TimeSeriesFactory {
     public static final String OP_AVG_WEEK_DAILY = "OP_AVG_WEEK_DAILY";
 
     // Q1
-    public static final String OP_AVG_Q1_900 = "OP_AVG_Q1_15";
-    public static final String OP_AVG_Q1_3600 = "OP_AVG_Q1_60";
+    public static final String OP_AVG_Q1_900 = "OP_AVG_Q1_900";
+    public static final String OP_AVG_Q1_3600 = "OP_AVG_Q1_3600";
     public static final String OP_AVG_Q1_14400 = "OP_AVG_Q1_14400";
     public static final String OP_AVG_Q1_DAILY = "OP_AVG_Q1_DAILY";
 
@@ -58,7 +58,7 @@ public class TimeSeriesFactory {
     public static final String DF_2_WEEK = "DF_2_WEEK";
     public static final String DF_2_ROLL_WEEK = "DF_2_ROLL_WEEK";
     public static final String BASKETS_WEEK = "BASKETS_WEEK";
-    public static final String DF_8_WEEK = "DF_8_WEEK";
+    public static final String DF_9_WEEK = "DF_9_WEEK";
     public static final String DF_WEEK = "DF_WEEK";
 
     // Exp Month
@@ -1012,7 +1012,7 @@ public class TimeSeriesFactory {
 
 
             // ---------------------- DF 8 exps -------------------- //
-            case DF_8_WEEK:
+            case DF_9_WEEK:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
