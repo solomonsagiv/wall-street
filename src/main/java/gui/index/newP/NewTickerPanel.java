@@ -134,7 +134,7 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
             // CDF
             df_2_field.colorForge((int) df_2.getValue() / 1000);
 //            df_2_roll_field.setText(L.format_int(df_2_roll.getValue()));
-            df_9_field.colorForge((int) df_9.getValue() / 1000);
+//            df_9_field.colorForge((int) df_9.getValue() / 1000);
             avg_field.colorForge(op_avg_q1.getValue(), L.format10());
             avg_roll_field.colorForge(roll_q1_q2.getValue(), L.format10());
 
