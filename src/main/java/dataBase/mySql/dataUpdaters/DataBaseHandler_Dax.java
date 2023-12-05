@@ -184,15 +184,15 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.OP_AVG_Q2_DAILY, 9663);
 
         // Roll week q1
-        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_900, 9640);
-        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_3600, 9641);
-        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_DAILY, 9641);
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_900, 9546);
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_3600, 9547);
+        serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_DAILY, 9672);
 
 
         // Roll q1 q2
-        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_900, 9547);
-        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_3600, 9546);
-        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_DAILY, 9672);
+        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_900, 9675);
+        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_3600, 9678);
+        serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_DAILY, 9679);
 
         // Index
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
