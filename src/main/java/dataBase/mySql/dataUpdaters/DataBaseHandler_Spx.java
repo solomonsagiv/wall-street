@@ -136,7 +136,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q2, 9532);
 
         // DF
-        serie_ids.put(TimeSeriesHandler.DF_7, 9526);
+//        serie_ids.put(TimeSeriesHandler.DF_7, 9526);
         serie_ids.put(TimeSeriesHandler.DF_2, 9525);//1023
         serie_ids.put(TimeSeriesHandler.DF_9, 9466);// Dynamic
 
@@ -173,7 +173,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // DF
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_9_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_9_CDF, client));
 
         // Weekly

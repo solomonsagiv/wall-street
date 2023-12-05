@@ -353,7 +353,7 @@ public class TimeSeriesFactory {
                     }
                 };
 
-            case DF_7_CDF:
+            case DF_2_ROLL_CDF:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
@@ -363,23 +363,19 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
                         setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
                     }
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min());
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
                     @Override
                     public void load_exp_data() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_7);
-                        int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id));
-                        setExp_data(data);
                     }
                 };
 

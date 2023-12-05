@@ -132,10 +132,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.BASKETS, 9519);
 
         // DF
-        serie_ids.put(TimeSeriesHandler.DF_7, 9529);
+//        serie_ids.put(TimeSeriesHandler.DF_7, 9529);
         serie_ids.put(TimeSeriesHandler.DF_2, 9528);//990
         serie_ids.put(TimeSeriesHandler.DF_9, 9455);
-        serie_ids.put(TimeSeriesHandler.DF_8_900, 9455);
 
         // Week
         serie_ids.put(TimeSeriesHandler.OP_AVG_WEEK_900, 9462);
@@ -173,7 +172,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // DF
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_7_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_7_CDF, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_9_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_9_CDF, client));
 
         // Weekly

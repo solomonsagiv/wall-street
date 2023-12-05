@@ -84,7 +84,7 @@ public class DataUpdaterService extends MyBaseService {
             // Week
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE));
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_DAILY));
 
             // Q1
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_900));
@@ -127,7 +127,7 @@ public class DataUpdaterService extends MyBaseService {
     private void update_timeseries_data() {
         for (MyTimeSeries ts : time_series) {
             try {
-                System.out.println(ts.getName() + " " + ts.getValue());
+                 System.out.println(ts.getName() + " " + ts.getValue());
 
                 ts.updateData();
             } catch (Exception e) {
