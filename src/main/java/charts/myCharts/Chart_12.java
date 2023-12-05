@@ -92,7 +92,7 @@ public class Chart_12 extends MyChartCreator {
         op_avg_q1_15.setStokeSize(1.0f);
 
         MyTimeSeries op_avg_q1_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_3600);
-        op_avg_q1_60.setColor(Themes.BLUE);
+        op_avg_q1_60.setColor(Themes.BROWN);
         op_avg_q1_60.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
@@ -109,7 +109,7 @@ public class Chart_12 extends MyChartCreator {
         op_avg_q2_15.setStokeSize(1.0f);
 
         MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600);
-        op_avg_q2_60.setColor(Themes.BLUE);
+        op_avg_q2_60.setColor(Themes.ORANGE);
         op_avg_q2_60.setStokeSize(1.2f);
 
         series = new MyTimeSeries[2];
