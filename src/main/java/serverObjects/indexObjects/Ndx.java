@@ -22,7 +22,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName("ndx");
         setId_name("ndx");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 80, 2));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 85, 2));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
     }
