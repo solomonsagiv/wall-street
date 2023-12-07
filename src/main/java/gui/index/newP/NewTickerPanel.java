@@ -28,6 +28,7 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel baskets_lbl;
     MyGuiComps.MyLabel df_2_lbl;
     MyGuiComps.MyLabel avg_lbl;
+    MyGuiComps.MyLabel roll_lbl;
 
     MyGuiComps.MyTextField basket_up_field;
     MyGuiComps.MyTextField basket_down_field;
@@ -35,8 +36,11 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyTextField df_2_field;
     MyGuiComps.MyTextField df_2_roll_field;
     MyGuiComps.MyTextField df_9_field;
-    MyGuiComps.MyTextField avg_field;
-    MyGuiComps.MyTextField avg_roll_field;
+    MyGuiComps.MyTextField avg_week_field;
+    MyGuiComps.MyTextField avg_q1_field;
+    MyGuiComps.MyTextField avg_q2_field;
+    MyGuiComps.MyTextField avg_roll_week_q1_field;
+    MyGuiComps.MyTextField avg_roll_q1_q2_field;
 
     public static void main(String[] args) {
         NewPanel window = new NewPanel(Dax.getInstance());
@@ -69,9 +73,15 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         avg_lbl.setXY(baskets_lbl.getX() + baskets_lbl.getWidth() + 1, baskets_lbl.getY());
         headerPanel.add(avg_lbl);
 
+        // Roll
+        roll_lbl = new MyGuiComps.MyLabel("Roll");
+        roll_lbl.setXY(avg_lbl.getX() + avg_lbl.getWidth() + 1, avg_lbl.getY());
+        roll_lbl.setFont(roll_lbl.getFont().deriveFont(Font.BOLD));
+        headerPanel.add(roll_lbl);
+
         // DF 2
         df_2_lbl = new MyGuiComps.MyLabel("DF", true);
-        df_2_lbl.setXY(avg_lbl.getX() + avg_lbl.getWidth() + 1, avg_lbl.getY());
+        df_2_lbl.setXY(roll_lbl.getX() + roll_lbl.getWidth() + 1, roll_lbl.getY());
         headerPanel.add(df_2_lbl);
 
         // --------------------- Body --------------------- //
@@ -95,19 +105,34 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         basket_sum_field.setXY(basket_down_field.getX(), basket_down_field.getY() + basket_down_field.getHeight() + 1);
         bodyPanel.add(basket_sum_field);
 
-        // Avg
-        avg_field = new MyGuiComps.MyTextField();
-        avg_field.setXY(avg_lbl.getX(), basket_up_field.getY());
-        bodyPanel.add(avg_field);
+        // Avg week
+        avg_week_field = new MyGuiComps.MyTextField();
+        avg_week_field.setXY(avg_lbl.getX(), basket_up_field.getY());
+        bodyPanel.add(avg_week_field);
 
-        // Avg roll
-        avg_roll_field = new MyGuiComps.MyTextField();
-        avg_roll_field.setXY(avg_field.getX(), avg_field.getY() + avg_field.getHeight() + 1);
-        bodyPanel.add(avg_roll_field);
+        // Avg q1
+        avg_q1_field = new MyGuiComps.MyTextField();
+        avg_q1_field.setXY(avg_week_field.getX(), avg_week_field.getY() + avg_week_field.getHeight() + 1);
+        bodyPanel.add(avg_q1_field);
+
+        // Avg q2
+        avg_q2_field = new MyGuiComps.MyTextField();
+        avg_q2_field.setXY(avg_q1_field.getX(), avg_q1_field.getY() + avg_q1_field.getHeight() + 1);
+        bodyPanel.add(avg_q2_field);
+
+        // Avg roll week q1
+        avg_roll_week_q1_field = new MyGuiComps.MyTextField();
+        avg_roll_week_q1_field.setXY(roll_lbl.getX(), avg_week_field.getY());
+        bodyPanel.add(avg_roll_week_q1_field);
+
+        // Avg roll q1 q2
+        avg_roll_q1_q2_field = new MyGuiComps.MyTextField();
+        avg_roll_q1_q2_field.setXY(avg_roll_week_q1_field.getX(), avg_roll_week_q1_field.getY() + avg_roll_week_q1_field.getHeight() + 1);
+        bodyPanel.add(avg_roll_q1_q2_field);
 
         // DF 2
         df_2_field = new MyGuiComps.MyTextField();
-        df_2_field.setXY(df_2_lbl.getX(), avg_field.getY());
+        df_2_field.setXY(df_2_lbl.getX(), avg_week_field.getY());
         bodyPanel.add(df_2_field);
 
         // DF 2 roll
@@ -128,15 +153,22 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
             MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
 //            MyTimeSeries df_2_roll = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF);
             MyTimeSeries df_9 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
+            MyTimeSeries op_avg_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_DAILY);
             MyTimeSeries op_avg_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY);
+            MyTimeSeries op_avg_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_DAILY);
+            MyTimeSeries roll_week_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY);
             MyTimeSeries roll_q1_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_DAILY);
 
             // CDF
             df_2_field.colorForge((int) df_2.getValue() / 1000);
 //            df_2_roll_field.setText(L.format_int(df_2_roll.getValue()));
-//            df_9_field.colorForge((int) df_9.getValue() / 1000);
-            avg_field.colorForge(op_avg_q1.getValue(), L.format10());
-            avg_roll_field.colorForge(roll_q1_q2.getValue(), L.format10());
+            df_9_field.colorForge((int) df_9.getValue() / 1000);
+
+            avg_week_field.colorForge(op_avg_week.getValue(), L.format10());
+            avg_q1_field.colorForge(op_avg_q1.getValue(), L.format10());
+            avg_q2_field.colorForge(op_avg_q2.getValue(), L.format10());
+            avg_roll_week_q1_field.colorForge(roll_week_q1.getValue(), L.format10());
+            avg_roll_q1_q2_field.colorForge(roll_q1_q2.getValue(), L.format10());
 
             if (client instanceof Ndx || client instanceof Dax) {
                 // Present

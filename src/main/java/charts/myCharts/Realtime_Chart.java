@@ -160,7 +160,7 @@ public class Realtime_Chart extends MyChartCreator {
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (exp.getName().equals(ExpStrings.day)) {
+            if (exp.getName().equals(ExpStrings.day) || exp.getName().equals(ExpStrings.q1)) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);
