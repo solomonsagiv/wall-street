@@ -188,7 +188,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_3600, 9547);
         serie_ids.put(TimeSeriesHandler.ROLL_WEEK_Q1_DAILY, 9672);
 
-
         // Roll q1 q2
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_900, 9675);
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_3600, 9678);
