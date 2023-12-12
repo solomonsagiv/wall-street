@@ -147,16 +147,18 @@ public class NewExpSumPanel extends MyGuiComps.MyPanel implements IMyPanel {
     @Override
     public void updateText() {
         // Week
-        double week_start = exp_week_start.getValue();
+        double week_start = exp_week_start.getExp_data();
         double week_move = L.floor(((client.getIndex() - week_start) / week_start) * 100, 100);
         moveField_week.colorBack(week_move, L.format100(), "%");
 
         df_2_Field_week.colorForge((int) ((df_2_week.get_value_with_exp())));
 //        df_2_roll_Field_week.colorForge((int) ((df_2_roll_week.get_value_with_exp()) / 1000));
-        basketsField_week.colorForge((int) baskets_week.get_value_with_exp());
+        if (baskets_week != null) {
+            basketsField_week.colorForge((int) baskets_week.get_value_with_exp());
+        }
 
         // Month
-        move_move_field.colorForge((int) exp_month_start.getValue());
+//        move_move_field.colorForge((int) exp_month_start.getValue());
 
     }
 }
