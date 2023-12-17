@@ -2,6 +2,7 @@ package dataBase.props;
 
 import api.Manifest;
 import exp.Exp;
+import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.LocalTime;
@@ -196,12 +197,11 @@ public class Props {
             }
         };
 
-
         // ------------ CHART START MIN -------------- //
         chart_start_min = new Prop(client, CHART_START_MIN) {
             @Override
             public void setData(Object data) {
-                int min = (int) data;
+                int min = L.INT(L.str(data));
                 client.setChart_start_min(min);
             }
 

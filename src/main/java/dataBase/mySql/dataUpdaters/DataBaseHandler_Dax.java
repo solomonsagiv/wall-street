@@ -22,6 +22,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
 
+    ArrayList<MyTimeStampObject> index_test_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_week_test_timeStamp = new ArrayList<>();
+
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
     double index_ask_synthetic_0 = 0;
@@ -30,6 +33,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;
+    double index_test_0 = 0;
+    double fut_week_test_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -94,6 +99,20 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             fut_month_0 = fut_month;
         }
 
+//        if (client.getIndex() != index_test_0) {
+//            index_test_0 = client.getIndex();
+//            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
+//        }
+//
+//         Fut day
+//        double fut_day = week.get_future();
+//
+//        if (fut_day != fut_week_test_0) {
+//            fut_week_test_0 = fut_day;
+//            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
+//        }
+
+
         // Is live db
         if (client.isLive_db()) {
 
@@ -150,7 +169,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     @Override
     public void initTablesNames() {
-
+        serie_ids.put(TimeSeriesHandler.INDEX_TEST, 11975);
+        serie_ids.put(TimeSeriesHandler.FUTURE_WEEK_TEST, 11976);
         serie_ids.put(TimeSeriesHandler.INDEX, 4369);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600, 4369);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_900, 4369);
@@ -243,6 +263,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
+        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST));
+        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST));
         insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
         insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
         insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC));

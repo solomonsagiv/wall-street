@@ -13,6 +13,9 @@ public class TimeSeriesHandler {
     public static final int INDEX_BID = 21;
     public static final int INDEX_ASK = 22;
     public static final int FUT_MONTH = 90;
+    public static final int INDEX_TEST = 103;
+    public static final int FUTURE_WEEK_TEST = 104;
+
     public static final int INDEX_AVG_3600 = 91;
     public static final int INDEX_AVG_900 = 92;
     public static final int INDEX_BID_SYNTHETIC = 68;
@@ -52,7 +55,7 @@ public class TimeSeriesHandler {
 
     public static final int DF_2_ROLL_MONTH = 102;
 
-    // Last price = 103
+    // Last available price = 105
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();

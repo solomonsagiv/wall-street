@@ -692,38 +692,70 @@ public class MySql {
             return MySql.select(query);
         }
 
+//        private static ResultSet get_serie_raw_mega_table(int serie_id, int min_from_start) {
+//
+//            String time_start = get_first_today_record_time(min_from_start, serie_id);
+//            String query;
+//
+//            if (time_start.equals("none")) {
+//                String modulu = "%";
+//
+//                String q = "select time, value\n" +
+//                        "from (\n" +
+//                        "         select time, value, row_number() over (order by time) as row\n" +
+//                        "         from %s\n" +
+//                        "         where timeseries_id = %s\n" +
+//                        "           and %s) a\n" +
+//                        "where row %s %s = 0;";
+//
+//                query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, modulu, step_second);
+//            } else {
+//                String modulu = "%";
+//
+//                String q = "select time, value\n" +
+//                        "from (\n" +
+//                        "         select time, value, row_number() over (order by time) as row\n" +
+//                        "         from %s\n" +
+//                        "         where timeseries_id = %s\n" +
+//                        "           and %s and time::time > '%s'::time) a\n" +
+//                        "where row %s %s = 0;";
+//
+//                query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, time_start, modulu, step_second);
+//                System.out.println(query);
+//            }
+//
+//            return MySql.select(query);
+//        }
+
 
         private static ResultSet get_serie_raw_mega_table(int serie_id, int min_from_start) {
 
-            String time_start = get_first_today_record_time(min_from_start, serie_id);
+            String modulu = "%";
+
             String query;
 
-            if (time_start.equals("none")) {
-                String modulu = "%";
+            String q = "with data as (\n" +
+                    "    select * , row_number() over (order by time) as row\n" +
+                    "    from %s\n" +
+                    "    where timeseries_id = %s\n" +
+                    "      and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "    order by time\n" +
+                    "),\n" +
+                    "     first as (\n" +
+                    "         select *\n" +
+                    "         from %s\n" +
+                    "         where timeseries_id = %s\n" +
+                    "           and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "         order by time\n" +
+                    "         limit 1\n" +
+                    "     )\n" +
+                    "select data.time as time, data.value as value\n" +
+                    "from data, first\n" +
+                    "where data.time > first.time + interval '%s min' and data.row %s %s = 0;\n";
 
-                String q = "select time, value\n" +
-                        "from (\n" +
-                        "         select time, value, row_number() over (order by time) as row\n" +
-                        "         from %s\n" +
-                        "         where timeseries_id = %s\n" +
-                        "           and %s) a\n" +
-                        "where row %s %s = 0;";
+            query = String.format(q, "ts.timeseries_data", serie_id, "ts.timeseries_data", serie_id, min_from_start, modulu, step_second);
 
-                query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, modulu, step_second);
-            } else {
-                String modulu = "%";
-
-                String q = "select time, value\n" +
-                        "from (\n" +
-                        "         select time, value, row_number() over (order by time) as row\n" +
-                        "         from %s\n" +
-                        "         where timeseries_id = %s\n" +
-                        "           and %s and time::time > '%s'::time) a\n" +
-                        "where row %s %s = 0;";
-
-                query = String.format(q, "ts.timeseries_data", serie_id, Filters.TODAY, time_start, modulu, step_second);
-                System.out.println(query);
-            }
+            System.out.println(query);
 
             return MySql.select(query);
         }
@@ -732,31 +764,32 @@ public class MySql {
         private static ResultSet get_serie_cdf_mega_table(int serie_id, int min_from_start) {
             String modulu = "%";
 
-            String time_start = get_first_today_record_time(min_from_start, serie_id);
-
             String query;
 
-            if (time_start.equals("none")) {
-                String q = "select * from (\n" +
-                        "select time, sum(sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
-                        "from %s\n" +
-                        "where timeseries_id = %s\n" +
-                        "and %s) a\n" +
-                        "where row %s %s = 0;\n" +
-                        "\n";
-                query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, Filters.TODAY, modulu, step_second);
-            } else {
-                String q = "select * from (\n" +
-                        "select time, sum(sum) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
-                        "from %s\n" +
-                        "where timeseries_id = %s\n" +
-                        "and %s and time::time > '%s'::time) a\n" +
-                        "where row %s %s = 0;\n" +
-                        "\n";
+            String q = "\n" +
+                    "with data as (\n" +
+                    "    select time, sum(value) over (ORDER BY time RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) as value, row_number() over (order by time) as row\n" +
+                    "    from %s\n" +
+                    "    where timeseries_id = %s\n" +
+                    "      and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "    order by time\n" +
+                    "),\n" +
+                    "     first as (\n" +
+                    "         select *\n" +
+                    "         from %s\n" +
+                    "         where timeseries_id = %s\n" +
+                    "           and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "         order by time\n" +
+                    "         limit 1\n" +
+                    "     )\n" +
+                    "select data.time as time, data.value as value\n" +
+                    "from data, first\n" +
+                    "where data.time > first.time + interval '%s min' and data.row %s %s = 0;\n";
 
-                query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, Filters.TODAY, time_start, modulu, step_second);
-                System.out.println(query);
-            }
+
+            query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, "ts.timeseries_data", serie_id, min_from_start, modulu, step_second);
+            System.out.println(query);
+
             return MySql.select(query);
         }
 
@@ -899,7 +932,6 @@ public class MySql {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-
         }
         return "none";
     }
