@@ -29,7 +29,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 33, 2));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 2));
         setLive_db(false);
         setIndex_bid_ask_synthetic_margin(5);
     }
