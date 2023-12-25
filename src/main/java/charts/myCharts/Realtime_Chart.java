@@ -167,9 +167,37 @@ public class Realtime_Chart extends MyChartCreator {
             }
         }
 
+
+        // Pre day op q1 avg
+        MyTimeSeries pre_day_op_avg = new MyTimeSeries("Pre day op avg", client) {
+
+            @Override
+            public double getValue() {
+                return client.getIndex() + client.getPre_day_avg();
+            }
+
+            @Override
+            public void updateData() {
+
+            }
+
+            @Override
+            public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
+            }
+        };
+        pre_day_op_avg.setColor(Themes.GREEN);
+        pre_day_op_avg.setStokeSize(1.75f);
+
+
         myTimeSeries.add(index);
         myTimeSeries.add(bid);
         myTimeSeries.add(ask);
+        myTimeSeries.add(pre_day_op_avg);
 
         // Series
         MyTimeSeries[] series = toArray();

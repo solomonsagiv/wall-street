@@ -495,6 +495,28 @@ public class MySql {
             return MySql.select(query);
         }
 
+        public static ResultSet get_pre_day_op_avg(int serie_id) {
+            String q = "with pre_date as (\n" +
+                    "    SELECT date_trunc('day',time) date\n" +
+                    "    FROM ts.timeseries_data\n" +
+                    "    WHERE timeseries_id = %s\n" +
+                    "      and date_trunc('day', time) < CURRENT_DATE\n" +
+                    "      and value is not null\n" +
+                    "    ORDER BY date_trunc('day', time) DESC\n" +
+                    "    LIMIT 1\n" +
+                    ")\n" +
+                    "select *\n" +
+                    "from ts.timeseries_data, pre_date\n" +
+                    "where date_trunc('day', time) = pre_date.date\n" +
+                    "and timeseries_data.timeseries_id = %s\n" +
+                    "order by time desc limit 1;";
+
+            String query = String.format(q, serie_id, serie_id);
+
+            System.out.println(query);
+            return MySql.select(query);
+        }
+
         public static ResultSet get_sum_from_df(String table_location, int version, int session_id) {
 
             String val = table_location.contains("func") ? "delta" : "value";
@@ -634,6 +656,7 @@ public class MySql {
             return null;
         }
 
+        
         public static ResultSet get_transaction(int session_id) {
             String q = "select created_at, position_type, index_value_at_creation, index_value_at_close, close_reason\n" +
                     "from ts.transactions\n" +

@@ -60,6 +60,9 @@ public class DataUpdaterService extends MyBaseService {
 
             // Month
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_MONTH_START));
+
+            // Pre_day avg
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.PRE_DAY_OP_AVG));
         }
 
         if (client instanceof Ndx) {
@@ -112,6 +115,9 @@ public class DataUpdaterService extends MyBaseService {
 
             // Month
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.EXP_MONTH_START));
+
+            // Pre_day avg
+            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.PRE_DAY_OP_AVG));
 
             System.out.println();
         }

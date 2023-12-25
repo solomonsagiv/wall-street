@@ -77,7 +77,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
         }
 
-//        // Fut week
+        // Fut week
         double fut_week = week.get_future();
 
         if (fut_week != fut_week_0) {
@@ -213,6 +213,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_3600, 9678);
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_DAILY, 9679);
 
+        // Pre day avg
+        serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9662);
+
         // Index
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
@@ -259,6 +262,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         // Exp Month
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
+
+        // Pre day q1 op avg
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
 
     }
 

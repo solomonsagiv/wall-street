@@ -7,6 +7,7 @@ import dataBase.props.Prop;
 import exp.Exp;
 import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
 
 import java.sql.ResultSet;
@@ -39,7 +40,15 @@ public abstract class IDataBaseHandler {
         // Load exp data for each timeserie
         for (Map.Entry<String, MyTimeSeries> entry : client.getTimeSeriesHandler().getSeries_map().entrySet()) {
             try {
+
                 entry.getValue().load_exp_data();
+                String name = entry.getKey();
+
+                if (name.equals("PRE_DAY_OP_AVG") && client instanceof Dax) {
+                    double val = entry.getValue().get_value_with_exp();
+                    System.out.println(val);
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

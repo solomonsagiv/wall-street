@@ -55,7 +55,9 @@ public class TimeSeriesHandler {
 
     public static final int DF_2_ROLL_MONTH = 102;
 
-    // Last available price = 105
+    public static final int PRE_DAY_OP_AVG = 105;
+
+    // Last price = 105
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();

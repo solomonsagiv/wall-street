@@ -106,6 +106,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double base = 0;
     private double indexBidAskMargin = 0;
 
+    // Pre day q1 op avg
+    private double pre_day_avg = 0;
+
     // DB
     boolean live_db = false;
     
@@ -576,7 +579,6 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.chart_start_min = chart_start_min;
     }
 
-
     public double getIndex_avg_3600() {
         return index_avg_3600;
     }
@@ -593,31 +595,27 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.index_avg_900 = index_avg_900;
     }
 
+    public double getPre_day_avg() {
+        return pre_day_avg;
+    }
+
+    public void setPre_day_avg(double pre_day_avg) {
+        this.pre_day_avg = pre_day_avg;
+    }
+
     @Override
     public String toString() {
         return "BASE_CLIENT_OBJECT{" +
-                ", JIBE LIVE DB=" + live_db +
-                ", optionsHandler=" + exps.toString() +
-                ", preStartIndexTrading=" + getIndex_pre_start_time() +
-                ", startOfIndexTrading=" + getIndexStartTime() +
-                ", endOfIndexTrading=" + getIndexEndTime() +
-                ", endFutureTrading=" + getFutureEndTime() +
+                "props=" + props +
+                ", excel_path='" + excel_path + '\'' +
+                ", sapi_excel_path='" + sapi_excel_path + '\'' +
                 ", loadFromDb=" + loadFromDb +
-                ", sapi excep path=" + sapi_excel_path +
                 ", dbRunning=" + dbRunning +
-                ", ids=" + ids +
                 ", started=" + started +
-                ", index=" + index +
-                ", indexBid=" + indexBid +
-                ", indexAsk=" + indexAsk +
-                ", open=" + open +
-                ", high=" + high +
-                ", low=" + low +
-                ", base=" + base +
-                ", indexBidAskMargin=" + indexBidAskMargin +
-                ", mySqlService=" + mySqlService +
-                ", racesMargin=" + getRacesMargin() +
+                ", name='" + name + '\'' +
+                ", id_name='" + id_name + '\'' +
+                ", pre_day_avg=" + pre_day_avg +
+                ", live_db=" + live_db +
                 '}';
     }
-
 }

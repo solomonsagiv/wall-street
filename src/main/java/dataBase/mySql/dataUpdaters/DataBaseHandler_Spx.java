@@ -191,6 +191,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_3600, 9674);
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_DAILY, 9676);
 
+        // Pre day avg
+        serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9684);
+
 
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
@@ -232,6 +235,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // EXP MONTH
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
+
+        // Pre day q1 op avg
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
     }
 
     private void updateListsRetro() {

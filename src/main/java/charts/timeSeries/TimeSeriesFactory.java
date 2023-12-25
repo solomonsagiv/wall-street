@@ -78,6 +78,8 @@ public class TimeSeriesFactory {
     public static final String ROLL_WEEK_Q1_900 = "ROLL_WEEK_Q1_900";
     public static final String ROLL_WEEK_Q1_3600 = "ROLL_WEEK_Q1_3600";
 
+    public static final String PRE_DAY_OP_AVG = "PRE_DAY_OP_AVG";
+
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
         switch (series_type.toUpperCase()) {
@@ -1101,6 +1103,33 @@ public class TimeSeriesFactory {
                         int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
                         double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_MONTH_START));
                         setExp_data(data);
+                    }
+                };
+
+            case PRE_DAY_OP_AVG:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+                    @Override
+                    public void updateData() {
+                    }
+
+                    @Override
+                    public void load() {
+
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.PRE_DAY_OP_AVG);
+
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_pre_day_op_avg(serie_id));
+                        client.setPre_day_avg(data);
+                        setValue(data);
                     }
                 };
 
