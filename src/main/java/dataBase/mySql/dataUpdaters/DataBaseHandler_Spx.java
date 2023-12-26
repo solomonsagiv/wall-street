@@ -192,7 +192,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.ROLL_Q1_Q2_DAILY, 9676);
 
         // Pre day avg
-        serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9684);
+        serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9682);
 
 
         // INDEX

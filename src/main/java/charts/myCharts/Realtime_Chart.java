@@ -190,7 +190,7 @@ public class Realtime_Chart extends MyChartCreator {
             public void load_exp_data() {
             }
         };
-        pre_day_op_avg.setColor(Themes.GREEN);
+        pre_day_op_avg.setColor(Themes.LIFGT_BLUE_2);
         pre_day_op_avg.setStokeSize(1.75f);
 
 
