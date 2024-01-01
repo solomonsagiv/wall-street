@@ -79,7 +79,7 @@ public class MyGuiComps {
                     int width = 300, height = 300, x = 100, y = 100;
 
                     String query = String.format("SELECT * FROM sagiv.bounds WHERE stock_name = '%s' and item_name = '%s';", client.getId_name(), getTitle());
-                    ResultSet rs = MySql.select(query);
+                    ResultSet rs = MySql.select(query, MySql.JIBE_PROD_CONNECTION);
 
                     while (rs.next()) {
                         x = rs.getInt("x");
@@ -99,7 +99,7 @@ public class MyGuiComps {
         public void insetOrUpdateBounds() {
             try {
                 String query = String.format("SELECT sagiv.update_bounds('%s', '%s', %s, %s, %s, %s);", client.getId_name(), getTitle(), getX(), getY(), getWidth(), getHeight());
-                MySql.select(query);
+                MySql.select(query, MySql.JIBE_PROD_CONNECTION);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -110,7 +110,7 @@ public class MyGuiComps {
             try {
                 String query = String.format("SELECT sagiv.update_start_bounds('%s', '%s', %s, %s, %s, %s, %s);", client.getId_name(), getTitle(), getX(), getY(), getWidth(), getHeight(), pre_set);
                 System.out.println(query);
-                MySql.select(query);
+                MySql.select(query, MySql.JIBE_PROD_CONNECTION);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -122,7 +122,7 @@ public class MyGuiComps {
                     int width = 300, height = 300, x = 100, y = 100;
 
                     String query = String.format("SELECT * FROM sagiv.start_bounds WHERE stock_name = '%s' and item_name = '%s' and pre_set = %s;", client.getId_name(), getTitle(), pre_set);
-                    ResultSet rs = MySql.select(query);
+                    ResultSet rs = MySql.select(query, MySql.JIBE_PROD_CONNECTION);
 
                     while (rs.next()) {
                         x = rs.getInt("x");

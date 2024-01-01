@@ -2,6 +2,7 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
+import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
@@ -242,12 +243,15 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST));
-        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST));
-        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
-        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK));
-        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
-        insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2));
-        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
+        // Dev
+        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST), MySql.JIBE_DEV_CONNECTION);
+        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST), MySql.JIBE_DEV_CONNECTION);
+
+        // Prod
+        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS), MySql.JIBE_PROD_CONNECTION);
     }
 }

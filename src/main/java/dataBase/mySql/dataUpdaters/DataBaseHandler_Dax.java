@@ -2,6 +2,7 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
+import dataBase.mySql.MySql;
 import exp.E;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
@@ -99,18 +100,19 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             fut_month_0 = fut_month;
         }
 
-//        if (client.getIndex() != index_test_0) {
-//            index_test_0 = client.getIndex();
-//            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
-//        }
-//
-//         Fut day
-//        double fut_day = week.get_future();
-//
-//        if (fut_day != fut_week_test_0) {
-//            fut_week_test_0 = fut_day;
-//            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
-//        }
+        // Index test
+        if (client.getIndex() != index_test_0) {
+            index_test_0 = client.getIndex();
+            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
+        }
+
+        // Fut week test
+        double fut_day = week.get_future();
+
+        if (fut_day != fut_week_test_0) {
+            fut_week_test_0 = fut_day;
+            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
+        }
 
 
         // Is live db
@@ -269,14 +271,17 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
-        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST));
-        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST));
-        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS));
-        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX));
-        insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC));
-        insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC));
-        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1));
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK));
-        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH));
+        // Dev
+        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST), MySql.JIBE_DEV_CONNECTION);
+        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST) , MySql.JIBE_DEV_CONNECTION);
+
+        // Prod
+        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC) , MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK), MySql.JIBE_PROD_CONNECTION);
+        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH), MySql.JIBE_PROD_CONNECTION);
     }
 }

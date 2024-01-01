@@ -3,20 +3,18 @@ package gui.mainWindow;
 import DDE.DDEConnection;
 import DDE.DDEReader;
 import DDE.DDEWriter;
-import api.Manifest;
-import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
-import dataBase.mySql.ConnectionPool;
+import dataBase.mySql.ConnectionPoolJibeProd;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import gui.MyGuiComps;
-import locals.L;
 import locals.LocalHandler;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -121,7 +119,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     // Connection
-                    Connection connection = ConnectionPool.get_slo_single_connection();
+                    Connection connection = ConnectionPoolJibeProd.get_slo_single_connection();
 
                     // Trunticate current
                     MySql.trunticate("topics_to_monitor", "sapi", connection);
@@ -155,11 +153,11 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         Connection slo_conn = null;
         Connection jibe_dev_conn = null;
         try {
-            slo_conn = ConnectionPool.get_slo_single_connection();
-            jibe_dev_conn = ConnectionPool.get_jibe_dev_single_connection();
+            slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
+            jibe_dev_conn = ConnectionPoolJibeProd.get_jibe_dev_single_connection();
 
             MySql.Queries.delete_today_rates(slo_conn);
-            MySql.Queries.delete_today_rates();
+            MySql.Queries.delete_today_rates(MySql.JIBE_PROD_CONNECTION);
             MySql.Queries.delete_today_rates(jibe_dev_conn);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -184,28 +182,6 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
 //
 //        // Stocks
 //        init_stocks_rates();
-    }
-
-
-    private void init_stocks_rates() {
-        try {
-            DDEClientConversation conversation = new DDEConnection().createNewConversation(Manifest.STOCKS_EXCEL_FILE_LOCATION);
-
-            // Aapl
-            String aapl_symbol = "aapl";
-            String exp_type = "week";
-            double aapl_interest = L.dbl(conversation.request("R17C5"));
-            double aapl_dividend = L.dbl(conversation.request("R17C6"));
-            int aapl_days_left = (int) L.dbl(conversation.request("R17C7"));
-            double aapl_base = L.dbl(conversation.request("R17C8"));
-
-            MySql.Queries.update_stock_rates(aapl_symbol, aapl_interest, aapl_dividend, aapl_days_left, aapl_base, exp_type);
-
-        } catch (NullPointerException | DDEException | SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Stocks excel file not found " + e.getMessage());
-        }
-
     }
 
     public static void update_sapi_request() {
@@ -255,7 +231,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 System.out.println(q);
 
                 // Insert
-                Connection connection = ConnectionPool.get_slo_single_connection();
+                Connection connection = ConnectionPoolJibeProd.get_slo_single_connection();
                 MySql.insert(q, connection);
 
                 // Clear the list

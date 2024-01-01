@@ -96,7 +96,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 60));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 60, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                         client.setIndex_avg_3600(val);
                     }
@@ -105,7 +105,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600);
 
-                        ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 60);
+                        ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 60, MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -127,7 +127,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_900);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 15));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 15, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                         client.setIndex_avg_900(val);
                     }
@@ -136,7 +136,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_900);
 
-                        ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 15);
+                        ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 15, MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -159,7 +159,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_Q1_900);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                     }
 
@@ -167,7 +167,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_Q1_900);
 
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -190,7 +190,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_Q1_3600);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                     }
 
@@ -198,7 +198,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_Q1_3600);
 
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -220,7 +220,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_Q1_DAILY);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                     }
 
@@ -228,7 +228,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_WEEK_Q1_DAILY);
 
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -251,7 +251,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_Q1_Q2_900);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                     }
 
@@ -259,7 +259,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_Q1_Q2_900);
 
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -281,7 +281,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_Q1_Q2_3600);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                     }
 
@@ -289,7 +289,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_Q1_Q2_3600);
 
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -311,7 +311,7 @@ public class TimeSeriesFactory {
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_Q1_Q2_DAILY);
 
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
                     }
 
@@ -319,7 +319,7 @@ public class TimeSeriesFactory {
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.ROLL_Q1_Q2_DAILY);
 
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -340,13 +340,13 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION)));
                     }
 
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -366,13 +366,13 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION)));
                     }
 
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -392,13 +392,13 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_9);
-                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF)));
+                        setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION)));
                     }
 
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_9);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -406,7 +406,7 @@ public class TimeSeriesFactory {
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_9);
                         int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_df_exp_sum(serie_id, index_id, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -422,7 +422,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_240_CONTINUE);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
@@ -432,7 +432,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_240_CONTINUE);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -453,7 +453,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_900);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
@@ -463,7 +463,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_900);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -484,7 +484,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_3600);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
@@ -494,7 +494,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_3600);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -516,7 +516,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_DAILY);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.day);
@@ -527,7 +527,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_WEEK_DAILY);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -549,7 +549,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_DAILY);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q1);
@@ -560,7 +560,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_DAILY);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -582,7 +582,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_900);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q1);
@@ -592,7 +592,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_900);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -614,7 +614,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_3600);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q1);
@@ -624,7 +624,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_3600);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -646,7 +646,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_14400);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q1);
@@ -656,7 +656,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_14400);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -677,7 +677,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_DAILY);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q2);
@@ -688,7 +688,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_DAILY);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -710,7 +710,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_900);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q2);
@@ -721,7 +721,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_900);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -742,7 +742,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void updateData() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_3600);
-                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW));
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
 
                         Exp exp = client.getExps().getExp(ExpStrings.q2);
@@ -753,7 +753,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q2_3600);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -779,7 +779,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -849,7 +849,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.FUT_WEEK);
-                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min());
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.RAW, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
 
@@ -906,7 +906,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -931,7 +931,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL_WEEK);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -955,7 +955,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.BASKETS);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -979,7 +979,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -1003,7 +1003,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_2_ROLL_MONTH);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -1029,7 +1029,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_9);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_WEEK_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -1053,7 +1053,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.DF_9);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_exp_data(client, serie_id, Props.EXP_MONTH_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -1077,7 +1077,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_WEEK_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_WEEK_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -1101,7 +1101,7 @@ public class TimeSeriesFactory {
                     @Override
                     public void load_exp_data() {
                         int index_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX);
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_MONTH_START));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_start_exp_mega(index_id, client.getId_name(), Props.EXP_MONTH_START, MySql.JIBE_PROD_CONNECTION));
                         setExp_data(data);
                     }
                 };
@@ -1127,7 +1127,7 @@ public class TimeSeriesFactory {
                     public void load_exp_data() {
                         int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.PRE_DAY_OP_AVG);
 
-                        double data = MySql.Queries.handle_rs(MySql.Queries.get_pre_day_op_avg(serie_id));
+                        double data = MySql.Queries.handle_rs(MySql.Queries.get_pre_day_op_avg(serie_id, MySql.JIBE_PROD_CONNECTION));
                         client.setPre_day_avg(data);
                         setValue(data);
                     }

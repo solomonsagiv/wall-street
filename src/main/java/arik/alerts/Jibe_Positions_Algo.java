@@ -21,7 +21,7 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
     @Override
     public void go() {
 
-        transaction = read_transaction(MySql.Queries.get_transaction(session_id));
+        transaction = read_transaction(MySql.Queries.get_transaction(session_id, MySql.JIBE_PROD_CONNECTION));
 
         System.out.println();
         System.out.println(transaction);

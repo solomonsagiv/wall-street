@@ -115,7 +115,7 @@ public class Alert extends MyThread implements Runnable {
 
     private double get_data_from_db(String table_location) {
 
-        ResultSet rs = MySql.Queries.get_last_record(table_location);
+        ResultSet rs = MySql.Queries.get_last_record(table_location, MySql.JIBE_PROD_CONNECTION);
         while (true) {
             try {
                 if (!rs.next()) break;

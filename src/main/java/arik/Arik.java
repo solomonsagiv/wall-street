@@ -118,7 +118,7 @@ public class Arik {
 
 
     public static void load_from_db() throws Exception {
-        ResultSet rs = MySql.select("select * from sagiv.arik_accounts;");
+        ResultSet rs = MySql.select("select * from sagiv.arik_accounts;", MySql.JIBE_PROD_CONNECTION);
         while (true) {
             try {
                 if (!rs.next()) break;

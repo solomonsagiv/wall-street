@@ -23,7 +23,7 @@ public class TimeSeriesHandler {
 
     public static final int DF_7 = 48;
     public static final int DF_2 = 49;
-    public static final int DF_2_ROLL = 103;
+    public static final int DF_2_ROLL = 106;
     public static final int DF_9 = 56;
     public static final int DF_8_900 = 63;
     public static final int DF_8_3600 = 64;
@@ -57,7 +57,7 @@ public class TimeSeriesHandler {
 
     public static final int PRE_DAY_OP_AVG = 105;
 
-    // Last price = 105
+    // Last price = 106
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();

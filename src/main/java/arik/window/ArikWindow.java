@@ -1,6 +1,6 @@
 package arik.window;
 
-import dataBase.mySql.ConnectionPool;
+import dataBase.mySql.ConnectionPoolJibeProd;
 import gui.AlertWindow;
 import gui.MyGuiComps;
 import tws.accounts.ConnectionsAndAccountHandler;
@@ -15,7 +15,7 @@ public class ArikWindow extends MyGuiComps.MyFrame {
     public static void main(String[] args) throws SQLException {
 
         arikWindow = new ArikWindow("Arik window");
-        ConnectionPool.getConnectionsPoolInstance(1);
+        ConnectionPoolJibeProd.getConnectionsPoolInstance(1);
 
         try {
             // Load account data

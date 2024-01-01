@@ -10,10 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionPool implements IConnectionPool {
+public class ConnectionPoolJibeProd implements IConnectionPool {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Connection jibe_dev_conn = ConnectionPool.get_jibe_dev_single_connection();
+        Connection jibe_dev_conn = ConnectionPoolJibeProd.get_jibe_dev_single_connection();
         ResultSet rs = MySql.select("select * from meta.interest_rates;", jibe_dev_conn);
         System.out.println("Done");
     }
@@ -33,7 +33,7 @@ public class ConnectionPool implements IConnectionPool {
     private static final int MAX_POOL_SIZE = 10;
 
     // Instance
-    private static ConnectionPool connectionPool;
+    private static ConnectionPoolJibeProd connectionPoolJibeProd;
     private String url;
     private String user;
     private String password;
@@ -43,50 +43,50 @@ public class ConnectionPool implements IConnectionPool {
     static boolean connected = false;
 
     // Constructor
-    private ConnectionPool(String url, String user, String password, List<Connection> connections) {
+    private ConnectionPoolJibeProd(String url, String user, String password, List<Connection> connections) {
         this.url = url;
         this.user = user;
         this.password = password;
         this.connections = connections;
     }
 
-    private ConnectionPool() {
+    private ConnectionPoolJibeProd() {
     }
 
-    public static ConnectionPool getInstance() {
-        if (connectionPool == null) {
-            connectionPool = new ConnectionPool();
+    public static ConnectionPoolJibeProd getInstance() {
+        if (connectionPoolJibeProd == null) {
+            connectionPoolJibeProd = new ConnectionPoolJibeProd();
         }
-        return connectionPool;
+        return connectionPoolJibeProd;
     }
 
-    public static ConnectionPool getConnectionsPoolInstance(int connection_count) {
-        if (connectionPool == null) {
+    public static ConnectionPoolJibeProd getConnectionsPoolInstance(int connection_count) {
+        if (connectionPoolJibeProd == null) {
             try {
                 MyDBConnections dbConnections = new MyDBConnections();
-                DBConnectionType connectionType = dbConnections.getConnectionType(Manifest.DB_CONNECTION_TYPE);
-                connectionPool = ConnectionPool.create(connectionType, connection_count);
+                DBConnectionType connectionType = dbConnections.getConnectionType(MyDBConnections.JIBE_PROD);
+                connectionPoolJibeProd = ConnectionPoolJibeProd.create(connectionType, connection_count);
             } catch (Exception e) {
                 Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
             }
         }
-        return connectionPool;
+        return connectionPoolJibeProd;
     }
 
-    public static ConnectionPool getConnectionsPoolInstance() {
-        if (connectionPool == null) {
+    public static ConnectionPoolJibeProd getConnectionsPoolInstance() {
+        if (connectionPoolJibeProd == null) {
             try {
                 MyDBConnections dbConnections = new MyDBConnections();
-                DBConnectionType connectionType = dbConnections.getConnectionType(Manifest.DB_CONNECTION_TYPE);
-                connectionPool = ConnectionPool.create(connectionType, Manifest.POOL_SIZE);
+                DBConnectionType connectionType = dbConnections.getConnectionType(MyDBConnections.JIBE_PROD);
+                connectionPoolJibeProd = ConnectionPoolJibeProd.create(connectionType, Manifest.POOL_SIZE);
             } catch (Exception e) {
                 Arik.getInstance().sendMessage(e.getMessage() + "\n" + e.getCause());
             }
         }
-        return connectionPool;
+        return connectionPoolJibeProd;
     }
 
-    public static ConnectionPool create(DBConnectionType dbConnectionType, int connection_count) throws SQLException {
+    public static ConnectionPoolJibeProd create(DBConnectionType dbConnectionType, int connection_count) throws SQLException {
         List<Connection> pool = new ArrayList<>();
         try {
             for (int i = 0; i < connection_count; i++) {
@@ -100,7 +100,7 @@ public class ConnectionPool implements IConnectionPool {
                 }).start();
             }
         } finally {
-            return new ConnectionPool(dbConnectionType.getUrl(), dbConnectionType.getUser(), dbConnectionType.getPassword(), pool);
+            return new ConnectionPoolJibeProd(dbConnectionType.getUrl(), dbConnectionType.getUser(), dbConnectionType.getPassword(), pool);
         }
     }
 

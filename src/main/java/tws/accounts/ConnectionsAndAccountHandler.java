@@ -32,7 +32,7 @@ public class ConnectionsAndAccountHandler {
         accountAndConnectionHashMap.clear();
 
         // Load
-        ResultSet rs = MySql.Queries.get_accounts_data();
+        ResultSet rs = MySql.Queries.get_accounts_data(MySql.JIBE_PROD_CONNECTION);
         while (true) {
             try {
                 if (!rs.next()) break;

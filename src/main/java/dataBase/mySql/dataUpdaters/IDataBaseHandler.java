@@ -60,7 +60,7 @@ public abstract class IDataBaseHandler {
         String q = "SELECT * FROM sagiv.props WHERE stock_id = '%s';";
         String query = String.format(q, client.getId_name());
 
-        ResultSet rs = MySql.select(query);
+        ResultSet rs = MySql.select(query, MySql.JIBE_PROD_CONNECTION);
 
         while (true) {
             String props_name = "";
@@ -82,21 +82,21 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    void insert_properties() {
-        // Query
-        String q = "INSERT INTO sagiv.props (stock_id, prop, data) VALUES ('%s', '%s', '%s');";
-
-        // Get query map
-        HashMap<String, Prop> map = (HashMap<String, Prop>) client.getProps().getMap();
-
-        // For each prop
-        for (Map.Entry<String, Prop> entry : map.entrySet()) {
-            Prop prop = entry.getValue();
-            String query = String.format(q, client.getId_name(), prop.getName(), prop.getData());
-            System.out.println(query);
-            MySql.insert(query);
-        }
-    }
+//    void insert_properties() {
+//        // Query
+//        String q = "INSERT INTO sagiv.props (stock_id, prop, data) VALUES ('%s', '%s', '%s');";
+//
+//        // Get query map
+//        HashMap<String, Prop> map = (HashMap<String, Prop>) client.getProps().getMap();
+//
+//        // For each prop
+//        for (Map.Entry<String, Prop> entry : map.entrySet()) {
+//            Prop prop = entry.getValue();
+//            String query = String.format(q, client.getId_name(), prop.getName(), prop.getData());
+//            System.out.println(query);
+//            MySql.insert(query);
+//        }
+//    }
 
     void update_properties() {
         // Query
@@ -109,7 +109,7 @@ public abstract class IDataBaseHandler {
         for (Map.Entry<String, Prop> entry : map.entrySet()) {
             Prop prop = entry.getValue();
             String query = String.format(q, prop.getData(), client.getId_name(), prop.getName());
-            MySql.update(query);
+            MySql.update(query, MySql.JIBE_PROD_CONNECTION);
         }
     }
 
@@ -134,11 +134,11 @@ public abstract class IDataBaseHandler {
 
     public static void insert_interes_rates(BASE_CLIENT_OBJECT client) {
         for (Exp exp : client.getExps().getExpList()) {
-            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getCof(), exp.getName(), exp.getNormalized_num());
+            MySql.Queries.insert_rates(client.getId_name(), exp.getInterest(), exp.getDividend(), exp.getDays_to_exp(), client.getBase(), exp.getCof(), exp.getName(), exp.getNormalized_num(), MySql.JIBE_PROD_CONNECTION);
         }
     }
 
-    public static void insert_batch_data(ArrayList<MyTick> list, String table_location) {
+    public static void insert_batch_data(ArrayList<MyTick> list, String table_location, String connection_type) {
         if (list.size() > 0) {
 
             // Create the query
@@ -155,14 +155,14 @@ public abstract class IDataBaseHandler {
             String q = String.format(queryBuiler.toString(), table_location);
 
             // Insert
-            MySql.insert(q, true);
+            MySql.insert(q, true, connection_type);
 
             // Clear the list
             list.clear();
         }
     }
 
-    void insertListRetro(ArrayList<MyTimeStampObject> list, int timeseries_id) {
+    void insertListRetro(ArrayList<MyTimeStampObject> list, int timeseries_id, String connection_type) {
         if (list.size() > 0) {
 
             // Create the query
@@ -181,28 +181,10 @@ public abstract class IDataBaseHandler {
             System.out.println(q);
 
             // Insert
-            MySql.insert(q);
+            MySql.insert(q, connection_type);
 
             // Clear the list
             list.clear();
-        }
-    }
-
-    void update_props_to_db() {
-
-        String query = String.format("SELECT * FROM data.props WHERE name = '%s';", client.getName());
-        ResultSet rs = MySql.select(query);
-
-        while (true) {
-            try {
-                if (!rs.next()) break;
-
-                String prop = rs.getString("prop");
-
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
     }
 
@@ -218,35 +200,8 @@ public abstract class IDataBaseHandler {
         return 0;
     }
 
-    protected ArrayList<LocalDateTime> load_uncalced_tick_speed_time(String fut_table_location, String tick_speed_table_location) {
-
-        ArrayList<LocalDateTime> times = new ArrayList<>();
-
-        String q = "select * " +
-                "from %s " +
-                "where time > (select time from %s order by time desc limit 1) order by time;";
-        String query = String.format(q, fut_table_location, tick_speed_table_location);
-        ResultSet rs = MySql.select(query);
-
-        System.out.println(q);
-
-        while (true) {
-            try {
-                if (!rs.next()) break;
-                Timestamp timestamp = rs.getTimestamp("time");
-                LocalDateTime dateTime = LocalDateTime.parse(timestamp.toLocalDateTime().toString());
-                times.add(dateTime);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-
-        }
-
-        return times;
-    }
-
-    private void insert_data(ArrayList<MyTick> myTicks, String speed_table_location) {
-        IDataBaseHandler.insert_batch_data(myTicks, speed_table_location);
+    private void insert_data(ArrayList<MyTick> myTicks, String speed_table_location, String connection_type) {
+        IDataBaseHandler.insert_batch_data(myTicks, speed_table_location, connection_type);
     }
 
     public static ArrayList<MyTick> tick_logic(ArrayList<LocalDateTime> times) {

@@ -2,7 +2,8 @@ package gui.mainWindow;
 
 import api.Manifest;
 import backGround.BackGroundHandler;
-import dataBase.mySql.ConnectionPool;
+import dataBase.mySql.ConnectionPoolJibeDev;
+import dataBase.mySql.ConnectionPoolJibeProd;
 import dataBase.mySql.MySql;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
@@ -54,8 +55,11 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     public void onClose() {
         super.onClose();
         try {
-            ConnectionPool pool = ConnectionPool.getConnectionsPoolInstance();
-            pool.shutdown();
+            ConnectionPoolJibeProd pool_prod = ConnectionPoolJibeProd.getConnectionsPoolInstance();
+            ConnectionPoolJibeDev pool_dev = ConnectionPoolJibeDev.getConnectionsPoolInstance();
+            pool_prod.shutdown();
+            pool_dev.shutdown();
+
         } catch (SQLException throwables) {
             JOptionPane.showMessageDialog(this, "Connections shut down failed");
             throwables.printStackTrace();
@@ -102,7 +106,8 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     private void loadOnStartUp() {
         // Connect to db
         if (Manifest.DB) {
-            ConnectionPool.getConnectionsPoolInstance();
+            ConnectionPoolJibeProd.getConnectionsPoolInstance();
+            ConnectionPoolJibeDev.getConnectionsPoolInstance();
         }
         
         new Thread(() -> {
@@ -126,7 +131,7 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
             if (Manifest.DB) {
                 try {
                     // Load stocks
-                    Manifest.STOCKS_EXCEL_FILE_LOCATION = MySql.Queries.load_stocks_excel_file_location();
+                    Manifest.STOCKS_EXCEL_FILE_LOCATION = MySql.Queries.load_stocks_excel_file_location(MySql.JIBE_PROD_CONNECTION);
                     System.out.println(Manifest.STOCKS_EXCEL_FILE_LOCATION);
                 } catch (Exception e) {
                     e.printStackTrace();

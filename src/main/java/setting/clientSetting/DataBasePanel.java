@@ -1,6 +1,6 @@
 package setting.clientSetting;
 
-import dataBase.mySql.ConnectionPool;
+import dataBase.mySql.ConnectionPoolJibeProd;
 import dataBase.mySql.MySql;
 import dataBase.mySql.dataUpdaters.IDataBaseHandler;
 import dataBase.props.Props;
@@ -72,7 +72,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
                     client.getDdeHandler().getIddeReader().init_rates();
 
                     // Delete current
-                    Connection slo_conn = ConnectionPool.get_slo_single_connection();
+                    Connection slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
                     MySql.Queries.delete_today_rates(client.getId_name(),slo_conn);
                     MySql.Queries.delete_today_rates(client.getId_name());
 
@@ -131,7 +131,7 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 String min = set_start_min_field.getText();
                 client.setChart_start_min(Integer.parseInt(min));
-                MySql.Queries.update_prop(client.getId_name(), Props.CHART_START_MIN, min);
+                MySql.Queries.update_prop(client.getId_name(), Props.CHART_START_MIN, min, MySql.JIBE_PROD_CONNECTION);
             }
         });
     }
