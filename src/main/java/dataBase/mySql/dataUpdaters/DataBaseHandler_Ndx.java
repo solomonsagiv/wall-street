@@ -65,18 +65,19 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     private void on_data_chage() {
 
 
-//        if (client.getIndex() != index_test_0) {
-//            index_test_0 = client.getIndex();
-//            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
-//        }
-//
-//         Fut day
-//        double fut_day = day.get_future();
-//
-//        if (fut_day != fut_week_test_0) {
-//            fut_week_test_0 = fut_day;
-//            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
-//        }
+        // Index test
+        if (client.getIndex() != index_test_0) {
+            index_test_0 = client.getIndex();
+            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
+        }
+
+        // Fut week test
+        double fut_day = day.get_future();
+
+        if (fut_day != fut_week_test_0) {
+            fut_week_test_0 = fut_day;
+            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
+        }
 
         // Baskets
         int basket = client.getBasketFinder_by_stocks().getBaskets();

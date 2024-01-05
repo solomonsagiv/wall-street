@@ -95,9 +95,33 @@ public class Chart_12 extends MyChartCreator {
         op_avg_q1_60.setColor(Themes.BROWN);
         op_avg_q1_60.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[2];
+
+        MyTimeSeries yesterday_op_avg = new MyTimeSeries("Yesterday O/P", client) {
+            @Override
+            public void updateData() {
+            }
+
+            @Override
+            public double getValue() {
+                return client.getPre_day_avg();
+            }
+
+            @Override
+            public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
+
+            }
+        };
+
+
+        series = new MyTimeSeries[3];
         series[0] = op_avg_q1_15;
         series[1] = op_avg_q1_60;
+        series[2] = yesterday_op_avg;
 
         // Chart
         MyChart op_avg_q1_chart = new MyChart(client, series, props);
