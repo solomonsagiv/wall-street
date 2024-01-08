@@ -100,19 +100,19 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             fut_month_0 = fut_month;
         }
 
-        // Index test
-        if (client.getIndex() != index_test_0) {
-            index_test_0 = client.getIndex();
-            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
-        }
-
-        // Fut week test
-        double fut_day = week.get_future();
-
-        if (fut_day != fut_week_test_0) {
-            fut_week_test_0 = fut_day;
-            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
-        }
+//        // Index test
+//        if (client.getIndex() != index_test_0) {
+//            index_test_0 = client.getIndex();
+//            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
+//        }
+//
+//        // Fut week test
+//        double fut_day = week.get_future();
+//
+//        if (fut_day != fut_week_test_0) {
+//            fut_week_test_0 = fut_day;
+//            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
+//        }
 
 
         // Is live db

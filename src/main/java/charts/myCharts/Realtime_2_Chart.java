@@ -149,7 +149,7 @@ public class Realtime_2_Chart extends MyChartCreator {
                 case ExpStrings.day:myTimeSerie.setColor(Themes.GREEN);
                 case ExpStrings.week:myTimeSerie.setColor(Themes.GREEN);
                 case ExpStrings.q1:myTimeSerie.setColor(Themes.PURPLE);
-                case ExpStrings.q2:myTimeSerie.setColor(Themes.PURPLE.brighter());
+                case ExpStrings.q2:myTimeSerie.setColor(Themes.GREEN);
             }
 
             myTimeSerie.setStokeSize(1.75f);
