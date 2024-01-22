@@ -9,7 +9,6 @@ import exp.Exps;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -162,29 +161,27 @@ public abstract class IDataBaseHandler {
         }
     }
 
-    void insertListRetro(ArrayList<MyTimeStampObject> list, int timeseries_id, String connection_type) {
-        if (list.size() > 0) {
 
-            // Create the query
-            StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value, timeseries_id) VALUES ");
-            int last_item_id = list.get(list.size() - 1).hashCode();
-            for (MyTimeStampObject row : list) {
-                queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s, %s)", row.getInstant(), row.getValue(), timeseries_id));
-                if (row.hashCode() != last_item_id) {
-                    queryBuiler.append(",");
-                }
+    public String convert_list_to_query(ArrayList<MyTimeStampObject> list, int timeseries_id) {
+        // Create the query
+        StringBuilder queryBuiler = new StringBuilder("INSERT INTO %s (time, value, timeseries_id) VALUES ");
+        int last_item_id = list.get(list.size() - 1).hashCode();
+        for (MyTimeStampObject row : list) {
+            queryBuiler.append(String.format("(cast('%s' as timestamp with time zone), %s, %s)", row.getInstant(), row.getValue(), timeseries_id));
+            if (row.hashCode() != last_item_id) {
+                queryBuiler.append(",");
             }
-            queryBuiler.append(";");
+        }
+        queryBuiler.append(";");
 
-            String q = String.format(queryBuiler.toString(), "ts.timeseries_data");
+        String q = String.format(queryBuiler.toString(), "ts.timeseries_data");
+        return q;
+    }
 
-            System.out.println(q);
-
+    void insertListRetro(ArrayList<MyTimeStampObject> list, int timseries_id, String connection_type) {
+        if (list.size() > 0) {
             // Insert
-            MySql.insert(q, connection_type);
-
-            // Clear the list
-            list.clear();
+            MySql.insert(convert_list_to_query(list, timseries_id), connection_type);
         }
     }
 

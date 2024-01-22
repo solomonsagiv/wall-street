@@ -14,32 +14,29 @@ import java.util.ArrayList;
 public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> index_ask_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_day_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_bid_synthetic_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
 
-    ArrayList<MyTimeStampObject> index_test_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_week_test_timeStamp = new ArrayList<>();
-
+    double baskets_0 = 0;
+    double index_bid_synthetic_0 = 0;
+    double index_ask_synthetic_0 = 0;
     double index_0 = 0;
-    double index_bid_0 = 0;
-    double index_ask_0 = 0;
-    double fut_day_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
-    double index_test_0 = 0;
-    double fut_week_test_0 = 0;
+    double fut_week_0 = 0;
 
-
-    Exp day;
+    Exp week;
     E q1, q2;
 
     public DataBaseHandler_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
         initTablesNames();
-        day = exps.getExp(ExpStrings.day);
+        week = exps.getExp(ExpStrings.day);
         q1 = (E) exps.getExp(ExpStrings.q1);
         q2 = (E) exps.getExp(ExpStrings.q2);
     }
@@ -67,23 +64,26 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     private void on_change_data() {
 
-//         Test
-//        if (client.getIndex() != index_test_0) {
-//            index_test_0 = client.getIndex();
-//            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
-//        }
-//
-//         Fut day
-//        double fut_day = day.get_future();
-//
-//        if (fut_day != fut_week_test_0) {
-//            fut_week_test_0 = fut_day;
-//            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
-//        }
-
-
-
         if (client.isLive_db()) {
+            // Baskets
+            int basket = client.getBasketFinder_by_stocks().getBaskets();
+
+            if (basket != baskets_0) {
+                double last_count = basket - baskets_0;
+                baskets_0 = basket;
+                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+            // Fut week
+            double fut_week = week.get_future();
+
+            if (fut_week != fut_week_0) {
+
+                if (Math.abs(fut_week - fut_week_0) < 15) {
+                    fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+                }
+                fut_week_0 = fut_week;
+            }
 
             // Index
             if (client.getIndex() != index_0) {
@@ -91,43 +91,35 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
             }
 
-            // Index bid
-            if (client.getIndexBid() != index_bid_0) {
-                index_bid_0 = client.getIndexBid();
-                index_bid_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_0));
+            // Index bid synthetic
+            if (client.getIndex_bid_synthetic() != index_bid_synthetic_0) {
+                index_bid_synthetic_0 = client.getIndex_bid_synthetic();
+                index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
             }
 
-            // Index ask
-            if (client.getIndexAsk() != index_ask_0) {
-                index_ask_0 = client.getIndexAsk();
-                index_ask_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_0));
+            // Index ask synthetic
+            if (client.getIndex_ask_synthetic() != index_ask_synthetic_0) {
+                index_ask_synthetic_0 = client.getIndex_ask_synthetic();
+                index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
             }
 
-            // Fut day
-//            double fut_day = day.get_future();
-//
-//            if (fut_day != fut_day_0) {
-//                fut_day_0 = fut_day;
-//                fut_day_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_day_0));
-//            }
+            // Fut e1
+            double fut_e1 = q1.get_future();
 
+            if (fut_e1 != fut_e1_0) {
+                fut_e1_0 = fut_e1;
+                fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+            }
+
+            // Fut e2
+            double fut_e2 = q2.get_future();
+
+            if (fut_e2 != fut_e2_0) {
+                fut_e2_0 = fut_e2;
+                fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+            }
         }
 
-//         Fut e1
-//        double fut_e1 = q1.get_future();
-//
-//        if (fut_e1 != fut_e1_0) {
-//            fut_e1_0 = fut_e1;
-//            fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-//        }
-//
-//         Fut e2
-//        double fut_e2 = q2.get_future();
-//
-//        if (fut_e2 != fut_e2_0) {
-//            fut_e2_0 = fut_e2;
-//            fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-//        }
 
     }
 
@@ -149,17 +141,24 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     @Override
     public void initTablesNames() {
 
-        // Index
-        serie_ids.put(TimeSeriesHandler.INDEX_TEST, 11971);
-        serie_ids.put(TimeSeriesHandler.FUTURE_WEEK_TEST, 11972);
-        serie_ids.put(TimeSeriesHandler.INDEX, 9470);
-        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600, 9470);
-        serie_ids.put(TimeSeriesHandler.INDEX_AVG_900, 9470);
-        serie_ids.put(TimeSeriesHandler.INDEX_BID, 16);
-        serie_ids.put(TimeSeriesHandler.INDEX_ASK, 15);
-        serie_ids.put(TimeSeriesHandler.FUT_WEEK, 4);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1, 9531);
-        serie_ids.put(TimeSeriesHandler.FUT_Q2, 9532);
+        // Dev
+        serie_ids.put(TimeSeriesHandler.INDEX_DEV, 3);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_DEV, 16);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_DEV, 15);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK_DEV, 4);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1_DEV, 17);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2_DEV, 18);
+
+        // Prod
+        serie_ids.put(TimeSeriesHandler.INDEX_PROD, 3);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_PROD, 3);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_900_PROD, 3);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_PROD, 16);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_PROD, 15);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK_PROD, 4);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 9531);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 9532);
+
 
         // DF
 //        serie_ids.put(TimeSeriesHandler.DF_7, 9526);
@@ -241,17 +240,20 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
     }
 
-    private void updateListsRetro() {
-        // Dev
-        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST), MySql.JIBE_DEV_CONNECTION);
-        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST), MySql.JIBE_DEV_CONNECTION);
+    private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
+        insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
+        insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        list.clear();
+    }
 
-        // Prod
-        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(index_bid_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(index_ask_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(fut_day_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(fut_e2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2), MySql.JIBE_PROD_CONNECTION);
+    private void updateListsRetro() {
+        // Dev and Prod
+        insert_dev_prod(index_timestamp, TimeSeriesHandler.INDEX_DEV, TimeSeriesHandler.INDEX_PROD);
+        insert_dev_prod(fut_week_timeStamp, TimeSeriesHandler.FUT_WEEK_DEV, TimeSeriesHandler.FUT_WEEK_PROD);
+        insert_dev_prod(fut_q1_timeStamp, TimeSeriesHandler.FUT_Q1_DEV, TimeSeriesHandler.FUT_Q1_PROD);
+        insert_dev_prod(fut_q2_timeStamp, TimeSeriesHandler.FUT_Q2_DEV, TimeSeriesHandler.FUT_Q2_PROD);
+        insert_dev_prod(baskets_timestamp, TimeSeriesHandler.BASKETS_DEV, TimeSeriesHandler.BASKETS_PROD);
+        insert_dev_prod(index_bid_synthetic_timestamp, TimeSeriesHandler.INDEX_BID_DEV, TimeSeriesHandler.INDEX_BID_PROD);
+        insert_dev_prod(index_ask_synthetic_timestamp, TimeSeriesHandler.INDEX_ASK_DEV, TimeSeriesHandler.INDEX_ASK_PROD);
     }
 }

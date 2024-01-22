@@ -30,7 +30,7 @@ public class ConnectionPoolJibeProd implements IConnectionPool {
         return conn;
     }
 
-    private static final int MAX_POOL_SIZE = 10;
+    private static final int MAX_POOL_SIZE = 15;
 
     // Instance
     private static ConnectionPoolJibeProd connectionPoolJibeProd;

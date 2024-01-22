@@ -18,13 +18,10 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_bid_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_e1_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_e2_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
-
-    ArrayList<MyTimeStampObject> index_test_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_week_test_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -34,8 +31,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;
-    double index_test_0 = 0;
-    double fut_week_test_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -69,54 +64,38 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     private void on_change_data() {
 
-        // Baskets
-        int basket = client.getBasketFinder_by_stocks().getBaskets();
-
-        if (basket != baskets_0) {
-            double last_count = basket - baskets_0;
-            baskets_0 = basket;
-            baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-        }
-
-        // Fut week
-        double fut_week = week.get_future();
-
-        if (fut_week != fut_week_0) {
-
-            if (Math.abs(fut_week - fut_week_0) < 15) {
-                fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-            }
-            fut_week_0 = fut_week;
-        }
-
-        // Fut month
-        double fut_month = month.get_future();
-
-        if (fut_month != fut_month_0) {
-
-            if (Math.abs(fut_week - fut_month_0) < 15) {
-                fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
-            }
-            fut_month_0 = fut_month;
-        }
-
-        // Index test
-        if (client.getIndex() != index_test_0) {
-            index_test_0 = client.getIndex();
-            index_test_timeStamp.add(new MyTimeStampObject(Instant.now(), index_test_0));
-        }
-
-        // Fut week test
-        double fut_day = week.get_future();
-
-        if (fut_day != fut_week_test_0) {
-            fut_week_test_0 = fut_day;
-            fut_week_test_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_test_0));
-        }
-
-
         // Is live db
         if (client.isLive_db()) {
+            // Baskets
+            int basket = client.getBasketFinder_by_stocks().getBaskets();
+
+            if (basket != baskets_0) {
+                double last_count = basket - baskets_0;
+                baskets_0 = basket;
+                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+            // Fut week
+            double fut_week = week.get_future();
+
+            if (fut_week != fut_week_0) {
+
+                if (Math.abs(fut_week - fut_week_0) < 15) {
+                    fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+                }
+                fut_week_0 = fut_week;
+            }
+
+            // Fut month
+            double fut_month = month.get_future();
+
+            if (fut_month != fut_month_0) {
+
+                if (Math.abs(fut_week - fut_month_0) < 15) {
+                    fut_month_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_month_0));
+                }
+                fut_month_0 = fut_month;
+            }
 
             // Index
             if (client.getIndex() != index_0) {
@@ -141,7 +120,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
             if (fut_e1 != fut_e1_0) {
                 fut_e1_0 = fut_e1;
-                fut_e1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+                fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
             }
 
             // Fut e2
@@ -149,7 +128,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
             if (fut_e2 != fut_e2_0) {
                 fut_e2_0 = fut_e2;
-                fut_e2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+                fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
             }
         }
     }
@@ -171,18 +150,31 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     @Override
     public void initTablesNames() {
-        serie_ids.put(TimeSeriesHandler.INDEX_TEST, 11975);
-        serie_ids.put(TimeSeriesHandler.FUTURE_WEEK_TEST, 11976);
-        serie_ids.put(TimeSeriesHandler.INDEX, 4369);
-        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600, 4369);
-        serie_ids.put(TimeSeriesHandler.INDEX_AVG_900, 4369);
-        serie_ids.put(TimeSeriesHandler.INDEX_BID_SYNTHETIC, 9062);
-        serie_ids.put(TimeSeriesHandler.INDEX_ASK_SYNTHETIC, 9061);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1, 9881);
-        serie_ids.put(TimeSeriesHandler.FUT_WEEK, 9522);
-        serie_ids.put(TimeSeriesHandler.FUT_MONTH, 9637);
+//        serie_ids.put(TimeSeriesHandler.INDEX_TEST, 11975);
+//        serie_ids.put(TimeSeriesHandler.FUTURE_WEEK_TEST, 11976);
 
-        serie_ids.put(TimeSeriesHandler.BASKETS, 9520);
+
+        // DEV
+        serie_ids.put(TimeSeriesHandler.INDEX_DEV, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_DEV, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_900_DEV, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_DEV, 9062);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_DEV, 9061);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1_DEV, 4367);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2_DEV, 4368);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK_DEV, 4759);
+        serie_ids.put(TimeSeriesHandler.FUT_MONTH_DEV, 12206);
+        serie_ids.put(TimeSeriesHandler.BASKETS_DEV, 9520);
+
+        // DEV
+        serie_ids.put(TimeSeriesHandler.INDEX_PROD, 4369);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 4367);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 4368);
+        serie_ids.put(TimeSeriesHandler.FUT_WEEK_PROD, 9522);
+        serie_ids.put(TimeSeriesHandler.FUT_MONTH_PROD, 9637);
+        serie_ids.put(TimeSeriesHandler.BASKETS_PROD, 9520);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_PROD, 9062);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_PROD, 9061);
 
         // DF
         serie_ids.put(TimeSeriesHandler.DF_2, 9643);
@@ -270,18 +262,21 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
     }
 
-    private void updateListsRetro() {
-        // Dev
-        insertListRetro(index_test_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_TEST), MySql.JIBE_DEV_CONNECTION);
-        insertListRetro(fut_week_test_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_WEEK_TEST) , MySql.JIBE_DEV_CONNECTION);
+    private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
+        insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
+        insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        list.clear();
+    }
 
-        // Prod
-        insertListRetro(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_SYNTHETIC) , MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_SYNTHETIC), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(fut_e1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK), MySql.JIBE_PROD_CONNECTION);
-        insertListRetro(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH), MySql.JIBE_PROD_CONNECTION);
+    private void updateListsRetro() {
+        // Dev and Prod
+        insert_dev_prod(index_timestamp, TimeSeriesHandler.INDEX_DEV, TimeSeriesHandler.INDEX_PROD);
+        insert_dev_prod(fut_week_timeStamp, TimeSeriesHandler.FUT_WEEK_DEV, TimeSeriesHandler.FUT_WEEK_PROD);
+        insert_dev_prod(fut_month_timeStamp, TimeSeriesHandler.FUT_MONTH_DEV, TimeSeriesHandler.FUT_MONTH_PROD);
+        insert_dev_prod(fut_q1_timeStamp, TimeSeriesHandler.FUT_Q1_DEV, TimeSeriesHandler.FUT_Q1_PROD);
+        insert_dev_prod(fut_q2_timeStamp, TimeSeriesHandler.FUT_Q2_DEV, TimeSeriesHandler.FUT_Q2_PROD);
+        insert_dev_prod(baskets_timestamp, TimeSeriesHandler.BASKETS_DEV, TimeSeriesHandler.BASKETS_PROD);
+        insert_dev_prod(index_bid_synthetic_timestamp, TimeSeriesHandler.INDEX_BID_DEV, TimeSeriesHandler.INDEX_BID_PROD);
+        insert_dev_prod(index_ask_synthetic_timestamp, TimeSeriesHandler.INDEX_ASK_DEV, TimeSeriesHandler.INDEX_ASK_PROD);
     }
 }

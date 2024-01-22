@@ -102,12 +102,11 @@ public class Arik {
     private ArrayList<ArikAlgoAlert> getArikAlgoAlerts() {
         // Positions alert
         ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10033));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10032));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10031));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10030));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10029));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10028));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10039));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10038));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10037));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10036));
+        algo_list.add(new Jibe_Positions_Algo(10000000, 10035));
         return algo_list;
     }
 

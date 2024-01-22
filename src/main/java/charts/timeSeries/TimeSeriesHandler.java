@@ -5,21 +5,29 @@ import java.util.Map;
 
 public class TimeSeriesHandler {
 
-    public static final int INDEX = 11;
-    public static final int BASKETS = 12;
-    public static final int FUT_WEEK = 16;
-    public static final int FUT_Q1 = 19;
-    public static final int FUT_Q2 = 20;
-    public static final int INDEX_BID = 21;
-    public static final int INDEX_ASK = 22;
-    public static final int FUT_MONTH = 90;
+    public static final int INDEX_DEV = 11;
+    public static final int BASKETS_DEV = 12;
+    public static final int FUT_WEEK_DEV = 16;
+    public static final int FUT_Q1_DEV = 19;
+    public static final int FUT_Q2_DEV = 20;
+    public static final int INDEX_BID_DEV = 21;
+    public static final int INDEX_ASK_DEV = 22;
+    public static final int FUT_MONTH_DEV = 90;
     public static final int INDEX_TEST = 103;
     public static final int FUTURE_WEEK_TEST = 104;
 
-    public static final int INDEX_AVG_3600 = 91;
-    public static final int INDEX_AVG_900 = 92;
-    public static final int INDEX_BID_SYNTHETIC = 68;
-    public static final int INDEX_ASK_SYNTHETIC = 69;
+
+    public static final int INDEX_PROD = 107;
+    public static final int FUT_WEEK_PROD = 108;
+    public static final int FUT_MONTH_PROD = 109;
+    public static final int FUT_Q1_PROD = 110;
+    public static final int FUT_Q2_PROD = 111;
+    public static final int BASKETS_PROD = 112;
+    public static final int INDEX_BID_PROD = 113;
+    public static final int INDEX_ASK_PROD = 114;
+
+    public static final int INDEX_AVG_3600_PROD = 91;
+    public static final int INDEX_AVG_900_PROD = 92;
 
     public static final int DF_7 = 48;
     public static final int DF_2 = 49;
@@ -57,10 +65,11 @@ public class TimeSeriesHandler {
 
     public static final int PRE_DAY_OP_AVG = 105;
 
-    // Last price = 106
+    // Last price = 114
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
+
     public Map<String, MyTimeSeries> getSeries_map() {
         return series_map;
     }
@@ -74,7 +83,7 @@ public class TimeSeriesHandler {
         return null;
     }
 
-    public void put(String timeserie_type, MyTimeSeries timeSeries){
+    public void put(String timeserie_type, MyTimeSeries timeSeries) {
         series_map.put(timeserie_type, timeSeries);
     }
 
