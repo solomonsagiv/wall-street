@@ -126,8 +126,8 @@ public class Realtime_Chart extends MyChartCreator {
         greens.add(Themes.GREEN);
         greens.add(Themes.PURPLE);
         greens.add(Themes.PURPLE);
-        greens.add(Themes.PURPLE);
-        greens.add(Themes.PURPLE);
+        greens.add(Themes.GREEN);
+        greens.add(Themes.GREEN);
 
         int i = 0;
 

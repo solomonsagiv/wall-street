@@ -14,7 +14,7 @@ public class DDEReader_Spx extends IDDEReader {
     E q1;
     E q2;
     Exp month;
-    
+
     private boolean init_exp = false;
 
     String indCell = "R11C4";

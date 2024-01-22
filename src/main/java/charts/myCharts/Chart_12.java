@@ -4,6 +4,8 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
+import org.jfree.chart.plot.Marker;
+import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -125,6 +127,9 @@ public class Chart_12 extends MyChartCreator {
 
         // Chart
         MyChart op_avg_q1_chart = new MyChart(client, series, props);
+        ValueMarker yesterday_marker = new ValueMarker(client.getPre_day_avg());
+        yesterday_marker.setPaint(Themes.BLUE_DARK);
+        op_avg_q1_chart.add_marker(yesterday_marker);
 
         // --------- Op avg q2 ---------- //
 

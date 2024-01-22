@@ -897,6 +897,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
+
                     }
 
                     @Override
