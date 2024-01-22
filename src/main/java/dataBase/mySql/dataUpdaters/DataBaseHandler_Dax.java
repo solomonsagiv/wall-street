@@ -156,8 +156,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         // DEV
         serie_ids.put(TimeSeriesHandler.INDEX_DEV, 4369);
-        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_DEV, 4369);
-        serie_ids.put(TimeSeriesHandler.INDEX_AVG_900_DEV, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_PROD, 4369);
+        serie_ids.put(TimeSeriesHandler.INDEX_AVG_900_PROD, 4369);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_DEV, 9062);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_DEV, 9061);
         serie_ids.put(TimeSeriesHandler.FUT_Q1_DEV, 4367);

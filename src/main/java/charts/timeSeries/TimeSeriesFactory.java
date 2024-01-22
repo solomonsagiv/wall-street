@@ -94,7 +94,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600_DEV);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600_PROD);
 
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 60, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
@@ -103,7 +103,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600_DEV);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_3600_PROD);
 
                         ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 60, MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
@@ -125,7 +125,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void updateData() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_900_DEV);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_900_PROD);
 
                         double val = MySql.Queries.handle_rs(MySql.Queries.get_serie_moving_avg(serie_id, 15, MySql.JIBE_PROD_CONNECTION));
                         setValue(val);
@@ -134,7 +134,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_900_DEV);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_AVG_900_PROD);
 
                         ResultSet rs = MySql.Queries.get_cumulative_avg_serie(serie_id, 15, MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
