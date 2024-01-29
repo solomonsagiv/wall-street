@@ -110,7 +110,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double pre_day_avg = 0;
 
     // DB
-    boolean live_db = false;
+    boolean live_db = true;
     
     public BASE_CLIENT_OBJECT() {
         try {
