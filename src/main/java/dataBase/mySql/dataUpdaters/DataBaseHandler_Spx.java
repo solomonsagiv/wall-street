@@ -65,14 +65,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     private void on_change_data() {
 
         if (client.isLive_db()) {
-            // Baskets
-            int basket = client.getBasketFinder_by_stocks().getBaskets();
-
-            if (basket != baskets_0) {
-                double last_count = basket - baskets_0;
-                baskets_0 = basket;
-                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
 
             // Fut week
             double fut_week = week.get_future();
@@ -247,6 +239,10 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     }
 
     private void updateListsRetro() {
+
+        int index_dev_id = serie_ids.get(TimeSeriesHandler.INDEX_DEV);
+
+
         // Dev and Prod
         insert_dev_prod(index_timestamp, TimeSeriesHandler.INDEX_DEV, TimeSeriesHandler.INDEX_PROD);
         insert_dev_prod(fut_week_timeStamp, TimeSeriesHandler.FUT_WEEK_DEV, TimeSeriesHandler.FUT_WEEK_PROD);

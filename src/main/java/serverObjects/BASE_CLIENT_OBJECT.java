@@ -88,7 +88,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private ArrayList<MyThread> threads = new ArrayList<>();
     private HashMap<String, Integer> ids = new HashMap<>();
     private boolean started = false;
-
+    
     // Lists map
     private String name = null;
     private String id_name = null;
