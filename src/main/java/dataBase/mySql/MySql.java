@@ -34,7 +34,6 @@ public class MySql {
         }
         return connectionPool;
     }
-    
 
     // Insert
     public static void insert(String query, String connection_type) {

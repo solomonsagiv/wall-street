@@ -246,12 +246,12 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     private void updateListsRetro() {
         // Dev and Prod
-        insert_dev_prod(index_timestamp, TimeSeriesHandler.INDEX_DEV, TimeSeriesHandler.INDEX_PROD);
-        insert_dev_prod(fut_week_timeStamp, TimeSeriesHandler.FUT_WEEK_DEV, TimeSeriesHandler.FUT_WEEK_PROD);
-        insert_dev_prod(fut_q1_timeStamp, TimeSeriesHandler.FUT_Q1_DEV, TimeSeriesHandler.FUT_Q1_PROD);
-        insert_dev_prod(fut_q2_timeStamp, TimeSeriesHandler.FUT_Q2_DEV, TimeSeriesHandler.FUT_Q2_PROD);
-        insert_dev_prod(baskets_timestamp, TimeSeriesHandler.BASKETS_DEV, TimeSeriesHandler.BASKETS_PROD);
-        insert_dev_prod(index_bid_synthetic_timestamp, TimeSeriesHandler.INDEX_BID_DEV, TimeSeriesHandler.INDEX_BID_PROD);
-        insert_dev_prod(index_ask_synthetic_timestamp, TimeSeriesHandler.INDEX_ASK_DEV, TimeSeriesHandler.INDEX_ASK_PROD);
+        insert_dev_prod(index_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_DEV), serie_ids.get(TimeSeriesHandler.INDEX_PROD));
+        insert_dev_prod(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK_DEV), serie_ids.get(TimeSeriesHandler.FUT_WEEK_PROD));
+        insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
+        insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
+        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
+        insert_dev_prod(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_DEV), serie_ids.get(TimeSeriesHandler.INDEX_BID_PROD));
+        insert_dev_prod(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_DEV), serie_ids.get(TimeSeriesHandler.INDEX_ASK_PROD));
     }
 }
