@@ -83,6 +83,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem charts_13 = new JMenuItem("Charts 13");
+        charts_13.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chart_13 chart = new Chart_13(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem europe_op_avg = new JMenuItem("Dax chart 10");
         europe_op_avg.addActionListener(new ActionListener() {
             @Override
@@ -133,6 +142,7 @@ public class PopupsMenuFactory {
         charts.add(charts_9);
         charts.add(charts_10);
         charts.add(charts_12);
+        charts.add(charts_13);
         charts.add(real_time);
         charts.add(futures);
 

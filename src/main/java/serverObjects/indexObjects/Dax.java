@@ -6,8 +6,7 @@ import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
-import charts.myCharts.Chart_12;
-import charts.myCharts.DAX_CHART_10;
+import charts.myCharts.Chart_13;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -94,8 +93,8 @@ public class Dax extends INDEX_CLIENT_OBJECT {
                 Realtime_Chart chart = new Realtime_Chart(this);
                 chart.createChart();
 
-                Chart_12 chart_12 = new Chart_12(this);
-                chart_12.createChart();
+                Chart_13 chart_13 = new Chart_13(this);
+                chart_13.createChart();
 
             }).start();
         }

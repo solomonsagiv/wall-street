@@ -64,6 +64,7 @@ public class Realtime_Chart extends MyChartCreator {
             }
         };
         index.setColor(Color.BLACK);
+        index.setVisible(false);
         index.setStokeSize(1.75f);
 
 
@@ -160,7 +161,7 @@ public class Realtime_Chart extends MyChartCreator {
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (exp.getName().equals(ExpStrings.day) || exp.getName().equals(ExpStrings.q1)) {
+            if (exp.getName().equals(ExpStrings.q1)) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);
