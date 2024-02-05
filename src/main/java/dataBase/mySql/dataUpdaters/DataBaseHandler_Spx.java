@@ -186,7 +186,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Pre day avg
         serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9682);
 
-
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
@@ -233,8 +232,10 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     }
 
     private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
+        System.out.println("------------------------ Insert start ----------------------------");
         insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
         insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        System.out.println("------------------------ Insert End ----------------------------");
         list.clear();
     }
 

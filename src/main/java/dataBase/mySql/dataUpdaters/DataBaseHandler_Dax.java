@@ -168,8 +168,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         // DEV
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 4369);
-        serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 4367);
-        serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 4368);
+        serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 9687);
+        serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 9688);
         serie_ids.put(TimeSeriesHandler.FUT_WEEK_PROD, 9522);
         serie_ids.put(TimeSeriesHandler.FUT_MONTH_PROD, 9637);
         serie_ids.put(TimeSeriesHandler.BASKETS_PROD, 9520);
@@ -255,8 +255,10 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     }
 
     private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
+        System.out.println("------------------------ Insert start ----------------------------");
         insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
         insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        System.out.println("------------------------ Insert End ----------------------------");
         list.clear();
     }
 
