@@ -6,7 +6,7 @@ import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
-import charts.myCharts.Chart_12;
+import charts.myCharts.Chart_13;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
@@ -16,13 +16,13 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public class Ndx extends INDEX_CLIENT_OBJECT {
 
     static Ndx client = null;
-    
+
     // Constructor
     public Ndx() {
         setName("ndx");
         setId_name("ndx");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 85, 2));
+        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 85, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
     }
@@ -87,8 +87,8 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
 
-                Chart_12 chart_12 = new Chart_12(this);
-                chart_12.createChart();
+                Chart_13 chart_13 = new Chart_13(this);
+                chart_13.createChart();
 
             }).start();
         }
