@@ -145,6 +145,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q1_DEV, 11);
         serie_ids.put(TimeSeriesHandler.FUT_Q2_DEV, 12);
         serie_ids.put(TimeSeriesHandler.BASKETS_DEV, 1418);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_DEV, 9668);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_DEV, 9669);
 
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_PROD, 1);
@@ -153,6 +155,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 9533);
         serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 9534);
         serie_ids.put(TimeSeriesHandler.BASKETS_PROD, 9519);
+        serie_ids.put(TimeSeriesHandler.INDEX_BID_PROD, 9389);
+        serie_ids.put(TimeSeriesHandler.INDEX_ASK_PROD, 9388);
 
         // DF
 //        serie_ids.put(TimeSeriesHandler.DF_7, 9529);
