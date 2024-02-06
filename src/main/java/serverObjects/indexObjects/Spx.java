@@ -83,7 +83,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
-
+                
                 Chart_13 chart_13 = new Chart_13(this);
                 chart_13.createChart();
 
