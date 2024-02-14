@@ -104,14 +104,14 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             }
 
             // Index bid synthetic
-            if (client.getIndex_bid_synthetic() != index_bid_synthetic_0) {
-                index_bid_synthetic_0 = client.getIndex_bid_synthetic();
+            if (client.getIndex_bid() != index_bid_synthetic_0) {
+                index_bid_synthetic_0 = client.getIndex_bid();
                 index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
             }
 
             // Index ask synthetic
-            if (client.getIndex_ask_synthetic() != index_ask_synthetic_0) {
-                index_ask_synthetic_0 = client.getIndex_ask_synthetic();
+            if (client.getIndex_ask() != index_ask_synthetic_0) {
+                index_ask_synthetic_0 = client.getIndex_ask();
                 index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
             }
 

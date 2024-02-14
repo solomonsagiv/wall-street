@@ -55,6 +55,10 @@ public class DDEReader_Spx extends IDDEReader {
     String q1_normalized_num_cell = "R14C18";
     String q2_normalized_num_cell = "R15C18";
 
+    // Vix
+    String vix_cell = "R17C9";
+
+
     // Constructor
     public DDEReader_Spx(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -81,6 +85,9 @@ public class DDEReader_Spx extends IDDEReader {
         day.set_future(requestDouble(futDayCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
+
+        // Vix
+        client.setVix(requestDouble(vix_cell, conversation));
     }
 
     private void init_exps() {

@@ -19,6 +19,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -27,6 +28,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_q1_0 = 0;
     double fut_q2_0 = 0;
     double fut_week_0 = 0;
+    double vix_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -91,16 +93,16 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             }
 
             // Index bid synthetic
-            if (client.getIndex_bid_synthetic() != index_bid_synthetic_0) {
-                index_bid_synthetic_0 = client.getIndex_bid_synthetic();
-                index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
-            }
-
-            // Index ask synthetic
-            if (client.getIndex_ask_synthetic() != index_ask_synthetic_0) {
-                index_ask_synthetic_0 = client.getIndex_ask_synthetic();
-                index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
-            }
+//            if (client.getIndex_bid() != index_bid_synthetic_0) {
+//                index_bid_synthetic_0 = client.getIndex_bid();
+//                index_bid_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_bid_synthetic_0));
+//            }
+//
+//             Index ask synthetic
+//            if (client.getIndex_ask() != index_ask_synthetic_0) {
+//                index_ask_synthetic_0 = client.getIndex_ask();
+//                index_ask_synthetic_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_synthetic_0));
+//            }
 
             // Fut e1
             double fut_q1 = q1.get_future();
@@ -116,6 +118,14 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             if (fut_q2 != fut_q2_0) {
                 fut_q2_0 = fut_q2;
                 fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q2_0));
+            }
+
+            // Vix
+            double vix = client.getVix();
+
+            if (vix != vix_0) {
+                vix_0 = vix;
+                vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
             }
         }
     }
@@ -147,6 +157,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.BASKETS_DEV, 1418);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_DEV, 9668);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_DEV, 9669);
+        serie_ids.put(TimeSeriesHandler.VIX_DEV, 2483);
 
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_PROD, 1);
@@ -157,6 +168,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.BASKETS_PROD, 9519);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_PROD, 9389);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_PROD, 9388);
+        serie_ids.put(TimeSeriesHandler.VIX_PROD, 9608);
 
         // DF
 //        serie_ids.put(TimeSeriesHandler.DF_7, 9529);
@@ -255,7 +267,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
-        insert_dev_prod(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_DEV), serie_ids.get(TimeSeriesHandler.INDEX_BID_PROD));
-        insert_dev_prod(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_DEV), serie_ids.get(TimeSeriesHandler.INDEX_ASK_PROD));
+        insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
+//        insert_dev_prod(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_DEV), serie_ids.get(TimeSeriesHandler.INDEX_BID_PROD));
+//        insert_dev_prod(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_DEV), serie_ids.get(TimeSeriesHandler.INDEX_ASK_PROD));
     }
 }

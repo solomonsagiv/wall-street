@@ -52,7 +52,7 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     // Basic
     protected double index = 0;
-    protected double index_bid_synthetic, index_ask_synthetic;
+    protected double index_bid, index_ask;
     protected double index_bid_ask_synthetic_margin = 0;
 
     // INDEX manipulations
@@ -105,6 +105,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double low = 0;
     private double base = 0;
     private double indexBidAskMargin = 0;
+
+    private double vix = 0;
 
     // Pre day q1 op avg
     private double pre_day_avg = 0;
@@ -547,20 +549,20 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     }
 
 
-    public double getIndex_bid_synthetic() {
-        return index_bid_synthetic;
+    public double getIndex_bid() {
+        return indexBid + index_bid_ask_synthetic_margin;
     }
 
-    public void setIndex_bid_synthetic(double index_bid_synthetic) {
-        this.index_bid_synthetic = index_bid_synthetic;
+    public void setIndex_bid(double index_bid) {
+        this.index_bid = index_bid;
     }
 
-    public double getIndex_ask_synthetic() {
-        return index_ask_synthetic;
+    public double getIndex_ask() {
+        return indexAsk + index_bid_ask_synthetic_margin;
     }
 
-    public void setIndex_ask_synthetic(double index_ask_synthetic) {
-        this.index_ask_synthetic = index_ask_synthetic;
+    public void setIndex_ask(double index_ask) {
+        this.index_ask = index_ask;
     }
 
     public double getIndex_bid_ask_synthetic_margin() {
@@ -601,6 +603,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setPre_day_avg(double pre_day_avg) {
         this.pre_day_avg = pre_day_avg;
+    }
+
+    public double getVix() {
+        return vix;
+    }
+
+    public void setVix(double vix) {
+        this.vix = vix;
     }
 
     @Override

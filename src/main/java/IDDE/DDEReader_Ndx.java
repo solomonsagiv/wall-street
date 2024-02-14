@@ -58,6 +58,9 @@ public class DDEReader_Ndx extends IDDEReader {
     // Cof
     String cofCell = "R12C23";
 
+    // Vxn
+    String vix_cell = "R17C9";
+
     // Constructor
     public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -119,9 +122,11 @@ public class DDEReader_Ndx extends IDDEReader {
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
 
+        // Vix
+        client.setVix(requestDouble(vix_cell, conversation));
+
         // Stocks
         updateStocks(conversation);
-
     }
 
     private void init_exps() {

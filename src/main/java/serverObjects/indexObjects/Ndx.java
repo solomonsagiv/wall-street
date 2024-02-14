@@ -25,6 +25,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 85, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
+        setIndex_bid_ask_synthetic_margin(5);
     }
 
     // get instance

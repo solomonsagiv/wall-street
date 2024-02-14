@@ -107,8 +107,6 @@ public class DDEReader_Dax extends IDDEReader {
 
         // Index
         client.setIndex(index);
-        client.setIndex_bid_synthetic(index - client.getIndex_bid_ask_synthetic_margin());
-        client.setIndex_ask_synthetic(index + client.getIndex_bid_ask_synthetic_margin());
 
         // Ticker
         client.setOpen(requestDouble(openCell, conversation));

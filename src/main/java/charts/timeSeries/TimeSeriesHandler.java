@@ -65,7 +65,10 @@ public class TimeSeriesHandler {
 
     public static final int PRE_DAY_OP_AVG = 105;
 
-    // Last price = 114
+    public static final int VIX_DEV = 115;
+    public static final int VIX_PROD = 116;
+
+    // Last price = 115
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
