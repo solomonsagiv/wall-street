@@ -195,10 +195,63 @@ public class Realtime_Chart extends MyChartCreator {
         pre_day_op_avg.setStokeSize(1.75f);
 
 
+        // Index calc
+        MyTimeSeries index_calc = new MyTimeSeries("Index calc", client) {
+
+            @Override
+            public double getValue() {
+                return client.getIndex_calc();
+            }
+
+            @Override
+            public void updateData() {
+
+            }
+
+            @Override
+            public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
+            }
+        };
+        index_calc.setColor(Color.BLACK);
+        index_calc.setStokeSize(1.75f);
+
+        // Future calc
+        MyTimeSeries future_calc = new MyTimeSeries("Future calc", client) {
+
+            @Override
+            public double getValue() {
+                return client.getFuture_calc();
+            }
+
+            @Override
+            public void updateData() {
+
+            }
+
+            @Override
+            public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
+            }
+        };
+        future_calc.setColor(Themes.GREEN);
+        future_calc.setStokeSize(1.75f);
+
+
         myTimeSeries.add(index);
         myTimeSeries.add(bid);
         myTimeSeries.add(ask);
         myTimeSeries.add(pre_day_op_avg);
+        myTimeSeries.add(index_calc);
+        myTimeSeries.add(future_calc);
 
         // Series
         MyTimeSeries[] series = toArray();

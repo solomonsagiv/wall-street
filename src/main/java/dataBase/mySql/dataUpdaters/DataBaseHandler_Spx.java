@@ -14,23 +14,21 @@ import java.util.ArrayList;
 public class DataBaseHandler_Spx extends IDataBaseHandler {
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> index_bid_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> index_ask_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_calc_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> future_calc_timeStamp = new ArrayList<>();
 
-    double baskets_0 = 0;
-    double index_bid_0 = 0;
-    double index_ask_0 = 0;
     double index_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
     double vix_0 = 0;
+    double index_calc_0 = 0;
+    double future_calc_0 = 0;
+
 
     Exp week;
     E q1, q2;
@@ -121,6 +119,22 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
             }
 
+            // Index calc
+            double index_calc = client.getIndex_calc();
+
+            if (index_calc != index_calc_0) {
+                index_calc_0 = index_calc;
+                index_calc_timeStamp.add(new MyTimeStampObject(Instant.now(), index_calc_0));
+            }
+
+            // Future calc
+            double future_calc = client.getFuture_calc();
+
+            if (future_calc != future_calc_0) {
+                future_calc_0 = future_calc;
+                future_calc_timeStamp.add(new MyTimeStampObject(Instant.now(), future_calc_0));
+            }
+
         }
 
 
@@ -152,6 +166,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q1_DEV, 17);
         serie_ids.put(TimeSeriesHandler.FUT_Q2_DEV, 18);
         serie_ids.put(TimeSeriesHandler.VIX_DEV, 988);
+        serie_ids.put(TimeSeriesHandler.INDEX_CALC_DEV, 12356);
+        serie_ids.put(TimeSeriesHandler.FUTURE_CALC_DEV, 12357);
 
         // Prod
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 3);
@@ -163,7 +179,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 9531);
         serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 9532);
         serie_ids.put(TimeSeriesHandler.VIX_PROD, 9607);
-
+        serie_ids.put(TimeSeriesHandler.INDEX_CALC_PROD, 9754);
+        serie_ids.put(TimeSeriesHandler.FUTURE_CALC_PROD, 9755);
 
         // DF
 //        serie_ids.put(TimeSeriesHandler.DF_7, 9526);
@@ -262,7 +279,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
-//        insert_dev_prod(index_bid_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_DEV), serie_ids.get(TimeSeriesHandler.INDEX_BID_PROD));
-//        insert_dev_prod(index_ask_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_DEV), serie_ids.get(TimeSeriesHandler.INDEX_ASK_PROD));
+        insert_dev_prod(index_calc_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_CALC_DEV), serie_ids.get(TimeSeriesHandler.INDEX_CALC_PROD));
+        insert_dev_prod(future_calc_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_CALC_DEV), serie_ids.get(TimeSeriesHandler.FUTURE_CALC_PROD));
     }
 }

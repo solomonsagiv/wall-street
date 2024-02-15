@@ -105,6 +105,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double low = 0;
     private double base = 0;
     private double indexBidAskMargin = 0;
+    private double index_calc = 0;
+    private double future_calc = 0;
 
     private double vix = 0;
 
@@ -611,6 +613,22 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setVix(double vix) {
         this.vix = vix;
+    }
+
+    public double getIndex_calc() {
+        return index_calc;
+    }
+
+    public void setIndex_calc(double index_calc) {
+        this.index_calc = index_calc;
+    }
+
+    public double getFuture_calc() {
+        return future_calc;
+    }
+
+    public void setFuture_calc(double future_calc) {
+        this.future_calc = future_calc;
     }
 
     @Override

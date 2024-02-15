@@ -20,11 +20,13 @@ public class TimeSeriesFactory {
 
     // Index
     public static final String INDEX = "INDEX";
+    public static final String INDEX_CALC = "INDEX_CALC";
     public static final String INDEX_AVG_3600 = "INDEX_AVG_3600";
     public static final String INDEX_AVG_900 = "INDEX_AVG_900";
     public static final String FUTURE_DAY_MULTIPLY_OP = "FUTURE_DAY_MULTIPLY_OP";
     public static final String INDEX_BID_SERIES = "INDEX_BID_SERIES";
     public static final String INDEX_ASK_SERIES = "INDEX_ASK_SERIES";
+    public static final String FUTURE_CALC = "FUTURE_CALC";
 
     // Baskets
     public static final String BASKETS_CDF = "BASKETS_CDF";
@@ -79,6 +81,7 @@ public class TimeSeriesFactory {
     public static final String ROLL_WEEK_Q1_3600 = "ROLL_WEEK_Q1_3600";
 
     public static final String PRE_DAY_OP_AVG = "PRE_DAY_OP_AVG";
+
 
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {

@@ -30,7 +30,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));
 
             // Week
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_240_CONTINUE));
 
@@ -40,7 +39,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY));
 
             // Q2
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_DAILY));
 
@@ -50,7 +48,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY));
 
             // Roll q1 q2
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_DAILY));
 
@@ -85,7 +82,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF));
 
             // Week
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_DAILY));
 
@@ -96,7 +92,6 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY));
 
             // Q2
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_900));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600));
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_DAILY));
 

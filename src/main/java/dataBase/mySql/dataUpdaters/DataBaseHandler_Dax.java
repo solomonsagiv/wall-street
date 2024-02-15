@@ -22,6 +22,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_calc_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> future_calc_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -31,6 +33,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;
+    double index_calc_0 = 0;
+    double future_calc_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -130,6 +134,22 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_e2_0 = fut_e2;
                 fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
             }
+
+            // Index calc
+            double index_calc = client.getIndex_calc();
+
+            if (index_calc != index_calc_0) {
+                index_calc_0 = index_calc;
+                index_calc_timeStamp.add(new MyTimeStampObject(Instant.now(), index_calc_0));
+            }
+
+            // Future calc
+            double future_calc = client.getFuture_calc();
+
+            if (future_calc != future_calc_0) {
+                future_calc_0 = future_calc;
+                future_calc_timeStamp.add(new MyTimeStampObject(Instant.now(), future_calc_0));
+            }
         }
     }
 
@@ -165,8 +185,10 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_WEEK_DEV, 4759);
         serie_ids.put(TimeSeriesHandler.FUT_MONTH_DEV, 12206);
         serie_ids.put(TimeSeriesHandler.BASKETS_DEV, 9520);
+        serie_ids.put(TimeSeriesHandler.INDEX_CALC_DEV, 12354);
+        serie_ids.put(TimeSeriesHandler.FUTURE_CALC_DEV, 12355);
 
-        // DEV
+        // PROD
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 4369);
         serie_ids.put(TimeSeriesHandler.FUT_Q1_PROD, 9687);
         serie_ids.put(TimeSeriesHandler.FUT_Q2_PROD, 9688);
@@ -175,6 +197,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.BASKETS_PROD, 9520);
         serie_ids.put(TimeSeriesHandler.INDEX_BID_PROD, 9062);
         serie_ids.put(TimeSeriesHandler.INDEX_ASK_PROD, 9061);
+        serie_ids.put(TimeSeriesHandler.INDEX_CALC_PROD, 9750);
+        serie_ids.put(TimeSeriesHandler.FUTURE_CALC_PROD, 9751);
 
         // DF
         serie_ids.put(TimeSeriesHandler.DF_2, 9643);
@@ -270,7 +294,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
-        insert_dev_prod(index_bid_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_BID_DEV), serie_ids.get(TimeSeriesHandler.INDEX_BID_PROD));
-        insert_dev_prod(index_ask_synthetic_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_ASK_DEV), serie_ids.get(TimeSeriesHandler.INDEX_ASK_PROD));
+        insert_dev_prod(index_calc_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_CALC_DEV), serie_ids.get(TimeSeriesHandler.INDEX_CALC_PROD));
+        insert_dev_prod(future_calc_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_CALC_DEV), serie_ids.get(TimeSeriesHandler.FUTURE_CALC_PROD));
     }
 }

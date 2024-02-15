@@ -68,7 +68,12 @@ public class TimeSeriesHandler {
     public static final int VIX_DEV = 115;
     public static final int VIX_PROD = 116;
 
-    // Last price = 115
+    public static final int INDEX_CALC_DEV = 117;
+    public static final int FUTURE_CALC_DEV = 118;
+    public static final int INDEX_CALC_PROD = 119;
+    public static final int FUTURE_CALC_PROD = 120;
+
+    // Last price = 120
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();
