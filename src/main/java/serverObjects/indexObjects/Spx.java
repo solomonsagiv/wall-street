@@ -23,9 +23,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
-
     }
-
+    
     // get instance
     public static Spx getInstance() {
         if (client == null) {
@@ -33,7 +32,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         }
         return client;
     }
-
+    
     @Override
     public void setIndexBid(double indexBid) {
         super.setIndexBid(indexBid);

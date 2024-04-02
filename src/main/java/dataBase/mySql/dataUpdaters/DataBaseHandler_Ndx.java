@@ -18,8 +18,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> index_calc_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> future_calc_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_0 = 0;
@@ -27,8 +25,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_q2_0 = 0;
     double fut_week_0 = 0;
     double vix_0 = 0;
-    double index_calc_0 = 0;
-    double future_calc_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -114,22 +110,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             if (vix != vix_0) {
                 vix_0 = vix;
                 vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
-            }
-
-            // Index calc
-            double index_calc = client.getIndex_calc();
-
-            if (index_calc != index_calc_0) {
-                index_calc_0 = index_calc;
-                index_calc_timeStamp.add(new MyTimeStampObject(Instant.now(), index_calc_0));
-            }
-
-            // Future calc
-            double future_calc = client.getFuture_calc();
-
-            if (future_calc != future_calc_0) {
-                future_calc_0 = future_calc;
-                future_calc_timeStamp.add(new MyTimeStampObject(Instant.now(), future_calc_0));
             }
         }
     }
@@ -276,7 +256,5 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
-        insert_dev_prod(index_calc_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_CALC_DEV), serie_ids.get(TimeSeriesHandler.INDEX_CALC_PROD));
-        insert_dev_prod(future_calc_timeStamp, serie_ids.get(TimeSeriesHandler.FUTURE_CALC_DEV), serie_ids.get(TimeSeriesHandler.FUTURE_CALC_PROD));
     }
 }

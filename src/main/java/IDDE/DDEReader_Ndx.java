@@ -61,10 +61,6 @@ public class DDEReader_Ndx extends IDDEReader {
     // Vxn
     String vix_cell = "R17C9";
 
-    // Index and future calc
-    String index_calc_cell = "R19C4";
-    String future_calc_cell = "R20C4";
-
     // Constructor
     public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -128,10 +124,6 @@ public class DDEReader_Ndx extends IDDEReader {
 
         // Vix
         client.setVix(requestDouble(vix_cell, conversation));
-
-        // Index and future calc
-        client.setIndex_calc(requestDouble(index_calc_cell, conversation));
-        client.setFuture_calc(requestDouble(future_calc_cell, conversation));
 
         // Stocks
         updateStocks(conversation);
