@@ -7,12 +7,14 @@ import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_plus_mood_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
@@ -25,6 +27,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_q2_0 = 0;
     double fut_week_0 = 0;
     double vix_0 = 0;
+    double indeX_plus_mood_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -80,36 +83,46 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                     fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
                 }
                 fut_week_0 = fut_week;
-            }
 
-            // Index
-            if (client.getIndex() != index_0) {
-                index_0 = client.getIndex();
-                index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
-            }
 
-            // Fut e1
-            double fut_q1 = q1.get_future();
+                // Index
+                if (client.getIndex() != index_0) {
+                    index_0 = client.getIndex();
+                    index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+                }
 
-            if (fut_q1 != fut_q1_0) {
-                fut_q1_0 = fut_q1;
-                fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q1_0));
-            }
+                // Fut e1
+                double fut_q1 = q1.get_future();
 
-            // Fut e2
-            double fut_q2 = q2.get_future();
+                if (fut_q1 != fut_q1_0) {
+                    fut_q1_0 = fut_q1;
+                    fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q1_0));
+                }
 
-            if (fut_q2 != fut_q2_0) {
-                fut_q2_0 = fut_q2;
-                fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q2_0));
-            }
+                // Fut e2
+                double fut_q2 = q2.get_future();
 
-            // Vix
-            double vix = client.getVix();
+                if (fut_q2 != fut_q2_0) {
+                    fut_q2_0 = fut_q2;
+                    fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q2_0));
+                }
 
-            if (vix != vix_0) {
-                vix_0 = vix;
-                vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
+                // Vix
+                double vix = client.getVix();
+
+                if (vix != vix_0) {
+                    vix_0 = vix;
+                    vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
+                }
+
+
+                double index_plus_mood = client.getIndex() + client.getPre_day_avg();
+
+                // Index plus mood
+                if (index_plus_mood != indeX_plus_mood_0) {
+                    indeX_plus_mood_0 = index_plus_mood;
+                    index_plus_mood_timestamp.add(new MyTimeStampObject(Instant.now(), indeX_plus_mood_0));
+                }
             }
         }
     }
@@ -144,6 +157,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.VIX_DEV, 2483);
         serie_ids.put(TimeSeriesHandler.INDEX_CALC_DEV, 12352);
         serie_ids.put(TimeSeriesHandler.FUTURE_CALC_DEV, 12353);
+        serie_ids.put(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV, 12141);
 
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_PROD, 1);
@@ -157,6 +171,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.VIX_PROD, 9608);
         serie_ids.put(TimeSeriesHandler.INDEX_CALC_PROD, 9752);
         serie_ids.put(TimeSeriesHandler.FUTURE_CALC_PROD, 9753);
+        serie_ids.put(TimeSeriesHandler.INDEX_PLUS_MOOD_PROD, 9689);
 
         // DF
 //        serie_ids.put(TimeSeriesHandler.DF_7, 9529);
@@ -256,5 +271,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
+        insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV), serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_PROD));
     }
+
 }

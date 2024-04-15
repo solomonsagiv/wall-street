@@ -20,15 +20,18 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> vix_f_1_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_e1_0 = 0;
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
     double vix_0 = 0;
+    double vix_f_1_0 = 0;
+    double vix_f_2_0 = 0;
     double index_bid_0 = 0;
     double index_ask_0 = 0;
-
 
     Exp week;
     E q1, q2;
@@ -66,45 +69,12 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         if (client.isLive_db()) {
 
-            // Fut week
-            double fut_week = week.get_future();
 
-            if (fut_week != fut_week_0) {
-
-                if (Math.abs(fut_week - fut_week_0) < 15) {
-                    fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
-                }
-                fut_week_0 = fut_week;
-            }
-
+            // --------------------------------------- Index --------------------------------------- //
             // Index
             if (client.getIndex() != index_0) {
                 index_0 = client.getIndex();
                 index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
-            }
-
-            // Fut e1
-            double fut_e1 = q1.get_future();
-
-            if (fut_e1 != fut_e1_0) {
-                fut_e1_0 = fut_e1;
-                fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
-            }
-
-            // Fut e2
-            double fut_e2 = q2.get_future();
-
-            if (fut_e2 != fut_e2_0) {
-                fut_e2_0 = fut_e2;
-                fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
-            }
-
-            // Vix
-            double vix = client.getVix();
-
-            if (vix != vix_0) {
-                vix_0 = vix;
-                vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
             }
 
             // Index bid
@@ -123,9 +93,60 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 index_ask_timestamp.add(new MyTimeStampObject(Instant.now(), index_ask_0));
             }
 
+            // --------------------------------------- Futures --------------------------------------- //
+            // Fut week
+            double fut_week = week.get_future();
+
+            if (fut_week != fut_week_0) {
+
+                if (Math.abs(fut_week - fut_week_0) < 15) {
+                    fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
+                }
+                fut_week_0 = fut_week;
+            }
+
+
+            // Fut e1
+            double fut_e1 = q1.get_future();
+
+            if (fut_e1 != fut_e1_0) {
+                fut_e1_0 = fut_e1;
+                fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e1_0));
+            }
+
+            // Fut e2
+            double fut_e2 = q2.get_future();
+
+            if (fut_e2 != fut_e2_0) {
+                fut_e2_0 = fut_e2;
+                fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+            }
+
+            // --------------------------------------- Vix --------------------------------------- //
+            double vix = client.getVix();
+
+            if (vix != vix_0) {
+                vix_0 = vix;
+                vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
+            }
+
+            // Vix
+            double vix_f_1 = client.getVix_f_1();
+
+            if (vix_f_1 != vix_f_1_0) {
+                vix_f_1_0 = vix_f_1;
+                vix_f_1_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_f_1_0));
+            }
+
+            // Vix
+            double vix_2 = client.getVix_f_2();
+
+            if (vix_2 != vix_f_2_0) {
+                vix_f_2_0 = vix_2;
+                vix_f_2_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_f_2_0));
+            }
+
         }
-
-
     }
 
     @Override
@@ -156,6 +177,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.VIX_DEV, 988);
         serie_ids.put(TimeSeriesHandler.INDEX_CALC_DEV, 12356);
         serie_ids.put(TimeSeriesHandler.FUTURE_CALC_DEV, 12357);
+        serie_ids.put(TimeSeriesHandler.VIX_F_1_DEV, 11212);
+        serie_ids.put(TimeSeriesHandler.VIX_F_2_DEV, 11213);
 
         // Prod
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 3);
@@ -169,6 +192,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.VIX_PROD, 9607);
         serie_ids.put(TimeSeriesHandler.INDEX_CALC_PROD, 9754);
         serie_ids.put(TimeSeriesHandler.FUTURE_CALC_PROD, 9755);
+        serie_ids.put(TimeSeriesHandler.VIX_F_1_PROD, 9574);
+        serie_ids.put(TimeSeriesHandler.VIX_F_2_PROD, 9575);
 
         // DF
 //        serie_ids.put(TimeSeriesHandler.DF_7, 9526);
@@ -269,5 +294,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
+        insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
+        insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
     }
 }

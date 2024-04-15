@@ -22,6 +22,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_month_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> vix_f_1_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -31,6 +34,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double fut_e2_0 = 0;
     double fut_week_0 = 0;
     double fut_month_0 = 0;
+    double vix_0 = 0;
+    double vix_f_1_0 = 0;
+    double vix_f_2_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -130,6 +136,31 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 fut_e2_0 = fut_e2;
                 fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
             }
+
+
+            // --------------------------------------- Vix --------------------------------------- //
+//            double vix = client.getVix();
+//
+//            if (vix != vix_0) {
+//                vix_0 = vix;
+//                vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
+//            }
+//
+//            // Vix
+//            double vix_f_1 = client.getVix_f_1();
+//
+//            if (vix_f_1 != vix_f_1_0) {
+//                vix_f_1_0 = vix_f_1;
+//                vix_f_1_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_f_1_0));
+//            }
+//
+//            // Vix
+//            double vix_2 = client.getVix_f_2();
+//
+//            if (vix_2 != vix_f_2_0) {
+//                vix_f_2_0 = vix_2;
+//                vix_f_2_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_f_2_0));
+//            }
         }
     }
 
@@ -273,5 +304,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
+//        insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
+//        insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
+
     }
 }

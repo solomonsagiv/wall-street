@@ -15,6 +15,7 @@ public class TimeSeriesHandler {
     public static final int FUT_MONTH_DEV = 90;
     public static final int INDEX_TEST = 103;
     public static final int FUTURE_WEEK_TEST = 104;
+    public static final int INDEX_PLUS_MOOD_DEV = 125;
 
 
     public static final int INDEX_PROD = 107;
@@ -25,6 +26,7 @@ public class TimeSeriesHandler {
     public static final int BASKETS_PROD = 112;
     public static final int INDEX_BID_PROD = 113;
     public static final int INDEX_ASK_PROD = 114;
+    public static final int INDEX_PLUS_MOOD_PROD = 126;
 
     public static final int INDEX_AVG_3600_PROD = 91;
     public static final int INDEX_AVG_900_PROD = 92;
@@ -67,13 +69,19 @@ public class TimeSeriesHandler {
 
     public static final int VIX_DEV = 115;
     public static final int VIX_PROD = 116;
+    public static final int VIX_F_1_DEV = 121;
+    public static final int VIX_F_2_DEV = 122;
+    public static final int VIX_F_1_PROD = 123;
+    public static final int VIX_F_2_PROD = 124;
+
 
     public static final int INDEX_CALC_DEV = 117;
     public static final int FUTURE_CALC_DEV = 118;
     public static final int INDEX_CALC_PROD = 119;
     public static final int FUTURE_CALC_PROD = 120;
 
-    // Last price = 120
+
+    // Last ID = 126
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();

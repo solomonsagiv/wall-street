@@ -56,7 +56,9 @@ public class DDEReader_Spx extends IDDEReader {
     String q2_normalized_num_cell = "R15C18";
 
     // Vix
-    String vix_cell = "R17C9";
+    String vix_cell = "R17C6";
+    String vix_f_1_cell = "R17C7";
+    String vix_f_2_cell = "R17C8";
 
 
     // Constructor
@@ -88,6 +90,8 @@ public class DDEReader_Spx extends IDDEReader {
 
         // Vix
         client.setVix(requestDouble(vix_cell, conversation));
+        client.setVix_f_1(requestDouble(vix_f_1_cell, conversation));
+        client.setVix_f_2(requestDouble(vix_f_2_cell, conversation));
 
     }
 
@@ -126,6 +130,8 @@ public class DDEReader_Spx extends IDDEReader {
             q2.setDays_to_exp(requestDouble(q2_days_cell, conversation));
             q2.setNormalized_num(requestDouble(q2_normalized_num_cell, conversation));
             q2.setCof(requestDouble(cofCell, conversation));
+
+            //
 
             conversation.disconnect();
         } catch (DDEException e) {

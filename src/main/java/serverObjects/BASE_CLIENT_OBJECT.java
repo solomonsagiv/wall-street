@@ -107,6 +107,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double indexBidAskMargin = 0;
 
     private double vix = 0;
+    private double vix_f_1 = 0;
+    private double vix_f_2 = 0;
 
     // Pre day q1 op avg
     private double pre_day_avg = 0;
@@ -611,6 +613,22 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setVix(double vix) {
         this.vix = vix;
+    }
+
+    public double getVix_f_1() {
+        return vix_f_1;
+    }
+
+    public void setVix_f_1(double vix_f_1) {
+        this.vix_f_1 = vix_f_1;
+    }
+
+    public double getVix_f_2() {
+        return vix_f_2;
+    }
+
+    public void setVix_f_2(double vix_f_2) {
+        this.vix_f_2 = vix_f_2;
     }
 
     @Override

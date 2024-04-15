@@ -8,13 +8,14 @@ import exp.Exps;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Realtime_Chart extends MyChartCreator {
 
     // Constructor
-    public Realtime_Chart(BASE_CLIENT_OBJECT client ) {
+    public Realtime_Chart(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -64,7 +65,7 @@ public class Realtime_Chart extends MyChartCreator {
             }
         };
         index.setColor(Color.BLACK);
-        index.setVisible(false);
+        index.setVisible(true);
         index.setStokeSize(1.75f);
 
 
@@ -147,7 +148,8 @@ public class Realtime_Chart extends MyChartCreator {
                 }
 
                 @Override
-                public void load() {}
+                public void load() {
+                }
 
                 @Override
                 public void load_exp_data() {
@@ -161,7 +163,7 @@ public class Realtime_Chart extends MyChartCreator {
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (exp.getName().equals(ExpStrings.q1)) {
+            if (exp.getName().equals(ExpStrings.q1) || exp.getName().equals(ExpStrings.day) || exp.getName().equals(ExpStrings.week) || exp.getName().equals(ExpStrings.month)) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);
@@ -193,6 +195,7 @@ public class Realtime_Chart extends MyChartCreator {
         };
         pre_day_op_avg.setColor(Themes.LIFGT_BLUE_2);
         pre_day_op_avg.setStokeSize(1.75f);
+        pre_day_op_avg.setVisible(false);
 
 
         myTimeSeries.add(index);

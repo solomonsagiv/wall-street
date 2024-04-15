@@ -59,7 +59,7 @@ public class DDEReader_Ndx extends IDDEReader {
     String cofCell = "R12C23";
 
     // Vxn
-    String vix_cell = "R17C9";
+    String vix_cell = "R17C6";
 
     // Constructor
     public DDEReader_Ndx(BASE_CLIENT_OBJECT client) {

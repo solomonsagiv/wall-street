@@ -53,6 +53,10 @@ public class DDEReader_Dax extends IDDEReader {
     String q1_normalized_num_cell = "R20C17";
     String q2_normalized_num_cell = "R21C17";
 
+    // Vix
+    String vix_cell = "R17C9";
+    String vix_f_1_cell = "";
+    String vix_f_2_cell = "";
 
 //    String cofCell = "R40C9";
 
@@ -120,6 +124,12 @@ public class DDEReader_Dax extends IDDEReader {
         month.set_future(requestDouble(futMonthCell, conversation));
         q1.set_future(requestDouble(e1Cell, conversation));
         q2.set_future(requestDouble(e2Cell, conversation));
+
+        // Vix
+        client.setVix(requestDouble(vix_cell, conversation));
+        client.setVix_f_1(requestDouble(vix_f_1_cell, conversation));
+        client.setVix_f_2(requestDouble(vix_f_2_cell, conversation));
+
 
         // Stocks
         updateStocks(conversation);
