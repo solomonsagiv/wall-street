@@ -271,7 +271,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
-        insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV), serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_PROD));
+        insert_dev_prod(index_plus_mood_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV), serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_PROD));
     }
 
 }
