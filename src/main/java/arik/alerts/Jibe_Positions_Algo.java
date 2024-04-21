@@ -3,6 +3,7 @@ package arik.alerts;
 import arik.Arik;
 import dataBase.mySql.MySql;
 import tws.accounts.ConnectionsAndAccountHandler;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,12 +11,14 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
 
     public static Transaction transaction;
     int session_id;
+    String stock_name;
 
     // Constructor
 
-    public Jibe_Positions_Algo(double target_price_for_position, int session_id) {
+    public Jibe_Positions_Algo(double target_price_for_position, int session_id, String stock_name) {
         super(target_price_for_position);
         this.session_id = session_id;
+        this.stock_name = stock_name;
     }
 
     @Override
@@ -72,15 +75,15 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
     }
 
     private void send_enter_transaction_alert(String position_type, double index_at_created) {
-        String text = "SPX Enter %s\n" +
+        String text = "%s Enter %s\n" +
                 "%s";
-        Arik.getInstance().sendMessageToSlo(String.format(text, position_type, index_at_created));
+        Arik.getInstance().sendMessageToSlo(String.format(text, stock_name, position_type, index_at_created));
     }
 
     private void send_close_transaction_alert(String position_type, double index_at_close) {
-        String text = "SPX Exit %s\n" +
+        String text = "%s Exit %s\n" +
                 "%s";
-        Arik.getInstance().sendMessageToSlo(String.format(text, position_type, index_at_close));
+        Arik.getInstance().sendMessageToSlo(String.format(text, stock_name, position_type, index_at_close));
     }
 
     private void send_order() {
@@ -88,6 +91,8 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
             ConnectionsAndAccountHandler.send_order_all_accounts();
         }
     }
+
+
 }
 
 
