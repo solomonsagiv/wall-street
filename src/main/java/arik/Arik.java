@@ -100,14 +100,27 @@ public class Arik {
     }
 
     private ArrayList<ArikAlgoAlert> getArikAlgoAlerts() {
-        // Positions alert
+
         ArrayList<ArikAlgoAlert> algo_list = new ArrayList<>();
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10039, "Ndx"));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10038, "Ndx"));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10037, "Ndx"));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10036, "Ndx"));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10035, "Ndx"));
-        algo_list.add(new Jibe_Positions_Algo(10000000, 10044, "TA35"));
+
+        try {
+            ResultSet rs = MySql.Queries.get_arik_sessions(MySql.JIBE_PROD_CONNECTION);
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+                    int session_id = rs.getInt("session_id");
+                    String des = rs.getString("desc");
+                    String stock_name = rs.getString("stock_name");
+
+                    algo_list.add(new Jibe_Positions_Algo(10000000, session_id, stock_name, des));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            Arik.getInstance().sendErrorMessage(e);
+            e.printStackTrace();
+        }
         return algo_list;
     }
 

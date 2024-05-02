@@ -695,6 +695,12 @@ public class MySql {
             MySql.update(query, connection_type);
         }
 
+        public static ResultSet get_arik_sessions(String connection_type) {
+            String query = "select * \n" +
+                    "from sagiv.arik_sessions;";
+           return MySql.select(query, connection_type);
+        }
+
     }
 
     public static class Filters {

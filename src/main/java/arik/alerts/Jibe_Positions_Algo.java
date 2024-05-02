@@ -12,13 +12,15 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
     public static Transaction transaction;
     int session_id;
     String stock_name;
+    String description;
 
     // Constructor
 
-    public Jibe_Positions_Algo(double target_price_for_position, int session_id, String stock_name) {
+    public Jibe_Positions_Algo(double target_price_for_position, int session_id, String stock_name, String description) {
         super(target_price_for_position);
         this.session_id = session_id;
         this.stock_name = stock_name;
+        this.description = description;
     }
 
     @Override
