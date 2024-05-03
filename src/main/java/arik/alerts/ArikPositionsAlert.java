@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ArikPositionsAlert extends MyThread implements Runnable {
 
-    ArrayList<ArikAlgoAlert> algo_list;
+    public static ArrayList<ArikAlgoAlert> algo_list;
 
     public ArikPositionsAlert(ArrayList<ArikAlgoAlert> algo_list) {
         super();

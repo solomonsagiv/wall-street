@@ -37,7 +37,7 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
             // New transaction
             if ((transaction.close_reason == null || transaction.close_reason == "") && transaction.created_at != null) {
                 POSITION = true;
-                send_enter_transaction_alert(transaction.transaction_type, transaction.index_at_creation);
+                send_enter_transaction_alert(transaction);
                 send_order();
             }
         }
@@ -46,7 +46,7 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
         if (POSITION) {
             if (transaction.close_reason != null && transaction.close_reason != "") {
                 POSITION = false;
-                send_close_transaction_alert(transaction.transaction_type, transaction.index_at_close);
+                send_close_transaction_alert(transaction);
                 send_order();
             }
         }
@@ -64,6 +64,7 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
                 transaction.close_reason = rs.getString("close_reason");
                 transaction.index_at_creation = rs.getDouble("index_value_at_creation");
                 transaction.index_at_close = rs.getDouble("index_value_at_close");
+                transaction.session_id = rs.getInt("session_id");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -76,16 +77,24 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
         return transaction.toString();
     }
 
-    private void send_enter_transaction_alert(String position_type, double index_at_created) {
+    private void send_enter_transaction_alert(Transaction transaction) {
+        Jibe_Positions_Algo alert = (Jibe_Positions_Algo) get_session_alert(transaction);
+
         String text = "%s Enter %s\n" +
+                "%s \n " +
+                "%s \n" +
                 "%s";
-        Arik.getInstance().sendMessageToSlo(String.format(text, stock_name, position_type, index_at_created));
+        Arik.getInstance().sendMessageToSlo(String.format(text, stock_name, transaction.transaction_type, transaction.index_at_creation, alert.session_id, alert.description));
     }
 
-    private void send_close_transaction_alert(String position_type, double index_at_close) {
+    private void send_close_transaction_alert(Transaction transaction) {
+        Jibe_Positions_Algo alert = (Jibe_Positions_Algo) get_session_alert(transaction);
+
         String text = "%s Exit %s\n" +
+                "%s \n " +
+                "%s \n" +
                 "%s";
-        Arik.getInstance().sendMessageToSlo(String.format(text, stock_name, position_type, index_at_close));
+        Arik.getInstance().sendMessageToSlo(String.format(text, stock_name, transaction.transaction_type, transaction.index_at_creation, alert.session_id, alert.description));
     }
 
     private void send_order() {
@@ -95,6 +104,28 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
     }
 
 
+    private ArikAlgoAlert get_session_alert(Transaction transaction) {
+        ArikAlgoAlert alert = null;
+        for (ArikAlgoAlert a :
+                ArikPositionsAlert.algo_list) {
+            if (a instanceof Jibe_Positions_Algo) {
+                if (((Jibe_Positions_Algo) a).session_id == transaction.session_id) {
+                    alert = a;
+                }
+            }
+        }
+        return alert;
+    }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+                "session_id=" + session_id +
+                ", stock_name='" + stock_name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
 
 

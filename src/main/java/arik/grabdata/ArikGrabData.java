@@ -54,7 +54,7 @@ public class ArikGrabData extends MyThread implements Runnable {
             }
 
             if (ArikMainPanel.connectionTextArea != null) {
-                ArikMainPanel.connectionTextArea.setText(ConnectionsAndAccountHandler.get_account_names());
+                ArikMainPanel.connectionTextArea.setText(ConnectionsAndAccountHandler.get_active_sessions());
             }
 
         } catch (Exception e) {

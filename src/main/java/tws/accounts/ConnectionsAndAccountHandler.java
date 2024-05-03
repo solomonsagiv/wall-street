@@ -1,5 +1,7 @@
 package tws.accounts;
 
+import arik.alerts.ArikAlgoAlert;
+import arik.alerts.ArikPositionsAlert;
 import dataBase.mySql.MySql;
 import gui.AlertWindow;
 import tws.connection.TwsConnector;
@@ -67,6 +69,17 @@ public class ConnectionsAndAccountHandler {
 
         for (AccountAndConnection accountAndConnection : accountAndConnectionHashMap.values()) {
             text.append(accountAndConnection.account.getAccountName());
+            text.append("\n");
+        }
+        return text.toString();
+    }
+
+    public static String get_active_sessions() {
+        StringBuilder text = new StringBuilder();
+
+        for (ArikAlgoAlert alert :
+                ArikPositionsAlert.algo_list) {
+            text.append(alert.toString());
             text.append("\n");
         }
         return text.toString();
