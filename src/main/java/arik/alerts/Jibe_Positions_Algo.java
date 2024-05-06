@@ -103,7 +103,6 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
         }
     }
 
-
     private ArikAlgoAlert get_session_alert(Transaction transaction) {
         ArikAlgoAlert alert = null;
         for (ArikAlgoAlert a :
@@ -116,7 +115,6 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
         }
         return alert;
     }
-
 
     @Override
     public String toString() {

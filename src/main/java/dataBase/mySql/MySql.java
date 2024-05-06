@@ -479,7 +479,7 @@ public class MySql {
 
 
         public static ResultSet get_transaction(int session_id, String connection_type) {
-            String q = "select created_at, position_type, index_value_at_creation, index_value_at_close, close_reason\n" +
+            String q = "select created_at, position_type, index_value_at_creation, index_value_at_close, close_reason, session_id\n" +
                     "from ts.transactions\n" +
                     "where session_id = %s\n" +
                     "and date_trunc('day', created_at) = date_trunc('day', now())\n" +
