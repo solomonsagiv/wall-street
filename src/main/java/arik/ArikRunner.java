@@ -7,7 +7,6 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -79,7 +78,7 @@ public class ArikRunner extends Thread {
 //                    .execute(new GetUpdates());
 
         List<Update> updates = updatesResponse.updates();
-        if (updates.size() > 0) {
+        if (updates != null && updates.size() > 0) {
             for (Update update : updates) {
                 try {
                     if (update.message() != null) {

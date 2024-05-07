@@ -482,7 +482,6 @@ public class MySql {
             String q = "select created_at, position_type, index_value_at_creation, index_value_at_close, close_reason, session_id\n" +
                     "from ts.transactions\n" +
                     "where session_id = %s\n" +
-                    "and date_trunc('day', created_at) = date_trunc('day', now())\n" +
                     "order by created_at desc limit 1;";
 
             String query = String.format(q, session_id);

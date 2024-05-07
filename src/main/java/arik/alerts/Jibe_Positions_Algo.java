@@ -26,28 +26,36 @@ public class Jibe_Positions_Algo extends ArikAlgoAlert {
     @Override
     public void go() {
 
-        transaction = read_transaction(MySql.Queries.get_transaction(session_id, MySql.JIBE_PROD_CONNECTION));
 
-        System.out.println();
-        System.out.println(transaction);
-        System.out.println();
 
-        // No position
-        if (!POSITION) {
-            // New transaction
-            if ((transaction.close_reason == null || transaction.close_reason == "") && transaction.created_at != null) {
-                POSITION = true;
-                send_enter_transaction_alert(transaction);
-                send_order();
+
+
+        if (session_id == 10045) {
+            transaction = read_transaction(MySql.Queries.get_transaction(session_id, MySql.JIBE_PROD_CONNECTION));
+            System.out.println(transaction);
+
+
+            System.out.println();
+            System.out.println(transaction);
+            System.out.println();
+
+            // No position
+            if (!POSITION) {
+                // New transaction
+                if ((transaction.close_reason == null || transaction.close_reason == "") && transaction.created_at != null) {
+                    POSITION = true;
+                    send_enter_transaction_alert(transaction);
+                    send_order();
+                }
             }
-        }
 
-        // In position
-        if (POSITION) {
-            if (transaction.close_reason != null && transaction.close_reason != "") {
-                POSITION = false;
-                send_close_transaction_alert(transaction);
-                send_order();
+            // In position
+            if (POSITION) {
+                if (transaction.close_reason != null && transaction.close_reason != "") {
+                    POSITION = false;
+                    send_close_transaction_alert(transaction);
+                    send_order();
+                }
             }
         }
     }
