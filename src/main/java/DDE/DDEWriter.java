@@ -21,7 +21,7 @@ public class DDEWriter extends MyThread implements Runnable {
         this.client = client;
         this.exps = client.getExps();
         this.iddeWriter = client.getDdeHandler().getIddeWriter();
-//        this.conversation = ddeConnection.createNewConversation(client.getDdeHandler().getPath());
+        this.conversation = ddeConnection.createNewConversation(client.getExcel_path());
     }
 
     @Override

@@ -13,6 +13,7 @@ import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
 import exp.E;
 import exp.ExpStrings;
 import exp.Exps;
+import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 
@@ -28,6 +29,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
+        setRacesService(new RacesService(this));
         setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 3));
         setLive_db(true);
         setIndex_bid_ask_synthetic_margin(5);
