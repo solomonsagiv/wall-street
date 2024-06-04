@@ -7,7 +7,7 @@ import service.MyBaseService;
 
 public class RacesService extends MyBaseService {
 
-    private boolean RACE, R_ONE_UP, R_ONE_DOWN, R_TWO_UP, R_TWO_DOWN = false;
+    private boolean R_ONE_UP, R_ONE_DOWN, R_TWO_UP, R_TWO_DOWN = false;
     private double r_one_price, r_two_price = 0;
     private double r_one_price_0, r_two_price_0;
     private double r_one_margin, r_two_margin = 0;
@@ -54,7 +54,7 @@ public class RacesService extends MyBaseService {
 
     private void first_time_update_data() {
         if (r_one_price == 0) {
-           reset_data();
+           reset_races();
         }
     }
 
@@ -66,14 +66,14 @@ public class RacesService extends MyBaseService {
         if (R_ONE_UP) {
             // R one close
             if (r_one_margin < L.opo(RACE_MARGIN)) {
-                reset_data();
+                R_ONE_UP = false;
                 return;
             }
 
             // R one win
-            if (r_two_margin > (RACE_MARGIN)) {
+            if (r_two_margin > RACE_MARGIN) {
                 r_one_win_up();
-                reset_data();
+                reset_races();
                 return;
             }
         }
@@ -82,14 +82,14 @@ public class RacesService extends MyBaseService {
         if (R_ONE_DOWN) {
             // R one close
             if (r_one_margin > RACE_MARGIN) {
-                reset_data();
+                R_ONE_DOWN = false;
                 return;
             }
 
             // R one win
             if (r_two_margin < L.opo(RACE_MARGIN)) {
                 r_one_win_down();
-                reset_data();
+                reset_races();
                 return;
             }
         }
@@ -97,16 +97,16 @@ public class RacesService extends MyBaseService {
         // ------------ R_TWO ------------ //
         // UP
         if (R_TWO_UP) {
-            // R one close
+            // R two close
             if (r_two_margin < L.opo(RACE_MARGIN)) {
-                reset_data();
+                R_TWO_UP = false;
                 return;
             }
 
             // R one win
-            if (r_one_margin > (RACE_MARGIN)) {
+            if (r_one_margin > RACE_MARGIN) {
                 r_two_win_up();
-                reset_data();
+                reset_races();
                 return;
             }
         }
@@ -115,14 +115,14 @@ public class RacesService extends MyBaseService {
         if (R_TWO_DOWN) {
             // R one close
             if (r_two_margin > RACE_MARGIN) {
-                reset_data();
+                R_TWO_DOWN = false;
                 return;
             }
 
             // R one win
             if (r_one_margin < L.opo(RACE_MARGIN)) {
                 r_two_win_down();
-                reset_data();
+                reset_races();
                 return;
             }
         }
@@ -133,31 +133,27 @@ public class RacesService extends MyBaseService {
     // OUT OF RACE
     private void out_of_race() {
         // If no race
-        if (!RACE) {
+        if (!is_in_race()) {
             // RUNNER ONE UP
             if (r_one_margin > RACE_MARGIN) {
-                RACE = true;
                 R_ONE_UP = true;
                 return;
             }
 
             // RUNNER ONE DOWN
             if (r_one_margin < L.opo(RACE_MARGIN)) {
-                RACE = true;
                 R_ONE_DOWN = true;
                 return;
             }
 
             // RUNNER TWO UP
             if (r_two_margin > RACE_MARGIN) {
-                RACE = true;
                 R_TWO_UP = true;
                 return;
             }
 
             // RUNNER TWO DOWN
             if (r_two_margin < L.opo(RACE_MARGIN)) {
-                RACE = true;
                 R_TWO_DOWN = true;
                 return;
             }
@@ -186,14 +182,16 @@ public class RacesService extends MyBaseService {
     }
 
     // Reset data
-    private void reset_data() {
-        r_one_price = client.getIndex();
-        r_one_price_0 = client.getIndex();
+    private void reset_races() {
+        R_ONE_UP = false;
+        R_ONE_DOWN = false;
+        R_TWO_UP = false;
+        R_TWO_DOWN = false;
 
-        r_two_price = client.getExps().getExp(ExpStrings.q1).get_future();
-        r_two_price_0 = client.getExps().getExp(ExpStrings.q1).get_future();
+    }
 
-
+    private boolean is_in_race() {
+        return R_ONE_UP || R_ONE_DOWN || R_TWO_UP || R_TWO_DOWN;
     }
 
     private void r_one_win_up() {
