@@ -45,8 +45,17 @@ public class RacesService extends MyBaseService {
 
     private void race_finder() {
 
+        // First time update data
+        first_time_update_data();
+
         out_of_race();
         in_race();
+    }
+
+    private void first_time_update_data() {
+        if (r_one_price == 0) {
+           reset_data();
+        }
     }
 
     // IN RACE
@@ -178,6 +187,12 @@ public class RacesService extends MyBaseService {
 
     // Reset data
     private void reset_data() {
+        r_one_price = client.getIndex();
+        r_one_price_0 = client.getIndex();
+
+        r_two_price = client.getExps().getExp(ExpStrings.q1).get_future();
+        r_two_price_0 = client.getExps().getExp(ExpStrings.q1).get_future();
+
 
     }
 
