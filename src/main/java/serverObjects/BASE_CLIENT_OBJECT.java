@@ -116,10 +116,10 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double pre_day_avg = 0;
 
     // RACES
-    private int r_one_up = 0;
-    private int r_one_down = 0;
-    private int r_two_up = 0;
-    private int r_two_down = 0;
+//    private int r_one_up = 0;
+//    private int r_one_down = 0;
+//    private int r_two_up = 0;
+//    private int r_two_down = 0;
 
     // DB
     boolean live_db = true;
@@ -647,37 +647,37 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.vix_f_2 = vix_f_2;
     }
 
-    public int getR_one_up() {
-        return r_one_up;
-    }
-
-    public void setR_one_up(int r_one_up) {
-        this.r_one_up = r_one_up;
-    }
-
-    public int getR_one_down() {
-        return r_one_down;
-    }
-
-    public void setR_one_down(int r_one_down) {
-        this.r_one_down = r_one_down;
-    }
-
-    public int getR_two_up() {
-        return r_two_up;
-    }
-
-    public void setR_two_up(int r_two_up) {
-        this.r_two_up = r_two_up;
-    }
-
-    public int getR_two_down() {
-        return r_two_down;
-    }
-
-    public void setR_two_down(int r_two_down) {
-        this.r_two_down = r_two_down;
-    }
+//    public int getR_one_up() {
+//        return r_one_up;
+//    }
+//
+//    public void setR_one_up(int r_one_up) {
+//        this.r_one_up = r_one_up;
+//    }
+//
+//    public int getR_one_down() {
+//        return r_one_down;
+//    }
+//
+//    public void setR_one_down(int r_one_down) {
+//        this.r_one_down = r_one_down;
+//    }
+//
+//    public int getR_two_up() {
+//        return r_two_up;
+//    }
+//
+//    public void setR_two_up(int r_two_up) {
+//        this.r_two_up = r_two_up;
+//    }
+//
+//    public int getR_two_down() {
+//        return r_two_down;
+//    }
+//
+//    public void setR_two_down(int r_two_down) {
+//        this.r_two_down = r_two_down;
+//    }
 
     @Override
     public String toString() {
