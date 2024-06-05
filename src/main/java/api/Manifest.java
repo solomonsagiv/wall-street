@@ -23,7 +23,7 @@ public class Manifest {
     // SELECTED ACCOUNT
     public static int POOL_SIZE = 15;
     public static boolean DB = true;
-    public static boolean DB_RUNNER = true;
+    public static boolean DB_RUNNER = false;
     public static boolean OPEN_CHARTS = true;
     public static final int DB_CONNECTION_TYPE = MyDBConnections.JIBE_PROD;
     public static String ACCOUNT = SNUPPI_ACCOUNT;
