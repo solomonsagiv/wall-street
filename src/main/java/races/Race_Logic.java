@@ -19,8 +19,8 @@ public class Race_Logic {
     private BASE_CLIENT_OBJECT client;
 
     private boolean R_ONE_UP, R_ONE_DOWN, R_TWO_UP, R_TWO_DOWN = false;
-    private double r_one_price, r_two_price = 0;
-    private double r_one_price_0, r_two_price_0;
+    private double r_one_price = 0, r_two_price = 0;
+    private double r_one_price_0 = 0, r_two_price_0 = 0;
     private double r_one_margin, r_two_margin = 0;
     private final double RACE_MARGIN = 0.2;
     public int r_one_up_points, r_one_down_points, r_two_up_points, r_two_down_points = 0;
