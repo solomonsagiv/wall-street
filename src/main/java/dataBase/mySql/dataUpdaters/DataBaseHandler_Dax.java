@@ -73,13 +73,13 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Is live db
         if (client.isLive_db()) {
             // Baskets
-            int basket = client.getBasketFinder_by_stocks().getBaskets();
-
-            if (basket != baskets_0) {
-                double last_count = basket - baskets_0;
-                baskets_0 = basket;
-                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
+//            int basket = client.getBasketFinder_by_stocks().getBaskets();
+//
+//            if (basket != baskets_0) {
+//                double last_count = basket - baskets_0;
+//                baskets_0 = basket;
+//                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+//            }
 
             // Fut week
             double fut_week = week.get_future();
@@ -195,7 +195,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUT_Q2_DEV, 4368);
         serie_ids.put(TimeSeriesHandler.FUT_WEEK_DEV, 4759);
         serie_ids.put(TimeSeriesHandler.FUT_MONTH_DEV, 12206);
-        serie_ids.put(TimeSeriesHandler.BASKETS_DEV, 9520);
+        serie_ids.put(TimeSeriesHandler.BASKETS_DEV, 5805);
         serie_ids.put(TimeSeriesHandler.INDEX_CALC_DEV, 12354);
         serie_ids.put(TimeSeriesHandler.FUTURE_CALC_DEV, 12355);
 
@@ -303,7 +303,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insert_dev_prod(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH_DEV), serie_ids.get(TimeSeriesHandler.FUT_MONTH_PROD));
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
-        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
+//        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
 //        insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
 //        insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
 

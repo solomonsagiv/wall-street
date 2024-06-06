@@ -96,7 +96,7 @@ public class Chart_13 extends MyChartCreator {
         op_avg_q1_60.setStokeSize(1.2f);
 
         MyTimeSeries op_avg_q1_14400 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_14400);
-        op_avg_q1_14400.setColor(Themes.BINANCE_ORANGE);
+        op_avg_q1_14400.setColor(Themes.ORANGE);
         op_avg_q1_14400.setStokeSize(1.2f);
 
 

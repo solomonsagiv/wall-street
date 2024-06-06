@@ -159,6 +159,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.FUTURE_CALC_DEV, 12353);
         serie_ids.put(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV, 12141);
 
+
         serie_ids.put(TimeSeriesHandler.INDEX_PROD, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_3600_PROD, 1);
         serie_ids.put(TimeSeriesHandler.INDEX_AVG_900_PROD, 1);
