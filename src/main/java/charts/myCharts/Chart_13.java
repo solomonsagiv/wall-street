@@ -134,28 +134,23 @@ public class Chart_13 extends MyChartCreator {
         yesterday_marker.setStroke(new BasicStroke(2f));
         op_avg_q1_chart.add_marker(yesterday_marker);
 
-        // --------- Op avg q2 ---------- //
+        // --------- Races ---------- //
 
-        MyTimeSeries op_avg_q2_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_900);
-        op_avg_q2_15.setColor(Themes.LIGHT_RED);
-        op_avg_q2_15.setVisible(false);
-        op_avg_q2_15.setStokeSize(1.0f);
+        MyTimeSeries races = client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_Q1_RACES);
+        races.setColor(Themes.LIGHT_RED);
+        races.setVisible(false);
+        races.setStokeSize(1.2f);
 
-        MyTimeSeries op_avg_q2_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_3600);
-        op_avg_q2_60.setColor(Themes.ORANGE);
-        op_avg_q2_60.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[2];
-        series[0] = op_avg_q2_15;
-        series[1] = op_avg_q2_60;
+        series = new MyTimeSeries[1];
+        series[0] = races;
 
         // Chart
-        MyChart op_avg_q2_chart = new MyChart(client, series, props);
+        MyChart index_q1_races_chart = new MyChart(client, series, props);
 
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_week_chart, op_avg_q1_chart, op_avg_q2_chart};
+        MyChart[] charts = {indexChart, op_avg_week_chart, op_avg_q1_chart, index_q1_races_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

@@ -189,6 +189,19 @@ public class Race_Logic {
         }
     }
 
+
+    public int get_sum_points() {
+        return get_r_one_points() + get_r_two_points();
+    }
+
+    public int get_r_one_points() {
+        return r_one_up_points - r_one_down_points;
+    }
+
+    public int get_r_two_points() {
+        return r_two_up_points - r_two_down_points;
+    }
+
     private boolean is_in_race() {
         return R_ONE_UP || R_ONE_DOWN || R_TWO_UP || R_TWO_DOWN;
     }

@@ -9,7 +9,9 @@ import exp.ExpStrings;
 import locals.L;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
+
 import java.sql.ResultSet;
+import java.util.Objects;
 
 public class TimeSeriesFactory {
 
@@ -82,6 +84,10 @@ public class TimeSeriesFactory {
 
     public static final String PRE_DAY_OP_AVG = "PRE_DAY_OP_AVG";
 
+    // Races
+    public static final String INDEX_RACES = "INDEX_RACES";
+    public static final String Q1_RACES = "Q1_RACES";
+    public static final String INDEX_Q1_RACES = "INDEX_Q1_RACES";
 
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
@@ -882,6 +888,88 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
+
+            case INDEX_RACES:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
+                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
+            case Q1_RACES:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_RACES_PROD);
+                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_RACES_PROD);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
+            case INDEX_Q1_RACES:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return super.getValue();
+                    }
+
+
+                    @Override
+                    public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_RACES_PROD);
+                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
+                    }
+
+                    @Override
+                    public void load() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_RACES_PROD);
+                        ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
+                        IDataBaseHandler.loadSerieData(rs, this);
                     }
 
                     @Override

@@ -80,8 +80,12 @@ public class TimeSeriesHandler {
     public static final int INDEX_CALC_PROD = 119;
     public static final int FUTURE_CALC_PROD = 120;
 
+    public static final int INDEX_RACES_PROD = 126;
+    public static final int Q1_RACES_PROD = 127;
+    public static final int INDEX_Q1_RACES_PROD = 128;
 
-    // Last ID = 126
+
+    // Last ID = 129
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();

@@ -5,6 +5,7 @@ import charts.timeSeries.TimeSeriesHandler;
 import dataBase.mySql.MySql;
 import exp.E;
 import exp.ExpStrings;
+import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.Instant;
@@ -25,6 +26,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_f_1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_q1_races_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -37,6 +41,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double vix_0 = 0;
     double vix_f_1_0 = 0;
     double vix_f_2_0 = 0;
+    double index_races_0 = 0;
+    double q1_races_0 = 0;
+    double index_q1_races_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -135,6 +142,34 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             if (fut_e2 != fut_e2_0) {
                 fut_e2_0 = fut_e2;
                 fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_e2_0));
+            }
+
+            // Index races
+            double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
+
+            if (index_races != index_races_0) {
+                index_races_0 = index_races;
+                double last_count = index_races - index_races_0;
+                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+            // Q1 races
+            double q1_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points();
+
+            if (q1_races != q1_races_0) {
+                q1_races_0 = q1_races;
+                double last_count = q1_races - q1_races_0;
+                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+
+            // Index q1 sum races
+            double index_q1_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_sum_points();
+
+            if (index_q1_races != index_q1_races_0) {
+                index_q1_races_0 = index_q1_races;
+                double last_count = index_q1_races - index_q1_races_0;
+                index_q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
             }
 
 
@@ -246,6 +281,12 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Pre day avg
         serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9662);
 
+        // Races
+        serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9778);
+        serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9779);
+        serie_ids.put(TimeSeriesHandler.INDEX_Q1_RACES_PROD, 9777);
+
+
         // Index
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
@@ -270,9 +311,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_DAILY, client));
 
         // Q2
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_DAILY, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_900, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_3600, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_DAILY, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_900, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_3600, client));
 
 
         // Exp Week
@@ -286,12 +327,22 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         // Pre day q1 op avg
         client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
+
+        // Races
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_Q1_RACES, client));
+
     }
 
     private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
         System.out.println("------------------------ Insert start ----------------------------");
-        insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
-        insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        if (dev_id != 0) {
+            insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
+        }
+        if (prod_id != 0) {
+            insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        }
         System.out.println("------------------------ Insert End ----------------------------");
         list.clear();
     }
@@ -303,9 +354,14 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         insert_dev_prod(fut_month_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_MONTH_DEV), serie_ids.get(TimeSeriesHandler.FUT_MONTH_PROD));
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
+
+        insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
+        insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
+        insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_Q1_RACES_PROD));
 //        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
 //        insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
 //        insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
+
 
     }
 }
