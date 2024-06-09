@@ -885,7 +885,7 @@ public class TimeSeriesFactory {
                         client.getBasketFinder_by_stocks().setBasketUp(basket_up);
                         client.getBasketFinder_by_stocks().setBasketDown((int) L.abs(basket_down));
                     }
-
+                    
                     @Override
                     public void load() {
                     }
