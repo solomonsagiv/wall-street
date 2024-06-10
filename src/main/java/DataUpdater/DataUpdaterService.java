@@ -74,7 +74,7 @@ public class DataUpdaterService extends MyBaseService {
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_AVG_900));
 
             // Baskets
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
+//            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
             // DF
             time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));

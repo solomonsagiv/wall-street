@@ -67,12 +67,12 @@ public class MyChartContainer extends MyGuiComps.MyFrame {
         for (MyChart chart : charts) {
             for (MyTimeSeries serie : chart.getSeries()) {
 //                new Thread(() -> {
-//                    try {
+                    try {
 //                        Thread.sleep(1000);
                         serie.load_data();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 //
 //                }).start();
             }

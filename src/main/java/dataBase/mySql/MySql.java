@@ -629,8 +629,8 @@ public class MySql {
                     "from data, first\n" +
                     "where data.time > first.time + interval '%s min' and data.row %s %s = 0;\n";
 
-
-            query = String.format(q, "ts.ca_timeseries_1min_candle", serie_id, "ts.timeseries_data", serie_id, min_from_start, modulu, step_second);
+// ts.ca_timeseries_1min_candle
+            query = String.format(q, "ts.timeseries_data", serie_id, "ts.timeseries_data", serie_id, min_from_start, modulu, step_second);
             System.out.println(query);
 
             return MySql.select(query, connection_type);

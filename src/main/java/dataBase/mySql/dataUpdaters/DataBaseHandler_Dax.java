@@ -18,7 +18,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+//    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
@@ -30,7 +30,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_q1_races_timeStamp = new ArrayList<>();
 
-    double baskets_0 = 0;
+//    double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
     double index_ask_synthetic_0 = 0;
     double index_0 = 0;

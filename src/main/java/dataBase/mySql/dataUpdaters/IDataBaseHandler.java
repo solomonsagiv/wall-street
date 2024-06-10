@@ -115,7 +115,10 @@ public abstract class IDataBaseHandler {
     public static void loadSerieData(ResultSet rs, MyTimeSeries timeSeries) {
         while (true) {
             try {
-                if (!rs.next()) break;
+                if (!rs.next()) {
+                    timeSeries.setLoad(true);
+                    break;
+                }
                 Timestamp timestamp = rs.getTimestamp("time");
                 double value = rs.getDouble("value");
                 System.out.println(value + "  " + timeSeries.getName());

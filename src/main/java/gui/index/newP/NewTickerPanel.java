@@ -166,11 +166,21 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 
             avg_week_field.colorForge(op_avg_week.getValue(), L.format10());
             avg_q1_field.colorForge(op_avg_q1.getValue(), L.format10());
-            avg_q2_field.colorForge(op_avg_q2.getValue(), L.format10());
-            avg_roll_week_q1_field.colorForge(roll_week_q1.getValue(), L.format10());
-            avg_roll_q1_q2_field.colorForge(roll_q1_q2.getValue(), L.format10());
 
-            if (client instanceof Ndx || client instanceof Dax) {
+            try {
+                avg_q2_field.colorForge(op_avg_q2.getValue(), L.format10());
+            } catch (Exception e) {
+//                e.printStackTrace();
+            }
+
+            try {
+                avg_roll_week_q1_field.colorForge(roll_week_q1.getValue(), L.format10());
+                avg_roll_q1_q2_field.colorForge(roll_q1_q2.getValue(), L.format10());
+            } catch (Exception e) {
+//                e.printStackTrace();
+            }
+
+            if (client instanceof Ndx) {
                 // Present
                 basket_up_field.setText(L.str(client.getBasketFinder_by_stocks().getBasketUp()));
                 basket_down_field.setText(L.str(client.getBasketFinder_by_stocks().getBasketDown()));
