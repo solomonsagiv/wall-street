@@ -138,7 +138,7 @@ public class Chart_13 extends MyChartCreator {
 
         MyTimeSeries races = client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_Q1_RACES);
         races.setColor(Themes.LIGHT_RED);
-        races.setVisible(false);
+        races.setVisible(true);
         races.setStokeSize(1.2f);
 
         series = new MyTimeSeries[1];
