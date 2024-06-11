@@ -119,10 +119,10 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     // Connection
-                    Connection connection = ConnectionPoolJibeProd.get_slo_single_connection();
+//                    Connection connection = ConnectionPoolJibeProd.get_slo_single_connection();
 
                     // Trunticate current
-                    MySql.trunticate("topics_to_monitor", "sapi", connection);
+//                    MySql.trunticate("topics_to_monitor", "sapi", connection);
 
                     // Update sapi request
                     update_sapi_request();
@@ -153,7 +153,7 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
         Connection slo_conn = null;
         Connection jibe_dev_conn = null;
         try {
-            slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
+//            slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
             jibe_dev_conn = ConnectionPoolJibeProd.get_jibe_dev_single_connection();
 
             MySql.Queries.delete_today_rates(slo_conn);
@@ -231,8 +231,8 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                 System.out.println(q);
 
                 // Insert
-                Connection connection = ConnectionPoolJibeProd.get_slo_single_connection();
-                MySql.insert(q, connection);
+//                Connection connection = ConnectionPoolJibeProd.get_slo_single_connection();
+//                MySql.insert(q, connection);
 
                 // Clear the list
                 strings.clear();

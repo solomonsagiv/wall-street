@@ -18,11 +18,11 @@ public class ConnectionPoolJibeProd implements IConnectionPool {
         System.out.println("Done");
     }
 
-    public static Connection get_slo_single_connection() throws SQLException {
-        String url = "jdbc:postgresql://52.73.213.15:5432/jibe?user=jibe_admin&password=160633a0cd2ab5a9b82f088a77240cb68f9232a8&ssl=false";
-        Connection conn = DriverManager.getConnection(url);
-        return conn;
-    }
+//    public static Connection get_slo_single_connection() throws SQLException {
+//        String url = "jdbc:postgresql://52.73.213.15:5432/jibe?user=jibe_admin&password=160633a0cd2ab5a9b82f088a77240cb68f9232a8&ssl=false";
+//        Connection conn = DriverManager.getConnection(url);
+//        return conn;
+//    }
 
     public static Connection get_jibe_dev_single_connection() throws SQLException {
         String url = "jdbc:postgresql://52.4.58.207:5432/jibe?user=sagiv&password=f19add32-1141-4af5-9abd-4744487f3b51&ssl=false";
