@@ -72,8 +72,8 @@ public class DataBasePanel extends MyGuiComps.MyPanel {
                     client.getDdeHandler().getIddeReader().init_rates();
 
                     // Delete current
-                    Connection slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
-                    MySql.Queries.delete_today_rates(client.getId_name(),slo_conn);
+//                    Connection slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
+//                    MySql.Queries.delete_today_rates(client.getId_name(),slo_conn);
                     MySql.Queries.delete_today_rates(client.getId_name());
 
                     // Update new one

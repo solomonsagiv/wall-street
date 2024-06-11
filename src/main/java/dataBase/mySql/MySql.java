@@ -304,8 +304,8 @@ public class MySql {
 
             MySql.insert(query, connection_type);
 
-            Connection slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
-            MySql.insert(query, slo_conn);
+//            Connection slo_conn = ConnectionPoolJibeProd.get_slo_single_connection();
+//            MySql.insert(query, slo_conn);
 
         }
 
