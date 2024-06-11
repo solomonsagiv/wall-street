@@ -227,6 +227,9 @@ public class MySql {
     public static class Queries {
         public static final int step_second = 10;
 
+//        public static ResultSet get_races(int serie_id) {
+//
+//        }
 
         public static ResultSet get_baskets_up_sum(int serie_id) {
             String q = "select sum(value) as value " +
