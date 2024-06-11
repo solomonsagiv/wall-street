@@ -357,7 +357,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
-        insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_Q1_RACES_PROD));
+        insert_dev_prod(index_q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_Q1_RACES_PROD));
 //        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
 //        insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
 //        insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
