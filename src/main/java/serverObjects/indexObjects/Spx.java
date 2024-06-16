@@ -9,8 +9,12 @@ import charts.myCharts.Chart_12;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
+import races.Race_Logic;
+import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+
+import java.util.HashMap;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
@@ -23,6 +27,11 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setMySqlService(new MySqlService(this, new DataBaseHandler_Spx(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
+
+        // Race logic
+        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX));
+        setRacesService(new RacesService(this, map));
     }
     
     // get instance

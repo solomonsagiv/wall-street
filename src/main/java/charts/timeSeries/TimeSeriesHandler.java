@@ -74,15 +74,14 @@ public class TimeSeriesHandler {
     public static final int VIX_F_1_PROD = 123;
     public static final int VIX_F_2_PROD = 124;
 
-
+    
     public static final int INDEX_CALC_DEV = 117;
     public static final int FUTURE_CALC_DEV = 118;
     public static final int INDEX_CALC_PROD = 119;
     public static final int FUTURE_CALC_PROD = 120;
-
-    public static final int INDEX_RACES_PROD = 126;
-    public static final int Q1_RACES_PROD = 127;
-    public static final int INDEX_Q1_RACES_PROD = 128;
+    public static final int INDEX_RACES_PROD = 127;
+    public static final int Q1_RACES_PROD = 128;
+    public static final int INDEX_Q1_RACES_PROD = 129;
 
 
     // Last ID = 129

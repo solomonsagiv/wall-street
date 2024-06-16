@@ -20,7 +20,7 @@ public class Race_Logic {
     private double r_one_price_0 = 0, r_two_price_0 = 0;
     private double r_one_margin, r_two_margin = 0;
     private final double RACE_MARGIN = 0.2;
-    public int r_one_up_points, r_one_down_points, r_two_up_points, r_two_down_points = 0;
+    public double r_one_up_points, r_one_down_points, r_two_up_points, r_two_down_points = 0;
 
     final double r_one_increase_points = 1;
     final double r_two_increase_points = 1;
@@ -189,15 +189,15 @@ public class Race_Logic {
     }
 
 
-    public int get_sum_points() {
+    public double get_sum_points() {
         return get_r_one_points() + get_r_two_points();
     }
 
-    public int get_r_one_points() {
+    public double get_r_one_points() {
         return r_one_up_points - r_one_down_points;
     }
 
-    public int get_r_two_points() {
+    public double get_r_two_points() {
         return r_two_up_points - r_two_down_points;
     }
 
@@ -221,5 +221,19 @@ public class Race_Logic {
         r_two_down_points += r_two_increase_points;
     }
 
+    public void setR_one_up_points(double r_one_up_points) {
+        this.r_one_up_points = r_one_up_points;
+    }
 
+    public void setR_one_down_points(double r_one_down_points) {
+        this.r_one_down_points = r_one_down_points;
+    }
+
+    public void setR_two_up_points(double r_two_up_points) {
+        this.r_two_up_points = r_two_up_points;
+    }
+
+    public void setR_two_down_points(double r_two_down_points) {
+        this.r_two_down_points = r_two_down_points;
+    }
 }

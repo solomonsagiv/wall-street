@@ -10,8 +10,12 @@ import charts.myCharts.Chart_12;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
+import races.Race_Logic;
+import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+
+import java.util.HashMap;
 
 public class Ndx extends INDEX_CLIENT_OBJECT {
 
@@ -26,6 +30,11 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
         setIndex_bid_ask_synthetic_margin(5);
+
+        // Race logic
+        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX));
+        setRacesService(new RacesService(this, map));
     }
 
     // get instance

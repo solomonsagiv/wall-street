@@ -6,6 +6,7 @@ import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
+import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.Instant;
@@ -22,6 +23,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_f_1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_e1_0 = 0;
@@ -32,6 +35,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double vix_f_2_0 = 0;
     double index_bid_0 = 0;
     double index_ask_0 = 0;
+    double index_races_0 = 0;
+    double q1_races_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -146,6 +151,28 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 vix_f_2_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_f_2_0));
             }
 
+
+            // ---------------------------------- Races ---------------------------------- //
+            // Index races
+            double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
+
+            if (index_races != index_races_0) {
+                index_races_0 = index_races;
+                double last_count = index_races - index_races_0;
+                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+            // Q1 races
+            double q1_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points();
+
+            if (q1_races != q1_races_0) {
+                q1_races_0 = q1_races;
+                double last_count = q1_races - q1_races_0;
+                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+
+
         }
     }
 
@@ -159,6 +186,10 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         }
         // Load exp data
         load_exp_data();
+
+        // Load races
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
 
         // Set load
         client.setLoadFromDb(true);
@@ -231,6 +262,12 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Pre day avg
         serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9682);
 
+        // Races
+        serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9783);
+        serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9780);
+
+
+
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
@@ -274,6 +311,10 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         // Pre day q1 op avg
         client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
+
+        // Races
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
     }
 
     private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
@@ -296,5 +337,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
         insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
         insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
+
+        // Races
+        insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
+        insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
     }
 }

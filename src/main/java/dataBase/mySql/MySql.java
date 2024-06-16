@@ -227,9 +227,25 @@ public class MySql {
     public static class Queries {
         public static final int step_second = 10;
 
-//        public static ResultSet get_races(int serie_id) {
-//
-//        }
+        public static ResultSet get_races_up_sum(int serie_id, String connectionType) {
+            String q = "select sum(value) as value\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "  and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "and value > 0;";
+            String query = String.format(q, serie_id);
+            return MySql.select(query, connectionType);
+        }
+
+        public static ResultSet get_races_down_sum(int serie_id, String connectionType) {
+            String q = "select sum(value) as value\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "  and time between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "and value < 0;";
+            String query = String.format(q, serie_id);
+            return MySql.select(query, connectionType);
+        }
 
         public static ResultSet get_baskets_up_sum(int serie_id) {
             String q = "select sum(value) as value " +
@@ -681,6 +697,7 @@ public class MySql {
             }
             return 0;
         }
+
 
         public static void update_prop(String client_name, String prop, String data, String connection_type) {
             String q = "update sagiv.props SET data = '%s' WHERE stock_id = '%s' AND prop = '%s';";

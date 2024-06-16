@@ -136,13 +136,17 @@ public class Chart_13 extends MyChartCreator {
 
         // --------- Races ---------- //
 
-        MyTimeSeries races = client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_Q1_RACES);
-        races.setColor(Themes.LIGHT_RED);
-        races.setVisible(true);
-        races.setStokeSize(1.2f);
+        MyTimeSeries index_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_RACES);
+        index_races.setColor(Themes.ORANGE);
+        index_races.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[1];
-        series[0] = races;
+        MyTimeSeries q1_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_RACES);
+        q1_races.setColor(Themes.PURPLE);
+        q1_races.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = index_races;
+        series[1] = q1_races;
 
         // Chart
         MyChart index_q1_races_chart = new MyChart(client, series, props);

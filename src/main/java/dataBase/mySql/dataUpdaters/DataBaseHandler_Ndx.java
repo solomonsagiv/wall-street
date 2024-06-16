@@ -6,6 +6,7 @@ import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
+import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.time.Instant;
@@ -20,6 +21,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_0 = 0;
@@ -28,6 +31,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double fut_week_0 = 0;
     double vix_0 = 0;
     double indeX_plus_mood_0 = 0;
+    double index_races_0 = 0;
+    double q1_races_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -83,47 +88,67 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                     fut_week_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_week_0));
                 }
                 fut_week_0 = fut_week;
-
-
-                // Index
-                if (client.getIndex() != index_0) {
-                    index_0 = client.getIndex();
-                    index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
-                }
-
-                // Fut e1
-                double fut_q1 = q1.get_future();
-
-                if (fut_q1 != fut_q1_0) {
-                    fut_q1_0 = fut_q1;
-                    fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q1_0));
-                }
-
-                // Fut e2
-                double fut_q2 = q2.get_future();
-
-                if (fut_q2 != fut_q2_0) {
-                    fut_q2_0 = fut_q2;
-                    fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q2_0));
-                }
-
-                // Vix
-                double vix = client.getVix();
-
-                if (vix != vix_0) {
-                    vix_0 = vix;
-                    vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
-                }
-
-
-                double index_plus_mood = client.getIndex() + client.getPre_day_avg();
-
-                // Index plus mood
-                if (index_plus_mood != indeX_plus_mood_0) {
-                    indeX_plus_mood_0 = index_plus_mood;
-                    index_plus_mood_timestamp.add(new MyTimeStampObject(Instant.now(), indeX_plus_mood_0));
-                }
             }
+
+            // Index
+            if (client.getIndex() != index_0) {
+                index_0 = client.getIndex();
+                index_timestamp.add(new MyTimeStampObject(Instant.now(), index_0));
+            }
+
+            // Fut e1
+            double fut_q1 = q1.get_future();
+
+            if (fut_q1 != fut_q1_0) {
+                fut_q1_0 = fut_q1;
+                fut_q1_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q1_0));
+            }
+
+            // Fut e2
+            double fut_q2 = q2.get_future();
+
+            if (fut_q2 != fut_q2_0) {
+                fut_q2_0 = fut_q2;
+                fut_q2_timeStamp.add(new MyTimeStampObject(Instant.now(), fut_q2_0));
+            }
+
+            // Vix
+            double vix = client.getVix();
+
+            if (vix != vix_0) {
+                vix_0 = vix;
+                vix_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_0));
+            }
+
+
+            double index_plus_mood = client.getIndex() + client.getPre_day_avg();
+
+            // Index plus mood
+            if (index_plus_mood != indeX_plus_mood_0) {
+                indeX_plus_mood_0 = index_plus_mood;
+                index_plus_mood_timestamp.add(new MyTimeStampObject(Instant.now(), indeX_plus_mood_0));
+            }
+
+
+            // ---------------------------------- Races ---------------------------------- //
+            // Index races
+            double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
+
+            if (index_races != index_races_0) {
+                index_races_0 = index_races;
+                double last_count = index_races - index_races_0;
+                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
+            // Q1 races
+            double q1_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points();
+
+            if (q1_races != q1_races_0) {
+                q1_races_0 = q1_races;
+                double last_count = q1_races - q1_races_0;
+                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+            }
+
         }
     }
 
@@ -138,6 +163,10 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // Load exp data
         load_exp_data();
+
+        // Load races
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
 
         // Set load true
         client.setLoadFromDb(true);
@@ -208,6 +237,11 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Pre day avg
         serie_ids.put(TimeSeriesHandler.PRE_DAY_OP_AVG, 9685);
 
+        // Races
+        serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9781);
+        serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9782);
+
+
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
@@ -256,6 +290,10 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Pre day q1 op avg
         client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
 
+        // Races
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
+
     }
 
     private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
@@ -273,6 +311,10 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
         insert_dev_prod(index_plus_mood_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV), serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_PROD));
+
+        // Races
+        insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
+        insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
     }
 
 }

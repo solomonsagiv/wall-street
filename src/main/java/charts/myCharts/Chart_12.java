@@ -4,7 +4,6 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
-import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.ValueMarker;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
@@ -180,10 +179,26 @@ public class Chart_12 extends MyChartCreator {
         // Chart
         MyChart roll_q1_q2_chart = new MyChart(client, series, props);
 
+        // ------------------ Races ------------------- //
+        MyTimeSeries index_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_RACES);
+        index_races.setColor(Themes.ORANGE);
+        index_races.setStokeSize(1.2f);
+
+        MyTimeSeries q1_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_RACES);
+        q1_races.setColor(Themes.PURPLE);
+        q1_races.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[2];
+        series[0] = index_races;
+        series[1] = q1_races;
+
+        // Chart
+        MyChart races_chart = new MyChart(client, series, props);
+
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_week_chart, op_avg_q1_chart, op_avg_q2_chart, roll_week_q1_chart, roll_q1_q2_chart};
+        MyChart[] charts = {indexChart, op_avg_week_chart, op_avg_q1_chart, op_avg_q2_chart, roll_week_q1_chart, roll_q1_q2_chart, races_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

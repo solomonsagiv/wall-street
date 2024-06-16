@@ -6,9 +6,11 @@ import dataBase.mySql.MySql;
 import dataBase.props.Prop;
 import exp.Exp;
 import exp.Exps;
+import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -199,6 +201,37 @@ public abstract class IDataBaseHandler {
         }
         return 0;
     }
+
+    protected void load_races(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id) {
+        load_race_points(race_runner_enum, serie_id, true);
+        load_race_points(race_runner_enum, serie_id, false);
+    }
+
+    private void load_race_points(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id, boolean up_down) {
+        ResultSet rs;
+        if (up_down) {
+            rs = MySql.Queries.get_races_up_sum(serie_id, MySql.JIBE_PROD_CONNECTION);
+        } else {
+            rs = MySql.Queries.get_races_down_sum(serie_id, MySql.JIBE_PROD_CONNECTION);
+        }
+
+        while (true) {
+            try {
+                if (!rs.next()) break;
+                double value = rs.getDouble("value");
+
+                if (up_down) {
+                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_up_points(value);
+                } else {
+                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_down_points(value);
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+
 
     private void insert_data(ArrayList<MyTick> myTicks, String speed_table_location, String connection_type) {
         IDataBaseHandler.insert_batch_data(myTicks, speed_table_location, connection_type);

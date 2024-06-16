@@ -28,7 +28,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> index_q1_races_timeStamp = new ArrayList<>();
 
 //    double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
@@ -43,7 +42,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     double vix_f_2_0 = 0;
     double index_races_0 = 0;
     double q1_races_0 = 0;
-    double index_q1_races_0 = 0;
 
     public DataBaseHandler_Dax(BASE_CLIENT_OBJECT client) {
         super(client);
@@ -162,17 +160,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
                 q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
             }
 
-
-            // Index q1 sum races
-            double index_q1_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_sum_points();
-
-            if (index_q1_races != index_q1_races_0) {
-                index_q1_races_0 = index_q1_races;
-                double last_count = index_q1_races - index_q1_races_0;
-                index_q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
-
-
             // --------------------------------------- Vix --------------------------------------- //
 //            double vix = client.getVix();
 //
@@ -209,10 +196,16 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
         // Load exp data
         load_exp_data();
+        
+        // Load races
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
 
         // Set load
         client.setLoadFromDb(true);
     }
+
+
 
     @Override
     public void initTablesNames() {
@@ -357,7 +350,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
-        insert_dev_prod(index_q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_Q1_RACES_PROD));
 //        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
 //        insert_dev_prod(vix_f_1_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_1_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_1_PROD));
 //        insert_dev_prod(vix_f_2_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_F_2_DEV), serie_ids.get(TimeSeriesHandler.VIX_F_2_PROD));
