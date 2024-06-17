@@ -129,6 +129,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                 index_plus_mood_timestamp.add(new MyTimeStampObject(Instant.now(), indeX_plus_mood_0));
             }
 
+
             // ---------------------------------- Races ---------------------------------- //
             // Index races
             double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
