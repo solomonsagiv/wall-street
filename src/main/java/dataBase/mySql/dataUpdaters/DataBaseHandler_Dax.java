@@ -146,18 +146,18 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
             double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
 
             if (index_races != index_races_0) {
-                index_races_0 = index_races;
                 double last_count = index_races - index_races_0;
                 index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                index_races_0 = index_races;
             }
 
             // Q1 races
             double q1_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points();
 
             if (q1_races != q1_races_0) {
-                q1_races_0 = q1_races;
                 double last_count = q1_races - q1_races_0;
                 q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q1_races_0 = q1_races;
             }
 
             // --------------------------------------- Vix --------------------------------------- //
