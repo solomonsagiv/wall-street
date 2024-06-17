@@ -2,7 +2,6 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
-import dataBase.mySql.MySql;
 import exp.E;
 import exp.ExpStrings;
 import races.Race_Logic;
@@ -303,11 +302,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_14400, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_14400, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q1_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q1_DAILY, client));
 
-        // Q2
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_DAILY, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_900, client));
-//        client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_Q2_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_Q2_3600, client));
-
 
         // Exp Week
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
@@ -326,18 +320,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_Q1_RACES, client));
 
-    }
-
-    private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
-        System.out.println("------------------------ Insert start ----------------------------");
-        if (dev_id != 0) {
-            insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
-        }
-        if (prod_id != 0) {
-            insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
-        }
-        System.out.println("------------------------ Insert End ----------------------------");
-        list.clear();
     }
 
     private void updateListsRetro() {

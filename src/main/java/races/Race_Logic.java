@@ -19,15 +19,16 @@ public class Race_Logic {
     private double r_one_price = 0, r_two_price = 0;
     private double r_one_price_0 = 0, r_two_price_0 = 0;
     private double r_one_margin, r_two_margin = 0;
-    private final double RACE_MARGIN = 0.2;
+    private double RACE_MARGIN;
     public double r_one_up_points, r_one_down_points, r_two_up_points, r_two_down_points = 0;
 
     final double r_one_increase_points = 1;
     final double r_two_increase_points = 1;
 
-    public Race_Logic(BASE_CLIENT_OBJECT client, RACE_RUNNER_ENUM race_runners) {
+    public Race_Logic(BASE_CLIENT_OBJECT client, RACE_RUNNER_ENUM race_runners, double RACE_MARGIN) {
         this.client = client;
         this.race_runners = race_runners;
+        this.RACE_MARGIN = RACE_MARGIN;
     }
 
     public void race_finder() {

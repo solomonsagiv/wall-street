@@ -2,7 +2,6 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
-import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
@@ -23,6 +22,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> vix_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q1_qua_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q2_qua_races_timeStamp = new ArrayList<>();
 
     double baskets_0 = 0;
     double index_0 = 0;
@@ -33,6 +34,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     double indeX_plus_mood_0 = 0;
     double index_races_0 = 0;
     double q1_races_0 = 0;
+    double q1_qua_races_0 = 0;
+    double q2_qua_races_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -129,7 +132,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                 index_plus_mood_timestamp.add(new MyTimeStampObject(Instant.now(), indeX_plus_mood_0));
             }
 
-
             // ---------------------------------- Races ---------------------------------- //
             // Index races
             double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
@@ -147,6 +149,24 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
                 double last_count = q1_races - q1_races_0;
                 q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
                 q1_races_0 = q1_races;
+            }
+
+            // Q1 qua races
+            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2).get_r_one_points();
+
+            if (q1_qua_races != q1_qua_races_0) {
+                double last_count = q1_qua_races - q1_qua_races_0;
+                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q1_qua_races_0 = q1_qua_races;
+            }
+
+            // Q2 qua races
+            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2).get_r_two_points();
+
+            if (q2_qua_races != q2_qua_races_0) {
+                double last_count = q2_qua_races - q2_qua_races_0;
+                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q2_qua_races_0 = q2_qua_races;
             }
 
         }
@@ -241,6 +261,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9781);
         serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9782);
 
+        serie_ids.put(TimeSeriesHandler.Q1_QUA_RACES, 9784);
+        serie_ids.put(TimeSeriesHandler.Q2_QUA_RACES, 9785);
+
 
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
@@ -294,12 +317,11 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
 
-    }
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QUA_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QUA_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q2_QUA_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q2_QUA_RACES, client));
 
-    private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
-        insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
-        insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
-        list.clear();
+
+
     }
 
     private void updateListsRetro() {
@@ -315,6 +337,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Races
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
+        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES));
+        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES));
+
     }
 
 }

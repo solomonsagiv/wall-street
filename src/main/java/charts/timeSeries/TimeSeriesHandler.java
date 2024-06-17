@@ -82,7 +82,8 @@ public class TimeSeriesHandler {
     public static final int INDEX_RACES_PROD = 127;
     public static final int Q1_RACES_PROD = 128;
     public static final int INDEX_Q1_RACES_PROD = 129;
-
+    public static final int Q1_QUA_RACES = 130;
+    public static final int Q2_QUA_RACES = 131;
 
     // Last ID = 129
 

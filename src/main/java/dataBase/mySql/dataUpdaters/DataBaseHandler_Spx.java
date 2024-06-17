@@ -2,7 +2,6 @@ package dataBase.mySql.dataUpdaters;
 
 import charts.timeSeries.TimeSeriesFactory;
 import charts.timeSeries.TimeSeriesHandler;
-import dataBase.mySql.MySql;
 import exp.E;
 import exp.Exp;
 import exp.ExpStrings;
@@ -25,6 +24,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q1_qua_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q2_qua_races_timeStamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_e1_0 = 0;
@@ -37,6 +38,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double index_ask_0 = 0;
     double index_races_0 = 0;
     double q1_races_0 = 0;
+    double q1_qua_races_0 = 0;
+    double q2_qua_races_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -172,6 +175,24 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             }
 
 
+            // Q1 qua races
+            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2).get_r_one_points();
+
+            if (q1_qua_races != q1_qua_races_0) {
+                double last_count = q1_qua_races - q1_qua_races_0;
+                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q1_qua_races_0 = q1_qua_races;
+            }
+
+            // Q2 qua races
+            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2).get_r_two_points();
+
+            if (q2_qua_races != q2_qua_races_0) {
+                double last_count = q2_qua_races - q2_qua_races_0;
+                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q2_qua_races_0 = q2_qua_races;
+            }
+
 
         }
     }
@@ -190,6 +211,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES));
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES));
 
         // Set load
         client.setLoadFromDb(true);
@@ -266,6 +289,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9783);
         serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9780);
 
+        serie_ids.put(TimeSeriesHandler.Q1_QUA_RACES, 9786);
+        serie_ids.put(TimeSeriesHandler.Q2_QUA_RACES, 9787);
+
 
 
         // INDEX
@@ -315,14 +341,9 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Races
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
-    }
 
-    private void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
-        System.out.println("------------------------ Insert start ----------------------------");
-        insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
-        insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
-        System.out.println("------------------------ Insert End ----------------------------");
-        list.clear();
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QUA_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QUA_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q2_QUA_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q2_QUA_RACES, client));
     }
 
     private void updateListsRetro() {
@@ -341,5 +362,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Races
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
+        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES));
+        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES));
     }
 }

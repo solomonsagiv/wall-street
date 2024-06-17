@@ -28,12 +28,10 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         setDdeHandler(new DDEHandler(this, new DDEReader_Spx(this), new DDEWriter_Spx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
 
-        // Race logic
-        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
-        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX));
-        setRacesService(new RacesService(this, map));
+        // Races
+        init_races();
     }
-    
+
     // get instance
     public static Spx getInstance() {
         if (client == null) {
@@ -41,7 +39,16 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         }
         return client;
     }
-    
+
+    @Override
+    public void init_races() {
+        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, getRace_margin()));
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, getRace_margin()));
+        setRacesService(new RacesService(this, map));
+    }
+
+
     @Override
     public void setIndexBid(double indexBid) {
         super.setIndexBid(indexBid);
@@ -92,8 +99,8 @@ public class Spx extends INDEX_CLIENT_OBJECT {
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
 
-                Chart_12 chart_13 = new Chart_12(this);
-                chart_13.createChart();
+                Chart_12 chart_12 = new Chart_12(this);
+                chart_12.createChart();
 
             }).start();
         }

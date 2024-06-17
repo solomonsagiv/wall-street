@@ -37,6 +37,19 @@ public abstract class IDataBaseHandler {
 
     public abstract void initTablesNames();
 
+
+    protected void insert_dev_prod(ArrayList<MyTimeStampObject> list, int dev_id, int prod_id) {
+        System.out.println("------------------------ Insert start ----------------------------");
+        if (dev_id != 0) {
+            insertListRetro(list, dev_id, MySql.JIBE_DEV_CONNECTION);
+        }
+        if (prod_id != 0) {
+            insertListRetro(list, prod_id, MySql.JIBE_PROD_CONNECTION);
+        }
+        System.out.println("------------------------ Insert End ----------------------------");
+        list.clear();
+    }
+
     protected void load_exp_data() {
         // Load exp data for each timeserie
         for (Map.Entry<String, MyTimeSeries> entry : client.getTimeSeriesHandler().getSeries_map().entrySet()) {

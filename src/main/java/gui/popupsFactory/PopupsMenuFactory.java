@@ -47,33 +47,6 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem charts_7 = new JMenuItem("Charts 7");
-        charts_7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_7 chart = new Chart_7(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem charts_9 = new JMenuItem("Charts 9");
-        charts_9.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_9 chart = new Chart_9(client);
-                chart.createChart();
-            }
-        });
-
-        JMenuItem charts_10 = new JMenuItem("Charts 10");
-        charts_10.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Chart_10 chart = new Chart_10(client);
-                chart.createChart();
-            }
-        });
-
         JMenuItem charts_12 = new JMenuItem("Charts 12");
         charts_12.addActionListener(new ActionListener() {
             @Override
@@ -83,7 +56,7 @@ public class PopupsMenuFactory {
             }
         });
 
-        JMenuItem charts_13 = new JMenuItem("Charts 13");
+        JMenuItem charts_13 = new JMenuItem("Charts 13 (Dax)");
         charts_13.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,12 +112,9 @@ public class PopupsMenuFactory {
             }
         });
 
-        charts.add(charts_9);
-        charts.add(charts_10);
         charts.add(charts_12);
         charts.add(charts_13);
         charts.add(real_time);
-        charts.add(futures);
 
         menu.add(details);
         menu.add(settingWindow);

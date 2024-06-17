@@ -66,24 +66,6 @@ public class Chart_13 extends MyChartCreator {
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
 
-        // --------- Op avg week ---------- //
-
-        MyTimeSeries op_avg_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_900);
-        op_avg_15.setColor(Themes.LIGHT_RED);
-        op_avg_15.setVisible(false);
-        op_avg_15.setStokeSize(1.0f);
-
-        MyTimeSeries op_avg_60 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_3600);
-        op_avg_60.setColor(Themes.BLUE);
-        op_avg_60.setStokeSize(1.2f);
-
-        series = new MyTimeSeries[2];
-        series[0] = op_avg_15;
-        series[1] = op_avg_60;
-
-        // Chart
-        MyChart op_avg_week_chart = new MyChart(client, series, props);
-
 
         // --------- Op avg q1 ---------- //
         MyTimeSeries op_avg_q1_15 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_900);
@@ -154,7 +136,7 @@ public class Chart_13 extends MyChartCreator {
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, op_avg_week_chart, op_avg_q1_chart, index_q1_races_chart};
+        MyChart[] charts = {indexChart, op_avg_q1_chart, index_q1_races_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

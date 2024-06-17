@@ -65,7 +65,7 @@ public class Realtime_Chart extends MyChartCreator {
             }
         };
         index.setColor(Color.BLACK);
-        index.setVisible(true);
+        index.setVisible(false);
         index.setStokeSize(1.75f);
 
 
@@ -163,7 +163,7 @@ public class Realtime_Chart extends MyChartCreator {
             myTimeSeries.add(myTimeSerie);
 
             // Is main exp set visible
-            if (exp.getName().equals(ExpStrings.q1) || exp.getName().equals(ExpStrings.day) || exp.getName().equals(ExpStrings.week) || exp.getName().equals(ExpStrings.month)) {
+            if (exp.getName().equals(ExpStrings.q1)) {
                 myTimeSerie.setVisible(true);
             } else {
                 myTimeSerie.setVisible(false);
@@ -195,7 +195,7 @@ public class Realtime_Chart extends MyChartCreator {
         };
         pre_day_op_avg.setColor(Themes.LIFGT_BLUE_2);
         pre_day_op_avg.setStokeSize(1.75f);
-        pre_day_op_avg.setVisible(false);
+        pre_day_op_avg.setVisible(true);
 
 
         myTimeSeries.add(index);

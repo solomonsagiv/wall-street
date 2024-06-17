@@ -32,9 +32,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setIndex_bid_ask_synthetic_margin(5);
 
         // Race logic
-        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
-        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX));
-        setRacesService(new RacesService(this, map));
+        init_races();
     }
 
     // get instance
@@ -44,6 +42,15 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
 
         }
         return client;
+    }
+
+
+    @Override
+    public void init_races() {
+        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, getRace_margin()));
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, getRace_margin()));
+        setRacesService(new RacesService(this, map));
     }
 
 

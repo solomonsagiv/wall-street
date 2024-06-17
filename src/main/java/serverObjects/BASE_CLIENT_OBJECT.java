@@ -112,6 +112,9 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     private double vix_f_1 = 0;
     private double vix_f_2 = 0;
 
+    // Race margin
+    private double race_margin = 0.01;
+
     // Pre day q1 op avg
     private double pre_day_avg = 0;
 
@@ -647,7 +650,15 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         this.vix_f_2 = vix_f_2;
     }
 
-//    public int getR_one_up() {
+    public double getRace_margin() {
+        return race_margin;
+    }
+
+    public void setRace_margin(double race_margin) {
+        this.race_margin = race_margin;
+    }
+
+    //    public int getR_one_up() {
 //        return r_one_up;
 //    }
 //

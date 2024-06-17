@@ -10,4 +10,6 @@ public interface IBaseClient {
 
     void openChartsOnStart();
 
+    void init_races();
+
 }

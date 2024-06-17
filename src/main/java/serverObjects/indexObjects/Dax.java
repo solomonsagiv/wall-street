@@ -5,7 +5,6 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Dax;
 import IDDE.DDEWriter_Dax;
 import api.Manifest;
-import baskets.BasketFinder_by_stocks;
 import charts.myCharts.Chart_13;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
@@ -17,7 +16,6 @@ import races.Race_Logic;
 import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.util.HashMap;
 
 public class Dax extends INDEX_CLIENT_OBJECT {
@@ -30,22 +28,17 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         setId_name("dax");
         initExpHandler();
 
-
-
         setMySqlService(new MySqlService(this, new DataBaseHandler_Dax(this)));
         setDdeHandler(new DDEHandler(this, new DDEReader_Dax(this), new DDEWriter_Dax(this)));
         setDataUpdaterService(new DataUpdaterService(this));
 
-//        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 30, 3));
         setLive_db(true);
         setIndex_bid_ask_synthetic_margin(5);
 
         // Race logic
-        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
-        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX));
-        setRacesService(new RacesService(this, map));
-
+        init_races();
     }
+
 
     // get instance
     public static Dax getInstance() {
@@ -54,6 +47,14 @@ public class Dax extends INDEX_CLIENT_OBJECT {
         }
         return client;
     }
+
+    @Override
+    public void init_races() {
+        HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
+        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, getRace_margin()));
+        setRacesService(new RacesService(this, map));
+    }
+
 
     @Override
     public void setIndexBid(double indexBid) {
