@@ -181,10 +181,10 @@ public class Race_Logic {
                 return;
             case WEEK_Q1:
                 r_one_price = client.getExps().getExp(ExpStrings.q1).get_future();
-                r_two_price = client.getExps().getExp(ExpStrings.q2).get_future();
+                r_two_price = client.getExps().getExp(ExpStrings.week).get_future();
                 return;
             case Q1_Q2:
-                r_one_price = client.getExps().getExp(ExpStrings.week).get_future();
+                r_one_price = client.getExps().getExp(ExpStrings.q2).get_future();
                 r_two_price = client.getExps().getExp(ExpStrings.q1).get_future();
         }
     }
