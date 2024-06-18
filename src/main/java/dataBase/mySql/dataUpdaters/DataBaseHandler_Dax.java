@@ -17,7 +17,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_bid_synthetic_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_ask_synthetic_timestamp = new ArrayList<>();
-//    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+    //    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
@@ -28,7 +28,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
 
-//    double baskets_0 = 0;
+    //    double baskets_0 = 0;
     double index_bid_synthetic_0 = 0;
     double index_ask_synthetic_0 = 0;
     double index_0 = 0;
@@ -146,7 +146,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
             if (index_races != index_races_0) {
                 double last_count = index_races - index_races_0;
-                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                if (last_count < 20 || last_count > -20) {
+                    index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                }
                 index_races_0 = index_races;
             }
 
@@ -155,7 +157,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
             if (q1_races != q1_races_0) {
                 double last_count = q1_races - q1_races_0;
-                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                if (last_count < 20 || last_count > -20) {
+                    q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                }
                 q1_races_0 = q1_races;
             }
 
@@ -195,7 +199,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         }
         // Load exp data
         load_exp_data();
-        
+
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
@@ -203,7 +207,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Set load
         client.setLoadFromDb(true);
     }
-
 
 
     @Override
