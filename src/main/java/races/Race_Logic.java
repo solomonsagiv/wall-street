@@ -21,6 +21,8 @@ public class Race_Logic {
     private double r_one_margin, r_two_margin = 0;
     private double RACE_MARGIN;
     public double r_one_up_points, r_one_down_points, r_two_up_points, r_two_down_points = 0;
+    private double r_one_points_from_database = 0;
+    private double r_two_points_from_database = 0;
 
     final double r_one_increase_points = 1;
     final double r_two_increase_points = 1;
@@ -237,4 +239,21 @@ public class Race_Logic {
     public void setR_two_down_points(double r_two_down_points) {
         this.r_two_down_points = r_two_down_points;
     }
+
+    public double getR_one_points_from_database() {
+        return r_one_points_from_database;
+    }
+
+    public void setR_one_points_from_database(double r_one_points_from_database) {
+        this.r_one_points_from_database = r_one_points_from_database;
+    }
+
+    public double getR_two_points_from_database() {
+        return r_two_points_from_database;
+    }
+
+    public void setR_two_points_from_database(double r_two_points_from_database) {
+        this.r_two_points_from_database = r_two_points_from_database;
+    }
+
 }

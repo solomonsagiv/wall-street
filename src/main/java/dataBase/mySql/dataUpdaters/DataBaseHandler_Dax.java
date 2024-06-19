@@ -146,9 +146,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
             if (index_races != index_races_0) {
                 double last_count = index_races - index_races_0;
-                if (last_count < 20 || last_count > -20) {
-                    index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
-                }
+                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
                 index_races_0 = index_races;
             }
 
@@ -157,9 +155,7 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
             if (q1_races != q1_races_0) {
                 double last_count = q1_races - q1_races_0;
-                if (last_count < 20 || last_count > -20) {
-                    q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
-                }
+                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
                 q1_races_0 = q1_races;
             }
 

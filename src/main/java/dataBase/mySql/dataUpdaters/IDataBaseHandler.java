@@ -6,6 +6,7 @@ import dataBase.mySql.MySql;
 import dataBase.props.Prop;
 import exp.Exp;
 import exp.Exps;
+import locals.L;
 import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
@@ -235,16 +236,15 @@ public abstract class IDataBaseHandler {
 
                 if (up_down) {
                     client.getRacesService().get_race_logic(race_runner_enum).setR_one_up_points(value);
+//                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_up_points(value);
                 } else {
-                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_down_points(value);
+                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_down_points(L.abs(value));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         }
     }
-
-
 
     private void insert_data(ArrayList<MyTick> myTicks, String speed_table_location, String connection_type) {
         IDataBaseHandler.insert_batch_data(myTicks, speed_table_location, connection_type);
