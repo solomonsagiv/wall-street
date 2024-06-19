@@ -5,6 +5,7 @@ import dataBase.mySql.MySql;
 import locals.L;
 import locals.Themes;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Spx;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +33,6 @@ public class MyGuiComps {
     }
 
 
-
     // ---------- JFrame ---------- //
     public static abstract class MyFrame extends JFrame {
 
@@ -50,7 +50,11 @@ public class MyGuiComps {
 
         public MyFrame(String title, BASE_CLIENT_OBJECT client) throws HeadlessException {
             super(title);
-            this.client = client;
+            if (client == null) {
+                this.client = Spx.getInstance();
+            } else {
+                this.client = client;
+            }
             init();
             initialize();
             packAndFinish();

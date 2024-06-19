@@ -216,13 +216,13 @@ public abstract class IDataBaseHandler {
         return 0;
     }
 
-    protected void load_races(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id) {
+    protected void load_races(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id, boolean r_one_or_two) {
         System.out.println(client);
-        load_race_points(race_runner_enum, serie_id, true);
-        load_race_points(race_runner_enum, serie_id, false);
+        load_race_points(race_runner_enum, serie_id, true, r_one_or_two);
+        load_race_points(race_runner_enum, serie_id, false, r_one_or_two);
     }
 
-    private void load_race_points(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id, boolean up_down) {
+    private void load_race_points(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id, boolean up_down, boolean r_one_or_two) {
         ResultSet rs;
         if (up_down) {
             rs = MySql.Queries.get_races_up_sum(serie_id, MySql.JIBE_PROD_CONNECTION);
@@ -236,10 +236,18 @@ public abstract class IDataBaseHandler {
                 double value = rs.getDouble("value");
 
                 if (up_down) {
-                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_up_points(value);
-//                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_up_points(value);
+                    if (r_one_or_two) {
+                        client.getRacesService().get_race_logic(race_runner_enum).setR_one_up_points(value);
+                    } else {
+                        client.getRacesService().get_race_logic(race_runner_enum).setR_two_up_points(value);
+                    }
                 } else {
-                    client.getRacesService().get_race_logic(race_runner_enum).setR_one_down_points(L.abs(value));
+                    if (r_one_or_two) {
+                        client.getRacesService().get_race_logic(race_runner_enum).setR_one_down_points(L.abs(value));
+                    } else {
+                        client.getRacesService().get_race_logic(race_runner_enum).setR_two_down_points(L.abs(value));
+                    }
+
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

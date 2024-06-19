@@ -209,10 +209,10 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         load_exp_data();
 
         // Load races
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES));
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES));
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD), false);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES), false);
 
         // Set load
         client.setLoadFromDb(true);
