@@ -217,7 +217,6 @@ public abstract class IDataBaseHandler {
     }
 
     protected void load_races(Race_Logic.RACE_RUNNER_ENUM race_runner_enum, int serie_id, boolean r_one_or_two) {
-        System.out.println(client);
         load_race_points(race_runner_enum, serie_id, true, r_one_or_two);
         load_race_points(race_runner_enum, serie_id, false, r_one_or_two);
     }

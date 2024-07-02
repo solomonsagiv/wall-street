@@ -112,9 +112,19 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem races = new JMenuItem("Races");
+        races.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Races_Chart chart = new Races_Chart(client);
+                chart.createChart();
+            }
+        });
+
         charts.add(charts_12);
         charts.add(charts_13);
         charts.add(real_time);
+        charts.add(races);
 
         menu.add(details);
         menu.add(settingWindow);

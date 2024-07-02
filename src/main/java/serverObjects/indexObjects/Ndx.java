@@ -6,7 +6,7 @@ import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
 import baskets.BasketFinder_by_stocks;
-import charts.myCharts.Chart_12;
+import charts.myCharts.Races_Chart;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
@@ -100,13 +100,11 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
-
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
 
-                Chart_12 chart_13 = new Chart_12(this);
-                chart_13.createChart();
-
+                Races_Chart races_chart = new Races_Chart(this);
+                races_chart.createChart();
             }).start();
         }
     }
