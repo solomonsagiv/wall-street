@@ -897,7 +897,6 @@ public class TimeSeriesFactory {
                     }
                 };
 
-
             case INDEX_RACES:
                 return new MyTimeSeries(series_type, client) {
 
