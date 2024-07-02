@@ -180,7 +180,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
             if (q1_qua_races != q1_qua_races_0) {
                 double last_count = q1_qua_races - q1_qua_races_0;
-                index_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q1_qua_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
                 q1_qua_races_0 = q1_qua_races;
             }
 
@@ -189,7 +189,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
             if (q2_qua_races != q2_qua_races_0) {
                 double last_count = q2_qua_races - q2_qua_races_0;
-                q1_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q2_qua_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
                 q2_qua_races_0 = q2_qua_races;
             }
 
@@ -211,8 +211,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD), true);
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD), false);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES), true);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES), false);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES_PROD), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES_PROD), false);
 
         // Set load
         client.setLoadFromDb(true);
@@ -289,8 +289,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9783);
         serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9780);
 
-        serie_ids.put(TimeSeriesHandler.Q1_QUA_RACES, 9786);
-        serie_ids.put(TimeSeriesHandler.Q2_QUA_RACES, 9787);
+        serie_ids.put(TimeSeriesHandler.Q1_QUA_RACES_PROD, 9786);
+        serie_ids.put(TimeSeriesHandler.Q2_QUA_RACES_PROD, 9787);
 
 
         // INDEX
@@ -361,7 +361,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Races
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
-        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES));
-        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES));
+        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES_PROD));
+        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES_PROD));
     }
 }

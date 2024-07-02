@@ -995,7 +995,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_QUA_RACES);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_QUA_RACES_PROD);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
@@ -1021,7 +1021,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public void load() {
-                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q2_QUA_RACES);
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q2_QUA_RACES_PROD);
                         ResultSet rs = MySql.Queries.get_serie_mega_table(serie_id, MySql.CDF, client.getChart_start_min(), MySql.JIBE_PROD_CONNECTION);
                         IDataBaseHandler.loadSerieData(rs, this);
                     }
