@@ -5,7 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Races_Chart;
+import charts.myCharts.Races_Chart_QI_Q1_Q2;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
@@ -98,7 +98,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
 
-                Races_Chart races_chart = new Races_Chart(this);
+                Races_Chart_QI_Q1_Q2 races_chart = new Races_Chart_QI_Q1_Q2(this);
                 races_chart.createChart();
             }).start();
         }

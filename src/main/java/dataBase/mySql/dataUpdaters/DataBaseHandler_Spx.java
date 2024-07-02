@@ -154,7 +154,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 vix_f_2_timeStamp.add(new MyTimeStampObject(Instant.now(), vix_f_2_0));
             }
 
-
             // ---------------------------------- Races ---------------------------------- //
             // Index races
             double index_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
@@ -192,8 +191,6 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
                 q2_qua_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
                 q2_qua_races_0 = q2_qua_races;
             }
-
-
         }
     }
 

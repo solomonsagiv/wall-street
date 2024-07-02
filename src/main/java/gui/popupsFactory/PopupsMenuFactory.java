@@ -121,10 +121,20 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem races_us = new JMenuItem("Races US");
+        races_us.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Races_Chart_QI_Q1_Q2 chart = new Races_Chart_QI_Q1_Q2(client);
+                chart.createChart();
+            }
+        });
+
         charts.add(charts_12);
         charts.add(charts_13);
         charts.add(real_time);
         charts.add(races);
+        charts.add(races_us);
 
         menu.add(details);
         menu.add(settingWindow);
