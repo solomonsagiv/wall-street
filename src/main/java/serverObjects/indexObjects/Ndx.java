@@ -5,8 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Ndx;
 import IDDE.DDEWriter_Ndx;
 import api.Manifest;
-import baskets.BasketFinder_by_stocks;
-import charts.myCharts.Races_Chart_QI_Q1_Q2;
+import charts.myCharts.Races_Chart_index_roll_races;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Ndx;
@@ -26,7 +25,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
         setName("ndx");
         setId_name("ndx");
         setMySqlService(new MySqlService(this, new DataBaseHandler_Ndx(this)));
-        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 85, 3));
+//        setBasketFinder_by_stocks(new BasketFinder_by_stocks(this, 85, 3));
         setDdeHandler(new DDEHandler(this, new DDEReader_Ndx(this), new DDEWriter_Ndx(this)));
         setDataUpdaterService(new DataUpdaterService(this));
         setIndex_bid_ask_synthetic_margin(5);
@@ -49,7 +48,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public void init_races() {
         HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
         map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, getRace_margin()));
-        map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, getRace_margin()));
+        map.put(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, getRace_margin()));
         setRacesService(new RacesService(this, map));
     }
 
@@ -103,7 +102,7 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
 
-                Races_Chart_QI_Q1_Q2 races_chart = new Races_Chart_QI_Q1_Q2(this);
+                Races_Chart_index_roll_races races_chart = new Races_Chart_index_roll_races(this);
                 races_chart.createChart();
             }).start();
         }

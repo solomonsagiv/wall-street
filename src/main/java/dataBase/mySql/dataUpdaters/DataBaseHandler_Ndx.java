@@ -187,8 +187,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD), true);
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD), false);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES_PROD), true);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES_PROD), false);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
 
         // Set load true
         client.setLoadFromDb(true);
@@ -263,8 +263,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.INDEX_RACES_PROD, 9781);
         serie_ids.put(TimeSeriesHandler.Q1_RACES_PROD, 9782);
 
-        serie_ids.put(TimeSeriesHandler.Q1_QUA_RACES_PROD, 9784);
-        serie_ids.put(TimeSeriesHandler.Q2_QUA_RACES_PROD, 9785);
+        serie_ids.put(TimeSeriesHandler.Q1_QW_RACES_PROD, 9784);
+        serie_ids.put(TimeSeriesHandler.WEEK_QW_RACES_PROD, 9785);
 
 
         // INDEX
@@ -319,8 +319,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QUA_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QUA_RACES, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q2_QUA_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q2_QUA_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QW_RACES, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
 
 
     }
@@ -338,8 +338,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Races
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
-        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QUA_RACES_PROD));
-        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q2_QUA_RACES_PROD));
+        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD));
+        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD));
 
     }
 

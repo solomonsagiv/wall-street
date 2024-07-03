@@ -126,7 +126,7 @@ public class DDEReader_Ndx extends IDDEReader {
         client.setVix(requestDouble(vix_cell, conversation));
 
         // Stocks
-        updateStocks(conversation);
+//        updateStocks(conversation);
     }
 
     private void init_exps() {

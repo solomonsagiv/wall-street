@@ -11,8 +11,6 @@ import locals.Themes;
 import org.apache.commons.lang.StringUtils;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
-import serverObjects.indexObjects.Ndx;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -180,12 +178,6 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
 //                e.printStackTrace();
             }
 
-            if (client instanceof Ndx) {
-                // Present
-                basket_up_field.setText(L.str(client.getBasketFinder_by_stocks().getBasketUp()));
-                basket_down_field.setText(L.str(client.getBasketFinder_by_stocks().getBasketDown()));
-                basket_sum_field.colorForge(client.getBasketFinder_by_stocks().getBaskets());
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

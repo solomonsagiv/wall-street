@@ -1,6 +1,5 @@
 package gui.index;
 
-import baskets.BasketFinder_by_stocks;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import gui.MyGuiComps;
@@ -23,7 +22,7 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyLabel today_header_lbl;
 
     MyGuiComps.MyPanel body;
-    BasketFinder_by_stocks basketFinder;
+//    BasketFinder_by_stocks basketFinder;
 
     Df_panel df_panel_3;
     Df_panel df_panel_1;
@@ -39,11 +38,11 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
     public MachinePanel(BASE_CLIENT_OBJECT client) {
         super();
         this.client = client;
-        this.basketFinder = client.getBasketFinder_by_stocks();
+//        this.basketFinder = client.getBasketFinder_by_stocks();
 
         df_list = new ArrayList<>();
         df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF));
-        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
+//        df_list.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
 
         initsialize();
     }
@@ -146,14 +145,12 @@ public class MachinePanel extends MyGuiComps.MyPanel implements IMyPanel {
                             df_field.colorForge((int) ts.getValue());
                             continue;
                         }
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
-
     }
 
     @Override

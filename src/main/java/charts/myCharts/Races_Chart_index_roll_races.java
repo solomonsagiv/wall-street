@@ -9,15 +9,15 @@ import serverObjects.indexObjects.Spx;
 
 import java.awt.*;
 
-public class Races_Chart_QI_Q1_Q2 extends MyChartCreator {
+public class Races_Chart_index_roll_races extends MyChartCreator {
 
     public static void main(String[] args) {
-        Races_Chart_QI_Q1_Q2 fullChart2 = new Races_Chart_QI_Q1_Q2(Spx.getInstance());
+        Races_Chart_index_roll_races fullChart2 = new Races_Chart_index_roll_races(Spx.getInstance());
         fullChart2.createChart();
     }
 
     // Constructor
-    public Races_Chart_QI_Q1_Q2(BASE_CLIENT_OBJECT client) {
+    public Races_Chart_index_roll_races(BASE_CLIENT_OBJECT client) {
         super(client, null, null);
     }
 
@@ -88,12 +88,12 @@ public class Races_Chart_QI_Q1_Q2 extends MyChartCreator {
         // ------------------ Races q1 q2 ------------------- //
 
         // Index races
-        MyTimeSeries q1_qua_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_QUA_RACES);
-        q1_qua_races.setColor(Themes.LIFGT_BLUE_2);
+        MyTimeSeries q1_qua_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_QW_RACES);
+        q1_qua_races.setColor(Themes.PURPLE);
         q1_qua_races.setStokeSize(1.2f);
 
         // Q1 races
-        MyTimeSeries q2_qua_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q2_QUA_RACES);
+        MyTimeSeries q2_qua_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.WEEK_QW_RACES);
         q2_qua_races.setColor(Themes.GREEN);
         q2_qua_races.setStokeSize(1.2f);
 
