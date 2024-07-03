@@ -152,7 +152,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             }
 
             // Q1 qua races
-            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2).get_r_one_points();
+            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_one_points();
 
             if (q1_qua_races != q1_qua_races_0) {
                 double last_count = q1_qua_races - q1_qua_races_0;
@@ -161,7 +161,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
             }
 
             // Q2 qua races
-            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2).get_r_two_points();
+            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_two_points();
 
             if (q2_qua_races != q2_qua_races_0) {
                 double last_count = q2_qua_races - q2_qua_races_0;
@@ -187,8 +187,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD), true);
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD), false);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_Q2, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
 
         // Set load true
         client.setLoadFromDb(true);
