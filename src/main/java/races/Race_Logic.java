@@ -8,7 +8,7 @@ public class Race_Logic {
 
     public enum RACE_RUNNER_ENUM {
         Q1_INDEX(),
-        WEEK_Q1();
+        DAY_Q1();
     }
 
     RACE_RUNNER_ENUM race_runners;
@@ -39,13 +39,8 @@ public class Race_Logic {
         // First time update data
         first_time_update_data();
 
-        if (one_two) {
-            out_of_race_r1();
-            in_race_r1();
-        } else {
-            out_of_race_r2();
-            in_race_r2();
-        }
+        out_of_race_r1();
+        in_race_r1();
     }
 
     private void first_time_update_data() {
@@ -125,79 +120,6 @@ public class Race_Logic {
         }
     }
 
-    private void in_race_r2() {
-
-        // ------------ R_TWO ------------ //
-        // UP
-        if (R_TWO_UP) {
-            // R two close
-            if (r_two_margin < L.opo(RACE_MARGIN)) {
-                R_TWO_UP = false;
-                return;
-            }
-
-            // R one win
-            if (r_one_margin > RACE_MARGIN) {
-                r_two_win_up();
-                reset_races();
-                return;
-            }
-        }
-
-        // DOWN
-        if (R_TWO_DOWN) {
-            // R one close
-            if (r_two_margin > RACE_MARGIN) {
-                R_TWO_DOWN = false;
-                return;
-            }
-
-            // R one win
-            if (r_one_margin < L.opo(RACE_MARGIN)) {
-                r_two_win_down();
-                reset_races();
-                return;
-            }
-        }
-
-        // ------------ R_ONE ------------ //
-        // UP
-        if (R_ONE_UP) {
-
-            // R one win
-            if (r_two_margin > RACE_MARGIN) {
-                r_one_win_up();
-                reset_races();
-                return;
-            }
-
-            // R one close
-            if (r_one_margin < L.opo(RACE_MARGIN)) {
-                R_ONE_UP = false;
-                return;
-            }
-        }
-
-        // DOWN
-        if (R_ONE_DOWN) {
-
-            // R one win
-            if (r_two_margin < L.opo(RACE_MARGIN)) {
-                r_one_win_down();
-                reset_races();
-                return;
-            }
-
-            // R one close
-            if (r_one_margin > RACE_MARGIN) {
-                R_ONE_DOWN = false;
-                return;
-            }
-        }
-
-    }
-
-
     // OUT OF RACE
     private void out_of_race_r1() {
         // If no race
@@ -228,38 +150,6 @@ public class Race_Logic {
             }
         }
     }
-
-    // OUT OF RACE
-    private void out_of_race_r2() {
-        // If no race
-        if (!is_in_race()) {
-
-            // RUNNER ONE UP
-            if (r_two_margin > RACE_MARGIN) {
-                R_TWO_UP = true;
-                return;
-            }
-
-            // RUNNER ONE DOWN
-            if (r_two_margin < L.opo(RACE_MARGIN)) {
-                R_TWO_DOWN = true;
-                return;
-            }
-
-            // RUNNER TWO UP
-            if (r_one_margin > RACE_MARGIN) {
-                R_ONE_UP = true;
-                return;
-            }
-
-            // RUNNER TWO DOWN
-            if (r_one_margin < L.opo(RACE_MARGIN)) {
-                R_ONE_DOWN = true;
-                return;
-            }
-        }
-    }
-
 
     // Update data
     public void update_data() {
@@ -293,14 +183,18 @@ public class Race_Logic {
                 r_one_price = client.getIndex();
                 r_two_price = client.getExps().getExp(ExpStrings.q1).get_future();
                 return;
-            case WEEK_Q1:
+            case DAY_Q1:
                 r_one_price = client.getExps().getExp(ExpStrings.q1).get_future();
-                r_two_price = client.getExps().getExp(ExpStrings.week).get_future();
+                r_two_price = client.getExps().getExp(ExpStrings.day).get_future();
                 return;
 //            case Q1_Q2:
 //                r_one_price = client.getExps().getExp(ExpStrings.q1).get_future();
 //                r_two_price = client.getExps().getExp(ExpStrings.q2).get_future();
         }
+    }
+
+    public double get_r1_minus_r2() {
+        return get_r_one_points() - get_r_two_points();
     }
 
     public double get_sum_points() {

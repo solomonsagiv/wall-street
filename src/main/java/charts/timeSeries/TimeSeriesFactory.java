@@ -10,7 +10,6 @@ import locals.L;
 import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
-
 import java.sql.ResultSet;
 
 public class TimeSeriesFactory {
@@ -90,6 +89,7 @@ public class TimeSeriesFactory {
     public static final String INDEX_Q1_RACES = "INDEX_Q1_RACES";
     public static final String Q1_QW_RACES = "Q1_QUA_RACES";
     public static final String WEEK_QW_RACES = "Q2_QUA_RACES";
+    public static final String R1_MINUS_R2_IQ = "R1_MINUS_R2";
 
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
@@ -887,7 +887,7 @@ public class TimeSeriesFactory {
                         client.getBasketFinder_by_stocks().setBasketUp(basket_up);
                         client.getBasketFinder_by_stocks().setBasketDown((int) L.abs(basket_down));
                     }
-                    
+
                     @Override
                     public void load() {
                     }
@@ -983,7 +983,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getValue() {
-                        return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_one_points();
+                        return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_one_points();
                     }
 
                     @Override
@@ -1009,7 +1009,7 @@ public class TimeSeriesFactory {
 
                     @Override
                     public double getValue() {
-                        return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_two_points();
+                        return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_two_points();
                     }
 
                     @Override
@@ -1029,6 +1029,36 @@ public class TimeSeriesFactory {
                     public void load_exp_data() {
                     }
                 };
+
+
+            case R1_MINUS_R2_IQ:
+                return new MyTimeSeries(series_type, client) {
+
+                    @Override
+                    public double getValue() {
+                        return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r1_minus_r2();
+                    }
+
+
+                    @Override
+                    public void updateData() {
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
+//                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
+                    }
+
+                    @Override
+                    public void load() {
+                        int r_one_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
+                        int r_two_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.Q1_RACES_PROD);
+                        ResultSet rs = MySql.Queries.get_races_margin_r1_minus_r2(r_one_id, r_two_id, MySql.JIBE_PROD_CONNECTION);
+                        IDataBaseHandler.loadSerieData(rs, this);
+                    }
+
+                    @Override
+                    public void load_exp_data() {
+                    }
+                };
+
 
             // ---------------------- DF 2 exps -------------------- //
             case DF_2_WEEK:

@@ -83,10 +83,23 @@ public class Races_Chart extends MyChartCreator {
         // Chart
         MyChart index_q1_races_chart = new MyChart(client, series, props);
 
+        // ------------------ Races one minus two ------------------- //
+
+        // Index races
+        MyTimeSeries r1_minus_r2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.R1_MINUS_R2_IQ);
+        r1_minus_r2.setColor(Themes.RED);
+        r1_minus_r2.setStokeSize(1.2f);
+
+        series = new MyTimeSeries[1];
+        series[0] = r1_minus_r2;
+
+        // Chart
+        MyChart r1_minus_r2_chart = new MyChart(client, series, props);
+
         // -------------------- Chart -------------------- //
 
         // ----- Charts ----- //
-        MyChart[] charts = {indexChart, index_q1_races_chart};
+        MyChart[] charts = {indexChart, index_q1_races_chart, r1_minus_r2_chart};
 
         // ----- Container ----- //
         MyChartContainer chartContainer = new MyChartContainer(client, charts, getClass().getName());

@@ -13,6 +13,7 @@ import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
 import exp.E;
 import exp.ExpStrings;
 import exp.Exps;
+import gui.index.newP.NewIndexWindow;
 import races.Race_Logic;
 import races.RacesService;
 import serverObjects.ApiEnum;
@@ -106,6 +107,9 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void openChartsOnStart() {
         if (Manifest.OPEN_CHARTS) {
             new Thread(() -> {
+
+                new NewIndexWindow("Dax window", Dax.getInstance());
+
                 Realtime_Chart chart = new Realtime_Chart(this);
                 chart.createChart();
 

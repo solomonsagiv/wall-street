@@ -528,6 +528,26 @@ public class MySql {
             return MySql.select(query, connection_type);
         }
 
+        public static ResultSet get_races_margin_r1_minus_r2(int r_one_id, int r_two_id, String connection_type) {
+            String q = "with r_one_race as (\n" +
+                    "    select *, sum(value) over (ORDER BY time ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)\n" +
+                    "    from ts.timeseries_data\n" +
+                    "    where timeseries_id = %s\n" +
+                    "    and date_trunc('day', time) between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
+                    "),\n" +
+                    "     r_two_race as (\n" +
+                    "         select *, sum(value) over (ORDER BY time ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)\n" +
+                    "         from ts.timeseries_data\n" +
+                    "         where timeseries_id = %s\n" +
+                    "           and date_trunc('day', time) between date_trunc('day', now()) and date_trunc('day', now()+ interval '1' day)\n" +
+                    "     )\n" +
+                    "select r_one_race.time, r_one_race.sum + r_two_race.sum as value\n" +
+                    "from r_one_race\n" +
+                    "         cross join r_two_race;";
+            String query = String.format(q, r_one_id, r_two_id);
+            return MySql.select(query, connection_type);
+        }
+
         public static ResultSet get_serie_mega_table(int serie_id, String type, int min_from_start, String connection_type) {
             switch (type) {
                 case RAW:

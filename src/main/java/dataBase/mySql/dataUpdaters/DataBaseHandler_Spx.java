@@ -24,8 +24,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> vix_f_2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> q1_races_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> q1_qua_races_timeStamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> q2_qua_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> q1_qw_races_timeStamp = new ArrayList<>();
+    ArrayList<MyTimeStampObject> week_qw_races_timeStamp = new ArrayList<>();
 
     double index_0 = 0;
     double fut_e1_0 = 0;
@@ -38,8 +38,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
     double index_ask_0 = 0;
     double index_races_0 = 0;
     double q1_races_0 = 0;
-    double q1_qua_races_0 = 0;
-    double q2_qua_races_0 = 0;
+    double q1_qw_races_0 = 0;
+    double week_qw_races_0 = 0;
 
     Exp week;
     E q1, q2;
@@ -175,21 +175,21 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
 
             // Q1 qua races
-            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_one_points();
+            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_one_points();
 
-            if (q1_qua_races != q1_qua_races_0) {
-                double last_count = q1_qua_races - q1_qua_races_0;
-                q1_qua_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
-                q1_qua_races_0 = q1_qua_races;
+            if (q1_qua_races != q1_qw_races_0) {
+                double last_count = q1_qua_races - q1_qw_races_0;
+                q1_qw_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                q1_qw_races_0 = q1_qua_races;
             }
 
             // Q2 qua races
-            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_two_points();
+            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_two_points();
 
-            if (q2_qua_races != q2_qua_races_0) {
-                double last_count = q2_qua_races - q2_qua_races_0;
-                q2_qua_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
-                q2_qua_races_0 = q2_qua_races;
+            if (q2_qua_races != week_qw_races_0) {
+                double last_count = q2_qua_races - week_qw_races_0;
+                week_qw_races_timeStamp.add(new MyTimeStampObject(Instant.now(), last_count));
+                week_qw_races_0 = q2_qua_races;
             }
         }
     }
@@ -208,8 +208,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD), true);
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD), false);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
 
         // Set load
         client.setLoadFromDb(true);
@@ -358,7 +358,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Races
         insert_dev_prod(index_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD));
         insert_dev_prod(q1_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD));
-        insert_dev_prod(q1_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD));
-        insert_dev_prod(q2_qua_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD));
+        insert_dev_prod(q1_qw_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD));
+        insert_dev_prod(week_qw_races_timeStamp, 0, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD));
     }
 }

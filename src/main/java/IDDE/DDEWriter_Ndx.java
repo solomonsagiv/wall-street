@@ -37,7 +37,7 @@ public class DDEWriter_Ndx extends IDDEWriter {
             conversation.poke(R_TWO_UP, L.str(index_q1.r_two_up_points));
             conversation.poke(R_TWO_DOWN, L.str(index_q1.r_two_down_points));
 
-            q1_q2 = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1);
+            q1_q2 = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1);
 
             conversation.poke(QUA_R_ONE_UP, L.str(q1_q2.r_one_up_points));
             conversation.poke(QUA_R_ONE_DOWN, L.str(q1_q2.r_one_down_points));
