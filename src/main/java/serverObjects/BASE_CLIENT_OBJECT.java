@@ -34,6 +34,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public static final int PRE = 0;
     public static final int CURRENT = 1;
 
+    private boolean isExcelConnected = false;
+
     // Options
     protected Exps exps;
     protected DDECells ddeCells;
@@ -656,6 +658,14 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setRace_margin(double race_margin) {
         this.race_margin = race_margin;
+    }
+
+    public boolean isExcelConnected() {
+        return isExcelConnected;
+    }
+
+    public void setExcelConnected(boolean excelConnected) {
+        isExcelConnected = excelConnected;
     }
 
     //    public int getR_one_up() {

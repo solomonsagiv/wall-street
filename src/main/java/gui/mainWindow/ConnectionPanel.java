@@ -28,7 +28,6 @@ import java.util.Map;
 public class ConnectionPanel extends MyGuiComps.MyPanel {
 
 
-
     // Variables
     JComboBox clientComboBox;
     MyGuiComps.MyLabel connecionLbl = new MyGuiComps.MyLabel("Connection");
@@ -99,7 +98,16 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
                         client = Spx.getInstance();
                         break;
                 }
+
                 excelLocationField.setText(client.getExcel_path());
+
+                // Color the connection status
+                if (client.isExcelConnected()) {
+                    ddeStatusLbl.setForeground(Themes.GREEN);
+                } else {
+                    ddeStatusLbl.setForeground(Themes.RED);
+                }
+
             }
         });
 
@@ -274,17 +282,25 @@ public class ConnectionPanel extends MyGuiComps.MyPanel {
     }
 
     private void registerClient(BASE_CLIENT_OBJECT client) {
-        // Reader
-        DDEReader ddeReader = new DDEReader(client);
-        ddeReader.getHandler().start();
-        client.getDdeHandler().setDdeReaderThread(ddeReader);
-        ddeReaders.put(client.getName(), ddeReader);
+        try {
+            // Reader
+            DDEReader ddeReader = new DDEReader(client);
+            ddeReader.getHandler().start();
+            client.getDdeHandler().setDdeReaderThread(ddeReader);
+            ddeReaders.put(client.getName(), ddeReader);
 
-        // Writer
-        DDEWriter ddeWriter = new DDEWriter(client);
-        ddeWriter.getHandler().start();
-        client.getDdeHandler().setDdeWriterThread(ddeWriter);
-        ddeWriters.put(client.getName(), ddeWriter);
+            // Writer
+            DDEWriter ddeWriter = new DDEWriter(client);
+            ddeWriter.getHandler().start();
+            client.getDdeHandler().setDdeWriterThread(ddeWriter);
+            ddeWriters.put(client.getName(), ddeWriter);
+
+            // Set connected true
+            client.setExcelConnected(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            client.setExcelConnected(false);
+        }
     }
 
     private void initialize() {

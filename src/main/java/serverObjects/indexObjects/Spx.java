@@ -5,7 +5,7 @@ import IDDE.DDEHandler;
 import IDDE.DDEReader_Spx;
 import IDDE.DDEWriter_Spx;
 import api.Manifest;
-import charts.myCharts.Races_Chart_index_roll_races;
+import charts.myCharts.Races_Chart;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Spx;
@@ -14,6 +14,7 @@ import races.Race_Logic;
 import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.util.HashMap;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
@@ -101,7 +102,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
                 Realtime_Chart realtime_chart = new Realtime_Chart(this);
                 realtime_chart.createChart();
 
-                Races_Chart_index_roll_races races_chart = new Races_Chart_index_roll_races(this);
+                Races_Chart races_chart = new Races_Chart(this);
                 races_chart.createChart();
             }).start();
         }

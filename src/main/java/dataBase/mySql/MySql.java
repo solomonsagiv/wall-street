@@ -543,7 +543,7 @@ public class MySql {
                     "     )\n" +
                     "select r_one_race.time, r_one_race.sum + r_two_race.sum as value\n" +
                     "from r_one_race\n" +
-                    "         cross join r_two_race;";
+                    "         inner join r_two_race on r_one_race.time = r_two_race.time;";
             String query = String.format(q, r_one_id, r_two_id);
             return MySql.select(query, connection_type);
         }
