@@ -74,13 +74,13 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Is live db
         if (client.isLive_db()) {
             // Baskets
-            int basket = client.getBasketFinder_by_stocks().getBaskets();
-
-            if (basket != baskets_0) {
-                double last_count = basket - baskets_0;
-                baskets_0 = basket;
-                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
+//            int basket = client.getBasketFinder_by_stocks().getBaskets();
+//
+//            if (basket != baskets_0) {
+//                double last_count = basket - baskets_0;
+//                baskets_0 = basket;
+//                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+//            }
 
             // Fut week
             double fut_week = week.get_future();
@@ -321,7 +321,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QW_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
-
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_MINUS_R2_IQ , TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_MINUS_R2_IQ, client));
 
     }
 

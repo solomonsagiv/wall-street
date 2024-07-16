@@ -89,7 +89,7 @@ public class TimeSeriesFactory {
     public static final String INDEX_Q1_RACES = "INDEX_Q1_RACES";
     public static final String Q1_QW_RACES = "Q1_QUA_RACES";
     public static final String WEEK_QW_RACES = "Q2_QUA_RACES";
-    public static final String R1_MINUS_R2_IQ = "R1_MINUS_R2";
+    public static final String R1_MINUS_R2_IQ = "R1_MINUS_R2_IQ";
 
 
     public static MyTimeSeries getTimeSeries(String series_type, BASE_CLIENT_OBJECT client) {
