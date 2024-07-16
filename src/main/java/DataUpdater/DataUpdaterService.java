@@ -52,8 +52,8 @@ public class DataUpdaterService extends MyBaseService {
         }
 
         if (client instanceof Ndx) {
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_WEEK));
-            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
+//            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_WEEK));
+//            time_series.add(client.getTimeSeriesHandler().get(TimeSeriesFactory.BASKETS_CDF));
         }
 
         // Dax

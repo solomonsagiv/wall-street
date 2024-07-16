@@ -120,7 +120,6 @@ public class Ndx extends INDEX_CLIENT_OBJECT {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append(super.toString());
-        str.append("Baskets 2= " + getBasketFinder_by_stocks().toString());
         return str.toString();
     }
 
