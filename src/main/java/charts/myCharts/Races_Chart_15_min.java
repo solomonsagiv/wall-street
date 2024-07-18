@@ -4,6 +4,7 @@ import charts.myChart.*;
 import charts.timeSeries.MyTimeSeries;
 import charts.timeSeries.TimeSeriesFactory;
 import locals.Themes;
+import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Spx;
 
@@ -47,20 +48,9 @@ public class Races_Chart_15_min extends MyChartCreator {
         index_serie.setColor(Color.BLACK);
         index_serie.setStokeSize(1f);
 
-        // Index avg 3600
-        MyTimeSeries index_avg_3600_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client);
-        index_avg_3600_serie.setColor(Themes.PURPLE);
-        index_avg_3600_serie.setStokeSize(0.75f);
 
-        // Index avg 900
-        MyTimeSeries index_avg_900_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client);
-        index_avg_900_serie.setColor(Themes.RED);
-        index_avg_900_serie.setStokeSize(0.75f);
-
-        series = new MyTimeSeries[3];
+        series = new MyTimeSeries[1];
         series[0] = index_serie;
-        series[1] = index_avg_900_serie;
-        series[2] = index_avg_3600_serie;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
@@ -68,12 +58,52 @@ public class Races_Chart_15_min extends MyChartCreator {
         // ------------------ Races ------------------- //
 
         // Index races
-        MyTimeSeries index_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.INDEX_RACES);
+        MyTimeSeries index_races = new MyTimeSeries("Index races",client) {
+
+            @Override
+            public double getValue() {
+                return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
+            }
+
+            @Override
+            public void updateData() {
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
+//                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
+            }
+
+            @Override
+            public void load() {
+            }
+
+            @Override
+            public void load_exp_data() {
+            }
+        };
         index_races.setColor(Themes.ORANGE);
         index_races.setStokeSize(1.2f);
 
         // Q1 races
-        MyTimeSeries q1_races = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_RACES);
+        MyTimeSeries q1_races = new MyTimeSeries("Q1 races",client) {
+
+            @Override
+            public double getValue() {
+                return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points();
+            }
+
+            @Override
+            public void updateData() {
+//                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
+//                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
+            }
+
+            @Override
+            public void load() {
+            }
+
+            @Override
+            public void load_exp_data() {
+            }
+        };
         q1_races.setColor(Themes.PURPLE);
         q1_races.setStokeSize(1.2f);
 
