@@ -44,13 +44,35 @@ public class Races_Chart_15_min extends MyChartCreator {
         // ------------------- Index -------------------- //
 
         // Index
-        MyTimeSeries index_serie = TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX, client);
-        index_serie.setColor(Color.BLACK);
-        index_serie.setStokeSize(1f);
+        MyTimeSeries index = new MyTimeSeries("Index", client) {
+
+            @Override
+            public double getValue() {
+                return client.getIndex();
+            }
+
+            @Override
+            public void updateData() {
+
+            }
+
+            @Override
+            public void load() {
+
+            }
+
+            @Override
+            public void load_exp_data() {
+
+            }
+        };
+        index.setColor(Color.BLACK);
+        index.setVisible(false);
+        index.setStokeSize(1.2f);
 
 
         series = new MyTimeSeries[1];
-        series[0] = index_serie;
+        series[0] = index;
 
         // Chart
         MyChart indexChart = new MyChart(client, series, props);
