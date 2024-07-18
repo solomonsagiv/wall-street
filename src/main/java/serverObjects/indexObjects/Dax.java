@@ -7,6 +7,7 @@ import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import charts.myCharts.Chart_13;
 import charts.myCharts.Races_Chart;
+import charts.myCharts.Races_Chart_15_min;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -118,6 +119,9 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
                 Races_Chart races_chart = new Races_Chart(this);
                 races_chart.createChart();
+
+                Races_Chart_15_min races_chart_15_min = new Races_Chart_15_min(this);
+                races_chart_15_min.createChart();
             }).start();
         }
     }

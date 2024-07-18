@@ -121,6 +121,15 @@ public class PopupsMenuFactory {
             }
         });
 
+        JMenuItem races_15 = new JMenuItem("Races 15");
+        races_15.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Races_Chart_15_min chart = new Races_Chart_15_min(client);
+                chart.createChart();
+            }
+        });
+
         JMenuItem races_us = new JMenuItem("Races index and roll");
         races_us.addActionListener(new ActionListener() {
             @Override
@@ -134,6 +143,7 @@ public class PopupsMenuFactory {
         charts.add(charts_13);
         charts.add(real_time);
         charts.add(races);
+        charts.add(races_15);
         charts.add(races_us);
 
         menu.add(details);
