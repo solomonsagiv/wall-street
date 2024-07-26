@@ -67,7 +67,7 @@ public class Races_Chart_15_min extends MyChartCreator {
             }
         };
         index.setColor(Color.BLACK);
-        index.setVisible(false);
+        index.setVisible(true);
         index.setStokeSize(1.2f);
 
 

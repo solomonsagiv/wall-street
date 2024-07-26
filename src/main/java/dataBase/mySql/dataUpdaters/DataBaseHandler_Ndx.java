@@ -15,7 +15,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_plus_mood_timestamp = new ArrayList<>();
-    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
+//    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
@@ -25,7 +25,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
     ArrayList<MyTimeStampObject> q1_qua_races_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> q2_qua_races_timeStamp = new ArrayList<>();
 
-    double baskets_0 = 0;
+//    double baskets_0 = 0;
     double index_0 = 0;
     double fut_q1_0 = 0;
     double fut_q2_0 = 0;
@@ -74,13 +74,13 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // Is live db
         if (client.isLive_db()) {
             // Baskets
-            int basket = client.getBasketFinder_by_stocks().getBaskets();
-
-            if (basket != baskets_0) {
-                double last_count = basket - baskets_0;
-                baskets_0 = basket;
-                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-            }
+//            int basket = client.getBasketFinder_by_stocks().getBaskets();
+//
+//            if (basket != baskets_0) {
+//                double last_count = basket - baskets_0;
+//                baskets_0 = basket;
+//                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
+//            }
 
             // Fut week
             double fut_week = week.get_future();
@@ -334,7 +334,7 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         insert_dev_prod(fut_week_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_WEEK_DEV), serie_ids.get(TimeSeriesHandler.FUT_WEEK_PROD));
         insert_dev_prod(fut_q1_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q1_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q1_PROD));
         insert_dev_prod(fut_q2_timeStamp, serie_ids.get(TimeSeriesHandler.FUT_Q2_DEV), serie_ids.get(TimeSeriesHandler.FUT_Q2_PROD));
-        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
+//        insert_dev_prod(baskets_timestamp, serie_ids.get(TimeSeriesHandler.BASKETS_DEV), serie_ids.get(TimeSeriesHandler.BASKETS_PROD));
         insert_dev_prod(vix_timeStamp, serie_ids.get(TimeSeriesHandler.VIX_DEV), serie_ids.get(TimeSeriesHandler.VIX_PROD));
         insert_dev_prod(index_plus_mood_timestamp, serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_DEV), serie_ids.get(TimeSeriesHandler.INDEX_PLUS_MOOD_PROD));
 
