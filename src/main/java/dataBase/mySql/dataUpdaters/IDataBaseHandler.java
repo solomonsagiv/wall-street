@@ -11,7 +11,6 @@ import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -65,6 +64,7 @@ public abstract class IDataBaseHandler {
                 }
 
             } catch (Exception e) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
                 e.printStackTrace();
             }
         }

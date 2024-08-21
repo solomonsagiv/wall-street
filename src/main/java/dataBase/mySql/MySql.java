@@ -1,6 +1,7 @@
 package dataBase.mySql;
 
 import arik.Arik;
+import charts.timeSeries.TimeSeriesFactory;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.sql.Connection;
@@ -461,19 +462,16 @@ public class MySql {
         }
 
 
-        public static ResultSet get_df_exp_sum(int serie_id, int index_id, String connection_type) {
+        public static ResultSet get_df_exp_sum(BASE_CLIENT_OBJECT client, int serie_id, String connection_type) {
             String q = "select sum(sum) as value\n" +
-                    "from ts.ca_timeseries_1day_candle\n" +
+                    "from ts.ca_timeseries_1min_candle\n" +
                     "where timeseries_id = %s\n" +
-                    "  and date_trunc('day', time) >= (select date_trunc('day', time)::date\n" +
-                    "       from ts.timeseries_data\n" +
-                    "       where timeseries_id = %s\n" +
-                    "         and date_trunc('day', time) < date_trunc('day', now())\n" +
-                    "       group by date_trunc('day', time)\n" +
-                    "       order by date_trunc('day', time) desc\n" +
-                    "       limit 1);";
+                    "  and date_trunc('day', time) > (select data::date\n" +
+                    "                                 from sagiv.props\n" +
+                    "                                 where stock_id = '%s'\n" +
+                    "                                   and prop = '%s');";
 
-            String query = String.format(q, serie_id, index_id);
+            String query = String.format(q, serie_id, client.getId_name(), TimeSeriesFactory.EXP_WEEK_START);
             return MySql.select(query, connection_type);
         }
 

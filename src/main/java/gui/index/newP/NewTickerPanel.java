@@ -9,8 +9,10 @@ import gui.panels.IMyPanel;
 import locals.L;
 import locals.Themes;
 import org.apache.commons.lang.StringUtils;
+import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -23,17 +25,14 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
     MyGuiComps.MyPanel bodyPanel;
 
     // Ticker
-    MyGuiComps.MyLabel baskets_lbl;
+    MyGuiComps.MyLabel races_lbl;
     MyGuiComps.MyLabel df_2_lbl;
     MyGuiComps.MyLabel avg_lbl;
     MyGuiComps.MyLabel roll_lbl;
 
-    MyGuiComps.MyTextField basket_up_field;
-    MyGuiComps.MyTextField basket_down_field;
-    MyGuiComps.MyTextField basket_sum_field;
-    MyGuiComps.MyTextField df_2_field;
-    MyGuiComps.MyTextField df_2_roll_field;
-    MyGuiComps.MyTextField df_9_field;
+    MyGuiComps.MyTextField index_races_iq_field;
+    MyGuiComps.MyTextField q1_races_iq_field;
+    MyGuiComps.MyTextField q1_races_qw_field;
     MyGuiComps.MyTextField avg_week_field;
     MyGuiComps.MyTextField avg_q1_field;
     MyGuiComps.MyTextField avg_q2_field;
@@ -61,14 +60,14 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         headerPanel.setSize(getWidth(), 25);
         add(headerPanel);
 
-        // Baskets
-        baskets_lbl = new MyGuiComps.MyLabel("Baskets", true);
-        baskets_lbl.setXY(3, 0);
-        headerPanel.add(baskets_lbl);
+        // Races
+        races_lbl = new MyGuiComps.MyLabel("Races", true);
+        races_lbl.setXY(3, 0);
+        headerPanel.add(races_lbl);
 
         // Avg
         avg_lbl = new MyGuiComps.MyLabel("Avg", true);
-        avg_lbl.setXY(baskets_lbl.getX() + baskets_lbl.getWidth() + 1, baskets_lbl.getY());
+        avg_lbl.setXY(races_lbl.getX() + races_lbl.getWidth() + 1, races_lbl.getY());
         headerPanel.add(avg_lbl);
 
         // Roll
@@ -89,23 +88,23 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         add(bodyPanel);
 
         // Baskets
-        basket_up_field = new MyGuiComps.MyTextField();
-        basket_up_field.setXY(baskets_lbl.getX(), 3);
-        basket_up_field.setForeground(Themes.GREEN);
-        bodyPanel.add(basket_up_field);
+        index_races_iq_field = new MyGuiComps.MyTextField();
+        index_races_iq_field.setXY(races_lbl.getX(), 3);
+        index_races_iq_field.setForeground(Themes.GREEN);
+        bodyPanel.add(index_races_iq_field);
 
-        basket_down_field = new MyGuiComps.MyTextField();
-        basket_down_field.setForeground(Themes.RED);
-        basket_down_field.setXY(basket_up_field.getX(), basket_up_field.getY() + basket_up_field.getHeight() + 1);
-        bodyPanel.add(basket_down_field);
+        q1_races_iq_field = new MyGuiComps.MyTextField();
+        q1_races_iq_field.setForeground(Themes.RED);
+        q1_races_iq_field.setXY(index_races_iq_field.getX(), index_races_iq_field.getY() + index_races_iq_field.getHeight() + 1);
+        bodyPanel.add(q1_races_iq_field);
 
-        basket_sum_field = new MyGuiComps.MyTextField();
-        basket_sum_field.setXY(basket_down_field.getX(), basket_down_field.getY() + basket_down_field.getHeight() + 1);
-        bodyPanel.add(basket_sum_field);
+        q1_races_qw_field = new MyGuiComps.MyTextField();
+        q1_races_qw_field.setXY(q1_races_iq_field.getX(), q1_races_iq_field.getY() + q1_races_iq_field.getHeight() + 1);
+        bodyPanel.add(q1_races_qw_field);
 
         // Avg week
         avg_week_field = new MyGuiComps.MyTextField();
-        avg_week_field.setXY(avg_lbl.getX(), basket_up_field.getY());
+        avg_week_field.setXY(avg_lbl.getX(), index_races_iq_field.getY());
         bodyPanel.add(avg_week_field);
 
         // Avg q1
@@ -127,40 +126,27 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
         avg_roll_q1_q2_field = new MyGuiComps.MyTextField();
         avg_roll_q1_q2_field.setXY(avg_roll_week_q1_field.getX(), avg_roll_week_q1_field.getY() + avg_roll_week_q1_field.getHeight() + 1);
         bodyPanel.add(avg_roll_q1_q2_field);
-
-        // DF 2
-        df_2_field = new MyGuiComps.MyTextField();
-        df_2_field.setXY(df_2_lbl.getX(), avg_week_field.getY());
-        bodyPanel.add(df_2_field);
-
-        // DF 2 roll
-        df_2_roll_field = new MyGuiComps.MyTextField();
-        df_2_roll_field.setXY(df_2_field.getX(), df_2_field.getY() + df_2_field.getHeight() + 1);
-        bodyPanel.add(df_2_roll_field);
-
-        // DF 9
-        df_9_field = new MyGuiComps.MyTextField();
-        df_9_field.setXY(df_2_roll_field.getX(), df_2_roll_field.getY() + df_2_roll_field.getHeight() + 1);
-        bodyPanel.add(df_9_field);
     }
 
     @Override
     public void updateText() {
         try {
             // Data
-            MyTimeSeries df_2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_CDF);
-//            MyTimeSeries df_2_roll = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_2_ROLL_CDF);
-            MyTimeSeries df_9 = client.getTimeSeriesHandler().get(TimeSeriesFactory.DF_9_CDF);
             MyTimeSeries op_avg_week = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_WEEK_DAILY);
             MyTimeSeries op_avg_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q1_DAILY);
             MyTimeSeries op_avg_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.OP_AVG_Q2_DAILY);
             MyTimeSeries roll_week_q1 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_WEEK_Q1_DAILY);
             MyTimeSeries roll_q1_q2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.ROLL_Q1_Q2_DAILY);
 
-            // CDF
-            df_2_field.colorForge((int) df_2.getValue() / 1000);
-//            df_2_roll_field.setText(L.format_int(df_2_roll.getValue()));
-            df_9_field.colorForge((int) df_9.getValue() / 1000);
+            // Races
+            index_races_iq_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points());
+            q1_races_iq_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points());
+            try {
+                q1_races_qw_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points());
+            } catch (Exception e) {
+                q1_races_qw_field.setText("N/A");
+                e.printStackTrace();
+            }
 
             avg_week_field.colorForge(op_avg_week.getValue(), L.format10());
             avg_q1_field.colorForge(op_avg_q1.getValue(), L.format10());

@@ -7,7 +7,6 @@ import exp.Exp;
 import exp.ExpStrings;
 import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -15,7 +14,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
     ArrayList<MyTimeStampObject> index_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> index_plus_mood_timestamp = new ArrayList<>();
-//    ArrayList<MyTimeStampObject> baskets_timestamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q1_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_q2_timeStamp = new ArrayList<>();
     ArrayList<MyTimeStampObject> fut_week_timeStamp = new ArrayList<>();
@@ -73,14 +71,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // Is live db
         if (client.isLive_db()) {
-            // Baskets
-//            int basket = client.getBasketFinder_by_stocks().getBaskets();
-//
-//            if (basket != baskets_0) {
-//                double last_count = basket - baskets_0;
-//                baskets_0 = basket;
-//                baskets_timestamp.add(new MyTimeStampObject(Instant.now(), last_count));
-//            }
 
             // Fut week
             double fut_week = week.get_future();
@@ -306,11 +296,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         // EXP WEEK
         client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_WEEK_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_WEEK_START, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_WEEK, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_WEEK, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_WEEK, client));
-
-        // EXP MONTH
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.EXP_MONTH_START, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.EXP_MONTH_START, client));
 
         // Pre day q1 op avg
         client.getTimeSeriesHandler().put(TimeSeriesFactory.PRE_DAY_OP_AVG, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.PRE_DAY_OP_AVG, client));
@@ -323,8 +308,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_MINUS_R2_IQ, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_MINUS_R2_IQ, client));
-
-
 
     }
 
