@@ -142,7 +142,7 @@ public class NewTickerPanel extends MyGuiComps.MyPanel implements IMyPanel {
             index_races_iq_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points());
             q1_races_iq_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_two_points());
             try {
-                q1_races_qw_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points());
+                q1_races_qw_field.colorForge((int) client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_one_points());
             } catch (Exception e) {
                 q1_races_qw_field.setText("N/A");
                 e.printStackTrace();
