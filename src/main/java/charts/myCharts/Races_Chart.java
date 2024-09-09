@@ -81,9 +81,10 @@ public class Races_Chart extends MyChartCreator {
         q1_races_qw.setColor(Themes.PURPLE);
         q1_races_qw.setStokeSize(1.2f);
 
-        series = new MyTimeSeries[2];
+        series = new MyTimeSeries[3];
         series[0] = index_races;
         series[1] = q1_races;
+        series[2] = q1_races_qw;
 
         // Chart
         MyChart index_q1_races_chart = new MyChart(client, series, props);
