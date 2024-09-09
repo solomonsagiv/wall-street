@@ -526,7 +526,7 @@ public class MySql {
             return MySql.select(query, connection_type);
         }
 
-        public static ResultSet get_races_margin_r1_minus_r2(int r_one_id, int r_two_id, String connection_type) {
+        public static ResultSet get_races_margin_r1_plus_r2(int r_one_id, int r_two_id, String connection_type) {
             String q = "select a.time, sum(a.value) OVER (ORDER BY a.time RANGE BETWEEN INTERVAL '10 hours' PRECEDING AND CURRENT ROW) AS value\n" +
                     "from (\n" +
                     "with r_one_race as (\n" +
@@ -541,7 +541,7 @@ public class MySql {
                     "         where timeseries_id = %s\n" +
                     "           and date_trunc('day', time) between date_trunc('day', now()) and date_trunc('day', now() + interval '1' day)\n" +
                     "     )\n" +
-                    "select r_one_race.time as time, r_one_race.sum - r_two_race.sum as value\n" +
+                    "select r_one_race.time as time, r_one_race.sum + r_two_race.sum as value\n" +
                     "from r_one_race\n" +
                     "         inner join r_two_race on r_one_race.time = r_two_race.time) a;";
             String query = String.format(q, r_one_id, r_two_id);

@@ -14,7 +14,6 @@ import races.Race_Logic;
 import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.util.HashMap;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
@@ -45,7 +44,7 @@ public class Spx extends INDEX_CLIENT_OBJECT {
     public void init_races() {
         HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
         map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, getRace_margin()));
-        map.put(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.DAY_Q1, getRace_margin()));
+        map.put(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, getRace_margin()));
         setRacesService(new RacesService(this, map));
     }
 

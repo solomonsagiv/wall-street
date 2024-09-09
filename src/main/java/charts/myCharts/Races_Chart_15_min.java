@@ -139,7 +139,7 @@ public class Races_Chart_15_min extends MyChartCreator {
         // ------------------ Races one minus two ------------------- //
 
         // Index races
-        MyTimeSeries r1_minus_r2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.R1_MINUS_R2_IQ);
+        MyTimeSeries r1_minus_r2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.R1_PLUS_R2_IQ);
         r1_minus_r2.setColor(Themes.RED);
         r1_minus_r2.setStokeSize(1.2f);
 

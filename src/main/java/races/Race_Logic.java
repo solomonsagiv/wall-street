@@ -8,7 +8,7 @@ public class Race_Logic {
 
     public enum RACE_RUNNER_ENUM {
         Q1_INDEX(),
-        DAY_Q1();
+        WEEK_Q1();
     }
 
     RACE_RUNNER_ENUM race_runners;
@@ -183,7 +183,7 @@ public class Race_Logic {
                 r_one_price = client.getIndex();
                 r_two_price = client.getExps().getExp(ExpStrings.q1).get_future();
                 return;
-            case DAY_Q1:
+            case WEEK_Q1:
                 r_one_price = client.getExps().getExp(ExpStrings.q1).get_future();
                 r_two_price = client.getExps().getExp(ExpStrings.day).get_future();
                 return;
@@ -195,6 +195,10 @@ public class Race_Logic {
 
     public double get_r1_minus_r2() {
         return get_r_one_points() - get_r_two_points();
+    }
+
+    public double get_r1_plus_r2() {
+        return get_r_one_points() + get_r_two_points();
     }
 
     public double get_sum_points() {

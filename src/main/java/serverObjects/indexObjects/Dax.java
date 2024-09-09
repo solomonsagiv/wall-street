@@ -7,7 +7,6 @@ import IDDE.DDEWriter_Dax;
 import api.Manifest;
 import charts.myCharts.Chart_13;
 import charts.myCharts.Races_Chart;
-import charts.myCharts.Races_Chart_15_min;
 import charts.myCharts.Realtime_Chart;
 import dataBase.mySql.MySqlService;
 import dataBase.mySql.dataUpdaters.DataBaseHandler_Dax;
@@ -19,6 +18,7 @@ import races.Race_Logic;
 import races.RacesService;
 import serverObjects.ApiEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
+
 import java.util.HashMap;
 
 public class Dax extends INDEX_CLIENT_OBJECT {
@@ -55,6 +55,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
     public void init_races() {
         HashMap<Race_Logic.RACE_RUNNER_ENUM, Race_Logic> map = new HashMap<>();
         map.put(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, getRace_margin()));
+        map.put(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, new Race_Logic(this, Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, getRace_margin()));
         setRacesService(new RacesService(this, map));
     }
 
@@ -120,8 +121,6 @@ public class Dax extends INDEX_CLIENT_OBJECT {
                 Races_Chart races_chart = new Races_Chart(this);
                 races_chart.createChart();
 
-                Races_Chart_15_min races_chart_15_min = new Races_Chart_15_min(this);
-                races_chart_15_min.createChart();
             }).start();
         }
     }

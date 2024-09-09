@@ -76,6 +76,11 @@ public class Races_Chart extends MyChartCreator {
         q1_races.setColor(Themes.PURPLE);
         q1_races.setStokeSize(1.2f);
 
+        // Q1 races QW
+        MyTimeSeries q1_races_qw = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_QW_RACES);
+        q1_races_qw.setColor(Themes.PURPLE);
+        q1_races_qw.setStokeSize(1.2f);
+
         series = new MyTimeSeries[2];
         series[0] = index_races;
         series[1] = q1_races;
@@ -86,7 +91,7 @@ public class Races_Chart extends MyChartCreator {
         // ------------------ Races one minus two ------------------- //
 
         // Index races
-        MyTimeSeries r1_minus_r2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.R1_MINUS_R2_IQ);
+        MyTimeSeries r1_minus_r2 = client.getTimeSeriesHandler().get(TimeSeriesFactory.R1_PLUS_R2_IQ);
         r1_minus_r2.setColor(Themes.RED);
         r1_minus_r2.setStokeSize(1.2f);
 

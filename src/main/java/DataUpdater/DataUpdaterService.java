@@ -74,8 +74,7 @@ public class DataUpdaterService extends MyBaseService {
             System.out.println();
         }
     }
-
-
+    
     @Override
     public void go() {
         // Update timeseries

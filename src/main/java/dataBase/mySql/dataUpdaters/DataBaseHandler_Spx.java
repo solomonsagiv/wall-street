@@ -179,7 +179,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
 
             // Q1 qua races
-            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_one_points();
+            double q1_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_one_points();
 
             if (q1_qua_races != q1_qw_races_0) {
                 double last_count = q1_qua_races - q1_qw_races_0;
@@ -190,7 +190,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
             }
 
             // Q2 qua races
-            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1).get_r_two_points();
+            double q2_qua_races = client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1).get_r_two_points();
 
             if (q2_qua_races != week_qw_races_0) {
                 double last_count = q2_qua_races - week_qw_races_0;
@@ -216,8 +216,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         // Load races
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD), true);
         load_races(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX, serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD), false);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
-        load_races(Race_Logic.RACE_RUNNER_ENUM.DAY_Q1, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD), true);
+        load_races(Race_Logic.RACE_RUNNER_ENUM.WEEK_Q1, serie_ids.get(TimeSeriesHandler.WEEK_QW_RACES_PROD), false);
 
         // Set load
         client.setLoadFromDb(true);
@@ -345,7 +345,7 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QW_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_MINUS_R2_IQ, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_MINUS_R2_IQ, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_PLUS_R2_IQ, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_PLUS_R2_IQ, client));
 
     }
 
