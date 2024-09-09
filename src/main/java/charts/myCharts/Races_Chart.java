@@ -78,7 +78,7 @@ public class Races_Chart extends MyChartCreator {
 
         // Q1 races QW
         MyTimeSeries q1_races_qw = client.getTimeSeriesHandler().get(TimeSeriesFactory.Q1_QW_RACES);
-        q1_races_qw.setColor(Themes.PURPLE);
+        q1_races_qw.setColor(Themes.RED);
         q1_races_qw.setStokeSize(1.2f);
 
         series = new MyTimeSeries[3];
