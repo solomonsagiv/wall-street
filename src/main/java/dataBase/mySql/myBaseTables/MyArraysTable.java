@@ -2,33 +2,25 @@ package dataBase.mySql.myBaseTables;
 
 import arik.Arik;
 import dataBase.mySql.MySql;
-import dataBase.mySql.mySqlComps.*;
-import org.json.JSONArray;
+import dataBase.mySql.mySqlComps.MyLoadAbleColumn;
+import dataBase.mySql.mySqlComps.MySqlColumnEnum;
+import dataBase.mySql.mySqlComps.MySqlDataTypeEnum;
+import dataBase.mySql.mySqlComps.MySqlTable;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Spx;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class MyArraysTable extends MySqlTable {
 
-    public static void main( String[] args ) throws InterruptedException {
-        Spx spx = Spx.getInstance();
-        spx.getTablesHandler().getTable( TablesEnum.TWS_CONTRACTS ).load();
-        spx.getTablesHandler().getTable( TablesEnum.ARRAYS ).load();
-
-        System.out.println(spx.getIndexList() );
-    }
-
-    public MyArraysTable( BASE_CLIENT_OBJECT client ) {
-        super( client );
+    public MyArraysTable(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override
     public String getName() {
-        return client.getName() + "_arrays";
+        return client.getName() + "Arrays";
     }
 
     @Override
@@ -39,57 +31,49 @@ public abstract class MyArraysTable extends MySqlTable {
     @Override
     public void load() {
         try {
-            String query = String.format( "SELECT * FROM stocks.%s;", getName() );
 
-            ResultSet rs = MySql.select( query );
+            String query = String.format("SELECT * FROM %s.%s;", schema, getName());
 
-            while ( rs.next( ) ) {
+            ResultSet rs = MySql.select(query);
+
+            while (rs.next()) {
+
                 for (Map.Entry<MySqlColumnEnum, MyLoadAbleColumn> entry : loadAbleColumns.entrySet()) {
                     MyLoadAbleColumn column = entry.getValue();
 
-                    if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.DOUBLE ) {
-                        double d = rs.getDouble( column.name );
-                        column.setLoadedObject( d );
+                    if (column.getType().getDataType() == MySqlDataTypeEnum.DOUBLE) {
+                        double d = rs.getDouble(column.getType().getName());
+                        column.setLoadedObject(d);
                         continue;
                     }
 
-                    if ( column.getType( ).getDataType( ) == MySqlDataTypeEnum.STRING ) {
-                        String s = rs.getString( column.name );
-                        column.setLoadedObject( s );
+                    if (column.getType().getDataType() == MySqlDataTypeEnum.STRING) {
+                        String s = rs.getString(column.getType().getName());
+                        column.setLoadedObject(s);
                         continue;
                     }
-
                 }
             }
 
-        } catch ( SQLException e ) {
-            e.printStackTrace( );
-            Arik.getInstance( ).sendErrorMessage( e );
+            setLoad(true);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Arik.getInstance().sendErrorMessage(e);
         }
     }
 
     @Override
-    public void update() {}
+    public void update() {
+    }
 
     @Override
     public void reset() {
         try {
-            MySql.trunticate( getName() );
-        } catch ( Exception e ) {
+            MySql.trunticate(getName(), schema);
+        } catch (Exception e) {
             e.printStackTrace();
-            Arik.getInstance( ).sendErrorMessage( e );
+            Arik.getInstance().sendErrorMessage(e);
         }
     }
-
-    // Convert json array to arrayList<Double>
-    public void convertJsonArrayToDoubleArray( JSONArray jsonArray, ArrayList< Double > list ) {
-
-        for ( int i = 0; i < jsonArray.length( ); i++ ) {
-
-            list.add( jsonArray.getDouble( i ) );
-
-        }
-
-    }
-
 }

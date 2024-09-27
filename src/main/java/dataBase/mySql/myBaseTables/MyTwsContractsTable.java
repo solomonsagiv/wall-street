@@ -5,36 +5,16 @@ import arik.Arik;
 import dataBase.mySql.MySql;
 import dataBase.mySql.mySqlComps.MySqlTable;
 import serverObjects.BASE_CLIENT_OBJECT;
-import serverObjects.indexObjects.Ndx;
 import tws.MyContract;
-import tws.TwsContractsEnum;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
 
 public abstract class MyTwsContractsTable extends MySqlTable {
 
-
-    public static void main(String[] args) throws SQLException {
-        MyTwsContractsTable table = new MyTwsContractsTable(Ndx.getInstance()) {
-            @Override
-            public void initColumns() {
-
-            }
-        };
-
-        for (Map.Entry<TwsContractsEnum, MyContract> entry : Ndx.getInstance().getTwsHandler().getMyContracts().entrySet()) {
-            MyContract contract = entry.getValue();
-
-            table.insertOrUpdate(contract);
-
-        }
-    }
-
     // Constructor
-    public MyTwsContractsTable(BASE_CLIENT_OBJECT client ) {
+    public MyTwsContractsTable(BASE_CLIENT_OBJECT client) {
         super(client, "twsContracts");
     }
 
@@ -43,10 +23,9 @@ public abstract class MyTwsContractsTable extends MySqlTable {
     }
 
     public boolean isExist(int id) throws SQLException {
-        System.out.println(id);
         boolean exist = false;
 
-        String sql = "SELECT * FROM stocks.twsContracts;";
+        String sql = "SELECT * FROM jsonTables.twsContracts;";
 
         ResultSet rs = MySql.select(sql);
 
@@ -61,14 +40,11 @@ public abstract class MyTwsContractsTable extends MySqlTable {
 
     }
 
-
     public void insertOrUpdate(MyContract contract) throws SQLException {
         if (isExist(contract.getMyId())) {
             update(contract);
-            System.out.println("Update");
         } else {
             insert(contract);
-            System.out.println("Insert");
         }
     }
 
@@ -88,33 +64,32 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         boolean includExpired = contract.includeExpired();
         String lastTradingDayOrContractMonth = contract.lastTradeDateOrContractMonth();
 
-
         // the mysql insert statement
-        String query = " INSERT INTO stocks.twsContracts (id, stockName, contractName, secType, currency, exchange, tradingClass, multiplier, primaryExchange, symbol, includExpired, lastTradingDayOrContractMonth)"
+        String query = " INSERT INTO jsonTables.twsContracts (id, stockName, contractName, secType, currency, exchange, tradingClass, multiplier, primaryExchange, symbol, includExpired, lastTradingDayOrContractMonth)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         // create the mysql insert preparedstatement
         PreparedStatement stmt = MySql.getPool().getConnection().prepareStatement(query);
-        stmt.setInt (1, id);
-        stmt.setString (2, stockName);
-        stmt.setString (3, contractName);
-        stmt.setString (4, secType);
-        stmt.setString (5, currency);
-        stmt.setString (6, exchange);
-        stmt.setString (7, tradingClass);
-        stmt.setString (8, multiplier);
-        stmt.setString (9, primaryExchange);
-        stmt.setString (10, symbol);
-        stmt.setBoolean (11, includExpired);
-        stmt.setString (12, lastTradingDayOrContractMonth);
+        stmt.setInt(1, id);
+        stmt.setString(2, stockName);
+        stmt.setString(3, contractName);
+        stmt.setString(4, secType);
+        stmt.setString(5, currency);
+        stmt.setString(6, exchange);
+        stmt.setString(7, tradingClass);
+        stmt.setString(8, multiplier);
+        stmt.setString(9, primaryExchange);
+        stmt.setString(10, symbol);
+        stmt.setBoolean(11, includExpired);
+        stmt.setString(12, lastTradingDayOrContractMonth);
 
         stmt.execute();
     }
 
 
-    private void update( MyContract contract ) throws SQLException {
+    private void update(MyContract contract) throws SQLException {
 
-        String query = "UPDATE stocks.twsContracts SET stockName = ?, contractName = ?, secType = ?, currency = ?, exchange = ?, tradingClass = ?, multiplier = ?, primaryExchange = ?, symbol = ?, includExpired = ?, lastTradingDayOrContractMonth = ? WHERE id = ?";
+        String query = "UPDATE jsonTables.twsContracts SET stockName = ?, contractName = ?, secType = ?, currency = ?, exchange = ?, tradingClass = ?, multiplier = ?, primaryExchange = ?, symbol = ?, includExpired = ?, lastTradingDayOrContractMonth = ? WHERE id = ?";
 
         // Values
         int id = contract.getMyId();
@@ -153,15 +128,16 @@ public abstract class MyTwsContractsTable extends MySqlTable {
         try {
             TwsHandler twsHandler = client.getTwsHandler();
 
-            String query = String.format("SELECT * FROM stocks.%s WHERE stockName ='%s'", getName(), client.getName());
+            String query = String.format("SELECT * FROM %s.%s WHERE stockName ='%s'", schema, getName(), client.getName());
 
             System.out.println(query);
             ResultSet rs = MySql.select(query);
 
             while (rs.next()) {
+
                 MyContract contract = new MyContract();
                 contract.setMyId(rs.getInt("id"));
-                contract.setType( rs.getString( "contractName" ));
+                contract.setType(rs.getString("contractName"));
                 contract.secType(rs.getString("secType"));
                 contract.currency(rs.getString("currency"));
                 contract.exchange(rs.getString("exchange"));
@@ -171,17 +147,14 @@ public abstract class MyTwsContractsTable extends MySqlTable {
                 contract.includeExpired(rs.getBoolean("includExpired"));
                 contract.lastTradeDateOrContractMonth(rs.getString("lastTradingDayOrContractMonth"));
 
-                if (!twsHandler.isExist(contract) ) {
-                    twsHandler.addContract(contract);
-                } else {
-                    twsHandler.getMyContracts().put(contract.getType(), contract);
-                }
-
+                // Put contract
+                twsHandler.getMyContracts().put(contract.getType(), contract);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             Arik.getInstance().sendErrorMessage(e);
+        } finally {
+            setLoad(true);
         }
     }
 

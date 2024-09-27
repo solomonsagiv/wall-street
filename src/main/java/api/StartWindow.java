@@ -16,47 +16,47 @@ public class StartWindow {
      * Create the application.
      */
     public StartWindow() {
-        initialize( );
+        initialize();
     }
 
     /**
      * Launch the application.
      */
-    public static void main( String[] args ) {
-        EventQueue.invokeLater( new Runnable( ) {
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    StartWindow window = new StartWindow( );
-                    window.frame.setVisible( true );
-                } catch ( Exception e ) {
-                    e.printStackTrace( );
+                    StartWindow window = new StartWindow();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        } );
+        });
     }
 
     /**
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame( );
-        frame.setBounds( 100, 100, 334, 246 );
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.getContentPane( ).setLayout( null );
+        frame = new JFrame();
+        frame.setBounds(100, 100, 334, 246);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
 
-        JButton btnNewButton = new JButton( "Start" );
-        btnNewButton.addActionListener( new ActionListener( ) {
-            public void actionPerformed( ActionEvent arg0 ) {
+        JButton btnNewButton = new JButton("Start");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
                 try {
-                    Jsoup.connect( "http://localhost:8081/wall-street" ).get( );
-                } catch ( IOException e ) {
+                    Jsoup.connect("http://localhost:8081/wall-street").get();
+                } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace( );
+                    e.printStackTrace();
                 }
             }
-        } );
-        btnNewButton.setFont( new Font( "Dubai Medium", Font.PLAIN, 20 ) );
-        btnNewButton.setBounds( 87, 77, 151, 54 );
-        frame.getContentPane( ).add( btnNewButton );
+        });
+        btnNewButton.setFont(new Font("Dubai Medium", Font.PLAIN, 20));
+        btnNewButton.setBounds(87, 77, 151, 54);
+        frame.getContentPane().add(btnNewButton);
     }
 }

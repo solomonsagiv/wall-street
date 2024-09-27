@@ -1,9 +1,5 @@
 package threads;
 
-import arik.Arik;
-
-import javax.swing.*;
-
 public class MyThreadHandler {
 
     // Variables
@@ -11,7 +7,7 @@ public class MyThreadHandler {
     Thread thread;
 
     // Constructor
-    public MyThreadHandler( MyThread myThread ) {
+    public MyThreadHandler(MyThread myThread) {
         this.myThread = myThread;
     }
 
@@ -20,20 +16,20 @@ public class MyThreadHandler {
     // Start
     public void start() {
 
-        if ( thread == null ) {
+        if (thread == null) {
 
-            myThread.setRun( true );
-            thread = new Thread( myThread.getRunnable( ) );
-            thread.start( );
+            myThread.setRun(true);
+            thread = new Thread(myThread.getRunnable());
+            thread.start();
         }
     }
 
     // Close
     public void close() {
 
-        if ( thread != null ) {
-            thread.interrupt( );
-            myThread.setRun( false );
+        if (thread != null) {
+            thread.interrupt();
+            myThread.setRun(false);
             thread = null;
         }
     }
@@ -41,8 +37,8 @@ public class MyThreadHandler {
     // Restart
     public void restart() {
 
-        close( );
-        start( );
+        close();
+        start();
 
     }
 }

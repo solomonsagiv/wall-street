@@ -1,100 +1,148 @@
 package basketFinder;
 
+import basketFinder.handlers.StocksHandler;
+import delta.DeltaCalc;
+
 public class MiniStock {
 
     // Variables
     private String name;
     private int id;
     private double ind;
-    private double volume = 0;
+    private int delta = 0;
+    private int volume = 0;
+    private double weight = 0;
     private double lastCheckVolume = 0;
-    private int indexBidAskCounter = 0;
-    private double indexBid = 0;
-    private double indexAsk = 0;
+    private double indBid = 0;
+    private double indAsk = 0;
+    private double preIndBid = 0;
+    private double preIndAsk = 0;
     private boolean down = false;
     private boolean up = false;
+    private StocksHandler stocksHandler;
 
     // Constructor
-    public MiniStock( String name, int id ) {
+    public MiniStock( String name, int id, StocksHandler stocksHandler ) {
         this.name = name;
         this.id = id;
+        this.stocksHandler = stocksHandler;
     }
 
-    private double indexAskForCheck = 0;
-    public void setIndexBid( double indexBid ) {
-
-        // If increment state
-        if ( indexBid > this.indexBid && indexAskForCheck == this.indexAsk ) {
-            indexBidAskCounter++;
-        }
-        this.indexBid = indexBid;
-
-        // Ask for bid change state
-        indexBidForCheck = indexBid;
-        indexAskForCheck = this.indexAsk;
+    public void setIndBid( double indBid ) {
+        // Pre
+        this.preIndBid = this.indBid;
+        // Current
+        this.indBid = indBid;
 
     }
-    private double indexBidForCheck = 0;
-    public void setIndexAsk( double indexAsk ) {
-        // If increment state
-        if ( indexAsk < this.indexAsk && indexBidForCheck == indexBid ) {
-            indexBidAskCounter--;
-        }
-        this.indexAsk = indexAsk;
 
-        // Handle state
-        indexAskForCheck = indexAsk;
-        indexBidForCheck = indexBid;
-
+    public void setIndAsk( double indAsk ) {
+        // Pre
+        this.preIndAsk = this.indAsk;
+        // Current
+        this.indAsk = indAsk;
     }
+
     public void updateLastData() {
         lastCheckVolume = volume;
         up = false;
         down = false;
     }
+
     public String getName() {
         return name;
     }
-    public void setName( String name ) {
+
+    public void setName(String name) {
         this.name = name;
     }
+
     public int getId() {
         return id;
     }
-    public void setId( int id ) {
+
+    public void setId(int id) {
         this.id = id;
     }
+
     public double getInd() {
         return ind;
     }
+
     public void setInd( double ind ) {
-        if ( ind == indexAsk ) {
+        if (ind == indAsk ) {
             up = true;
         }
-        if ( ind == indexBid ) {
+        if (ind == indBid ) {
             down = true;
         }
         this.ind = ind;
     }
+    
     public double getVolume() {
         return volume;
     }
-    public void setVolume( double volume ) {
+
+    public void setVolume(int volume) {
+
+        // Delta
+        handleDelta( volume );
+
+        // Volume
         this.volume = volume;
+
     }
+
+    private void handleDelta( int volume ) {
+
+        // Quantity
+        int quantity = volume - this.volume;
+
+        // Delta
+        double currDelta = DeltaCalc.calc( quantity, this.ind, preIndBid, preIndAsk ) * weight;
+
+        System.out.println( getName() + "  " + currDelta );
+
+        this.delta += currDelta;
+
+        // Stock
+        stocksHandler.appendDelta( (int) currDelta );
+
+    }
+
     public double getLastCheckVolume() {
         return lastCheckVolume;
     }
+
     public boolean isDown() {
         return down;
     }
-    public void setDown( boolean down ) {
+
+    public void setDown(boolean down) {
         this.down = down;
     }
+
     public boolean isUp() {
         return up;
     }
-    public void setUp( boolean up ) {
+
+    public void setUp(boolean up) {
         this.up = up;
+    }
+
+    public double getPreIndBid() {
+        return preIndBid;
+    }
+
+    public double getPreIndAsk() {
+        return preIndAsk;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight( double weight ) {
+        this.weight = weight;
     }
 }

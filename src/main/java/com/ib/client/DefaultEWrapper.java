@@ -11,58 +11,58 @@ import java.util.Set;
 class DefaultEWrapper implements EWrapper {
 
     @Override
-    public void tickPrice( int tickerId, int field, double price,
-                           TickAttr attribs ) {
+    public void tickPrice(int tickerId, int field, double price,
+                          TickAttr attribs) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickSize( int tickerId, int field, int size ) {
+    public void tickSize(int tickerId, int field, int size) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickOptionComputation( int tickerId, int field,
-                                       double impliedVol, double delta, double optPrice,
-                                       double pvDividend, double gamma, double vega, double theta,
-                                       double undPrice ) {
+    public void tickOptionComputation(int tickerId, int field,
+                                      double impliedVol, double delta, double optPrice,
+                                      double pvDividend, double gamma, double vega, double theta,
+                                      double undPrice) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickGeneric( int tickerId, int tickType, double value ) {
+    public void tickGeneric(int tickerId, int tickType, double value) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickString( int tickerId, int tickType, String value ) {
+    public void tickString(int tickerId, int tickType, String value) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickEFP( int tickerId, int tickType, double basisPoints,
-                         String formattedBasisPoints, double impliedFuture, int holdDays,
-                         String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate ) {
+    public void tickEFP(int tickerId, int tickType, double basisPoints,
+                        String formattedBasisPoints, double impliedFuture, int holdDays,
+                        String futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void orderStatus( int orderId, String status, double filled,
-                             double remaining, double avgFillPrice, int permId, int parentId,
-                             double lastFillPrice, int clientId, String whyHeld ) {
+    public void orderStatus(int orderId, String status, double filled,
+                            double remaining, double avgFillPrice, int permId, int parentId,
+                            double lastFillPrice, int clientId, String whyHeld) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void openOrder( int orderId, Contract contract, Order order,
-                           OrderState orderState ) {
+    public void openOrder(int orderId, Contract contract, Order order,
+                          OrderState orderState) {
         // TODO Auto-generated method stub
 
     }
@@ -74,175 +74,175 @@ class DefaultEWrapper implements EWrapper {
     }
 
     @Override
-    public void updateAccountValue( String key, String value, String currency,
-                                    String accountName ) {
+    public void updateAccountValue(String key, String value, String currency,
+                                   String accountName) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updatePortfolio( Contract contract, double position,
-                                 double marketPrice, double marketValue, double averageCost,
-                                 double unrealizedPNL, double realizedPNL, String accountName ) {
+    public void updatePortfolio(Contract contract, double position,
+                                double marketPrice, double marketValue, double averageCost,
+                                double unrealizedPNL, double realizedPNL, String accountName) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateAccountTime( String timeStamp ) {
+    public void updateAccountTime(String timeStamp) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void accountDownloadEnd( String accountName ) {
+    public void accountDownloadEnd(String accountName) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void nextValidId( int orderId ) {
+    public void nextValidId(int orderId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void contractDetails( int reqId, ContractDetails contractDetails ) {
+    public void contractDetails(int reqId, ContractDetails contractDetails) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void bondContractDetails( int reqId, ContractDetails contractDetails ) {
+    public void bondContractDetails(int reqId, ContractDetails contractDetails) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void contractDetailsEnd( int reqId ) {
+    public void contractDetailsEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void execDetails( int reqId, Contract contract, Execution execution ) {
+    public void execDetails(int reqId, Contract contract, Execution execution) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void execDetailsEnd( int reqId ) {
+    public void execDetailsEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateMktDepth( int tickerId, int position, int operation,
-                                int side, double price, int size ) {
+    public void updateMktDepth(int tickerId, int position, int operation,
+                               int side, double price, int size) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateMktDepthL2( int tickerId, int position,
-                                  String marketMaker, int operation, int side, double price, int size ) {
+    public void updateMktDepthL2(int tickerId, int position,
+                                 String marketMaker, int operation, int side, double price, int size) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateNewsBulletin( int msgId, int msgType, String message,
-                                    String origExchange ) {
+    public void updateNewsBulletin(int msgId, int msgType, String message,
+                                   String origExchange) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void managedAccounts( String accountsList ) {
+    public void managedAccounts(String accountsList) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void receiveFA( int faDataType, String xml ) {
+    public void receiveFA(int faDataType, String xml) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void historicalData( int reqId, String date, double open,
-                                double high, double low, double close, int volume, int count,
-                                double WAP, boolean hasGaps ) {
+    public void historicalData(int reqId, String date, double open,
+                               double high, double low, double close, int volume, int count,
+                               double WAP, boolean hasGaps) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void scannerParameters( String xml ) {
+    public void scannerParameters(String xml) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void scannerData( int reqId, int rank,
-                             ContractDetails contractDetails, String distance, String benchmark,
-                             String projection, String legsStr ) {
+    public void scannerData(int reqId, int rank,
+                            ContractDetails contractDetails, String distance, String benchmark,
+                            String projection, String legsStr) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void scannerDataEnd( int reqId ) {
+    public void scannerDataEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void realtimeBar( int reqId, long time, double open, double high,
-                             double low, double close, long volume, double wap, int count ) {
+    public void realtimeBar(int reqId, long time, double open, double high,
+                            double low, double close, long volume, double wap, int count) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void currentTime( long time ) {
+    public void currentTime(long time) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void fundamentalData( int reqId, String data ) {
+    public void fundamentalData(int reqId, String data) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void deltaNeutralValidation( int reqId, DeltaNeutralContract underComp ) {
+    public void deltaNeutralValidation(int reqId, DeltaNeutralContract underComp) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickSnapshotEnd( int reqId ) {
+    public void tickSnapshotEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void marketDataType( int reqId, int marketDataType ) {
+    public void marketDataType(int reqId, int marketDataType) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void commissionReport( CommissionReport commissionReport ) {
+    public void commissionReport(CommissionReport commissionReport) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void position( String account, Contract contract, double pos,
-                          double avgCost ) {
+    public void position(String account, Contract contract, double pos,
+                         double avgCost) {
         // TODO Auto-generated method stub
 
     }
@@ -254,68 +254,68 @@ class DefaultEWrapper implements EWrapper {
     }
 
     @Override
-    public void accountSummary( int reqId, String account, String tag,
-                                String value, String currency ) {
+    public void accountSummary(int reqId, String account, String tag,
+                               String value, String currency) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void accountSummaryEnd( int reqId ) {
+    public void accountSummaryEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void verifyMessageAPI( String apiData ) {
+    public void verifyMessageAPI(String apiData) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void verifyCompleted( boolean isSuccessful, String errorText ) {
+    public void verifyCompleted(boolean isSuccessful, String errorText) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void verifyAndAuthMessageAPI( String apiData, String xyzChallange ) {
+    public void verifyAndAuthMessageAPI(String apiData, String xyzChallange) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void verifyAndAuthCompleted( boolean isSuccessful, String errorText ) {
+    public void verifyAndAuthCompleted(boolean isSuccessful, String errorText) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void displayGroupList( int reqId, String groups ) {
+    public void displayGroupList(int reqId, String groups) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void displayGroupUpdated( int reqId, String contractInfo ) {
+    public void displayGroupUpdated(int reqId, String contractInfo) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void error( Exception e ) {
+    public void error(Exception e) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void error( String str ) {
+    public void error(String str) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void error( int id, int errorCode, String errorMsg ) {
+    public void error(int id, int errorCode, String errorMsg) {
         // TODO Auto-generated method stub
 
     }
@@ -333,123 +333,123 @@ class DefaultEWrapper implements EWrapper {
     }
 
     @Override
-    public void positionMulti( int reqId, String account, String modelCode, Contract contract, double pos, double avgCost ) {
+    public void positionMulti(int reqId, String account, String modelCode, Contract contract, double pos, double avgCost) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void positionMultiEnd( int reqId ) {
+    public void positionMultiEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void accountUpdateMulti( int reqId, String account, String modelCode, String key, String value, String currency ) {
+    public void accountUpdateMulti(int reqId, String account, String modelCode, String key, String value, String currency) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void accountUpdateMultiEnd( int reqId ) {
+    public void accountUpdateMultiEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void securityDefinitionOptionalParameter( int reqId, String exchange, int underlyingConId, String tradingClass,
-                                                     String multiplier, Set< String > expirations, Set< Double > strikes ) {
+    public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId, String tradingClass,
+                                                    String multiplier, Set<String> expirations, Set<Double> strikes) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void securityDefinitionOptionalParameterEnd( int reqId ) {
+    public void securityDefinitionOptionalParameterEnd(int reqId) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void softDollarTiers( int reqId, SoftDollarTier[] tiers ) {
+    public void softDollarTiers(int reqId, SoftDollarTier[] tiers) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void familyCodes( FamilyCode[] familyCodes ) {
+    public void familyCodes(FamilyCode[] familyCodes) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void historicalDataEnd( int reqId, String startDateStr, String endDateStr ) {
+    public void historicalDataEnd(int reqId, String startDateStr, String endDateStr) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void symbolSamples( int reqId, ContractDescription[] contractDescriptions ) {
+    public void symbolSamples(int reqId, ContractDescription[] contractDescriptions) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void mktDepthExchanges( DepthMktDataDescription[] depthMktDataDescriptions ) {
+    public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickNews( int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData ) {
+    public void tickNews(int tickerId, long timeStamp, String providerCode, String articleId, String headline, String extraData) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void smartComponents( int reqId, Map< Integer, Entry< String, Character > > theMap ) {
+    public void smartComponents(int reqId, Map<Integer, Entry<String, Character>> theMap) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void tickReqParams( int tickerId, double minTick, String bboExchange, int snapshotPermissions ) {
+    public void tickReqParams(int tickerId, double minTick, String bboExchange, int snapshotPermissions) {
         // TODO Auto-generated method stub
 
     }
 
 
     @Override
-    public void newsProviders( NewsProvider[] newsProviders ) {
+    public void newsProviders(NewsProvider[] newsProviders) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void newsArticle( int requestId, int articleType, String articleText ) {
+    public void newsArticle(int requestId, int articleType, String articleText) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void historicalNews( int requestId, String time, String providerCode, String articleId, String headline ) {
+    public void historicalNews(int requestId, String time, String providerCode, String articleId, String headline) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void historicalNewsEnd( int requestId, boolean hasMore ) {
+    public void historicalNewsEnd(int requestId, boolean hasMore) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void headTimestamp( int reqId, String headTimestamp ) {
+    public void headTimestamp(int reqId, String headTimestamp) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void histogramData( int reqId, List< Entry< Double, Long > > items ) {
+    public void histogramData(int reqId, List<Entry<Double, Long>> items) {
         // TODO Auto-generated method stub
 
     }

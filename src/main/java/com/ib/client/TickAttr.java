@@ -15,11 +15,11 @@ public class TickAttr {
         return m_pastLimit;
     }
 
-    public void canAutoExecute( boolean canAutoExecute ) {
+    public void canAutoExecute(boolean canAutoExecute) {
         this.m_canAutoExecute = canAutoExecute;
     }
 
-    public void pastLimit( boolean pastLimit ) {
+    public void pastLimit(boolean pastLimit) {
         this.m_pastLimit = pastLimit;
     }
 }

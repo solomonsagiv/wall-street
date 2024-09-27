@@ -7,10 +7,10 @@ public class TradeId {
     private String m_key;
     private String m_full;
 
-    public TradeId( String id ) {
+    public TradeId(String id) {
         m_full = id;
-        int i = id.lastIndexOf( '.' );
-        m_key = id.substring( i + 1 );
+        int i = id.lastIndexOf('.');
+        m_key = id.substring(i + 1);
     }
 
     public String key() {

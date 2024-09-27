@@ -3,11 +3,16 @@ package charts.myChart;
 import charts.MyChartPanel;
 import dataBase.mySql.myBaseTables.MyBoundsTable;
 import dataBase.mySql.mySqlComps.TablesEnum;
+import javafx.scene.input.MouseDragEvent;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.NumberAxis;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
 public class MyChartContainer extends JFrame {
@@ -61,7 +66,89 @@ public class MyChartContainer extends JFrame {
         for ( MyChart myChart : charts ) {
             MyChartPanel chartPanel = new MyChartPanel( myChart.chart, myChart.props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) );
             myChart.chartPanel = chartPanel;
+
+            initProps( chartPanel );
+            addPan( chartPanel );
+            mouseListener( chartPanel, myChart );
+            mouseWheel( chartPanel, myChart );
             add( chartPanel );
+        }
+    }
+
+    private void initProps( MyChartPanel chartPanel ) {
+        chartPanel.setMouseZoomable( true );
+        chartPanel.setMouseWheelEnabled( true );
+        chartPanel.setDomainZoomable( true );
+        chartPanel.setRangeZoomable( false );
+        chartPanel.setZoomTriggerDistance( Integer.MAX_VALUE );
+        chartPanel.setFillZoomRectangle( true );
+        chartPanel.setZoomAroundAnchor( true );
+    }
+
+    private void mouseWheel( MyChartPanel chartPanel, MyChart myChart ) {
+        chartPanel.addMouseWheelListener( new MouseWheelListener( ) {
+            @Override
+            public void mouseWheelMoved( MouseWheelEvent e ) {
+                myChart.getUpdater( ).updateChartRange( );
+            }
+        } );
+    }
+
+    private void mouseListener( MyChartPanel chartPanel, MyChart myChart ) {
+        chartPanel.addMouseListener( new MouseAdapter( ) {
+            @Override
+            public void mouseClicked( MouseEvent e ) {
+                super.mouseClicked( e );
+                if ( e.getClickCount( ) == 2 ) {
+                    DateAxis axis = ( DateAxis ) myChart.plot.getDomainAxis( );
+                    NumberAxis rangeAxis = ( NumberAxis ) myChart.plot.getRangeAxis( );
+
+                    rangeAxis.setAutoRange( true );
+                    axis.setAutoRange( true );
+                }
+            }
+        } );
+
+        chartPanel.addMouseListener( new MouseAdapter( ) {
+            @Override
+            public void mouseReleased( MouseEvent e ) {
+                super.mouseReleased( e );
+                System.out.println( "Mouse released" );
+                myChart.getUpdater( ).updateChartRange( );
+            }
+        } );
+
+        chartPanel.addKeyListener( new KeyAdapter( ) {
+            @Override
+            public void keyReleased( KeyEvent e ) {
+                super.keyReleased( e );
+
+                // Right arrow
+                if ( e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+                    myChart.getUpdater().moveForward();
+                }
+            }
+        } );
+
+//        chartPanel.addMouseListener( new MouseAdapter( ) {
+//            @Override
+//            public void mouseDragged( MouseEvent e ) {
+//                super.mouseDragged( e );
+//                System.out.println( "Mouse dragged" );
+//                myChart.getUpdater( ).updateChartRange( );
+//            }
+//        } );
+    }
+
+    private void addPan( MyChartPanel chartPanel ) {
+        try {
+            Field mask = ChartPanel.class.getDeclaredField( "panMask" );
+            mask.setAccessible( true );
+            mask.set( chartPanel, 0 );
+        } catch ( NoSuchFieldException e ) {
+            e.printStackTrace( );
+        } catch ( IllegalAccessException e ) {
+            e.printStackTrace( );
         }
     }
 
@@ -88,18 +175,13 @@ public class MyChartContainer extends JFrame {
     }
 
     public void onClose( WindowEvent e ) {
-
         new Thread( () -> {
-
-
-
             ( ( MyBoundsTable ) client.getTablesHandler( ).getTable( TablesEnum.BOUNDS ) ).updateBoundOrCreateNewOne( client.getName( ), name, getX( ), getY( ), getWidth( ), getHeight( ) );
         } ).start( );
 
         for ( MyChart myChart : charts ) {
             myChart.getUpdater( ).getHandler( ).close( );
         }
-
         dispose( );
     }
 

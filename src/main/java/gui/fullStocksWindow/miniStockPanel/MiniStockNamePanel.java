@@ -18,7 +18,8 @@ public class MiniStockNamePanel extends MyGuiComps.MyPanel {
         initListeners();
     }
 
-    private void initListeners() {}
+    private void initListeners() {
+    }
 
     private void initialize() {
         // This

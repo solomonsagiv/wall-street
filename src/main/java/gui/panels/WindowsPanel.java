@@ -58,9 +58,6 @@ public class WindowsPanel extends MyGuiComps.MyPanel {
                     case "AMAZON":
                         new StockWindow("Amazon", Amazon.getInstance());
                         break;
-                    case "ULTA":
-                        new StockWindow("Ulta", Ulta.getInstance());
-                        break;
                     case "NETFLIX":
                         new StockWindow("Netflix", Netflix.getInstance());
                         break;

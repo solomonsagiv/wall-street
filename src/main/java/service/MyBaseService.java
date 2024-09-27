@@ -9,21 +9,22 @@ public abstract class MyBaseService implements IMyService {
     BASE_CLIENT_OBJECT client;
     ServiceEnum type;
 
-    public MyBaseService( BASE_CLIENT_OBJECT client ) {
+    public MyBaseService(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        client.getMyServiceHandler( ).addService( this );
+        client.getMyServiceHandler().addService(this);
     }
 
-    public MyBaseService() {}
+    public MyBaseService() {
+    }
 
-    public void execute( int sleepCount ) {
-        if ( sleepCount % getSleep( ) == 0 ) {
+    public void execute(int sleepCount) {
+        if (sleepCount % getSleep() == 0) {
             this.sleepCount = sleepCount;
             try {
-                go( );
-            } catch ( Exception e ) {
-                System.out.println( getClient() + " " + getName() );
-                e.printStackTrace( );
+                go();
+            } catch (Exception e) {
+                System.out.println(getClient() + " " + getName());
+                e.printStackTrace();
             }
         }
     }

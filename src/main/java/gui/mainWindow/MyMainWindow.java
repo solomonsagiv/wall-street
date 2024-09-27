@@ -1,24 +1,36 @@
 package gui.mainWindow;
 
 import backGround.BackGroundHandler;
-import dataBase.mySql.mySqlComps.TablesEnum;
+import dataBase.mySql.ConnectionPool;
 import gui.MyGuiComps;
 import gui.panels.HeadPanel;
 import gui.panels.WindowsPanel;
 import locals.LocalHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Spx;
-import serverObjects.stockObjects.*;
+import serverObjects.stockObjects.Amazon;
+import serverObjects.stockObjects.Apple;
+import serverObjects.stockObjects.Microsoft;
+import serverObjects.stockObjects.Netflix;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MyMainWindow extends MyGuiComps.MyFrame {
 
-    // Main
-    public static void main(String[] args) {
-        MyMainWindow mainWindow = new MyMainWindow("My main window");
-        System.out.println(mainWindow.getWidth());
+    static Spx spx;
+    static Apple apple;
+    static Amazon amazon;
+    static Netflix netflix;
+    static Microsoft microsoft;
+
+    static {
+        spx = Spx.getInstance();
+        apple = Apple.getInstance();
+        amazon = Amazon.getInstance();
+        netflix = Netflix.getInstance();
+        microsoft = Microsoft.getInstance();
     }
 
     // Variables
@@ -26,42 +38,25 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
     ConnectionPanel connectionPanel;
     WindowsPanel windowsPanel;
 
-//    static Dax dax;
-    static Apple apple;
-    static Amazon amazon;
-    static Spx spx;
-    static Ulta ulta;
-    static Netflix netflix;
-    static Amd amd;
-    static Microsoft microsoft;
-
-    static {
-//        dax = Dax.getInstance();
-        spx = Spx.getInstance();
-        apple = Apple.getInstance();
-        amazon = Amazon.getInstance();
-        ulta = Ulta.getInstance();
-        netflix = Netflix.getInstance();
-        amd = Amd.getInstance();
-        microsoft = Microsoft.getInstance();
-    }
-
     // Constructor
     public MyMainWindow(String title) throws HeadlessException {
         super(title);
     }
 
+    // Main
+    public static void main(String[] args) {
+        MyMainWindow mainWindow = new MyMainWindow("My main window");
+        System.out.println(mainWindow.getWidth());
+    }
+
     private void appendClients() {
-//        localhandler.clients.add(dax);
         LocalHandler.clients.add(spx);
         LocalHandler.clients.add(apple);
         LocalHandler.clients.add(amazon);
-        LocalHandler.clients.add(ulta);
         LocalHandler.clients.add(netflix);
-        LocalHandler.clients.add(amd);
         LocalHandler.clients.add(microsoft);
     }
-
+    
     @Override
     public void initOnClose() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,22 +99,19 @@ public class MyMainWindow extends MyGuiComps.MyFrame {
 
     private void loadOnStartUp() {
 
+        // Connect to db
+        ConnectionPool.getConnectionsPoolInstance();
+
+        // Start back runners
         for (BASE_CLIENT_OBJECT client : LocalHandler.clients) {
-
-            // Load data
-            client.getTablesHandler().getTable(TablesEnum.TWS_CONTRACTS).load();
-            client.getTablesHandler().getTable(TablesEnum.STATUS).load();
-            client.getTablesHandler().getTable(TablesEnum.ARRAYS).load();
-
-            if ( client instanceof Spx) {
-                client.getTablesHandler().getTable(TablesEnum.INDEX_STOCKS).loadAll();
-            }
-
-            client.setLoadStatusFromHB(true);
-            client.setLoadArraysFromHB(true);
-            client.setLoadFromDb(true);
-
-            BackGroundHandler.getInstance().createNewRunner(client);
+            new Thread(() -> {
+                try {
+                    client.getDataBaseHandler().load();
+                    BackGroundHandler.getInstance().createNewRunner(client);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 }

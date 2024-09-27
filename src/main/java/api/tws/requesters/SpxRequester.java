@@ -7,137 +7,168 @@ import basketFinder.MiniStock;
 import basketFinder.handlers.StocksHandler;
 import com.ib.client.Contract;
 import com.ib.client.TickAttr;
-import options.Options;
-import options.OptionsEnum;
+import exp.E;
+import exp.ExpStrings;
 import serverObjects.indexObjects.Spx;
 import tws.TwsContractsEnum;
 
-import javax.swing.*;
 import java.util.Map;
 
 public class SpxRequester implements ITwsRequester {
 
     Spx spx;
     int indexId, futureId, futureFarId;
-    Options optionsQuarter, optionsQuarterFar;
+    E e1, e2;
     StocksHandler stocksHandler;
+    boolean requested = false;
 
     @Override
-    public void request(Downloader downloader) {
+    public void request( Downloader downloader ) {
         try {
-            init();
+            init( );
 
-            TwsHandler twsHandler = spx.getTwsHandler();
+            TwsHandler twsHandler = spx.getTwsHandler( );
 
             // Index
-            downloader.reqMktData(twsHandler.getMyContract(TwsContractsEnum.INDEX).getMyId(), twsHandler.getMyContract(TwsContractsEnum.INDEX));
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.INDEX ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.INDEX ) );
 
             // Futures
             // Quarter
-            downloader.reqMktData(twsHandler.getMyContract(TwsContractsEnum.FUTURE).getMyId(), twsHandler.getMyContract(TwsContractsEnum.FUTURE));
-            downloader.reqMktData(twsHandler.getMyContract(TwsContractsEnum.FUTURE_FAR).getMyId(), twsHandler.getMyContract(TwsContractsEnum.FUTURE_FAR));
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE ) );
+            downloader.reqMktData( twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId( ), twsHandler.getMyContract( TwsContractsEnum.FUTURE_FAR ) );
 
             // Stocks
-            requestStocks(downloader);
+            requestStocks( downloader );
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            // Requested status
+            requested = true;
+
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
     }
 
-    private void requestStocks(Downloader downloader) throws Exception {
+    private void requestStocks( Downloader downloader ) throws Exception {
 
-        Contract contract = new Contract();
-        contract.secType("STK");
-        contract.exchange("SMART");
-        contract.currency("USD");
-        contract.primaryExch("ISLAND");
+        Contract contract = new Contract( );
+        contract.secType( "STK" );
+        contract.exchange( "SMART" );
+        contract.currency( "USD" );
+        contract.primaryExch( "ISLAND" );
 
-        for (Map.Entry<Integer, MiniStock> entry : spx.getStocksHandler().getMiniStockMap().entrySet()) {
-            MiniStock stock = entry.getValue();
-            contract.symbol(stock.getName());
-            downloader.reqMktData(stock.getId(), contract);
+        for ( Map.Entry< Integer, MiniStock > entry : spx.getStocksHandler( ).getStocksMap( ).entrySet( ) ) {
+            try {
+                MiniStock stock = entry.getValue( );
+                contract.symbol( stock.getName( ) );
+
+                System.out.println( stock.getName()  + "  lksdjflsdkfjdslkfjsdlkfjsdlfkjsdflkjsdflkdsjfljk");
+
+                downloader.reqMktData( stock.getId( ), contract );
+            } catch ( Exception e ) {
+                e.printStackTrace( );
+            }
         }
     }
 
     private void init() {
-        spx = Spx.getInstance();
-        optionsQuarter = spx.getOptionsHandler().getOptions(OptionsEnum.QUARTER);
-        optionsQuarterFar = spx.getOptionsHandler().getOptions(OptionsEnum.QUARTER_FAR);
+        spx = Spx.getInstance( );
+        stocksHandler = spx.getStocksHandler( );
+        e1 = ( E ) spx.getExps( ).getExp( ExpStrings.e1 );
+        e2 = ( E ) spx.getExps( ).getExp( ExpStrings.e2 );
 
-        indexId = spx.getTwsHandler().getMyContract(TwsContractsEnum.INDEX).getMyId();
-        futureId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE).getMyId();
-        futureFarId = spx.getTwsHandler().getMyContract(TwsContractsEnum.FUTURE_FAR).getMyId();
-
-        stocksHandler = spx.getStocksHandler();
+        indexId = spx.getTwsHandler( ).getMyContract( TwsContractsEnum.INDEX ).getMyId( );
+        futureId = spx.getTwsHandler( ).getMyContract( TwsContractsEnum.FUTURE ).getMyId( );
+        futureFarId = spx.getTwsHandler( ).getMyContract( TwsContractsEnum.FUTURE_FAR ).getMyId( );
     }
 
     @Override
-    public void reciever(int tickerId, int field, double price, TickAttr attribs) {
+    public void reciever( int tickerId, int field, double price, TickAttr attribs ) {
 
-        if (spx.isStarted()) {
+        if ( spx.isStarted( ) ) {
 
             // ---------- Future ---------- //
-            if (tickerId == futureId && price > 0) {
+            if ( tickerId == futureId && price > 0 ) {
+
                 // Bid
-                if (field == 1) {
-                    optionsQuarter.setFutureBid(price);
+                if ( field == 1 ) {
+                    e1.setCalcFutBid( price );
+                    e1.setBidForDelta( price );
                 }
+
                 // Ask
-                if (field == 2) {
-                    optionsQuarter.setFutureAsk(price);
+                if ( field == 2 ) {
+                    e1.setCalcFutAsk( price );
+                    e1.setAskForDelta( price );
+                }
+
+                // Last
+                if ( field == 4 ) {
+                    e1.setFutForDelta( price );
                 }
             }
 
             // ---------- Future far ---------- //
-            if (tickerId == futureFarId && price > 0) {
+            if ( tickerId == futureFarId && price > 0 ) {
                 // Bid
-                if (field == 1) {
-                    optionsQuarterFar.setFutureBid(price);
+                if ( field == 1 ) {
+                    e2.setCalcFutBid( price );
                 }
                 // Ask
-                if (field == 2) {
-                    optionsQuarterFar.setFutureAsk(price);
+                if ( field == 2 ) {
+                    e2.setCalcFutAsk( price );
                 }
             }
 
             // Spx miniStocks
-            if (tickerId >= stocksHandler.getMinId() && tickerId < stocksHandler.getMaxId()) {
-
-                MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
+            if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
+                MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
 
                 // Bid
-                if (field == 1) {
-                    stock.setIndexBid(price);
+                if ( field == 1 ) {
+                    stock.setIndBid( price );
                 }
 
                 // Ask
-                if (field == 2) {
-                    stock.setIndexAsk(price);
+                if ( field == 2 ) {
+                    stock.setIndAsk( price );
                 }
 
                 // Last
-                if (field == 4) {
-                    stock.setInd(price);
+                if ( field == 4 ) {
+                    stock.setInd( price );
                 }
             }
         }
     }
 
     @Override
-    public void sizeReciever(int tickerId, int field, int size) {
+    public void sizeReciever( int tickerId, int field, int size ) {
+        if ( spx.isStarted( ) ) {
+            // Last
+            if ( tickerId == futureId && size > 0 ) {
+                if ( field == 8 ) {
+                    e1.setVolumeFutForDelta( size );
+                }
+            }
+        }
 
         // Spx miniStocks
-        if (tickerId >= stocksHandler.getMinId() && tickerId < stocksHandler.getMaxId()) {
+        if ( tickerId >= stocksHandler.getMinId( ) && tickerId < stocksHandler.getMaxId( ) ) {
 
-            MiniStock stock = stocksHandler.getMiniStockMap().get(tickerId);
+            MiniStock stock = stocksHandler.getStocksMap( ).get( tickerId );
 
-            if (field == 8) {
-                System.out.println(stock.getName() + " " + size );
-                stock.setVolume(size);
+            if ( stock.getName().equals( "AAPL" ) ) {
+                if ( field == 8 ) {
+                    stock.setVolume( size );
+                }
             }
 
         }
 
+    }
+
+    @Override
+    public boolean isRequested() {
+        return requested;
     }
 }

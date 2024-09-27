@@ -1,5 +1,6 @@
 package arik;
 
+import arik.locals.Emojis;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.TelegramBotAdapter;
 import com.pengrad.telegrambot.model.Update;
@@ -8,11 +9,11 @@ import com.pengrad.telegrambot.request.SendMessage;
 
 public class Arik {
 
+    public static final int nivosID = 540675119;
     public static int sagivID = 365117561;
     public static int yosiID = 948009529;
     public static int royID = 513323078;
     public static int ronenID = 948009529;
-    public static final int  nivosID = 540675119;
     private static Arik arik;
     private ArikRunner arikRunner;
     private boolean running = false;
@@ -60,9 +61,21 @@ public class Arik {
     }
 
     public void sendErrorMessage( Exception e ) {
-        String text = e.getMessage() + "\n" + e.getCause();
+        String text = e.getMessage( ) + "\n" + e.getCause( );
         getBot( ).execute( new SendMessage( sagivID, text ) );
         updateId += 1;
+    }
+
+    public void sendMessage( String action, boolean success ) {
+        String text = action + " " + " success " + Emojis.check_mark;
+        // Success
+        if ( success ) {
+            text += " " + " success " + Emojis.check_mark;
+            sendMessage( text );
+        } else  {
+            text += " " + " failed " + Emojis.stop;
+            sendMessage( text );
+        }
     }
 
     // Send message
@@ -78,11 +91,13 @@ public class Arik {
 
     // Send message
     public void sendMessageToEveryOne( String text ) {
-
-        for ( int account: accounts) {
-            sendMessage( account, text, null );
+        try {
+            for ( int account : accounts ) {
+                sendMessage( account, text, null );
+            }
+        } catch ( Exception e ) {
+            e.printStackTrace( );
         }
-
     }
 
     // Send message

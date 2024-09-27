@@ -10,14 +10,14 @@ import java.awt.event.MouseMotionAdapter;
 public class ResizablePanel extends JPanel {
 
     private boolean drag = false;
-    private Point dragLocation  = new Point();
+    private Point dragLocation = new Point();
 
-    public  ResizablePanel() {
-        setBorder(BorderFactory.createBevelBorder( BevelBorder.RAISED));
+    public ResizablePanel() {
+        setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
         setPreferredSize(new Dimension(500, 500));
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed( MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 drag = true;
                 dragLocation = e.getPoint();
             }
@@ -31,10 +31,10 @@ public class ResizablePanel extends JPanel {
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (drag) {
-                    if (dragLocation.getX()> getWidth()-10 && dragLocation.getY()>getHeight()-10) {
+                    if (dragLocation.getX() > getWidth() - 10 && dragLocation.getY() > getHeight() - 10) {
                         System.err.println("in");
-                        setSize((int)(getWidth()+(e.getPoint().getX()-dragLocation.getX())),
-                                (int)(getHeight()+(e.getPoint().getY()-dragLocation.getY())));
+                        setSize((int) (getWidth() + (e.getPoint().getX() - dragLocation.getX())),
+                                (int) (getHeight() + (e.getPoint().getY() - dragLocation.getY())));
                         dragLocation = e.getPoint();
                     }
                 }

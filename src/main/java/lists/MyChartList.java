@@ -23,7 +23,7 @@ public class MyChartList extends ArrayList<MyChartPoint> {
     }
 
     public MyChartPoint getLast() throws UnknownHostException {
-        if (size() < 1 ) {
+        if (size() < 1) {
             throw new IndexOutOfBoundsException();
         }
         return get(size() - 1);

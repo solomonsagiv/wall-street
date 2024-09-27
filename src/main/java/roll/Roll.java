@@ -1,24 +1,26 @@
 package roll;
 
-import options.Options;
-import options.OptionsEnum;
+import exp.Exp;
+import locals.IJson;
+import myJson.MyJson;
+import options.JsonStrings;
 import serverObjects.BASE_CLIENT_OBJECT;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Roll {
+public class Roll implements IJson {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    OptionsEnum oe1, oe2;
+    String oe1, oe2;
     RollPriceEnum priceEnum;
-    Options o1, o2;
-    private List rollList = new ArrayList<Double>();
+    Exp e1, e2;
     double rollSum = 0;
+    private List rollList = new ArrayList<Double>();
 
     // Constructor
-    public Roll( BASE_CLIENT_OBJECT client, OptionsEnum oe1, OptionsEnum oe2, RollPriceEnum priceEnum ) {
+    public Roll(BASE_CLIENT_OBJECT client, String oe1, String oe2, RollPriceEnum priceEnum) {
         this.client = client;
         this.oe1 = oe1;
         this.oe2 = oe2;
@@ -28,31 +30,31 @@ public class Roll {
     public void addRoll() {
         try {
             // If options not set
-            if ( o1 == null || o2 == null ) {
-                o1 = client.getOptionsHandler( ).getOptions( oe1 );
-                o2 = client.getOptionsHandler( ).getOptions( oe2 );
+            if (e1 == null || e2 == null) {
+                e1 = client.getExps().getExp(oe1);
+                e2 = client.getExps().getExp(oe2);
             }
 
             double roll = getRoll();
-            rollList.add( roll );
+            rollList.add(roll);
             rollSum += roll;
-        } catch ( NullPointerException e ) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
 
-    private double price(Options o) {
+    private double price(Exp exp) {
         double price = 0;
         try {
-            if ( priceEnum == RollPriceEnum.CONTRACT ) {
-                price = o.getContract( );
+            if (priceEnum == RollPriceEnum.CONTRACT) {
+                price = exp.getOptions().getContract();
             }
 
-            if ( priceEnum == RollPriceEnum.FUTURE ) {
-                price = o.getFuture( );
+            if (priceEnum == RollPriceEnum.FUTURE) {
+                price = exp.getCalcFut();
             }
             return price;
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             return price;
         }
     }
@@ -69,7 +71,23 @@ public class Roll {
     }
 
     public double getRoll() {
-        return price( o2 ) - price( o1 );
+        return price(e2) - price(e1);
     }
 
+    @Override
+    public MyJson getAsJson() {
+        MyJson json = new MyJson();
+        json.put(JsonStrings.roll, getRoll());
+        json.put(JsonStrings.rollAvg, getAvg());
+        return json;
+    }
+
+    @Override
+    public void loadFromJson(MyJson json) {
+    }
+
+    @Override
+    public MyJson getResetJson() {
+        return new MyJson();
+    }
 }

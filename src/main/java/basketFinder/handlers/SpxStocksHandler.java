@@ -1,11 +1,11 @@
 package basketFinder.handlers;
 
-import basketFinder.MiniStock;
+import serverObjects.indexObjects.INDEX_CLIENT_OBJECT;
 
 public class SpxStocksHandler extends StocksHandler {
 
-    public SpxStocksHandler( int id ) {
-        super( id );
+    public SpxStocksHandler( int id, INDEX_CLIENT_OBJECT client ) {
+        super(id, client);
     }
 
 }

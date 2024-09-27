@@ -3,6 +3,7 @@ package api;
 import api.tws.ITwsRequester;
 import arik.Arik;
 import com.ib.client.*;
+import exp.Exp;
 import locals.LocalHandler;
 import logger.MyLogger;
 import options.Option;
@@ -19,26 +20,27 @@ import java.util.Set;
 
 public class Downloader extends Thread implements EWrapper {
 
-    // Main
-    public static void main( String[] args ) {
-        Downloader downloader = new Downloader( );
-        downloader.start( );
-    }
-
     // Variables
     public static Downloader downloader;
     EJavaSignal m_signal;
     EClientSocket client;
     MyLogger logger;
     int NextOrderId = -1;
-
     Set< ITwsRequester > iTwsRequesters = new HashSet<>( );
+    int MaxRequest = 47;
+    int count = 0;
 
     // Constructor
     private Downloader() {
         logger = MyLogger.getInstance( );
         m_signal = new EJavaSignal( );
         client = new EClientSocket( this, m_signal );
+    }
+
+    // Main
+    public static void main( String[] args ) {
+        Downloader downloader = new Downloader( );
+        downloader.start( );
     }
 
     // Get instance
@@ -67,7 +69,7 @@ public class Downloader extends Thread implements EWrapper {
                 try {
                     reader.processMsgs( );
                 } catch ( Exception e ) {
-                    System.out.println( "Exception: " + e.getMessage( ) );
+                    e.printStackTrace( );
                 }
             }
         } ).start( );
@@ -94,9 +96,9 @@ public class Downloader extends Thread implements EWrapper {
         for ( ITwsRequester requester : iTwsRequesters ) {
             requester.request( this );
         }
-//        client.reqAutoOpenOrders( true );
-//        client.reqPositions( );
-//        client.reqAccountUpdates( true, Manifest.ACCOUNT );
+        client.reqAutoOpenOrders( true );
+        client.reqPositions( );
+        client.reqAccountUpdates( true, Manifest.ACCOUNT );
     }
 
     public void addRequester( ITwsRequester requester ) {
@@ -131,15 +133,22 @@ public class Downloader extends Thread implements EWrapper {
     @Override
     public void error( int id, int errorCode, String errorMsg ) {
 
+        if ( id == 507 ) {
+            JOptionPane.showMessageDialog( null, errorMsg );
+            return;
+        }
+
         System.out.println( EWrapperMsgGenerator.error( id, errorCode, errorMsg ) );
+
         logger.getLogger( ).info( EWrapperMsgGenerator.error( id, errorCode, errorMsg ) );
 
         for ( BASE_CLIENT_OBJECT client : LocalHandler.clients ) {
-            for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+            for ( Exp exp : client.getExps( ).getExpList( ) ) {
                 try {
+                    Options options = exp.getOptions( );
+
                     Option option = options.getOptionsMap( ).get( id );
                     options.removeStrike( option.getStrike( ) );
-                    System.out.println( "Removed: " + client.getName( ) + " id: " + id + " Strike: " + option.getStrike( ) );
                 } catch ( Exception e ) {
                 }
             }
@@ -162,14 +171,18 @@ public class Downloader extends Thread implements EWrapper {
     @Override
     public void tickPrice( int tickerId, int field, double price, TickAttr attribs ) {
         for ( ITwsRequester requester : iTwsRequesters ) {
-            requester.reciever( tickerId, field, price, attribs );
+            if ( requester.isRequested( ) ) {
+                requester.reciever( tickerId, field, price, attribs );
+            }
         }
     }
 
     @Override
     public void tickSize( int tickerId, int field, int size ) {
         for ( ITwsRequester requester : iTwsRequesters ) {
-            requester.sizeReciever( tickerId, field, size );
+            if ( requester.isRequested( ) ) {
+                requester.sizeReciever( tickerId, field, size );
+            }
         }
     }
 
@@ -502,21 +515,18 @@ public class Downloader extends Thread implements EWrapper {
         NextOrderId = nextOrderId;
     }
 
-    int requestCount = 0;
-    int countForSleep = 0;
-    public void reqMktData( int tickerID, Contract contract ) throws Exception {
+    public synchronized void reqMktData( int tickerID, Contract contract ) throws Exception {
         if ( client.isConnected( ) ) {
 
-//            if (countForSleep > 40) {
-//                Thread.sleep(1500);
-//                countForSleep = 0;
-//            }
-
-            client.reqMktData( tickerID, contract,
-                    "100,101,104,105,106,107,165,221,225,233,236,258,293,294,295,318", false, false, null );
-//            requestCount++;
-//            countForSleep++;
-//            System.out.println(requestCount );
+            if ( count < MaxRequest ) {
+//                System.out.println( "Count " + count );
+                client.reqMktData( tickerID, contract,
+                        "", false, false, null );
+                count++;
+            } else {
+                Thread.sleep( 1100 );
+                count = 0;
+            }
         } else {
             throw new Exception( "Tws client in not connected" );
         }

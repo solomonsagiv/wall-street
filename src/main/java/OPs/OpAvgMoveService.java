@@ -10,18 +10,16 @@ import java.util.List;
 
 public class OpAvgMoveService extends MyBaseService {
 
+    public double marginFromOpAvg;
+    List moveList = new ArrayList<Double>();
     // Variables
     private double opPlag;
-
     private Options options;
     private boolean equalStatusOpAvg = false;
     private double startPriceOpAvg = 0;
     private double endPriceOpAvg = 0;
     private double liveMove = 0;
-    public double marginFromOpAvg;
     private double move;
-
-    List moveList = new ArrayList<Double>();
 
     public OpAvgMoveService(BASE_CLIENT_OBJECT client, Options options, double opPlag) {
         super(client);

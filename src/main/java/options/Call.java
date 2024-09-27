@@ -6,8 +6,8 @@ public class Call extends Option {
     private String intName;
     private String side = "c";
 
-    public Call( double strike, int id ) {
-        super( strike, id );
+    public Call(double strike, int id) {
+        super(strike, id);
 
         name = side + strike;
         setCallOrPut(true);

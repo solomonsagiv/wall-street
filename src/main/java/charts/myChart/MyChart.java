@@ -9,6 +9,9 @@ import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.DateRange;
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleInsets;
@@ -18,6 +21,7 @@ import threads.MyThread;
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,16 +29,16 @@ import java.util.NoSuchElementException;
 
 public class MyChart {
 
+    public XYPlot plot;
+    public ChartUpdater updater;
     // Variables
     BASE_CLIENT_OBJECT client;
-    XYPlot plot;
     double[] oldVals;
     JFreeChart chart;
     MyChartPanel chartPanel;
-    public ChartUpdater updater;
-
     MyTimeSeries[] series;
     MyProps props;
+    boolean load = false;
 
     // Constructor
     public MyChart( BASE_CLIENT_OBJECT client, MyTimeSeries[] series, MyProps props ) {
@@ -47,11 +51,12 @@ public class MyChart {
         init( series, props );
 
         // Start updater
-        updater = new ChartUpdater( series );
+        updater = new ChartUpdater( client, series );
         updater.getHandler( ).start( );
     }
 
     private void init( MyTimeSeries[] series, MyProps props ) {
+
         // Series
         TimeSeriesCollection data = new TimeSeriesCollection( );
 
@@ -66,7 +71,8 @@ public class MyChart {
         plot.setRangeAxisLocation( AxisLocation.BOTTOM_OR_RIGHT );
         plot.getDomainAxis( ).setVisible( props.getBool( ChartPropsEnum.INCLUDE_DOMAIN_AXIS ) );
         plot.setAxisOffset( new RectangleInsets( 5.0, 5.0, 5.0, 5.0 ) );
-
+        plot.setDomainPannable( true );
+        plot.setRangePannable( true );
         plot.getRangeAxis( ).setLabelPaint( Themes.BLUE_DARK );
         plot.getRangeAxis( ).setLabelFont( Themes.ARIEL_15 );
 
@@ -111,8 +117,6 @@ public class MyChart {
 
     }
 
-    boolean load = false;
-
     public ChartUpdater getUpdater() {
         return updater;
     }
@@ -121,13 +125,20 @@ public class MyChart {
     class ChartUpdater extends MyThread implements Runnable {
 
         // Variables
-        ArrayList< Double > dots = new ArrayList<>( );
+//        ArrayList< Double > dots = new ArrayList<>( );
         MyTimeSeries[] series;
         NumberAxis range;
+        double min, max;
 
         // Constructor
-        public ChartUpdater( MyTimeSeries[] series ) {
+        public ChartUpdater( BASE_CLIENT_OBJECT client, MyTimeSeries[] series ) {
+            super( client );
             this.series = series;
+            initListeners( );
+        }
+
+        private void initListeners() {
+
         }
 
         @Override
@@ -138,9 +149,9 @@ public class MyChart {
                 try {
                     if ( client.isStarted( ) ) {
                         if ( !load ) {
-                            loadChartData();
                             load = true;
                         }
+
                         // Sleep
                         Thread.sleep( props.getInt( ChartPropsEnum.SLEEP ) );
 
@@ -151,6 +162,9 @@ public class MyChart {
                         } else {
                             append( );
                         }
+                    } else {
+                        // Sleep
+                        Thread.sleep( 1000 );
                     }
                 } catch ( InterruptedException e ) {
                     break;
@@ -167,38 +181,30 @@ public class MyChart {
             setTickerData( );
         }
 
-        private void loadChartData() {
-            if ( props.getBool( ChartPropsEnum.IS_LOAD_DB ) ) {
-                for ( MyTimeSeries serie : series ) {
-                    serie.loadData( dots );
-                }
-            }
-        }
-
         // Append data to series
         private void appendDataToSeries() {
-            try {
-                for ( MyTimeSeries serie : series ) {
-
-                    // If bigger then target Seconds
-                    if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
-                        serie.delete( 0, 0 );
-                        dots.remove( 0 );
+            if ( props.getBool( ChartPropsEnum.IS_LIVE ) ) {
+                try {
+                    for ( MyTimeSeries serie : series ) {
+                        // If bigger then target Seconds
+                        if ( serie.getItemCount( ) > props.getInt( ChartPropsEnum.SECONDS ) ) {
+                            serie.remove( 0 );
+                        }
+                        // Append data
+                        serie.add( );
                     }
-                    // Append data
-                    dots.add( serie.add( ) );
+                } catch ( IndexOutOfBoundsException e ) {
+                    e.printStackTrace( );
                 }
-            } catch ( IndexOutOfBoundsException e ) {
-                e.printStackTrace();
             }
         }
 
         public void setTickerData() {
             if ( props.getBool( ChartPropsEnum.IS_INCLUDE_TICKER ) ) {
                 try {
-                    double min = Collections.min( dots );
-                    double max = Collections.max( dots );
-                    double last = dots.get( dots.size( ) - 1 );
+                    double min = Collections.min( series[ 0 ].getMyValues( ) );
+                    double max = Collections.max( series[ 0 ].getMyValues( ) );
+                    double last = ( double ) series[ 0 ].getLastItem( ).getValue( );
 
                     chartPanel.getHighLbl( ).colorForge( max, L.format10( ) );
                     chartPanel.getLowLbl( ).colorForge( min, L.format10( ) );
@@ -209,10 +215,62 @@ public class MyChart {
             }
         }
 
+        public void updateChartRange() {
+            try {
+                if ( series[ 0 ].getItemCount( ) > 0 ) {
+
+                    // X
+                    DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange( );
+
+                    RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );
+                    RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate( ).toString( ) ) );
+
+                    int startIndex = ( int ) L.abs( series[ 0 ].getIndex( startPeroid ) );
+                    int endIndex = ( int ) L.abs( series[ 0 ].getIndex( endPeroid ) );
+
+                    ArrayList< Double > dots = new ArrayList<>( );
+
+                    try {
+                        if ( series[ 0 ].isScaled( ) ) {
+
+                            for ( MyTimeSeries mts : series ) {
+                                for ( int i = startIndex; i < endIndex; i++ ) {
+                                    dots.add( mts.getScaledData( i ) );
+                                }
+                            }
+
+                            min = Collections.min( dots );
+                            max = Collections.max( dots );
+                        } else {
+
+                            for ( MyTimeSeries mts : series ) {
+                                for ( int i = startIndex; i < endIndex; i++ ) {
+                                    dots.add( ( Double ) mts.getValue( i ) );
+                                }
+                            }
+
+                            min = Collections.min( dots );
+                            max = Collections.max( dots );
+                        }
+                    } catch ( Exception e ) {
+                        e.printStackTrace( );
+                    }
+
+                    min = min - ( min * 0.0001 );
+                    max = max + ( max * 0.0001 );
+
+                    range = ( NumberAxis ) plot.getRangeAxis( );
+                    range.setRange( min, max );
+
+                }
+            } catch ( NoSuchElementException | ParseException e ) {
+                e.printStackTrace( );
+            }
+        }
 
         private void updateChartRange( double min, double max ) {
             try {
-                if ( dots.size( ) > 0 ) {
+                if ( series[ 0 ].getItemCount( ) > 0 ) {
                     range = ( NumberAxis ) plot.getRangeAxis( );
                     range.setRange( min, max );
                 }
@@ -234,37 +292,38 @@ public class MyChart {
 
         private void chartRangeGettingBigFilter() {
 
-            if ( dots.size( ) > 0 ) {
+            if ( series[ 0 ].getItemCount( ) > 0 ) {
+
+                ArrayList< Double > dots = new ArrayList<>( );
+                for ( MyTimeSeries serie : series ) {
+                    if ( serie.isScaled( ) ) {
+                        dots.addAll( serie.getMyValues( ).scaledList( ) );
+                    } else {
+                        dots.addAll( serie.getMyValues( ) );
+                    }
+                }
+
                 double min = Collections.min( dots ) - props.getDouble( ChartPropsEnum.MARGIN );
                 double max = Collections.max( dots ) + props.getDouble( ChartPropsEnum.MARGIN );
 
                 if ( dots.size( ) > series.length * props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) ) {
-
                     // If need to rearrange
-                    if ( max - min > props.getDouble( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS ) ) {
-
+                    if ( max - min > props.getInt( ChartPropsEnum.CHART_MAX_HEIGHT_IN_DOTS ) ) {
                         // For each serie
                         for ( MyTimeSeries serie : series ) {
-
-                            serie.delete( 0, serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1 );
-
-                            for ( int i = 0; i < dots.size( ) - ( props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) * series.length ); i++ ) {
-                                dots.remove( i );
+                            for ( int i = 0; i < serie.getItemCount( ) - props.getInt( ChartPropsEnum.SECONDS_ON_MESS ) - 1; i++ ) {
+                                serie.remove( i );
                             }
-
                         }
                     }
                 }
-
                 // Update chart range
                 updateChartRange( min, max );
             }
-
         }
 
         // Is data changed
         private boolean isDataChanged() {
-
             boolean change = false;
             double oldVal = 0;
             double newVal = 0;
@@ -273,7 +332,14 @@ public class MyChart {
             for ( MyTimeSeries serie : series ) {
 
                 oldVal = oldVals[ i ];
-                newVal = serie.getData( );
+
+                try {
+                    newVal = serie.getData( );
+                } catch ( Exception e ) {
+                    e.printStackTrace( );
+                    change = false;
+                    break;
+                }
 
                 // If 0
                 if ( newVal == 0 ) {
@@ -293,6 +359,23 @@ public class MyChart {
         @Override
         public void initRunnable() {
             setRunnable( this );
+        }
+
+        public void moveForward() {
+            try {
+
+                // X
+                DateRange xRange = ( DateRange ) plot.getDomainAxis( ).getRange( );
+                RegularTimePeriod startPeroid = new Second( L.formatter.parse( xRange.getLowerDate( ).toString( ) ) );
+                RegularTimePeriod endPeroid = new Second( L.formatter.parse( xRange.getUpperDate( ).toString( ) ) );
+
+                int startIndex = ( int ) L.abs( series[ 0 ].getIndex( startPeroid ) );
+                int endIndex = ( int ) L.abs( series[ 0 ].getIndex( endPeroid ) );
+
+
+            } catch ( ParseException e ) {
+                e.printStackTrace( );
+            }
         }
     }
 }

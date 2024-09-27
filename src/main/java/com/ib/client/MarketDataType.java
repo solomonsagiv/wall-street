@@ -16,8 +16,8 @@ public class MarketDataType {
     private static final String DELAYED_FROZEN_STR = "Delayed-Frozen";
     private static final String UNKNOWN_STR = "Unknown";
 
-    public static String getField( int marketDataType ) {
-        switch ( marketDataType ) {
+    public static String getField(int marketDataType) {
+        switch (marketDataType) {
             case REALTIME:
                 return REALTIME_STR;
             case FROZEN:
@@ -32,8 +32,8 @@ public class MarketDataType {
         }
     }
 
-    public static int getField( String marketDataTypeStr ) {
-        switch ( marketDataTypeStr ) {
+    public static int getField(String marketDataTypeStr) {
+        switch (marketDataTypeStr) {
             case REALTIME_STR:
                 return REALTIME;
             case FROZEN_STR:
@@ -49,10 +49,10 @@ public class MarketDataType {
     }
 
     public static String[] getFields() {
-        int totalFields = MarketDataType.class.getFields( ).length;
-        String[] fields = new String[ totalFields ];
-        for ( int i = 0; i < totalFields; i++ ) {
-            fields[ i ] = MarketDataType.getField( i + 1 );
+        int totalFields = MarketDataType.class.getFields().length;
+        String[] fields = new String[totalFields];
+        for (int i = 0; i < totalFields; i++) {
+            fields[i] = MarketDataType.getField(i + 1);
         }
         return fields;
     }

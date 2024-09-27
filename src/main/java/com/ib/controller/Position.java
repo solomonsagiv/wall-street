@@ -16,7 +16,7 @@ public class Position {
     private double m_unrealPnl;
     private double m_realPnl;
 
-    public Position( Contract contract, String account, double position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl ) {
+    public Position(Contract contract, String account, double position, double marketPrice, double marketValue, double averageCost, double unrealPnl, double realPnl) {
         m_contract = contract;
         m_account = account;
         m_position = position;
@@ -32,7 +32,7 @@ public class Position {
     }
 
     public int conid() {
-        return m_contract.conid( );
+        return m_contract.conid();
     }
 
     public double averageCost() {

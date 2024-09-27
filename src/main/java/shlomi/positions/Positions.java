@@ -10,7 +10,7 @@ public class Positions {
 
     // Variables
     BASE_CLIENT_OBJECT client;
-    private HashMap< Integer, Position > positions;
+    private HashMap<Integer, Position> positions;
     private int id = 0;
 
     private double twsTotalPnl = 0;
@@ -18,9 +18,9 @@ public class Positions {
     private int positionStatus = 0;
 
     // Constructor
-    public Positions( BASE_CLIENT_OBJECT client ) {
+    public Positions(BASE_CLIENT_OBJECT client) {
         this.client = client;
-        setPositions( new HashMap<>( ) );
+        setPositions(new HashMap<>());
     }
 
     // Functions
@@ -28,23 +28,23 @@ public class Positions {
 
         int id = 0;
 
-        for ( Entry< Integer, Position > entry : positions.entrySet( ) ) {
-            id = entry.getKey( );
+        for (Entry<Integer, Position> entry : positions.entrySet()) {
+            id = entry.getKey();
         }
 
         return id++;
     }
 
-    public void addPosition( Position position ) {
-        positions.put( getNextId( ), position );
+    public void addPosition(Position position) {
+        positions.put(getNextId(), position);
     }
 
-    public Position openNewPosition( String positionType, int pos, double startPrice ) {
+    public Position openNewPosition(String positionType, int pos, double startPrice) {
 
-        Position position = new Position( getNextId( ), positionType, client.getTwsHandler( ).getMyContract( TwsContractsEnum.OPT_MONTH ), pos, client );
-        position.open( startPrice );
+        Position position = new Position(getNextId(), positionType, client.getTwsHandler().getMyContract(TwsContractsEnum.OPT_MONTH), pos, client);
+        position.open(startPrice);
 
-        positions.put( position.getId( ), position );
+        positions.put(position.getId(), position);
 
         return position;
     }
@@ -54,11 +54,11 @@ public class Positions {
 
         double pnl = 0;
 
-        for ( Entry< Integer, Position > entry : positions.entrySet( ) ) {
+        for (Entry<Integer, Position> entry : positions.entrySet()) {
 
-            Position position = entry.getValue( );
+            Position position = entry.getValue();
 
-            pnl += position.getPnl( );
+            pnl += position.getPnl();
 
         }
 
@@ -70,11 +70,11 @@ public class Positions {
 
         String text = "";
 
-        for ( Entry< Integer, Position > entry : positions.entrySet( ) ) {
+        for (Entry<Integer, Position> entry : positions.entrySet()) {
 
-            Position position = entry.getValue( );
+            Position position = entry.getValue();
 
-            text += position.toString( ) + " \n";
+            text += position.toString() + " \n";
 
         }
 
@@ -84,24 +84,24 @@ public class Positions {
 
     public double getTotalAvgPnl() {
 
-        double pnl = getTotalPnl( );
-        int posQuantity = positions.size( );
+        double pnl = getTotalPnl();
+        int posQuantity = positions.size();
 
-        return floor( pnl / posQuantity );
+        return floor(pnl / posQuantity);
 
     }
 
 
-    public Position getPosition( int id ) {
-        return positions.get( id );
+    public Position getPosition(int id) {
+        return positions.get(id);
     }
 
     // Getters and setters
-    public HashMap< Integer, Position > getPositions() {
+    public HashMap<Integer, Position> getPositions() {
         return positions;
     }
 
-    public void setPositions( HashMap< Integer, Position > positions ) {
+    public void setPositions(HashMap<Integer, Position> positions) {
         this.positions = positions;
     }
 
@@ -111,7 +111,7 @@ public class Positions {
     }
 
 
-    public void setTwsTotalPnl( double twsTotalPnl ) {
+    public void setTwsTotalPnl(double twsTotalPnl) {
         this.twsTotalPnl = twsTotalPnl;
     }
 
@@ -121,7 +121,7 @@ public class Positions {
     }
 
 
-    public void setTwsPositionPnl( double twsPositionPnl ) {
+    public void setTwsPositionPnl(double twsPositionPnl) {
         this.twsPositionPnl = twsPositionPnl;
     }
 
@@ -131,13 +131,13 @@ public class Positions {
     }
 
 
-    public void setPositionStatus( int positionStatus ) {
+    public void setPositionStatus(int positionStatus) {
         this.positionStatus = positionStatus;
     }
 
 
-    public double floor( double d ) {
-        return Math.floor( d * 100 ) / 100;
+    public double floor(double d) {
+        return Math.floor(d * 100) / 100;
     }
 
 }

@@ -13,11 +13,11 @@ public class ExecutionFilter {
     private String m_side;
 
     public ExecutionFilter() {
-        clientId( 0 );
+        clientId(0);
     }
 
-    public ExecutionFilter( int p_clientId, String p_acctCode, String p_time,
-                            String p_symbol, String p_secType, String p_exchange, String p_side ) {
+    public ExecutionFilter(int p_clientId, String p_acctCode, String p_time,
+                           String p_symbol, String p_secType, String p_exchange, String p_side) {
         m_clientId = p_clientId;
         m_acctCode = p_acctCode;
         m_time = p_time;
@@ -57,50 +57,50 @@ public class ExecutionFilter {
     }
 
     // Set
-    public void clientId( int clientId ) {
+    public void clientId(int clientId) {
         m_clientId = clientId;
     }
 
-    public void acctCode( String acctCode ) {
+    public void acctCode(String acctCode) {
         m_acctCode = acctCode;
     }
 
-    public void time( String time ) {
+    public void time(String time) {
         m_time = time;
     }
 
-    public void symbol( String symbol ) {
+    public void symbol(String symbol) {
         m_symbol = symbol;
     }
 
-    public void secType( String secType ) {
+    public void secType(String secType) {
         m_secType = secType;
     }
 
-    public void exchange( String exchange ) {
+    public void exchange(String exchange) {
         m_exchange = exchange;
     }
 
-    public void side( String side ) {
+    public void side(String side) {
         m_side = side;
     }
 
     @Override
-    public boolean equals( Object p_other ) {
-        if ( this == p_other ) {
+    public boolean equals(Object p_other) {
+        if (this == p_other) {
             return true;
         }
-        if ( !( p_other instanceof ExecutionFilter ) ) {
+        if (!(p_other instanceof ExecutionFilter)) {
             return false;
         }
-        ExecutionFilter l_theOther = ( ExecutionFilter ) p_other;
+        ExecutionFilter l_theOther = (ExecutionFilter) p_other;
         return m_clientId == l_theOther.m_clientId &&
-                m_acctCode.equalsIgnoreCase( l_theOther.m_acctCode ) &&
-                m_time.equalsIgnoreCase( l_theOther.m_time ) &&
-                m_symbol.equalsIgnoreCase( l_theOther.m_symbol ) &&
-                m_secType.equalsIgnoreCase( l_theOther.m_secType ) &&
-                m_exchange.equalsIgnoreCase( l_theOther.m_exchange ) &&
-                m_side.equalsIgnoreCase( l_theOther.m_side );
+                m_acctCode.equalsIgnoreCase(l_theOther.m_acctCode) &&
+                m_time.equalsIgnoreCase(l_theOther.m_time) &&
+                m_symbol.equalsIgnoreCase(l_theOther.m_symbol) &&
+                m_secType.equalsIgnoreCase(l_theOther.m_secType) &&
+                m_exchange.equalsIgnoreCase(l_theOther.m_exchange) &&
+                m_side.equalsIgnoreCase(l_theOther.m_side);
     }
 
     @Override

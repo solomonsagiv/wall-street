@@ -10,18 +10,18 @@ public class Amd extends STOCK_OBJECT {
 
     // Constrtor
     public Amd() {
-        setName( "amd" );
-        setStrikeMargin( 1 );
+        setName("amd");
+        setStrikeMargin(1);
 
-        setDbId( 8 );
+        setDbId(8);
         initDDECells();
         setiTwsRequester(new AmdRequester());
     }
 
     // Get instance
     public static Amd getInstance() {
-        if ( client == null ) {
-            client = new Amd( );
+        if (client == null) {
+            client = new Amd();
         }
         return client;
     }
@@ -33,13 +33,13 @@ public class Amd extends STOCK_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override

@@ -1,15 +1,13 @@
 package logic;
 
+import charts.myChart.MyTimeSeries;
 import options.Options;
-import options.OptionsEnum;
 import serverObjects.BASE_CLIENT_OBJECT;
 import service.MyBaseService;
 
-public class LogicService extends MyBaseService {
+import java.net.UnknownHostException;
 
-    // Variables
-    Options options;
-    OptionsEnum optionsEnum;
+public abstract class LogicService extends MyBaseService {
 
     // regular count
     int conRunnerUpCount = 0;
@@ -30,10 +28,27 @@ public class LogicService extends MyBaseService {
     boolean run = true;
     double margin = 0;
 
+    MyTimeSeries indRacesSerie;
+
+    public abstract double getFuture();
+
     // Constructor
-    public LogicService( BASE_CLIENT_OBJECT client, OptionsEnum optionsEnum ) {
-        super( client );
-        this.optionsEnum = optionsEnum;
+    public LogicService(BASE_CLIENT_OBJECT client) {
+        super(client);
+        initSeries();
+    }
+
+    private void initSeries() {
+        indRacesSerie = new MyTimeSeries( "Ind races", getClient() ) {
+            @Override
+            public double getData() throws UnknownHostException {
+                return getClient().getIndexSumRaces();
+            }
+        };
+    }
+
+    public MyTimeSeries getIndRacesSerie() {
+        return indRacesSerie;
     }
 
     @Override
@@ -52,25 +67,13 @@ public class LogicService extends MyBaseService {
         double future = 0;
         double index = 0;
 
-        // Options
-        if ( options == null ) {
-            options = getClient( ).getOptionsHandler( ).getOptions( optionsEnum );
-        }
+        margin = getRacesMargin();
 
-        // Margin
-        if ( margin == 0 ) {
-            if ( getClient().getRacesMargin() != 0 ) {
-                margin = getClient().getRacesMargin();
-            } else {
-                return;
-            }
-        }
-
-        future = options.getContract( );
-        index = getClient( ).getIndex( );
+        future = getFuture();
+        index = getClient().getIndex();
 
         // set for the first time the hoze and stock 0
-        if ( conRunner == 0.0 && indRunner == 0.0 && !first ) {
+        if (conRunner == 0.0 && indRunner == 0.0 && !first) {
             first = true;
             conRunner = future;
             indRunner = index;
@@ -78,36 +81,36 @@ public class LogicService extends MyBaseService {
         /**
          * Searching for the first competition
          **/
-        if ( competition_Number == 0 ) {
+        if (competition_Number == 0) {
 
             // Odd or Even
-            if ( bool ) {
+            if (bool) {
 
                 bool = false;
 
                 // hoze comes up
-                if ( future >= conRunner + margin ) {
+                if (future >= conRunner + margin) {
                     competition_Number = 1;
                     conCompetion = true;
                     conUpDown = 1;
                 }
 
                 // hoze comes down
-                if ( future <= conRunner - margin ) {
+                if (future <= conRunner - margin) {
                     competition_Number = 1;
                     conCompetion = true;
                     conUpDown = 2;
                 }
 
                 // stock comes up
-                if ( index >= indRunner + margin ) {
+                if (index >= indRunner + margin) {
                     competition_Number = 1;
                     indCompetition = true;
                     indUpDown = 1;
                 }
 
                 // stock comes down
-                if ( index <= indRunner - margin ) {
+                if (index <= indRunner - margin) {
                     competition_Number = 1;
                     indCompetition = true;
                     indUpDown = 2;
@@ -117,28 +120,28 @@ public class LogicService extends MyBaseService {
                 bool = true;
 
                 // stock comes up
-                if ( index >= indRunner + margin ) {
+                if (index >= indRunner + margin) {
                     competition_Number = 1;
                     indCompetition = true;
                     indUpDown = 1;
                 }
 
                 // stock comes down
-                if ( index <= indRunner - margin ) {
+                if (index <= indRunner - margin) {
                     competition_Number = 1;
                     indCompetition = true;
                     indUpDown = 2;
                 }
 
                 // hoze comes up
-                if ( future >= conRunner + margin ) {
+                if (future >= conRunner + margin) {
                     competition_Number = 1;
                     conCompetion = true;
                     conUpDown = 1;
                 }
 
                 // hoze comes down
-                if ( future <= conRunner - margin ) {
+                if (future <= conRunner - margin) {
                     competition_Number = 1;
                     conCompetion = true;
                     conUpDown = 2;
@@ -148,29 +151,29 @@ public class LogicService extends MyBaseService {
         /**
          * In one competition
          **/
-        if ( competition_Number == 1 ) {
+        if (competition_Number == 1) {
 
             // hoze start the competition
-            if ( conCompetion ) {
+            if (conCompetion) {
 
                 // hoze is up
-                if ( conUpDown == 1 ) {
+                if (conUpDown == 1) {
 
                     // Exit 1 : no winners
-                    if ( future <= conRunner ) {
+                    if (future <= conRunner) {
                         competition_Number = 0;
                         conCompetion = false;
                         conUpDown = 0;
                     }
 
                     // Exit 2 : hoze win
-                    if ( index >= indRunner + margin ) {
+                    if (index >= indRunner + margin) {
                         competition_Number = 0;
                         conCompetion = false;
                         conUpDown = 0;
 
 //                        noisy( panel.conRacesField, Themes.GREEN );
-                        getClient( ).conUpPlus( );
+                        getClient().conUpPlus();
 //                        conRunnerUpCount = 1;
 
                         conRunner = future;
@@ -179,7 +182,7 @@ public class LogicService extends MyBaseService {
                     }
 
                     // new Competition
-                    if ( index < indRunner - margin && !indCompetition ) {
+                    if (index < indRunner - margin && !indCompetition) {
                         competition_Number = 2;
                         indCompetition = true;
                         indUpDown = 2;
@@ -187,22 +190,22 @@ public class LogicService extends MyBaseService {
                 }
 
                 // hoze is down
-                if ( conUpDown == 2 ) {
+                if (conUpDown == 2) {
 
                     // Exit 1 : no winners
-                    if ( future >= conRunner ) {
+                    if (future >= conRunner) {
                         competition_Number = 0;
                         conCompetion = false;
                         conUpDown = 0;
                     }
 
                     // Exit 2 : hoze win
-                    if ( index <= indRunner - margin ) {
+                    if (index <= indRunner - margin) {
                         competition_Number = 0;
                         conCompetion = false;
                         conUpDown = 0;
 
-                        getClient( ).conDownPlus( );
+                        getClient().conDownPlus();
 //                        conRunnerDownCount = 1;
 //                        noisy( panel.conRacesField, Themes.RED );
                         conRunner = future;
@@ -210,7 +213,7 @@ public class LogicService extends MyBaseService {
                     }
 
                     // Exit 3 : new Competition
-                    if ( index > indRunner + margin && !indCompetition ) {
+                    if (index > indRunner + margin && !indCompetition) {
                         competition_Number = 2;
                         indCompetition = true;
                         indUpDown = 1;
@@ -218,25 +221,25 @@ public class LogicService extends MyBaseService {
                 }
             }
             // stock start the competition
-            if ( indCompetition ) {
+            if (indCompetition) {
 
                 // stock is up
-                if ( indUpDown == 1 ) {
+                if (indUpDown == 1) {
 
                     // Exit 1 : no winners
-                    if ( index <= indRunner ) {
+                    if (index <= indRunner) {
                         competition_Number = 0;
                         indCompetition = false;
                         indUpDown = 0;
                     }
 
                     // Exit 2 : stock win
-                    if ( future >= conRunner + margin ) {
+                    if (future >= conRunner + margin) {
                         competition_Number = 0;
                         indCompetition = false;
                         indUpDown = 0;
 
-                        getClient( ).indUpPlus( );
+                        getClient().indUpPlus();
 //                        indRunnerUpCount = 1;
 //                        noisy( panel.indRacesField, Themes.GREEN );
 
@@ -245,7 +248,7 @@ public class LogicService extends MyBaseService {
                     }
 
                     // Exit 3 : new competition
-                    if ( future < conRunner - margin && !conCompetion ) {
+                    if (future < conRunner - margin && !conCompetion) {
                         competition_Number = 2;
                         conCompetion = true;
                         conUpDown = 2;
@@ -253,22 +256,22 @@ public class LogicService extends MyBaseService {
                 }
 
                 // stock is down
-                if ( indUpDown == 2 ) {
+                if (indUpDown == 2) {
 
                     // Exit 1 : no winners
-                    if ( index >= indRunner ) {
+                    if (index >= indRunner) {
                         competition_Number = 0;
                         indCompetition = false;
                         indUpDown = 0;
                     }
 
                     // Exit 2 : stock win
-                    if ( future <= conRunner - margin ) {
+                    if (future <= conRunner - margin) {
                         competition_Number = 0;
                         indCompetition = false;
                         indUpDown = 0;
 
-                        getClient( ).indDownPlus( );
+                        getClient().indDownPlus();
 //                        indRunnerDownCount = 1;
 //                        noisy( panel.indRacesField, Themes.RED );
 
@@ -277,7 +280,7 @@ public class LogicService extends MyBaseService {
                     }
 
                     // Exit 3 : new competition
-                    if ( future > conRunner + margin && !conCompetion ) {
+                    if (future > conRunner + margin && !conCompetion) {
                         competition_Number = 2;
                         conCompetion = true;
                         conUpDown = 1;
@@ -288,20 +291,20 @@ public class LogicService extends MyBaseService {
         /**
          * In two competitions
          **/
-        if ( competition_Number == 2 ) {
+        if (competition_Number == 2) {
 
             // hoze up stock down
-            if ( conUpDown == 1 && indUpDown == 2 ) {
+            if (conUpDown == 1 && indUpDown == 2) {
 
                 // Exit 3 : hoze close his competition
-                if ( future <= conRunner ) {
+                if (future <= conRunner) {
                     competition_Number = 1;
                     conCompetion = false;
                     conUpDown = 0;
                 }
 
                 // Exit 4 : stock close his competition
-                if ( index >= indRunner ) {
+                if (index >= indRunner) {
                     competition_Number = 1;
                     indCompetition = false;
                     indUpDown = 0;
@@ -309,17 +312,17 @@ public class LogicService extends MyBaseService {
             }
 
             // stock up hoze down
-            if ( indUpDown == 1 && conUpDown == 2 ) {
+            if (indUpDown == 1 && conUpDown == 2) {
 
                 // Exit 1 : hoze close his competition
-                if ( future >= conRunner ) {
+                if (future >= conRunner) {
                     competition_Number = 1;
                     conCompetion = false;
                     conUpDown = 0;
                 }
 
                 // Exit 2 : stock close his competition
-                if ( index <= indRunner ) {
+                if (index <= indRunner) {
                     competition_Number = 1;
                     indCompetition = false;
                     indUpDown = 0;
@@ -328,8 +331,8 @@ public class LogicService extends MyBaseService {
         }
 
         // fix 1
-        if ( competition_Number == 2 ) {
-            if ( !conCompetion || !indCompetition ) {
+        if (competition_Number == 2) {
+            if (!conCompetion || !indCompetition) {
                 conCompetion = false;
                 indCompetition = false;
                 competition_Number = 0;
@@ -341,8 +344,8 @@ public class LogicService extends MyBaseService {
         }
 
         // fix 2
-        if ( conCompetion && !indCompetition ) {
-            if ( competition_Number == 2 ) {
+        if (conCompetion && !indCompetition) {
+            if (competition_Number == 2) {
                 conCompetion = false;
                 indCompetition = false;
                 competition_Number = 0;
@@ -354,8 +357,8 @@ public class LogicService extends MyBaseService {
         }
 
         // fix 3
-        if ( indCompetition && !conCompetion ) {
-            if ( competition_Number == 2 ) {
+        if (indCompetition && !conCompetion) {
+            if (competition_Number == 2) {
                 conCompetion = false;
                 indCompetition = false;
                 competition_Number = 0;
@@ -367,7 +370,7 @@ public class LogicService extends MyBaseService {
         }
 
         // fix 4
-        if ( !conCompetion && !indCompetition && competition_Number == 1 ) {
+        if (!conCompetion && !indCompetition && competition_Number == 1) {
             conCompetion = false;
             indCompetition = false;
             competition_Number = 0;
@@ -378,10 +381,8 @@ public class LogicService extends MyBaseService {
         }
 
         // setText to the window
-        updateRaces( );
-
+        updateRaces();
     }
-
 
     public void close() {
         run = false;
@@ -389,10 +390,10 @@ public class LogicService extends MyBaseService {
 
     // SetText
     private void updateRaces() {
-        getClient( ).setConUp( getClient( ).getConUp( ) + conRunnerUpCount );
-        getClient( ).setConDown( getClient( ).getConDown( ) + conRunnerDownCount );
-        getClient( ).setIndexUp( getClient( ).getIndexUp( ) + indRunnerUpCount );
-        getClient( ).setIndexDown( getClient( ).getIndexDown( ) + indRunnerDownCount );
+        getClient().setConUp(getClient().getConUp() + conRunnerUpCount);
+        getClient().setConDown(getClient().getConDown() + conRunnerDownCount);
+        getClient().setIndexUp(getClient().getIndexUp() + indRunnerUpCount);
+        getClient().setIndexDown(getClient().getIndexDown() + indRunnerDownCount);
 
         // regular count
         conRunnerUpCount = 0;
@@ -400,7 +401,6 @@ public class LogicService extends MyBaseService {
         indRunnerUpCount = 0;
         indRunnerDownCount = 0;
     }
-
 
     // Refresh the logic variables
     public void refresh() {
@@ -418,6 +418,6 @@ public class LogicService extends MyBaseService {
         bool = true;
     }
 
-
+    public abstract double getRacesMargin();
 }
 

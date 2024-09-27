@@ -10,6 +10,21 @@ import java.time.LocalTime;
 public class Netflix extends STOCK_OBJECT {
 
 
+    static Netflix client = null;
+
+    // Constrtor
+    public Netflix() {
+        setName("netflix");
+        setStrikeMargin(5);
+
+        setDbId(7);
+        initDDECells();
+        setIndexStartTime(LocalTime.of(16, 30, 0));
+        setIndexEndTime(LocalTime.of(23, 0, 0));
+        setFutureEndTime(LocalTime.of(23, 15, 0));
+        setiTwsRequester(new NetflixRequester());
+    }
+
     public static void main(String[] args) {
         Apple netflix = Apple.getInstance();
         netflix.getTablesHandler().getTable(TablesEnum.TWS_CONTRACTS).load();
@@ -20,25 +35,10 @@ public class Netflix extends STOCK_OBJECT {
 
     }
 
-    static Netflix client = null;
-
-    // Constrtor
-    public Netflix() {
-        setName( "netflix" );
-        setStrikeMargin( 5 );
-
-        setDbId( 7 );
-        initDDECells();
-        setIndexStartTime(LocalTime.of(16, 30, 0));
-        setIndexEndTime(LocalTime.of(23, 0, 0));
-        setFutureEndTime(LocalTime.of(23, 15, 0));
-        setiTwsRequester(new NetflixRequester());
-    }
-
     // Get instance
     public static Netflix getInstance() {
-        if ( client == null ) {
-            client = new Netflix( );
+        if (client == null) {
+            client = new Netflix();
         }
         return client;
     }
@@ -50,13 +50,13 @@ public class Netflix extends STOCK_OBJECT {
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override

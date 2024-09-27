@@ -1,11 +1,22 @@
 package tws;
 
 import com.ib.client.Contract;
-import locals.IJsonDataBase;
+import locals.IJson;
 import myJson.MyJson;
-import options.JsonEnum;
+import options.JsonStrings;
 
-public class MyContract extends Contract implements IJsonDataBase {
+enum MyContractEnum {
+    ID,
+    SEC_TYPE,
+    CURRENCY,
+    EXCHANGE,
+    TRADING_CLASS,
+    MULTIPLIER,
+    SYMBOL,
+    INCLUDE_EXPIRED
+}
+
+public class MyContract extends Contract implements IJson {
 
     private int myId;
     private boolean requested;
@@ -31,6 +42,13 @@ public class MyContract extends Contract implements IJsonDataBase {
         lastTradeDateOrContractMonth(contract.lastTradeDateOrContractMonth());
     }
 
+    public MyContract() {
+    }
+
+    public MyContract(TwsContractsEnum type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " \n" +
@@ -43,69 +61,34 @@ public class MyContract extends Contract implements IJsonDataBase {
     @Override
     public MyJson getAsJson() {
         MyJson object = new MyJson();
-        object.put(JsonEnum.ID.toString(), getMyId());
-        object.put(JsonEnum.SEC_TYPE.toString(), secType());
-        object.put(JsonEnum.CURRENCY.toString(), currency());
-        object.put(JsonEnum.EXCHANGE.toString(), exchange());
-        object.put(JsonEnum.TRADING_CLASS.toString(), tradingClass());
-        object.put(JsonEnum.MULTIPLIER.toString(), multiplier());
-        object.put(JsonEnum.SYMBOL.toString(), symbol());
-        object.put(JsonEnum.INCLUDE_EXPIRED.toString(), includeExpired());
-        object.put(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString(), lastTradeDateOrContractMonth());
+        object.put(JsonStrings.id.toString(), getMyId());
+        object.put(JsonStrings.secType.toString(), secType());
+        object.put(JsonStrings.currency.toString(), currency());
+        object.put(JsonStrings.exchange.toString(), exchange());
+        object.put(JsonStrings.tradingClass.toString(), tradingClass());
+        object.put(JsonStrings.multiplier.toString(), multiplier());
+        object.put(JsonStrings.symbol.toString(), symbol());
+        object.put(JsonStrings.includeExpired.toString(), includeExpired());
+        object.put(JsonStrings.lastTradingDateOrContractMonth.toString(), lastTradeDateOrContractMonth());
         return object;
     }
 
     @Override
-    public void loadFromJson(MyJson object) {
-        setMyId(object.getInt(JsonEnum.ID.toString()));
-        secType(object.getString(JsonEnum.SEC_TYPE.toString()));
-        currency(object.getString(JsonEnum.CURRENCY.toString()));
-        exchange(object.getString(JsonEnum.EXCHANGE.toString()));
-        tradingClass(object.getString(JsonEnum.TRADING_CLASS.toString()));
-        multiplier(object.getString(JsonEnum.MULTIPLIER.toString()));
-        symbol(object.getString(JsonEnum.SYMBOL.toString()));
-        includeExpired(object.getBoolean(JsonEnum.INCLUDE_EXPIRED.toString()));
-        lastTradeDateOrContractMonth(object.getString(JsonEnum.LAST_TRADIND_DATE_OR_CONTRACT_MONTH.toString()));
-    }
-
-    public void setType(String string) {
-        switch (string) {
-            case "INDEX":
-                setType(TwsContractsEnum.INDEX);
-                break;
-            case "FUTURE":
-                setType(TwsContractsEnum.FUTURE);
-                break;
-            case "FUTURE_FAR":
-                setType(TwsContractsEnum.FUTURE_FAR);
-                break;
-            case "OPT_WEEK":
-                setType(TwsContractsEnum.OPT_WEEK);
-                break;
-            case "OPT_MONTH":
-                setType(TwsContractsEnum.OPT_MONTH);
-                break;
-            case "OPT_QUARTER":
-                setType(TwsContractsEnum.OPT_QUARTER);
-                break;
-            case "OPT_QUARTER_FAR":
-                setType(TwsContractsEnum.OPT_QUARTER_FAR);
-                break;
-            default:
-                break;
-        }
+    public void loadFromJson(MyJson json) {
+        setMyId(json.getInt(JsonStrings.id.toString()));
+        secType(json.getString(JsonStrings.secType.toString()));
+        currency(json.getString(JsonStrings.currency.toString()));
+        exchange(json.getString(JsonStrings.exchange.toString()));
+        tradingClass(json.getString(JsonStrings.tradingClass.toString()));
+        multiplier(json.getString(JsonStrings.multiplier.toString()));
+        symbol(json.getString(JsonStrings.symbol.toString()));
+        includeExpired(json.getBoolean(JsonStrings.includeExpired.toString()));
+        lastTradeDateOrContractMonth(json.getString(JsonStrings.lastTradingDateOrContractMonth.toString()));
     }
 
     @Override
     public MyJson getResetJson() {
         return getAsJson();
-    }
-
-    public MyContract() {
-    }
-
-    public MyContract(TwsContractsEnum type) {
-        this.type = type;
     }
 
     public int getMyId() {
@@ -128,18 +111,35 @@ public class MyContract extends Contract implements IJsonDataBase {
         return type;
     }
 
+    public void setType(String string) {
+        switch (string) {
+            case "INDEX":
+                setType(TwsContractsEnum.INDEX);
+                break;
+            case "FUTURE":
+                setType(TwsContractsEnum.FUTURE);
+                break;
+            case "FUTURE_FAR":
+                setType(TwsContractsEnum.FUTURE_FAR);
+                break;
+            case "OPT_WEEK":
+                setType(TwsContractsEnum.OPT_WEEK);
+                break;
+            case "OPT_MONTH":
+                setType(TwsContractsEnum.OPT_MONTH);
+                break;
+            case "OPT_QUARTER":
+                setType(TwsContractsEnum.OPT_E1);
+                break;
+            case "OPT_QUARTER_FAR":
+                setType(TwsContractsEnum.OPT_E2);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void setType(TwsContractsEnum type) {
         this.type = type;
     }
-}
-
-enum MyContractEnum {
-    ID,
-    SEC_TYPE,
-    CURRENCY,
-    EXCHANGE,
-    TRADING_CLASS,
-    MULTIPLIER,
-    SYMBOL,
-    INCLUDE_EXPIRED
 }

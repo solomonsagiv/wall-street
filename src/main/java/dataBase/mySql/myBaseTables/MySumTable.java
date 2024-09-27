@@ -6,14 +6,8 @@ import serverObjects.BASE_CLIENT_OBJECT;
 public abstract class MySumTable extends MySqlTable {
 
     // Constructor
-    public MySumTable( BASE_CLIENT_OBJECT client ) {
-
-        super( client );
-    }
-
-    @Override
-    public String getName() {
-        return client.getName() + "_sum";
+    public MySumTable(BASE_CLIENT_OBJECT client) {
+        super(client);
     }
 
     @Override

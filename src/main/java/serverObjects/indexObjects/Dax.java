@@ -3,14 +3,14 @@ package serverObjects.indexObjects;
 import DDE.DDECells;
 import api.tws.requesters.DaxRequester;
 import basketFinder.BasketService;
-import basketFinder.handlers.DaxStocksHandler;
 import basketFinder.handlers.StocksHandler;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
+import exp.E;
+import exp.ExpStrings;
+import exp.Exps;
 import logic.LogicService;
-import options.IndexOptions;
-import options.OptionsEnum;
-import options.OptionsHandler;
+import options.optionsCalcs.IndexOptionsCalc;
 import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
@@ -22,64 +22,67 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     // Constructor
     public Dax() {
-        setName( "dax" );
-        setIndexBidAskMargin( .5 );
-        setDbId( 1 );
-        setStrikeMargin( 5 );
-        setBaseId( 100000 );
-        initDDECells( );
-        setIndexStartTime( LocalTime.of( 10, 0, 0 ) );
-        setIndexEndTime( LocalTime.of( 18, 30, 0 ) );
-        setFutureEndTime( LocalTime.of( 18, 45, 0 ) );
-        setiTwsRequester( new DaxRequester( ) );
-        setLogicService( new LogicService( this, OptionsEnum.MONTH ) );
-        baskets();
+        setName("dax");
+        setIndexBidAskMargin(.5);
+        setDbId(1);
+        setStrikeMargin(5);
+        setBaseId(100000);
+        initDDECells();
+        setIndexStartTime(LocalTime.of(10, 0, 0));
+        setIndexEndTime(LocalTime.of(18, 30, 0));
+        setFutureEndTime(LocalTime.of(18, 45, 0));
+        setiTwsRequester(new DaxRequester());
+        initLogic();
         myTableHandler();
-    }
-
-    private void myTableHandler() {
-        tablesHandler.addTable( TablesEnum.INDEX_STOCKS, new IndexStocksTable( this ) );
-    }
-
-    private void baskets() {
-        stocksHandler = new DaxStocksHandler( 103000);
-        basketService = new BasketService(this, stocksHandler, 20);
-
+        getMyServiceHandler().removeService( getMySqlService() );
     }
 
     // Get instance
     public static Dax getInstance() {
-        if ( client == null ) {
-            client = new Dax( );
+        if (client == null) {
+            client = new Dax();
         }
         return client;
     }
 
+    private void initLogic() {
+        setLogicService( new LogicService( this ) {
+            @Override
+            public double getFuture() {
+                return 0;
+            }
+
+            @Override
+            public double getRacesMargin() {
+                return getFuture() * .0001;
+            }
+        } );
+    }
+
+    private void myTableHandler() {
+        tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
+    }
+
     @Override
-    public void initOptionsHandler() throws NullPointerException {
+    public void initExpHandler() throws NullPointerException {
+        // E1
+        E e = new E(this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc(this, ExpStrings.e1));
 
-        // Fut Quarter
-        IndexOptions weekOptions = new IndexOptions( getBaseId( ) + 1000, this, OptionsEnum.WEEK, TwsContractsEnum.OPT_WEEK, null );
-
-        // Fut Quarter far
-        IndexOptions monthOptions = new IndexOptions( getBaseId( ) + 2000, this, OptionsEnum.MONTH, TwsContractsEnum.OPT_MONTH, null );
-
-        OptionsHandler optionsHandler = new OptionsHandler( this );
-        optionsHandler.addOptions( weekOptions );
-        optionsHandler.addOptions( monthOptions );
-        optionsHandler.setMainOptions( weekOptions );
-        setOptionsHandler( optionsHandler );
+        Exps exps = new Exps(this);
+        exps.addExp(e, ExpStrings.e1);
+        exps.setMainExp(e);
+        setExps(exps);
     }
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells( ) {
+        DDECells ddeCells = new DDECells() {
             @Override
             public boolean isWorkWithDDE() {
                 return false;
             }
         };
-        setDdeCells( ddeCells );
+        setDdeCells(ddeCells);
     }
 
     @Override
@@ -89,7 +92,7 @@ public class Dax extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initBaseId() {
-        setBaseId( 100000 );
+        setBaseId(100000);
     }
 
     @Override

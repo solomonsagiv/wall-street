@@ -22,7 +22,7 @@ public class BasketService2 extends MyBaseService {
     public BasketService2( BASE_CLIENT_OBJECT client, StocksHandler stocksHandler, int plagForBasket ) {
         super( client );
         this.client = client;
-        this.miniStockMap = stocksHandler.getMiniStockMap( );
+        this.miniStockMap = stocksHandler.getStocksMap( );
         this.plagForBasket = plagForBasket;
     }
 
@@ -39,11 +39,11 @@ public class BasketService2 extends MyBaseService {
                 // Volume check
                 if ( stock.getVolume( ) != stock.getLastCheckVolume( ) ) {
                     // Up
-                    if ( stock.isUp() ) {
+                    if ( stock.isUp( ) ) {
                         upCounter++;
                     }
                     // Down
-                    if ( stock.isDown() ) {
+                    if ( stock.isDown( ) ) {
                         downCounter++;
                     }
                 }

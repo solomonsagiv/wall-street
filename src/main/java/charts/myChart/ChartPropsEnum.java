@@ -12,5 +12,6 @@ public enum ChartPropsEnum {
     SLEEP,
     CHART_MAX_HEIGHT_IN_DOTS,
     SECONDS_ON_MESS,
-    INCLUDE_DOMAIN_AXIS
+    INCLUDE_DOMAIN_AXIS,
+    SCALED_DATA
 }

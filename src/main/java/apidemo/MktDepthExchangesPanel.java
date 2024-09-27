@@ -17,31 +17,31 @@ import java.util.ArrayList;
 
 
 public class MktDepthExchangesPanel extends NewTabPanel {
-    private MktDepthExchangesModel m_model = new MktDepthExchangesModel( );
+    private MktDepthExchangesModel m_model = new MktDepthExchangesModel();
 
     MktDepthExchangesPanel() {
-        HtmlButton reqMktDepthExchangesButton = new HtmlButton( "Request Market Depth Exchanges" ) {
+        HtmlButton reqMktDepthExchangesButton = new HtmlButton("Request Market Depth Exchanges") {
             protected void actionPerformed() {
-                reqMktDepthExchanges( );
+                reqMktDepthExchanges();
             }
         };
 
-        HtmlButton clearMktDepthExchangesButton = new HtmlButton( "Clear MarketDepth Exchanges" ) {
+        HtmlButton clearMktDepthExchangesButton = new HtmlButton("Clear MarketDepth Exchanges") {
             protected void actionPerformed() {
-                clearMktDepthExchanges( );
+                clearMktDepthExchanges();
             }
         };
 
-        JPanel buts = new VerticalPanel( );
-        buts.add( reqMktDepthExchangesButton );
-        buts.add( clearMktDepthExchangesButton );
+        JPanel buts = new VerticalPanel();
+        buts.add(reqMktDepthExchangesButton);
+        buts.add(clearMktDepthExchangesButton);
 
-        JTable table = new Table( m_model, 2 );
-        JScrollPane scroll = new JScrollPane( table );
-        scroll.setPreferredSize( new Dimension( 100, 100 ) );
-        setLayout( new BorderLayout( ) );
-        add( scroll );
-        add( buts, BorderLayout.EAST );
+        JTable table = new Table(m_model, 2);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setPreferredSize(new Dimension(100, 100));
+        setLayout(new BorderLayout());
+        add(scroll);
+        add(buts, BorderLayout.EAST);
     }
 
     /**
@@ -55,15 +55,15 @@ public class MktDepthExchangesPanel extends NewTabPanel {
      */
     @Override
     public void closed() {
-        clearMktDepthExchanges( );
+        clearMktDepthExchanges();
     }
 
     private void reqMktDepthExchanges() {
-        ApiDemo.INSTANCE.controller( ).reqMktDepthExchanges( m_model );
+        ApiDemo.INSTANCE.controller().reqMktDepthExchanges(m_model);
     }
 
     private void clearMktDepthExchanges() {
-        m_model.clear( );
+        m_model.clear();
     }
 
     private static class DepthMktDataDescriptionRow {
@@ -73,38 +73,38 @@ public class MktDepthExchangesPanel extends NewTabPanel {
         String m_serviceDataType;
         String m_aggGroup;
 
-        void update( String exchange, String secType, String listingExch, String serviceDataType, int aggGroup ) {
+        void update(String exchange, String secType, String listingExch, String serviceDataType, int aggGroup) {
             m_exchange = exchange;
             m_secType = secType;
             m_listingExch = listingExch;
             m_serviceDataType = serviceDataType;
-            m_aggGroup = ( aggGroup != Integer.MAX_VALUE ? String.valueOf( aggGroup ) : "" );
+            m_aggGroup = (aggGroup != Integer.MAX_VALUE ? String.valueOf(aggGroup) : "");
         }
     }
 
     private class MktDepthExchangesModel extends AbstractTableModel implements IMktDepthExchangesHandler {
-        ArrayList< DepthMktDataDescriptionRow > m_list = new ArrayList<>( );
+        ArrayList<DepthMktDataDescriptionRow> m_list = new ArrayList<>();
 
         @Override
-        public void mktDepthExchanges( DepthMktDataDescription[] depthMktDataDescriptions ) {
-            for ( DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions ) {
-                DepthMktDataDescriptionRow row = new DepthMktDataDescriptionRow( );
-                m_list.add( row );
-                row.update( depthMktDataDescription.exchange( ), depthMktDataDescription.secType( ),
-                        depthMktDataDescription.listingExch( ), depthMktDataDescription.serviceDataType( ),
-                        depthMktDataDescription.aggGroup( ) );
+        public void mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions) {
+            for (DepthMktDataDescription depthMktDataDescription : depthMktDataDescriptions) {
+                DepthMktDataDescriptionRow row = new DepthMktDataDescriptionRow();
+                m_list.add(row);
+                row.update(depthMktDataDescription.exchange(), depthMktDataDescription.secType(),
+                        depthMktDataDescription.listingExch(), depthMktDataDescription.serviceDataType(),
+                        depthMktDataDescription.aggGroup());
             }
-            m_model.fireTableDataChanged( );
+            m_model.fireTableDataChanged();
         }
 
         public void clear() {
-            m_list.clear( );
-            fireTableDataChanged( );
+            m_list.clear();
+            fireTableDataChanged();
         }
 
         @Override
         public int getRowCount() {
-            return m_list.size( );
+            return m_list.size();
         }
 
         @Override
@@ -113,8 +113,8 @@ public class MktDepthExchangesPanel extends NewTabPanel {
         }
 
         @Override
-        public String getColumnName( int col ) {
-            switch ( col ) {
+        public String getColumnName(int col) {
+            switch (col) {
                 case 0:
                     return "Exchange";
                 case 1:
@@ -131,10 +131,10 @@ public class MktDepthExchangesPanel extends NewTabPanel {
         }
 
         @Override
-        public Object getValueAt( int rowIn, int col ) {
-            DepthMktDataDescriptionRow row = m_list.get( rowIn );
+        public Object getValueAt(int rowIn, int col) {
+            DepthMktDataDescriptionRow row = m_list.get(rowIn);
 
-            switch ( col ) {
+            switch (col) {
                 case 0:
                     return row.m_exchange;
                 case 1:

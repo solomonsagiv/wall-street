@@ -2,20 +2,21 @@ package serverObjects.indexObjects;
 
 import DDE.DDECells;
 import DDE.DDECellsEnum;
+import api.Manifest;
 import api.tws.requesters.SpxRequester;
-import basketFinder.BasketService;
-import basketFinder.BasketService2;
-import basketFinder.handlers.SpxStocksHandler;
+import basketFinder.MiniStock;
 import basketFinder.handlers.StocksHandler;
-import charts.myCharts.IndexVsQuarterVSOpAvgLiveChart;
-import charts.myCharts.OpAvgFuture_E2_IndexCounter_Index_Chart;
+import charts.myCharts.EDeltaChart;
+import charts.myCharts.FourLineChart;
+import charts.myCharts.FullCharts;
 import dataBase.mySql.mySqlComps.TablesEnum;
 import dataBase.mySql.myTables.index.IndexStocksTable;
+import exp.E;
+import exp.ExpStrings;
+import exp.Exps;
 import logic.LogicService;
-import options.IndexOptions;
 import options.OptionsDDeCells;
-import options.OptionsEnum;
-import options.OptionsHandler;
+import options.optionsCalcs.IndexOptionsCalc;
 import roll.Roll;
 import roll.RollEnum;
 import roll.RollHandler;
@@ -24,101 +25,90 @@ import serverObjects.ApiEnum;
 import tws.TwsContractsEnum;
 
 import java.time.LocalTime;
+import java.util.Map;
 
 public class Spx extends INDEX_CLIENT_OBJECT {
 
     static Spx client = null;
 
-    private BasketService basketService;
-    private BasketService2 basketService2;
-    private StocksHandler stocksHandler;
-
     // Constructor
     public Spx() {
-        setName("spx");
-        setIndexBidAskMargin(.5);
-        setDbId(2);
-        setStrikeMargin(5);
-        setBaseId(10000);
-        initDDECells();
-        setIndexStartTime(LocalTime.of(16, 31, 0));
-        setIndexEndTime(LocalTime.of(23, 0, 0));
-        setFutureEndTime(LocalTime.of(23, 15, 0));
-        setiTwsRequester(new SpxRequester());
-        setLogicService(new LogicService(this, OptionsEnum.QUARTER));
-        roll();
-        baskets();
-        myTableHandler();
+        setName( "spx" );
+        setIndexBidAskMargin( .5 );
+        setDbId( 2 );
+        setStrikeMargin( 5 );
+        setBaseId( 10000 );
+        initDDECells( );
+        setIndexStartTime( LocalTime.of( 16, 31, 0 ) );
+        setIndexEndTime( LocalTime.of( 23, 0, 0 ) );
+        setFutureEndTime( LocalTime.of( 23, 15, 0 ) );
+        setiTwsRequester( new SpxRequester( ) );
+        initLogic();
+        roll( );
+        myTableHandler( );
+        initStocksHandler();
     }
 
-    private void myTableHandler() {
-        tablesHandler.addTable(TablesEnum.INDEX_STOCKS, new IndexStocksTable(this));
-    }
-
-    private void baskets() {
-        stocksHandler = new SpxStocksHandler(10200);
-        basketService = new BasketService(this, stocksHandler, 350);
-
-        basketService2 = new BasketService2(this, stocksHandler, 350);
-    }
-
-    private void roll() {
-        rollHandler = new RollHandler(this);
-
-        Roll quarter_quarterFar = new Roll(this, OptionsEnum.QUARTER, OptionsEnum.QUARTER_FAR, RollPriceEnum.FUTURE);
-        rollHandler.addRoll(RollEnum.QUARTER_QUARTER_FAR, quarter_quarterFar);
-    }
-
-    // Get instance
+    // get instance
     public static Spx getInstance() {
-        if (client == null) {
-            client = new Spx();
+        if ( client == null ) {
+            client = new Spx( );
         }
         return client;
     }
 
-    @Override
-    public void startAll() {
-        super.startAll();
-        createCharts();
+    private void initLogic() {
+        setLogicService( new LogicService( this ) {
+            @Override
+            public double getFuture() {
+                return getExps().getExp( ExpStrings.e1 ).getCalcFut();
+            }
+
+            @Override
+            public double getRacesMargin() {
+                return 0.0001;
+            }
+        } );
     }
 
-    private void createCharts() {
-        try {
-            // 5 lines
-            IndexVsQuarterVSOpAvgLiveChart indexVsQuarterVSOpAvgLiveChart = new IndexVsQuarterVSOpAvgLiveChart(this);
-            indexVsQuarterVSOpAvgLiveChart.createChart();
-
-            // OpAvg
-            OpAvgFuture_E2_IndexCounter_Index_Chart opAvgFuture_e2_indexCounter_index_chart = new OpAvgFuture_E2_IndexCounter_Index_Chart(this);
-            opAvgFuture_e2_indexCounter_index_chart.createChart();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+    private void initStocksHandler() {
+        stocksHandler = new StocksHandler( 10200, client );
     }
 
 
+    private void myTableHandler() {
+        tablesHandler.addTable( TablesEnum.INDEX_STOCKS, new IndexStocksTable( this ) );
+    }
+
+    private void roll() {
+        rollHandler = new RollHandler( this );
+
+        Roll quarter_quarterFar = new Roll( this, ExpStrings.e1, ExpStrings.e2, RollPriceEnum.FUTURE );
+        rollHandler.addRoll( RollEnum.E1_E2, quarter_quarterFar );
+    }
+
     @Override
-    public void initOptionsHandler() throws NullPointerException {
+    public void initExpHandler() throws NullPointerException {
 
-        // Fut Quarter
-        OptionsDDeCells quarterDDeCells = new OptionsDDeCells("R19C2", "R19C1", "R19C3");
-        IndexOptions quarterOptions = new IndexOptions(getBaseId() + 3000, this, OptionsEnum.QUARTER, TwsContractsEnum.OPT_QUARTER, quarterDDeCells);
+        // E1
+        OptionsDDeCells e1DDeCells = new OptionsDDeCells( "R19C2", "R19C1", "R19C3" );
+        E e = new E( this, ExpStrings.e1, TwsContractsEnum.FUTURE, new IndexOptionsCalc( this, ExpStrings.e1 ), e1DDeCells );
 
-        // Fut Quarter far
-        OptionsDDeCells quarterFarDDeCells = new OptionsDDeCells("R21C2", "R21C1", "R21C3");
-        IndexOptions quarterFarOptions = new IndexOptions(getBaseId() + 4000, this, OptionsEnum.QUARTER_FAR, TwsContractsEnum.OPT_QUARTER_FAR, quarterFarDDeCells);
+        // E2
+        OptionsDDeCells e2DDeCells = new OptionsDDeCells( "R21C2", "R21C1", "R21C3" );
+        E e2 = new E( this, ExpStrings.e2, TwsContractsEnum.FUTURE_FAR, new IndexOptionsCalc( this, ExpStrings.e2 ), e2DDeCells );
 
-        OptionsHandler optionsHandler = new OptionsHandler(this);
-        optionsHandler.addOptions(quarterOptions);
-        optionsHandler.addOptions(quarterFarOptions);
-        optionsHandler.setMainOptions(quarterOptions);
-        setOptionsHandler(optionsHandler);
+        // Add to
+        Exps exps = new Exps( this );
+        exps.addExp( e, ExpStrings.e1 );
+        exps.addExp( e2, ExpStrings.e2 );
+        exps.setMainExp( e );
+        setExps( exps );
     }
 
     @Override
     public void initDDECells() {
-        DDECells ddeCells = new DDECells() {
+        DDECells ddeCells = new DDECells( ) {
             @Override
             public boolean isWorkWithDDE() {
                 return true;
@@ -126,18 +116,49 @@ public class Spx extends INDEX_CLIENT_OBJECT {
         };
 
         // Ind
-        ddeCells.addCell(DDECellsEnum.IND_BID, "R2C2");
-        ddeCells.addCell(DDECellsEnum.IND, "R2C3");
-        ddeCells.addCell(DDECellsEnum.IND_ASK, "R2C4");
-        ddeCells.addCell(DDECellsEnum.INDEX_MOVE_15, "R3C1");
+        ddeCells.addCell( DDECellsEnum.IND_BID, "R2C2" );
+        ddeCells.addCell( DDECellsEnum.IND, "R2C3" );
+        ddeCells.addCell( DDECellsEnum.IND_ASK, "R2C4" );
+        ddeCells.addCell( DDECellsEnum.INDEX_MOVE_15, "R3C1" );
 
+        ddeCells.addCell( DDECellsEnum.OPEN, "R10C4" );
+        ddeCells.addCell( DDECellsEnum.HIGH, "R10C1" );
+        ddeCells.addCell( DDECellsEnum.LOW, "R10C2" );
+        ddeCells.addCell( DDECellsEnum.BASE, "R8C5" );
 
-        ddeCells.addCell(DDECellsEnum.OPEN, "R10C4");
-        ddeCells.addCell(DDECellsEnum.HIGH, "R10C1");
-        ddeCells.addCell(DDECellsEnum.LOW, "R10C2");
-        ddeCells.addCell(DDECellsEnum.BASE, "R8C5");
+        setDdeCells( ddeCells );
+    }
 
-        setDdeCells(ddeCells);
+    @Override
+    public void setIndexBid( double indexBid ) {
+        super.setIndexBid( indexBid );
+
+        // Margin counter
+        double bidMargin = index - indexBid;
+        double askMargin = getIndexAsk( ) - index;
+        double marginOfMarings = askMargin - bidMargin;
+
+        if ( marginOfMarings > 0 ) {
+            indBidMarginCounter += marginOfMarings;
+        }
+    }
+
+    @Override
+    public void setIndexAsk( double indexAsk ) {
+        super.setIndexAsk( indexAsk );
+        // Margin counter
+        double bidMargin = index - getIndexBid( );
+        double askMargin = indexAsk - index;
+        double marginOfMarings = bidMargin - askMargin;
+
+        if ( marginOfMarings > 0 && marginOfMarings < 5 ) {
+            indAskMarginCounter += marginOfMarings;
+        }
+    }
+
+    @Override
+    public void setIndex( double index ) {
+        super.setIndex( index );
     }
 
     @Override
@@ -147,24 +168,27 @@ public class Spx extends INDEX_CLIENT_OBJECT {
 
     @Override
     public void initBaseId() {
-        setBaseId(10000);
+        setBaseId( 10000 );
+    }
+
+    @Override
+    public void openChartsOnStart() {
+        if ( Manifest.OPEN_CHARTS ) {
+            FourLineChart chart = new FourLineChart( client );
+            chart.createChart( );
+
+            EDeltaChart fullCharts = new EDeltaChart( client );
+            try {
+                fullCharts.createChart( );
+            } catch ( CloneNotSupportedException e ) {
+                e.printStackTrace( );
+            }
+        }
     }
 
     @Override
     public double getTheoAvgMargin() {
         return 0.05;
-    }
-
-    public BasketService getBasketService() {
-        return basketService;
-    }
-
-    public StocksHandler getStocksHandler() {
-        return stocksHandler;
-    }
-
-    public BasketService2 getBasketService2() {
-        return basketService2;
     }
 
 }

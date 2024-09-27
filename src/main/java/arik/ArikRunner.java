@@ -1,8 +1,8 @@
 package arik;
 
 import arik.cases.ChooseStockCase;
-import arik.cases.DontKnowCaes;
 import arik.cases.DataCase;
+import arik.cases.DontKnowCaes;
 import arik.locals.Emojis;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.GetUpdates;
@@ -14,29 +14,28 @@ import java.util.concurrent.Executors;
 
 public class ArikRunner extends Thread {
 
+    public static ArikCase statusCase;
     boolean run = true;
-    int[] allowed = { 365117561, 948009529, 513323078 };
+    int[] allowed = {365117561, 948009529, 513323078};
     int sagiv_id = 365117561;
     Arik arik;
-
-
     CasesHandler casesHandler;
 
     // Constructor
-    public ArikRunner( Arik arik ) {
+    public ArikRunner(Arik arik) {
         this.arik = arik;
-        casesHandler = new CasesHandler( );
+        casesHandler = new CasesHandler();
 
-        casesHandler.addCase( new DataCase() );
-        casesHandler.addCase( new ChooseStockCase() );
+        casesHandler.addCase(new DataCase());
+        casesHandler.addCase(new ChooseStockCase());
     }
 
     // Run
     public void run() {
         try {
-            loop( );
-        } catch ( InterruptedException e ) {
-            e.printStackTrace( );
+            loop();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -44,59 +43,56 @@ public class ArikRunner extends Thread {
         run = false;
     }
 
-
-    public static ArikCase statusCase;
-
     // Loop
     private void loop() throws InterruptedException {
         long date = 0;
         int alert_count = 1;
 
         try {
-            while ( run ) {
+            while (run) {
                 // BackGround
                 // Get updates
-                getUpdates( date, alert_count );
-                sleep( 1000 );
+                getUpdates(date, alert_count);
+                sleep(1000);
             }
-        } catch ( Exception e ) {
-            e.printStackTrace( );
-            sleep( 1000 );
-            loop( );
+        } catch (Exception e) {
+            e.printStackTrace();
+            sleep(1000);
+            loop();
         }
     }
 
     // Get upadtes
-    private void getUpdates( long date, int alert_count ) {
-        GetUpdatesResponse updatesResponse = arik.getBot( )
-                .execute( new GetUpdates( ).limit( 1000 ).offset( arik.getUpdateId( ) ).timeout( 5 ) );
-        List< Update > updates = updatesResponse.updates( );
-        if ( updates.size( ) > 0 ) {
-            for ( Update update : updates ) {
-                if ( update.message( ).date( ) > date ) {
-                    date = update.message( ).date( );
+    private void getUpdates(long date, int alert_count) {
+        GetUpdatesResponse updatesResponse = arik.getBot()
+                .execute(new GetUpdates().limit(1000).offset(arik.getUpdateId()).timeout(5));
+        List<Update> updates = updatesResponse.updates();
+        if (updates.size() > 0) {
+            for (Update update : updates) {
+                if (update.message().date() > date) {
+                    date = update.message().date();
                     // Validate user
-                    if ( is_allowed( allowed, update.message( ).from( ).id( ) ) ) {
+                    if (is_allowed(allowed, update.message().from().id())) {
                         try {
 
                             // Get text from user
-                            String user_text = update.message( ).text( );
-                            System.out.println( user_text );
+                            String user_text = update.message().text();
+                            System.out.println(user_text);
 
                             // Run cases
-                            runCases( update );
+                            runCases(update);
 
-                        } catch ( Exception e ) {
-                            arik.sendMessage( update, e.getMessage( ), null );
+                        } catch (Exception e) {
+                            arik.sendMessage(update, e.getMessage(), null);
                         }
                     } else {
-                        arik.sendMessage( update, " Sorry can't talk with you ", null );
+                        arik.sendMessage(update, " Sorry can't talk with you ", null);
 
                         // Notice me
                         arik.sendMessage(
-                                "Someone try to talk with me " + "\n He said: " + update.message( ).text( )
-                                        + "\n His name is: " + update.message( ).from( ).firstName( ) + "\n" + "id: "
-                                        + update.message( ).from( ).id( )
+                                "Someone try to talk with me " + "\n He said: " + update.message().text()
+                                        + "\n His name is: " + update.message().from().firstName() + "\n" + "id: "
+                                        + update.message().from().id()
                         );
 
                         break;
@@ -106,14 +102,14 @@ public class ArikRunner extends Thread {
         }
     }
 
-    public void runCases( Update update ) {
+    public void runCases(Update update) {
 
-        ExecutorService executorService = Executors.newFixedThreadPool( 10 );
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        for ( ArikCase arikCase : casesHandler.getCases( ) ) {
+        for (ArikCase arikCase : casesHandler.getCases()) {
 
-            if ( statusCase == arikCase ) {
-                arikCase.doCase( update );
+            if (statusCase == arikCase) {
+                arikCase.doCase(update);
                 return;
             }
 
@@ -129,13 +125,13 @@ public class ArikRunner extends Thread {
 //            }
 
         }
-        new DontKnowCaes().doCase( update );
+        new DontKnowCaes().doCase(update);
     }
 
     // Is allowed
-    public boolean is_allowed( int[] allowed, int id ) {
-        for ( int i : allowed ) {
-            if ( id == i ) {
+    public boolean is_allowed(int[] allowed, int id) {
+        for (int i : allowed) {
+            if (id == i) {
                 return true;
             }
         }
@@ -148,13 +144,13 @@ public class ArikRunner extends Thread {
     }
 
     // Floor
-    public double floor( double d, int zeros ) {
-        return Math.floor( d * zeros ) / zeros;
+    public double floor(double d, int zeros) {
+        return Math.floor(d * zeros) / zeros;
     }
 
     // Str
-    private String str( Object o ) {
-        return String.valueOf( o );
+    private String str(Object o) {
+        return String.valueOf(o);
     }
 
 }

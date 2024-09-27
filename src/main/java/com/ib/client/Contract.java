@@ -29,7 +29,7 @@ public class Contract implements Cloneable {
     private boolean m_includeExpired;  // can not be set to true for orders
     // COMBOS
     private String m_comboLegsDescrip; // received in open order version 14 and up for all combos
-    private ArrayList< ComboLeg > m_comboLegs = new ArrayList<>( ); // would be final except for clone
+    private ArrayList<ComboLeg> m_comboLegs = new ArrayList<>(); // would be final except for clone
 
     public Contract() {
         m_conid = 0;
@@ -37,11 +37,11 @@ public class Contract implements Cloneable {
         m_includeExpired = false;
     }
 
-    public Contract( int p_conId, String p_symbol, String p_secType, String p_lastTradeDateOrContractMonth,
-                     double p_strike, String p_right, String p_multiplier,
-                     String p_exchange, String p_currency, String p_localSymbol, String p_tradingClass,
-                     ArrayList< ComboLeg > p_comboLegs, String p_primaryExch, boolean p_includeExpired,
-                     String p_secIdType, String p_secId ) {
+    public Contract(int p_conId, String p_symbol, String p_secType, String p_lastTradeDateOrContractMonth,
+                    double p_strike, String p_right, String p_multiplier,
+                    String p_exchange, String p_currency, String p_localSymbol, String p_tradingClass,
+                    ArrayList<ComboLeg> p_comboLegs, String p_primaryExch, boolean p_includeExpired,
+                    String p_secIdType, String p_secId) {
         m_conid = p_conId;
         m_symbol = p_symbol;
         m_secType = p_secType;
@@ -60,22 +60,22 @@ public class Contract implements Cloneable {
         m_secId = p_secId;
     }
 
-    private static void app( StringBuilder buf, Object obj ) {
-        if ( obj != null ) {
-            buf.append( " " );
-            buf.append( obj );
+    private static void app(StringBuilder buf, Object obj) {
+        if (obj != null) {
+            buf.append(" ");
+            buf.append(obj);
         }
     }
 
-    public static void add( StringBuilder sb, String tag, Object val ) {
-        if ( val == null || val instanceof String && ( ( String ) val ).length( ) == 0 ) {
+    public static void add(StringBuilder sb, String tag, Object val) {
+        if (val == null || val instanceof String && ((String) val).length() == 0) {
             return;
         }
 
-        sb.append( tag );
-        sb.append( '\t' );
-        sb.append( val );
-        sb.append( '\n' );
+        sb.append(tag);
+        sb.append('\t');
+        sb.append(val);
+        sb.append('\n');
     }
 
     // Get
@@ -88,7 +88,7 @@ public class Contract implements Cloneable {
     }
 
     public SecIdType secIdType() {
-        return SecIdType.get( m_secIdType );
+        return SecIdType.get(m_secIdType);
     }
 
     public String getSecIdType() {
@@ -96,7 +96,7 @@ public class Contract implements Cloneable {
     }
 
     public SecType secType() {
-        return SecType.get( m_secType );
+        return SecType.get(m_secType);
     }
 
     public String getSecType() {
@@ -132,7 +132,7 @@ public class Contract implements Cloneable {
     }
 
     public Right right() {
-        return Right.get( m_right );
+        return Right.get(m_right);
     }
 
     public String getRight() {
@@ -155,7 +155,7 @@ public class Contract implements Cloneable {
         return m_underComp;
     }
 
-    public ArrayList< ComboLeg > comboLegs() {
+    public ArrayList<ComboLeg> comboLegs() {
         return m_comboLegs;
     }
 
@@ -164,166 +164,166 @@ public class Contract implements Cloneable {
     }
 
     // Set
-    public void conid( int v ) {
+    public void conid(int v) {
         m_conid = v;
     }
 
-    public void currency( String v ) {
+    public void currency(String v) {
         m_currency = v;
     }
 
-    public void exchange( String v ) {
+    public void exchange(String v) {
         m_exchange = v;
     }
 
-    public void lastTradeDateOrContractMonth( String v ) {
+    public void lastTradeDateOrContractMonth(String v) {
         m_lastTradedateOrContractMonth = v;
     }
 
-    public void localSymbol( String v ) {
+    public void localSymbol(String v) {
         m_localSymbol = v;
     }
 
-    public void tradingClass( String v ) {
+    public void tradingClass(String v) {
         m_tradingClass = v;
     }
 
-    public void multiplier( String v ) {
+    public void multiplier(String v) {
         m_multiplier = v;
     }
 
-    public void primaryExch( String v ) {
+    public void primaryExch(String v) {
         m_primaryExch = v;
     }
 
-    public void right( Right v ) {
-        m_right = ( v == null ) ? null : v.getApiString( );
+    public void right(Right v) {
+        m_right = (v == null) ? null : v.getApiString();
     }
 
-    public void right( String v ) {
+    public void right(String v) {
         m_right = v;
     }
 
-    public void secId( String v ) {
+    public void secId(String v) {
         m_secId = v;
     }
 
-    public void secIdType( SecIdType v ) {
-        m_secIdType = ( v == null ) ? null : v.getApiString( );
+    public void secIdType(SecIdType v) {
+        m_secIdType = (v == null) ? null : v.getApiString();
     }
 
-    public void secIdType( String v ) {
+    public void secIdType(String v) {
         m_secIdType = v;
     }
 
-    public void secType( SecType v ) {
-        m_secType = ( v == null ) ? null : v.getApiString( );
+    public void secType(SecType v) {
+        m_secType = (v == null) ? null : v.getApiString();
     }
 
-    public void secType( String v ) {
+    public void secType(String v) {
         m_secType = v;
     }
 
-    public void strike( double v ) {
+    public void strike(double v) {
         m_strike = v;
     }
 
-    public void symbol( String v ) {
+    public void symbol(String v) {
         m_symbol = v;
     }
 
-    public void underComp( DeltaNeutralContract v ) {
+    public void underComp(DeltaNeutralContract v) {
         m_underComp = v;
     }
 
-    public void includeExpired( boolean v ) {
+    public void includeExpired(boolean v) {
         m_includeExpired = v;
     }
 
-    public void comboLegs( ArrayList< ComboLeg > v ) {
+    public void comboLegs(ArrayList<ComboLeg> v) {
         m_comboLegs = v;
     }
 
-    public void comboLegsDescrip( String v ) {
+    public void comboLegsDescrip(String v) {
         m_comboLegsDescrip = v;
     }
 
     @Override
     public Contract clone() {
         try {
-            Contract copy = ( Contract ) super.clone( );
-            if ( copy.m_comboLegs != null ) {
-                copy.m_comboLegs = new ArrayList<>( copy.m_comboLegs );
+            Contract copy = (Contract) super.clone();
+            if (copy.m_comboLegs != null) {
+                copy.m_comboLegs = new ArrayList<>(copy.m_comboLegs);
             } else {
-                copy.m_comboLegs = new ArrayList<>( );
+                copy.m_comboLegs = new ArrayList<>();
             }
             return copy;
-        } catch ( CloneNotSupportedException e ) {
-            e.printStackTrace( );
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
             return null;
         }
     }
 
     @Override
-    public boolean equals( Object p_other ) {
-        if ( this == p_other ) {
+    public boolean equals(Object p_other) {
+        if (this == p_other) {
             return true;
         }
 
-        if ( p_other == null || !( p_other instanceof Contract ) ) {
+        if (p_other == null || !(p_other instanceof Contract)) {
             return false;
         }
 
-        Contract l_theOther = ( Contract ) p_other;
+        Contract l_theOther = (Contract) p_other;
 
-        if ( m_conid != l_theOther.m_conid ) {
+        if (m_conid != l_theOther.m_conid) {
             return false;
         }
 
-        if ( Util.StringCompare( m_secType, l_theOther.m_secType ) != 0 ) {
+        if (Util.StringCompare(m_secType, l_theOther.m_secType) != 0) {
             return false;
         }
 
-        if ( Util.StringCompare( m_symbol, l_theOther.m_symbol ) != 0 ||
-                Util.StringCompare( m_exchange, l_theOther.m_exchange ) != 0 ||
-                Util.StringCompare( m_primaryExch, l_theOther.m_primaryExch ) != 0 ||
-                Util.StringCompare( m_currency, l_theOther.m_currency ) != 0 ) {
+        if (Util.StringCompare(m_symbol, l_theOther.m_symbol) != 0 ||
+                Util.StringCompare(m_exchange, l_theOther.m_exchange) != 0 ||
+                Util.StringCompare(m_primaryExch, l_theOther.m_primaryExch) != 0 ||
+                Util.StringCompare(m_currency, l_theOther.m_currency) != 0) {
             return false;
         }
 
-        if ( !"BOND".equals( m_secType ) ) {
+        if (!"BOND".equals(m_secType)) {
 
-            if ( m_strike != l_theOther.m_strike ) {
+            if (m_strike != l_theOther.m_strike) {
                 return false;
             }
 
-            if ( Util.StringCompare( m_lastTradedateOrContractMonth, l_theOther.m_lastTradedateOrContractMonth ) != 0 ||
-                    Util.StringCompare( m_right, l_theOther.m_right ) != 0 ||
-                    Util.StringCompare( m_multiplier, l_theOther.m_multiplier ) != 0 ||
-                    Util.StringCompare( m_localSymbol, l_theOther.m_localSymbol ) != 0 ||
-                    Util.StringCompare( m_tradingClass, l_theOther.m_tradingClass ) != 0 ) {
+            if (Util.StringCompare(m_lastTradedateOrContractMonth, l_theOther.m_lastTradedateOrContractMonth) != 0 ||
+                    Util.StringCompare(m_right, l_theOther.m_right) != 0 ||
+                    Util.StringCompare(m_multiplier, l_theOther.m_multiplier) != 0 ||
+                    Util.StringCompare(m_localSymbol, l_theOther.m_localSymbol) != 0 ||
+                    Util.StringCompare(m_tradingClass, l_theOther.m_tradingClass) != 0) {
                 return false;
             }
         }
 
-        if ( Util.StringCompare( m_secIdType, l_theOther.m_secIdType ) != 0 ) {
+        if (Util.StringCompare(m_secIdType, l_theOther.m_secIdType) != 0) {
             return false;
         }
 
-        if ( Util.StringCompare( m_secId, l_theOther.m_secId ) != 0 ) {
+        if (Util.StringCompare(m_secId, l_theOther.m_secId) != 0) {
             return false;
         }
 
         // compare combo legs
-        if ( !Util.ArrayEqualsUnordered( m_comboLegs, l_theOther.m_comboLegs ) ) {
+        if (!Util.ArrayEqualsUnordered(m_comboLegs, l_theOther.m_comboLegs)) {
             return false;
         }
 
-        if ( m_underComp != l_theOther.m_underComp ) {
-            if ( m_underComp == null || l_theOther.m_underComp == null ) {
+        if (m_underComp != l_theOther.m_underComp) {
+            if (m_underComp == null || l_theOther.m_underComp == null) {
                 return false;
             }
-            return m_underComp.equals( l_theOther.m_underComp );
+            return m_underComp.equals(l_theOther.m_underComp);
         }
         return true;
     }
@@ -332,9 +332,9 @@ public class Contract implements Cloneable {
     public int hashCode() {
         // Use a few fields only as a compromise between performance and hashCode quality.
         int result = m_conid;
-        result = result * 31 + ( m_symbol == null || "".equals( m_symbol ) ? 0 : m_symbol.hashCode( ) );
-        long temp = Double.doubleToLongBits( m_strike );
-        result = result * 31 + ( int ) ( temp ^ ( temp >>> 32 ) );
+        result = result * 31 + (m_symbol == null || "".equals(m_symbol) ? 0 : m_symbol.hashCode());
+        long temp = Double.doubleToLongBits(m_strike);
+        result = result * 31 + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
@@ -342,61 +342,61 @@ public class Contract implements Cloneable {
      * Returns a text description that can be used for display.
      */
     public String description() {
-        StringBuilder sb = new StringBuilder( );
+        StringBuilder sb = new StringBuilder();
 
-        if ( isCombo( ) ) {
+        if (isCombo()) {
             int i = 0;
-            for ( ComboLeg leg : m_comboLegs ) {
-                if ( i++ > 0 ) {
-                    sb.append( "/" );
+            for (ComboLeg leg : m_comboLegs) {
+                if (i++ > 0) {
+                    sb.append("/");
                 }
-                sb.append( leg.toString( ) );
+                sb.append(leg.toString());
             }
         } else {
-            sb.append( m_symbol );
-            app( sb, m_secType );
-            app( sb, m_exchange );
+            sb.append(m_symbol);
+            app(sb, m_secType);
+            app(sb, m_exchange);
 
-            if ( m_exchange != null && m_exchange.equals( "SMART" ) && m_primaryExch != null ) {
-                app( sb, m_primaryExch );
+            if (m_exchange != null && m_exchange.equals("SMART") && m_primaryExch != null) {
+                app(sb, m_primaryExch);
             }
 
-            app( sb, m_lastTradedateOrContractMonth );
+            app(sb, m_lastTradedateOrContractMonth);
 
-            if ( m_strike != 0 ) {
-                app( sb, m_strike );
+            if (m_strike != 0) {
+                app(sb, m_strike);
             }
 
-            if ( !Util.StringIsEmpty( m_right ) ) {
-                app( sb, m_right );
+            if (!Util.StringIsEmpty(m_right)) {
+                app(sb, m_right);
             }
         }
-        return sb.toString( );
+        return sb.toString();
     }
 
     public boolean isCombo() {
-        return m_comboLegs.size( ) > 0;
+        return m_comboLegs.size() > 0;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder( );
+        StringBuilder sb = new StringBuilder();
 
-        add( sb, "conid", m_conid );
-        add( sb, "symbol", m_symbol );
-        add( sb, "secType", m_secType );
-        add( sb, "lastTradeDateOrContractMonth", m_lastTradedateOrContractMonth );
-        add( sb, "strike", m_strike );
-        add( sb, "right", m_right );
-        add( sb, "multiplier", m_multiplier );
-        add( sb, "exchange", m_exchange );
-        add( sb, "currency", m_currency );
-        add( sb, "localSymbol", m_localSymbol );
-        add( sb, "tradingClass", m_tradingClass );
-        add( sb, "primaryExch", m_primaryExch );
-        add( sb, "secIdType", m_secIdType );
-        add( sb, "secId", m_secId );
+        add(sb, "conid", m_conid);
+        add(sb, "symbol", m_symbol);
+        add(sb, "secType", m_secType);
+        add(sb, "lastTradeDateOrContractMonth", m_lastTradedateOrContractMonth);
+        add(sb, "strike", m_strike);
+        add(sb, "right", m_right);
+        add(sb, "multiplier", m_multiplier);
+        add(sb, "exchange", m_exchange);
+        add(sb, "currency", m_currency);
+        add(sb, "localSymbol", m_localSymbol);
+        add(sb, "tradingClass", m_tradingClass);
+        add(sb, "primaryExch", m_primaryExch);
+        add(sb, "secIdType", m_secIdType);
+        add(sb, "secId", m_secId);
 
-        return sb.toString( );
+        return sb.toString();
     }
 }

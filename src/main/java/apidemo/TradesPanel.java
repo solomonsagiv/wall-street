@@ -18,51 +18,51 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TradesPanel extends JPanel implements ITradeReportHandler {
-    private ArrayList< FullExec > m_trades = new ArrayList<>( );
-    private HashMap< String, FullExec > m_map = new HashMap<>( );
-    private Model m_model = new Model( );
+    private ArrayList<FullExec> m_trades = new ArrayList<>();
+    private HashMap<String, FullExec> m_map = new HashMap<>();
+    private Model m_model = new Model();
 
     TradesPanel() {
-        JTable table = new JTable( m_model );
-        JScrollPane scroll = new JScrollPane( table );
-        scroll.setBorder( new TitledBorder( "Trade Log" ) );
+        JTable table = new JTable(m_model);
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.setBorder(new TitledBorder("Trade Log"));
 
-        HtmlButton but = new HtmlButton( "Refresh" ) {
+        HtmlButton but = new HtmlButton("Refresh") {
             @Override
             public void actionPerformed() {
-                onRefresh( );
+                onRefresh();
             }
         };
 
-        JPanel p = new JPanel( new FlowLayout( FlowLayout.RIGHT ) );
-        p.add( but );
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        p.add(but);
 
-        setLayout( new BorderLayout( ) );
-        add( scroll );
-        add( p, BorderLayout.SOUTH );
+        setLayout(new BorderLayout());
+        add(scroll);
+        add(p, BorderLayout.SOUTH);
     }
 
     public void activated() {
-        onRefresh( );
+        onRefresh();
     }
 
     private void onRefresh() {
-        ApiDemo.INSTANCE.controller( ).reqExecutions( new ExecutionFilter( ), this );
+        ApiDemo.INSTANCE.controller().reqExecutions(new ExecutionFilter(), this);
     }
 
     @Override
-    public void tradeReport( String tradeKey, Contract contract, Execution trade ) {
-        FullExec full = m_map.get( tradeKey );
+    public void tradeReport(String tradeKey, Contract contract, Execution trade) {
+        FullExec full = m_map.get(tradeKey);
 
-        if ( full != null ) {
+        if (full != null) {
             full.m_trade = trade;
         } else {
-            full = new FullExec( contract, trade );
-            m_trades.add( full );
-            m_map.put( tradeKey, full );
+            full = new FullExec(contract, trade);
+            m_trades.add(full);
+            m_map.put(tradeKey, full);
         }
 
-        m_model.fireTableDataChanged( );
+        m_model.fireTableDataChanged();
     }
 
     @Override
@@ -70,9 +70,9 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
     }
 
     @Override
-    public void commissionReport( String tradeKey, CommissionReport commissionReport ) {
-        FullExec full = m_map.get( tradeKey );
-        if ( full != null ) {
+    public void commissionReport(String tradeKey, CommissionReport commissionReport) {
+        FullExec full = m_map.get(tradeKey);
+        if (full != null) {
             full.m_commissionReport = commissionReport;
         }
     }
@@ -82,7 +82,7 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
         Execution m_trade;
         CommissionReport m_commissionReport;
 
-        FullExec( Contract contract, Execution trade ) {
+        FullExec(Contract contract, Execution trade) {
             m_contract = contract;
             m_trade = trade;
         }
@@ -91,7 +91,7 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
     private class Model extends AbstractTableModel {
         @Override
         public int getRowCount() {
-            return m_trades.size( );
+            return m_trades.size();
         }
 
         @Override
@@ -100,8 +100,8 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
         }
 
         @Override
-        public String getColumnName( int col ) {
-            switch ( col ) {
+        public String getColumnName(int col) {
+            switch (col) {
                 case 0:
                     return "Date/Time";
                 case 1:
@@ -124,24 +124,24 @@ public class TradesPanel extends JPanel implements ITradeReportHandler {
         }
 
         @Override
-        public Object getValueAt( int row, int col ) {
-            FullExec full = m_trades.get( row );
+        public Object getValueAt(int row, int col) {
+            FullExec full = m_trades.get(row);
 
-            switch ( col ) {
+            switch (col) {
                 case 0:
-                    return full.m_trade.time( );
+                    return full.m_trade.time();
                 case 1:
-                    return full.m_trade.acctNumber( );
+                    return full.m_trade.acctNumber();
                 case 2:
-                    return full.m_trade.modelCode( );
+                    return full.m_trade.modelCode();
                 case 3:
-                    return full.m_trade.side( );
+                    return full.m_trade.side();
                 case 4:
-                    return full.m_trade.shares( );
+                    return full.m_trade.shares();
                 case 5:
-                    return full.m_contract.description( );
+                    return full.m_contract.description();
                 case 6:
-                    return full.m_trade.price( );
+                    return full.m_trade.price();
                 case 7:
                     return full.m_commissionReport != null ? full.m_commissionReport.m_commission : null;
                 default:

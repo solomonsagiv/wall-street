@@ -10,14 +10,14 @@ public class MarginCondition extends OperatorCondition {
 
     @Override
     public String toString() {
-        return "the margin cushion percent" + super.toString( );
+        return "the margin cushion percent" + super.toString();
     }
 
     public int percent() {
         return m_percent;
     }
 
-    public void percent( int m_percent ) {
+    public void percent(int m_percent) {
         this.m_percent = m_percent;
     }
 
@@ -27,8 +27,8 @@ public class MarginCondition extends OperatorCondition {
     }
 
     @Override
-    protected void valueFromString( String v ) {
-        m_percent = Integer.parseInt( v );
+    protected void valueFromString(String v) {
+        m_percent = Integer.parseInt(v);
     }
 
 }

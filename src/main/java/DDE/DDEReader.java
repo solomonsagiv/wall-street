@@ -2,6 +2,7 @@ package DDE;
 
 import com.pretty_tools.dde.DDEException;
 import com.pretty_tools.dde.client.DDEClientConversation;
+import exp.Exp;
 import locals.L;
 import locals.LocalHandler;
 import options.Options;
@@ -14,9 +15,9 @@ public class DDEReader extends MyThread implements Runnable {
 
     // Variables
     int sleep = 150;
+    DDEClientConversation conversation;
     private DDEConnection ddeConnection = new DDEConnection( );
     private String excelPath = "C://Users/user/Desktop/DDE/[SPXT.xlsx]Trading";
-    DDEClientConversation conversation;
 
     // Constructor
     public DDEReader() {
@@ -34,13 +35,12 @@ public class DDEReader extends MyThread implements Runnable {
 
         while ( isRun( ) ) {
             try {
-
+                
                 // Sleep
                 Thread.sleep( sleep );
 
                 // DDE
                 read( );
-
             } catch ( InterruptedException e ) {
                 break;
             } catch ( DDEException e ) {
@@ -63,22 +63,37 @@ public class DDEReader extends MyThread implements Runnable {
     private void updateData( INDEX_CLIENT_OBJECT client ) throws DDEException {
 
         // Options
-        for ( Options options : client.getOptionsHandler( ).getOptionsList( ) ) {
+        for ( Exp exp : client.getExps( ).getExpList( ) ) {
+
+            Options options = exp.getOptions( );
+
             if ( options.getOptionsDDeCells( ) != null ) {
-                options.setFuture( L.dbl( conversation.request( options.getOptionsDDeCells( ).getFut( ) ) ) );
+                exp.setCalcFut( requestDouble( options.getOptionsDDeCells( ).getFut( ) ) );
             }
         }
 
         // Index
-        client.setIndex( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND ) ) ) );
-        client.setIndexBid( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND_BID ) ) ) );
-        client.setIndexAsk( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.IND_ASK ) ) ) );
+        client.setIndex( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND ) ) );
+        client.setIndexBid( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND_BID ) ) );
+        client.setIndexAsk( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.IND_ASK ) ) );
 
         // Ticker
-        client.setOpen( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.OPEN ) ) ) );
-        client.setHigh( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.HIGH ) ) ) );
-        client.setLow( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.LOW ) ) ) );
-        client.setBase( L.dbl( conversation.request( client.getDdeCells( ).getCell( DDECellsEnum.BASE ) ) ) );
+        client.setOpen( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.OPEN ) ) );
+        client.setHigh( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.HIGH ) ) );
+        client.setLow( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.LOW ) ) );
+        client.setBase( requestDouble( client.getDdeCells( ).getCell( DDECellsEnum.BASE ) ) );
 
     }
+
+    public double requestDouble( String cell ) {
+        double d = 0;
+        try {
+            d = L.dbl( conversation.request( cell ) );
+        } catch ( NumberFormatException | DDEException e ) {
+            // TODO
+        } finally {
+            return d;
+        }
+    }
+
 }

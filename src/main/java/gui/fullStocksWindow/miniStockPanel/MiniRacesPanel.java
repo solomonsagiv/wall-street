@@ -10,7 +10,7 @@ public class MiniRacesPanel extends MyGuiComps.MyPanel implements IMiniPanel {
     MyGuiComps.MyTextField conRacesField;
     MyGuiComps.MyTextField indRacesField;
 
-    public MiniRacesPanel( STOCK_OBJECT client ) {
+    public MiniRacesPanel(STOCK_OBJECT client) {
         this.client = client;
         initialize();
         initListeners();
@@ -22,21 +22,21 @@ public class MiniRacesPanel extends MyGuiComps.MyPanel implements IMiniPanel {
 
     private void initialize() {
         // This
-        setWidth( 100 );
-        setHeight( 70 );
+        setWidth(100);
+        setHeight(70);
 
         // Con races
-        conRacesField = new MyGuiComps.MyTextField(  );
+        conRacesField = new MyGuiComps.MyTextField();
         conRacesField.setBackground(getBackground());
-        conRacesField.setXY( FullHeadersPanel.conRacesLbl.getX(),5 );
-        conRacesField.setWidth( FullHeadersPanel.conRacesLbl.getWidth() );
+        conRacesField.setXY(FullHeadersPanel.conRacesLbl.getX(), 5);
+        conRacesField.setWidth(FullHeadersPanel.conRacesLbl.getWidth());
         add(conRacesField);
 
         // Ind races
-        indRacesField = new MyGuiComps.MyTextField(  );
+        indRacesField = new MyGuiComps.MyTextField();
         indRacesField.setBackground(getBackground());
-        indRacesField.setXY( FullHeadersPanel.indRacesLbl.getX(),5 );
-        indRacesField.setWidth( FullHeadersPanel.indRacesLbl.getWidth() );
+        indRacesField.setXY(FullHeadersPanel.indRacesLbl.getX(), 5);
+        indRacesField.setWidth(FullHeadersPanel.indRacesLbl.getWidth());
         add(indRacesField);
 
     }

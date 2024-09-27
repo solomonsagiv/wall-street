@@ -10,19 +10,19 @@ public class VolumeCondition extends ContractCondition {
 
     @Override
     public String toString() {
-        return toString( null );
+        return toString(null);
     }
 
     @Override
-    public String toString( ContractLookuper lookuper ) {
-        return super.toString( lookuper );
+    public String toString(ContractLookuper lookuper) {
+        return super.toString(lookuper);
     }
 
     public int volume() {
         return m_volume;
     }
 
-    public void volume( int m_volume ) {
+    public void volume(int m_volume) {
         this.m_volume = m_volume;
     }
 
@@ -32,8 +32,8 @@ public class VolumeCondition extends ContractCondition {
     }
 
     @Override
-    protected void valueFromString( String v ) {
-        m_volume = Integer.parseInt( v );
+    protected void valueFromString(String v) {
+        m_volume = Integer.parseInt(v);
     }
 
 }

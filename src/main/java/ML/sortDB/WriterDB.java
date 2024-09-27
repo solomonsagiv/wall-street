@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class WriterDB {
 
-    ArrayList< TA35Data > table;
+    ArrayList<TA35Data> table;
 
-    public WriterDB( ArrayList< TA35Data > table ) {
+    public WriterDB(ArrayList<TA35Data> table) {
 
         this.table = table;
 

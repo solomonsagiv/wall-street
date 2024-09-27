@@ -4,9 +4,9 @@ public class SoftDollarTier {
 
     private String m_name, m_value, m_displayName;
 
-    public SoftDollarTier( String name, String val, String displayName ) {
-        name( name );
-        value( val );
+    public SoftDollarTier(String name, String val, String displayName) {
+        name(name);
+        value(val);
 
         m_displayName = displayName;
     }
@@ -15,7 +15,7 @@ public class SoftDollarTier {
         return m_value;
     }
 
-    private void value( String value ) {
+    private void value(String value) {
         this.m_value = value;
     }
 
@@ -23,7 +23,7 @@ public class SoftDollarTier {
         return m_name;
     }
 
-    private void name( String name ) {
+    private void name(String name) {
         this.m_name = name;
     }
 
@@ -32,39 +32,39 @@ public class SoftDollarTier {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ( ( m_name == null ) ? 0 : m_name.hashCode( ) );
-        result = prime * result + ( ( m_value == null ) ? 0 : m_value.hashCode( ) );
+        result = prime * result + ((m_name == null) ? 0 : m_name.hashCode());
+        result = prime * result + ((m_value == null) ? 0 : m_value.hashCode());
 
         return result;
     }
 
     @Override
-    public boolean equals( Object obj ) {
-        if ( this == obj ) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
 
-        if ( obj == null ) {
+        if (obj == null) {
             return false;
         }
 
-        if ( !( obj instanceof SoftDollarTier ) ) {
+        if (!(obj instanceof SoftDollarTier)) {
             return false;
         }
 
-        SoftDollarTier other = ( SoftDollarTier ) obj;
+        SoftDollarTier other = (SoftDollarTier) obj;
 
-        if ( m_name == null ) {
-            if ( other.m_name != null ) {
+        if (m_name == null) {
+            if (other.m_name != null) {
                 return false;
             }
-        } else if ( Util.StringCompare( m_name, other.m_name ) != 0 ) {
+        } else if (Util.StringCompare(m_name, other.m_name) != 0) {
             return false;
         }
 
-        if ( m_value == null ) {
+        if (m_value == null) {
             return other.m_value == null;
-        } else return Util.StringCompare( m_value, other.m_value ) == 0;
+        } else return Util.StringCompare(m_value, other.m_value) == 0;
 
     }
 

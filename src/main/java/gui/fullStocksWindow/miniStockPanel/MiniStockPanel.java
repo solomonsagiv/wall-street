@@ -4,6 +4,7 @@ import gui.MyGuiComps;
 import gui.fullStocksWindow.FullHeadersPanel;
 import gui.popupsFactory.PopupsMenuFactory;
 import serverObjects.stockObjects.STOCK_OBJECT;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -48,7 +49,7 @@ public class MiniStockPanel extends MyGuiComps.MyPanel implements IMiniPanel {
 
         // Name
         namePanel = new MiniStockNamePanel(client);
-        namePanel.setBounds(0, 0 , 60, getHeight() );
+        namePanel.setBounds(0, 0, 60, getHeight());
         add(namePanel);
 
         // Ticker

@@ -10,16 +10,16 @@ import java.awt.*;
 
 
 public class TradingPanel extends NewTabPanel {
-    private final OrdersPanel m_ordersPanel = new OrdersPanel( );
-    private final TradesPanel m_tradesPanel = new TradesPanel( );
+    private final OrdersPanel m_ordersPanel = new OrdersPanel();
+    private final TradesPanel m_tradesPanel = new TradesPanel();
 
     TradingPanel() {
-        m_ordersPanel.setPreferredSize( new Dimension( 1, 10000 ) );
-        m_tradesPanel.setPreferredSize( new Dimension( 1, 10000 ) );
+        m_ordersPanel.setPreferredSize(new Dimension(1, 10000));
+        m_tradesPanel.setPreferredSize(new Dimension(1, 10000));
 
-        setLayout( new BoxLayout( this, BoxLayout.Y_AXIS ) );
-        add( m_ordersPanel );
-        add( m_tradesPanel );
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(m_ordersPanel);
+        add(m_tradesPanel);
     }
 
     /**
@@ -27,8 +27,8 @@ public class TradingPanel extends NewTabPanel {
      */
     @Override
     public void activated() {
-        m_ordersPanel.activated( );
-        m_tradesPanel.activated( );
+        m_ordersPanel.activated();
+        m_tradesPanel.activated();
     }
 
     /**

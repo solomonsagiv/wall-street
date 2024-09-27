@@ -37,35 +37,35 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
     private ContractLookuper m_lookuper;
     private boolean m_isCanceled;
 
-    public ConditionDlg( OrderCondition condition, ContractLookuper lookuper ) {
-        initComponents( );
+    public ConditionDlg(OrderCondition condition, ContractLookuper lookuper) {
+        initComponents();
 
         m_condition = condition;
         m_lookuper = lookuper;
 
-        switch ( m_condition.type( ) ) {
+        switch (m_condition.type()) {
             case Execution:
-                m_rbTrade.setSelected( true );
+                m_rbTrade.setSelected(true);
                 break;
 
             case Margin:
-                m_rbMargin.setSelected( true );
+                m_rbMargin.setSelected(true);
                 break;
 
             case PercentChange:
-                m_rbPercent.setSelected( true );
+                m_rbPercent.setSelected(true);
                 break;
 
             case Price:
-                m_rbPrice.setSelected( true );
+                m_rbPrice.setSelected(true);
                 break;
 
             case Time:
-                m_rbTime.setSelected( true );
+                m_rbTime.setSelected(true);
                 break;
 
             case Volume:
-                m_rbVolume.setSelected( true );
+                m_rbVolume.setSelected(true);
                 break;
         }
     }
@@ -75,154 +75,154 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
     }
 
     @Override
-    public void setVisible( boolean arg0 ) {
+    public void setVisible(boolean arg0) {
         m_isCanceled = true;
 
-        super.setVisible( arg0 );
+        super.setVisible(arg0);
     }
 
     private void initComponents() {
 
-        m_tabbedPane = new JTabbedPane( );
-        m_conditionTypePanel = new JPanel( );
-        m_rbPrice = new JRadioButton( );
-        m_rbMargin = new JRadioButton( );
-        m_rbTrade = new JRadioButton( );
-        m_rbTime = new JRadioButton( );
-        m_rbVolume = new JRadioButton( );
-        m_rbPercent = new JRadioButton( );
-        m_conditionPanel = new JPanel( );
+        m_tabbedPane = new JTabbedPane();
+        m_conditionTypePanel = new JPanel();
+        m_rbPrice = new JRadioButton();
+        m_rbMargin = new JRadioButton();
+        m_rbTrade = new JRadioButton();
+        m_rbTime = new JRadioButton();
+        m_rbVolume = new JRadioButton();
+        m_rbPercent = new JRadioButton();
+        m_conditionPanel = new JPanel();
 
-        ButtonGroup group = new ButtonGroup( );
+        ButtonGroup group = new ButtonGroup();
 
-        group.add( m_rbMargin );
-        group.add( m_rbPrice );
-        group.add( m_rbPercent );
-        group.add( m_rbTime );
-        group.add( m_rbTrade );
-        group.add( m_rbVolume );
+        group.add(m_rbMargin);
+        group.add(m_rbPrice);
+        group.add(m_rbPercent);
+        group.add(m_rbTime);
+        group.add(m_rbTrade);
+        group.add(m_rbVolume);
 
-        m_rbPrice.setText( "Price" );
-        m_rbPrice.addChangeListener( this );
+        m_rbPrice.setText("Price");
+        m_rbPrice.addChangeListener(this);
 
-        m_rbMargin.setText( "Margin Cushion" );
-        m_rbMargin.addChangeListener( this );
+        m_rbMargin.setText("Margin Cushion");
+        m_rbMargin.addChangeListener(this);
 
-        m_rbTrade.setText( "Trade" );
-        m_rbTrade.addChangeListener( this );
+        m_rbTrade.setText("Trade");
+        m_rbTrade.addChangeListener(this);
 
-        m_rbTime.setText( "Time" );
-        m_rbTime.addChangeListener( this );
+        m_rbTime.setText("Time");
+        m_rbTime.addChangeListener(this);
 
-        m_rbVolume.setText( "Volume" );
-        m_rbVolume.addChangeListener( this );
+        m_rbVolume.setText("Volume");
+        m_rbVolume.addChangeListener(this);
 
-        m_rbPercent.setText( "Percent Change" );
-        m_rbPercent.addChangeListener( this );
+        m_rbPercent.setText("Percent Change");
+        m_rbPercent.addChangeListener(this);
 
-        GroupLayout jConditionTypePanelLayout = new GroupLayout( m_conditionTypePanel );
-        m_conditionTypePanel.setLayout( jConditionTypePanelLayout );
+        GroupLayout jConditionTypePanelLayout = new GroupLayout(m_conditionTypePanel);
+        m_conditionTypePanel.setLayout(jConditionTypePanelLayout);
         jConditionTypePanelLayout.setHorizontalGroup(
-                jConditionTypePanelLayout.createParallelGroup( Alignment.LEADING )
-                        .addGroup( jConditionTypePanelLayout.createSequentialGroup( )
-                                .addContainerGap( )
-                                .addGroup( jConditionTypePanelLayout.createParallelGroup( Alignment.LEADING )
-                                        .addComponent( m_rbTrade )
-                                        .addComponent( m_rbMargin )
-                                        .addComponent( m_rbPrice ) )
-                                .addPreferredGap( ComponentPlacement.RELATED, 31, Short.MAX_VALUE )
-                                .addGroup( jConditionTypePanelLayout.createParallelGroup( Alignment.LEADING )
-                                        .addComponent( m_rbVolume )
-                                        .addComponent( m_rbPercent )
-                                        .addComponent( m_rbTime ) )
-                                .addContainerGap( ) )
+                jConditionTypePanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(jConditionTypePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jConditionTypePanelLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(m_rbTrade)
+                                        .addComponent(m_rbMargin)
+                                        .addComponent(m_rbPrice))
+                                .addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addGroup(jConditionTypePanelLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(m_rbVolume)
+                                        .addComponent(m_rbPercent)
+                                        .addComponent(m_rbTime))
+                                .addContainerGap())
         );
         jConditionTypePanelLayout.setVerticalGroup(
-                jConditionTypePanelLayout.createParallelGroup( Alignment.LEADING )
-                        .addGroup( jConditionTypePanelLayout.createSequentialGroup( )
-                                .addContainerGap( )
-                                .addGroup( jConditionTypePanelLayout.createParallelGroup( Alignment.BASELINE )
-                                        .addComponent( m_rbPrice )
-                                        .addComponent( m_rbTime ) )
-                                .addPreferredGap( ComponentPlacement.UNRELATED )
-                                .addGroup( jConditionTypePanelLayout.createParallelGroup( Alignment.BASELINE )
-                                        .addComponent( m_rbMargin )
-                                        .addComponent( m_rbVolume ) )
-                                .addPreferredGap( ComponentPlacement.UNRELATED )
-                                .addGroup( jConditionTypePanelLayout.createParallelGroup( Alignment.BASELINE )
-                                        .addComponent( m_rbTrade )
-                                        .addComponent( m_rbPercent ) )
-                                .addContainerGap( GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ) )
+                jConditionTypePanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(jConditionTypePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jConditionTypePanelLayout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(m_rbPrice)
+                                        .addComponent(m_rbTime))
+                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                .addGroup(jConditionTypePanelLayout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(m_rbMargin)
+                                        .addComponent(m_rbVolume))
+                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                .addGroup(jConditionTypePanelLayout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(m_rbTrade)
+                                        .addComponent(m_rbPercent))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        m_tabbedPane.addTab( "Condition type", m_conditionTypePanel );
-        m_tabbedPane.addTab( "Condition", m_conditionPanel );
+        m_tabbedPane.addTab("Condition type", m_conditionTypePanel);
+        m_tabbedPane.addTab("Condition", m_conditionPanel);
 
-        JPanel mainPanel = new JPanel( new BorderLayout( ) );
-        JPanel buttons = new JPanel( new FlowLayout( FlowLayout.RIGHT ) );
-        GroupLayout layout = new GroupLayout( getContentPane( ) );
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        GroupLayout layout = new GroupLayout(getContentPane());
 
-        mainPanel.add( m_tabbedPane );
+        mainPanel.add(m_tabbedPane);
         buttons.add(
-                new HtmlButton( "Apply" ) {
+                new HtmlButton("Apply") {
                     protected void actionPerformed() {
                         m_isCanceled = false;
 
-                        m_conditionSubPanel.onOK( );
-                        dispose( );
+                        m_conditionSubPanel.onOK();
+                        dispose();
                     }
-                } );
-        mainPanel.add( buttons, BorderLayout.SOUTH );
+                });
+        mainPanel.add(buttons, BorderLayout.SOUTH);
 
-        getContentPane( ).setLayout( layout );
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup( Alignment.LEADING )
-                        .addComponent( mainPanel )
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(mainPanel)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup( Alignment.LEADING )
-                        .addComponent( mainPanel )
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(mainPanel)
         );
 
-        pack( );
-        setModalityType( ModalityType.APPLICATION_MODAL );
+        pack();
+        setModalityType(ModalityType.APPLICATION_MODAL);
     }
 
     @Override
-    public void stateChanged( ChangeEvent e ) {
-        m_conditionPanel.removeAll( );
+    public void stateChanged(ChangeEvent e) {
+        m_conditionPanel.removeAll();
 
-        if ( m_rbMargin.isSelected( ) ) {
-            m_conditionSubPanel = new MarginContidionPanel( ( MarginCondition ) instanciateCondition( MarginCondition.conditionType ) );
+        if (m_rbMargin.isSelected()) {
+            m_conditionSubPanel = new MarginContidionPanel((MarginCondition) instanciateCondition(MarginCondition.conditionType));
         }
 
-        if ( m_rbPercent.isSelected( ) ) {
-            m_conditionSubPanel = new PercentConditionPanel( ( PercentChangeCondition ) instanciateCondition( PercentChangeCondition.conditionType ), m_lookuper );
+        if (m_rbPercent.isSelected()) {
+            m_conditionSubPanel = new PercentConditionPanel((PercentChangeCondition) instanciateCondition(PercentChangeCondition.conditionType), m_lookuper);
         }
 
-        if ( m_rbPrice.isSelected( ) ) {
-            m_conditionSubPanel = new PriceConditionPanel( ( PriceCondition ) instanciateCondition( PriceCondition.conditionType ), m_lookuper );
+        if (m_rbPrice.isSelected()) {
+            m_conditionSubPanel = new PriceConditionPanel((PriceCondition) instanciateCondition(PriceCondition.conditionType), m_lookuper);
         }
 
-        if ( m_rbTime.isSelected( ) ) {
-            m_conditionSubPanel = new TimeConditionPanel( ( TimeCondition ) instanciateCondition( TimeCondition.conditionType ) );
+        if (m_rbTime.isSelected()) {
+            m_conditionSubPanel = new TimeConditionPanel((TimeCondition) instanciateCondition(TimeCondition.conditionType));
         }
 
-        if ( m_rbTrade.isSelected( ) ) {
-            m_conditionSubPanel = new TradeConditionPanel( ( ExecutionCondition ) instanciateCondition( ExecutionCondition.conditionType ) );
+        if (m_rbTrade.isSelected()) {
+            m_conditionSubPanel = new TradeConditionPanel((ExecutionCondition) instanciateCondition(ExecutionCondition.conditionType));
         }
 
-        if ( m_rbVolume.isSelected( ) ) {
-            m_conditionSubPanel = new VolumeConditionPanel( ( VolumeCondition ) instanciateCondition( VolumeCondition.conditionType ), m_lookuper );
+        if (m_rbVolume.isSelected()) {
+            m_conditionSubPanel = new VolumeConditionPanel((VolumeCondition) instanciateCondition(VolumeCondition.conditionType), m_lookuper);
         }
 
-        m_conditionPanel.add( m_conditionSubPanel );
-        pack( );
+        m_conditionPanel.add(m_conditionSubPanel);
+        pack();
     }
 
-    private OrderCondition instanciateCondition( OrderConditionType type ) {
-        if ( m_condition.type( ) != type )
-            m_condition = OrderCondition.create( type );
+    private OrderCondition instanciateCondition(OrderConditionType type) {
+        if (m_condition.type() != type)
+            m_condition = OrderCondition.create(type);
 
         return m_condition;
     }
@@ -232,7 +232,7 @@ public class ConditionDlg extends JDialog implements ChangeListener, ActionListe
     }
 
     @Override
-    public void actionPerformed( ActionEvent arg0 ) {
+    public void actionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
 
     }
