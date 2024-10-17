@@ -2,7 +2,11 @@ package dataBase.mySql;
 
 import arik.Arik;
 import charts.timeSeries.TimeSeriesFactory;
+import charts.timeSeries.TimeSeriesHandler;
 import serverObjects.BASE_CLIENT_OBJECT;
+import serverObjects.indexObjects.Dax;
+import serverObjects.indexObjects.Ndx;
+import serverObjects.indexObjects.Spx;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -434,7 +438,6 @@ public class MySql {
         }
 
 
-
         public static ResultSet get_serie(String table_location, int step_second, String connection_type) {
             String modulu = "%";
             String q = "select * " +
@@ -447,8 +450,6 @@ public class MySql {
             String query = String.format(q, table_location, modulu, step_second);
             return MySql.select(query, connection_type);
         }
-
-
 
 
         public static ResultSet get_serie_moving_avg(int serie_id, int min, String connection_type) {
@@ -523,6 +524,62 @@ public class MySql {
                     "and %s;";
 
             String query = String.format(q, serie_id, Filters.TODAY);
+            return MySql.select(query, connection_type);
+        }
+
+        public static void main(String[] args) {
+            ResultSet rs = get_races(MySql.JIBE_PROD_CONNECTION);
+            while (true) {
+                try {
+                    if (!rs.next()) break;
+                    System.out.println(rs.getInt("dax_index"));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
+
+        public static ResultSet get_races(String connection_type) {
+
+            Dax dax = Dax.getInstance();
+            Spx spx = Spx.getInstance();
+            Ndx ndx = Ndx.getInstance();
+
+            int dax_index = dax.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD);
+            int dax_q1 = dax.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD);
+            int dax_q1_roll = dax.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD);
+
+            int ndx_index = ndx.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD);
+            int ndx_q1 = ndx.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD);
+            int ndx_q1_roll = ndx.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD);
+
+            int spx_index = spx.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.INDEX_RACES_PROD);
+            int spx_q1 = spx.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.Q1_RACES_PROD);
+            int spx_q1_roll = spx.getMySqlService().getDataBaseHandler().serie_ids.get(TimeSeriesHandler.Q1_QW_RACES_PROD);
+
+
+            String q = "WITH aggregated_sums AS (\n" +
+                    "    SELECT timeseries_id, SUM(sum) AS total_sum\n" +
+                    "    FROM ts.ca_timeseries_1min_candle\n" +
+                    "    WHERE timeseries_id IN (%s, %s, %s, %s, %s, %s, %s, %s, %s)\n" +
+                    "      AND time >= date_trunc('day', now())\n" +
+                    "      AND time < date_trunc('day', now() + interval '1 day')\n" +
+                    "    GROUP BY timeseries_id\n" +
+                    ")\n" +
+                    "SELECT\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS dax_index,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS dax_q1,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS dax_q1_roll,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS spx_index,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS spx_q1,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS spx_q1_roll,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS ndx_index,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS ndx_q1,\n" +
+                    "    COALESCE((SELECT total_sum FROM aggregated_sums WHERE timeseries_id = %s), 0) AS ndx_q1_roll;\n";
+
+            String query = String.format(q, dax_index, dax_q1, dax_q1_roll, spx_index, spx_q1, spx_q1_roll, ndx_index, ndx_q1, ndx_q1_roll,
+                    dax_index, dax_q1, dax_q1_roll, spx_index, spx_q1, spx_q1_roll, ndx_index, ndx_q1, ndx_q1_roll);
+
             return MySql.select(query, connection_type);
         }
 
@@ -676,8 +733,6 @@ public class MySql {
         }
 
 
-
-
         public static ResultSet get_last_record(String table_location, String connection_type) {
             String q = "select * from %s %s";
             String query = String.format(q, table_location, Filters.ORDER_BY_TIME_DESC_LIMIT_1);
@@ -728,7 +783,7 @@ public class MySql {
         public static ResultSet get_arik_sessions(String connection_type) {
             String query = "select * \n" +
                     "from sagiv.arik_sessions;";
-           return MySql.select(query, connection_type);
+            return MySql.select(query, connection_type);
         }
 
     }

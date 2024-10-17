@@ -265,6 +265,10 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.WEEK_QW_RACES_PROD, 9785);
 
 
+        serie_ids.put(TimeSeriesHandler.INDEX_RACE_VICTOR, 9804);
+        serie_ids.put(TimeSeriesHandler.FUTURE_RACE_VICTOR, 9805);
+
+
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
@@ -316,6 +320,9 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_PLUS_R2_IQ, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_PLUS_R2_IQ, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
 
     }
 

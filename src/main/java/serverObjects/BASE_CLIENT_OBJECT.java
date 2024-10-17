@@ -5,6 +5,7 @@ import DDE.DDECellsBloomberg;
 import DataUpdater.DataUpdaterService;
 import IDDE.DDEHandler;
 import api.Manifest;
+import arik.ArikData;
 import baskets.BasketFinder_by_stocks;
 import charts.timeSeries.TimeSeriesHandler;
 import dataBase.mySql.MySqlService;
@@ -35,6 +36,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
     public static final int CURRENT = 1;
 
     private boolean isExcelConnected = false;
+
+    private ArikData arikData;
 
     // Options
     protected Exps exps;
@@ -174,6 +177,17 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         exps.addExp(new E(this, ExpStrings.q2));
         exps.setMainExp(exps.getExp(ExpStrings.day));
         setExps(exps);
+    }
+
+    public double getOpenPresent() { return L.floor((open - base) / base, 100); }
+    public double getLastPresent() {
+        return L.floor((index - base) / index, 100);
+    }
+    public double getHighPresent() {
+        return L.floor((high - base) / high, 100);
+    }
+    public double getLowPresent() {
+        return L.floor((low - base) / low, 100);
     }
 
     public double getBidAskMarginCounter() {
@@ -528,6 +542,8 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
         return dataUpdaterService;
     }
 
+
+
     public void setDataUpdaterService(DataUpdaterService dataUpdaterService) {
         this.dataUpdaterService = dataUpdaterService;
     }
@@ -666,6 +682,13 @@ public abstract class BASE_CLIENT_OBJECT implements IBaseClient {
 
     public void setExcelConnected(boolean excelConnected) {
         isExcelConnected = excelConnected;
+    }
+
+    public ArikData getArikData() {
+        if (arikData == null) {
+            arikData = new ArikData();
+        }
+        return arikData;
     }
 
     //    public int getR_one_up() {

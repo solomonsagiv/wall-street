@@ -26,9 +26,7 @@ public class ArikRunner extends Thread {
         casesHandler = new CasesHandler();
         casesHandler.addCase(new TA35_Case(ArikTextFactory.TA35));
         casesHandler.addCase(new Main_Case(ArikTextFactory.MAIN));
-        casesHandler.addCase(new Spx_Case(ArikTextFactory.SPX));
-        casesHandler.addCase(new Ndx_Case(ArikTextFactory.NDX));
-        casesHandler.addCase(new Df_Case(ArikTextFactory.DF));
+        casesHandler.addCase(new RACE_Case(ArikTextFactory.DF));
         casesHandler.addCase(new Positions_Case(ArikTextFactory.POSITIONS));
         casesHandler.addCase(new Long_Case(ArikTextFactory.LONG));
         casesHandler.addCase(new ExitLong_Case(ArikTextFactory.EXIT_LONG));

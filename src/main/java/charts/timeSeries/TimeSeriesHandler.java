@@ -85,7 +85,10 @@ public class TimeSeriesHandler {
     public static final int Q1_QW_RACES_PROD = 130;
     public static final int WEEK_QW_RACES_PROD = 131;
 
-    // Last ID = 129
+    public static final int INDEX_RACE_VICTOR = 132;
+    public static final int FUTURE_RACE_VICTOR = 133;
+
+    // Last ID = 131
 
 
     private Map<String, MyTimeSeries> series_map = new HashMap<>();

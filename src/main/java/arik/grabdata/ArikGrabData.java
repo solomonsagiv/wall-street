@@ -2,12 +2,14 @@ package arik.grabdata;
 
 import arik.Arik;
 import arik.alerts.Jibe_Positions_Algo;
-import arik.dataHandler.DataHandler;
 import arik.window.ArikMainPanel;
+import dataBase.mySql.MySql;
+import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
 import threads.MyThread;
 import tws.accounts.ConnectionsAndAccountHandler;
+import java.sql.ResultSet;
 
 public class ArikGrabData extends MyThread implements Runnable {
 
@@ -64,22 +66,38 @@ public class ArikGrabData extends MyThread implements Runnable {
 
     private void grab_data() {
 
-        DataHandler dataHandler = arik.getDataHandler();
+//        Get races
+        get_race();
 
-        // SPX
-//        dataHandler.get(DataHandler.SPX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(3, MySql.RAW)));
-//        dataHandler.get(DataHandler.SPX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1022, 21600)));
-//        dataHandler.get(DataHandler.SPX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1028, 21600)));
-//        dataHandler.get(DataHandler.SPX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(1029, 21600)));
+        // Get ticker data
+//        getTickerData();
+    }
 
-//        String position_status = MySql.Queries.get_position_status();
+    private void get_race() {
+        ResultSet rs = MySql.Queries.get_races(MySql.JIBE_PROD_CONNECTION);
 
-        // NDX
-//        dataHandler.get(DataHandler.NDX_INDEX).setValue(MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(1, MySql.RAW)));
-//        dataHandler.get(DataHandler.NDX_DF_2).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(989, 21600)));
-//        dataHandler.get(DataHandler.NDX_DF_7).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(995, 21600)));
-//        dataHandler.get(DataHandler.NDX_DF_8).setValue(MySql.Queries.handle_rs(MySql.Queries.get_df_cdf_by_frame(996, 21600)));
+        Spx spx = Spx.getInstance();
+        Ndx ndx = Ndx.getInstance();
+        Dax dax = Dax.getInstance();
 
+        while (true) {
+            try {
+                if (!rs.next())break;
+                dax.getArikData().index_race = rs.getInt("dax_index");
+                dax.getArikData().q1_race = rs.getInt("dax_q1");
+                dax.getArikData().q1_roll_race = rs.getInt("dax_q1_roll");
+
+                spx.getArikData().index_race = rs.getInt("spx_index");
+                spx.getArikData().q1_race = rs.getInt("spx_q1");
+                spx.getArikData().q1_roll_race = rs.getInt("spx_q1_roll");
+
+                ndx.getArikData().index_race = rs.getInt("ndx_index");
+                ndx.getArikData().q1_race = rs.getInt("ndx_q1");
+                ndx.getArikData().q1_roll_race = rs.getInt("ndx_q1_roll");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

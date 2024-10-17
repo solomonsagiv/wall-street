@@ -21,7 +21,7 @@ import java.util.Map;
 
 public abstract class IDataBaseHandler {
 
-    protected Map<Integer, Integer> serie_ids = new HashMap<>();
+    public Map<Integer, Integer> serie_ids = new HashMap<>();
 
     protected BASE_CLIENT_OBJECT client;
     protected Exps exps;

@@ -353,6 +353,9 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QW_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
+
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
+        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
     }
 
     private void updateListsRetro() {

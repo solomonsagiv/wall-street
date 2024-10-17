@@ -1026,18 +1026,22 @@ public class TimeSeriesFactory {
                     }
                 };
 
-
             case INDEX_RACES_VICTOR:
                 return new MyTimeSeries(series_type, client) {
 
                     @Override
                     public double getValue() {
-                        return client.getRacesService().get_race_logic(Race_Logic.RACE_RUNNER_ENUM.Q1_INDEX).get_r_one_points();
+                        return super.getValue();
                     }
 
 
                     @Override
                     public void updateData() {
+                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.OP_AVG_Q1_DAILY);
+                        double val = MySql.Queries.handle_rs(MySql.Queries.get_last_record_mega(serie_id, MySql.RAW, MySql.JIBE_PROD_CONNECTION));
+                        setValue(val);
+                        
+
 //                        int serie_id = client.getMySqlService().getDataBaseHandler().getSerie_ids().get(TimeSeriesHandler.INDEX_RACES_PROD);
 //                        setValue(MySql.Queries.handle_rs(Objects.requireNonNull(MySql.Queries.get_last_record_mega(serie_id, MySql.CDF, MySql.JIBE_PROD_CONNECTION))));
                     }
