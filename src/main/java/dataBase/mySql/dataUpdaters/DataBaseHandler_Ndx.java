@@ -276,10 +276,6 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
         // BASKETS
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
 
-        // DF
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_9_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_9_CDF, client));
-
         // Weekly
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_DAILY, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_900, client));
@@ -321,8 +317,8 @@ public class DataBaseHandler_Ndx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_PLUS_R2_IQ, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_PLUS_R2_IQ, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
 
     }
 

@@ -7,7 +7,6 @@ import serverObjects.BASE_CLIENT_OBJECT;
 import serverObjects.indexObjects.Dax;
 import serverObjects.indexObjects.Ndx;
 import serverObjects.indexObjects.Spx;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

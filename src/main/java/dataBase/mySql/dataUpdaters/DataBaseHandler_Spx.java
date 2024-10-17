@@ -7,7 +7,6 @@ import exp.Exp;
 import exp.ExpStrings;
 import races.Race_Logic;
 import serverObjects.BASE_CLIENT_OBJECT;
-
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -298,17 +297,13 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
         serie_ids.put(TimeSeriesHandler.WEEK_QW_RACES_PROD, 9787);
 
 
-        serie_ids.put(TimeSeriesHandler.INDEX_RACE_VICTOR, 9804);
-        serie_ids.put(TimeSeriesHandler.FUTURE_RACE_VICTOR, 9805);
+//        serie_ids.put(TimeSeriesHandler.INDEX_RACE_VICTOR, 9804);
+//        serie_ids.put(TimeSeriesHandler.FUTURE_RACE_VICTOR, 9805);
 
 
         // INDEX
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_3600, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_AVG_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_AVG_900, client));
-
-        // DF
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_9_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_9_CDF, client));
 
         // Weekly
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_DAILY, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_DAILY, client));
@@ -351,8 +346,8 @@ public class DataBaseHandler_Spx extends IDataBaseHandler {
 
         client.getTimeSeriesHandler().put(TimeSeriesFactory.R1_PLUS_R2_IQ, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.R1_PLUS_R2_IQ, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
 
     }
 

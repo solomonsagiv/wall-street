@@ -322,11 +322,6 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         // Baskets
         client.getTimeSeriesHandler().put(TimeSeriesFactory.BASKETS_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.BASKETS_CDF, client));
 
-        // DF
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_9_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_9_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_ROLL_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_ROLL_CDF, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.DF_2_CDF, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.DF_2_CDF, client));
-
         // Week
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_900, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_900, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.OP_AVG_WEEK_3600, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.OP_AVG_WEEK_3600, client));
@@ -354,8 +349,8 @@ public class DataBaseHandler_Dax extends IDataBaseHandler {
         client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_QW_RACES, client));
         client.getTimeSeriesHandler().put(TimeSeriesFactory.WEEK_QW_RACES, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.WEEK_QW_RACES, client));
 
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
-        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.INDEX_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.INDEX_RACES_VICTOR, client));
+//        client.getTimeSeriesHandler().put(TimeSeriesFactory.Q1_RACES_VICTOR, TimeSeriesFactory.getTimeSeries(TimeSeriesFactory.Q1_RACES_VICTOR, client));
     }
 
     private void updateListsRetro() {
