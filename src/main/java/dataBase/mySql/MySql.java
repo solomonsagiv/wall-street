@@ -365,28 +365,13 @@ public class MySql {
 
         public static ResultSet get_start_exp_mega(int index_id, String stock_id, String exp_prop_name, String connection_type) {
 
-            String q = "";
-
-            if (exp_prop_name.toLowerCase().contains("week")) {
-                q = "select value\n" +
-                        "from ts.timeseries_data\n" +
-                        "where timeseries_id = %s\n" +
-                        "  and date_trunc('day', time) = (select data::date\n" +
-                        "                                 from sagiv.props\n" +
-                        "                                 where stock_id = '%s'\n" +
-                        "                                   and prop = '%s')\n" +
-                        "order by time desc limit 1;\n";
-            } else {
-
-                q = "select value\n" +
-                        "from ts.timeseries_data\n" +
-                        "where timeseries_id = %s\n" +
-                        "  and date_trunc('day', time) = (select data::date\n" +
-                        "                                 from sagiv.props\n" +
-                        "                                 where stock_id = '%s'\n" +
-                        "                                   and prop = '%s')\n" +
-                        "order by time limit 1;\n";
-            }
+            String q = "select *\n" +
+                    "from ts.timeseries_data\n" +
+                    "where timeseries_id = %s\n" +
+                    "and date_trunc('day', time) = (select data::date\n" +
+                    "                  from sagiv.props\n" +
+                    "                  where stock_id = '%s'\n" +
+                    "                    and prop = '%s') order by time limit 1;";
 
             String query = String.format(q, index_id, stock_id, exp_prop_name);
             return MySql.select(query, connection_type);
